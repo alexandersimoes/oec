@@ -12,8 +12,11 @@ The observatory provides access to bilateral trade data for roughly 200 countrie
 source of the data we are using is:
 
 > 1962 - 2000
+>
 > [The Center for International Data from Robert Feenstra](http://cid.econ.ucdavis.edu/)
+>
 > 2001 - 2009
+>
 > [UN COMTRADE](http://comtrade.un.org/)
 
 ### Support
