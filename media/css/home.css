@@ -1,0 +1,147 @@
+#main #sidebar {
+	border-radius: 10px 0 0 10px;
+	float: left;
+	padding: 10px;
+/*	margin-left: 0px;
+	padding-bottom: 0px;*/
+	width: 165px;
+	background-color: #fff;
+	border: 1px solid #cccccc;
+}
+
+#main #sidebar {
+	background-color: #fff;
+	border: 1px solid #cccccc;
+	border-radius: 10px 0 0 10px;
+	float: left;
+	padding: 10px;
+	text-align: left;
+	width: 265px;
+}
+#main #sidebar h3 {
+	border-bottom: 1px solid #ccc;
+	font-family: 'Cardo', sans-serif, 'Arial';
+	font-size: 20px;
+	font-weight: normal;
+	margin: 0;
+}
+
+#main #content {
+	background-color: #fff;
+	border: 1px solid #cccccc;
+	border-radius: 0 10px 10px 0;
+	float: left;
+	overflow: hidden;
+	padding: 10px;
+	width: 700px;
+	z-index: 10;
+}
+.home #main #content {
+	border-radius: 10px;
+	margin: 10px 0 0 0;
+	width: 1000px;
+}
+.home #main #content .text{
+	float: left;
+	margin: 0 20px 0 0;
+	width: 340px;
+}
+.home #main #content .text h3{
+	line-height: 32px;
+	margin: 0 0 10px 0;
+	font-size: 32px;
+	font-weight: 100;
+}
+.home #main #content .text p{
+	font-size: 22px;
+}
+.home #main #content .text ul{
+	font-size: 18px;
+	list-style: circle;
+	line-height: 26px;
+}
+.home #main #content .headline{
+	float: left;
+	width: 640px;
+}
+.home #main #content .headline .overlay {
+	border-bottom: solid 1px #ccc;
+	background: rgba(255, 255, 255, 0.7);
+	position: absolute;
+	width: 640px;
+}
+.home #main #content .headline .overlay img.pin{
+	float: left;
+	margin: 0 25px 0 0;
+	width: 100px;
+}
+.home #main #content .headline .overlay h2{
+	font-size: 65px;
+	font-weight: 100;
+	float: left;
+	margin: 0;
+	width: 400px;
+	text-transform: uppercase;
+}
+.home #main #content .other_apps h3{
+	font-size: 28px;
+	font-weight: normal;
+	margin: 20px 0 10px 0;
+	text-align: center;
+}
+.home #main #content .other_apps div{
+	float: left;
+	margin: 0 30px 0 0;
+	width: 310px;
+}
+.home #main #content .other_apps div img{
+	width: 310px;
+}
+.home #main #content .other_apps div:last-child{
+	margin: 0;
+}
+
+
+dl.file_list dd {
+	overflow: hidden;
+}
+dl.file_list img {
+	float: left;
+	margin: 0 5px 0 0;
+	width: 30px;
+	vertical-align: top;
+}
+dl.file_list p {
+	margin: 0 5px 0 0;
+	width: 250px;
+	vertical-align: top;
+}
+
+#main #content .atlas_book_content img{
+	margin: 20px 60px;
+}
+#main #content .license{
+	font-size: 10px;
+	text-align: center;
+}
+#main #content dl.data_source{
+	margin: 0 0 0 40px;
+}
+
+#main #sidebar nav[role="navigation"] ul {
+}
+#main #sidebar nav[role="navigation"] ul li a {
+	display: block;
+	padding: 5px 15px;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 1;
+}
+#main #sidebar nav[role="navigation"] ul li a:focus,
+#main #sidebar nav[role="navigation"] ul li a:hover {
+	background: #eee;
+}
+#main #sidebar nav[role="navigation"] ul li a.active {
+	background: #ddd;
+	text-decoration: none;
+}

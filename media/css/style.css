@@ -1,0 +1,623 @@
+/*
+ * Basic stuff
+ */
+body {
+	font-family: 'PT Sans Narrow', sans-serif, 'Arial';
+	font-size: 14px;
+	background: #fafafa url('/media/img/all/containers.png') bottom right no-repeat;
+	color: #343434;
+	margin: 0;
+	padding: 0;
+}
+
+a, a:active, a:visited { color: #4f4f4f; }
+a:hover { text-decoration: underline; }
+
+p {
+	font-family:'PT Sans Narrow',Helvetica,Arial;
+	font-size: 14px;
+	color:#343434;
+}
+
+dl dt {
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 1.2;
+}
+dl dd {
+	margin: 0 0 10px 0;
+	font-size: 14px;
+	line-height: 1.4;
+	color: #666;
+}
+
+.disabled {
+	color: #bbb !important;
+	cursor: default;
+	pointer-events: none;
+}
+
+button {
+	font-family: 'PT Sans Narrow',Helvetica,Arial;
+	text-decoration: none;
+	display: block;
+	padding: 5px;
+	border: 1px solid #DDD;
+	text-align: center;
+
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	-o-border-radius:5px;
+	border-radius:5px;
+
+	background:#FFFFFF;
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#EEE));
+	background:-moz-linear-gradient(0% 90% 90deg, #EEE, #FFF);
+
+	-webkit-transition: all .4s ease-in-out;
+	-moz-transition: all .4s ease-in-out;
+	-o-transition: all .4s ease-in-out;
+	transition: all .4s ease-in-out;
+}
+button:hover {
+	border-color:#999;
+	background:#aaa;
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#bbb), to(#aaa));
+	background:-moz-linear-gradient(0% 90% 90deg, #bbb, #aaa);
+}
+button:active {
+	background:#888;
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#888), to(#999));
+	background:-moz-linear-gradient(0% 90% 90deg, #888, #999);
+}
+
+
+/*
+ * Page container
+ */
+#container {
+	margin: 0 auto;
+	width: 960px;
+	margin: 0 auto;
+	width: 1020px;
+}
+
+/*
+ * Warning top of page
+ */
+.warning {
+	border: solid 1px #f0c36d;
+	background: #f9edbe;
+	display: none;
+}
+
+/*
+ * Header
+ */
+header {
+	margin: 0 0 0 0;
+	overflow: hidden; /* to clear floats */
+	width: 100%; /* to clear floats */
+}
+header .logo {
+	float: left;
+	width: 48%;
+}
+header .nav {
+	float: right;
+	width: 50%;
+	text-align: right;
+}
+header .nav ul {
+	background: white;
+	border: solid 1px #ccc;
+	float: right;
+	margin: 0;
+	padding: 0;
+	
+	-moz-border-bottom-left-radius:5px;
+	-moz-border-bottom-right-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	-webkit-border-bottom-right-radius:5px;
+	border-bottom-left-radius:5px;
+	border-bottom-right-radius:5px;
+}
+header .nav ul li{
+	display: inline;
+	margin: 0;
+}
+header .nav ul li a{
+	color: grey;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, .1), 0 0 30px rgba(255, 255, 255, .125);
+	font-size: 18px;
+	line-height: 25px;
+	padding: 2px 15px 2px 15px;
+	text-decoration: none;
+}
+header .nav ul li a:hover{
+	color: black;
+}
+header .nav ul li a.current{
+	color: black;
+	text-decoration: underline;
+}
+header .nav p{
+	clear: right;
+	margin: 0;
+	padding-top: 10px;
+	text-align: right;
+}
+header .nav p a img{
+	width: 20px;
+	vertical-align: top;
+}
+header .nav p a img.selected_lang{
+	border-bottom: solid 2px #999;
+}
+header h1 {
+	font-size: 12px;
+	font-weight: 400;
+	margin: 0;
+}
+header h1 a img {
+	margin: 0;
+	width: 200px;
+}
+
+
+/*
+ * Center of page, the content
+ */
+#main {
+	border: 0px solid black;
+	border-top: 1px solid #e0e0e0;
+	border-bottom: 1px solid #e0e0e0
+	margin: 0;
+	margin-bottom: 10px;
+	overflow: hidden; /* to clear floats */
+	width: 100%; /* to clear floats */
+}
+
+
+/*
+ * Title of page
+ */
+.app_title{
+	float: left;
+	min-height: 55px;
+}
+.app_title h2 {
+	font-family: 'Cardo', serif, 'Times';
+	font-size: 30px;
+	font-weight: normal;
+	line-height: 1.4em;
+	margin: 6px 0 0 10px;
+	width: 815px;
+}
+.app_title#icons{
+	width: 188px;
+}
+.app_title#icons .left{
+	float: left;
+}
+.app_title#icons h2{
+	font-size: 20px;
+	line-height: 20px;
+	margin: 10px 0 0 15px;
+	width: 58px;
+}
+.app_title#icons h2.larger{
+	font-size: 30px;
+	line-height: 34px;
+}
+.app_title#icons img{
+	width: 55px;
+}
+.app_title#icons img.community{
+	margin: 10px 0 0 0;
+	width: 40px;
+}
+	
+	
+	
+	
+	#main .app_title_img {
+		float: left;
+		margin: 0 0 0 186px;
+		min-height: 45px;
+		width: 50px;
+	}
+		.app #main .app_title_img img {
+			border: 0;
+			padding: 0 10px 0 0;
+			vertical-align: bottom;
+			width: 48px;
+		}
+		.app #main .app_title_img.community_icon {
+			margin-top: 8px;
+			width: 40px;
+		}
+		.app #main .app_title_img.community_icon img {
+			width: 26px;
+		}
+	.app #main .app_title_title {
+		float: left;
+		margin: 7px 0 0 7px;
+		width: 415px;
+	}
+	.app #main .app_title_year {
+		float: right;
+		margin: 3px 195px 0 0;
+		text-align: right;
+		width: 160px;
+	}
+		.app #main .app_title_title h2,
+		.app #main .app_title_year h2 {
+			font-size: 30px;
+			display: inline;
+			line-height: 1.4em;
+			margin: 0;
+			font-weight: normal;
+		}
+		.app #main .app_title_title.product_name {
+			margin: 8px 0 0 0;
+		}
+		.app #main .app_title_title.product_name h2{
+			font-size: 24px;
+		}
+	.app #main .app_title_desc {
+		margin: 0 0 5px 186px;
+		text-align: left;
+	}
+	.app #main .app_title_desc h3 {
+		display: inline;
+		font-size: 18px;
+		font-weight: normal;
+		margin: 0;
+	}
+	.app #main .app_title_desc img {
+		width: 22px;
+		vertical-align: top;
+	}
+
+
+/*
+ * Left hand side the app selection pane
+ */	
+.app #main #app_pane {
+	border-radius: 10px 0 0 10px;
+	font-family:'PT Sans Narrow',Helvetica,Arial;
+	font-size:90%;
+	float: left;
+	padding:10px;
+	margin-left:0px;
+	padding-bottom:0px;
+	z-index:1;
+	width:165px;
+	min-height:457px;
+	background-color:#fff;
+	border:1px solid #cccccc;
+	background-image:url("/media/img/design/app_space_bg.png");
+	background-repeat:no-repeat;
+	background-position:-8px 0px;	
+}
+.app #main #app_pane a{
+text-decoration: none;
+}
+.app #main #app_pane .accordion {
+	position: relative;
+	top: 38px;
+	left: -3px;
+	width:171px;
+	font-size: 95%;
+}
+.app #main #app_pane .accordion div a {
+	font-family:'PT Sans Narrow',Helvetica,Arial;
+	font-size:90%;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.app #main #app_pane .accordion h3 {
+	font-family:'PT Sans Narrow',Helvetica,Arial;
+	font-size:120%;
+	font-weight:500;
+}
+.app #main #app_pane .accordion div div{
+	padding: 0 10px 5px 10px;
+}
+.app #main #app_pane .accordion div div h4 {
+	border-bottom: solid 1px #999;
+	font-family:'PT Sans Narrow',Helvetica,Arial;
+	font-size:95%;
+	font-weight:500;
+	margin: 0;
+	padding: 0 0 2px 0;
+}
+.app #main #app_pane .accordion div ul {
+	font-size: 10pt;
+	line-height:1.1;
+	margin: 0 0 5px 0;
+	overflow: hidden;
+	padding: 5px 10px 10px 10px;
+	text-align: left;
+}
+.app #main #app_pane .accordion div ul li a,
+.app #main #app_pane .accordion div div ul li a {
+	background: url("/media/img/design/minieye.png") left 4px no-repeat;
+	padding-left: 18px;
+}
+.app #main #app_pane .accordion div ul li a.disabled,
+.app #main #app_pane .accordion div div ul li a.disabled {
+	background: url("/media/img/design/minieye_disabled.png") left 4px no-repeat;
+}
+.app #main #app_pane .accordion div div ul {
+	font-size: 10pt;
+	line-height:1.1;
+	list-style-type: none;
+	margin: 0 0 5px 0;
+	padding: 0;
+	text-align: left;
+}
+
+
+/*
+ * Right hand side the app specific tool pane
+ */
+.app #main #tool_pane {
+	background: #fff;
+	border:1px solid #cccccc;
+	border-radius: 0 10px 10px 0;
+	font-size:90%;
+	float: left;
+	padding: 10px;
+	z-index: 0;
+	width:165px;
+}
+.app #main #tool_pane h3 {
+	font-weight: normal;
+	margin: 0 0 2px 0;
+}
+.app #main #tool_pane .ui-buttonset,
+.app #main #tool_pane .ui-button {
+	font-family: 'PT Sans Narrow',Helvetica,Arial;
+}
+.app #main #tool_pane #layout .ui-button{
+	width: 80px;
+	margin-bottom: 2px;
+}
+.app #main #tool_pane #sorting .ui-button{
+	font-size: 10px;
+	width: 53px;
+}
+.app #main #tool_pane #trade_flow .ui-button{
+	font-size: 12px;
+	height: 39px;
+/*	text-align: left;*/
+	width: 40px;
+	vertical-align: top;
+}
+.app #main #tool_pane #trade_flow .ui-button-text{
+	padding: 4px 3px;
+}
+.app #main #tool_pane #sorting .ui-button-text {
+	padding: .4em 0.5em;
+}
+.app #main #tool_pane .chzn-select {
+	margin: 0 0 14px 0;
+	width: 163px;
+}
+.app #main #tool_pane #year_start_dropdown { float:left; margin: 0 7px 0 0; }
+.app #main #tool_pane #year_end_dropdown { float:left; }
+.app #main #tool_pane .chzn-select#year_start_select, 
+.app #main #tool_pane .chzn-select#year_end_select { width: 78px;	}
+.app #main #tool_pane .chzn-container {
+	cursor: pointer;
+	margin: 0 0 5px 0;
+}
+.app #main #tool_pane button {
+	background:#888;
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#888), to(#999));
+	background:-moz-linear-gradient(0% 90% 90deg, #999, #888);
+	color: #fff;
+	margin-top: 25px;
+	width: 164px;
+}
+.app #main #tool_pane hr {
+	background: #cccccc;
+	clear: both;
+	margin: 12px 0;
+	height: 0.5px;
+}
+.app #main #tool_pane .download {
+	margin: 10px 20px 2px 0;
+}
+.app #main #tool_pane .download h3 {
+	font-size: 14px;
+	margin: 0;
+}
+.app #main #tool_pane .download img {
+	width: 10px;
+}
+
+
+/*
+ * Center of the page, app canvas
+ */	
+.app #main #dataviz {
+	float: left;
+	z-index:10;
+	border:1px solid #cccccc;
+	width:640px;
+	height:500px;
+	background-color:#fff;
+	background-position:center center;
+	background-repeat:no-repeat;
+	overflow:hidden;
+}
+.app #loader {
+	display:none;
+	left:785px;
+	position:relative;
+	top:10px;
+	z-index:99999;
+}	
+.app #no_data {
+	display: none;
+	left: 250px;
+	height: 0px;
+	position: relative;
+	top: 40px;
+	width: 600px;
+	z-index: 99999;
+}
+.app #no_data h3 {
+	display: inline;
+	font-size: 36px;
+	margin: 0;
+}
+.app #no_data p {
+	display: inline;
+	text-align: left;
+}	
+.app #main #key {
+	background: #fff;
+	border:1px solid #cccccc;
+	margin: 0 auto;
+	padding: 3px 0 3px 1px;
+	width: 642px;
+}
+.app #main #key img {
+	width: 15px;
+}
+/*
+ * Timeline
+ */
+.app #main #timeline {
+	background: #fff;
+	border:1px solid #cccccc;
+	border-radius: 0  0 10px 10px;
+	margin: 0 auto;
+	padding: 10px;
+	width: 622px;
+	position:relative;
+	left:-1px;
+}
+.app #main #timeline button{
+	float: left;
+	margin: 0 10px 0 0;
+	width: 60px;
+}
+.app #main #timeline button#stop{
+	display: none;
+}
+.app #main #timeline .slider{
+	float: left;
+	margin: 10px 0;
+	width: 545px;
+}
+
+
+/*
+ * Bottom of page footer
+ */
+footer p {
+	font-size: 80%;
+	padding-bottom: 20px;
+	text-align: center;
+}
+
+/*
+ * Fix for FF
+ */
+@-moz-document url-prefix() {
+	#app_pane {
+		/*padding-bottom:15px;*/
+		height:492px;
+	}
+	
+	#tool_pane {
+		top:-413px;
+	}
+}
+/*
+ * Fix for iPad
+ */
+@media screen and (max-device-width: 1024px) {
+	#app_pane {
+		padding-bottom:17px;
+	}
+	
+	#tool_pane {
+		top:-415px;
+	}
+}
+/*
+ * Buttons for social sites
+ */
+#social {
+	font-family:'PT Sans Narrow',Helvetica,Arial;
+	font-size: 12px;
+	color:#343434;
+	margin: 35px 0;
+	padding:0;
+	text-align:center;
+}
+
+
+/*
+ * Tooltip styling for apps
+ */
+.tooltip{
+	color:#fff;
+	font:15px/1.1 Arial,Georgia,sans-serif;
+	font-weight: bold;
+	text-shadow: 0 -1px 1px #222;
+	position:absolute; 
+	padding:5px 10px; 
+	top:20px; 
+	margin:1em 0 3em;
+	background:#075698; 
+	left:20px;
+	border: solid 1px #ddd;
+
+	-moz-border-radius:4px; 
+	-webkit-border-radius:4px; 
+	border-radius:4px;   
+	background:-webkit-gradient(linear, left top, left bottom, from(rgba(10,10,10,1)), to(rgba(25,25,25,.65)));
+	background:-moz-linear-gradient(top,rgba(10,10,10,1),rgba(80,80,80,.9));
+	background:-o-linear-gradient(top,rgba(10,10,10,1),rgba(80,80,80,.9));
+	background:linear-gradient(top,rgba(10,10,10,1),rgba(80,80,80,.9));
+
+	-moz-box-shadow: 0px 0px 4px #000; /* FF3.5+ */ 
+	-webkit-box-shadow: 0px 0px 4px #000; /* Saf3.0+, Chrome */ 
+	box-shadow: 0px 0px 4px #000; /* Opera 10.5, IE 9.0 */ 
+	filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=0px, OffY=0px, Color='#000'); /* IE6,IE7 */ 
+	-ms-filter: "progid:DXImageTransform.Microsoft.dropshadow(OffX=0px, OffY=0px, Color='#000')"; /* IE8 */
+	width: 200px;
+	z-index: 9999;
+}
+.tooltip img {
+	float: left;
+/*	margin: 0 10px 0 0;*/
+	margin: 2px 0 0 0;
+	width: 20px;
+}
+.tooltip span.tt_title {
+	float: right;
+	width: 170px;
+}
+.tooltip table {
+	font-size: 11px;
+	margin: 10px 0 0 0;
+	width: 100%;
+}
+.tooltip table td{
+	text-align: right;
+}
+.tooltip table td:first-child{
+	text-align: left;
+	width: 75%;
+}
+.tooltip table td:last-child{
+	text-align: left;
+}
