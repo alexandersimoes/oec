@@ -17,11 +17,9 @@
 	<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
 	<link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
 	
-	<link rel="stylesheet" href="/media/css/default.css">
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" type="text/css" media="all" />
-	<link rel="stylesheet" href="/media/js/libs/jquery/chosen/chosen.css" />
-	<link rel="stylesheet" href="/media/js/libs/jquery/tipsy/tipsy.css" />
+	<link rel="stylesheet" href="/media/css/normalize.css">
 	<link rel="stylesheet" href="/media/css/style.css">
+	<!-- <link rel="stylesheet" href="/media/css/home.css"> -->
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
@@ -31,7 +29,7 @@
 	<div id="container">
 		<header>
 			<div class="logo">
-				<h1><a href="/" title="Home"><img src="/media/img/logo_observatory_sm.png" alt="The Observatory of Economic Complexity" /></a></h1>
+				<h1><a href="/" title="Home"><img src="/media/img/all/logo_observatory_sm.png" alt="The Observatory of Economic Complexity" /></a></h1>
 			</div>
 			<div class="nav">
 				<ul>
@@ -44,9 +42,9 @@
 					Change Language:
 					{% for lang in supported_langs %}
 						{% if lang.0 == LANGUAGE_CODE %}
-						<a href="/set_language/{{lang.0}}/" title="{{lang.2}}"><img class="selected_lang" src="/media/img/flags/flag_{{lang.1}}.png" alt="{{lang.2}}" /></a>
+						<a href="/set_language/{{lang.0}}/" title="{{lang.2}}"><img class="selected_lang" src="/media/img/icons/flag_{{lang.1}}.png" alt="{{lang.2}}" /></a>
 						{% else %}
-						<a href="/set_language/{{lang.0}}/" title="{{lang.2}}"><img src="/media/img/flags/flag_{{lang.1}}.png" alt="{{lang.2}}" /></a>
+						<a href="/set_language/{{lang.0}}/" title="{{lang.2}}"><img src="/media/img/icons/flag_{{lang.1}}.png" alt="{{lang.2}}" /></a>
 						{% endif %}
 					{% endfor %}
 				</p>
@@ -56,10 +54,6 @@
 	
 		<div id="main" role="main">
 			<div class="app_title" id="title"><h2>{% block heading_title %}{% endblock %}</h2></div>
-		
-			<div style="height:0px;clear:both">
-				<img id="loader" src="/media/img/design/loader.gif" alt="loading" />
-			</div>
 		
 			<!-- the left pane -->
 			<div id="sidebar">
@@ -81,10 +75,7 @@
 	
 	</div> <!-- END #container -->
 	
-	<img id="bg_containers" src="/media/img/design/containers.png" />
-	
 	<script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>
-	<script src="/media/js/libs/d3/d3.min.js"></script>
 	<script>
 	$(function(){
 		var current_page = document.location.pathname.split("/")[1];

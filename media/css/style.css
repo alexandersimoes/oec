@@ -19,6 +19,14 @@ p {
 	color:#343434;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+}
+h1 {font-size: 26px;}
+h2 {font-size: 22px;}
+h3 {font-size: 18px;}
+h4 {font-size: 16px;}
+
 dl dt {
 	font-size: 16px;
 	font-weight: bold;
@@ -620,4 +628,108 @@ footer p {
 }
 .tooltip table td:last-child{
 	text-align: left;
+}
+
+
+#main #sidebar {
+	border-radius: 10px 0 0 10px;
+	float: left;
+	padding: 10px;
+/*	margin-left: 0px;
+	padding-bottom: 0px;*/
+	width: 165px;
+	background-color: #fff;
+	border: 1px solid #cccccc;
+}
+
+#main #sidebar {
+	background-color: #fff;
+	border: 1px solid #cccccc;
+	border-radius: 10px 0 0 10px;
+	float: left;
+	padding: 10px;
+	text-align: left;
+	width: 265px;
+}
+#main #sidebar h3 {
+	border-bottom: 1px solid #ccc;
+	font-family: 'Cardo', sans-serif, 'Arial';
+	font-size: 20px;
+	font-weight: normal;
+	margin: 0;
+}
+
+#main #content {
+	background-color: #fff;
+	border: 1px solid #cccccc;
+	border-radius: 0 10px 10px 0;
+	float: left;
+	overflow: hidden;
+	padding: 10px;
+	width: 700px;
+	z-index: 10;
+}
+dl.file_list dd {
+	overflow: hidden;
+}
+dl.file_list img {
+	float: left;
+	margin: 0 5px 0 0;
+	width: 30px;
+	vertical-align: top;
+}
+dl.file_list p {
+	margin: 0 5px 0 0;
+	width: 250px;
+	vertical-align: top;
+}
+
+#main #content .atlas_book_content img{
+	margin: 20px 60px;
+}
+#main #content .license{
+	font-size: 10px;
+	text-align: center;
+}
+#main #content dl.data_source{
+	margin: 0 0 0 40px;
+}
+
+#main #sidebar nav[role="navigation"] ul {
+	margin: 0;
+	padding: 0;
+}
+#main #sidebar nav[role="navigation"] ul li a {
+	color: grey;
+	display: block;
+	padding: 5px;
+	font-size: 15px;
+	line-height: 1;
+	text-decoration: none;
+}
+#main #sidebar nav[role="navigation"] ul li a:focus,
+#main #sidebar nav[role="navigation"] ul li a:hover {
+	background: #eee;
+}
+#main #sidebar nav[role="navigation"] ul li a.active {
+/*	margin: 0 0 0 10px;*/
+	color: black;
+	text-decoration: underline;
+}
+
+
+
+
+.post {
+/*	border-bottom: solid 1px #ccc;*/
+	margin: 0 0 40px 0;
+}
+.post:last-child {
+	border-bottom: none;
+}
+.post h3 {
+	margin: 0;
+}
+.post .date {
+	margin: 0 0 10px 0;
 }

@@ -1,0 +1,34 @@
+{% extends "static_template.html" %}
+
+{% block page_title %}Development Blog{% endblock %}
+{% block heading_title %}Development Blog{% endblock %}
+
+{% block css %}{% endblock %}
+
+{% block sidebar %}
+<nav role="navigation">
+	<ul>
+		<li><a href="/about/">About</a></li>
+		<li><a href="/about/team/">Team</a></li>
+		<li><a href="/about/blog/" class="active">Development Blog</a></li>
+	</ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+	{% for p in posts %}
+	<div class="post">
+		<h3>{{p.title}}</h3>
+		<p class="date">{{ p.created|date:"b j Y" }}</p>
+		{% autoescape off %}
+			{{ p.content_html }}
+		{% endautoescape %}
+	</div>
+	{% endfor %}
+{% endblock %}
+
+{% block js %}
+<script>
+
+</script>
+{% endblock %}

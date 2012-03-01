@@ -15,3 +15,14 @@ def home(request):
 	except KeyError:
 		ip = request.META["REMOTE_ADDR"]
 	return render_to_response("home.html", {"client_ip": ip, "supported_langs": supported_langs})
+
+def about(request):
+	return render_to_response("about/index.html", {"supported_langs": supported_langs})
+def team(request):
+	return render_to_response("about/team.html", {"supported_langs": supported_langs})
+
+def api(request):
+	return render_to_response("api/index.html", {"supported_langs": supported_langs})
+
+def book(request):
+	return render_to_response("book/index.html", {"supported_langs": supported_langs})
