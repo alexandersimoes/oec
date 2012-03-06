@@ -1,16 +1,64 @@
+.home #main {
+	border: none;
+}
+
 .home #main #content {
 	border-radius: 10px;
 	margin: 10px 0 0 0;
-	width: 1000px;
+	width: 998px;
 }
+
+.home #main #content .didyouknow_container{
+	height: 500px;
+}
+
+.home #main #content .didyouknow{
+	display: none;
+}
+
+.home #main #content .headline {
+/*	border-bottom: solid 1px #ccc;*/
+	background: rgba(255, 255, 255, 0.7);
+	margin: 0 0 10px 0;
+	overflow: hidden;
+	width: 100%;
+}
+.home #main #content .headline img.pin{
+	float: left;
+	margin: 0 25px 0 0;
+	width: 80px;
+}
+.home #main #content .headline h2{
+	font-size: 45px;
+	font-weight: 100;
+	float: left;
+	margin: 0;
+	width: 400px;
+	text-transform: uppercase;
+}
+
+.home #main #content img.pin{
+	float: left;
+	margin: 0 10px 0 0;
+	width: 80px;
+}
+.home #main #content h2{
+	font-size: 50px;
+	font-weight: 100;
+	float: left;
+	margin: 0;
+	width: 260px;
+	text-transform: uppercase;
+}
+
 .home #main #content .text{
 	float: left;
-	margin: 0 20px 0 0;
-	width: 340px;
+	margin: 0 30px 0 0;
+	width: 365px;
 }
 .home #main #content .text h3{
 	line-height: 32px;
-	margin: 0 0 10px 0;
+	margin: 20px 0 10px 0;
 	font-size: 32px;
 	font-weight: 100;
 }
@@ -22,42 +70,28 @@
 	list-style: circle;
 	line-height: 26px;
 }
-.home #main #content .headline{
-	float: left;
-	width: 640px;
-}
-.home #main #content .headline .overlay {
-	border-bottom: solid 1px #ccc;
-	background: rgba(255, 255, 255, 0.7);
-	position: absolute;
-	width: 640px;
-}
-.home #main #content .headline .overlay img.pin{
-	float: left;
-	margin: 0 25px 0 0;
-	width: 100px;
-}
-.home #main #content .headline .overlay h2{
-	font-size: 65px;
-	font-weight: 100;
-	float: left;
-	margin: 0;
-	width: 400px;
-	text-transform: uppercase;
+.home #main #content .app {
+	margin: 10px 0 0 0;
 }
 .home #main #content .other_apps h3{
 	font-size: 28px;
 	font-weight: normal;
-	margin: 20px 0 10px 0;
-	text-align: center;
+	margin: 40px 0 10px 0;
 }
 .home #main #content .other_apps div{
 	float: left;
 	margin: 0 30px 0 0;
-	width: 310px;
+}
+.home #main #content .other_apps div a{
+	display: inline-block;
+	border: solid 1px #ccc;
+	padding: 10px;
+}
+.home #main #content .other_apps div a:hover{
+	border: solid 1px #000;
 }
 .home #main #content .other_apps div img{
-	width: 310px;
+	width: 200px;
 }
 .home #main #content .other_apps div:last-child{
 	margin: 0;

@@ -11,6 +11,30 @@ class Country_region(models.Model):
 	def __unicode__(self):
 		return self.name
 
+class Country_manager(models.Manager):
+	
+	def filter_lang(self, lang):
+		return self.extra(select={"name": "name_"+lang})
+	
+	def get_all(self, lang):
+		
+		if type(lang) == bool:
+			lang = "en"
+		lang = lang.replace("-", "_")
+		
+		countries = self.filter_lang(lang)
+		countries = countries.filter(region__isnull=False, name_3char__isnull=False, name_2char__isnull=False).order_by("name_"+lang)
+		return list(countries.values(
+			"id",
+			"name",
+			"name_3char",
+			"name_2char",
+			"region_id",
+			"region__color",
+			"region__name",
+			"region__text_color"
+		))
+
 class Country(models.Model):
 	name = models.CharField(max_length=200)
 	name_numeric = models.PositiveSmallIntegerField(max_length=4, null=True)
@@ -22,9 +46,27 @@ class Country(models.Model):
 	longitude = models.FloatField(null=True)
 	latitude = models.FloatField(null=True)
 	coordinates = models.TextField(null=True)
+	name_ar = models.TextField(null=True)
+	name_de = models.TextField(null=True)
+	name_el = models.TextField(null=True)
+	name_en = models.TextField(null=True)
+	name_es = models.TextField(null=True)
+	name_fr = models.TextField(null=True)
+	name_he = models.TextField(null=True)
+	name_hi = models.TextField(null=True)
+	name_it = models.TextField(null=True)
+	name_ja = models.TextField(null=True)
+	name_ko = models.TextField(null=True)
+	name_nl = models.TextField(null=True)
+	name_ru = models.TextField(null=True)
+	name_pt = models.TextField(null=True)
+	name_tr = models.TextField(null=True)
+	name_zh_cn = models.TextField(null=True)
 	
 	def __unicode__(self):
 		return self.name
+	
+	objects = Country_manager()
 
 ###############################################################################
 # product tables
@@ -50,6 +92,32 @@ class Sitc4_community(models.Model):
 		return self.code
 
 # SITC4 products
+class Sitc4_manager(models.Manager):
+	
+	def filter_lang(self, lang):
+		if type(lang) is bool:
+			lang = "en"
+		else:
+			lang = lang.replace("-", "_")
+		return self.extra(select={"name": "name_"+lang})
+	
+	def get_all(self, lang):
+		
+		products = self.filter_lang(lang)
+		products = products.filter(community__isnull=False, ps_size__isnull=False)	
+		return list(products.values(
+			"id",
+			"name",
+			"code",
+			"community_id",
+			"community__color",
+			"community__name",
+			"community__text_color",
+			"ps_x",
+			"ps_y",
+			"ps_size"
+		))
+		
 class Sitc4(models.Model):
 	name = models.CharField(max_length=255)
 	code = models.CharField(max_length=4)
@@ -80,6 +148,8 @@ class Sitc4(models.Model):
 
 	def __unicode__(self):
 		return self.code + self.name_en
+	
+	objects = Sitc4_manager()
 
 # HS6 Products
 class Hs6(models.Model):
@@ -111,6 +181,34 @@ class Hs6(models.Model):
 ###############################################################################
 # country - product - year tables
 ###############################################################################
+class Sitc4_cpy_manager(models.Manager):
+	
+	def set_value(self, trade_flow):
+		return self.extra(select={"value": "%s_value" % (trade_flow,)})
+	
+	def casy(self, country, trade_flow):
+		
+		q_set = self.set_value(trade_flow)
+		
+		data = q_set.filter(
+			country = country,
+			product__community__isnull = False,
+			product__ps_x__isnull = False).extra(select={'item_id': "product_id"})
+		
+		return list(data.values("item_id", "year", "value", "rca"))
+	
+	def sapy(self, product, trade_flow):
+		
+		q_set = self.set_value(trade_flow)
+		
+		data = q_set.filter(
+			product = product,
+			country__region__isnull=False,
+			country__name_3char__isnull=False,
+			country__name_2char__isnull=False).extra(select={'item_id': "country_id"})
+
+		return list(data.values("item_id", "year", "value", "rca"))
+
 class Sitc4_cpy(models.Model):
 	country = models.ForeignKey(Country)
 	product = models.ForeignKey(Sitc4)
@@ -120,7 +218,9 @@ class Sitc4_cpy(models.Model):
 	rca = models.FloatField(null=True)
 	
 	def __unicode__(self):
-		return "CPY: %s.%s.%d" % (self.country.name, self.prdocut.code, self.year)
+		return "CPY: %s.%s.%d" % (self.country.name, self.product.code, self.year)
+	
+	objects = Sitc4_cpy_manager()
 
 class Hs6_cpy(models.Model):
 	country = models.ForeignKey(Country)
@@ -136,6 +236,49 @@ class Hs6_cpy(models.Model):
 ###############################################################################
 # country - country - product - year tables
 ###############################################################################
+class Sitc4_ccpy_manager(models.Manager):
+	
+	def ccsy(self, country1, country2, trade_flow):
+		
+		if trade_flow == "import":
+			country1, country2 = country2, country1
+	
+		data = self.filter(
+			destination = country2,
+			origin = country1,
+			product__community__isnull = False,
+			product__ps_x__isnull = False).extra(select={'item_id': "product_id"})
+	
+		return list(data.values("item_id", "year", "value"))
+	
+	def cspy(self, country1, product, trade_flow):
+		
+		if trade_flow == "import":
+			data = self.filter(
+				product = product,
+				destination = country1,
+				origin__region__isnull=False,
+				origin__name_3char__isnull=False,
+				origin__name_2char__isnull=False).extra(select={'item_id': "origin_id"})
+			data = data.exclude(origin=231)
+		else:
+			data = self.filter(
+				product = product,
+				origin = country1,
+				destination__region__isnull=False,
+				destination__name_3char__isnull=False,
+				destination__name_2char__isnull=False).extra(select={'item_id': "destination_id"})
+			data = data.exclude(destination=231)
+	
+		return list(data.values("item_id", "year", "value"))
+		
+		
+		# if trade_flow == "export":
+		# 	data = Sitc4_ccpy.objects.filter(product=p, origin=c, destination__region__isnull=False, destination__name_3char__isnull=False, destination__name_2char__isnull=False).exclude(destination=231).values("destination_id", "year", "value");
+		# elif trade_flow == "import":
+		# 	data = Sitc4_ccpy.objects.filter(product=p, destination=c, origin__region__isnull=False, origin__name_3char__isnull=False, origin__name_2char__isnull=False).exclude(origin=231).values("origin_id", "year", "value");
+		# 	meta["filter_id"] = "origin_id"
+	
 class Sitc4_ccpy(models.Model):
 	year = models.PositiveSmallIntegerField(max_length=4)
 	origin = models.ForeignKey(Country, related_name="sitc4_ccpys_origin")
@@ -145,6 +288,8 @@ class Sitc4_ccpy(models.Model):
 
 	def __unicode__(self):
 		return "%s -> %s" % (self.origin.name, self.destination.name)
+	
+	objects = Sitc4_ccpy_manager()
 
 class Hs6_ccpy(models.Model):
 	year = models.PositiveSmallIntegerField(max_length=4)
