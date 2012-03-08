@@ -61,34 +61,27 @@
 	
 		<div id="main" role="main">
 			
-			<!-- <div class="app_title" id="icons"><img class="img right community" src="/media/img/community_icons_outline/community_52.png" alt=""><img class="img left" src="/media/img/flags/flag_usa.png" alt=""><h2 class="left">2009</h2>
-						<img class="img left" src="/media/img/flags/flag_caf.png" alt="" />
-						<h2 class="left">1962</h2>
-						<img class="img left" src="/media/img/flags/flag_caf.png" alt="" />
-						<img class="img left" src="/media/img/community_icons/community_10.png" alt="" />
-					</div> -->
-			
 			<div class="app_title" id="icons">
 				
 				<!-- Left icon -->
-				{% if product and not country1 %}
+				{% if product_list and not country1_list %}
 				<img class="img left community" src="/media/img/icons/community_{{ product.community.id }}.png" alt="product.name_en">
 				{% else %}
-				<img class="img left" src="/media/img/icons/flag_{{ country1.name_3char }}.png" alt="country1.name">
+				<img class="img left" src="/media/img/icons/flag_{{ country1.name_3char }}.png" alt="{{country1.name}}">
 				{% endif %}
 				
 				<!-- year(s) -->
-				{% if year.0 %}
-				<h2 class="left">{{year.0}} {{year|last}}</h2>
+				{% if year_start %}
+				<h2 class="left">{{year_start}} {{year_end}}</h2>
 				{% else %}
 				<h2 class="left">{{year}}</h2>
 				{% endif %}
 				
 				<!-- Right icon -->
-				{% if country2 %}
-				<img class="img right" src="/media/img/icons/flag_{{ country2.name_3char }}.png" alt="country2.name">
-				{% elif country1 and product %}
-				<img class="img right community" src="/media/img/icons/community_{{ product.community.id }}.png" alt="product.name_en">
+				{% if country2_list %}
+				<img class="img right" src="/media/img/icons/flag_{{ country2.name_3char }}.png" alt="{{country2.name}}">
+				{% elif country1_list and product_list %}
+				<img class="img right community" src="/media/img/icons/community_{{ product.community.id }}.png" alt="{{product.name_en}}">
 				{% endif %}
 				
 			</div>
@@ -232,31 +225,33 @@
 			<div id="tool_pane">
 				
 				<!-- Trade Flow -->
-				<div data-url_pos="3" id="trade_flow" class="ui-buttonset">
+				<div class="dropdown_container" id="trade_flow">
 					<h3>Trade Flow</h3>
-					{% for tf in trade_flow_list %}
-					{% if tf == trade_flow %}
-					<input type="radio" id="{{tf}}" name="trade_flow" checked="checked" /><label for="{{tf}}">{{ tf|capfirst }}</label>
-					{% else %}
-					<input type="radio" id="{{tf}}" name="trade_flow" /><label for="{{tf}}">{{ tf|capfirst }}</label>
-					{% endif %}
-					{% endfor %}
+					<select data-url_pos="5">
+						{% for tf in trade_flow_list %}
+						{% if tf == trade_flow %}
+						<option value="{{tf}}" selected="selected">{{ tf|capfirst }}</option>
+						{% else %}
+						<option value="{{tf}}">{{ tf|capfirst }}</option>
+						{% endif %}
+						{% endfor %}
+					</select>
 				</div>
 				
 				<!-- Country List -->
-				{% if country1_list %}
-				<div class="dropdown_container" id="country1_dropdown">
+				{% if country1_list  %}
+				<div class="dropdown_container" id="country1">
 					{% if country2_list %}
 					<h3>Origin Country</h3>
 					{% else %}
 					<h3>Country</h3>
 					{% endif %}
-					<select data-url_pos="5" id="country1_select">
+					<select data-url_pos="5">
 						{% for c in country1_list %}
 						{% if c.id == country1.id %}
-						<option value="{{c.name_3char}}" selected="selected">{{ c.name }}</option>
+						<option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
 						{% else %}
-						<option value="{{c.name_3char}}">{{ c.name }}</option>
+						<option value="{{c.name_3char|lower}}">{{ c.name }}</option>
 						{% endif %}
 						{% endfor %}
 					</select>
@@ -265,14 +260,14 @@
 				
 				<!-- Country List -->
 				{% if country2_list %}
-				<div class="dropdown_container" id="country2_dropdown">
+				<div class="dropdown_container" id="country2">
 					<h3>Destination Country</h3>
 					<select data-url_pos="5" id="country2_select">
 						{% for c in country2_list %}
 						{% if c.id == country2.id %}
-						<option value="{{c.name_3char}}" selected="selected">{{ c.name }}</option>
+						<option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
 						{% else %}
-						<option value="{{c.name_3char}}">{{ c.name }}</option>
+						<option value="{{c.name_3char|lower}}">{{ c.name }}</option>
 						{% endif %}
 						{% endfor %}
 					</select>
@@ -281,9 +276,9 @@
 				
 				<!-- Product List -->
 				{% if product_list %}
-				<div class="dropdown_container" id="product_dropdown">
+				<div class="dropdown_container" id="product">
 					<h3>Product</h3>
-					<select data-url_pos="5" id="product_select">
+					<select data-url_pos="5">
 						{% for p in product_list %}
 						{% if p.id == product.id %}
 						<option value="{{p.code}}" selected="selected">{{ p.name }}</option>
@@ -297,15 +292,15 @@
 				
 				<!-- Year List -->
 				{% if year2_list %}
-				<div class="dropdown_container" id="year_start_dropdown">
+				<div class="dropdown_container" id="year_start">
 					<h3>Start Year</h3>
-					{% else %}
-				<div class="dropdown_container" id="year_dropdown">
+				{% else %}
+				<div class="dropdown_container" id="year">
 					<h3>Year</h3>
 					{% endif %}
 					<select data-url_pos="5" id="year1_select">
 						{% for y in year1_list %}
-						{% if y == year or y == year.0 %}
+						{% if y == year or y == year_start %}
 						<option value="{{y}}" selected="selected">{{ y }}</option>
 						{% else %}
 						<option value="{{y}}">{{ y }}</option>
@@ -316,11 +311,11 @@
 				
 				<!-- Year2 List -->
 				{% if year2_list %}
-				<div class="dropdown_container" id="year_end_dropdown">
+				<div class="dropdown_container" id="year_end">
 					<h3>End Year</h3>
-					<select data-url_pos="5" id="year2_select">
+					<select data-url_pos="5">
 						{% for y in year2_list %}
-						{% if y == year|last %}
+						{% if y == year_end %}
 						<option value="{{y}}" selected="selected">{{ y }}</option>
 						{% else %}
 						<option value="{{y}}">{{ y }}</option>
@@ -332,9 +327,9 @@
 				
 				<!-- Year interval List -->
 				{% if year_interval_list %}
-				<div class="dropdown_container" id="year_dropdown">
+				<div class="dropdown_container" id="year_interval">
 					<h3>Year Interval</h3>
-					<select data-url_pos="5" id="year_interval_select">
+					<select data-url_pos="5">
 						{% for i in year_interval_list %}
 						{% if i == year_interval %}
 						<option value="{{i}}" selected="selected">{{ i }}</option>
@@ -468,84 +463,128 @@
 	})
 	
 	// Control Pane
-	// Use chosen plugin to make dropdowns look fancy
-	$(".dropdown_container select").chosen()
-	// Turn radios into buttonsets
-	$("#trade_flow label").each(function(i, el){
+	// replace underscores with spaces for trade flow options
+	$(".dropdown_container#trade_flow option").each(function(i, el){
 		var new_text = $(el).text().replace("_", " ")
 		$(el).text(new_text)
 	})
-	$("#trade_flow").buttonset();
+	// Use chosen plugin to make dropdowns look fancy
+	$(".dropdown_container select").chosen()
+	// build new app when button is clicked
+	$("button#build").click(new_app);
 	
 	
 	// the function that makes the ajax call to the server using the
 	// current URL and appending ?format=json
-	// build_app(request)
-	d3.json(request, function(json){
-		
-		json.attr_data.forEach(function(attr){
-			var id_property = attr["community_id"] ? "community_id" : "region_id",
-				name_property = attr["community__name"] ? "community__name" : "region__name",
-				color_property = attr["community__color"] ? "community__color" : "region__color",
-				text_color_property = attr["community__text_color"] ? "community__text_color" : "region__text_color";
-			attr["category_id"] = attr[id_property]; delete attr[id_property];
-			attr["category_name"] = attr[name_property]; delete attr[name_property];
-			attr["category_color"] = attr[color_property]; delete attr[color_property];
-			attr["category_text_color"] = attr[text_color_property]; delete attr[text_color_property];
-			attr["heirarchical_id"] = attr["category_id"].toString().substr(0,1) + "." + attr["category_id"] + "." + attr["id"];
-		})
-		json.attr_data = d3.nest()
-			.key(function(d) { return d["id"]; })
-			.rollup(function(d){ return d[0] })
-			.map(json.attr_data);
-		
-		var app_data = {
-			"attr_data": json.attr_data,
-			"raw_data": json.data,
-			"selector": "#dataviz",
-			"year": json.year,
-			"width": 640,
-			"height": 500}
-		
-		switch(json.app){
-			case "treemap":
-				tree_map_draw(app_data);
-				set_accordion(0)
-				break;
-			case "stacked":
-				stacked_draw(app_data);
-				set_accordion(1)
-				break;
-			case "product_space":
-				product_space_draw(app_data);
-				set_accordion(2)
-				break;
-		}
-		
-	});
-
-	function build_app(request){
+	build_app("{{api_uri}}", "{{app_name}}")
+	
+	function build_app(request, app_name){
 		d3.select("#dataviz").html("")
 		d3.select("#loader").style("display", "block");
+
 		d3.json(request, function(json){
-			has_data = get_has_data(json.data, json.meta.year)
-			switch(json.meta.app){
-				case "treemap":
-					tmap_init(json, lang);
+		
+			json.attr_data.forEach(function(attr){
+				var id_property = attr["community_id"] ? "community_id" : "region_id",
+					name_property = attr["community__name"] ? "community__name" : "region__name",
+					color_property = attr["community__color"] ? "community__color" : "region__color",
+					text_color_property = attr["community__text_color"] ? "community__text_color" : "region__text_color";
+				attr["category_id"] = attr[id_property]; delete attr[id_property];
+				attr["category_name"] = attr[name_property]; delete attr[name_property];
+				attr["category_color"] = attr[color_property]; delete attr[color_property];
+				attr["category_text_color"] = attr[text_color_property]; delete attr[text_color_property];
+				attr["heirarchical_id"] = attr["category_id"].toString().substr(0,1) + "." + attr["category_id"] + "." + attr["id"];
+			})
+			json.attr_data = d3.nest()
+				.key(function(d) { return d["id"]; })
+				.rollup(function(d){ return d[0] })
+				.map(json.attr_data);
+		
+			var app_data = {
+				"attr_data": json.attr_data,
+				"raw_data": json.data,
+				"selector": "#dataviz",
+				"year": json.year,
+				"width": 640,
+				"height": 500}
+		
+			switch(app_name){
+				case "tree_map":
+					tree_map_draw(app_data);
+					set_accordion(0)
 					break;
 				case "stacked":
-					st_init(json);
+					stacked_draw(app_data);
+					set_accordion(1)
 					break;
 				case "product_space":
-					ps_init(json);
-					break;
-				case "map":
-					map_init(json);
+					product_space_draw(app_data);
+					set_accordion(2)
 					break;
 			}
-			set_address(request, json.meta.app, json.meta.year);
+			
+			// set title
+			$(".app_title#title h2").text(json.title)
+			
+			// set title icons year
+			if(json.year_start){
+				$(".app_title#icons h2").text(json.year_start + " " + json.year_end)
+			}
+			else {
+				$(".app_title#icons h2").text(json.year)
+			}
+			
+			// set title icons
+			if(json.country1){
+				$(".app_title#icons img.left").attr({
+					"src": "/media/img/icons/flag_"+json.country1.name_3char.toLowerCase()+".png",
+					"alt": json.country1.name})
+			}
+			if(json.country2){
+				$(".app_title#icons img.right").attr({
+					"src": "/media/img/icons/flag_"+json.country2.name_3char.toLowerCase()+".png",
+					"alt": json.country2.name})
+			}
+			if(json.product){
+				if(json.country1){
+					$(".app_title#icons img.right").attr({
+						"src": "/media/img/icons/community_"+json.product.community_id+".png",
+						"alt": json.product.name})
+				}
+				else {
+					$(".app_title#icons img.left").attr({
+						"src": "/media/img/icons/community_"+json.product.community_id+".png",
+						"alt": json.product.name})
+				}
+			}
+			
+			// set_address(request, json.app, json.year);
 			d3.select("#loader").style("display", "none");
+		});
+	} // END build app
+
+	function new_app(){
+		var uri_parts = ["trade_flow", "country1", "country2", "product", "year"]
+		var uri_replacements = ["{{trade_flow}}", "{{country1}}", "{{country2}}", "{{product}}", "{{year}}"]
+		uri_parts.forEach(function(uri_item, i){
+			if($(".dropdown_container#"+uri_item).length){
+				uri_parts[i] = $(".dropdown_container#"+uri_item+" :selected").val();
+			}
+			else {
+				uri_parts[i] = uri_replacements[i];
+			}
+			// handle if stacked with start and end years
+			if(uri_item == "year" && "{{year_start}}" != "None"){
+				year_start = $(".dropdown_container#year_start :selected").val()
+				year_end = $(".dropdown_container#year_end :selected").val()
+				year_interval = $(".dropdown_container#year_interval :selected").val()
+				uri_parts[i] = year_start+"."+year_end+"."+year_interval;
+			}
 		})
+		new_api_uri = "/api/" + uri_parts.join("/") + "/"
+		console.log(new_api_uri)
+		
+		build_app(new_api_uri, "{{app_name}}")
 	}
 
 	function set_address(request, app){

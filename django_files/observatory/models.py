@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 
 ###############################################################################
 # country tables
@@ -65,6 +66,11 @@ class Country(models.Model):
 	
 	def __unicode__(self):
 		return self.name
+	
+	def to_json(self):
+		return {
+			"name": self.name_en,
+			"name_3char": self.name_3char}
 	
 	objects = Country_manager()
 
@@ -149,6 +155,11 @@ class Sitc4(models.Model):
 	def __unicode__(self):
 		return self.code + self.name_en
 	
+	def to_json(self):
+		return {
+			"name": self.name_en,
+			"community_id": self.community.id}
+	
 	objects = Sitc4_manager()
 
 # HS6 Products
@@ -184,8 +195,27 @@ class Hs6(models.Model):
 class Sitc4_cpy_manager(models.Manager):
 	
 	def set_value(self, trade_flow):
+		if trade_flow == "net_export":
+			return self.extra({'value': 'export_value-import_value'}, where=['export_value-import_value > 0'])
+		elif trade_flow == "net_import":
+			return self.extra({'value': 'import_value-export_value'}, where=['import_value-export_value > 0'])
 		return self.extra(select={"value": "%s_value" % (trade_flow,)})
 	
+	# def casy(self, country, trade_flow):
+	# 	from django.db import connection
+	# 	cursor = connection.cursor()
+	# 	cursor.execute("""
+	# 		SELECT product_id as item_id, year, rca, export_value-import_value as value
+	# 		FROM observatory_sitc4_cpy
+	# 		WHERE country_id = %d and value > 0""" % country.id)
+	# 	result_list = []
+	# 	for row in cursor.fetchall():
+	# 		raise Exception(row)
+	# 		p = self.model(id=row[0], question=row[1], poll_date=row[2])
+	# 		p.num_responses = row[3]
+	# 		result_list.append(p)
+	# 	return result_list
+
 	def casy(self, country, trade_flow):
 		
 		q_set = self.set_value(trade_flow)
@@ -194,7 +224,7 @@ class Sitc4_cpy_manager(models.Manager):
 			country = country,
 			product__community__isnull = False,
 			product__ps_x__isnull = False).extra(select={'item_id': "product_id"})
-		
+			
 		return list(data.values("item_id", "year", "value", "rca"))
 	
 	def sapy(self, product, trade_flow):
@@ -237,6 +267,30 @@ class Hs6_cpy(models.Model):
 # country - country - product - year tables
 ###############################################################################
 class Sitc4_ccpy_manager(models.Manager):
+
+	# if(trade_flow == "export"):
+	# 	data = Sitc4_ccpy.objects.filter(origin=c, destination__region__isnull=False, destination__name_3char__isnull=False, destination__name_2char__isnull=False).exclude(destination=231).extra(select={'item_id': "destination_id"})
+	# else:
+	# 	data = Sitc4_ccpy.objects.filter(destination=c, origin__region__isnull=False, origin__name_3char__isnull=False, origin__name_2char__isnull=False, product__community__isnull=False).exclude(origin=231).extra(select={'item_id': "origin_id"})
+	# data = data.values("item_id", "year").annotate(value=Sum('value'))
+	
+	def csay(self, country1, trade_flow):
+		
+		if trade_flow == "import":
+			data = self.filter(
+				desintation = country1,
+				origin__region__isnull=False,
+				origin__name_3char__isnull=False,
+				origin__name_2char__isnull=False).extra(select={'item_id': "origin_id"})
+			data = data.exclude(origin=231)
+		else:
+			data = self.filter(
+				origin = country1,
+				destination__region__isnull=False,
+				destination__name_3char__isnull=False,
+				destination__name_2char__isnull=False).extra(select={'item_id': "destination_id"})
+			
+		return list(data.values("item_id", "year").annotate(value=Sum('value')))
 	
 	def ccsy(self, country1, country2, trade_flow):
 		
