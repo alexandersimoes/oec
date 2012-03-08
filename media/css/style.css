@@ -192,15 +192,16 @@ header h1 a img {
  */
 .app_title{
 	float: left;
-	min-height: 55px;
+	min-height: 60px;
 }
 .app_title h2 {
 	font-family: 'Cardo', serif, 'Times';
 	font-size: 30px;
 	font-weight: normal;
-	line-height: 1.4em;
+	line-height: 36px;
 	margin: 6px 0 0 10px;
 	width: 815px;
+/*	width: 828px;*/
 }
 .app_title#icons{
 	width: 188px;
@@ -305,7 +306,7 @@ header h1 a img {
 	min-height:457px;
 	background-color:#fff;
 	border:1px solid #cccccc;
-	background-image:url("/media/img/design/app_space_bg.png");
+	background-image:url("/media/img/app/app_space_bg.png");
 	background-repeat:no-repeat;
 	background-position:-8px 0px;	
 }
@@ -351,12 +352,12 @@ text-decoration: none;
 }
 .app #main #app_pane .accordion div ul li a,
 .app #main #app_pane .accordion div div ul li a {
-	background: url("/media/img/design/minieye.png") left 4px no-repeat;
+	background: url("/media/img/app/minieye.png") left 4px no-repeat;
 	padding-left: 18px;
 }
 .app #main #app_pane .accordion div ul li a.disabled,
 .app #main #app_pane .accordion div div ul li a.disabled {
-	background: url("/media/img/design/minieye_disabled.png") left 4px no-repeat;
+	background: url("/media/img/app/minieye_disabled.png") left 4px no-repeat;
 }
 .app #main #app_pane .accordion div div ul {
 	font-size: 10pt;
@@ -401,7 +402,7 @@ text-decoration: none;
 	font-size: 12px;
 	height: 39px;
 /*	text-align: left;*/
-	width: 40px;
+	width: 38px;
 	vertical-align: top;
 }
 .app #main #tool_pane #trade_flow .ui-button-text{
@@ -410,14 +411,14 @@ text-decoration: none;
 .app #main #tool_pane #sorting .ui-button-text {
 	padding: .4em 0.5em;
 }
-.app #main #tool_pane .chzn-select {
+.app #main #tool_pane .dropdown_container select {
 	margin: 0 0 14px 0;
 	width: 163px;
 }
-.app #main #tool_pane #year_start_dropdown { float:left; margin: 0 7px 0 0; }
-.app #main #tool_pane #year_end_dropdown { float:left; }
-.app #main #tool_pane .chzn-select#year_start_select, 
-.app #main #tool_pane .chzn-select#year_end_select { width: 78px;	}
+.app #main #tool_pane .dropdown_container#year_start_dropdown { float:left; margin: 0 7px 0 0; }
+.app #main #tool_pane .dropdown_container#year_end_dropdown { float:left; }
+.app #main #tool_pane .dropdown_container#year_start_dropdown select, 
+.app #main #tool_pane .dropdown_container#year_end_dropdown select { width: 78px !important;	}
 .app #main #tool_pane .chzn-container {
 	cursor: pointer;
 	margin: 0 0 5px 0;
@@ -451,24 +452,61 @@ text-decoration: none;
 /*
  * Center of the page, app canvas
  */	
-.app #main #dataviz {
+.app #main #content {
+	background-color: #fff;
+	border: 1px solid #cccccc;
+	border-radius: 0 0 10px 10px !important;
 	float: left;
-	z-index:10;
-	border:1px solid #cccccc;
-	width:640px;
-	height:500px;
-	background-color:#fff;
-	background-position:center center;
-	background-repeat:no-repeat;
-	overflow:hidden;
+	overflow: hidden;
+	padding: 0 !important;
+	width: 640px;
+	z-index: 10;
 }
+.app #main #content #dataviz {
+	height: 500px;
+}
+/* key */
+.app #main #content #key {
+	border-top: 1px solid #cccccc;
+/*	padding: 3px 0 3px 1px;*/
+	padding: 3px;
+}
+.app #main #content #key img {
+	width: 15px;
+}
+
+/*
+ * Timeline
+ */
+.app #main #content #timeline {
+	padding: 10px;
+}
+.app #main #content #timeline button{
+	float: left;
+	margin: 0 10px 0 0;
+	width: 60px;
+}
+.app #main #content #timeline button#stop{
+	display: none;
+}
+.app #main #content #timeline .slider{
+	float: left;
+	margin: 10px 0;
+	width: 545px;
+}
+
+
 .app #loader {
-	display:none;
-	left:785px;
-	position:relative;
-	top:10px;
-	z-index:99999;
-}	
+	clear: both;
+	display: none;
+	height: 0;
+	left: 785px;
+	position: relative;
+	top: 10px;
+	z-index: 99999;
+}
+.app #loader img{
+}
 .app #no_data {
 	display: none;
 	left: 250px;
@@ -487,42 +525,6 @@ text-decoration: none;
 	display: inline;
 	text-align: left;
 }	
-.app #main #key {
-	background: #fff;
-	border:1px solid #cccccc;
-	margin: 0 auto;
-	padding: 3px 0 3px 1px;
-	width: 642px;
-}
-.app #main #key img {
-	width: 15px;
-}
-/*
- * Timeline
- */
-.app #main #timeline {
-	background: #fff;
-	border:1px solid #cccccc;
-	border-radius: 0  0 10px 10px;
-	margin: 0 auto;
-	padding: 10px;
-	width: 622px;
-	position:relative;
-	left:-1px;
-}
-.app #main #timeline button{
-	float: left;
-	margin: 0 10px 0 0;
-	width: 60px;
-}
-.app #main #timeline button#stop{
-	display: none;
-}
-.app #main #timeline .slider{
-	float: left;
-	margin: 10px 0;
-	width: 545px;
-}
 
 
 /*

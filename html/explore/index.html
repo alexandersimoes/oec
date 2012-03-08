@@ -1,0 +1,600 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>The Observatory of Economic Complexity :: {% block page_title %}{% endblock %}</title>
+	<meta name="description" content="Networks in Macro Economics">
+	<meta name="author" content="Alexander Simoes">
+	<!-- Necessary for google to crawl the site, since it is purely ajax based.
+	     When the crawler reaches the page it will request the current URL plus
+	     the additional URL query parameter _escaped_fragment_= -->
+	<meta name="fragment" content="!">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="/media/img/favicon.ico">
+	
+	<!-- Load non-standard fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
+	<link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
+	
+	<link rel="stylesheet" href="/media/css/normalize.css">
+	<link rel="stylesheet" href="/media/css/style.css">
+	<link rel="stylesheet" href="/media/js/libs/chosen/chosen.css" />
+	<link rel="stylesheet" href="/media/js/libs/tipsy/tipsy.css" />
+	<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" type="text/css" media="all" /> -->
+	<link rel="stylesheet" href="/media/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
+	
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body class="app">
+	<div id="container">
+		<header>
+			<div class="logo">
+				<h1><a href="/" title="Home"><img src="/media/img/all/logo_observatory_sm.png" alt="The Observatory of Economic Complexity" /></a></h1>
+			</div>
+			<div class="nav">
+				<ul>
+					<li><a href="/app">Explore</a></li>
+					<li><a href="/book">Book</a></li>
+					<li><a href="/about">About</a></li>
+					<li><a href="/api">API</a></li>
+				</ul>
+				<p>
+					Change Language:
+					{% for lang in supported_langs %}
+						{% if lang.0 == LANGUAGE_CODE %}
+						<a href="/set_language/{{lang.0}}/" title="{{lang.2}}"><img class="selected_lang" src="/media/img/icons/flag_{{lang.1}}.png" alt="{{lang.2}}" /></a>
+						{% else %}
+						<a href="/set_language/{{lang.0}}/" title="{{lang.2}}"><img src="/media/img/icons/flag_{{lang.1}}.png" alt="{{lang.2}}" /></a>
+						{% endif %}
+					{% endfor %}
+				</p>
+			</div>
+			<br class="clear">
+		</header>
+	
+		<div id="main" role="main">
+			
+			<div class="app_title" id="icons">
+				
+				<!-- Left icon -->
+				{% if product_list and not country1_list %}
+				<img class="img left community" src="/media/img/icons/community_{{ product.community.id }}.png" alt="product.name_en">
+				{% else %}
+				<img class="img left" src="/media/img/icons/flag_{{ country1.name_3char }}.png" alt="{{country1.name}}">
+				{% endif %}
+				
+				<!-- year(s) -->
+				{% if year_start %}
+				<h2 class="left">{{year_start}} {{year_end}}</h2>
+				{% else %}
+				<h2 class="left">{{year}}</h2>
+				{% endif %}
+				
+				<!-- Right icon -->
+				{% if country2_list %}
+				<img class="img right" src="/media/img/icons/flag_{{ country2.name_3char }}.png" alt="{{country2.name}}">
+				{% elif country1_list and product_list %}
+				<img class="img right community" src="/media/img/icons/community_{{ product.community.id }}.png" alt="{{product.name_en}}">
+				{% endif %}
+				
+			</div>
+			<div class="app_title" id="title"><h2>{{title}}</h2></div>
+			
+			<!-- ajax loading gif -->
+			<div id="loader">
+				<img src="/media/img/all/loader.gif" alt="loading" />
+			</div>
+		
+			<!-- the left pane -->
+			<div id="app_pane">
+				<div class="accordion">
+					<div>
+						<h3><a href="#">Tree Maps</a></h3>
+						<div>
+							<h4>Country</h4>
+							<ul>
+								<li><a data-country="4" data-year="5" href="/app/treemap/export/usa/2009/">Exports</a></li>
+								<li><a data-country="4" data-year="5" href="/app/treemap/import/usa/2009/">Imports</a></li>
+								<li><a data-country="4" data-year="5" href="/app/treemap/net_export/usa/2009/">Net Exports</a></li>
+								<li><a data-country="4" data-year="5" href="/app/treemap/net_import/usa/2009/">Net Imports</a></li>
+							</ul>
+							<h4>Products</h4>
+							<ul>
+								<li><a data-product="4" data-year="5" href="/app/treemap/export/3330/2009/">Exports To Destination</a></li>
+								<li><a data-product="4" data-year="5" class="product year" href="/app/treemap/import/3330/2009/">Imports From Origin</a></li>
+							</ul>
+							<h4>Bilateral</h4>
+							<ul>
+								<li><a data-country="4.0" data-country2="4.1" data-year="5" class="" href="/app/treemap/export/usa.chn/2009/">Exports to Destination</a></li>
+								<li><a data-country="4.0" data-country2="4.1" data-year="5" class="" href="/app/treemap/import/usa.chn/2009/">Imports from Origin</a></li>
+								<li><a data-country="4.0" data-product="4.1" data-year="5" class="" href="/app/treemap/export/usa.3354/2009/">Exports by Product</a></li>
+								<li><a data-country="4.0" data-product="4.1" data-year="5" href="/app/treemap/import/usa.3354/2009/">Imports by Product</a></li>
+							</ul>
+						</div>
+					</div>
+					<div>
+						<h3><a href="#">Stacked Area Charts</a></h3>
+						<div>
+							<h4>Country</h4>
+							<ul>
+								<li><a data-country="4" data-year_start="5.0" data-year_end="5.1" data-year_interval="5.2" href="/app/stacked/export/usa/1962.2008.4/">Exports</a></li>
+								<li><a data-country="4" data-year_start="5.0" data-year_end="5.1" data-year_interval="5.2" href="/app/stacked/import/usa/1962.2008.4/">Imports</a></li>
+							</ul>
+							<h4>Products</h4>
+							<ul>
+								<li><a data-product="4" data-year_start="5.0" data-year_end="5.1" data-year_interval="5.2" href="/app/stacked/export/3330/1962.2008.4/">Exports From Destination</a></li>
+								<li><a data-product="4" data-year_start="5.0" data-year_end="5.1" data-year_interval="5.2" href="/app/stacked/import/3330/1962.2008.4/">Imports to Origin</a></li>
+							</ul>
+							<h4>Bilateral</h4>
+							<ul>
+								<li><a data-country="4.0" data-country2="4.1" data-year_start="5.0" data-year_end="5.1" data-year_interval="5.2" href="/app/stacked/export/usa.chn/1962.2008.4/">Exports to Destination</a></li>
+								<li><a data-country="4.0" data-country2="4.1" data-year_start="5.0" data-year_end="5.1" data-year_interval="5.2" href="/app/stacked/import/usa.chn/1962.2008.4/">Imports from Origin</a></li>
+								<li><a data-country="4.0" data-product="4.1" data-year_start="5.0" data-year_end="5.1" data-year_interval="5.2" href="/app/stacked/export/usa.3354/1962.2008.4/">Exports by Product</a></li>
+								<li><a data-country="4.0" data-product="4.1" data-year_start="5.0" data-year_end="5.1" data-year_interval="5.2" href="/app/stacked/import/usa.3354/1962.2008.4/">Imports by Product</a></li>
+							</ul>
+						</div>
+					</div>
+					<div>
+						<h3><a href="#">Product Space</a></h3>
+						<ul>
+							<li><a data-country="4" data-year="5" href="/app/product_space/export/usa/2009/">Product Space of Exports</a></li>
+							<li><a class="disabled" href="#">Density Product Space</a></li>
+						</ul>
+					</div>
+					<div>
+						<h3><a href="#">Predictive Tools</a></h3>
+						<ul>
+							<li><a class="disabled" href="#">Density Bars</a></li>
+							<li><a class="disabled" href="#">Stepping Stone</a></li>
+						</ul>
+					</div>
+					<div>
+						<h3><a href="#">Maps</a></h3>
+						<ul>
+							<li><a data-product="4" data-year="5" href="/app/map/export/3330/2009/">Exports</a></li>
+							<li><a data-product="4" data-year="5" href="/app/map/export/3330/2009/">Imports</a></li>
+							<li><a data-product="4" data-year="5" class="product year" href="/app/map/net_export/3330/2009/">Net exports</a></li>
+							<li><a data-product="4" data-year="5" class="product year" href="/app/map/net_import/3330/2009/">Net imports</a></li>
+						</ul>
+					</div>
+				</div>
+			</div> <!-- END app selection pane -->
+		
+			<!-- the dataviz -->
+			<div id="content">
+				
+				<!-- the canvas for the visualization -->
+				<div id="dataviz"></div>
+				
+				<!-- the key for hovering over communities -->
+				<div id="key">
+					<a href="#" class="community_10" title="Machinery"><img src="/media/img/icons/community_10.png"></a>
+					<a href="#" class="community_11" title="Electronics"><img src="/media/img/icons/community_11.png"></a>
+					<a href="#" class="community_12" title="Aircraft"><img src="/media/img/icons/community_12.png"></a>
+					<a href="#" class="community_13" title="Boilers"><img src="/media/img/icons/community_13.png"></a>
+					<a href="#" class="community_14" title="Ships"><img src="/media/img/icons/community_14.png"></a>
+					<a href="#" class="community_15" title="Metal Products"><img src="/media/img/icons/community_15.png"></a>
+					<a href="#" class="community_20" title="Construction Materials and Equipment"><img src="/media/img/icons/community_20.png"></a>
+					<a href="#" class="community_21" title="Home and Office Products"><img src="/media/img/icons/community_21.png"></a>
+					<a href="#" class="community_22" title="Pulp and Paper"><img src="/media/img/icons/community_22.png"></a>
+					<a href="#" class="community_30" title="Beer, Spirits and Cigarettes"><img src="/media/img/icons/community_30.png"></a>
+					<a href="#" class="community_31" title="Food Processing"><img src="/media/img/icons/community_31.png"></a>
+					<a href="#" class="community_40" title="Petrochemicals"><img src="/media/img/icons/community_40.png"></a>
+					<a href="#" class="community_41" title="Inorganic Salts and Acids"><img src="/media/img/icons/community_41.png"></a>
+					<a href="#" class="community_42" title="Other Chemicals"><img src="/media/img/icons/community_42.png"></a>
+					<a href="#" class="community_43" title="Agrochemicals"><img src="/media/img/icons/community_43.png"></a>
+					<a href="#" class="community_44" title="Chemicals and Health Related Products"><img src="/media/img/icons/community_44.png"></a>
+					<a href="#" class="community_50" title="Coal"><img src="/media/img/icons/community_50.png"></a>
+					<a href="#" class="community_51" title="Mining"><img src="/media/img/icons/community_51.png"></a>
+					<a href="#" class="community_52" title="Oil"><img src="/media/img/icons/community_52.png"></a>
+					<a href="#" class="community_54" title="Precious Stones"><img src="/media/img/icons/community_54.png"></a>
+					<a href="#" class="community_60" title="Textile and Fabrics"><img src="/media/img/icons/community_60.png"></a>
+					<a href="#" class="community_61" title="Garments"><img src="/media/img/icons/community_61.png"></a>
+					<a href="#" class="community_70" title="Cereals and Vegetable Oils"><img src="/media/img/icons/community_70.png"></a>
+					<a href="#" class="community_71" title="Cotton, Rice, Soy Beans and Others"><img src="/media/img/icons/community_71.png"></a>
+					<a href="#" class="community_72" title="Tropical Treecrops and Flowers"><img src="/media/img/icons/community_72.png"></a>
+					<a href="#" class="community_73" title="Tobacco"><img src="/media/img/icons/community_73.png"></a>
+					<a href="#" class="community_74" title="Fruit"><img src="/media/img/icons/community_74.png"></a>
+					<a href="#" class="community_75" title="Misc Agriculture"><img src="/media/img/icons/community_75.png"></a>
+					<a href="#" class="community_80" title="Fish and Seafood"><img src="/media/img/icons/community_80.png"></a>
+					<a href="#" class="community_81" title="Meat and Eggs"><img src="/media/img/icons/community_81.png"></a>
+					<a href="#" class="community_82" title="Animal Fibers"><img src="/media/img/icons/community_82.png"></a>
+					<a href="#" class="community_83" title="Milk and Cheese"><img src="/media/img/icons/community_83.png"></a>
+					<a href="#" class="community_84" title="Leather"><img src="/media/img/icons/community_84.png"></a>
+					<a href="#" class="community_90" title="Not Classified"><img src="/media/img/icons/community_90.png"></a>
+				</div>
+				
+				<!-- the timeline -->
+				<div id="timeline">
+					<button id="play">Play</button>
+					<button id="stop">Stop</button>
+					<div class="slider"></div>
+					<br class="clear" />
+				</div>
+				
+			</div> <!-- END content -->
+			
+			<!-- the right pane -->
+			<div id="tool_pane">
+				
+				<!-- Trade Flow -->
+				<div class="dropdown_container" id="trade_flow">
+					<h3>Trade Flow</h3>
+					<select data-url_pos="5">
+						{% for tf in trade_flow_list %}
+						{% if tf == trade_flow %}
+						<option value="{{tf}}" selected="selected">{{ tf|capfirst }}</option>
+						{% else %}
+						<option value="{{tf}}">{{ tf|capfirst }}</option>
+						{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+				
+				<!-- Country List -->
+				{% if country1_list  %}
+				<div class="dropdown_container" id="country1">
+					{% if country2_list %}
+					<h3>Origin Country</h3>
+					{% else %}
+					<h3>Country</h3>
+					{% endif %}
+					<select data-url_pos="5">
+						{% for c in country1_list %}
+						{% if c.id == country1.id %}
+						<option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
+						{% else %}
+						<option value="{{c.name_3char|lower}}">{{ c.name }}</option>
+						{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+				{% endif %}
+				
+				<!-- Country List -->
+				{% if country2_list %}
+				<div class="dropdown_container" id="country2">
+					<h3>Destination Country</h3>
+					<select data-url_pos="5" id="country2_select">
+						{% for c in country2_list %}
+						{% if c.id == country2.id %}
+						<option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
+						{% else %}
+						<option value="{{c.name_3char|lower}}">{{ c.name }}</option>
+						{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+				{% endif %}
+				
+				<!-- Product List -->
+				{% if product_list %}
+				<div class="dropdown_container" id="product">
+					<h3>Product</h3>
+					<select data-url_pos="5">
+						{% for p in product_list %}
+						{% if p.id == product.id %}
+						<option value="{{p.code}}" selected="selected">{{ p.name }}</option>
+						{% else %}
+						<option value="{{p.code}}">{{ p.name }}</option>
+						{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+				{% endif %}
+				
+				<!-- Year List -->
+				{% if year2_list %}
+				<div class="dropdown_container" id="year_start">
+					<h3>Start Year</h3>
+				{% else %}
+				<div class="dropdown_container" id="year">
+					<h3>Year</h3>
+					{% endif %}
+					<select data-url_pos="5" id="year1_select">
+						{% for y in year1_list %}
+						{% if y == year or y == year_start %}
+						<option value="{{y}}" selected="selected">{{ y }}</option>
+						{% else %}
+						<option value="{{y}}">{{ y }}</option>
+						{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+				
+				<!-- Year2 List -->
+				{% if year2_list %}
+				<div class="dropdown_container" id="year_end">
+					<h3>End Year</h3>
+					<select data-url_pos="5">
+						{% for y in year2_list %}
+						{% if y == year_end %}
+						<option value="{{y}}" selected="selected">{{ y }}</option>
+						{% else %}
+						<option value="{{y}}">{{ y }}</option>
+						{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+				{% endif %}
+				
+				<!-- Year interval List -->
+				{% if year_interval_list %}
+				<div class="dropdown_container" id="year_interval">
+					<h3>Year Interval</h3>
+					<select data-url_pos="5">
+						{% for i in year_interval_list %}
+						{% if i == year_interval %}
+						<option value="{{i}}" selected="selected">{{ i }}</option>
+						{% else %}
+						<option value="{{i}}">{{ i }}</option>
+						{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+				{% endif %}
+				
+				<button id="build">Build Visualization &raquo;</button>
+				<div class="download">
+					<h3>Other options</h3>
+					<img src="/media/img/app/download.png" /><a class="pdf" href="#">Export as PDF</a><br />
+					<img src="/media/img/app/download.png" /><a class="svg" href="#">Export as SVG</a>
+				</div>
+			</div>
+			
+		</div> <!-- END #main -->
+	
+		<footer>
+			<p>The Observatory of Economic Complexity, Copyright &copy; 2011 <a href="http://www.mit.edu">Massachusetts Institute of Technology</a>, <a href="http://media.mit.edu/">The Media Lab</a>, <a href="http://macroconnections.media.mit.edu">Macro Connections Group</a> | <a href="http://www.harvard.edu">Harvard University</a>, <a href="http://http://www.hks.harvard.edu/centers/cid">Center for International Development</a></p>
+		</footer>
+		
+		<form class="download" method="POST" action="/download/">
+			<input type="hidden" name="url" value="" />
+			<input type="hidden" name="title" value="" />
+			<input type="hidden" name="format" value="svg" />
+			<input type="hidden" name="svg_xml" value="" />
+		</form>
+	
+	</div> <!-- END #container -->
+	
+	<!-- The JavaScript -->
+	<!-- Libraries -->
+	<script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>
+	<script src="/media/js/libs/jquery-ui/jquery-ui.min.js"></script>
+	<script src="/media/js/libs/tipsy/tipsy.jquery.js" ></script>
+	<script src="/media/js/libs/chosen/chosen.jquery.min.js" ></script>
+	<script src="/media/js/libs/d3/d3.v2.min.js"></script>
+	<!-- App -->
+	<script src="/media/js/apps/tree_map.js"></script>
+	<script src="/media/js/apps/stacked.js"></script>
+	<script src="/media/js/apps/product_space.js"></script>
+	<script>
+	// google analytics
+	var _gaq=[['_setAccount','UA-22403682-3'],['_trackPageview']]; 
+	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+	s.parentNode.insertBefore(g,s)}(document,'script'));
+	
+	// default vars
+	var lang = "{{LANGUAGE_CODE|safe}}",
+		request = window.location.pathname + "?format=json&lang={{LANGUAGE_CODE}}",
+		stop_animation = false,
+		animation_timer = 0;
+	
+	// General page stuff
+		
+	// set active link in top nav for current page
+	var current_page = "explore";
+	$(".nav ul a").each(function(i, el){
+		if($(el).text().toLowerCase() == current_page){
+			$(el).addClass("current");
+		}
+	})
+	
+	// set up slider
+	$("#timeline .slider").slider({range: "min", value: 1962, min: 1962, max: 2009});
+	
+	// App Pane Functions
+	// set up the accordion in the app selection pane
+	$(".accordion").accordion({
+		collapsible: true,
+		active: false,
+		autoHeight: false,
+		header: "> div > h3"
+	});
+	// Open accordion if it is not already to the given index number
+	function set_accordion(i){
+		// Toggle if accordion is not already open to something
+		if($(".accordion").accordion("option", "active") === false){
+			$(".accordion").accordion("option", "active", i);
+		}
+	}
+	
+	// tooltip links for key
+	$('#key a').tipsy({"gravity":'s',"fade":true});
+	$("#key a").click(function(){return false;});
+
+	$("#play").click(function(){
+		$(this).hide();
+		$("#stop").show();
+		return false;
+	})
+	$("#stop").click(function(){
+		$(this).hide();
+		$("#play").show();
+		stop_animation = true;
+		return false;
+	})
+	
+	// deal with browser history
+	window.onpopstate = function(event){
+		if(event.state){
+			var request = event.state.previous_request + "?format=json";
+			build_app(request)
+		}
+	}
+	
+	// Download links
+	$(".download a").click(function(){
+		var title = $(this).attr("alt");
+		// Get all SVG XML from page
+		var svg_xml = d3.select("svg")
+			.attr("title", title)
+			.attr("version", 1.1)
+			.attr("xmlns", "http://www.w3.org/2000/svg")
+			.node().parentNode.innerHTML;
+		$("input[name='svg_xml']").val(svg_xml) // Add this svg xml as the value of input
+		var format = $(this).attr("class");
+		$("input[name='format']").val(format);
+		$("input[name='title']").val(title);
+		// Submitting the form will trigger the action with will bring up
+		// the /export page. The view for this page takes the values from
+		// POST request and prompts the user to download the file
+		// console.log(format)
+		$('form.download').submit();
+		return false;
+	})
+	
+	// Control Pane
+	// replace underscores with spaces for trade flow options
+	$(".dropdown_container#trade_flow option").each(function(i, el){
+		var new_text = $(el).text().replace("_", " ")
+		$(el).text(new_text)
+	})
+	// Use chosen plugin to make dropdowns look fancy
+	$(".dropdown_container select").chosen()
+	// build new app when button is clicked
+	$("button#build").click(new_app);
+	
+	
+	// the function that makes the ajax call to the server using the
+	// current URL and appending ?format=json
+	build_app("{{api_uri}}", "{{app_name}}")
+	
+	function build_app(request, app_name){
+		d3.select("#dataviz").html("")
+		d3.select("#loader").style("display", "block");
+
+		d3.json(request, function(json){
+		
+			json.attr_data.forEach(function(attr){
+				var id_property = attr["community_id"] ? "community_id" : "region_id",
+					name_property = attr["community__name"] ? "community__name" : "region__name",
+					color_property = attr["community__color"] ? "community__color" : "region__color",
+					text_color_property = attr["community__text_color"] ? "community__text_color" : "region__text_color";
+				attr["category_id"] = attr[id_property]; delete attr[id_property];
+				attr["category_name"] = attr[name_property]; delete attr[name_property];
+				attr["category_color"] = attr[color_property]; delete attr[color_property];
+				attr["category_text_color"] = attr[text_color_property]; delete attr[text_color_property];
+				attr["heirarchical_id"] = attr["category_id"].toString().substr(0,1) + "." + attr["category_id"] + "." + attr["id"];
+			})
+			json.attr_data = d3.nest()
+				.key(function(d) { return d["id"]; })
+				.rollup(function(d){ return d[0] })
+				.map(json.attr_data);
+		
+			var app_data = {
+				"attr_data": json.attr_data,
+				"raw_data": json.data,
+				"selector": "#dataviz",
+				"year": json.year,
+				"width": 640,
+				"height": 500}
+		
+			switch(app_name){
+				case "tree_map":
+					tree_map_draw(app_data);
+					set_accordion(0)
+					break;
+				case "stacked":
+					stacked_draw(app_data);
+					set_accordion(1)
+					break;
+				case "product_space":
+					product_space_draw(app_data);
+					set_accordion(2)
+					break;
+			}
+			
+			// set title
+			$(".app_title#title h2").text(json.title)
+			
+			// set title icons year
+			if(json.year_start){
+				$(".app_title#icons h2").text(json.year_start + " " + json.year_end)
+			}
+			else {
+				$(".app_title#icons h2").text(json.year)
+			}
+			
+			// set title icons
+			if(json.country1){
+				$(".app_title#icons img.left").attr({
+					"src": "/media/img/icons/flag_"+json.country1.name_3char.toLowerCase()+".png",
+					"alt": json.country1.name})
+			}
+			if(json.country2){
+				$(".app_title#icons img.right").attr({
+					"src": "/media/img/icons/flag_"+json.country2.name_3char.toLowerCase()+".png",
+					"alt": json.country2.name})
+			}
+			if(json.product){
+				if(json.country1){
+					$(".app_title#icons img.right").attr({
+						"src": "/media/img/icons/community_"+json.product.community_id+".png",
+						"alt": json.product.name})
+				}
+				else {
+					$(".app_title#icons img.left").attr({
+						"src": "/media/img/icons/community_"+json.product.community_id+".png",
+						"alt": json.product.name})
+				}
+			}
+			
+			// set_address(request, json.app, json.year);
+			d3.select("#loader").style("display", "none");
+		});
+	} // END build app
+
+	function new_app(){
+		var uri_parts = ["trade_flow", "country1", "country2", "product", "year"]
+		var uri_replacements = ["{{trade_flow}}", "{{country1}}", "{{country2}}", "{{product}}", "{{year}}"]
+		uri_parts.forEach(function(uri_item, i){
+			if($(".dropdown_container#"+uri_item).length){
+				uri_parts[i] = $(".dropdown_container#"+uri_item+" :selected").val();
+			}
+			else {
+				uri_parts[i] = uri_replacements[i];
+			}
+			// handle if stacked with start and end years
+			if(uri_item == "year" && "{{year_start}}" != "None"){
+				year_start = $(".dropdown_container#year_start :selected").val()
+				year_end = $(".dropdown_container#year_end :selected").val()
+				year_interval = $(".dropdown_container#year_interval :selected").val()
+				uri_parts[i] = year_start+"."+year_end+"."+year_interval;
+			}
+		})
+		new_api_uri = "/api/" + uri_parts.join("/") + "/"
+		console.log(new_api_uri)
+		
+		build_app(new_api_uri, "{{app_name}}")
+	}
+
+	function set_address(request, app){
+		request = request.split("?")[0];
+		if(request != window.location.pathname){
+			window.history.pushState({"previous_request": request}, app, request);
+		}
+	}
+		
+	</script>
+	
+</body>
+</html>

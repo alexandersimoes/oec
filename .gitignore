@@ -1,2 +1,3 @@
 *.pyc
 django_files/atlas/settings.py
+assets/
