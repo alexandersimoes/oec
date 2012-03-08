@@ -1,0 +1,39 @@
+{% extends "static_template.html" %}
+
+{% block page_title %}API{% endblock %}
+{% block heading_title %}API{% endblock %}
+
+{% block css %} 
+<link href="media/google-code-prettify/prettify.css" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block sidebar %}
+<nav role="navigation">
+	<ul>
+		<li><a href="/api/">Embed</a></li>
+		<li><a href="/api/apps" class = "active">Example Apps</a></li>
+		<li><a href="/api/">Data</a></li>
+	</ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+<h3>What is it?</h3>
+<p>The Observatory of Economic Complexity is a tool that allows users to quickly compose a visual narrative about countries and the products they exchange. </p>
+<h3>Data</h3>
+<p>The observatory provides access to bilateral trade data for roughly 200 countries, 50 years and 1000 different products of the SITC4 revision 2 classification. The source of the data we are using is:</p>
+<dl class="data_source">
+	<dt>1962 - 2000</dt>
+	<dd><a href="http://cid.econ.ucdavis.edu/">The Center for International Data from Robert Feenstra</a></dd>
+	<dt>2001 - 2009</dt>
+	<dd><a href="http://comtrade.un.org/">UN COMTRADE</a></dd>
+</dl>
+{% endblock %}
+
+{% block js %}
+<script>
+
+</script>
+{% endblock %}
