@@ -1,0 +1,111 @@
+# Observatory website translations from english to spanish
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <simoes@mit.edu>, 2012.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-13 11:44-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+msgid "Export"
+msgstr "Экспорт"
+
+msgid "Import"
+msgstr "Импортировать"
+
+msgid "Net Export"
+msgstr "Чистый экспорт"
+
+msgid "Net Import"
+msgstr "Чистый импорт"
+
+msgid "App Selection"
+msgstr "Выбор приложений"
+
+msgid "Country"
+msgstr "Страна"
+
+msgid "Country (show trade partners)"
+msgstr "Страны (участники выставки)"
+
+msgid "Products"
+msgstr "Продукция"
+
+msgid "Bilateral"
+msgstr "Двусторонний"
+
+msgid "Exports"
+msgstr "Экспорт"
+
+msgid "Imports"
+msgstr "Импорт"
+
+msgid "Net Exports"
+msgstr "Чистый экспорт"
+
+msgid "Net Imports"
+msgstr "Чистый импорт"
+
+msgid "Exports To Destination"
+msgstr "Экспорт назначения"
+
+msgid "Imports From Origin"
+msgstr "Импорт из стран происхождения"
+
+msgid "Exports by Product"
+msgstr "Экспорт по продукту"
+
+msgid "Imports by Product"
+msgstr "Импорт по продукту"
+
+msgid "Play"
+msgstr "Играть"
+
+msgid "Stop"
+msgstr "Стоп"
+
+msgid "Controls"
+msgstr "Управления"
+
+msgid "Trade Flow"
+msgstr "Торговых потоков"
+
+msgid "Origin Country"
+msgstr "Страна происхождения"
+
+msgid "Destination Country"
+msgstr "Страна назначения"
+
+msgid "Product"
+msgstr "Продукт"
+
+msgid "Year"
+msgstr "Год"
+
+msgid "Start Year"
+msgstr "Начало года"
+
+msgid "End Year"
+msgstr "К концу года"
+
+msgid "Year Interval"
+msgstr "Летнего перерыва"
+
+msgid "Build Visualization"
+msgstr "Построение визуализации"
+
+msgid "Download PDF"
+msgstr "Скачать PDF"
+
+msgid "Download SVG"
+msgstr "Скачать SVG"
+

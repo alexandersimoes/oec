@@ -10,10 +10,10 @@ function stacked_draw(args){
 		h = height - padding[0] - padding[2],
 		year_parts = args.year.split(".").map(function(y){ return parseInt(y); }),
 		years = d3.range(year_parts[0], year_parts[1]+1, year_parts[2]),
-		mouseover = args.mouseover || "true",
-		sort = args.sort || "category",
-		labels = args.labels || "true",
-		layout = args.layout || "value";
+		mouseover = args.other ? args.other.mouseover || "true" : "true",
+		sort = args.other ? args.other.sort || "category" : "category",
+		labels = args.other ? args.other.labels || "true" : "true",
+		layout = args.other ? args.other.layout || "value" : "value";
 	
 	// Nest raw data
 	var raw_data = d3.nest()
@@ -43,22 +43,22 @@ function stacked_draw(args){
 	});
 
 	var area = d3.svg.area()
-	    .x(function(d) { return d.x * w / max_x; })
-	    .y0(function(d) { return h - d.y0 * h / max_y; })
-	    .y1(function(d) { return h - (d.y + d.y0) * h / max_y; });
+		.x(function(d) { return d.x * w / max_x; })
+		.y0(function(d) { return h - d.y0 * h / max_y; })
+		.y1(function(d) { return h - (d.y + d.y0) * h / max_y; });
 
 	var svg = d3.select(selector).html("").append("svg:svg")
 		.attr("width", w + padding[1] + padding[3])
 		.attr("height", h + padding[0] + padding[2]);
 
-	var stacked = svg.append("svg:g")
+	var stacked = svg.append("g")
 		.attr("class", "stacked")
 		.attr("transform", "translate(" + padding[3] + "," + padding[0] + ")");
 		
 	var paths = stacked.selectAll("path")
-		.data(data).enter().append("svg:path")
+		.data(data).enter().append("path")
 		.attr("class", function(d){
-			return d.meta.category_id;
+			return "cat_"+d.meta.category_id;
 		})
 		.attr("fill", function(d) {
 			return d.meta.category_color;

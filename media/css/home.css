@@ -73,6 +73,12 @@
 .home #main #content .app {
 	margin: 10px 0 0 0;
 }
+.home #main #content .app h3{
+	font-size: 28px;
+	font-weight: normal;
+	margin: 0 0 0 0;
+	text-align: center;
+}
 .home #main #content .other_apps h3{
 	font-size: 28px;
 	font-weight: normal;

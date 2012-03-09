@@ -1,0 +1,111 @@
+# Observatory website translations from english to spanish
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <simoes@mit.edu>, 2012.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-13 11:44-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+msgid "Export"
+msgstr "تصدير"
+
+msgid "Import"
+msgstr "استيراد"
+
+msgid "Net Export"
+msgstr "صافي الصادرات"
+
+msgid "Net Import"
+msgstr "صافي الاستيراد"
+
+msgid "App Selection"
+msgstr "اختيار التطبيق"
+
+msgid "Country"
+msgstr "بلد"
+
+msgid "Country (show trade partners)"
+msgstr "بلد (الشركاء التجاريين عرض)"
+
+msgid "Products"
+msgstr "المنتجات"
+
+msgid "Bilateral"
+msgstr "ثنائي"
+
+msgid "Exports"
+msgstr "صادرات"
+
+msgid "Imports"
+msgstr "واردات"
+
+msgid "Net Exports"
+msgstr "صافي الصادرات"
+
+msgid "Net Imports"
+msgstr "صافي الواردات"
+
+msgid "Exports To Destination"
+msgstr "الصادرات إلى الوجهة"
+
+msgid "Imports From Origin"
+msgstr "واردات من أصل"
+
+msgid "Exports by Product"
+msgstr "الصادرات حسب المنتج"
+
+msgid "Imports by Product"
+msgstr "واردات من قبل المنتج"
+
+msgid "Play"
+msgstr "لعب"
+
+msgid "Stop"
+msgstr "توقف"
+
+msgid "Controls"
+msgstr "ضوابط"
+
+msgid "Trade Flow"
+msgstr "تدفق التجارة"
+
+msgid "Origin Country"
+msgstr "بلد المنشأ"
+
+msgid "Destination Country"
+msgstr "الوجهة القطرية"
+
+msgid "Product"
+msgstr "المنتج"
+
+msgid "Year"
+msgstr "عام"
+
+msgid "Start Year"
+msgstr "تبدأ السنة"
+
+msgid "End Year"
+msgstr "نهاية السنة"
+
+msgid "Year Interval"
+msgstr "الفاصل الزمني العام"
+
+msgid "Build Visualization"
+msgstr "بناء التصور"
+
+msgid "Download PDF"
+msgstr "تحميل PDF"
+
+msgid "Download SVG"
+msgstr "تحميل SVG"
+

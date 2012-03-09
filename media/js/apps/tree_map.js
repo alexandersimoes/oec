@@ -6,7 +6,7 @@ function tree_map_draw(args){
 		width = args.width || $(selector).width(),
 		height = args.height || $(selector).height(),
 		year = args.year || 2009,
-		mouseover = args.mouseover || "true";
+		mouseover = args.other ? args.other.mouseover || "true" : "true";
 
 	// Get data in proper format for treemap function
 	var this_years_data = raw_data.filter(function(x){return x.year == year});
@@ -34,9 +34,16 @@ function tree_map_draw(args){
 	})
 	var cell = svg.selectAll("g")
 		.data(tree_map)
-	var cell_enter = cell.enter().append("svg:g")
-	cell_enter.append("svg:rect").attr("fill", "white").attr("stroke", "white");
-	cell_enter.append("svg:text")
+		
+	var cell_enter = cell.enter().append("g")
+		.attr("class", function(d){
+			if(!d.children){
+				return "cat_"+attr_data[d.data.item_id].category_id;
+			}
+		})
+		
+	cell_enter.append("rect").attr("fill", "white").attr("stroke", "white");
+	cell_enter.append("text")
 	// Update
 	cell.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
 	cell.select("rect")
@@ -44,7 +51,7 @@ function tree_map_draw(args){
 		.attr("stroke-width", 0.4)
 		.attr("fill", function(d) {
 			if(d.children){
-				return "transparent";
+				return "white";
 			}
 			else {
 				return attr_data[d.data.item_id].category_color;
@@ -70,9 +77,10 @@ function tree_map_draw(args){
 			return d.dy
 		})
 	cell.select("text")
-		.attr("font-family", "'PT Sans Narrow', 'Helvetica Neue', Helvetica, Arial, sans-serif")
+		.attr("font-family", "'PT Sans Narrow', 'Arial Narrow', 'Helvetica Neue', Helvetica, Arial, sans-serif")
+		.attr("font-stretch", "condensed")
 		.attr("font-size", tmap_get_text_height("font-size"))
-		.attr("font-stretch", "narrower")
+		.attr("letter-spacing", "-1px")
 		.attr("x", 2)
 		// .attr("y", 10)
 		.attr("y", tmap_get_text_height("y"))

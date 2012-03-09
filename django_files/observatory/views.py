@@ -6,6 +6,7 @@ from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect
 import json
 # Project specific
 from atlas.languages import supported_langs
+from django.utils.translation import gettext as _
 # App specific
 from observatory.models import *
 
@@ -20,6 +21,8 @@ def about(request):
 	return render_to_response("about/index.html", {"supported_langs": supported_langs})
 def team(request):
 	return render_to_response("about/team.html", {"supported_langs": supported_langs})
+def permissions(request):
+	return render_to_response("about/permissions.html", {"supported_langs": supported_langs})
 
 def api(request):
 	return render_to_response("api/index.html", {"supported_langs": supported_langs})
@@ -175,14 +178,21 @@ def explore(request, app_name, trade_flow, country1, country2, product, year):
 	# raise Exception(country1, country2, product, year)
 	# Get URL query parameters
 	format = request.GET.get("format", False)
-	lang = request.GET.get("lang", False)
+	# lang = request.GET.get("lang", False)
+	if 'django_language' in request.session:
+		lang = request.session['django_language']
+	else:
+		lang = "en"
+	lang = request.GET.get("lang", lang)
 	crawler = request.GET.get("_escaped_fragment_", False)
 	
 	country1_list, country2_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None, None
+	# What is actually being shown on the page
+	item_type = "products"
 	
-	trade_flow_list = ["export", "import", "net_export", "net_import"]
+	trade_flow_list = [("export", _("Export")), ("import", _("Import")), ("net_export", _("Net Export")), ("net_import", _("Net Import"))]
 	if app_name == "product_space":
-		trade_flow_list = ["export"]
+		trade_flow_list = [trade_flow_list[0]]
 	
 	year1_list = range(1962, 2010, 1)
 	if "." in year:
@@ -214,7 +224,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year):
 		country1 = Country.objects.get(name_3char=country1)
 		country1_list = Country.objects.get_all(lang)
 		
-		# country2, product = None, None
+		item_type = "countries"
 		
 		article = "to" if trade_flow == "export" else "from"
 		title = "Where does %s %s %s?" % (country1.name, trade_flow.replace("_", " "), article)
@@ -224,7 +234,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year):
 		product = Sitc4.objects.get(code=product)
 		product_list = Sitc4.objects.get_all(lang)
 		
-		# country1, country2 = None, None
+		item_type = "countries"
 		
 		title = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
 	
@@ -237,8 +247,8 @@ def explore(request, app_name, trade_flow, country1, country2, product, year):
 		country1_list = Country.objects.get_all(lang)
 		country2_list = country1_list
 		# trade_flow_list = ["export", "import"]
-		if "net_export" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_export")]
-		if "net_import" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_import")]
+		if _("net_export") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_export"))]
+		if _("net_import") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_import"))]
 		
 		# product = None
 		
@@ -255,7 +265,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year):
 		if "net_export" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_export")]
 		if "net_import" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_import")]
 		
-		# country2 = None
+		item_type = "countries"
 		
 		article = "to" if trade_flow == "export" else "from"
 		title = "Where does %s %s %s %s?" % (country1.name, trade_flow, product.name_en, article)
@@ -280,7 +290,8 @@ def explore(request, app_name, trade_flow, country1, country2, product, year):
 		"year1_list": year1_list,
 		"year2_list": year2_list,
 		"year_interval_list": year_interval_list,
-		"api_uri": api_uri})
+		"api_uri": api_uri,
+		"item_type": item_type})
 
 def api_casy(request, trade_flow, country1, year):
 	lang = request.GET.get("lang", "en")
@@ -311,7 +322,7 @@ def api_sapy(request, trade_flow, product, year):
 	# casy means country1 / all / show / year
 	json_response["data"] = Sitc4_cpy.objects.sapy(product, trade_flow)
 	json_response["attr_data"] = Country.objects.get_all(lang)
-	json_response["title"] = "Who %s %s?" % (trade_flow.replace("_", " "), product.name_en)
+	json_response["title"] = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
 	json_response["product"] = product.to_json()
 	json_response["year"] = year
 	if "." in year:
@@ -329,7 +340,7 @@ def api_csay(request, trade_flow, country1, year):
 	article = "to" if trade_flow == "export" else "from"
 	json_response = {}
 	
-	# ccsy means country1 / countr2 / show / year
+	# csay means country1 / show / all / year
 	json_response["data"] = Sitc4_ccpy.objects.csay(country1, trade_flow)
 	json_response["attr_data"] = Country.objects.get_all(lang)
 	json_response["title"] = "Where does %s %s %s?" % (country1.name, trade_flow, article)
@@ -388,3 +399,9 @@ def api_cspy(request, trade_flow, country1, product, year):
 		json_response["year_interval"] = year_parts[2]
 
 	return HttpResponse(json.dumps(json_response))
+
+# Embed for iframe
+def embed(request, app_name, trade_flow, country1, country2, product, year):
+	lang = request.GET.get("lang", "en")
+	query_string = request.GET
+	return render_to_response("explore/embed.html", {"app":app_name, "trade_flow": trade_flow, "country1":country1, "country2":country2, "product":product, "year":year, "other":json.dumps(query_string), "lang":lang})

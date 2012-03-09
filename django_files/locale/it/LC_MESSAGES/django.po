@@ -1,0 +1,111 @@
+# Observatory website translations from english to spanish
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <simoes@mit.edu>, 2012.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-13 11:44-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+msgid "Export"
+msgstr "Esportare"
+
+msgid "Import"
+msgstr "Importare"
+
+msgid "Net Export"
+msgstr "Le esportazioni nette"
+
+msgid "Net Import"
+msgstr "Le importazioni nette"
+
+msgid "App Selection"
+msgstr "Apps"
+
+msgid "Country"
+msgstr "Paese"
+
+msgid "Country (show trade partners)"
+msgstr "Paese (partner commerciali)"
+
+msgid "Products"
+msgstr "Prodotti"
+
+msgid "Bilateral"
+msgstr "Bilaterale"
+
+msgid "Exports"
+msgstr "Esportazioni"
+
+msgid "Imports"
+msgstr "Importazioni"
+
+msgid "Net Exports"
+msgstr "Le esportazioni nette"
+
+msgid "Net Imports"
+msgstr "Le importazioni nette"
+
+msgid "Exports To Destination"
+msgstr "Le esportazioni per destinazione"
+
+msgid "Imports From Origin"
+msgstr "Importazioni di origine"
+
+msgid "Exports by Product"
+msgstr "Esportazioni per prodotto"
+
+msgid "Imports by Product"
+msgstr "Importazioni per prodotto"
+
+msgid "Play"
+msgstr "Giocare"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Controls"
+msgstr "Controlli"
+
+msgid "Trade Flow"
+msgstr "Dei flussi commerciali"
+
+msgid "Origin Country"
+msgstr "Paese di origine"
+
+msgid "Destination Country"
+msgstr "Paese di destinazione"
+
+msgid "Product"
+msgstr "Prodotto"
+
+msgid "Year"
+msgstr "Anno"
+
+msgid "Start Year"
+msgstr "Primo anno"
+
+msgid "End Year"
+msgstr "Ultimo anno"
+
+msgid "Year Interval"
+msgstr "Intervallo (anni)"
+
+msgid "Build Visualization"
+msgstr "Mostra Edilizia"
+
+msgid "Download PDF"
+msgstr "Scarica PDF"
+
+msgid "Download SVG"
+msgstr "Scarica SVG"
+
