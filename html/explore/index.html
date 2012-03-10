@@ -81,7 +81,8 @@
 				<!-- Right icon -->
 				{% if country2_list %}
 				<img class="img right" src="/media/img/icons/flag_{{ country2.name_3char }}.png" alt="{{country2.name}}">
-				{% elif country1_list and product_list %}
+				{% endif %}
+				{% if country1_list and product_list %}
 				<img class="img right community" src="/media/img/icons/community_{{ product.community.id }}.png" alt="{{product.name_en}}">
 				{% endif %}
 				
