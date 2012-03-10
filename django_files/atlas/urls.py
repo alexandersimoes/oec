@@ -1,4 +1,5 @@
-from django.conf.urls import patterns, include, url
+#from django.conf.urls import patterns, include
+from django.conf.urls.defaults import *
 from django.views.generic.simple import redirect_to
 
 urlpatterns = patterns('',
