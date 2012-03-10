@@ -68,7 +68,7 @@
 				{% if product_list and not country1_list %}
 				<img class="img left community" src="/media/img/icons/community_{{ product.community.id }}.png" alt="product.name_en">
 				{% else %}
-				<img class="img left" src="/media/img/icons/flag_{{ country1.name_3char }}.png" alt="{{country1.name}}">
+				<img class="img left" src="/media/img/icons/flag_{{ country1.name_3char|lower }}.png" alt="{{country1.name}}">
 				{% endif %}
 				
 				<!-- year(s) -->
@@ -80,7 +80,7 @@
 				
 				<!-- Right icon -->
 				{% if country2_list %}
-				<img class="img right" src="/media/img/icons/flag_{{ country2.name_3char }}.png" alt="{{country2.name}}">
+				<img class="img right" src="/media/img/icons/flag_{{ country2.name_3char|lower }}.png" alt="{{country2.name}}">
 				{% endif %}
 				{% if country1_list and product_list %}
 				<img class="img right community" src="/media/img/icons/community_{{ product.community.id }}.png" alt="{{product.name_en}}">
@@ -425,6 +425,7 @@
 	<script src="/media/js/libs/tipsy/tipsy.jquery.js" ></script>
 	<script src="/media/js/libs/chosen/chosen.jquery.min.js" ></script>
 	<script src="/media/js/libs/d3/d3.v2.min.js"></script>
+	<script src="/media/js/libs/d3/d3.superformula.js"></script>
 	<!-- App -->
 	<script src="/media/js/apps/tree_map.js"></script>
 	<script src="/media/js/apps/stacked.js"></script>

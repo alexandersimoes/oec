@@ -1,4 +1,4 @@
-åfunction product_space_draw(args){
+function product_space_draw(args){
 	
 	var attr_data = args.attr_data,
 		raw_data = args.raw_data,
