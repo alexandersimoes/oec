@@ -846,7 +846,7 @@
 	})
 	
 	$(".download a").click(function(){
-				
+		
 		var svg_xml = d3.select("svg")
 			.attr("title", title)
 			.attr("version", 1.1)
@@ -856,7 +856,11 @@
 		var format = $(this).attr("class");
 		$("input[name='format']").val(format);
 		
-		$("input[name='title']").val("justatest");
+		var title = window.location.pathname.split("/")
+		title.splice(0, 1)
+		title.splice(0, 1)
+		title.splice(title.length-1, 1)
+		$("input[name='title']").val(title.join("_"));
 				
 		$("input[name='svg_xml']").val(svg_xml) // Add this svg xml as the value of input
 		// Submitting the form will trigger the action with will bring up
