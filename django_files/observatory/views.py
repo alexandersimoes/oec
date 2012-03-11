@@ -38,20 +38,33 @@ except:
 @csrf_exempt
 def download(request):
 	svg = request.POST.get("svg_xml")
-	response = HttpResponse(svg, mimetype="application/octet-stream")
-	response["Content-Disposition"]= "attachment; filename=test.pdf"
-	
-	#doc = xml.dom.minidom.parseString(svg.encode( "utf-8" ))
-	#svg = doc.documentElement
+	title = request.POST.get("title")
+	format = request.POST.get("format")
 	
 	svg = rsvg.Handle(data=svg.encode("utf-8"))
 	x = width = svg.props.width
 	y = height = svg.props.height
 	
-	surf = cairo.PDFSurface(response, x, y)
-	cr = cairo.Context(surf)
-	svg.render_cairo(cr)
-	surf.finish()
+	if format == "svg":
+		surf = cairo.SVGSurface(response, x, y)
+		cr = cairo.Context(surf)
+		svg.render_cairo(cr)
+		surf.finish()
+			
+	elif format == "pdf":	
+		surf = cairo.PDFSurface(response, x, y)
+		cr = cairo.Context(surf)
+		svg.render_cairo(cr)
+		surf.finish()
+	
+	else:	
+		surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, x, y)
+		cr = cairo.Context(surf)
+		svg.render_cairo(cr)
+		surf.finish()
+	
+	# Need to change with actual title
+	response["Content-Disposition"]= "attachment; filename=%s.%s" % (title, format)
 	
 	return response
 	# svg = request.POST.get("svg_xml")
