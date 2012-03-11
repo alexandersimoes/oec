@@ -9,6 +9,7 @@ urlpatterns = patterns('',
 
 	# general site ##############################################################
 	(r'^$', 'observatory.views.home'),
+	(r'^download/$', 'observatory.views.download'),
 	
 	# about section
 	(r'^about/$', 'observatory.views.about'),

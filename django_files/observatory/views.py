@@ -2,6 +2,7 @@
 # Django
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect
+from django.views.decorators.csrf import csrf_exempt
 # General
 import json
 # Project specific
@@ -30,6 +31,46 @@ def api(request):
 def book(request):
 	return render_to_response("book/index.html", {"supported_langs": supported_langs})
 
+try:
+	import cairo, rsvg
+except:
+	pass
+def download(request):
+	svg = request.POST.get("svg_xml")
+	response = HttpResponse(svg, mimetype="application/octet-stream")
+	response["Content-Disposition"]= "attachment; filename=test.pdf"
+	
+	svg = rsvg.Handle(data=svg)
+	x = width = svg.props.width
+	y = height = svg.props.height
+	
+	surf = cairo.PDFSurface(response, x, y)
+	cr = cairo.Context(surf)
+	svg.render_cairo(cr)
+	surf.finish()
+	
+	return response
+	# svg = request.POST.get("svg_xml")
+	# title = request.POST.get("title")
+	# format = request.POST.get("format")
+	# if format == "svg":
+	# 	# Set mimetype to octet-stream to assure download from browser
+	# 	response = HttpResponse(svg, mimetype="application/octet-stream")
+	# elif format == "pdf":
+	# 	doc = xml.dom.minidom.parseString(svg.encode( "utf-8" ))
+	# 	svg = doc.documentElement
+	# 
+	# 	svgRenderer = SvgRenderer()
+	# 	svgRenderer.render(svg)
+	# 	drawing = svgRenderer.finish()
+	# 
+	# 	pdf = renderPDF.drawToString(drawing)
+	# 	response = HttpResponse(mimetype='application/pdf')
+	# 	response.write(pdf)		
+	# 
+	# # Need to change with actual title
+	# response["Content-Disposition"]= "attachment; filename=%s.%s" % (title, format)
+	# return response
 
 def app(request, app_name, trade_flow, filter, year):
 	# Get URL query parameters

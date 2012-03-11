@@ -391,7 +391,8 @@
 				<div class="download">
 					<h3>{% trans "Other options" %}</h3>
 					<img src="/media/img/app/download.png" /><a class="pdf" href="#">{% trans "Download PDF" %}</a><br />
-					<img src="/media/img/app/download.png" /><a class="svg" href="#">{% trans "Download SVG" %}</a>
+					<img src="/media/img/app/download.png" /><a class="svg" href="#">{% trans "Download SVG" %}</a><br />
+					<img src="/media/img/app/download.png" /><a class="png" href="#">PNG</a>
 				</div>
 				<div class="download">
 					<h3>{% trans "Embed" %}</h3>
@@ -415,6 +416,7 @@
 			<input type="hidden" name="format" value="svg" />
 			<input type="hidden" name="svg_xml" value="" />
 		</form>
+		<canvas style="display: none;" id="canvas" width="640px" height="500px"></canvas>
 	
 	</div> <!-- END #container -->
 	
@@ -425,6 +427,10 @@
 	<script src="/media/js/libs/tipsy/tipsy.jquery.js" ></script>
 	<script src="/media/js/libs/chosen/chosen.jquery.min.js" ></script>
 	<script src="/media/js/libs/d3/d3.v2.min.js"></script>
+	<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script> 
+	<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script>
+	<script type="text/javascript" src="http://www.nihilogic.dk/labs/canvas2image/canvas2image.js"></script> 
+	<script type="text/javascript" src="http://www.nihilogic.dk/labs/canvas2image/base64.js"></script>
 	<!-- App -->
 	<script src="/media/js/apps/tree_map.js"></script>
 	<script src="/media/js/apps/stacked.js"></script>
@@ -491,6 +497,7 @@
 	})
 	
 	// Download links
+	/*
 	$(".download a").click(function(){
 		var title = $(this).attr("alt");
 		// Get all SVG XML from page
@@ -510,6 +517,7 @@
 		$('form.download').submit();
 		return false;
 	})
+	*/
 	
 	// Embed link textbox
 	$(".app #main #tool_pane .embed_code").click(function(){
@@ -836,6 +844,95 @@
 		}
 		
 	})
+	
+	$(".png").click(function(){
+				
+		var svg_xml = d3.select("svg")
+			.attr("title", title)
+			.attr("version", 1.1)
+			.attr("xmlns", "http://www.w3.org/2000/svg")
+			.node().parentNode.innerHTML;
+		//load a svg snippet in the canvas with id = 'drawingArea'
+		// canvg(document.getElementById('canvas'), svg_xml)
+		
+		// Canvas2Image.saveAsPNG(document.getElementById('canvas'));
+		
+		// var img_txt = document.getElementById('canvas').toDataURL("image/png").replace("image/png", "image/octet-stream") + ";name=test.png"
+		
+		// var x = $("canvas").get(0).toDataURL("image/png")
+		// var img_code = window.btoa(x)
+		
+		// console.log(img_txt)
+		// this.href = img_txt;
+		// return true;
+
+		// return false;
+		
+		
+		$("input[name='svg_xml']").val(img_code) // Add this svg xml as the value of input
+		// Submitting the form will trigger the action with will bring up
+		// the /export page. The view for this page takes the values from
+		// POST request and prompts the user to download the file
+		// console.log(format)
+		$('form.download').submit();
+		return false;
+		
+	})
+	
+	
+	// var Base64Binary = {
+	// 	_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+	// 
+	// 	/* will return a  Uint8Array type */
+	// 	decodeArrayBuffer: function(input) {
+	// 		var bytes = Math.ceil( (3*input.length) / 4.0);
+	// 		var ab = new ArrayBuffer(bytes);
+	// 		this.decode(input, ab);
+	// 
+	// 		return ab;
+	// 	},
+	// 
+	// 	decode: function(input, arrayBuffer) {
+	// 		//get last chars to see if are valid
+	// 		var lkey1 = this._keyStr.indexOf(input.charAt(input.length-1));		 
+	// 		var lkey2 = this._keyStr.indexOf(input.charAt(input.length-1));		 
+	// 
+	// 		var bytes = Math.ceil( (3*input.length) / 4.0);
+	// 		if (lkey1 == 64) bytes--; //padding chars, so skip
+	// 		if (lkey2 == 64) bytes--; //padding chars, so skip
+	// 
+	// 		var uarray;
+	// 		var chr1, chr2, chr3;
+	// 		var enc1, enc2, enc3, enc4;
+	// 		var i = 0;
+	// 		var j = 0;
+	// 
+	// 		if (arrayBuffer)
+	// 			uarray = new Uint8Array(arrayBuffer);
+	// 		else
+	// 			uarray = new Uint8Array(bytes);
+	// 
+	// 		input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+	// 
+	// 		for (i=0; i<bytes; i+=3) {	
+	// 			//get the 3 octects in 4 ascii chars
+	// 			enc1 = this._keyStr.indexOf(input.charAt(j++));
+	// 			enc2 = this._keyStr.indexOf(input.charAt(j++));
+	// 			enc3 = this._keyStr.indexOf(input.charAt(j++));
+	// 			enc4 = this._keyStr.indexOf(input.charAt(j++));
+	// 
+	// 			chr1 = (enc1 << 2) | (enc2 >> 4);
+	// 			chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+	// 			chr3 = ((enc3 & 3) << 6) | enc4;
+	// 
+	// 			uarray[i] = chr1;			
+	// 			if (enc3 != 64) uarray[i+1] = chr2;
+	// 			if (enc4 != 64) uarray[i+2] = chr3;
+	// 		}
+	// 
+	// 		return uarray;	
+	// 	}
+	// }
 	</script>
 	
 </body>
