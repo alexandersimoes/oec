@@ -170,15 +170,15 @@
 							<li><a class="disabled" href="#">Stepping Stone</a></li>
 						</ul>
 					</div>
-					<!-- <div>
+					<div>
 						<h3><a href="#">Maps</a></h3>
 						<ul>
-							<li><a href="/app/map/export/3330/2009/">Exports</a></li>
-							<li><a href="/app/map/export/3330/2009/">Imports</a></li>
-							<li><a class="product year" href="/app/map/net_export/3330/2009/">Net exports</a></li>
-							<li><a class="product year" href="/app/map/net_import/3330/2009/">Net imports</a></li>
+							<li><a href="/explore/map/export/show/all/3330/2009/">Exports</a></li>
+							<li><a href="/explore/map/export/show/all/3330/2009/">Imports</a></li>
+							<li><a href="/explore/map/net_export/show/all/3330/2009/">Net exports</a></li>
+							<li><a href="/explore/map/net_import/show/all/3330/2009/">Net imports</a></li>
 						</ul>
-					</div> -->
+					</div>
 				</div>
 			</div> <!-- END app selection pane -->
 		
@@ -429,6 +429,7 @@
 	<script src="/media/js/apps/tree_map.js"></script>
 	<script src="/media/js/apps/stacked.js"></script>
 	<script src="/media/js/apps/product_space.js"></script>
+	<script src="/media/js/apps/map.js"></script>
 	<script>
 	// google analytics
 	var _gaq=[['_setAccount','UA-22403682-3'],['_trackPageview']]; 
@@ -595,7 +596,7 @@
 		switch(app_name){
 			case "tree_map":
 				tree_map_draw(app_data);
-				set_accordion(0)
+				set_accordion(0);
 				break;
 			case "stacked":
 				stacked_draw(app_data);
@@ -603,7 +604,11 @@
 				break;
 			case "product_space":
 				product_space_draw(app_data);
-				set_accordion(2)
+				set_accordion(2);
+				break;
+			case "map":
+				map_draw(app_data);
+				set_accordion(4);
 				break;
 		}
 		
@@ -658,9 +663,10 @@
 		new_url.splice(2, 0, app_name) // add app name
 		new_url.splice(7, 1, json.year) // replace year in case slider is cause for new app
 		
-		new_embed_url.splice(1, 1, "embed")
+		new_embed_url.splice(1, 1, "embed");
+		new_embed_url.splice(2, 0, app_name);
 		
-		$(".app #main #tool_pane .embed_code").text('<iframe width="560" height="315" src="http://atlas.media.mit.edu'+new_embed_url.join("/")+'" frameborder="0"></iframe>')
+		$(".app #main #tool_pane .embed_code").val('<iframe width="560" height="315" src="http://atlas.media.mit.edu'+new_embed_url.join("/")+'" frameborder="0"></iframe>');
 		set_address(new_url.join("/"), json.title)
 		
 		d3.select("#loader").style("display", "none");
@@ -707,10 +713,18 @@
 			build_app(new_uri.join('/'), app_name)
 		}
 	}
-		
+	
 	if("{{item_type}}" == "countries"){
 		$(".key#communities").hide()
 		$(".key#regions").show()
+	}
+	else {
+		$(".key#communities").show()
+		$(".key#regions").hide()
+	}
+	if("{{app_name}}" == "map"){
+		$(".key#communities").hide()
+		$(".key#regions").hide()
 	}
 	
 	// Key mouseovers
