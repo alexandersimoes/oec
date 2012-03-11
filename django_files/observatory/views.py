@@ -32,15 +32,19 @@ def book(request):
 	return render_to_response("book/index.html", {"supported_langs": supported_langs})
 
 try:
-	import cairo, rsvg
+	import cairo, rsvg, xml.dom.minidom
 except:
 	pass
+@csrf_exempt
 def download(request):
 	svg = request.POST.get("svg_xml")
 	response = HttpResponse(svg, mimetype="application/octet-stream")
 	response["Content-Disposition"]= "attachment; filename=test.pdf"
 	
-	svg = rsvg.Handle(data=svg)
+	#doc = xml.dom.minidom.parseString(svg.encode( "utf-8" ))
+	#svg = doc.documentElement
+	
+	svg = rsvg.Handle(data=svg.encode("utf-8"))
 	x = width = svg.props.width
 	y = height = svg.props.height
 	
