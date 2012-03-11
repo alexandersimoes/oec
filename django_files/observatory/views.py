@@ -46,18 +46,21 @@ def download(request):
 	y = height = svg.props.height
 	
 	if format == "svg":
+		response = HttpResponse(mimetype='application/octet-stream')
 		surf = cairo.SVGSurface(response, x, y)
 		cr = cairo.Context(surf)
 		svg.render_cairo(cr)
 		surf.finish()
 			
 	elif format == "pdf":	
+		response = HttpResponse(mimetype='application/pdf')
 		surf = cairo.PDFSurface(response, x, y)
 		cr = cairo.Context(surf)
 		svg.render_cairo(cr)
 		surf.finish()
 	
 	else:	
+		response = HttpResponse(mimetype='image/png')
 		surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, x, y)
 		cr = cairo.Context(surf)
 		svg.render_cairo(cr)
