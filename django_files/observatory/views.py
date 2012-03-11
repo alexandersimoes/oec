@@ -37,16 +37,16 @@ except:
 	pass
 @csrf_exempt
 def download(request):
-	svg = request.POST.get("svg_xml")
+	svg_xml = request.POST.get("svg_xml")
 	title = request.POST.get("title")
 	format = request.POST.get("format")
 	
-	svg = rsvg.Handle(data=svg.encode("utf-8"))
+	svg = rsvg.Handle(data=svg_xml.encode("utf-8"))
 	x = width = svg.props.width
 	y = height = svg.props.height
 	
 	if format == "svg":
-		response = HttpResponse(svg, mimetype="application/octet-stream")
+		response = HttpResponse(svg_xml, mimetype="application/octet-stream")
 			
 	elif format == "pdf":	
 		response = HttpResponse(mimetype='application/pdf')
