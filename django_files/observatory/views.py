@@ -64,7 +64,7 @@ def download(request):
 		surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, x, y)
 		cr = cairo.Context(surf)
 		svg.render_cairo(cr)
-		surf.finish()
+		surf.write_to_png(response)
 	
 	# Need to change with actual title
 	response["Content-Disposition"]= "attachment; filename=%s.%s" % (title, format)
