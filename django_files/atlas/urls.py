@@ -20,7 +20,6 @@ urlpatterns = patterns('',
 
 
 )
-=======
 	# Explore (App) #############################################################
 	# Legacy app redirect
 	(r'^app/(?P<app_name>[a-z0-9_]+)/(?P<trade_flow>\w{6,10})/(?P<filter>[a-z0-9\.]+)/(?P<year>[0-9\.]+)/$', 'observatory.views.app_redirect'),
