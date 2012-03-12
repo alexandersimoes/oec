@@ -5,7 +5,7 @@ from django.views.generic.simple import redirect_to
 urlpatterns = patterns('',
 	# internationalization ######################################################
 	(r'^i18n/', include('django.conf.urls.i18n')),
-	(r'^set_language/(?P<lang>[a-z-]{2,5})/$', 'atlas.languages.set_language'),
+	(r'^set_language/(?P<lang>[a-z-]{2,5})/$', 'observatory.views.set_language'),
 
 	# general site ##############################################################
 	(r'^$', 'observatory.views.home'),
