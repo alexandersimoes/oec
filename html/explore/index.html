@@ -426,10 +426,6 @@
 	<script src="/media/js/libs/tipsy/tipsy.jquery.js" ></script>
 	<script src="/media/js/libs/chosen/chosen.jquery.min.js" ></script>
 	<script src="/media/js/libs/d3/d3.v2.min.js"></script>
-	<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script> 
-	<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script>
-	<script type="text/javascript" src="http://www.nihilogic.dk/labs/canvas2image/canvas2image.js"></script> 
-	<script type="text/javascript" src="http://www.nihilogic.dk/labs/canvas2image/base64.js"></script>
 	<!-- App -->
 	<script src="/media/js/apps/tree_map.js"></script>
 	<script src="/media/js/apps/stacked.js"></script>
@@ -443,10 +439,9 @@
 	s.parentNode.insertBefore(g,s)}(document,'script'));
 	
 	// default vars
-	var lang = "{{LANGUAGE_CODE|safe}}",
-		request = window.location.pathname + "?format=json&lang={{LANGUAGE_CODE}}",
-		stop_animation = false,
-		animation_timer = 0;
+	// var lang = "{{LANGUAGE_CODE|safe}}",
+		// request = window.location.pathname + "?format=json&lang={{LANGUAGE_CODE}}",
+	var playing = false;
 	
 	// General page stuff
 		
@@ -484,40 +479,6 @@
 	$('#key a').tipsy({"gravity":'s',"fade":true});
 	$("#key a").click(function(){return false;});
 
-	$("#play").click(function(){
-		$(this).hide();
-		$("#stop").show();
-		return false;
-	})
-	$("#stop").click(function(){
-		$(this).hide();
-		$("#play").show();
-		return false;
-	})
-	
-	// Download links
-	/*
-	$(".download a").click(function(){
-		var title = $(this).attr("alt");
-		// Get all SVG XML from page
-		var svg_xml = d3.select("svg")
-			.attr("title", title)
-			.attr("version", 1.1)
-			.attr("xmlns", "http://www.w3.org/2000/svg")
-			.node().parentNode.innerHTML;
-		$("input[name='svg_xml']").val(svg_xml) // Add this svg xml as the value of input
-		var format = $(this).attr("class");
-		$("input[name='format']").val(format);
-		$("input[name='title']").val(title);
-		// Submitting the form will trigger the action with will bring up
-		// the /export page. The view for this page takes the values from
-		// POST request and prompts the user to download the file
-		// console.log(format)
-		$('form.download').submit();
-		return false;
-	})
-	*/
-	
 	// Embed link textbox
 	$(".app #main #tool_pane .embed_code").click(function(){
 		$(this).focus();
@@ -579,13 +540,32 @@
 			// play button event
 			$("#play").click(function(){
 				interval_id = window.setInterval(function(){
-					json.year++;
-				  update_app(json, app_name, request)
+					if(playing && json.year >= 2009){
+						playing = false;
+						$("#play").show();
+						$("#stop").hide();
+						window.clearInterval(interval_id);
+						return;
+					}
+					if(json.year >= 2009){
+						json.year = 1962;
+					}
+					else{
+						json.year++;
+					}
+					update_app(json, app_name, request)
+					playing = true;
 				}, 800);
+				$(this).hide();
+				$("#stop").show();
 			})
 			// stop button
 			$("#stop").click(function(){
 				window.clearInterval(interval_id);
+				$(this).hide();
+				$("#play").show();
+				playing = false;
+				return false;
 			});
 			
 		});
