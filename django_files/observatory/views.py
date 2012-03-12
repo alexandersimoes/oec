@@ -3,10 +3,10 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect
 from django.views.decorators.csrf import csrf_exempt
+from django.template import RequestContext
 # General
 import json
 # Project specific
-from atlas.languages import supported_langs
 from django.utils.translation import gettext as _
 # App specific
 from observatory.models import *
@@ -16,27 +16,44 @@ def home(request):
 		ip = request.META["HTTP_X_FORWARDED_FOR"]
 	except KeyError:
 		ip = request.META["REMOTE_ADDR"]
-	return render_to_response("home.html", {"client_ip": ip, "supported_langs": supported_langs})
+	return render_to_response("home.html", context_instance=RequestContext(request))
 
 def about(request):
-	return render_to_response("about/index.html", {"supported_langs": supported_langs})
+	return render_to_response("about/index.html", context_instance=RequestContext(request))
 def team(request):
-	return render_to_response("about/team.html", {"supported_langs": supported_langs})
+	return render_to_response("about/team.html", context_instance=RequestContext(request))
 def permissions(request):
-	return render_to_response("about/permissions.html", {"supported_langs": supported_langs})
+	return render_to_response("about/permissions.html", context_instance=RequestContext(request))
 
 def api(request):
-	return render_to_response("api/index.html", {"supported_langs": supported_langs})
+	return render_to_response("api/index.html", context_instance=RequestContext(request))
 
 def book(request):
-	return render_to_response("book/index.html", {"supported_langs": supported_langs})
+	return render_to_response("book/index.html", context_instance=RequestContext(request))
 
-try:
-	import cairo, rsvg, xml.dom.minidom
-except:
-	pass
-@csrf_exempt
+def set_language(request, lang):
+	next = request.REQUEST.get('next', None)
+	if not next:
+		next = request.META.get('HTTP_REFERER', None)
+	if not next:
+		next = '/'
+	response = HttpResponseRedirect(next)
+	# if request.method == 'GET':
+	# 	lang_code = request.GET.get('language', None)
+	lang_code = lang
+	if lang_code:
+		if hasattr(request, 'session'):
+			request.session['django_language'] = lang_code
+		else:
+			response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
+			translation.activate(lang_code)
+	return response
+
 def download(request):
+	try:
+		import cairo, rsvg, xml.dom.minidom
+	except:
+		pass
 	svg_xml = request.POST.get("svg_xml")
 	title = request.POST.get("title")
 	format = request.POST.get("format")
@@ -66,27 +83,6 @@ def download(request):
 	response["Content-Disposition"]= "attachment; filename=%s.%s" % (title, format)
 	
 	return response
-	# svg = request.POST.get("svg_xml")
-	# title = request.POST.get("title")
-	# format = request.POST.get("format")
-	# if format == "svg":
-	# 	# Set mimetype to octet-stream to assure download from browser
-	# 	response = HttpResponse(svg, mimetype="application/octet-stream")
-	# elif format == "pdf":
-	# 	doc = xml.dom.minidom.parseString(svg.encode( "utf-8" ))
-	# 	svg = doc.documentElement
-	# 
-	# 	svgRenderer = SvgRenderer()
-	# 	svgRenderer.render(svg)
-	# 	drawing = svgRenderer.finish()
-	# 
-	# 	pdf = renderPDF.drawToString(drawing)
-	# 	response = HttpResponse(mimetype='application/pdf')
-	# 	response.write(pdf)		
-	# 
-	# # Need to change with actual title
-	# response["Content-Disposition"]= "attachment; filename=%s.%s" % (title, format)
-	# return response
 
 def app(request, app_name, trade_flow, filter, year):
 	# Get URL query parameters
@@ -188,7 +184,6 @@ def app(request, app_name, trade_flow, filter, year):
 	
 	# Return page without visualization data
 	return render_to_response("app/index.html", {
-		"supported_langs": supported_langs,
 		"title": title,
 		"trade_flow": trade_flow,
 		"country1": country1,
@@ -202,7 +197,7 @@ def app(request, app_name, trade_flow, filter, year):
 		"year1_list": year1_list,
 		"year2_list": year2_list,
 		"year_interval": year_interval,
-		"year_interval_list": year_interval_list})
+		"year_interval_list": year_interval_list}, context_instance=RequestContext(request))
 
 def app_redirect(request, app_name, trade_flow, filter, year):
 	# Corrent for old spelling of tree map as one word
@@ -329,7 +324,6 @@ def explore(request, app_name, trade_flow, country1, country2, product, year):
 	
 	# Return page without visualization data
 	return render_to_response("explore/index.html", {
-		"supported_langs": supported_langs,
 		"app_name": app_name,
 		"title": title,
 		"trade_flow": trade_flow,
@@ -348,7 +342,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year):
 		"year2_list": year2_list,
 		"year_interval_list": year_interval_list,
 		"api_uri": api_uri,
-		"item_type": item_type})
+		"item_type": item_type}, context_instance=RequestContext(request))
 
 def api_casy(request, trade_flow, country1, year):
 	lang = request.GET.get("lang", "en")

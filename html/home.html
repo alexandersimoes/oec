@@ -1,5 +1,3 @@
-{% load i18n %}
-{% get_current_language as LANGUAGE_CODE %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,10 +37,10 @@
 				<p>
 					Change Language:
 					{% for lang in supported_langs %}
-						{% if lang.0 == LANGUAGE_CODE %}
-						<a href="/set_language/{{lang.0}}/" title="{{lang.2}}"><img class="selected_lang" src="/media/img/icons/flag_{{lang.1}}.png" alt="{{lang.2}}" /></a>
+						{% if lang.0.code == LANGUAGE_CODE %}
+						<a href="/set_language/{{lang.0.code}}/" title="{{lang.0.name_local}}"><img class="selected_lang" src="/media/img/icons/flag_{{lang.1}}.png" alt="lang.0.lang_local" /></a>
 						{% else %}
-						<a href="/set_language/{{lang.0}}/" title="{{lang.2}}"><img src="/media/img/icons/flag_{{lang.1}}.png" alt="{{lang.2}}" /></a>
+						<a href="/set_language/{{lang.0.code}}/" title="{{lang.0.name_local}}"><img src="/media/img/icons/flag_{{lang.1}}.png" alt="lang.0.lang_local" /></a>
 						{% endif %}
 					{% endfor %}
 				</p>

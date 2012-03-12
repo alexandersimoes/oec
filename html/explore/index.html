@@ -1,5 +1,4 @@
 {% load i18n %}
-{% get_current_language as LANGUAGE_CODE %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -48,11 +47,10 @@
 				<p>
 					Change Language:
 					{% for lang in supported_langs %}
-						{% get_language_info for lang.0 as l %}
-						{% if lang.0 == LANGUAGE_CODE %}
-						<a href="/set_language/{{l.code}}/" title="{{l.name_local}}"><img class="selected_lang" src="/media/img/icons/flag_{{lang.1}}.png" alt="{{l.name_local}}" /></a>
+						{% if lang.0.code == LANGUAGE_CODE %}
+						<a href="/set_language/{{lang.0.code}}/" title="{{lang.0.name_local}}"><img class="selected_lang" src="/media/img/icons/flag_{{lang.1}}.png" alt="lang.0.lang_local" /></a>
 						{% else %}
-						<a href="/set_language/{{l.code}}/" title="{{l.name_local}}"><img src="/media/img/icons/flag_{{lang.1}}.png" alt="{{l.name_local}}" /></a>
+						<a href="/set_language/{{lang.0.code}}/" title="{{lang.0.name_local}}"><img src="/media/img/icons/flag_{{lang.1}}.png" alt="lang.0.lang_local" /></a>
 						{% endif %}
 					{% endfor %}
 				</p>
@@ -411,6 +409,7 @@
 		</footer>
 		
 		<form class="download" method="POST" action="/download/">
+			{% csrf_token %}
 			<input type="hidden" name="url" value="" />
 			<input type="hidden" name="title" value="" />
 			<input type="hidden" name="format" value="svg" />
