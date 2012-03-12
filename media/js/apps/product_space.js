@@ -5,8 +5,8 @@ function product_space_draw(args){
 		selector = args.selector || window,
 		width = args.width || $(selector).width(),
 		height = args.height || $(selector).height(),
-		year = args.year || 2009,
-		mouseover = args.mouseover || "true";
+		year = parseInt(args.year) || 2009,
+		mouseover = args.other ? args.other.mouseover || "true" : "true";
 	
 	var this_years_data = raw_data.filter(function(x){return x.year == year});
 	
@@ -43,19 +43,21 @@ function product_space_draw(args){
 	
 	
 	// draw nodes
-	var nodes = svg.append("svg:g").attr("class", "nodes");
+	var nodes = svg.append("g").attr("class", "nodes");
 	nodes.selectAll("path")
 		.data(d3.values(attr_data))
 		.enter().append("path")
 		.attr("d", function(d){
 			this_item = this_years_data.filter(function(x){return x.item_id == d.id})[0]
 			if(this_item){
-				if(this_item.rca > 1) return square.size(size(d.ps_size) * 2)();
+				if(this_item.rca > 0.25) {
+					return square.size(size(d.ps_size) * 2)();
+				}
 			}
 			return circle.size(size(d.ps_size))()
 		})
 		.attr("class", function(d){
-			return "community_"+d.category_id;
+			return "cat_"+d.category_id;
 		})
 		.attr("transform", function(d){
 			return "translate(" + x(d.ps_x) + "," + y(d.ps_y) + ")";
@@ -66,31 +68,31 @@ function product_space_draw(args){
 		.attr("stroke", function(d){
 			this_item = this_years_data.filter(function(x){return x.item_id == d.id})[0]
 			if(this_item){
-				if(this_item.rca > 1) return "black";
+				if(this_item.rca > 0.25) return "black";
 			}
 			return "white";
 		})
 		.attr("stroke-width", function(d){
 			this_item = this_years_data.filter(function(x){return x.item_id == d.id})[0]
 			if(this_item){
-				if(this_item.rca > 1) return 2.5;
+				if(this_item.rca > 0.25) return 2.5;
 			}
 			return 1e-6;
 		})
 		.on("mouseover", function(d){
 			
 			var this_item = this_years_data.filter(function(x){return x.item_id == d.id})[0];
-			if(this_item.rca > 0.25
-				){
-				d3.select(this).attr("d", square.size(size(d.ps_size) * 4)())
-			}
-			else {
-				d3.select(this).attr("d", circle.size(size(d.ps_size) * 2)())
-			}
+			if(this_item){
+				if(this_item.rca > 0.25){
+					d3.select(this).attr("d", square.size(size(d.ps_size) * 4)())
+				}
+				else {
+					d3.select(this).attr("d", circle.size(size(d.ps_size) * 2)())
+				}
 			
-			
-			var sub_text = "Value: " + format_big_num(this_item.value)[0] + format_big_num(this_item.value)[1]
-				sub_text += this_item.rca ? " RCA: " + d3.format(".2f")(this_item.rca) : "";
+				var sub_text = "Value: " + format_big_num(this_item.value)[0] + format_big_num(this_item.value)[1]
+					sub_text += this_item.rca ? " RCA: " + d3.format(".2f")(this_item.rca) : "";
+			}
 			
 			var mouseover_d = {
 				"title": d.name,
@@ -104,11 +106,13 @@ function product_space_draw(args){
 			svg.select(".info").remove()
 			
 			var this_item = this_years_data.filter(function(x){return x.item_id == d.id})[0];
-			if(this_item.rca > 1){
-				d3.select(this).attr("d", square.size(size(d.ps_size) * 2)())
-			}
-			else {
-				d3.select(this).attr("d", circle.size(size(d.ps_size))())
+			if(this_item){
+				if(this_item.rca > 0.25){
+					d3.select(this).attr("d", square.size(size(d.ps_size) * 2)())
+				}
+				else {
+					d3.select(this).attr("d", circle.size(size(d.ps_size))())
+				}
 			}
 			
 		});

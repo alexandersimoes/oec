@@ -278,7 +278,7 @@ class Sitc4_ccpy_manager(models.Manager):
 		
 		if trade_flow == "import":
 			data = self.filter(
-				desintation = country1,
+				destination = country1,
 				origin__region__isnull=False,
 				origin__name_3char__isnull=False,
 				origin__name_2char__isnull=False).extra(select={'item_id': "origin_id"})

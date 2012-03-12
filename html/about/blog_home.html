@@ -11,6 +11,7 @@
 		<li><a href="/about/">About</a></li>
 		<li><a href="/about/team/">Team</a></li>
 		<li><a href="/about/blog/" class="active">Development Blog</a></li>
+		<li><a href="/about/permissions/">Permissions</a></li>
 	</ul>
 </nav>
 {% endblock %}
@@ -18,11 +19,9 @@
 {% block content %}
 	{% for p in posts %}
 	<div class="post">
-		<h3>{{p.title}}</h3>
+		<h3><a href="{{p.get_absolute_url}}">{{p.title}}</a></h3>
 		<p class="date">{{ p.created|date:"b j Y" }}</p>
-		{% autoescape off %}
-			{{ p.content_html }}
-		{% endautoescape %}
+		{{ p.content_html|safe }}
 	</div>
 	{% endfor %}
 {% endblock %}

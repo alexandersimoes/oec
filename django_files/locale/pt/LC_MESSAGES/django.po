@@ -1,0 +1,111 @@
+# Observatory website translations from english to spanish
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <simoes@mit.edu>, 2012.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-13 11:44-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+msgid "Export"
+msgstr "Exportar"
+
+msgid "Import"
+msgstr "Importar"
+
+msgid "Net Export"
+msgstr "Exportação Net"
+
+msgid "Net Import"
+msgstr "Importação Líquida"
+
+msgid "App Selection"
+msgstr "Seleção App"
+
+msgid "Country"
+msgstr "País"
+
+msgid "Country (show trade partners)"
+msgstr "País (parceiros feiras)"
+
+msgid "Products"
+msgstr "Produtos"
+
+msgid "Bilateral"
+msgstr "Bilateral"
+
+msgid "Exports"
+msgstr "Exportações"
+
+msgid "Imports"
+msgstr "Importações"
+
+msgid "Net Exports"
+msgstr "Exportações Líquidas"
+
+msgid "Net Imports"
+msgstr "Importação Líquida"
+
+msgid "Exports To Destination"
+msgstr "As exportações para o destino"
+
+msgid "Imports From Origin"
+msgstr "As importações de origem"
+
+msgid "Exports by Product"
+msgstr "Exportações por produto"
+
+msgid "Imports by Product"
+msgstr "Importações por Produto"
+
+msgid "Play"
+msgstr "Jogar"
+
+msgid "Stop"
+msgstr "Pare"
+
+msgid "Controls"
+msgstr "Controles"
+
+msgid "Trade Flow"
+msgstr "Fluxo de Comércio"
+
+msgid "Origin Country"
+msgstr "País de Origem"
+
+msgid "Destination Country"
+msgstr "País de Destino"
+
+msgid "Product"
+msgstr "Produto"
+
+msgid "Year"
+msgstr "Ano"
+
+msgid "Start Year"
+msgstr "Ano de Início"
+
+msgid "End Year"
+msgstr "Final de Ano"
+
+msgid "Year Interval"
+msgstr "Intervalo de Ano"
+
+msgid "Build Visualization"
+msgstr "Construir Visualization"
+
+msgid "Download PDF"
+msgstr "Download PDF"
+
+msgid "Download SVG"
+msgstr "Baixar SVG"
+

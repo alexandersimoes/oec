@@ -1,0 +1,111 @@
+# Observatory website translations from english to spanish
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <simoes@mit.edu>, 2012.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-13 11:44-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+msgid "Export"
+msgstr "Exportieren"
+
+msgid "Import"
+msgstr "Importieren"
+
+msgid "Net Export"
+msgstr "Netto Export"
+
+msgid "Net Import"
+msgstr "Net Import"
+
+msgid "App Selection"
+msgstr "App-Auswahl"
+
+msgid "Country"
+msgstr "Land"
+
+msgid "Country (show trade partners)"
+msgstr "Land (Karte Handelspartner)"
+
+msgid "Products"
+msgstr "Produkte"
+
+msgid "Bilateral"
+msgstr "Bilateral"
+
+msgid "Exports"
+msgstr "Ausfuhr"
+
+msgid "Imports"
+msgstr "Importe"
+
+msgid "Net Exports"
+msgstr "Nettoexporte"
+
+msgid "Net Imports"
+msgstr "Nettoeinfuhren"
+
+msgid "Exports To Destination"
+msgstr "Exporte nach Reiseziel"
+
+msgid "Imports From Origin"
+msgstr "Die Importe aus Origin"
+
+msgid "Exports by Product"
+msgstr "Die Exporte nach Produkt"
+
+msgid "Imports by Product"
+msgstr "Importe nach Gütergruppen"
+
+msgid "Play"
+msgstr "Spielen"
+
+msgid "Stop"
+msgstr "Stopp"
+
+msgid "Controls"
+msgstr "Steuerung"
+
+msgid "Trade Flow"
+msgstr "Handelsverkehr"
+
+msgid "Origin Country"
+msgstr "Origin Land"
+
+msgid "Destination Country"
+msgstr "Zielland"
+
+msgid "Product"
+msgstr "Produkt"
+
+msgid "Year"
+msgstr "Jahr"
+
+msgid "Start Year"
+msgstr "Beginn Jahr"
+
+msgid "End Year"
+msgstr "Ende Jahr"
+
+msgid "Year Interval"
+msgstr "Jahres-Intervall"
+
+msgid "Build Visualization"
+msgstr "Baue Visualisierung"
+
+msgid "Download PDF"
+msgstr "Download PDF"
+
+msgid "Download SVG"
+msgstr "Herunterladen SVG"
+

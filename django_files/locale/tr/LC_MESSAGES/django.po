@@ -1,0 +1,111 @@
+# Observatory website translations from english to spanish
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <simoes@mit.edu>, 2012.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-13 11:44-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+msgid "Export"
+msgstr "Ihracat"
+
+msgid "Import"
+msgstr "Ithal"
+
+msgid "Net Export"
+msgstr "Net İhracat"
+
+msgid "Net Import"
+msgstr "Net İthalat"
+
+msgid "App Selection"
+msgstr "Uygulama Seçimi"
+
+msgid "Country"
+msgstr "Ülke"
+
+msgid "Country (show trade partners)"
+msgstr "Ülke (gösterisi ticaret ortakları)"
+
+msgid "Products"
+msgstr "Ürünler"
+
+msgid "Bilateral"
+msgstr "Iki taraflı"
+
+msgid "Exports"
+msgstr "İhracat"
+
+msgid "Imports"
+msgstr "Ithalat"
+
+msgid "Net Exports"
+msgstr "Net İhracat"
+
+msgid "Net Imports"
+msgstr "Net İthalat"
+
+msgid "Exports To Destination"
+msgstr "Hedefe İhracat"
+
+msgid "Imports From Origin"
+msgstr "Kökeni Nereden İthalat"
+
+msgid "Exports by Product"
+msgstr "Ürün göre ihracat"
+
+msgid "Imports by Product"
+msgstr "Ürün Bazında"
+
+msgid "Play"
+msgstr "Oynamak"
+
+msgid "Stop"
+msgstr "Dur"
+
+msgid "Controls"
+msgstr "Kontrolleri"
+
+msgid "Trade Flow"
+msgstr "Ticaret Akış"
+
+msgid "Origin Country"
+msgstr "Menşe Ülke"
+
+msgid "Destination Country"
+msgstr "Hedef Ülke"
+
+msgid "Product"
+msgstr "Ürün"
+
+msgid "Year"
+msgstr "Yıl"
+
+msgid "Start Year"
+msgstr "Başlama Yılı"
+
+msgid "End Year"
+msgstr "Bitiş Yılı"
+
+msgid "Year Interval"
+msgstr "Yıl Aralığı"
+
+msgid "Build Visualization"
+msgstr "Görselleştirme oluşturun"
+
+msgid "Download PDF"
+msgstr "PDF indirin"
+
+msgid "Download SVG"
+msgstr "İndir SVG"
+
