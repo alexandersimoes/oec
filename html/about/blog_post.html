@@ -17,13 +17,10 @@
 {% endblock %}
 
 {% block content %}
-	{% for p in posts %}
-	<div class="post">
-		<h3><a href="{{p.get_absolute_url}}">{{p.title}}</a></h3>
-		<p class="date">{{ p.created|date:"b j Y" }}</p>
-		{{ p.content_html|safe }}
-	</div>
-	{% endfor %}
+<h3>{{post.title}}</h3>
+<p class="date">{{ post.created|date:"b j Y" }}</p>
+{{ post.content_html|safe }}
+
 {% endblock %}
 
 {% block js %}

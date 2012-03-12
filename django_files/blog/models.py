@@ -9,7 +9,7 @@ from datetime import datetime
 # from django.core.exceptions import ImproperlyConfigured
 # from django.db import models
 # from django.contrib.auth.models import User
-# from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse
 # from django.utils import simplejson as json
 # 
 # from django.contrib.sites.models import Site
@@ -103,6 +103,7 @@ class Post(models.Model):
 			kwargs = {
 				"post_pk": self.pk,
 			}
+		# raise Exception(kwargs)
 		return reverse(name, kwargs=kwargs)
 
 	def inc_views(self):
