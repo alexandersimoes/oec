@@ -29,10 +29,10 @@ def api(request):
 	return render_to_response("api/index.html", context_instance=RequestContext(request))
 
 def api_apps(request):
-	return render_to_response("api/apps.html", {"supported_langs": supported_langs})
+	return render_to_response("api/apps.html", context_instance=RequestContext(request))
 
 def api_data(request):
-	return render_to_response("api/apps.html", {"supported_langs": supported_langs})
+	return render_to_response("api/data.html", context_instance=RequestContext(request))
 
 def book(request):
 	return render_to_response("book/index.html", context_instance=RequestContext(request))

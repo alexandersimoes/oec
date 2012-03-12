@@ -12,23 +12,36 @@
 {% block sidebar %}
 <nav role="navigation">
 	<ul>
-		<li><a href="/api/" class ="active">Embed</a></li>
-		<li><a href="/api/apps">Example Apps</a></li>
-		<li><a href="/api/">Data</a></li>
+		<li><a href="/api/" class ="active">Embed</a>
+				<ul>
+				<li><a href="#basics">Basics</a></li>
+				<li><a href="#uri">Options</a></li>
+				<li><a href="#questions">Questions</a></li>
+				</ul>
+		</li>
+		<li><a href="/api/apps">Example Apps</a>
+		<ul>
+				<li><a href="#tree_maps">Tree Maps</a></li>
+				<li><a href="#stacked">Stacked Area Charts</a></li>
+				<li><a href="#product_space">Product Space</a></li>
+				</ul>
+		</li>
+		<li><a href="/api/data">Data</a></li>
 	</ul>
 </nav>
 {% endblock %}
 
 {% block content %}
 
+
 <h1>How to Embed Apps </h1>
-<div class="span9 columns">
-					<h2>The Basic Call Structure</h2>
+<div id = "basics" class="span9 columns">
+					<h3>The Basic Call Structure</h3>
 					<p>Below is the basic template used to embed an app on their own webpage.</p>
 					<pre class="prettyprint linenums">&lt;iframe src="http://atlas.media.mit.edu/embed/APP/TRADE_FLOW/COUNTRY1/COUNTRY2/PRODUCT/YEAR/"&gt;&lt;/iframe&gt;</pre>
 					<p>Which you will notice has the following parameters: <code>COUNTRY / COUNTRY / PRODUCT / YEAR</code>, a byproduct of the bilateral nature of the dataset from which the apps are being built.</p>
 </div>
-
+<section id ="uri">
 <h3>URI Options</h3>
 					<div class="accordion" id="accordion2">
 						<div class="accordion-group"> <!-- Apps -->
@@ -208,9 +221,45 @@
 						
 					</div> <!-- END accordion -->
 
-
-
-<div class ="span9 columns">
+<h2>Query parameter options</h2>
+					<table class="table table-bordered table-striped">
+						<thead>							
+							<tr>
+								<th>App</th>
+								<th>Name</th>
+								<th>Options</th>
+								<th>default</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td width="80px">All</th>
+								<td><code>mouseover</code></td>
+								<td><code>true</code>, <code>false</code></td>
+								<td><code>true</code></td>
+							</tr>
+							<tr>
+								<td width="80px">All</th>
+								<td><code>lang</code> (Language)</td>
+								<td>Deutsch: <code>de</code>, English: <code>en</code>, Español: <code>es</code>, français: <code>fr</code>, italiano: <code>it</code>, Nederlands: <code>nl</code>, português: <code>pt</code>, Pyccĸий: <code>ru</code>, Tϋrkçe: <code>tr</code>, Ελληνικά: <code>el</code>, 日本語: <code>ja</code>, 简体中文: <code>zh_cn</code>, 한국어: <code>ko</code>, हिंदी: <code>hi</code>, العربية: <code>ar</code>, עברית: <code>he</code></td>
+								<td><code>en</code></td>
+							</tr>
+							<tr>
+								<td width="80px">Stacked</th>
+								<td><code>layout</code></td>
+								<td><code>value</code>, <code>share</code></td>
+								<td><code>value</code></td>
+							</tr>
+							<tr>
+								<td width="80px">Stacked</th>
+								<td><code>sort</code></td>
+								<td><code>value</code>, <code>category</code></td>
+								<td><code>category</code></td>
+							</tr>
+						</tbody>
+					</table>
+</section>
+<div id = "questions" class ="span9 columns">
 <h2>Questions</h2>
 <h3>What does a country trade?</h3>
 <table class="table table-bordered table-striped">
@@ -333,43 +382,8 @@
 </table>	
 <p><b>Example:</b> Which countries exported cars in 2008? atlas.media.mit.edu/embed/tree_map/export/show/all/7810/2008/</p>
 
-<h2>Query parameter options</h2>
-					<table class="table table-bordered table-striped">
-						<thead>							
-							<tr>
-								<th>App</th>
-								<th>Name</th>
-								<th>Options</th>
-								<th>default</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td width="80px">All</th>
-								<td><code>mouseover</code></td>
-								<td><code>true</code>, <code>false</code></td>
-								<td><code>true</code></td>
-							</tr>
-							<tr>
-								<td width="80px">All</th>
-								<td><code>lang</code> (Language)</td>
-								<td>Deutsch: <code>de</code>, English: <code>en</code>, Español: <code>es</code>, français: <code>fr</code>, italiano: <code>it</code>, Nederlands: <code>nl</code>, português: <code>pt</code>, Pyccĸий: <code>ru</code>, Tϋrkçe: <code>tr</code>, Ελληνικά: <code>el</code>, 日本語: <code>ja</code>, 简体中文: <code>zh_cn</code>, 한국어: <code>ko</code>, हिंदी: <code>hi</code>, العربية: <code>ar</code>, עברית: <code>he</code></td>
-								<td><code>en</code></td>
-							</tr>
-							<tr>
-								<td width="80px">Stacked</th>
-								<td><code>layout</code></td>
-								<td><code>value</code>, <code>share</code></td>
-								<td><code>value</code></td>
-							</tr>
-							<tr>
-								<td width="80px">Stacked</th>
-								<td><code>sort</code></td>
-								<td><code>value</code>, <code>category</code></td>
-								<td><code>category</code></td>
-							</tr>
-						</tbody>
-					</table>
+
+
 					
 				</div> <!-- END span12 -->
 			</div> <!-- END row -->
