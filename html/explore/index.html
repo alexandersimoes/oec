@@ -528,6 +528,7 @@
 			var interval_id;
 			
 			// slider event
+			$("#timeline .slider").unbind( "slide");
 			$("#timeline .slider").bind( "slide", function(event, ui) {
 				json.year = parseInt(ui.value);
 				update_app(json, app_name, request);
@@ -538,6 +539,7 @@
 			});
 			
 			// play button event
+			$("#play").unbind("click");
 			$("#play").click(function(){
 				interval_id = window.setInterval(function(){
 					if(playing && json.year >= 2009){
@@ -560,6 +562,7 @@
 				$("#stop").show();
 			})
 			// stop button
+			$("#stop").unbind("click");
 			$("#stop").click(function(){
 				window.clearInterval(interval_id);
 				$(this).hide();

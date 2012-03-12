@@ -109,7 +109,7 @@ function tree_map_draw(args){
 			var a = attr_data[d.data.item_id]; // This items attributes
 			var mouseover_d = {
 				"title": a.name,
-				"img_src": a.code ? "http://atlas.media.mit.edu/media/img/community_icons/community_"+a.category_id+".png" : "http://atlas.media.mit.edu/media/img/flags/flag_"+a.name_3char.toLowerCase()+".png",
+				"img_src": a.code ? "http://atlas.media.mit.edu/media/img/icons/community_"+a.category_id+".png" : "http://atlas.media.mit.edu/media/img/icons/flag_"+a.name_3char.toLowerCase()+".png",
 				"sub_text": sub_text
 			}
 			make_mouseover(this, [width, height], mouseover_d)
