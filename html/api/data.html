@@ -1,0 +1,3925 @@
+{% extends "static_template.html" %}
+
+{% block page_title %}API{% endblock %}
+{% block heading_title %}API{% endblock %}
+
+{% block css %} 
+<link href="media/google-code-prettify/prettify.css" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block sidebar %}
+<nav role="navigation">
+	<ul>
+		<li><a href="/api/">Embed</a>
+				<ul>
+				<li><a href="#basics">Basics</a></li>
+				<li><a href="#uri">Options</a></li>
+				<li><a href="#questions">Questions</a></li>
+				</ul>
+		</li>
+		<li><a href="/api/apps">Example Apps</a>
+		<ul>
+				<li><a href="#tree_maps">Tree Maps</a></li>
+				<li><a href="#stacked">Stacked Area Charts</a></li>
+				<li><a href="#product_space">Product Space</a></li>
+				</ul>
+		</li>
+		<li><a href="/api/data" class = "active">Data</a>
+		<ul>
+			<li><a href="#countries">Countries</a></li>
+				<li><a href="#products">Products</a></li>
+		</ul>
+		</li>
+	</ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+<section id="data">
+			<div class="page-header">
+				<h1>Data </h1>
+				<h3>Mappings for URI elements</h3>
+			</div>
+			
+			<div class="row">
+				<div class="span6 columns" id = "countries">
+					<h2>Countries</h2>
+					<table class="table table-bordered table-striped table-condensed">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>3 Character Abbreviation</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Afghanistan</td>
+								<td><code>afg</code></td>
+							</tr>
+							<tr>
+								<td>Albania</td>
+								<td><code>alb</code></td>
+							</tr>
+							<tr>
+								<td>Algeria</td>
+								<td><code>dza</code></td>
+							</tr>
+							<tr>
+								<td>Andorra</td>
+								<td><code>and</code></td>
+							</tr>
+							<tr>
+								<td>Angola</td>
+								<td><code>ago</code></td>
+							</tr>
+							<tr>
+								<td>Anguilla</td>
+								<td><code>aia</code></td>
+							</tr>
+							<tr>
+								<td>Antarctica</td>
+								<td><code>ata</code></td>
+							</tr>
+							<tr>
+								<td>Antigua and Barbuda</td>
+								<td><code>atg</code></td>
+							</tr>
+							<tr>
+								<td>Argentina</td>
+								<td><code>arg</code></td>
+							</tr>
+							<tr>
+								<td>Armenia</td>
+								<td><code>arm</code></td>
+							</tr>
+							<tr>
+								<td>Aruba</td>
+								<td><code>abw</code></td>
+							</tr>
+							<tr>
+								<td>Australia</td>
+								<td><code>aus</code></td>
+							</tr>
+							<tr>
+								<td>Austria</td>
+								<td><code>aut</code></td>
+							</tr>
+							<tr>
+								<td>Azerbaijan</td>
+								<td><code>aze</code></td>
+							</tr>
+							<tr>
+								<td>Bahamas, The</td>
+								<td><code>bhs</code></td>
+							</tr>
+							<tr>
+								<td>Bahrain</td>
+								<td><code>bhr</code></td>
+							</tr>
+							<tr>
+								<td>Bangladesh</td>
+								<td><code>bgd</code></td>
+							</tr>
+							<tr>
+								<td>Barbados</td>
+								<td><code>brb</code></td>
+							</tr>
+							<tr>
+								<td>Belarus</td>
+								<td><code>blr</code></td>
+							</tr>
+							<tr>
+								<td>Belgium</td>
+								<td><code>bel</code></td>
+							</tr>
+							<tr>
+								<td>Belize</td>
+								<td><code>blz</code></td>
+							</tr>
+							<tr>
+								<td>Benin</td>
+								<td><code>ben</code></td>
+							</tr>
+							<tr>
+								<td>Bermuda</td>
+								<td><code>bmu</code></td>
+							</tr>
+							<tr>
+								<td>Bhutan</td>
+								<td><code>btn</code></td>
+							</tr>
+							<tr>
+								<td>Bolivia</td>
+								<td><code>bol</code></td>
+							</tr>
+							<tr>
+								<td>Bosnia and Herzegovina</td>
+								<td><code>bih</code></td>
+							</tr>
+							<tr>
+								<td>Botswana</td>
+								<td><code>bwa</code></td>
+							</tr>
+							<tr>
+								<td>Brazil</td>
+								<td><code>bra</code></td>
+							</tr>
+							<tr>
+								<td>Brunei Darussalam</td>
+								<td><code>brn</code></td>
+							</tr>
+							<tr>
+								<td>Bulgaria</td>
+								<td><code>bgr</code></td>
+							</tr>
+							<tr>
+								<td>Burkina Faso</td>
+								<td><code>bfa</code></td>
+							</tr>
+							<tr>
+								<td>Burundi</td>
+								<td><code>bdi</code></td>
+							</tr>
+							<tr>
+								<td>Cambodia</td>
+								<td><code>khm</code></td>
+							</tr>
+							<tr>
+								<td>Cameroon</td>
+								<td><code>cmr</code></td>
+							</tr>
+							<tr>
+								<td>Canada</td>
+								<td><code>can</code></td>
+							</tr>
+							<tr>
+								<td>Cape Verde</td>
+								<td><code>cpv</code></td>
+							</tr>
+							<tr>
+								<td>Cayman Islands</td>
+								<td><code>cym</code></td>
+							</tr>
+							<tr>
+								<td>Central African Republic</td>
+								<td><code>caf</code></td>
+							</tr>
+							<tr>
+								<td>Chad</td>
+								<td><code>tcd</code></td>
+							</tr>
+							<tr>
+								<td>Channel Islands</td>
+								<td><code>chi</code></td>
+							</tr>
+							<tr>
+								<td>Chile</td>
+								<td><code>chl</code></td>
+							</tr>
+							<tr>
+								<td>China</td>
+								<td><code>chn</code></td>
+							</tr>
+							<tr>
+								<td>Colombia</td>
+								<td><code>col</code></td>
+							</tr>
+							<tr>
+								<td>Comoros</td>
+								<td><code>com</code></td>
+							</tr>
+							<tr>
+								<td>Congo, Dem. Rep.</td>
+								<td><code>cod</code></td>
+							</tr>
+							<tr>
+								<td>Congo, Rep.</td>
+								<td><code>cog</code></td>
+							</tr>
+							<tr>
+								<td>Costa Rica</td>
+								<td><code>cri</code></td>
+							</tr>
+							<tr>
+								<td>Cote d'Ivoire</td>
+								<td><code>civ</code></td>
+							</tr>
+							<tr>
+								<td>Croatia</td>
+								<td><code>hrv</code></td>
+							</tr>
+							<tr>
+								<td>Cuba</td>
+								<td><code>cub</code></td>
+							</tr>
+							<tr>
+								<td>Cyprus</td>
+								<td><code>cyp</code></td>
+							</tr>
+							<tr>
+								<td>Czech Republic</td>
+								<td><code>cze</code></td>
+							</tr>
+							<tr>
+								<td>Denmark</td>
+								<td><code>dnk</code></td>
+							</tr>
+							<tr>
+								<td>Djibouti</td>
+								<td><code>dji</code></td>
+							</tr>
+							<tr>
+								<td>Dominica</td>
+								<td><code>dma</code></td>
+							</tr>
+							<tr>
+								<td>Dominican Republic</td>
+								<td><code>dom</code></td>
+							</tr>
+							<tr>
+								<td>Ecuador</td>
+								<td><code>ecu</code></td>
+							</tr>
+							<tr>
+								<td>Egypt, Arab Rep.</td>
+								<td><code>egy</code></td>
+							</tr>
+							<tr>
+								<td>El Salvador</td>
+								<td><code>slv</code></td>
+							</tr>
+							<tr>
+								<td>Equatorial Guinea</td>
+								<td><code>gnq</code></td>
+							</tr>
+							<tr>
+								<td>Eritrea</td>
+								<td><code>eri</code></td>
+							</tr>
+							<tr>
+								<td>Estonia</td>
+								<td><code>est</code></td>
+							</tr>
+							<tr>
+								<td>Ethiopia</td>
+								<td><code>eth</code></td>
+							</tr>
+							<tr>
+								<td>Falkland Islands</td>
+								<td><code>flk</code></td>
+							</tr>
+							<tr>
+								<td>Fiji</td>
+								<td><code>fji</code></td>
+							</tr>
+							<tr>
+								<td>Finland</td>
+								<td><code>fin</code></td>
+							</tr>
+							<tr>
+								<td>France</td>
+								<td><code>fra</code></td>
+							</tr>
+							<tr>
+								<td>French Guiana</td>
+								<td><code>guf</code></td>
+							</tr>
+							<tr>
+								<td>Gabon</td>
+								<td><code>gab</code></td>
+							</tr>
+							<tr>
+								<td>Gambia, The</td>
+								<td><code>gmb</code></td>
+							</tr>
+							<tr>
+								<td>Georgia</td>
+								<td><code>geo</code></td>
+							</tr>
+							<tr>
+								<td>Germany</td>
+								<td><code>deu</code></td>
+							</tr>
+							<tr>
+								<td>Ghana</td>
+								<td><code>gha</code></td>
+							</tr>
+							<tr>
+								<td>Greece</td>
+								<td><code>grc</code></td>
+							</tr>
+							<tr>
+								<td>Greenland</td>
+								<td><code>grl</code></td>
+							</tr>
+							<tr>
+								<td>Guatemala</td>
+								<td><code>gtm</code></td>
+							</tr>
+							<tr>
+								<td>Guinea</td>
+								<td><code>gin</code></td>
+							</tr>
+							<tr>
+								<td>Guinea-Bissau</td>
+								<td><code>gnb</code></td>
+							</tr>
+							<tr>
+								<td>Guyana</td>
+								<td><code>guy</code></td>
+							</tr>
+							<tr>
+								<td>Haiti</td>
+								<td><code>hti</code></td>
+							</tr>
+							<tr>
+								<td>Honduras</td>
+								<td><code>hnd</code></td>
+							</tr>
+							<tr>
+								<td>Hong Kong SAR, China</td>
+								<td><code>hkg</code></td>
+							</tr>
+							<tr>
+								<td>Hungary</td>
+								<td><code>hun</code></td>
+							</tr>
+							<tr>
+								<td>Iceland</td>
+								<td><code>isl</code></td>
+							</tr>
+							<tr>
+								<td>India</td>
+								<td><code>ind</code></td>
+							</tr>
+							<tr>
+								<td>Indonesia</td>
+								<td><code>idn</code></td>
+							</tr>
+							<tr>
+								<td>Iran, Islamic Rep.</td>
+								<td><code>irn</code></td>
+							</tr>
+							<tr>
+								<td>Iraq</td>
+								<td><code>irq</code></td>
+							</tr>
+							<tr>
+								<td>Ireland</td>
+								<td><code>irl</code></td>
+							</tr>
+							<tr>
+								<td>Israel</td>
+								<td><code>isr</code></td>
+							</tr>
+							<tr>
+								<td>Italy</td>
+								<td><code>ita</code></td>
+							</tr>
+							<tr>
+								<td>Jamaica</td>
+								<td><code>jam</code></td>
+							</tr>
+							<tr>
+								<td>Japan</td>
+								<td><code>jpn</code></td>
+							</tr>
+							<tr>
+								<td>Jordan</td>
+								<td><code>jor</code></td>
+							</tr>
+							<tr>
+								<td>Kazakhstan</td>
+								<td><code>kaz</code></td>
+							</tr>
+							<tr>
+								<td>Kenya</td>
+								<td><code>ken</code></td>
+							</tr>
+							<tr>
+								<td>Korea, Dem. Rep.</td>
+								<td><code>prk</code></td>
+							</tr>
+							<tr>
+								<td>Korea, Rep.</td>
+								<td><code>kor</code></td>
+							</tr>
+							<tr>
+								<td>Kuwait</td>
+								<td><code>kwt</code></td>
+							</tr>
+							<tr>
+								<td>Kyrgyz Republic</td>
+								<td><code>kgz</code></td>
+							</tr>
+							<tr>
+								<td>Lao PDR</td>
+								<td><code>lao</code></td>
+							</tr>
+							<tr>
+								<td>Lebanon</td>
+								<td><code>lbn</code></td>
+							</tr>
+							<tr>
+								<td>Lesotho</td>
+								<td><code>lso</code></td>
+							</tr>
+							<tr>
+								<td>Liberia</td>
+								<td><code>lbr</code></td>
+							</tr>
+							<tr>
+								<td>Libya</td>
+								<td><code>lby</code></td>
+							</tr>
+							<tr>
+								<td>Lithuania</td>
+								<td><code>ltu</code></td>
+							</tr>
+							<tr>
+								<td>Luxembourg</td>
+								<td><code>lux</code></td>
+							</tr>
+							<tr>
+								<td>Macao SAR, China</td>
+								<td><code>mac</code></td>
+							</tr>
+							<tr>
+								<td>Macedonia, FYR</td>
+								<td><code>mkd</code></td>
+							</tr>
+							<tr>
+								<td>Madagascar</td>
+								<td><code>mdg</code></td>
+							</tr>
+							<tr>
+								<td>Malawi</td>
+								<td><code>mwi</code></td>
+							</tr>
+							<tr>
+								<td>Malaysia</td>
+								<td><code>mys</code></td>
+							</tr>
+							<tr>
+								<td>Maldives</td>
+								<td><code>mdv</code></td>
+							</tr>
+							<tr>
+								<td>Mali</td>
+								<td><code>mli</code></td>
+							</tr>
+							<tr>
+								<td>Marshall Islands</td>
+								<td><code>mhl</code></td>
+							</tr>
+							<tr>
+								<td>Mauritania</td>
+								<td><code>mrt</code></td>
+							</tr>
+							<tr>
+								<td>Mauritius</td>
+								<td><code>mus</code></td>
+							</tr>
+							<tr>
+								<td>Mexico</td>
+								<td><code>mex</code></td>
+							</tr>
+							<tr>
+								<td>Micronesia, Fed. Sts.</td>
+								<td><code>fsm</code></td>
+							</tr>
+							<tr>
+								<td>Mongolia</td>
+								<td><code>mng</code></td>
+							</tr>
+							<tr>
+								<td>Morocco</td>
+								<td><code>mar</code></td>
+							</tr>
+							<tr>
+								<td>Mozambique</td>
+								<td><code>moz</code></td>
+							</tr>
+							<tr>
+								<td>Myanmar</td>
+								<td><code>mmr</code></td>
+							</tr>
+							<tr>
+								<td>Namibia</td>
+								<td><code>nam</code></td>
+							</tr>
+							<tr>
+								<td>Nepal</td>
+								<td><code>npl</code></td>
+							</tr>
+							<tr>
+								<td>Netherlands</td>
+								<td><code>nld</code></td>
+							</tr>
+							<tr>
+								<td>New Zealand</td>
+								<td><code>nzl</code></td>
+							</tr>
+							<tr>
+								<td>Nicaragua</td>
+								<td><code>nic</code></td>
+							</tr>
+							<tr>
+								<td>Niger</td>
+								<td><code>ner</code></td>
+							</tr>
+							<tr>
+								<td>Nigeria</td>
+								<td><code>nga</code></td>
+							</tr>
+							<tr>
+								<td>Norway</td>
+								<td><code>nor</code></td>
+							</tr>
+							<tr>
+								<td>Oman</td>
+								<td><code>omn</code></td>
+							</tr>
+							<tr>
+								<td>Pakistan</td>
+								<td><code>pak</code></td>
+							</tr>
+							<tr>
+								<td>Panama</td>
+								<td><code>pan</code></td>
+							</tr>
+							<tr>
+								<td>Papua New Guinea</td>
+								<td><code>png</code></td>
+							</tr>
+							<tr>
+								<td>Paraguay</td>
+								<td><code>pry</code></td>
+							</tr>
+							<tr>
+								<td>Peru</td>
+								<td><code>per</code></td>
+							</tr>
+							<tr>
+								<td>Philippines</td>
+								<td><code>phl</code></td>
+							</tr>
+							<tr>
+								<td>Poland</td>
+								<td><code>pol</code></td>
+							</tr>
+							<tr>
+								<td>Portugal</td>
+								<td><code>prt</code></td>
+							</tr>
+							<tr>
+								<td>Puerto Rico</td>
+								<td><code>pri</code></td>
+							</tr>
+							<tr>
+								<td>Qatar</td>
+								<td><code>qat</code></td>
+							</tr>
+							<tr>
+								<td>Romania</td>
+								<td><code>rou</code></td>
+							</tr>
+							<tr>
+								<td>Russian Federation</td>
+								<td><code>rus</code></td>
+							</tr>
+							<tr>
+								<td>Rwanda</td>
+								<td><code>rwa</code></td>
+							</tr>
+							<tr>
+								<td>Saudi Arabia</td>
+								<td><code>sau</code></td>
+							</tr>
+							<tr>
+								<td>Senegal</td>
+								<td><code>sen</code></td>
+							</tr>
+							<tr>
+								<td>Serbia</td>
+								<td><code>srb</code></td>
+							</tr>
+							<tr>
+								<td>Seychelles</td>
+								<td><code>syc</code></td>
+							</tr>
+							<tr>
+								<td>Sierra Leone</td>
+								<td><code>sle</code></td>
+							</tr>
+							<tr>
+								<td>Singapore</td>
+								<td><code>sgp</code></td>
+							</tr>
+							<tr>
+								<td>Slovak Republic</td>
+								<td><code>svk</code></td>
+							</tr>
+							<tr>
+								<td>Slovenia</td>
+								<td><code>svn</code></td>
+							</tr>
+							<tr>
+								<td>Somalia</td>
+								<td><code>som</code></td>
+							</tr>
+							<tr>
+								<td>South Africa</td>
+								<td><code>zaf</code></td>
+							</tr>
+							<tr>
+								<td>Spain</td>
+								<td><code>esp</code></td>
+							</tr>
+							<tr>
+								<td>Sri Lanka</td>
+								<td><code>lka</code></td>
+							</tr>
+							<tr>
+								<td>St. Kitts and Nevis</td>
+								<td><code>kna</code></td>
+							</tr>
+							<tr>
+								<td>Sudan</td>
+								<td><code>sdn</code></td>
+							</tr>
+							<tr>
+								<td>Suriname</td>
+								<td><code>sur</code></td>
+							</tr>
+							<tr>
+								<td>Swaziland</td>
+								<td><code>swz</code></td>
+							</tr>
+							<tr>
+								<td>Sweden</td>
+								<td><code>swe</code></td>
+							</tr>
+							<tr>
+								<td>Switzerland</td>
+								<td><code>che</code></td>
+							</tr>
+							<tr>
+								<td>Syrian Arab Republic</td>
+								<td><code>syr</code></td>
+							</tr>
+							<tr>
+								<td>Taiwan, Province of China</td>
+								<td><code>twn</code></td>
+							</tr>
+							<tr>
+								<td>Tajikistan</td>
+								<td><code>tjk</code></td>
+							</tr>
+							<tr>
+								<td>Tanzania</td>
+								<td><code>tza</code></td>
+							</tr>
+							<tr>
+								<td>Thailand</td>
+								<td><code>tha</code></td>
+							</tr>
+							<tr>
+								<td>Togo</td>
+								<td><code>tgo</code></td>
+							</tr>
+							<tr>
+								<td>Trinidad and Tobago</td>
+								<td><code>tto</code></td>
+							</tr>
+							<tr>
+								<td>Tunisia</td>
+								<td><code>tun</code></td>
+							</tr>
+							<tr>
+								<td>Turkey</td>
+								<td><code>tur</code></td>
+							</tr>
+							<tr>
+								<td>Turkmenistan</td>
+								<td><code>tkm</code></td>
+							</tr>
+							<tr>
+								<td>Uganda</td>
+								<td><code>uga</code></td>
+							</tr>
+							<tr>
+								<td>Ukraine</td>
+								<td><code>ukr</code></td>
+							</tr>
+							<tr>
+								<td>United Arab Emirates</td>
+								<td><code>are</code></td>
+							</tr>
+							<tr>
+								<td>United Kingdom</td>
+								<td><code>gbr</code></td>
+							</tr>
+							<tr>
+								<td>United States</td>
+								<td><code>usa</code></td>
+							</tr>
+							<tr>
+								<td>Uruguay</td>
+								<td><code>ury</code></td>
+							</tr>
+							<tr>
+								<td>Uzbekistan</td>
+								<td><code>uzb</code></td>
+							</tr>
+							<tr>
+								<td>Venezuela, RB</td>
+								<td><code>ven</code></td>
+							</tr>
+							<tr>
+								<td>Vietnam</td>
+								<td><code>vnm</code></td>
+							</tr>
+							<tr>
+								<td>Western Sahara</td>
+								<td><code>esh</code></td>
+							</tr>
+							<tr>
+								<td>Yemen, Rep.</td>
+								<td><code>yem</code></td>
+							</tr>
+							<tr>
+								<td>Yugoslavia, Fm</td>
+								<td><code>yug</code></td>
+							</tr>
+							<tr>
+								<td>Zambia</td>
+								<td><code>zmb</code></td>
+							</tr>
+							<tr>
+								<td>Zimbabwe</td>
+								<td><code>zwe</code></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="span6 columns" id = "products">
+					<h2>Products</h2>
+					<table class="table table-bordered table-striped table-condensed">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>4 Digit Abbreviation</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><85% continuous regenerated woven fabrics</td>
+								<td><code>6538</code></td>
+							</tr>
+							<tr>
+								<td><85% discontinuous synthetic woven fabrics</td>
+								<td><code>6534</code></td>
+							</tr>
+							<tr>
+								<td>>300lt capacity metal tanks</td>
+								<td><code>6921</code></td>
+							</tr>
+							<tr>
+								<td>>=85% continuous regenerated woven fabrics</td>
+								<td><code>6536</code></td>
+							</tr>
+							<tr>
+								<td>>=85% discontinuous synthetic woven fabrics</td>
+								<td><code>6532</code></td>
+							</tr>
+							<tr>
+								<td>>=85% wool woven fabrics</td>
+								<td><code>6542</code></td>
+							</tr>
+							<tr>
+								<td>Abrasive powder</td>
+								<td><code>6632</code></td>
+							</tr>
+							<tr>
+								<td>AC electric motors & generators</td>
+								<td><code>7162</code></td>
+							</tr>
+							<tr>
+								<td>Acrylic & methaacrylic polymers & copolymers</td>
+								<td><code>5836</code></td>
+							</tr>
+							<tr>
+								<td>Acyclic alcohols & derivatives</td>
+								<td><code>5121</code></td>
+							</tr>
+							<tr>
+								<td>Acyclic hydrocarbons</td>
+								<td><code>5111</code></td>
+							</tr>
+							<tr>
+								<td>Agave fibers</td>
+								<td><code>2654</code></td>
+							</tr>
+							<tr>
+								<td>Agglomerated iron ore</td>
+								<td><code>2816</code></td>
+							</tr>
+							<tr>
+								<td>Agricultural machinery, appliances, & parts</td>
+								<td><code>7219</code></td>
+							</tr>
+							<tr>
+								<td>Air conditioning machines</td>
+								<td><code>7415</code></td>
+							</tr>
+							<tr>
+								<td>Air pumps, vacuum pumps & compressors</td>
+								<td><code>7431</code></td>
+							</tr>
+							<tr>
+								<td>Aircraft equipment N.E.S.</td>
+								<td><code>7928</code></td>
+							</tr>
+							<tr>
+								<td>Aircraft equipment parts N.E.S.</td>
+								<td><code>7929</code></td>
+							</tr>
+							<tr>
+								<td>Aircrafts of between 2 and 15 tons</td>
+								<td><code>7923</code></td>
+							</tr>
+							<tr>
+								<td>Aircrafts of less than 2 tons</td>
+								<td><code>7922</code></td>
+							</tr>
+							<tr>
+								<td>Aircrafts of more than 15 tons</td>
+								<td><code>7924</code></td>
+							</tr>
+							<tr>
+								<td>Alcoholic beverages</td>
+								<td><code>1124</code></td>
+							</tr>
+							<tr>
+								<td>Aldehyde, ketone & quinone-function compounds</td>
+								<td><code>5162</code></td>
+							</tr>
+							<tr>
+								<td>Aluminium ore</td>
+								<td><code>2873</code></td>
+							</tr>
+							<tr>
+								<td>Aluminium structures</td>
+								<td><code>6912</code></td>
+							</tr>
+							<tr>
+								<td>Amide-function compounds, excluding urea</td>
+								<td><code>5147</code></td>
+							</tr>
+							<tr>
+								<td>Amine-function compounds</td>
+								<td><code>5145</code></td>
+							</tr>
+							<tr>
+								<td>Aminoplasts</td>
+								<td><code>5822</code></td>
+							</tr>
+							<tr>
+								<td>Analogue data processing machines</td>
+								<td><code>7521</code></td>
+							</tr>
+							<tr>
+								<td>Animal feed and food waste</td>
+								<td><code>0819</code></td>
+							</tr>
+							<tr>
+								<td>Animal hair waste N.E.S.</td>
+								<td><code>2686</code></td>
+							</tr>
+							<tr>
+								<td>Animal oils N.E.S.</td>
+								<td><code>4113</code></td>
+							</tr>
+							<tr>
+								<td>Animal origin materials</td>
+								<td><code>2919</code></td>
+							</tr>
+							<tr>
+								<td>Anthracite</td>
+								<td><code>3221</code></td>
+							</tr>
+							<tr>
+								<td>Anti-knock & anti-corrosive preparation</td>
+								<td><code>5982</code></td>
+							</tr>
+							<tr>
+								<td>Antibiotics</td>
+								<td><code>5413</code></td>
+							</tr>
+							<tr>
+								<td>Armoured fighting vehicles</td>
+								<td><code>9510</code></td>
+							</tr>
+							<tr>
+								<td>Articles of iron or steel N.E.S.</td>
+								<td><code>6997</code></td>
+							</tr>
+							<tr>
+								<td>Articles of paper pulp N.E.S.</td>
+								<td><code>6428</code></td>
+							</tr>
+							<tr>
+								<td>Artificial plastic materials</td>
+								<td><code>5852</code></td>
+							</tr>
+							<tr>
+								<td>Asbestos</td>
+								<td><code>2784</code></td>
+							</tr>
+							<tr>
+								<td>Asbestos manufactures</td>
+								<td><code>6638</code></td>
+							</tr>
+							<tr>
+								<td>Asbestos/fibre cements</td>
+								<td><code>6618</code></td>
+							</tr>
+							<tr>
+								<td>Ash</td>
+								<td><code>2881</code></td>
+							</tr>
+							<tr>
+								<td>Auto parts</td>
+								<td><code>7783</code></td>
+							</tr>
+							<tr>
+								<td>Auxiliary weaving machinery</td>
+								<td><code>7246</code></td>
+							</tr>
+							<tr>
+								<td>B&W T.V.</td>
+								<td><code>7612</code></td>
+							</tr>
+							<tr>
+								<td>Bags & sacks for packing</td>
+								<td><code>6581</code></td>
+							</tr>
+							<tr>
+								<td>Bakery</td>
+								<td><code>0484</code></td>
+							</tr>
+							<tr>
+								<td>Barbed wire</td>
+								<td><code>6932</code></td>
+							</tr>
+							<tr>
+								<td>Base metal domestic articles N.E.S.</td>
+								<td><code>6974</code></td>
+							</tr>
+							<tr>
+								<td>Base metal household appliances N.E.S.</td>
+								<td><code>6978</code></td>
+							</tr>
+							<tr>
+								<td>Base metal indoors sanitary ware N.E.S.</td>
+								<td><code>6975</code></td>
+							</tr>
+							<tr>
+								<td>Base metal locksmiths wares N.E.S.</td>
+								<td><code>6991</code></td>
+							</tr>
+							<tr>
+								<td>Basketwork, wickerwork, brooms & paint rollers</td>
+								<td><code>8997</code></td>
+							</tr>
+							<tr>
+								<td>Batteries</td>
+								<td><code>7781</code></td>
+							</tr>
+							<tr>
+								<td>Beer</td>
+								<td><code>1123</code></td>
+							</tr>
+							<tr>
+								<td>Bicycles</td>
+								<td><code>7852</code></td>
+							</tr>
+							<tr>
+								<td>Blouses</td>
+								<td><code>8435</code></td>
+							</tr>
+							<tr>
+								<td>Bones, horns, corals & ivory</td>
+								<td><code>2911</code></td>
+							</tr>
+							<tr>
+								<td>Bookbinding machines</td>
+								<td><code>7268</code></td>
+							</tr>
+							<tr>
+								<td>Books & registers</td>
+								<td><code>6423</code></td>
+							</tr>
+							<tr>
+								<td>Bovine & equine entrails</td>
+								<td><code>0116</code></td>
+							</tr>
+							<tr>
+								<td>Bovine & equine leather</td>
+								<td><code>6114</code></td>
+							</tr>
+							<tr>
+								<td>Bovine meat</td>
+								<td><code>0111</code></td>
+							</tr>
+							<tr>
+								<td>Bran, sharps & other cereal residues</td>
+								<td><code>0812</code></td>
+							</tr>
+							<tr>
+								<td>Builders` carpentry & joinery</td>
+								<td><code>6353</code></td>
+							</tr>
+							<tr>
+								<td>Building & monumental stone</td>
+								<td><code>6613</code></td>
+							</tr>
+							<tr>
+								<td>Building stone</td>
+								<td><code>2731</code></td>
+							</tr>
+							<tr>
+								<td>Bulk hormones</td>
+								<td><code>5415</code></td>
+							</tr>
+							<tr>
+								<td>Bulldozers, angledozers & levellers parts N.E.S.</td>
+								<td><code>7239</code></td>
+							</tr>
+							<tr>
+								<td>Butter</td>
+								<td><code>0230</code></td>
+							</tr>
+							<tr>
+								<td>Calculating & ticketing machines</td>
+								<td><code>7512</code></td>
+							</tr>
+							<tr>
+								<td>Calf leather</td>
+								<td><code>6113</code></td>
+							</tr>
+							<tr>
+								<td>Candles & matches</td>
+								<td><code>8993</code></td>
+							</tr>
+							<tr>
+								<td>Carded animal hair</td>
+								<td><code>2687</code></td>
+							</tr>
+							<tr>
+								<td>Carded discontinuous synthetic fibres</td>
+								<td><code>2667</code></td>
+							</tr>
+							<tr>
+								<td>Cars</td>
+								<td><code>7810</code></td>
+							</tr>
+							<tr>
+								<td>Carving & molding tools</td>
+								<td><code>8991</code></td>
+							</tr>
+							<tr>
+								<td>Castor oil</td>
+								<td><code>4245</code></td>
+							</tr>
+							<tr>
+								<td>Castor oil seeds</td>
+								<td><code>2235</code></td>
+							</tr>
+							<tr>
+								<td>Cellulose acetates</td>
+								<td><code>5843</code></td>
+							</tr>
+							<tr>
+								<td>Cellulose nitrates</td>
+								<td><code>5842</code></td>
+							</tr>
+							<tr>
+								<td>Cellulose pulp making machines</td>
+								<td><code>7251</code></td>
+							</tr>
+							<tr>
+								<td>Cement</td>
+								<td><code>6612</code></td>
+							</tr>
+							<tr>
+								<td>Centrifugal pumps</td>
+								<td><code>7422</code></td>
+							</tr>
+							<tr>
+								<td>Centrifugal pumps parts N.E.S.</td>
+								<td><code>7449</code></td>
+							</tr>
+							<tr>
+								<td>Centrifuges</td>
+								<td><code>7435</code></td>
+							</tr>
+							<tr>
+								<td>Centrifuges machinery parts N.E.S.</td>
+								<td><code>7439</code></td>
+							</tr>
+							<tr>
+								<td>Ceramic & porcelain ornaments N.E.S.</td>
+								<td><code>6666</code></td>
+							</tr>
+							<tr>
+								<td>Ceramic fixtures</td>
+								<td><code>8122</code></td>
+							</tr>
+							<tr>
+								<td>Ceramic materials articles N.E.S.</td>
+								<td><code>6639</code></td>
+							</tr>
+							<tr>
+								<td>Chairs & seats</td>
+								<td><code>8211</code></td>
+							</tr>
+							<tr>
+								<td>Chassis fitted with engines</td>
+								<td><code>7841</code></td>
+							</tr>
+							<tr>
+								<td>Cheese & curd</td>
+								<td><code>0240</code></td>
+							</tr>
+							<tr>
+								<td>Chemical elements</td>
+								<td><code>5221</code></td>
+							</tr>
+							<tr>
+								<td>Chemical products</td>
+								<td><code>5989</code></td>
+							</tr>
+							<tr>
+								<td>Chemical wood pulp, dissolving grades</td>
+								<td><code>2516</code></td>
+							</tr>
+							<tr>
+								<td>Chemical wood pulp, soda or sulphate</td>
+								<td><code>2517</code></td>
+							</tr>
+							<tr>
+								<td>Chemical wood pulp, sulphite</td>
+								<td><code>2518</code></td>
+							</tr>
+							<tr>
+								<td>Chocolate</td>
+								<td><code>0730</code></td>
+							</tr>
+							<tr>
+								<td>Cigarretes</td>
+								<td><code>1222</code></td>
+							</tr>
+							<tr>
+								<td>Cigars</td>
+								<td><code>1221</code></td>
+							</tr>
+							<tr>
+								<td>Cinematographic film (developed)</td>
+								<td><code>8830</code></td>
+							</tr>
+							<tr>
+								<td>Clay & refractory minerals, N.E.S.</td>
+								<td><code>2782</code></td>
+							</tr>
+							<tr>
+								<td>Cleaning & cutting textile machinery N.E.S.</td>
+								<td><code>7247</code></td>
+							</tr>
+							<tr>
+								<td>Clocks</td>
+								<td><code>8852</code></td>
+							</tr>
+							<tr>
+								<td>Closable plastic packing</td>
+								<td><code>8931</code></td>
+							</tr>
+							<tr>
+								<td>Clothing accessories from leather</td>
+								<td><code>8481</code></td>
+							</tr>
+							<tr>
+								<td>Clothing accessories from rubber</td>
+								<td><code>8482</code></td>
+							</tr>
+							<tr>
+								<td>Clothing accessories of textile fabrics</td>
+								<td><code>8471</code></td>
+							</tr>
+							<tr>
+								<td>Coal & water gases</td>
+								<td><code>3415</code></td>
+							</tr>
+							<tr>
+								<td>Coarse animal hair</td>
+								<td><code>2685</code></td>
+							</tr>
+							<tr>
+								<td>Coated textile fabrics N.E.S.</td>
+								<td><code>6573</code></td>
+							</tr>
+							<tr>
+								<td>Cocoa butter & paste</td>
+								<td><code>0723</code></td>
+							</tr>
+							<tr>
+								<td>Coconut oil</td>
+								<td><code>4243</code></td>
+							</tr>
+							<tr>
+								<td>Coffee extracts, essences or concentrates</td>
+								<td><code>0712</code></td>
+							</tr>
+							<tr>
+								<td>Coin, non-gold</td>
+								<td><code>9610</code></td>
+							</tr>
+							<tr>
+								<td>Coke & semi-coke of coal</td>
+								<td><code>3232</code></td>
+							</tr>
+							<tr>
+								<td>Color T.V.</td>
+								<td><code>7611</code></td>
+							</tr>
+							<tr>
+								<td>Compounds of precious metals</td>
+								<td><code>5233</code></td>
+							</tr>
+							<tr>
+								<td>Condensers</td>
+								<td><code>7112</code></td>
+							</tr>
+							<tr>
+								<td>Construction & mining machinery</td>
+								<td><code>7234</code></td>
+							</tr>
+							<tr>
+								<td>Containers for transportation</td>
+								<td><code>7861</code></td>
+							</tr>
+							<tr>
+								<td>Continuous regenerated woven fabrics</td>
+								<td><code>6535</code></td>
+							</tr>
+							<tr>
+								<td>Continuous synthetic fibres</td>
+								<td><code>2666</code></td>
+							</tr>
+							<tr>
+								<td>Continuous synthetic woven fabrics</td>
+								<td><code>6531</code></td>
+							</tr>
+							<tr>
+								<td>Control & peripheral hardware</td>
+								<td><code>7525</code></td>
+							</tr>
+							<tr>
+								<td>Converted paper N.E.S.</td>
+								<td><code>6419</code></td>
+							</tr>
+							<tr>
+								<td>Coopers products</td>
+								<td><code>6352</code></td>
+							</tr>
+							<tr>
+								<td>Copolymers of vinyl chloride & vinyl acetate</td>
+								<td><code>5835</code></td>
+							</tr>
+							<tr>
+								<td>Copper</td>
+								<td><code>2871</code></td>
+							</tr>
+							<tr>
+								<td>Copra</td>
+								<td><code>2231</code></td>
+							</tr>
+							<tr>
+								<td>Cork manufactures</td>
+								<td><code>6330</code></td>
+							</tr>
+							<tr>
+								<td>Correspondence stationary</td>
+								<td><code>6422</code></td>
+							</tr>
+							<tr>
+								<td>Corsets</td>
+								<td><code>8465</code></td>
+							</tr>
+							<tr>
+								<td>Cotton</td>
+								<td><code>2634</code></td>
+							</tr>
+							<tr>
+								<td>Cotton linters</td>
+								<td><code>2632</code></td>
+							</tr>
+							<tr>
+								<td>Cotton seed oil</td>
+								<td><code>4233</code></td>
+							</tr>
+							<tr>
+								<td>Cotton seeds</td>
+								<td><code>2223</code></td>
+							</tr>
+							<tr>
+								<td>Cotton waste</td>
+								<td><code>2633</code></td>
+							</tr>
+							<tr>
+								<td>Cotton yarn</td>
+								<td><code>6513</code></td>
+							</tr>
+							<tr>
+								<td>CPUs</td>
+								<td><code>7523</code></td>
+							</tr>
+							<tr>
+								<td>Crude fertilizer</td>
+								<td><code>2711</code></td>
+							</tr>
+							<tr>
+								<td>Crude minerals N.E.S.</td>
+								<td><code>2789</code></td>
+							</tr>
+							<tr>
+								<td>Crude natural potassium salts</td>
+								<td><code>2714</code></td>
+							</tr>
+							<tr>
+								<td>Crude petroleum</td>
+								<td><code>3330</code></td>
+							</tr>
+							<tr>
+								<td>Cut to size paper N.E.S.</td>
+								<td><code>6424</code></td>
+							</tr>
+							<tr>
+								<td>Cutlery</td>
+								<td><code>6960</code></td>
+							</tr>
+							<tr>
+								<td>Cyclic alcohols & derivatives</td>
+								<td><code>5122</code></td>
+							</tr>
+							<tr>
+								<td>Cyclic hydrocarbons</td>
+								<td><code>5112</code></td>
+							</tr>
+							<tr>
+								<td>Data processing equipment N.E.S.</td>
+								<td><code>7528</code></td>
+							</tr>
+							<tr>
+								<td>DC motors & generators</td>
+								<td><code>7161</code></td>
+							</tr>
+							<tr>
+								<td>Decorative manufactures of wood</td>
+								<td><code>6354</code></td>
+							</tr>
+							<tr>
+								<td>Degreased sheep or lambs wool</td>
+								<td><code>2682</code></td>
+							</tr>
+							<tr>
+								<td>Depleted uranium & waste N.E.S.</td>
+								<td><code>6880</code></td>
+							</tr>
+							<tr>
+								<td>Derivates of cellulose</td>
+								<td><code>5849</code></td>
+							</tr>
+							<tr>
+								<td>Derivatives of natural rubber</td>
+								<td><code>5851</code></td>
+							</tr>
+							<tr>
+								<td>Diary machinery</td>
+								<td><code>7213</code></td>
+							</tr>
+							<tr>
+								<td>Digital data processing machines</td>
+								<td><code>7522</code></td>
+							</tr>
+							<tr>
+								<td>Diodes & transistors</td>
+								<td><code>7763</code></td>
+							</tr>
+							<tr>
+								<td>Dishwashers</td>
+								<td><code>7753</code></td>
+							</tr>
+							<tr>
+								<td>Disinfectants</td>
+								<td><code>5914</code></td>
+							</tr>
+							<tr>
+								<td>Dividing heads for machine-tools</td>
+								<td><code>7368</code></td>
+							</tr>
+							<tr>
+								<td>Domestic non-electric stoves</td>
+								<td><code>6973</code></td>
+							</tr>
+							<tr>
+								<td>Drawing & mathematical calculating instruments</td>
+								<td><code>8742</code></td>
+							</tr>
+							<tr>
+								<td>Dressed or finished leather</td>
+								<td><code>6118</code></td>
+							</tr>
+							<tr>
+								<td>Dresses</td>
+								<td><code>8433</code></td>
+							</tr>
+							<tr>
+								<td>Dried or evaporated vegetables, excluding leguminous</td>
+								<td><code>0561</code></td>
+							</tr>
+							<tr>
+								<td>Dried or shelled legumes</td>
+								<td><code>0542</code></td>
+							</tr>
+							<tr>
+								<td>Dried, salted or smoked meat & entrails</td>
+								<td><code>0129</code></td>
+							</tr>
+							<tr>
+								<td>Edible nuts</td>
+								<td><code>0577</code></td>
+							</tr>
+							<tr>
+								<td>Edible products N.E.S.</td>
+								<td><code>0980</code></td>
+							</tr>
+							<tr>
+								<td>Elastic fabrics and trimming</td>
+								<td><code>6574</code></td>
+							</tr>
+							<tr>
+								<td>Elastic knitted fibres</td>
+								<td><code>6553</code></td>
+							</tr>
+							<tr>
+								<td>Electric current</td>
+								<td><code>3510</code></td>
+							</tr>
+							<tr>
+								<td>Electric record players</td>
+								<td><code>7631</code></td>
+							</tr>
+							<tr>
+								<td>Electric trains</td>
+								<td><code>7911</code></td>
+							</tr>
+							<tr>
+								<td>Electric wire</td>
+								<td><code>7731</code></td>
+							</tr>
+							<tr>
+								<td>Electrical insulators</td>
+								<td><code>7732</code></td>
+							</tr>
+							<tr>
+								<td>Electrical measuring & controlling instruments N.E.S.</td>
+								<td><code>8748</code></td>
+							</tr>
+							<tr>
+								<td>Electrical resistors</td>
+								<td><code>7723</code></td>
+							</tr>
+							<tr>
+								<td>Electrical transformers</td>
+								<td><code>7711</code></td>
+							</tr>
+							<tr>
+								<td>Electro-mechanical home appliances N.E.S.</td>
+								<td><code>7757</code></td>
+							</tr>
+							<tr>
+								<td>Electro-medical equipment</td>
+								<td><code>7741</code></td>
+							</tr>
+							<tr>
+								<td>Electro-thermal home appliances N.E.S.</td>
+								<td><code>7758</code></td>
+							</tr>
+							<tr>
+								<td>Electronic microcircuits</td>
+								<td><code>7764</code></td>
+							</tr>
+							<tr>
+								<td>Electronic valves & tubes</td>
+								<td><code>7762</code></td>
+							</tr>
+							<tr>
+								<td>Engines & motors</td>
+								<td><code>7188</code></td>
+							</tr>
+							<tr>
+								<td>Epoxide resins</td>
+								<td><code>5826</code></td>
+							</tr>
+							<tr>
+								<td>Equine meat</td>
+								<td><code>0115</code></td>
+							</tr>
+							<tr>
+								<td>Essential oils</td>
+								<td><code>5513</code></td>
+							</tr>
+							<tr>
+								<td>Ethers, epoxides, acetals</td>
+								<td><code>5161</code></td>
+							</tr>
+							<tr>
+								<td>Fans & parts N.E.S.</td>
+								<td><code>7434</code></td>
+							</tr>
+							<tr>
+								<td>Farming and forestry hand tools</td>
+								<td><code>6951</code></td>
+							</tr>
+							<tr>
+								<td>Fat & oils of marine animals</td>
+								<td><code>4111</code></td>
+							</tr>
+							<tr>
+								<td>Fatty & oil acids</td>
+								<td><code>4313</code></td>
+							</tr>
+							<tr>
+								<td>Fermented beverages</td>
+								<td><code>1122</code></td>
+							</tr>
+							<tr>
+								<td>Ferro-alloys</td>
+								<td><code>6716</code></td>
+							</tr>
+							<tr>
+								<td>Fertilizers</td>
+								<td><code>5629</code></td>
+							</tr>
+							<tr>
+								<td>Fibre building board of wood</td>
+								<td><code>6416</code></td>
+							</tr>
+							<tr>
+								<td>Figs</td>
+								<td><code>0576</code></td>
+							</tr>
+							<tr>
+								<td>Fine animal hair</td>
+								<td><code>2683</code></td>
+							</tr>
+							<tr>
+								<td>Finished cotton woven fabrics</td>
+								<td><code>6522</code></td>
+							</tr>
+							<tr>
+								<td>Fish N.E.S.</td>
+								<td><code>0371</code></td>
+							</tr>
+							<tr>
+								<td>Flar/ramie woven fabrics</td>
+								<td><code>6544</code></td>
+							</tr>
+							<tr>
+								<td>Flax & ramie</td>
+								<td><code>2651</code></td>
+							</tr>
+							<tr>
+								<td>Flora  </td>
+								<td><code>2927</code></td>
+							</tr>
+							<tr>
+								<td>Flora in pharmacy</td>
+								<td><code>2924</code></td>
+							</tr>
+							<tr>
+								<td>Food processing machinery & parts N.E.S.</td>
+								<td><code>7272</code></td>
+							</tr>
+							<tr>
+								<td>Footwear</td>
+								<td><code>8510</code></td>
+							</tr>
+							<tr>
+								<td>Fresh & dried vegetables, roots & tubers N.E.S.</td>
+								<td><code>0548</code></td>
+							</tr>
+							<tr>
+								<td>Fresh apples</td>
+								<td><code>0574</code></td>
+							</tr>
+							<tr>
+								<td>Fresh dried or preserved bird eggs not in shell</td>
+								<td><code>0252</code></td>
+							</tr>
+							<tr>
+								<td>Fresh milk & cream</td>
+								<td><code>0223</code></td>
+							</tr>
+							<tr>
+								<td>Fresh or chilled fish fillets</td>
+								<td><code>0343</code></td>
+							</tr>
+							<tr>
+								<td>Fresh or chilled fish, excluding fillets</td>
+								<td><code>0341</code></td>
+							</tr>
+							<tr>
+								<td>Fresh or chilled potatoes, excluding sweet potatoes</td>
+								<td><code>0541</code></td>
+							</tr>
+							<tr>
+								<td>Fresh or chilled tomatoes</td>
+								<td><code>0544</code></td>
+							</tr>
+							<tr>
+								<td>Fresh or dried banana & plantains</td>
+								<td><code>0573</code></td>
+							</tr>
+							<tr>
+								<td>Fresh or dried citrus N.E.S</td>
+								<td><code>0572</code></td>
+							</tr>
+							<tr>
+								<td>Fresh or dried fruit N.E.S.</td>
+								<td><code>0579</code></td>
+							</tr>
+							<tr>
+								<td>Fresh or dried oranges & m&arines</td>
+								<td><code>0571</code></td>
+							</tr>
+							<tr>
+								<td>Fresh, chilled, frozen or salted crustaceans & molluscs</td>
+								<td><code>0360</code></td>
+							</tr>
+							<tr>
+								<td>Fresh, dried or preserved bird eggs in shell</td>
+								<td><code>0251</code></td>
+							</tr>
+							<tr>
+								<td>Frozen fish fillets</td>
+								<td><code>0344</code></td>
+							</tr>
+							<tr>
+								<td>Frozen fish, excluding fillets</td>
+								<td><code>0342</code></td>
+							</tr>
+							<tr>
+								<td>Frozen or temporarily preserved vegatables</td>
+								<td><code>0546</code></td>
+							</tr>
+							<tr>
+								<td>Fruit or vegetable juices</td>
+								<td><code>0585</code></td>
+							</tr>
+							<tr>
+								<td>Fruit peels & plant parts preserved by sugar</td>
+								<td><code>0582</code></td>
+							</tr>
+							<tr>
+								<td>Fuel wood & charcoal</td>
+								<td><code>2450</code></td>
+							</tr>
+							<tr>
+								<td>Fungicides</td>
+								<td><code>5912</code></td>
+							</tr>
+							<tr>
+								<td>Fur clothing (not headgear)</td>
+								<td><code>8483</code></td>
+							</tr>
+							<tr>
+								<td>Furnace burners, mechanical stokers & parts</td>
+								<td><code>7412</code></td>
+							</tr>
+							<tr>
+								<td>Furnaces, ovens & parts N.E.S.</td>
+								<td><code>7413</code></td>
+							</tr>
+							<tr>
+								<td>Furniture parts N.E.S.</td>
+								<td><code>8219</code></td>
+							</tr>
+							<tr>
+								<td>Gas generators & parts</td>
+								<td><code>7411</code></td>
+							</tr>
+							<tr>
+								<td>Gas turbines N.E.S.</td>
+								<td><code>7148</code></td>
+							</tr>
+							<tr>
+								<td>Gas, liquid & electric control instruments</td>
+								<td><code>8743</code></td>
+							</tr>
+							<tr>
+								<td>Gas, liquid & electric meters</td>
+								<td><code>8731</code></td>
+							</tr>
+							<tr>
+								<td>Gauze & netting</td>
+								<td><code>6935</code></td>
+							</tr>
+							<tr>
+								<td>Glass articles N.E.S.</td>
+								<td><code>6658</code></td>
+							</tr>
+							<tr>
+								<td>Glass bottles</td>
+								<td><code>6651</code></td>
+							</tr>
+							<tr>
+								<td>Glass fibre fabrics</td>
+								<td><code>6546</code></td>
+							</tr>
+							<tr>
+								<td>Glass N.E.S.</td>
+								<td><code>6649</code></td>
+							</tr>
+							<tr>
+								<td>Glassware</td>
+								<td><code>6652</code></td>
+							</tr>
+							<tr>
+								<td>Glazes, driers, putty</td>
+								<td><code>5335</code></td>
+							</tr>
+							<tr>
+								<td>Glues</td>
+								<td><code>5922</code></td>
+							</tr>
+							<tr>
+								<td>Glycosides & vaccines</td>
+								<td><code>5416</code></td>
+							</tr>
+							<tr>
+								<td>Gold, non-monetary</td>
+								<td><code>9710</code></td>
+							</tr>
+							<tr>
+								<td>Grain milling machinery</td>
+								<td><code>7271</code></td>
+							</tr>
+							<tr>
+								<td>Grapes & raisins</td>
+								<td><code>0575</code></td>
+							</tr>
+							<tr>
+								<td>Green & roasted coffee & coffee substitutes</td>
+								<td><code>0711</code></td>
+							</tr>
+							<tr>
+								<td>Green groundnuts</td>
+								<td><code>2221</code></td>
+							</tr>
+							<tr>
+								<td>Green or dry hay</td>
+								<td><code>0811</code></td>
+							</tr>
+							<tr>
+								<td>Gypsum, plasters, limestone flux & calcareous stone</td>
+								<td><code>2732</code></td>
+							</tr>
+							<tr>
+								<td>Halogen & non-metal sulphur compounds</td>
+								<td><code>5223</code></td>
+							</tr>
+							<tr>
+								<td>Halogenated derivatives of hydrocarbons</td>
+								<td><code>5113</code></td>
+							</tr>
+							<tr>
+								<td>Harvesting & threshing machines</td>
+								<td><code>7212</code></td>
+							</tr>
+							<tr>
+								<td>Hats & hoods</td>
+								<td><code>6576</code></td>
+							</tr>
+							<tr>
+								<td>Headgear</td>
+								<td><code>8484</code></td>
+							</tr>
+							<tr>
+								<td>Heating & cooling equipment N.E.S.</td>
+								<td><code>7416</code></td>
+							</tr>
+							<tr>
+								<td>Helicopters</td>
+								<td><code>7921</code></td>
+							</tr>
+							<tr>
+								<td>Herbicides</td>
+								<td><code>5913</code></td>
+							</tr>
+							<tr>
+								<td>Heterocyclic compound; nucleic acids</td>
+								<td><code>5156</code></td>
+							</tr>
+							<tr>
+								<td>Hides and skins N.E.S.</td>
+								<td><code>2119</code></td>
+							</tr>
+							<tr>
+								<td>Honey</td>
+								<td><code>0616</code></td>
+							</tr>
+							<tr>
+								<td>Hydrogenated oils</td>
+								<td><code>4312</code></td>
+							</tr>
+							<tr>
+								<td>Imitation jewellery</td>
+								<td><code>8972</code></td>
+							</tr>
+							<tr>
+								<td>Improved wood & reconstituted wood</td>
+								<td><code>6343</code></td>
+							</tr>
+							<tr>
+								<td>Incandescent & fluorescent bulbs</td>
+								<td><code>7782</code></td>
+							</tr>
+							<tr>
+								<td>Industrial diamonds</td>
+								<td><code>2771</code></td>
+							</tr>
+							<tr>
+								<td>Initiating devices</td>
+								<td><code>5722</code></td>
+							</tr>
+							<tr>
+								<td>Inorganic acids metallic salts & peroxysalts</td>
+								<td><code>5232</code></td>
+							</tr>
+							<tr>
+								<td>Inorganic acids metallic salts & peroxysalts</td>
+								<td><code>5231</code></td>
+							</tr>
+							<tr>
+								<td>Inorganic bases & metallic oxides, hydroxides & peroxides</td>
+								<td><code>5225</code></td>
+							</tr>
+							<tr>
+								<td>Inorganic chemical products</td>
+								<td><code>5239</code></td>
+							</tr>
+							<tr>
+								<td>Inorganic esters & derivatives</td>
+								<td><code>5163</code></td>
+							</tr>
+							<tr>
+								<td>Insecticides</td>
+								<td><code>5911</code></td>
+							</tr>
+							<tr>
+								<td>Interchangeable hand and machine tools</td>
+								<td><code>6954</code></td>
+							</tr>
+							<tr>
+								<td>Internal combustion engines for aircraft</td>
+								<td><code>7131</code></td>
+							</tr>
+							<tr>
+								<td>Internal combustion engines for motor vehicles</td>
+								<td><code>7132</code></td>
+							</tr>
+							<tr>
+								<td>Internal combustion piston engines for ships & boats</td>
+								<td><code>7133</code></td>
+							</tr>
+							<tr>
+								<td>Internal combustion piston engines N.E.S.</td>
+								<td><code>7138</code></td>
+							</tr>
+							<tr>
+								<td>Iron & steel powders</td>
+								<td><code>6713</code></td>
+							</tr>
+							<tr>
+								<td>Iron & steel waste</td>
+								<td><code>2820</code></td>
+							</tr>
+							<tr>
+								<td>Iron or steel tubes, pipes, & fittings</td>
+								<td><code>6785</code></td>
+							</tr>
+							<tr>
+								<td>Iron pipes</td>
+								<td><code>6781</code></td>
+							</tr>
+							<tr>
+								<td>Iron/steel 3 - 4.75mm tick sheets</td>
+								<td><code>6745</code></td>
+							</tr>
+							<tr>
+								<td>Iron/steel <3mm tick sheets</td>
+								<td><code>6746</code></td>
+							</tr>
+							<tr>
+								<td>Iron/steel >=4.75mm tick sheets</td>
+								<td><code>6744</code></td>
+							</tr>
+							<tr>
+								<td>Iron/steel bars</td>
+								<td><code>6724</code></td>
+							</tr>
+							<tr>
+								<td>Iron/steel billets</td>
+								<td><code>6725</code></td>
+							</tr>
+							<tr>
+								<td>Iron/steel coils</td>
+								<td><code>6727</code></td>
+							</tr>
+							<tr>
+								<td>Iron/steel rail construction materials</td>
+								<td><code>6760</code></td>
+							</tr>
+							<tr>
+								<td>Iron/steel rods</td>
+								<td><code>6732</code></td>
+							</tr>
+							<tr>
+								<td>Iron/steel rough castings</td>
+								<td><code>6794</code></td>
+							</tr>
+							<tr>
+								<td>Iron/steel rough forging & stampings</td>
+								<td><code>6793</code></td>
+							</tr>
+							<tr>
+								<td>Iron/steel shapes</td>
+								<td><code>6733</code></td>
+							</tr>
+							<tr>
+								<td>Iron/steel structures</td>
+								<td><code>6911</code></td>
+							</tr>
+							<tr>
+								<td>Iron/steel wire rod</td>
+								<td><code>6731</code></td>
+							</tr>
+							<tr>
+								<td>Jams, jellies & marmalades</td>
+								<td><code>0583</code></td>
+							</tr>
+							<tr>
+								<td>Jute woven fabrics</td>
+								<td><code>6545</code></td>
+							</tr>
+							<tr>
+								<td>Kelem, schumacks & karamanie</td>
+								<td><code>6593</code></td>
+							</tr>
+							<tr>
+								<td>Knitted clothing accessories of textile fabrics</td>
+								<td><code>8472</code></td>
+							</tr>
+							<tr>
+								<td>Knitted jerseys, pullovers & cardigans</td>
+								<td><code>8451</code></td>
+							</tr>
+							<tr>
+								<td>Knitted synthetic fibres</td>
+								<td><code>6551</code></td>
+							</tr>
+							<tr>
+								<td>Knitted undergarments of cotton</td>
+								<td><code>8462</code></td>
+							</tr>
+							<tr>
+								<td>Knitted undergarments of synthetic fibers</td>
+								<td><code>8463</code></td>
+							</tr>
+							<tr>
+								<td>Knitted women's suits & dresses</td>
+								<td><code>8452</code></td>
+							</tr>
+							<tr>
+								<td>Knotted carpets</td>
+								<td><code>6592</code></td>
+							</tr>
+							<tr>
+								<td>Laundry equipment</td>
+								<td><code>7751</code></td>
+							</tr>
+							<tr>
+								<td>Lead ore</td>
+								<td><code>2874</code></td>
+							</tr>
+							<tr>
+								<td>Leather articles used in machinery</td>
+								<td><code>6121</code></td>
+							</tr>
+							<tr>
+								<td>Leather of other hides or skins</td>
+								<td><code>6116</code></td>
+							</tr>
+							<tr>
+								<td>Leather sheets or rolls</td>
+								<td><code>6112</code></td>
+							</tr>
+							<tr>
+								<td>Lenses</td>
+								<td><code>8841</code></td>
+							</tr>
+							<tr>
+								<td>Lifting & loading machinery</td>
+								<td><code>7442</code></td>
+							</tr>
+							<tr>
+								<td>Lighting fixture & lamp parts N.E.S.</td>
+								<td><code>8124</code></td>
+							</tr>
+							<tr>
+								<td>Lignite</td>
+								<td><code>3223</code></td>
+							</tr>
+							<tr>
+								<td>Lime</td>
+								<td><code>6611</code></td>
+							</tr>
+							<tr>
+								<td>Linens & furnishing textile articles</td>
+								<td><code>6584</code></td>
+							</tr>
+							<tr>
+								<td>Linoleum</td>
+								<td><code>6591</code></td>
+							</tr>
+							<tr>
+								<td>Linseed</td>
+								<td><code>2234</code></td>
+							</tr>
+							<tr>
+								<td>Linseed oil</td>
+								<td><code>4241</code></td>
+							</tr>
+							<tr>
+								<td>Liquid & gas filters & purifiers</td>
+								<td><code>7436</code></td>
+							</tr>
+							<tr>
+								<td>liquified hydrocarbons</td>
+								<td><code>3413</code></td>
+							</tr>
+							<tr>
+								<td>Live animals, N.E.S. (zoo animals, pets, insects, etc)</td>
+								<td><code>9410</code></td>
+							</tr>
+							<tr>
+								<td>Live bovines</td>
+								<td><code>0011</code></td>
+							</tr>
+							<tr>
+								<td>Live equine</td>
+								<td><code>0015</code></td>
+							</tr>
+							<tr>
+								<td>Live plants</td>
+								<td><code>2926</code></td>
+							</tr>
+							<tr>
+								<td>Live poultry</td>
+								<td><code>0014</code></td>
+							</tr>
+							<tr>
+								<td>Live sheep & goat</td>
+								<td><code>0012</code></td>
+							</tr>
+							<tr>
+								<td>Live swine</td>
+								<td><code>0013</code></td>
+							</tr>
+							<tr>
+								<td>Lubricating petroleum oils N.E.S.</td>
+								<td><code>3345</code></td>
+							</tr>
+							<tr>
+								<td>Luggage & handbags</td>
+								<td><code>8310</code></td>
+							</tr>
+							<tr>
+								<td>Machinery for soil preparation</td>
+								<td><code>7211</code></td>
+							</tr>
+							<tr>
+								<td>Malt extract & cereal preparations containing less than 50% cocoa</td>
+								<td><code>0488</code></td>
+							</tr>
+							<tr>
+								<td>Man-made carpets N.E.S.</td>
+								<td><code>6595</code></td>
+							</tr>
+							<tr>
+								<td>Man-made pile & chenille woven fabrics</td>
+								<td><code>6539</code></td>
+							</tr>
+							<tr>
+								<td>Manganese</td>
+								<td><code>2877</code></td>
+							</tr>
+							<tr>
+								<td>Manila hemp</td>
+								<td><code>2655</code></td>
+							</tr>
+							<tr>
+								<td>Manufactured of wood N.E.S.</td>
+								<td><code>6359</code></td>
+							</tr>
+							<tr>
+								<td>Manufactures N.E.S.</td>
+								<td><code>8999</code></td>
+							</tr>
+							<tr>
+								<td>Margarine</td>
+								<td><code>0914</code></td>
+							</tr>
+							<tr>
+								<td>Mate</td>
+								<td><code>0742</code></td>
+							</tr>
+							<tr>
+								<td>Materials of rubber</td>
+								<td><code>6210</code></td>
+							</tr>
+							<tr>
+								<td>Meals & flour from cereals other than wheat</td>
+								<td><code>0470</code></td>
+							</tr>
+							<tr>
+								<td>Meals & flours from potatoes, fruits & vegetables</td>
+								<td><code>0564</code></td>
+							</tr>
+							<tr>
+								<td>Meals and flours from oil seeds</td>
+								<td><code>2239</code></td>
+							</tr>
+							<tr>
+								<td>Meat & fish extract & juices</td>
+								<td><code>0141</code></td>
+							</tr>
+							<tr>
+								<td>Meat and fish flour, not for humans</td>
+								<td><code>0814</code></td>
+							</tr>
+							<tr>
+								<td>Mechanical tools for building</td>
+								<td><code>7493</code></td>
+							</tr>
+							<tr>
+								<td>Mechanical wood pulp</td>
+								<td><code>2512</code></td>
+							</tr>
+							<tr>
+								<td>Mechanically propelled railway</td>
+								<td><code>7913</code></td>
+							</tr>
+							<tr>
+								<td>Medical & dental furniture</td>
+								<td><code>8212</code></td>
+							</tr>
+							<tr>
+								<td>Medical instruments N.E.S.</td>
+								<td><code>8720</code></td>
+							</tr>
+							<tr>
+								<td>Medicaments</td>
+								<td><code>5417</code></td>
+							</tr>
+							<tr>
+								<td>Men's coats</td>
+								<td><code>8421</code></td>
+							</tr>
+							<tr>
+								<td>Men's jackets</td>
+								<td><code>8424</code></td>
+							</tr>
+							<tr>
+								<td>Men's suits</td>
+								<td><code>8422</code></td>
+							</tr>
+							<tr>
+								<td>Men's trousers</td>
+								<td><code>8423</code></td>
+							</tr>
+							<tr>
+								<td>Men's undershirt</td>
+								<td><code>8441</code></td>
+							</tr>
+							<tr>
+								<td>Men's underwear</td>
+								<td><code>8442</code></td>
+							</tr>
+							<tr>
+								<td>Metal articles N.E.S.</td>
+								<td><code>6998</code></td>
+							</tr>
+							<tr>
+								<td>Metal cask for packing goods</td>
+								<td><code>6924</code></td>
+							</tr>
+							<tr>
+								<td>Metal chains</td>
+								<td><code>6992</code></td>
+							</tr>
+							<tr>
+								<td>Metal cutting machine-tools</td>
+								<td><code>7361</code></td>
+							</tr>
+							<tr>
+								<td>Metal forming machine-tools</td>
+								<td><code>7362</code></td>
+							</tr>
+							<tr>
+								<td>Metal foundry equipment & parts N.E.S.</td>
+								<td><code>7371</code></td>
+							</tr>
+							<tr>
+								<td>Metal office products</td>
+								<td><code>8951</code></td>
+							</tr>
+							<tr>
+								<td>Metal springs</td>
+								<td><code>6994</code></td>
+							</tr>
+							<tr>
+								<td>Metal waste</td>
+								<td><code>2786</code></td>
+							</tr>
+							<tr>
+								<td>Metallic oxides of zinc, iron, lead, chromium etc</td>
+								<td><code>5224</code></td>
+							</tr>
+							<tr>
+								<td>Metalworking machine-tools parts</td>
+								<td><code>7369</code></td>
+							</tr>
+							<tr>
+								<td>Microphone, amplifiers & loudspeakers</td>
+								<td><code>7642</code></td>
+							</tr>
+							<tr>
+								<td>Mineral tar pitch</td>
+								<td><code>3353</code></td>
+							</tr>
+							<tr>
+								<td>Mineral tars</td>
+								<td><code>3352</code></td>
+							</tr>
+							<tr>
+								<td>Mineral wool N.E.S.</td>
+								<td><code>6635</code></td>
+							</tr>
+							<tr>
+								<td>Mineral working machinery & parts N.E.S.</td>
+								<td><code>7283</code></td>
+							</tr>
+							<tr>
+								<td>Mirrors</td>
+								<td><code>6648</code></td>
+							</tr>
+							<tr>
+								<td>Miscellaneous articles of base metal</td>
+								<td><code>6996</code></td>
+							</tr>
+							<tr>
+								<td>Miscellaneous articles of plastic</td>
+								<td><code>8939</code></td>
+							</tr>
+							<tr>
+								<td>Molasses</td>
+								<td><code>0615</code></td>
+							</tr>
+							<tr>
+								<td>Monocarboxylic acids & derivatives</td>
+								<td><code>5137</code></td>
+							</tr>
+							<tr>
+								<td>Motorcycles</td>
+								<td><code>7851</code></td>
+							</tr>
+							<tr>
+								<td>Movie cameras, projectors & parts</td>
+								<td><code>8812</code></td>
+							</tr>
+							<tr>
+								<td>Musical instrument parts</td>
+								<td><code>8989</code></td>
+							</tr>
+							<tr>
+								<td>Musical instruments N.E.S.</td>
+								<td><code>8982</code></td>
+							</tr>
+							<tr>
+								<td>Nails, nuts & bolts</td>
+								<td><code>6940</code></td>
+							</tr>
+							<tr>
+								<td>Natural calcium phosphates & aluminium</td>
+								<td><code>2713</code></td>
+							</tr>
+							<tr>
+								<td>Natural gums, resins, lacs & balsams</td>
+								<td><code>2922</code></td>
+							</tr>
+							<tr>
+								<td>Natural rubber, latex & gums</td>
+								<td><code>2320</code></td>
+							</tr>
+							<tr>
+								<td>Natural sodium nitrate</td>
+								<td><code>2712</code></td>
+							</tr>
+							<tr>
+								<td>Newspapers & journals</td>
+								<td><code>8922</code></td>
+							</tr>
+							<tr>
+								<td>Newsprint</td>
+								<td><code>6411</code></td>
+							</tr>
+							<tr>
+								<td>Nickel</td>
+								<td><code>2872</code></td>
+							</tr>
+							<tr>
+								<td>Nitrogenous fertilizers</td>
+								<td><code>5621</code></td>
+							</tr>
+							<tr>
+								<td>No carded discontinuous synthetic fibres</td>
+								<td><code>2665</code></td>
+							</tr>
+							<tr>
+								<td>Non ceramic mineral materials N.E.S.</td>
+								<td><code>6633</code></td>
+							</tr>
+							<tr>
+								<td>Non halogenated hydrocarbons derivatives</td>
+								<td><code>5114</code></td>
+							</tr>
+							<tr>
+								<td>Non metal-bearing sands</td>
+								<td><code>2733</code></td>
+							</tr>
+							<tr>
+								<td>Non synthetic knitted fibres</td>
+								<td><code>6552</code></td>
+							</tr>
+							<tr>
+								<td>Non-alcoholic beverages N.E.S.</td>
+								<td><code>1110</code></td>
+							</tr>
+							<tr>
+								<td>Non-domestic refrigerators & parts N.E.S.</td>
+								<td><code>7414</code></td>
+							</tr>
+							<tr>
+								<td>Non-electric parts of machinery N.E.S.</td>
+								<td><code>7499</code></td>
+							</tr>
+							<tr>
+								<td>Non-electric powertools</td>
+								<td><code>7451</code></td>
+							</tr>
+							<tr>
+								<td>Non-electrical counting devices</td>
+								<td><code>8732</code></td>
+							</tr>
+							<tr>
+								<td>Non-electrical machines parts N.E.S.</td>
+								<td><code>7452</code></td>
+							</tr>
+							<tr>
+								<td>Non-electrical navigating devices, compasses</td>
+								<td><code>8741</code></td>
+							</tr>
+							<tr>
+								<td>Non-metal & non-abestos footwear material</td>
+								<td><code>6123</code></td>
+							</tr>
+							<tr>
+								<td>Non-metals inorganic acids & oxygen compounds</td>
+								<td><code>5222</code></td>
+							</tr>
+							<tr>
+								<td>Non-military arms</td>
+								<td><code>8946</code></td>
+							</tr>
+							<tr>
+								<td>Non-refractory ceramic bricks</td>
+								<td><code>6624</code></td>
+							</tr>
+							<tr>
+								<td>Nonmechanical or electrical instruments for physical analysis</td>
+								<td><code>8744</code></td>
+							</tr>
+							<tr>
+								<td>Nonoptical balls, rods or tubes of glass</td>
+								<td><code>6641</code></td>
+							</tr>
+							<tr>
+								<td>Not agglomerated iron ore</td>
+								<td><code>2815</code></td>
+							</tr>
+							<tr>
+								<td>Not coated articles of felt N.E.S.</td>
+								<td><code>6571</code></td>
+							</tr>
+							<tr>
+								<td>Not coated bonded fibre fabrics</td>
+								<td><code>6572</code></td>
+							</tr>
+							<tr>
+								<td>Not insulated iron/steel wire</td>
+								<td><code>6770</code></td>
+							</tr>
+							<tr>
+								<td>Not mechanically propelled railway for freight</td>
+								<td><code>7915</code></td>
+							</tr>
+							<tr>
+								<td>Not mechanically propelled railway for passengers</td>
+								<td><code>7914</code></td>
+							</tr>
+							<tr>
+								<td>Not mechanically propelled vehicles N.E.S.</td>
+								<td><code>7868</code></td>
+							</tr>
+							<tr>
+								<td>Not medicaments pharmaceutical goods</td>
+								<td><code>5419</code></td>
+							</tr>
+							<tr>
+								<td>Not mounted diamonds</td>
+								<td><code>6672</code></td>
+							</tr>
+							<tr>
+								<td>Not mounted pearls</td>
+								<td><code>6671</code></td>
+							</tr>
+							<tr>
+								<td>Not mounted precious stones</td>
+								<td><code>6673</code></td>
+							</tr>
+							<tr>
+								<td>Nuclear reactors</td>
+								<td><code>7187</code></td>
+							</tr>
+							<tr>
+								<td>Odoriferous substances</td>
+								<td><code>5514</code></td>
+							</tr>
+							<tr>
+								<td>Office machines N.E.S.</td>
+								<td><code>7518</code></td>
+							</tr>
+							<tr>
+								<td>Oil seeds & fruits N.E.S.</td>
+								<td><code>2238</code></td>
+							</tr>
+							<tr>
+								<td>Oilcake</td>
+								<td><code>0813</code></td>
+							</tr>
+							<tr>
+								<td>Olive oil</td>
+								<td><code>4235</code></td>
+							</tr>
+							<tr>
+								<td>Optical glass</td>
+								<td><code>6642</code></td>
+							</tr>
+							<tr>
+								<td>Optical instruments</td>
+								<td><code>8710</code></td>
+							</tr>
+							<tr>
+								<td>Ores and precious metals</td>
+								<td><code>2890</code></td>
+							</tr>
+							<tr>
+								<td>Organic chemical products</td>
+								<td><code>5983</code></td>
+							</tr>
+							<tr>
+								<td>Organic chemicals</td>
+								<td><code>5169</code></td>
+							</tr>
+							<tr>
+								<td>Organic surface-active agents N.E.S.</td>
+								<td><code>5542</code></td>
+							</tr>
+							<tr>
+								<td>Organo-sulphur compounds</td>
+								<td><code>5154</code></td>
+							</tr>
+							<tr>
+								<td>Orthopaedic appliances</td>
+								<td><code>8996</code></td>
+							</tr>
+							<tr>
+								<td>Other animal entrails</td>
+								<td><code>0121</code></td>
+							</tr>
+							<tr>
+								<td>Other animal meats</td>
+								<td><code>0118</code></td>
+							</tr>
+							<tr>
+								<td>Other articles of leather</td>
+								<td><code>6129</code></td>
+							</tr>
+							<tr>
+								<td>Other articles of precious metals N.E.S.</td>
+								<td><code>8974</code></td>
+							</tr>
+							<tr>
+								<td>Other articles of rubber</td>
+								<td><code>6289</code></td>
+							</tr>
+							<tr>
+								<td>Other base metal manufactures N.E.S.</td>
+								<td><code>6999</code></td>
+							</tr>
+							<tr>
+								<td>Other cellulosic pulps</td>
+								<td><code>2519</code></td>
+							</tr>
+							<tr>
+								<td>Other coal</td>
+								<td><code>3222</code></td>
+							</tr>
+							<tr>
+								<td>Other colouring matter</td>
+								<td><code>5331</code></td>
+							</tr>
+							<tr>
+								<td>Other condensation products</td>
+								<td><code>5829</code></td>
+							</tr>
+							<tr>
+								<td>Other electrical machinery & equipment N.E.S.</td>
+								<td><code>7788</code></td>
+							</tr>
+							<tr>
+								<td>Other fresh or chilled vegetables</td>
+								<td><code>0545</code></td>
+							</tr>
+							<tr>
+								<td>Other handtools</td>
+								<td><code>6953</code></td>
+							</tr>
+							<tr>
+								<td>Other iron or steel tubes & pipes</td>
+								<td><code>6783</code></td>
+							</tr>
+							<tr>
+								<td>Other knitted outerwear</td>
+								<td><code>8459</code></td>
+							</tr>
+							<tr>
+								<td>Other materials carpets N.E.S.</td>
+								<td><code>6596</code></td>
+							</tr>
+							<tr>
+								<td>Other men outerwear</td>
+								<td><code>8429</code></td>
+							</tr>
+							<tr>
+								<td>Other natural abrasives</td>
+								<td><code>2772</code></td>
+							</tr>
+							<tr>
+								<td>Other nitrogen-function compounds</td>
+								<td><code>5148</code></td>
+							</tr>
+							<tr>
+								<td>Other non-ferrous base metals</td>
+								<td><code>2879</code></td>
+							</tr>
+							<tr>
+								<td>Other non-ferrous base metals</td>
+								<td><code>2882</code></td>
+							</tr>
+							<tr>
+								<td>Other office supplies</td>
+								<td><code>8959</code></td>
+							</tr>
+							<tr>
+								<td>Other organo-inorganic compounds</td>
+								<td><code>5155</code></td>
+							</tr>
+							<tr>
+								<td>Other polymerization & copolymarization products</td>
+								<td><code>5839</code></td>
+							</tr>
+							<tr>
+								<td>Other prepared or preserved meat & entrails</td>
+								<td><code>0149</code></td>
+							</tr>
+							<tr>
+								<td>Other printing machines</td>
+								<td><code>7267</code></td>
+							</tr>
+							<tr>
+								<td>Other pumps for liquids & liquid elevators</td>
+								<td><code>7428</code></td>
+							</tr>
+							<tr>
+								<td>Other radio receivers</td>
+								<td><code>7628</code></td>
+							</tr>
+							<tr>
+								<td>Other radioactive materials</td>
+								<td><code>5249</code></td>
+							</tr>
+							<tr>
+								<td>Other soft vegetable oils</td>
+								<td><code>4239</code></td>
+							</tr>
+							<tr>
+								<td>Other Sulphurs</td>
+								<td><code>2741</code></td>
+							</tr>
+							<tr>
+								<td>Other textile articles N.E.S.</td>
+								<td><code>6589</code></td>
+							</tr>
+							<tr>
+								<td>Other tires articles</td>
+								<td><code>6259</code></td>
+							</tr>
+							<tr>
+								<td>Other vehicles parts</td>
+								<td><code>7849</code></td>
+							</tr>
+							<tr>
+								<td>Other wheat & meslin, unmilled</td>
+								<td><code>0412</code></td>
+							</tr>
+							<tr>
+								<td>Other women outerwear</td>
+								<td><code>8439</code></td>
+							</tr>
+							<tr>
+								<td>Other worked iron/steel sheets</td>
+								<td><code>6749</code></td>
+							</tr>
+							<tr>
+								<td>Oxygen-function acids & derivatives</td>
+								<td><code>5139</code></td>
+							</tr>
+							<tr>
+								<td>Oxygen-function amino-compounds</td>
+								<td><code>5146</code></td>
+							</tr>
+							<tr>
+								<td>Palm kernel oil</td>
+								<td><code>4244</code></td>
+							</tr>
+							<tr>
+								<td>Palm nuts & kernels</td>
+								<td><code>2232</code></td>
+							</tr>
+							<tr>
+								<td>Palm oil</td>
+								<td><code>4242</code></td>
+							</tr>
+							<tr>
+								<td>Paper & paperboad in rolls or sheets</td>
+								<td><code>6415</code></td>
+							</tr>
+							<tr>
+								<td>Paper making machines</td>
+								<td><code>7252</code></td>
+							</tr>
+							<tr>
+								<td>Paper packing containers</td>
+								<td><code>6421</code></td>
+							</tr>
+							<tr>
+								<td>Parts & accessories for meters & counters</td>
+								<td><code>8749</code></td>
+							</tr>
+							<tr>
+								<td>Parts N.E.S. of electronic circuits</td>
+								<td><code>7768</code></td>
+							</tr>
+							<tr>
+								<td>Parts of boilers N.E.S.</td>
+								<td><code>7119</code></td>
+							</tr>
+							<tr>
+								<td>Parts of cash registers & calculating machines</td>
+								<td><code>7599</code></td>
+							</tr>
+							<tr>
+								<td>Parts of electric power machinery N.E.S.</td>
+								<td><code>7712</code></td>
+							</tr>
+							<tr>
+								<td>Parts of gas & reaction engines</td>
+								<td><code>7149</code></td>
+							</tr>
+							<tr>
+								<td>Parts of not electrical heating equipment N.E.S.</td>
+								<td><code>8121</code></td>
+							</tr>
+							<tr>
+								<td>Parts of paper making machines</td>
+								<td><code>7259</code></td>
+							</tr>
+							<tr>
+								<td>Parts of printing press machines</td>
+								<td><code>7269</code></td>
+							</tr>
+							<tr>
+								<td>Parts of pumps and compressors</td>
+								<td><code>7432</code></td>
+							</tr>
+							<tr>
+								<td>Parts of rotating electric plants N.E.S.</td>
+								<td><code>7169</code></td>
+							</tr>
+							<tr>
+								<td>Parts of steam power units N.E.S.</td>
+								<td><code>7129</code></td>
+							</tr>
+							<tr>
+								<td>Parts of telecom & sound recording equipment</td>
+								<td><code>7649</code></td>
+							</tr>
+							<tr>
+								<td>Parts of type writters</td>
+								<td><code>7591</code></td>
+							</tr>
+							<tr>
+								<td>Pasta</td>
+								<td><code>0483</code></td>
+							</tr>
+							<tr>
+								<td>Peanut oil</td>
+								<td><code>4234</code></td>
+							</tr>
+							<tr>
+								<td>Peat</td>
+								<td><code>3224</code></td>
+							</tr>
+							<tr>
+								<td>Pens & pencils</td>
+								<td><code>8952</code></td>
+							</tr>
+							<tr>
+								<td>Pepper</td>
+								<td><code>0751</code></td>
+							</tr>
+							<tr>
+								<td>Perfumery & cosmetics</td>
+								<td><code>5530</code></td>
+							</tr>
+							<tr>
+								<td>Petroleum bitumen N.E.S.</td>
+								<td><code>3354</code></td>
+							</tr>
+							<tr>
+								<td>petroleum gases</td>
+								<td><code>3414</code></td>
+							</tr>
+							<tr>
+								<td>Petroleum jelly & mineral waxes</td>
+								<td><code>3351</code></td>
+							</tr>
+							<tr>
+								<td>Phenols, phenol-alcohols & derivatives</td>
+								<td><code>5123</code></td>
+							</tr>
+							<tr>
+								<td>Phenoplasts</td>
+								<td><code>5821</code></td>
+							</tr>
+							<tr>
+								<td>Phosphatic fertilizers</td>
+								<td><code>5622</code></td>
+							</tr>
+							<tr>
+								<td>Photo & movie equipment</td>
+								<td><code>8813</code></td>
+							</tr>
+							<tr>
+								<td>Photo cameras & parts</td>
+								<td><code>8811</code></td>
+							</tr>
+							<tr>
+								<td>Photographic chemicals</td>
+								<td><code>8821</code></td>
+							</tr>
+							<tr>
+								<td>Photographic film, plates & paper</td>
+								<td><code>8822</code></td>
+							</tr>
+							<tr>
+								<td>Pianos & string instruments</td>
+								<td><code>8981</code></td>
+							</tr>
+							<tr>
+								<td>Pig & cast iron</td>
+								<td><code>6712</code></td>
+							</tr>
+							<tr>
+								<td>Pig and poultry lard and fat</td>
+								<td><code>0913</code></td>
+							</tr>
+							<tr>
+								<td>Pins and needles</td>
+								<td><code>6993</code></td>
+							</tr>
+							<tr>
+								<td>Piston engines parts N.E.S.</td>
+								<td><code>7139</code></td>
+							</tr>
+							<tr>
+								<td>Pitprops, poles, piling, post and other wood in the rough</td>
+								<td><code>2479</code></td>
+							</tr>
+							<tr>
+								<td>Plaited products</td>
+								<td><code>6597</code></td>
+							</tr>
+							<tr>
+								<td>Planting seeds & spores</td>
+								<td><code>2925</code></td>
+							</tr>
+							<tr>
+								<td>Plastic lamps</td>
+								<td><code>8935</code></td>
+							</tr>
+							<tr>
+								<td>Plastic ornaments</td>
+								<td><code>8933</code></td>
+							</tr>
+							<tr>
+								<td>Plastic sanitary & toilet articles</td>
+								<td><code>8932</code></td>
+							</tr>
+							<tr>
+								<td>Polishes & creams</td>
+								<td><code>5543</code></td>
+							</tr>
+							<tr>
+								<td>Polishing stones</td>
+								<td><code>6631</code></td>
+							</tr>
+							<tr>
+								<td>Polyamides</td>
+								<td><code>5824</code></td>
+							</tr>
+							<tr>
+								<td>Polycarboxylic acids & derivatives</td>
+								<td><code>5138</code></td>
+							</tr>
+							<tr>
+								<td>Polyesters</td>
+								<td><code>5823</code></td>
+							</tr>
+							<tr>
+								<td>Polyethylene</td>
+								<td><code>5831</code></td>
+							</tr>
+							<tr>
+								<td>Polymerization/copolymerization ion exchangers</td>
+								<td><code>5838</code></td>
+							</tr>
+							<tr>
+								<td>Polypropylene</td>
+								<td><code>5832</code></td>
+							</tr>
+							<tr>
+								<td>Polystyrene</td>
+								<td><code>5833</code></td>
+							</tr>
+							<tr>
+								<td>Polyurethanes</td>
+								<td><code>5825</code></td>
+							</tr>
+							<tr>
+								<td>Polyvinyl acetate</td>
+								<td><code>5837</code></td>
+							</tr>
+							<tr>
+								<td>Polyvinyl chloride</td>
+								<td><code>5834</code></td>
+							</tr>
+							<tr>
+								<td>Porcelain</td>
+								<td><code>6664</code></td>
+							</tr>
+							<tr>
+								<td>Portable radio receivers</td>
+								<td><code>7622</code></td>
+							</tr>
+							<tr>
+								<td>Postcards & stickers</td>
+								<td><code>8924</code></td>
+							</tr>
+							<tr>
+								<td>Potassic fertilizers</td>
+								<td><code>5623</code></td>
+							</tr>
+							<tr>
+								<td>Pottery</td>
+								<td><code>6665</code></td>
+							</tr>
+							<tr>
+								<td>Poultry meat</td>
+								<td><code>0114</code></td>
+							</tr>
+							<tr>
+								<td>Powertools & parts</td>
+								<td><code>7784</code></td>
+							</tr>
+							<tr>
+								<td>Precious jewellery</td>
+								<td><code>8973</code></td>
+							</tr>
+							<tr>
+								<td>Prepared crustaceans & molluscs</td>
+								<td><code>0372</code></td>
+							</tr>
+							<tr>
+								<td>Prepared explosives</td>
+								<td><code>5721</code></td>
+							</tr>
+							<tr>
+								<td>Prepared or preserved fruit</td>
+								<td><code>0589</code></td>
+							</tr>
+							<tr>
+								<td>Prepared or preserved vegetables</td>
+								<td><code>0565</code></td>
+							</tr>
+							<tr>
+								<td>Preserved, concentrated or sweetened milk & cream</td>
+								<td><code>0224</code></td>
+							</tr>
+							<tr>
+								<td>Pressed or moulded glass</td>
+								<td><code>6646</code></td>
+							</tr>
+							<tr>
+								<td>Printed books & maps</td>
+								<td><code>8921</code></td>
+							</tr>
+							<tr>
+								<td>Printed circuits & parts N.E.S.</td>
+								<td><code>7722</code></td>
+							</tr>
+							<tr>
+								<td>Printed matter N.E.S.</td>
+								<td><code>8928</code></td>
+							</tr>
+							<tr>
+								<td>Printing & writing paper in rolls or seets</td>
+								<td><code>6412</code></td>
+							</tr>
+							<tr>
+								<td>Printing inks</td>
+								<td><code>5332</code></td>
+							</tr>
+							<tr>
+								<td>Printing presses</td>
+								<td><code>7264</code></td>
+							</tr>
+							<tr>
+								<td>Processed oils</td>
+								<td><code>4311</code></td>
+							</tr>
+							<tr>
+								<td>Provitamins & vitamins</td>
+								<td><code>5411</code></td>
+							</tr>
+							<tr>
+								<td>Public transportation vehicles</td>
+								<td><code>7831</code></td>
+							</tr>
+							<tr>
+								<td>Pulpwood</td>
+								<td><code>2460</code></td>
+							</tr>
+							<tr>
+								<td>Pumps & liquid elevators parts N.E.S.</td>
+								<td><code>7429</code></td>
+							</tr>
+							<tr>
+								<td>Pyrotechnic articles</td>
+								<td><code>5723</code></td>
+							</tr>
+							<tr>
+								<td>Quartz metal family</td>
+								<td><code>2785</code></td>
+							</tr>
+							<tr>
+								<td>Radioactive chemical elements</td>
+								<td><code>5241</code></td>
+							</tr>
+							<tr>
+								<td>Rags</td>
+								<td><code>2690</code></td>
+							</tr>
+							<tr>
+								<td>Rail tenders</td>
+								<td><code>7912</code></td>
+							</tr>
+							<tr>
+								<td>Railway or tramway sleepers</td>
+								<td><code>2481</code></td>
+							</tr>
+							<tr>
+								<td>Railway track & vehicle parts N.E.S.</td>
+								<td><code>7919</code></td>
+							</tr>
+							<tr>
+								<td>Rape & colza seeds</td>
+								<td><code>2226</code></td>
+							</tr>
+							<tr>
+								<td>Raw & roasted cocoa beans</td>
+								<td><code>0721</code></td>
+							</tr>
+							<tr>
+								<td>Raw bovine & equine hides</td>
+								<td><code>2111</code></td>
+							</tr>
+							<tr>
+								<td>Raw calf skins</td>
+								<td><code>2112</code></td>
+							</tr>
+							<tr>
+								<td>Raw cork</td>
+								<td><code>2440</code></td>
+							</tr>
+							<tr>
+								<td>Raw cotton</td>
+								<td><code>2631</code></td>
+							</tr>
+							<tr>
+								<td>Raw furs</td>
+								<td><code>2120</code></td>
+							</tr>
+							<tr>
+								<td>Raw goat skins</td>
+								<td><code>2114</code></td>
+							</tr>
+							<tr>
+								<td>Raw processed jute and other fibres</td>
+								<td><code>2640</code></td>
+							</tr>
+							<tr>
+								<td>Raw sheep skin with wool</td>
+								<td><code>2117</code></td>
+							</tr>
+							<tr>
+								<td>Raw sheep skin without wool</td>
+								<td><code>2116</code></td>
+							</tr>
+							<tr>
+								<td>Raw Silk</td>
+								<td><code>2613</code></td>
+							</tr>
+							<tr>
+								<td>Raw sugar beet & cane</td>
+								<td><code>0611</code></td>
+							</tr>
+							<tr>
+								<td>Reaction engines</td>
+								<td><code>7144</code></td>
+							</tr>
+							<tr>
+								<td>Reciprocating pumps</td>
+								<td><code>7421</code></td>
+							</tr>
+							<tr>
+								<td>Reclaimed & scrap rubber</td>
+								<td><code>2332</code></td>
+							</tr>
+							<tr>
+								<td>Refined sugar</td>
+								<td><code>0612</code></td>
+							</tr>
+							<tr>
+								<td>Refractory bricks</td>
+								<td><code>6623</code></td>
+							</tr>
+							<tr>
+								<td>Refractory goods N.E.S.</td>
+								<td><code>6637</code></td>
+							</tr>
+							<tr>
+								<td>Refrigerators & freezers</td>
+								<td><code>7752</code></td>
+							</tr>
+							<tr>
+								<td>Regenerated cellulose</td>
+								<td><code>5841</code></td>
+							</tr>
+							<tr>
+								<td>Regenerated fibre</td>
+								<td><code>2671</code></td>
+							</tr>
+							<tr>
+								<td>Road rollers</td>
+								<td><code>7233</code></td>
+							</tr>
+							<tr>
+								<td>Roasted & unroasted malt, including flour</td>
+								<td><code>0482</code></td>
+							</tr>
+							<tr>
+								<td>Roasted iron pyrites</td>
+								<td><code>2814</code></td>
+							</tr>
+							<tr>
+								<td>Roller bearings</td>
+								<td><code>7491</code></td>
+							</tr>
+							<tr>
+								<td>Rolling mills</td>
+								<td><code>7372</code></td>
+							</tr>
+							<tr>
+								<td>Rolls/sheets of coated paper</td>
+								<td><code>6418</code></td>
+							</tr>
+							<tr>
+								<td>Rolls/sheets of creped paper</td>
+								<td><code>6417</code></td>
+							</tr>
+							<tr>
+								<td>Rolls/sheets of kraft paper</td>
+								<td><code>6413</code></td>
+							</tr>
+							<tr>
+								<td>Ropes & cables</td>
+								<td><code>6575</code></td>
+							</tr>
+							<tr>
+								<td>Rotary converters</td>
+								<td><code>7163</code></td>
+							</tr>
+							<tr>
+								<td>Rotary pumps</td>
+								<td><code>7423</code></td>
+							</tr>
+							<tr>
+								<td>Rubber for hygienic & pharmaceutical articles</td>
+								<td><code>6281</code></td>
+							</tr>
+							<tr>
+								<td>Saddlery & harness</td>
+								<td><code>6122</code></td>
+							</tr>
+							<tr>
+								<td>Safety glass</td>
+								<td><code>6647</code></td>
+							</tr>
+							<tr>
+								<td>Salted, dried or smoked fish</td>
+								<td><code>0350</code></td>
+							</tr>
+							<tr>
+								<td>Sausages</td>
+								<td><code>0142</code></td>
+							</tr>
+							<tr>
+								<td>Sawlogs & veneer logs of coniferous</td>
+								<td><code>2471</code></td>
+							</tr>
+							<tr>
+								<td>Sawlogs & veneer logs of non-coniferous</td>
+								<td><code>2472</code></td>
+							</tr>
+							<tr>
+								<td>Scientific instruments N.E.S.</td>
+								<td><code>8745</code></td>
+							</tr>
+							<tr>
+								<td>Seamless tubes, pipes of iron or steel</td>
+								<td><code>6782</code></td>
+							</tr>
+							<tr>
+								<td>Semi or wholly milled rice</td>
+								<td><code>0422</code></td>
+							</tr>
+							<tr>
+								<td>Sesame seeds</td>
+								<td><code>2225</code></td>
+							</tr>
+							<tr>
+								<td>Sewing machines & parts N.E.S.</td>
+								<td><code>7243</code></td>
+							</tr>
+							<tr>
+								<td>Shavers & hair clippers</td>
+								<td><code>7754</code></td>
+							</tr>
+							<tr>
+								<td>Sheep & goat meat</td>
+								<td><code>0112</code></td>
+							</tr>
+							<tr>
+								<td>Sheep & lamb leather</td>
+								<td><code>6115</code></td>
+							</tr>
+							<tr>
+								<td>Sheep or lambs greasy wool</td>
+								<td><code>2681</code></td>
+							</tr>
+							<tr>
+								<td>Sheets of plywood</td>
+								<td><code>6342</code></td>
+							</tr>
+							<tr>
+								<td>Ships & boats</td>
+								<td><code>7932</code></td>
+							</tr>
+							<tr>
+								<td>Ships & boats for breaking up</td>
+								<td><code>7933</code></td>
+							</tr>
+							<tr>
+								<td>Silicones</td>
+								<td><code>5827</code></td>
+							</tr>
+							<tr>
+								<td>Silk woven fabrics</td>
+								<td><code>6541</code></td>
+							</tr>
+							<tr>
+								<td>Silk yarn & spun from noil and waste</td>
+								<td><code>6511</code></td>
+							</tr>
+							<tr>
+								<td>Simply shaped wood N.E.S.</td>
+								<td><code>6349</code></td>
+							</tr>
+							<tr>
+								<td>Skirts</td>
+								<td><code>8434</code></td>
+							</tr>
+							<tr>
+								<td>Small-wares & toilet articles</td>
+								<td><code>8998</code></td>
+							</tr>
+							<tr>
+								<td>Soaps</td>
+								<td><code>5541</code></td>
+							</tr>
+							<tr>
+								<td>Sodium chloride</td>
+								<td><code>2783</code></td>
+							</tr>
+							<tr>
+								<td>Solid fuels</td>
+								<td><code>3231</code></td>
+							</tr>
+							<tr>
+								<td>Sound recording tapes & discs</td>
+								<td><code>8983</code></td>
+							</tr>
+							<tr>
+								<td>Soya bean oil</td>
+								<td><code>4232</code></td>
+							</tr>
+							<tr>
+								<td>Soya beans</td>
+								<td><code>2222</code></td>
+							</tr>
+							<tr>
+								<td>Special floating structures</td>
+								<td><code>7938</code></td>
+							</tr>
+							<tr>
+								<td>Special products of textile</td>
+								<td><code>6579</code></td>
+							</tr>
+							<tr>
+								<td>Special purpose trucks & vans</td>
+								<td><code>7822</code></td>
+							</tr>
+							<tr>
+								<td>Specialized industry machinery & parts N.E.S</td>
+								<td><code>7284</code></td>
+							</tr>
+							<tr>
+								<td>Specialized industry machinery tools & parts N.E.S</td>
+								<td><code>7281</code></td>
+							</tr>
+							<tr>
+								<td>Spectacles</td>
+								<td><code>8842</code></td>
+							</tr>
+							<tr>
+								<td>Spices other than pepper</td>
+								<td><code>0752</code></td>
+							</tr>
+							<tr>
+								<td>Sporting goods</td>
+								<td><code>8947</code></td>
+							</tr>
+							<tr>
+								<td>Starches</td>
+								<td><code>5921</code></td>
+							</tr>
+							<tr>
+								<td>Steam power units</td>
+								<td><code>7126</code></td>
+							</tr>
+							<tr>
+								<td>Steel tinned sheets</td>
+								<td><code>6747</code></td>
+							</tr>
+							<tr>
+								<td>Stones</td>
+								<td><code>2734</code></td>
+							</tr>
+							<tr>
+								<td>Strollers & parts</td>
+								<td><code>8941</code></td>
+							</tr>
+							<tr>
+								<td>Sugar confectionary (not chocolate)</td>
+								<td><code>0620</code></td>
+							</tr>
+							<tr>
+								<td>Sugar syrups, caramel & artificial honey</td>
+								<td><code>0619</code></td>
+							</tr>
+							<tr>
+								<td>Sulphonamides, sultones & sultams</td>
+								<td><code>5157</code></td>
+							</tr>
+							<tr>
+								<td>Sunflower seed oil</td>
+								<td><code>4236</code></td>
+							</tr>
+							<tr>
+								<td>Sunflower seeds</td>
+								<td><code>2224</code></td>
+							</tr>
+							<tr>
+								<td>Super-heated water boiler</td>
+								<td><code>7111</code></td>
+							</tr>
+							<tr>
+								<td>Swine meat</td>
+								<td><code>0113</code></td>
+							</tr>
+							<tr>
+								<td>Switchboards, relays & fuses</td>
+								<td><code>7721</code></td>
+							</tr>
+							<tr>
+								<td>Synthetic organic dyes</td>
+								<td><code>5311</code></td>
+							</tr>
+							<tr>
+								<td>Synthetic organic luminophores</td>
+								<td><code>5312</code></td>
+							</tr>
+							<tr>
+								<td>Synthetic precious stones</td>
+								<td><code>6674</code></td>
+							</tr>
+							<tr>
+								<td>Synthetic rubber & latex</td>
+								<td><code>2331</code></td>
+							</tr>
+							<tr>
+								<td>Synthetic tanning substances</td>
+								<td><code>5323</code></td>
+							</tr>
+							<tr>
+								<td>T.V. tubes & cathode rays</td>
+								<td><code>7761</code></td>
+							</tr>
+							<tr>
+								<td>Tanned or dressed furskins</td>
+								<td><code>6130</code></td>
+							</tr>
+							<tr>
+								<td>Tanning extracts</td>
+								<td><code>5322</code></td>
+							</tr>
+							<tr>
+								<td>Tanning leather machinery N.E.S.</td>
+								<td><code>7248</code></td>
+							</tr>
+							<tr>
+								<td>Tea</td>
+								<td><code>0741</code></td>
+							</tr>
+							<tr>
+								<td>Telecom equipment N.E.S.</td>
+								<td><code>7648</code></td>
+							</tr>
+							<tr>
+								<td>Telephone lines</td>
+								<td><code>7641</code></td>
+							</tr>
+							<tr>
+								<td>Television & radio transmitters</td>
+								<td><code>7643</code></td>
+							</tr>
+							<tr>
+								<td>Temporarily preserved fruit</td>
+								<td><code>0586</code></td>
+							</tr>
+							<tr>
+								<td>Textile camping goods</td>
+								<td><code>6582</code></td>
+							</tr>
+							<tr>
+								<td>Textile machinery</td>
+								<td><code>7244</code></td>
+							</tr>
+							<tr>
+								<td>Tin</td>
+								<td><code>2876</code></td>
+							</tr>
+							<tr>
+								<td>Tires & pneumatic for aircraft</td>
+								<td><code>6253</code></td>
+							</tr>
+							<tr>
+								<td>Tires & pneumatic for bikes</td>
+								<td><code>6254</code></td>
+							</tr>
+							<tr>
+								<td>Tires & pneumatic for buses</td>
+								<td><code>6252</code></td>
+							</tr>
+							<tr>
+								<td>Tires & pneumatic for cars</td>
+								<td><code>6251</code></td>
+							</tr>
+							<tr>
+								<td>Tobacco refuse</td>
+								<td><code>1213</code></td>
+							</tr>
+							<tr>
+								<td>Tobbacco, extract, essences & manufactures</td>
+								<td><code>1223</code></td>
+							</tr>
+							<tr>
+								<td>Toys</td>
+								<td><code>8942</code></td>
+							</tr>
+							<tr>
+								<td>Track-laying tractors</td>
+								<td><code>7223</code></td>
+							</tr>
+							<tr>
+								<td>Tractors for semi-trailers</td>
+								<td><code>7832</code></td>
+							</tr>
+							<tr>
+								<td>Transmission & conveyor belts</td>
+								<td><code>6282</code></td>
+							</tr>
+							<tr>
+								<td>Travelling rugs & blankets</td>
+								<td><code>6583</code></td>
+							</tr>
+							<tr>
+								<td>Trucks & vans</td>
+								<td><code>7821</code></td>
+							</tr>
+							<tr>
+								<td>True Hemp</td>
+								<td><code>2652</code></td>
+							</tr>
+							<tr>
+								<td>Tulle, lace, ribbons & similar</td>
+								<td><code>6560</code></td>
+							</tr>
+							<tr>
+								<td>Type-setting machines</td>
+								<td><code>7263</code></td>
+							</tr>
+							<tr>
+								<td>Typewriters & cheque-writing machines</td>
+								<td><code>7511</code></td>
+							</tr>
+							<tr>
+								<td>Umbrellas & canes</td>
+								<td><code>8994</code></td>
+							</tr>
+							<tr>
+								<td>Unbleached cotton woven fabrics</td>
+								<td><code>6521</code></td>
+							</tr>
+							<tr>
+								<td>Unclassified transactions</td>
+								<td><code>9310</code></td>
+							</tr>
+							<tr>
+								<td>Under-garments of other fibres</td>
+								<td><code>8464</code></td>
+							</tr>
+							<tr>
+								<td>Under-garments of wool or fine animal hair</td>
+								<td><code>8461</code></td>
+							</tr>
+							<tr>
+								<td>Unmilled barley</td>
+								<td><code>0430</code></td>
+							</tr>
+							<tr>
+								<td>Unmilled buckwheat, millet & other cereals N.E.S.</td>
+								<td><code>0459</code></td>
+							</tr>
+							<tr>
+								<td>Unmilled durum wheat</td>
+								<td><code>0411</code></td>
+							</tr>
+							<tr>
+								<td>Unmilled maize</td>
+								<td><code>0440</code></td>
+							</tr>
+							<tr>
+								<td>Unmilled oats</td>
+								<td><code>0452</code></td>
+							</tr>
+							<tr>
+								<td>Unmilled rye</td>
+								<td><code>0451</code></td>
+							</tr>
+							<tr>
+								<td>Unprepared rice in the husk or husked</td>
+								<td><code>0421</code></td>
+							</tr>
+							<tr>
+								<td>Unroasted iron pyrites</td>
+								<td><code>2742</code></td>
+							</tr>
+							<tr>
+								<td>Unstripped tobacco</td>
+								<td><code>1211</code></td>
+							</tr>
+							<tr>
+								<td>Unsweetened cocoa powder</td>
+								<td><code>0722</code></td>
+							</tr>
+							<tr>
+								<td>Unworked cast glass</td>
+								<td><code>6645</code></td>
+							</tr>
+							<tr>
+								<td>Unworked drawn or blown gladd</td>
+								<td><code>6643</code></td>
+							</tr>
+							<tr>
+								<td>Unworked surface-ground cast glass</td>
+								<td><code>6644</code></td>
+							</tr>
+							<tr>
+								<td>Unwrought aluminium & aluminium alloys</td>
+								<td><code>6841</code></td>
+							</tr>
+							<tr>
+								<td>Unwrought copper & copper alloys</td>
+								<td><code>6821</code></td>
+							</tr>
+							<tr>
+								<td>Unwrought lead & alloys</td>
+								<td><code>6851</code></td>
+							</tr>
+							<tr>
+								<td>Unwrought metals of platinum</td>
+								<td><code>6812</code></td>
+							</tr>
+							<tr>
+								<td>Unwrought nickel & nickel alloys</td>
+								<td><code>6831</code></td>
+							</tr>
+							<tr>
+								<td>Unwrought silver</td>
+								<td><code>6811</code></td>
+							</tr>
+							<tr>
+								<td>Unwrought tin & alloys</td>
+								<td><code>6871</code></td>
+							</tr>
+							<tr>
+								<td>Unwrought zinc & alloys</td>
+								<td><code>6861</code></td>
+							</tr>
+							<tr>
+								<td>Uranium & thorium</td>
+								<td><code>2860</code></td>
+							</tr>
+							<tr>
+								<td>Valves</td>
+								<td><code>7492</code></td>
+							</tr>
+							<tr>
+								<td>Varnishes & lacquers</td>
+								<td><code>5334</code></td>
+							</tr>
+							<tr>
+								<td>Vegetable alkaloids & derivatives</td>
+								<td><code>5414</code></td>
+							</tr>
+							<tr>
+								<td>Vegetable oils N.E.S.</td>
+								<td><code>4249</code></td>
+							</tr>
+							<tr>
+								<td>Vegetable origin materials</td>
+								<td><code>2929</code></td>
+							</tr>
+							<tr>
+								<td>Vegetable plaiting materials</td>
+								<td><code>2923</code></td>
+							</tr>
+							<tr>
+								<td>Vegetable textile fibres N.E.S.</td>
+								<td><code>2659</code></td>
+							</tr>
+							<tr>
+								<td>Vehicle bodies</td>
+								<td><code>7842</code></td>
+							</tr>
+							<tr>
+								<td>Vehicles radio receivers</td>
+								<td><code>7621</code></td>
+							</tr>
+							<tr>
+								<td>Video & sound recorders N.E.S.</td>
+									<td><code>7638</code></td>
+							</tr>
+							<tr>
+								<td>Wadding, wicks & textiles fabrics</td>
+								<td><code>6577</code></td>
+							</tr>
+							<tr>
+								<td>Warships</td>
+								<td><code>7931</code></td>
+							</tr>
+							<tr>
+								<td>Waste of man-made fibres</td>
+								<td><code>2672</code></td>
+							</tr>
+							<tr>
+								<td>Waste of unwrought cermets & base metals</td>
+								<td><code>6899</code></td>
+							</tr>
+							<tr>
+								<td>Waste of unwrought tungsten and related metals</td>
+								<td><code>6891</code></td>
+							</tr>
+							<tr>
+								<td>Waste paper and paperboard</td>
+								<td><code>2511</code></td>
+							</tr>
+							<tr>
+								<td>Watches</td>
+								<td><code>8851</code></td>
+							</tr>
+							<tr>
+								<td>Waxes</td>
+								<td><code>4314</code></td>
+							</tr>
+							<tr>
+								<td>Weaving, knitting & yarn preparing machines</td>
+								<td><code>7245</code></td>
+							</tr>
+							<tr>
+								<td>Welding, brazing & cutting machines & appliances N.E.S.</td>
+								<td><code>7373</code></td>
+							</tr>
+							<tr>
+								<td>Wheat or meslin meal or flour </td>
+								<td><code>0460</code></td>
+							</tr>
+							<tr>
+								<td>Wheelchairs</td>
+								<td><code>7853</code></td>
+							</tr>
+							<tr>
+								<td>Wheeled tractors</td>
+								<td><code>7224</code></td>
+							</tr>
+							<tr>
+								<td>Wholly or partly stripped tobacco</td>
+								<td><code>1212</code></td>
+							</tr>
+							<tr>
+								<td>Wine</td>
+								<td><code>1121</code></td>
+							</tr>
+							<tr>
+								<td>Wires, cables & ropes</td>
+								<td><code>6931</code></td>
+							</tr>
+							<tr>
+								<td>Women's coats & jackets</td>
+								<td><code>8431</code></td>
+							</tr>
+							<tr>
+								<td>Women's suits</td>
+								<td><code>8432</code></td>
+							</tr>
+							<tr>
+								<td>Women's underwear</td>
+								<td><code>8443</code></td>
+							</tr>
+							<tr>
+								<td>Wood boxes</td>
+								<td><code>6351</code></td>
+							</tr>
+							<tr>
+								<td>Wood sawn lengthwise up to 5 mm in thickness</td>
+								<td><code>6341</code></td>
+							</tr>
+							<tr>
+								<td>Wood-based panels</td>
+								<td><code>6344</code></td>
+							</tr>
+							<tr>
+								<td>Woods & resin chemical products</td>
+								<td><code>5981</code></td>
+							</tr>
+							<tr>
+								<td>Wool carpets</td>
+								<td><code>6594</code></td>
+							</tr>
+							<tr>
+								<td>Wool woven fabrics N.E.S.</td>
+								<td><code>6543</code></td>
+							</tr>
+							<tr>
+								<td>Wool yarn or animal hair</td>
+								<td><code>6512</code></td>
+							</tr>
+							<tr>
+								<td>Work or prepared cereal grains N.E.S.</td>
+								<td><code>0481</code></td>
+							</tr>
+							<tr>
+								<td>Work trucks</td>
+								<td><code>7441</code></td>
+							</tr>
+							<tr>
+								<td>Worked aluminium & aluminium alloys</td>
+								<td><code>6842</code></td>
+							</tr>
+							<tr>
+								<td>Worked copper & copper alloys</td>
+								<td><code>6822</code></td>
+							</tr>
+							<tr>
+								<td>Worked lead & alloys</td>
+								<td><code>6852</code></td>
+							</tr>
+							<tr>
+								<td>Worked nickel & nickel alloys</td>
+								<td><code>6832</code></td>
+							</tr>
+							<tr>
+								<td>Worked tin & alloys</td>
+								<td><code>6872</code></td>
+							</tr>
+							<tr>
+								<td>Worked wood of coniferous</td>
+								<td><code>2482</code></td>
+							</tr>
+							<tr>
+								<td>Worked wood of non-coniferous</td>
+								<td><code>2483</code></td>
+							</tr>
+							<tr>
+								<td>Worked zinc & alloys</td>
+								<td><code>6863</code></td>
+							</tr>
+							<tr>
+								<td>Working metal & metal carbides machines N.E.S.</td>
+								<td><code>7367</code></td>
+							</tr>
+							<tr>
+								<td>Works of art</td>
+								<td><code>8960</code></td>
+							</tr>
+							<tr>
+								<td>Worm cocoons and waste from silk</td>
+								<td><code>2614</code></td>
+							</tr>
+							<tr>
+								<td>Woven fabrics N.E.S.</td>
+								<td><code>6549</code></td>
+							</tr>
+							<tr>
+								<td>X-ray apparatus</td>
+								<td><code>7742</code></td>
+							</tr>
+							<tr>
+								<td>Yarn (<85% synthetic fibres)</td>
+								<td><code>6516</code></td>
+							</tr>
+							<tr>
+								<td>Yarn for retail (>=85% synthetic fibres)</td>
+								<td><code>6515</code></td>
+							</tr>
+							<tr>
+								<td>Yarn not for retail (>=85% synthetic fibres)</td>
+								<td><code>6514</code></td>
+							</tr>
+							<tr>
+								<td>Yarn of regenerated fibres</td>
+								<td><code>6518</code></td>
+							</tr>
+							<tr>
+								<td>Yarn of regenerated fibres not for retail</td>
+								<td><code>6517</code></td>
+							</tr>
+							<tr>
+								<td>Yarn of textile fibres</td>
+								<td><code>6519</code></td>
+							</tr>
+							<tr>
+								<td>Zinc</td>
+								<td><code>2875</code></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+{% endblock %}
+
+{% block js %}
+<script>
+
+</script>
+{% endblock %}

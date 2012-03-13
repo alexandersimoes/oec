@@ -28,6 +28,12 @@ def permissions(request):
 def api(request):
 	return render_to_response("api/index.html", context_instance=RequestContext(request))
 
+def api_apps(request):
+	return render_to_response("api/apps.html", context_instance=RequestContext(request))
+
+def api_data(request):
+	return render_to_response("api/data.html", context_instance=RequestContext(request))
+
 def book(request):
 	return render_to_response("book/index.html", context_instance=RequestContext(request))
 
@@ -450,6 +456,7 @@ def api_cspy(request, trade_flow, country1, product, year):
 		json_response["year_interval"] = year_parts[2]
 
 	return HttpResponse(json.dumps(json_response))
+
 
 # Embed for iframe
 def embed(request, app_name, trade_flow, country1, country2, product, year):

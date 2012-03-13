@@ -1,0 +1,525 @@
+{% extends "static_template.html" %}
+
+{% block page_title %}API{% endblock %}
+{% block heading_title %}API{% endblock %}
+
+{% block css %} 
+<link href="media/google-code-prettify/prettify.css" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block sidebar %}
+<nav role="navigation">
+	<ul>
+		<li><a href="/api/">Embed</a>
+		<ul>
+				<li><a href="#basics">Basics</a></li>
+				<li><a href="#uri">Options</a></li>
+				<li><a href="#questions">Questions</a></li>
+				</ul>
+		</li>
+			
+		<li><a href="/api/apps" class = "active">Example Apps</a>
+		<ul>
+				<li><a href="#tree_maps">Tree Maps</a></li>
+				<li><a href="#stacked">Stacked Area Charts</a></li>
+				<li><a href="#product_space">Product Space</a></li>
+				</ul>
+		</li>
+		<li><a href="/api/data">Data</a>
+		<ul>
+			<li><a href="#countries">Countries</a></li>
+				<li><a href="#products">Products</a></li>
+		</ul>
+		</li>
+	</ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+<section id="tree_maps">
+			<div class="page-header">
+				<h1>Tree maps </h1>
+				<h3>Look at the values of countries or products represented as shares of the whole</h3>
+			</div>
+			
+			<div class="row">
+				<div class="span4 columns">
+					<h2>What did the US import in the year 2004?</h2>
+				</div>
+				<div class="span4 columns">
+					<table class="table table-bordered table-striped">
+							<tr>
+								<th width="80px">App</th>
+								<td>tree_map</td>
+							</tr>
+							<tr>
+								<th width="80px">Trade flow</th>
+								<td>import</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 1</th>
+								<td>usa</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 2</th>
+								<td>all</td>
+							</tr>
+							<tr>
+								<th width="80px">Product</th>
+								<td>show</td>
+							</tr>
+							<tr>
+								<th width="80px">Year</th>
+								<td>2004</td>
+							</tr>
+							<tr>
+								<th width="80px">URI</th>
+								<td><pre>/tree_map/import/usa/all/show/2004/</pre></td>
+							</tr>
+					</table>
+				</div>
+				<div class="span4 columns">
+					<iframe width="370" height="300" frameborder="0" src="http://atlas.media.mit.edu/embed/tree_map/import/usa/all/show/2004/"></iframe>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="span4 columns">
+					<h2>Which countries did the US import from in 2004?</h2>
+				</div>
+				<div class="span4 columns">
+					<table class="table table-bordered table-striped">
+							<tr>
+								<th width="80px">App</th>
+								<td>tree_map</td>
+							</tr>
+							<tr>
+								<th width="80px">Trade flow</th>
+								<td>import</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 1</th>
+								<td>usa</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 2</th>
+								<td>show</td>
+							</tr>
+							<tr>
+								<th width="80px">Product</th>
+								<td>all</td>
+							</tr>
+							<tr>
+								<th width="80px">Year</th>
+								<td>2004</td>
+							</tr>
+							<tr>
+								<th width="80px">URI</th>
+								<td><pre>/tree_map/import/usa/show/all/2004/</pre></td>
+							</tr>
+					</table>
+				</div>
+				<div class="span4 columns">
+					<iframe width="370" height="300" frameborder="0" src="http://atlas.media.mit.edu/embed/tree_map/import/usa/show/all/2004/"></iframe>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="span4 columns">
+					<h2>What did the US import from China in 2004?</h2>
+				</div>
+				<div class="span4 columns">
+					<table class="table table-bordered table-striped">
+							<tr>
+								<th width="80px">App</th>
+								<td>tree_map</td>
+							</tr>
+							<tr>
+								<th width="80px">Trade flow</th>
+								<td>import</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 1</th>
+								<td>usa</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 2</th>
+								<td>chn</td>
+							</tr>
+							<tr>
+								<th width="80px">Product</th>
+								<td>show</td>
+							</tr>
+							<tr>
+								<th width="80px">Year</th>
+								<td>2004</td>
+							</tr>
+							<tr>
+								<th width="80px">URI</th>
+								<td><pre>/tree_map/import/usa/chn/show/2004/</pre></td>
+							</tr>
+					</table>
+				</div>
+				<div class="span4 columns">
+					<iframe width="370" height="300" frameborder="0" src="http://atlas.media.mit.edu/embed/tree_map/import/usa/chn/show/2004/"></iframe>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="span4 columns">
+					<h2>Where did the US import cars from in 2004?</h2>
+				</div>
+				<div class="span4 columns">
+					<table class="table table-bordered table-striped">
+							<tr>
+								<th width="80px">App</th>
+								<td>tree_map</td>
+							</tr>
+							<tr>
+								<th width="80px">Trade flow</th>
+								<td>import</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 1</th>
+								<td>usa</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 2</th>
+								<td>show</td>
+							</tr>
+							<tr>
+								<th width="80px">Product</th>
+								<td>7810</td>
+							</tr>
+							<tr>
+								<th width="80px">Year</th>
+								<td>2004</td>
+							</tr>
+							<tr>
+								<th width="80px">URI</th>
+								<td><pre>/tree_map/import/usa/show/7810/2004/</pre></td>
+							</tr>
+					</table>
+				</div>
+				<div class="span4 columns">
+					<iframe width="370" height="300" frameborder="0" src="http://atlas.media.mit.edu/embed/tree_map/import/usa/show/7810/2004/"></iframe>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="span4 columns">
+					<h2>Which countries imported cars in 2004?</h2>
+				</div>
+				<div class="span4 columns">
+					<table class="table table-bordered table-striped">
+							<tr>
+								<th width="80px">App</th>
+								<td>tree_map</td>
+							</tr>
+							<tr>
+								<th width="80px">Trade flow</th>
+								<td>import</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 1</th>
+								<td>show</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 2</th>
+								<td>all</td>
+							</tr>
+							<tr>
+								<th width="80px">Product</th>
+								<td>7810</td>
+							</tr>
+							<tr>
+								<th width="80px">Year</th>
+								<td>2004</td>
+							</tr>
+							<tr>
+								<th width="80px">URI</th>
+								<td><pre>/tree_map/import/show/all/7810/2004/</pre></td>
+							</tr>
+					</table>
+				</div>
+				<div class="span4 columns">
+					<iframe width="370" height="300" frameborder="0" src="http://atlas.media.mit.edu/embed/tree_map/import/show/all/7810/2004/"></iframe>
+				</div>
+			</div>
+			
+		</section>
+		
+<section id="stacked">
+			
+			<div class="page-header">
+				<h1>Stacked area charts </h1>
+				<h3>Look at the values of countries or products over an interval of time</h3>
+			</div>
+			
+			<div class="row">
+				<div class="span4 columns">
+					<h2>What did Portugal export in the years 1968 - 2008?</h2>
+				</div>
+				<div class="span4 columns">
+					<table class="table table-bordered table-striped">
+							<tr>
+								<th width="80px">App</th>
+								<td>stacked</td>
+							</tr>
+							<tr>
+								<th width="80px">Trade flow</th>
+								<td>export</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 1</th>
+								<td>pry</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 2</th>
+								<td>all</td>
+							</tr>
+							<tr>
+								<th width="80px">Product</th>
+								<td>show</td>
+							</tr>
+							<tr>
+								<th width="80px">Year</th>
+								<td>1968.2008.5</td>
+							</tr>
+							<tr>
+								<th width="80px">URI</th>
+								<td><pre>/stacked/export/prt/all/show/1968.2008.5/</pre></td>
+							</tr>
+					</table>
+				</div>
+				<div class="span4 columns">
+					<iframe width="370" height="300" frameborder="0" src="http://atlas.media.mit.edu/embed/stacked/export/prt/all/show/1968.2008.5/"></iframe>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="span4 columns">
+					<h2>Which countries did Portugal export to from 1968 to 2008?</h2>
+				</div>
+				<div class="span4 columns">
+					<table class="table table-bordered table-striped">
+							<tr>
+								<th width="80px">App</th>
+								<td>stacked</td>
+							</tr>
+							<tr>
+								<th width="80px">Trade flow</th>
+								<td>export</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 1</th>
+								<td>prt</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 2</th>
+								<td>show</td>
+							</tr>
+							<tr>
+								<th width="80px">Product</th>
+								<td>all</td>
+							</tr>
+							<tr>
+								<th width="80px">Year</th>
+								<td>1968.2008.5</td>
+							</tr>
+							<tr>
+								<th width="80px">URI</th>
+								<td><pre>/stacked/export/prt/show/all/1968.2008.5/?layout=share</pre></td>
+							</tr>
+					</table>
+				</div>
+				<div class="span4 columns">
+					<iframe width="370" height="300" frameborder="0" src="http://atlas.media.mit.edu/embed/stacked/export/usa/show/all/1968.2008.5/?layout=share"></iframe>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="span4 columns">
+					<h2>What did Portugal export to Canada from 1968 to 2008?</h2>
+				</div>
+				<div class="span4 columns">
+					<table class="table table-bordered table-striped">
+							<tr>
+								<th width="80px">App</th>
+								<td>stacked</td>
+							</tr>
+							<tr>
+								<th width="80px">Trade flow</th>
+								<td>export</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 1</th>
+								<td>prt</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 2</th>
+								<td>can</td>
+							</tr>
+							<tr>
+								<th width="80px">Product</th>
+								<td>show</td>
+							</tr>
+							<tr>
+								<th width="80px">Year</th>
+								<td>1968.2008.5</td>
+							</tr>
+							<tr>
+								<th width="80px">URI</th>
+								<td><pre>/stacked/export/prt/can/show/1968.2008.5/?lang=pt</pre></td>
+							</tr>
+					</table>
+				</div>
+				<div class="span4 columns">
+					<iframe width="370" height="300" frameborder="0" src="http://atlas.media.mit.edu/embed/stacked/export/prt/can/show/1968.2008.5/?lang=pt"></iframe>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="span4 columns">
+					<h2>Where did Portugal export wine to from 1968 to 2008?</h2>
+				</div>
+				<div class="span4 columns">
+					<table class="table table-bordered table-striped">
+							<tr>
+								<th width="80px">App</th>
+								<td>stacked</td>
+							</tr>
+							<tr>
+								<th width="80px">Trade flow</th>
+								<td>export</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 1</th>
+								<td>prt</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 2</th>
+								<td>show</td>
+							</tr>
+							<tr>
+								<th width="80px">Product</th>
+								<td>1121</td>
+							</tr>
+							<tr>
+								<th width="80px">Year</th>
+								<td>1968.2008.5</td>
+							</tr>
+							<tr>
+								<th width="80px">URI</th>
+								<td><pre>/stacked/export/prt/show/1121/1968.2008.5/?sort=value</pre></td>
+							</tr>
+					</table>
+				</div>
+				<div class="span4 columns">
+					<iframe width="370" height="300" frameborder="0" src="http://atlas.media.mit.edu/embed/stacked/export/prt/show/1121/1968.2008.5/?sort=value"></iframe>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="span4 columns">
+					<h2>Which countries exported wine in from 1968 to 2008?</h2>
+				</div>
+				<div class="span4 columns">
+					<table class="table table-bordered table-striped">
+							<tr>
+								<th width="80px">App</th>
+								<td>stacked</td>
+							</tr>
+							<tr>
+								<th width="80px">Trade flow</th>
+								<td>export</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 1</th>
+								<td>show</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 2</th>
+								<td>all</td>
+							</tr>
+							<tr>
+								<th width="80px">Product</th>
+								<td>1121</td>
+							</tr>
+							<tr>
+								<th width="80px">Year</th>
+								<td>1968.2008.5</td>
+							</tr>
+							<tr>
+								<th width="80px">URI</th>
+								<td><pre>/stacked/export/show/all/1121/1968.2008.5/?layout=share&lang=ja&sort=value</pre></td>
+							</tr>
+					</table>
+				</div>
+				<div class="span4 columns">
+					<iframe width="370" height="300" frameborder="0" src="http://atlas.media.mit.edu/embed/stacked/export/show/all/1121/1968.2008.5/?layout=share&lang=ja&sort=value"></iframe>
+				</div>
+			</div>
+			
+		</section> <!-- END section on stacked charts -->
+		
+<section id="product_space">
+			<div class="page-header">
+				<h1>Product space </h1>
+				<h3>Look at the exports of a country displayed in a network in a given year</h3>
+			</div>
+			
+			<div class="row">
+				<div class="span4 columns">
+					<h2>What did Paraguay export in the year 2009?</h2>
+				</div>
+				<div class="span8 columns">
+					<table class="table table-bordered table-striped">
+							<tr>
+								<th width="80px">App</th>
+								<td>product_space</td>
+							</tr>
+							<tr>
+								<th width="80px">Trade flow</th>
+								<td>export</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 1</th>
+								<td>pry</td>
+							</tr>
+							<tr>
+								<th width="80px">Country 2</th>
+								<td>all</td>
+							</tr>
+							<tr>
+								<th width="80px">Product</th>
+								<td>show</td>
+							</tr>
+							<tr>
+								<th width="80px">Year</th>
+								<td>2009</td>
+							</tr>
+							<tr>
+								<th width="80px">URI</th>
+								<td><pre>/product_space/export/pry/all/show/2009/</pre></td>
+							</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span12 columns">
+					<iframe width="700" height="500" frameborder="0" src="http://atlas.media.mit.edu/embed/product_space/export/pry/all/show/2009/"></iframe>
+				</div>
+			</div>
+			
+		</section> <!-- END product space -->
+
+{% endblock %}
+
+{% block js %}
+<script>
+
+</script>
+{% endblock %}
