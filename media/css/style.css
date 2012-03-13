@@ -410,14 +410,27 @@ text-decoration: none;
 .app #main #tool_pane #sorting .ui-button-text {
 	padding: .4em 0.5em;
 }
+.app #main #tool_pane .dropdown_container {
+	clear: both;
+}
 .app #main #tool_pane .dropdown_container select {
 	margin: 0 0 14px 0;
 	width: 163px;
 }
-.app #main #tool_pane .dropdown_container#year_start_dropdown { float:left; margin: 0 7px 0 0; }
-.app #main #tool_pane .dropdown_container#year_end_dropdown { float:left; }
-.app #main #tool_pane .dropdown_container#year_start_dropdown select, 
-.app #main #tool_pane .dropdown_container#year_end_dropdown select { width: 78px !important;	}
+.app #main #tool_pane .dropdown_container#year_start {
+	float: left;
+	padding-right: 5px;
+	clear: none;
+}
+.app #main #tool_pane .dropdown_container#year_end {
+	float: left;
+	padding-left: 5px;
+	clear: none;
+}
+.app #main #tool_pane .dropdown_container#year_start select,
+.app #main #tool_pane .dropdown_container#year_end select {
+	width: 75px;
+}
 .app #main #tool_pane .chzn-container {
 	cursor: pointer;
 	margin: 0 0 5px 0;

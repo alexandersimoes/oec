@@ -26,16 +26,16 @@ msgid "Net Export"
 msgstr "صافي الصادرات"
 
 msgid "Net Import"
-msgstr "صافي الاستيراد"
+msgstr "صافي الواردات"
 
 msgid "App Selection"
 msgstr "اختيار التطبيق"
 
 msgid "Country"
-msgstr "بلد"
+msgstr "البلد"
 
 msgid "Country (show trade partners)"
-msgstr "بلد (الشركاء التجاريين عرض)"
+msgstr "البلد - عرض الشركاء التجاريين"
 
 msgid "Products"
 msgstr "المنتجات"
@@ -44,10 +44,10 @@ msgid "Bilateral"
 msgstr "ثنائي"
 
 msgid "Exports"
-msgstr "صادرات"
+msgstr "الصادرات"
 
 msgid "Imports"
-msgstr "واردات"
+msgstr "الواردات"
 
 msgid "Net Exports"
 msgstr "صافي الصادرات"
@@ -56,19 +56,19 @@ msgid "Net Imports"
 msgstr "صافي الواردات"
 
 msgid "Exports To Destination"
-msgstr "الصادرات إلى الوجهة"
+msgstr "الصادرات إلى المقصد"
 
 msgid "Imports From Origin"
-msgstr "واردات من أصل"
+msgstr "الواردات من المنشأ"
 
 msgid "Exports by Product"
 msgstr "الصادرات حسب المنتج"
 
 msgid "Imports by Product"
-msgstr "واردات من قبل المنتج"
+msgstr "الواردات حسب المنتج"
 
 msgid "Play"
-msgstr "لعب"
+msgstr "إبدأ"
 
 msgid "Stop"
 msgstr "توقف"
@@ -83,22 +83,22 @@ msgid "Origin Country"
 msgstr "بلد المنشأ"
 
 msgid "Destination Country"
-msgstr "الوجهة القطرية"
+msgstr "الوجهة"
 
 msgid "Product"
 msgstr "المنتج"
 
 msgid "Year"
-msgstr "عام"
+msgstr "السنة"
 
 msgid "Start Year"
-msgstr "تبدأ السنة"
+msgstr "السنة - البداية"
 
 msgid "End Year"
-msgstr "نهاية السنة"
+msgstr "السنة - النهاية"
 
 msgid "Year Interval"
-msgstr "الفاصل الزمني العام"
+msgstr "الفاصل السنوي"
 
 msgid "Build Visualization"
 msgstr "بناء التصور"
@@ -108,4 +108,7 @@ msgstr "تحميل PDF"
 
 msgid "Download SVG"
 msgstr "تحميل SVG"
+
+msgid "Download PNG"
+msgstr "تحميل بابوا نيو غينيا"
 

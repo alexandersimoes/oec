@@ -109,3 +109,6 @@ msgstr "Κατεβάστε το αρχείο PDF"
 msgid "Download SVG"
 msgstr "Κατεβάστε το SVG"
 
+msgid "Download PNG"
+msgstr "Λήψη PNG"
+

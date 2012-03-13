@@ -101,11 +101,14 @@ msgid "Year Interval"
 msgstr "Летнего перерыва"
 
 msgid "Build Visualization"
-msgstr "Построение визуализации"
+msgstr "Δημιουργία"
 
 msgid "Download PDF"
 msgstr "Скачать PDF"
 
 msgid "Download SVG"
 msgstr "Скачать SVG"
+
+msgid "Download PNG"
+msgstr "Скачать PNG"
 

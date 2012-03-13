@@ -109,3 +109,6 @@ msgstr "पीडीएफ डाउनलोड करें"
 msgid "Download SVG"
 msgstr "डाउनलोड एसवीजी"
 
+msgid "Download PNG"
+msgstr "डाउनलोड पीएनजी"
+

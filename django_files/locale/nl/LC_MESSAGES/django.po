@@ -92,10 +92,10 @@ msgid "Year"
 msgstr "Jaar"
 
 msgid "Start Year"
-msgstr "Start Jaar"
+msgstr "Jaar (start)"
 
 msgid "End Year"
-msgstr "Einde van het jaar"
+msgstr "Jaar (einde)"
 
 msgid "Year Interval"
 msgstr "Jaar Interval"
@@ -108,4 +108,7 @@ msgstr "Download PDF"
 
 msgid "Download SVG"
 msgstr "Download SVG"
+
+msgid "Download PNG"
+msgstr "Download PNG"
 
