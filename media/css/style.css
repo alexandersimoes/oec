@@ -390,7 +390,7 @@ text-decoration: none;
 	font-family: 'PT Sans Narrow',Helvetica,Arial;
 }
 .app #main #tool_pane #layout .ui-button{
-	width: 80px;
+	width: 78px;
 	margin-bottom: 2px;
 }
 .app #main #tool_pane #sorting .ui-button{
@@ -453,6 +453,12 @@ text-decoration: none;
 .app #main #tool_pane .download {
 	margin: 10px 0;
 }
+.app #main #tool_pane .download a {
+	margin: 0 5px 0 0;
+}
+.app #main #tool_pane .download a.app {
+	display: none;
+}
 .app #main #tool_pane .download h3 {
 	font-size: 14px;
 	margin: 0;
@@ -493,6 +499,27 @@ text-decoration: none;
 }
 .app #main #content #dataviz {
 	height: 500px;
+}
+.app #main #content #text_data{
+	height: 500px;
+	overflow-y: scroll;
+}
+.app #main #content #text_data table{
+	width: 100%;
+}
+.app #main #content #text_data table tr.odd{
+	background: #eee;
+}
+.app #main #content #text_data table td,
+.app #main #content #text_data table th{
+	padding: 2px 6px;
+	text-align: right;
+}
+.app #main #content #text_data table td:nth-child(3),
+.app #main #content #text_data table th:nth-child(3),
+.app #main #content #text_data table td:nth-child(2),
+.app #main #content #text_data table th:nth-child(2){
+	text-align: left;
 }
 /* key */
 .app #main #content .key {
