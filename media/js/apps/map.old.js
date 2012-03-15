@@ -1,43 +1,43 @@
-function Map(args){
-	var _this = this;
-	this.attr_data = args.attr_data;
-	this.raw_data = args.raw_data;
-	this.selector = args.selector || window;
-	this.width = args.width || $(this.selector).width();
-	this.height = args.height || $(this.selector).height();
-	this.year = parseInt(args.year) || 2009;
-	this.mouseover = args.other ? args.other.mouseover || "true" : "true";
-	this.current_data = this.raw_data.filter(function(x){return x.year == _this.year});
-	this.geo_data = get_world_geography();
-	this.svg = d3.select(this.selector).html('').append("svg")
-		.attr("width", this.width)
-		.attr("height", this.height);
-	this.svg.append("g")
+function map_draw(args){
+	
+	var attr_data = args.attr_data,
+		raw_data = args.raw_data,
+		selector = args.selector || window,
+		width = args.width || $(selector).width(),
+		height = args.height || $(selector).height(),
+		year = parseInt(args.year) || 2009,
+		mouseover = args.other ? args.other.mouseover || "true" : "true";
+	
+	var this_years_data = raw_data.filter(function(x){return x.year == year});
+	var geo_data = get_world_geography();
+	
+	var albers_world = d3.geo.albers()
+	     .origin([10, 30])
+	     .parallels([-34.9, 35])
+	     .scale(130)
+	     .translate([330, 95]);
+	var svg = d3.select(selector).html('').append("svg")
+				.attr("width", width)
+				.attr("height", height);
+	svg.append("g")
 		.attr("id", "countries")			
 		.attr("transform", "translate(0,75)");
-}
-Map.prototype.build = function(){
-	var _this = this;
-	var value_range = get_range(_this.current_data);
+	
+	var value_range = get_range(this_years_data);
 	var value_color = d3.scale.log()
-		.domain(value_range)
-		.interpolate(d3.interpolateRgb)
-		.range(["#ccc", "#a1ce00"])
-	var albers_world = d3.geo.albers()
-		.origin([10, 30])
-		.parallels([-34.9, 35])
-		.scale(130)
-		.translate([330, 95]);	
-
-	var country_paths = _this.svg.select("#countries")
+			.domain(value_range)
+			.interpolate(d3.interpolateRgb)
+			.range(["#ccc", "#a1ce00"])
+	
+	var country_paths = svg.select("#countries")
 		.selectAll("path")
-		.data(d3.values(_this.geo_data.features))
+		.data(d3.values(geo_data.features))
 		.enter().append("path")
 		.attr("id", function(d, i){
 			return d.id;
 		})
 		.attr("fill", function(d){
-			var item_data = get_map_val(d.id, _this.current_data, _this.attr_data)
+			var item_data = get_map_val(d.id, this_years_data, attr_data)
 			if(item_data){
 				if(item_data.value > 0) return value_color(item_data.value);
 			}
@@ -48,8 +48,8 @@ Map.prototype.build = function(){
 		.attr("d", d3.geo.path().projection(albers_world))
 		.on("mouseover", function(d, i){
 			
-			var item_data = get_map_val(d.id, _this.current_data, _this.attr_data)
-			var attr = get_map_attr(d.id, _this.attr_data)
+			var item_data = get_map_val(d.id, this_years_data, attr_data)
+			var attr = get_map_attr(d.id, attr_data)
 			
 			var sub_text = ""
 			if(item_data){
@@ -62,17 +62,17 @@ Map.prototype.build = function(){
 				"img_src": "/media/img/icons/flag_"+attr.name_3char.toLowerCase()+".png",
 				"sub_text": sub_text
 			}
-			make_mouseover(this, [_this.width, _this.height], mouseover_d)
+			make_mouseover(this, [width, height], mouseover_d)
 			
 		})
 		.on("mouseout", function(d, i){
-			_this.svg.select(".info").remove();
+			svg.select(".info").remove();
 		})
 		
 		
 		
 		// make key for values
-		var gradient = _this.svg.append("defs")
+		var gradient = svg.append("defs")
 			.append("linearGradient")
 				.attr("id", "gradient")
 				.attr("x1", "0%")
@@ -91,7 +91,7 @@ Map.prototype.build = function(){
 			.attr("stop-color", "#a1ce00")
 			.attr("stop-opacity", 1);
 
-		_this.svg.append("rect")
+		svg.append("rect")
 			.attr("x", 10)
 			.attr("y", 420)
 			.attr("width", 150)
@@ -99,7 +99,7 @@ Map.prototype.build = function(){
 			.attr("stroke", "#777")
 			.style("fill", "url(#gradient)");
 		
-		_this.svg.append("text")
+		svg.append("text")
 			.attr("x", 10)
 			.attr("y", 432)
 			.attr("dy", 12)
@@ -108,7 +108,7 @@ Map.prototype.build = function(){
 				return "$"+format_big_num(value_range[0])[0].split(".")[0] + " " + format_big_num(value_range[0])[1];
 			})
 		
-		_this.svg.append("text")
+		svg.append("text")
 			.attr("x", 160)
 			.attr("y", 432)
 			.attr("dy", 12)

@@ -1,46 +1,44 @@
-function TreeMap(args){
-	var _this = this;
-	this.attr_data = args.attr_data;
-	this.raw_data = args.raw_data;
-	this.selector = args.selector || window;
-	this.width = args.width || $(this.selector).width();
-	this.height = args.height || $(this.selector).height();
-	this.year = args.year || 2009;
-	this.mouseover = args.other ? args.other.mouseover || "true" : "true";
-	this.current_data = this.raw_data.filter(function(x){return x.year == _this.year});
+function tree_map_draw(args){
+	
+	var attr_data = args.attr_data,
+		raw_data = args.raw_data,
+		selector = args.selector || window,
+		width = args.width || $(selector).width(),
+		height = args.height || $(selector).height(),
+		year = args.year || 2009,
+		mouseover = args.other ? args.other.mouseover || "true" : "true";
+
+	// Get data in proper format for treemap function
+	var this_years_data = raw_data.filter(function(x){return x.year == year});
 	
 	// If there is no data
-	if(!this.current_data.length){
+	if(!this_years_data.length){
 		return;
 	}
 	
-	this.heirarchical_data = tm_make_data_heirarchical(this.current_data, this.attr_data);
+	var heirarchical_data = tm_make_data_heirarchical(this_years_data, attr_data);
 	
 	// Create treemap as SVG
-	this.tree_map = d3.layout.treemap()
-		.size([this.width, this.height])
-		.sticky(false)
+	var tree_map = d3.layout.treemap()
+	    .size([width, height])
+	    .sticky(false)
 		.sort(function(a, b) { return a.value - b.value; });
-	this.svg = d3.select(this.selector).html("").append("svg")
-		.data([this.heirarchical_data])
+	var svg = d3.select(selector).html("").append("svg")
+		.data([heirarchical_data])
 		.attr("class", "viz")
-		.attr("width", this.width)
-		.attr("height", this.height);
-}
-
-TreeMap.prototype.build = function(){
-	var _this = this;
+	    .attr("width", width)
+	    .attr("height", height);
 	// Enter
-	this.tree_map.value(function(d) {
+	tree_map.value(function(d) {
 		return d["value"];
 	})
-	var cell = _this.svg.selectAll("g")
-		.data(this.tree_map)
+	var cell = svg.selectAll("g")
+		.data(tree_map)
 		
 	var cell_enter = cell.enter().append("g")
 		.attr("class", function(d){
 			if(!d.children){
-				return "cat_"+_this.attr_data[d.data.item_id].category_id;
+				return "cat_"+attr_data[d.data.item_id].category_id;
 			}
 		})
 		
@@ -56,9 +54,10 @@ TreeMap.prototype.build = function(){
 				return "white";
 			}
 			else {
-				return _this.attr_data[d.data.item_id].category_color;
+				return attr_data[d.data.item_id].category_color;
 			}
 		})
+		// .attr("width", function(d){ return d.dx > 1 ? d.dx-1 : d.dx; })
 		.attr("width", function(d){ 
 			if(d.dx < 0){
 				return 0;
@@ -90,21 +89,41 @@ TreeMap.prototype.build = function(){
 				return null;
 			}
 			else {
-				return _this.attr_data[d.data.item_id].category_text_color ? _this.attr_data[d.data.item_id].category_text_color : "white";
+				return attr_data[d.data.item_id].category_text_color ? attr_data[d.data.item_id].category_text_color : "white";
 			}
 		})
 		.attr("text-anchor", "start")
 		.each(function(d, i){
 			if(!d.children && (d.dx > 35 && d.dy > 25)){
-				// format_text(d, this, _this.attr_data[d.data.item_id].name);
-				_this.format_text(this, d);
+				format_text(d, this, attr_data[d.data.item_id].name);
 			}
 		})
 	// Exit
 	cell.exit().remove();
 	// Events
-	if(_this.mouseover == "true"){
-		this.add_mouse_events();
+	if(mouseover == "true"){
+		cell.on("mouseover", function(d){
+			var sub_text = "Value: " + format_big_num(d.value)[0] + format_big_num(d.value)[1]
+				sub_text += " Share: " + d3.format(".2p")(d.value / d.parent.parent.parent.value)
+				sub_text += d.data.rca ? " RCA: " + d3.format(".2f")(d.data.rca) : "";
+			var a = attr_data[d.data.item_id]; // This items attributes
+			var mouseover_d = {
+				"title": a.name,
+				"img_src": a.code ? "http://atlas.media.mit.edu/media/img/icons/community_"+a.category_id+".png" : "http://atlas.media.mit.edu/media/img/icons/flag_"+a.name_3char.toLowerCase()+".png",
+				"sub_text": sub_text
+			}
+			make_mouseover(this, [width, height], mouseover_d)
+			// to highlight the node create new box around it
+			d3.select(this).select("rect")
+				.attr("stroke", "black")
+				.attr("stroke-width", 2)
+		})
+		cell.on("mouseout", function(d){
+			svg.select(".info").remove()
+			d3.select(this).select("rect")
+				.attr("stroke", "white")
+				.attr("stroke-width", 1)
+		})
 	}
 }
 
@@ -144,13 +163,12 @@ function tm_memoize(node, root, attrs) {
 	p.children.push(node); 
 	return node; 
 }
-TreeMap.prototype.format_text = function(element, d){
+function format_text(d, element, title){
 	// remove incumbent
 	d3.select(element).selectAll("tspan").remove();
 	if(parseInt(element) == element){
 		element = this;
 	}
-	var title = this.attr_data[d.data.item_id].name;
 	var percentage = d3.format(".2p")(d.value / d.parent.parent.parent.value), // format percentage to 2 decimal places
 		text = percentage + " " + title;
 		words = text.split(" "); // split text into array of words
@@ -196,35 +214,6 @@ TreeMap.prototype.format_text = function(element, d){
 		}
 	}
 }
-
-TreeMap.prototype.add_mouse_events = function(){
-	var _this = this;
-	var cell = this.svg.selectAll("g")
-	cell.on("mouseover", function(d){
-		var sub_text = "Value: " + format_big_num(d.value)[0] + format_big_num(d.value)[1]
-			sub_text += " Share: " + d3.format(".2p")(d.value / d.parent.parent.parent.value)
-			sub_text += d.data.rca ? " RCA: " + d3.format(".2f")(d.data.rca) : "";
-		var a = _this.attr_data[d.data.item_id]; // This items attributes
-		var mouseover_d = {
-			"title": a.name,
-			"img_src": a.code ? "http://atlas.media.mit.edu/media/img/icons/community_"+a.category_id+".png" : "http://atlas.media.mit.edu/media/img/icons/flag_"+a.name_3char.toLowerCase()+".png",
-			"sub_text": sub_text
-		}
-		make_mouseover(this, [_this.width, _this.height], mouseover_d)
-		// to highlight the node create new box around it
-		d3.select(this).select("rect")
-			.attr("stroke", "black")
-			.attr("stroke-width", 2)
-	})
-	cell.on("mouseout", function(d){
-		_this.svg.select(".info").remove()
-		d3.select(this).select("rect")
-			.attr("stroke", "white")
-			.attr("stroke-width", 1)
-	})
-}
-
-
 function find_parent(e, name){
 	if(e.nodeName == name){
 		return e;
