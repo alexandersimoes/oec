@@ -240,7 +240,7 @@ def app_redirect(request, app_name, trade_flow, filter, year):
 	# raise Exception("/explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
 	return HttpResponsePermanentRedirect("/explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
 
-def explore(request, app_name, trade_flow, country1, country2, product, year):
+def explore(request, app_name, trade_flow, country1, country2, product, year="2009"):
 	# raise Exception(country1, country2, product, year)
 	# Get URL query parameters
 	crawler = request.GET.get("_escaped_fragment_", False)
@@ -264,6 +264,9 @@ def explore(request, app_name, trade_flow, country1, country2, product, year):
 		trade_flow_list = [trade_flow_list[0]]
 	
 	year1_list = range(1962, 2010, 1)
+	
+	if app_name == "stacked" and year == "2009":
+		year = "1969.2009.10"
 	if "." in year:
 		y = [int(x) for x in year.split(".")]
 		# year = range(y[0], y[1]+1, y[2])
