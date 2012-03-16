@@ -72,7 +72,7 @@ def download(request):
 		y = height = svg.props.height
 	
 	if format == "svg":
-		response = HttpResponse(svg_xml, mimetype="application/octet-stream")
+		response = HttpResponse(content.encode("utf-8"), mimetype="application/octet-stream")
 			
 	elif format == "pdf":	
 		response = HttpResponse(mimetype='application/pdf')
