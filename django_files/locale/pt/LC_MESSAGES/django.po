@@ -103,12 +103,18 @@ msgstr "Intervalo de Ano"
 msgid "Build Visualization"
 msgstr "Construir Visualization"
 
-msgid "Download PDF"
-msgstr "Download PDF"
+msgid "Download"
+msgstr "Baixar"
 
-msgid "Download SVG"
-msgstr "Baixar SVG"
+msgid "View as text"
+msgstr "Versão texto"
 
-msgid "Download PNG"
-msgstr "Baixar PNG"
+msgid "View app"
+msgstr "Ver app"
+
+msgid "Next"
+msgstr "Próximo"
+
+msgid "Previous"
+msgstr "Anterior"
 

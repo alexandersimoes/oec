@@ -103,12 +103,18 @@ msgstr "Yıl Aralığı"
 msgid "Build Visualization"
 msgstr "Görselleştirme oluşturun"
 
-msgid "Download PDF"
-msgstr "PDF indirin"
+msgid "Download"
+msgstr "Indirin"
 
-msgid "Download SVG"
-msgstr "İndir SVG"
+msgid "View as text"
+msgstr "Text sürümü"
 
-msgid "Download PNG"
-msgstr "İndir PNG"
+msgid "View app"
+msgstr "Profil app"
+
+msgid "Next"
+msgstr "Sonraki"
+
+msgid "Previous"
+msgstr "Önceki"
 

@@ -103,12 +103,18 @@ msgstr "Διάστημα Έτος"
 msgid "Build Visualization"
 msgstr "Κατασκευάστηκε Οπτικοποίηση"
 
-msgid "Download PDF"
-msgstr "Κατεβάστε το αρχείο PDF"
+msgid "Download"
+msgstr "Λήψη"
 
-msgid "Download SVG"
-msgstr "Κατεβάστε το SVG"
+msgid "View as text"
+msgstr "Έκδοση κειμένου"
 
-msgid "Download PNG"
-msgstr "Λήψη PNG"
+msgid "View app"
+msgstr "Προβολή app"
+
+msgid "Next"
+msgstr "Επόμενη"
+
+msgid "Previous"
+msgstr "Προηγούμενη"
 

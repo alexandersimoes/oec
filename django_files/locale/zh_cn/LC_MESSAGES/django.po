@@ -103,12 +103,18 @@ msgstr "今年区间"
 msgid "Build Visualization"
 msgstr "建立可视化"
 
-msgid "Download PDF"
-msgstr "下载PDF"
+msgid "Download"
+msgstr "下载"
 
-msgid "Download SVG"
-msgstr "下载的SVG"
+msgid "View as text"
+msgstr "文字版"
 
-msgid "Download PNG"
-msgstr "下载的PNG"
+msgid "View app"
+msgstr "查看应用程序"
+
+msgid "Next"
+msgstr "未来"
+
+msgid "Previous"
+msgstr "前"
 

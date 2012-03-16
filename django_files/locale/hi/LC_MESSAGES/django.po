@@ -103,12 +103,18 @@ msgstr "वर्ष अंतराल"
 msgid "Build Visualization"
 msgstr "विज़ुअलाइज़ेशन बनाएँ"
 
-msgid "Download PDF"
-msgstr "पीडीएफ डाउनलोड करें"
+msgid "Download"
+msgstr "डाउनलोड"
 
-msgid "Download SVG"
-msgstr "डाउनलोड एसवीजी"
+msgid "View as text"
+msgstr "पाठ संस्करण"
 
-msgid "Download PNG"
-msgstr "डाउनलोड पीएनजी"
+msgid "View app"
+msgstr "देखें अनुप्रयोग"
+
+msgid "Next"
+msgstr "अगला"
+
+msgid "Previous"
+msgstr "पिछला"
 

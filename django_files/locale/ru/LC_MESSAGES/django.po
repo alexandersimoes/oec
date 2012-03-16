@@ -103,12 +103,18 @@ msgstr "Летнего перерыва"
 msgid "Build Visualization"
 msgstr "Δημιουργία"
 
-msgid "Download PDF"
-msgstr "Скачать PDF"
+msgid "Download"
+msgstr "Скачать"
 
-msgid "Download SVG"
-msgstr "Скачать SVG"
+msgid "View as text"
+msgstr "Текстовая версия"
 
-msgid "Download PNG"
-msgstr "Скачать PNG"
+msgid "View app"
+msgstr "Просмотр приложений"
+
+msgid "Next"
+msgstr "Следующий"
+
+msgid "Previous"
+msgstr "Предыдущий"
 

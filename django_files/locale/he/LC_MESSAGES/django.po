@@ -103,12 +103,18 @@ msgstr "מרווח"
 msgid "Build Visualization"
 msgstr "הצג"
 
-msgid "Download PDF"
-msgstr "הורד PDF"
+msgid "Download"
+msgstr "הורד"
 
-msgid "Download SVG"
-msgstr "הורדה SVG"
+msgid "View as text"
+msgstr "גרסת טקסט"
 
-msgid "Download PNG"
-msgstr "הורדה PNG"
+msgid "View app"
+msgstr "צפה App"
+
+msgid "Next"
+msgstr "הבא"
+
+msgid "Previous"
+msgstr "קודם"
 

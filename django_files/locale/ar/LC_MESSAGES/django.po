@@ -103,12 +103,18 @@ msgstr "الفاصل السنوي"
 msgid "Build Visualization"
 msgstr "بناء التصور"
 
-msgid "Download PDF"
-msgstr "تحميل PDF"
+msgid "Download"
+msgstr "تحميل"
 
-msgid "Download SVG"
-msgstr "تحميل SVG"
+msgid "View as text"
+msgstr "نص الصيغة"
 
-msgid "Download PNG"
-msgstr "تحميل بابوا نيو غينيا"
+msgid "View app"
+msgstr "رأي الوكالة"
+
+msgid "Next"
+msgstr "التالي"
+
+msgid "Previous"
+msgstr "سابق"
 

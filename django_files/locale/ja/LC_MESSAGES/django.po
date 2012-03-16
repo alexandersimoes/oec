@@ -103,12 +103,18 @@ msgstr "年間隔"
 msgid "Build Visualization"
 msgstr "可視化を構築"
 
-msgid "Download PDF"
-msgstr "PDFをダウンロード"
+msgid "Download"
+msgstr "ダウンロード"
 
-msgid "Download SVG"
-msgstr "ダウンロードSVG"
+msgid "View as text"
+msgstr "テキスト版"
 
-msgid "Download PNG"
-msgstr "ダウンロードPNG"
+msgid "View app"
+msgstr "ビューのアプリ"
+
+msgid "Next"
+msgstr "次の"
+
+msgid "Previous"
+msgstr "前"
 

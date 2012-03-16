@@ -103,12 +103,18 @@ msgstr "Intervallo (anni)"
 msgid "Build Visualization"
 msgstr "Mostra Edilizia"
 
-msgid "Download PDF"
-msgstr "Scarica PDF"
+msgid "Download"
+msgstr "Scarica"
 
-msgid "Download SVG"
-msgstr "Scarica SVG"
+msgid "View as text"
+msgstr "Versione testuale"
 
-msgid "Download PNG"
-msgstr "Scarica PNG"
+msgid "View app"
+msgstr "View app"
+
+msgid "Next"
+msgstr "Prossimo"
+
+msgid "Previous"
+msgstr "Precedente"
 

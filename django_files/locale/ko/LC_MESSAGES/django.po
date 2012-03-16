@@ -41,7 +41,7 @@ msgid "Products"
 msgstr "제품"
 
 msgid "Bilateral"
-msgstr "쌍무적"
+msgstr "국가간 관계"
 
 msgid "Exports"
 msgstr "수출"
@@ -68,7 +68,7 @@ msgid "Imports by Product"
 msgstr "제품별 수입"
 
 msgid "Play"
-msgstr "놀이"
+msgstr "재생"
 
 msgid "Stop"
 msgstr "정지"
@@ -103,12 +103,18 @@ msgstr "년 간격"
 msgid "Build Visualization"
 msgstr "시각화를 빌드"
 
-msgid "Download PDF"
-msgstr "PDF를 다운로드"
+msgid "Download"
+msgstr "다운로드"
 
-msgid "Download SVG"
-msgstr "다운로드 SVG"
+msgid "View as text"
+msgstr "텍스트 버전"
 
-msgid "Download PNG"
-msgstr "다운로드 PNG"
+msgid "View app"
+msgstr "응용 프로그램보기"
+
+msgid "Next"
+msgstr "다음"
+
+msgid "Previous"
+msgstr "이전"
 

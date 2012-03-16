@@ -103,12 +103,18 @@ msgstr "Jaar Interval"
 msgid "Build Visualization"
 msgstr "Build Visualisatie"
 
-msgid "Download PDF"
-msgstr "Download PDF"
+msgid "Download"
+msgstr "Download"
 
-msgid "Download SVG"
-msgstr "Download SVG"
+msgid "View as text"
+msgstr "Tekst versie"
 
-msgid "Download PNG"
-msgstr "Download PNG"
+msgid "View app"
+msgstr "Bekijk app"
+
+msgid "Next"
+msgstr "Volgende"
+
+msgid "Previous"
+msgstr "Vorig"
 
