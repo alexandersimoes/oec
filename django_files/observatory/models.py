@@ -200,34 +200,32 @@ class Sitc4_cpy_manager(models.Manager):
 		elif trade_flow == "net_import":
 			return self.extra({'value': 'import_value-export_value'}, where=['import_value-export_value > 0'])
 		return self.extra(select={"value": "%s_value" % (trade_flow,)})
-	
-	# def casy(self, country, trade_flow):
-	# 	from django.db import connection
-	# 	cursor = connection.cursor()
-	# 	cursor.execute("""
-	# 		SELECT product_id as item_id, year, rca, export_value-import_value as value
-	# 		FROM observatory_sitc4_cpy
-	# 		WHERE country_id = %d and value > 0""" % country.id)
-	# 	result_list = []
-	# 	for row in cursor.fetchall():
-	# 		raise Exception(row)
-	# 		p = self.model(id=row[0], question=row[1], poll_date=row[2])
-	# 		p.num_responses = row[3]
-	# 		result_list.append(p)
-	# 	return result_list
 
-	def casy(self, country, trade_flow):
+	def casy(self, country, trade_flow, year=None, lang="en"):
 		
 		q_set = self.set_value(trade_flow)
 		
 		data = q_set.filter(
 			country = country,
 			product__community__isnull = False,
-			product__ps_x__isnull = False).extra(select={'item_id': "product_id"})
+			product__ps_x__isnull = False)
 			
-		return list(data.values("item_id", "year", "value", "rca"))
+		if year:
+			if "." in year:
+				years = [int(x) for x in year.split(".")]
+				years = range(years[0], years[1]+1, years[2])
+			else:
+				years = [int(year)]
+			the_sum = {}
+			for y in years:
+				the_sum[y] = data.filter(year=y).aggregate(Sum("%s_value" % (trade_flow))).values()[0]
+			the_data = data.filter(year__in=years).order_by("year", "-value").values_list("year", "product__code", "product__name_%s"%(lang,), "value")
+			columns = ["#", "Year", "SITC4", "Product Name", "Value (USD)", "%"]
+			return {"sum":the_sum, "data":the_data, "columns":columns}
+		else:
+			return list(data.extra(select={'item_id': "product_id"}).values("item_id", "year", "value", "rca"))
 	
-	def sapy(self, product, trade_flow):
+	def sapy(self, product, trade_flow, year=None, lang="en"):
 		
 		q_set = self.set_value(trade_flow)
 		
@@ -235,9 +233,25 @@ class Sitc4_cpy_manager(models.Manager):
 			product = product,
 			country__region__isnull=False,
 			country__name_3char__isnull=False,
-			country__name_2char__isnull=False).extra(select={'item_id': "country_id"})
-
-		return list(data.values("item_id", "year", "value", "rca"))
+			country__name_2char__isnull=False)
+		
+		if year:
+			# put years into array (in case user requests stacked with multiple years of data)
+			if "." in year:
+				years = [int(x) for x in year.split(".")]
+				years = range(years[0], years[1]+1, years[2])
+			else:
+				years = [int(year)]
+			# put the sum into a dictionary indexed by year
+			the_sum = {}
+			for y in years:
+				the_sum[y] = data.filter(year=y).aggregate(Sum("%s_value" % (trade_flow))).values()[0]
+			# get the data sorted by year and value
+			the_data = data.filter(year__in=years).order_by("year", "-value").values_list("year", "country__name_3char", "country__name_%s"%(lang,), "value")
+			columns = ["#", "Year", "Alpha-3", "Country", "Value (USD)", "%"]
+			return {"sum":the_sum, "data":the_data, "columns":columns}
+		else:
+			return list(data.extra(select={'item_id': "country_id"}).values("item_id", "year", "value", "rca"))
 
 class Sitc4_cpy(models.Model):
 	country = models.ForeignKey(Country)
@@ -249,6 +263,9 @@ class Sitc4_cpy(models.Model):
 	
 	def __unicode__(self):
 		return "CPY: %s.%s.%d" % (self.country.name, self.product.code, self.year)
+
+	# def prod(self, lang):
+		# return "%s" % (getattr(self.product, "name_%s" % (lang,)))
 	
 	objects = Sitc4_cpy_manager()
 
@@ -274,25 +291,49 @@ class Sitc4_ccpy_manager(models.Manager):
 	# 	data = Sitc4_ccpy.objects.filter(destination=c, origin__region__isnull=False, origin__name_3char__isnull=False, origin__name_2char__isnull=False, product__community__isnull=False).exclude(origin=231).extra(select={'item_id': "origin_id"})
 	# data = data.values("item_id", "year").annotate(value=Sum('value'))
 	
-	def csay(self, country1, trade_flow):
+	def csay(self, country1, trade_flow, year=None, lang="en"):
 		
 		if trade_flow == "import":
 			data = self.filter(
 				destination = country1,
 				origin__region__isnull=False,
 				origin__name_3char__isnull=False,
-				origin__name_2char__isnull=False).extra(select={'item_id': "origin_id"})
+				origin__name_2char__isnull=False)
 			data = data.exclude(origin=231)
 		else:
 			data = self.filter(
 				origin = country1,
 				destination__region__isnull=False,
 				destination__name_3char__isnull=False,
-				destination__name_2char__isnull=False).extra(select={'item_id': "destination_id"})
+				destination__name_2char__isnull=False)
+		
+		if year:
+			# the_sum = data.filter(year=year).aggregate(Sum("value")).values()[0]
+			# to_show = "origin" if trade_flow == "import" else "destination"
+			# the_data = data.filter(year=year).order_by("-value").values_list("%s__name_3char"%(to_show), "%s__name_%s"%(to_show,lang)).annotate(value=Sum('value'))
+			# columns = ["#", "SITC4", "Product Name", "Value (USD)", "%"]
+			# return [the_sum, the_data, columns]
+			if "." in year:
+				years = [int(x) for x in year.split(".")]
+				years = range(years[0], years[1]+1, years[2])
+			else:
+				years = [int(year)]
+			# put the sum into a dictionary indexed by year
+			the_sum = {}
+			for y in years:
+				the_sum[y] = data.filter(year=y).aggregate(Sum("value")).values()[0]
+			# get the data sorted by year and value
+			to_show = "origin" if trade_flow == "import" else "destination"
+			# the_data = data.filter(year__in=years).order_by("year", "-value").values_list("year", "%s__name_3char"%(to_show), "%s__name_%s"%(to_show,lang), "value")
+			the_data = data.filter(year__in=years).order_by("year", "-value").values_list("year",  "%s__name_3char"%(to_show),"%s__name_%s"%(to_show,lang)).annotate(value=Sum('value'))
+			columns = ["#", "Year", "Alpha-3", "Country", "Value (USD)", "%"]
+			return {"sum":the_sum, "data":the_data, "columns":columns}
 			
-		return list(data.values("item_id", "year").annotate(value=Sum('value')))
+		else:
+			if trade_flow == "import": return list(data.extra(select={'item_id': "origin_id"}).values("item_id", "year").annotate(value=Sum('value')))
+			return list(data.extra(select={'item_id': "destination_id"}).values("item_id", "year").annotate(value=Sum('value')))
 	
-	def ccsy(self, country1, country2, trade_flow):
+	def ccsy(self, country1, country2, trade_flow, year=None, lang="en"):
 		
 		if trade_flow == "import":
 			country1, country2 = country2, country1
@@ -301,11 +342,26 @@ class Sitc4_ccpy_manager(models.Manager):
 			destination = country2,
 			origin = country1,
 			product__community__isnull = False,
-			product__ps_x__isnull = False).extra(select={'item_id': "product_id"})
+			product__ps_x__isnull = False)
+		
+		if year:
+			if "." in year:
+				years = [int(x) for x in year.split(".")]
+				years = range(years[0], years[1]+1, years[2])
+			else:
+				years = [int(year)]
+			# put the sum into a dictionary indexed by year
+			the_sum = {}
+			for y in years:
+				the_sum[y] = data.filter(year=y).aggregate(Sum("value")).values()[0]
+			# get the data sorted by year and value
+			the_data = data.filter(year__in=years).order_by("year", "-value").values_list("year", "product__code", "product__name_%s"%(lang,), "value")
+			columns = ["#", "Year", "SITC4", "Product Name", "Value (USD)", "%"]
+			return {"sum":the_sum, "data":the_data, "columns":columns}
+		else:
+			return list(data.extra(select={'item_id': "product_id"}).values("item_id", "year", "value"))
 	
-		return list(data.values("item_id", "year", "value"))
-	
-	def cspy(self, country1, product, trade_flow):
+	def cspy(self, country1, product, trade_flow, year=None, lang="en"):
 		
 		if trade_flow == "import":
 			data = self.filter(
@@ -313,18 +369,33 @@ class Sitc4_ccpy_manager(models.Manager):
 				destination = country1,
 				origin__region__isnull=False,
 				origin__name_3char__isnull=False,
-				origin__name_2char__isnull=False).extra(select={'item_id': "origin_id"})
-			data = data.exclude(origin=231)
+				origin__name_2char__isnull=False).exclude(origin=231)
 		else:
 			data = self.filter(
 				product = product,
 				origin = country1,
 				destination__region__isnull=False,
 				destination__name_3char__isnull=False,
-				destination__name_2char__isnull=False).extra(select={'item_id': "destination_id"})
-			data = data.exclude(destination=231)
-	
-		return list(data.values("item_id", "year", "value"))
+				destination__name_2char__isnull=False).exclude(destination=231)
+		
+		if year:
+			if "." in year:
+				years = [int(x) for x in year.split(".")]
+				years = range(years[0], years[1]+1, years[2])
+			else:
+				years = [int(year)]
+			# put the sum into a dictionary indexed by year
+			the_sum = {}
+			for y in years:
+				the_sum[y] = data.filter(year=y).aggregate(Sum("value")).values()[0]
+			# get the data sorted by year and value
+			to_show = "origin" if trade_flow == "import" else "destination"
+			the_data = data.filter(year__in=years).order_by("year", "-value").values_list("year", "%s__name_3char"%(to_show), "%s__name_%s"%(to_show,lang), "value")
+			columns = ["#", "Alpha-3", "Country", "Value (USD)", "%"]
+			return {"sum":the_sum, "data":the_data, "columns":columns}
+		else:
+			if trade_flow == "import": return list(data.extra(select={'item_id': "origin_id"}).values("item_id", "year", "value"))
+			return list(data.extra(select={'item_id': "destination_id"}).values("item_id", "year", "value"))
 		
 		
 		# if trade_flow == "export":

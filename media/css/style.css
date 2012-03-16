@@ -517,8 +517,8 @@ text-decoration: none;
 }
 .app #main #content #text_data table td:nth-child(3),
 .app #main #content #text_data table th:nth-child(3),
-.app #main #content #text_data table td:nth-child(2),
-.app #main #content #text_data table th:nth-child(2){
+.app #main #content #text_data table td:nth-child(4),
+.app #main #content #text_data table th:nth-child(4){
 	text-align: left;
 }
 /* key */

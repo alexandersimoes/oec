@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
+from django.core.urlresolvers import resolve
 # General
 import json
 # Project specific
@@ -60,13 +61,15 @@ def download(request):
 		import cairo, rsvg, xml.dom.minidom
 	except:
 		pass
-	svg_xml = request.POST.get("svg_xml")
+	import csv
+	content = request.POST.get("content")
 	title = request.POST.get("title")
 	format = request.POST.get("format")
 	
-	svg = rsvg.Handle(data=svg_xml.encode("utf-8"))
-	x = width = svg.props.width
-	y = height = svg.props.height
+	if format == "svg" or format == "pdf" or format == "png":
+		svg = rsvg.Handle(data=content.encode("utf-8"))
+		x = width = svg.props.width
+		y = height = svg.props.height
 	
 	if format == "svg":
 		response = HttpResponse(svg_xml, mimetype="application/octet-stream")
@@ -78,12 +81,17 @@ def download(request):
 		svg.render_cairo(cr)
 		surf.finish()
 	
-	else:	
+	elif format == "png":	
 		response = HttpResponse(mimetype='image/png')
 		surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, x, y)
 		cr = cairo.Context(surf)
 		svg.render_cairo(cr)
 		surf.write_to_png(response)
+	
+	else:
+		response = HttpResponse(mimetype="text/csv")
+		csv_writer = csv.writer(response, delimiter=',', quotechar='"')#, quoting=csv.QUOTE_MINIMAL)
+		csv_writer.writerows(json.loads(content))
 	
 	# Need to change with actual title
 	response["Content-Disposition"]= "attachment; filename=%s.%s" % (title, format)
@@ -235,16 +243,19 @@ def app_redirect(request, app_name, trade_flow, filter, year):
 def explore(request, app_name, trade_flow, country1, country2, product, year):
 	# raise Exception(country1, country2, product, year)
 	# Get URL query parameters
-	format = request.GET.get("format", False)
+	crawler = request.GET.get("_escaped_fragment_", False)
+	options = request.GET.copy()
 	# lang = request.GET.get("lang", False)
 	if 'django_language' in request.session:
 		lang = request.session['django_language']
 	else:
 		lang = "en"
 	lang = request.GET.get("lang", lang)
-	crawler = request.GET.get("_escaped_fragment_", False)
+	options["lang"] = lang
+	options = options.urlencode()
 	
 	country1_list, country2_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None, None
+	data_as_text = {}
 	# What is actually being shown on the page
 	item_type = "products"
 	
@@ -266,7 +277,20 @@ def explore(request, app_name, trade_flow, country1, country2, product, year):
 		year_start, year_end, year_interval = None, None, None
 		year = int(year)
 	
-	api_uri = "/api/%s/%s/%s/%s/%s/" % (trade_flow, country1, country2, product, year)
+	api_uri = "/api/%s/%s/%s/%s/%s/?%s" % (trade_flow, country1, country2, product, year, options)
+	
+	if crawler == "":
+		# x, v = resolve(api_uri)
+		view, args, kwargs = resolve("/api/%s/%s/%s/%s/%s/" % (trade_flow, country1, country2, product, year))
+		kwargs['request'] = request
+		# raise Exception(view(*args, **kwargs))
+		view_response = view(*args, **kwargs)
+		data_as_text["data"] = view_response[0]
+		data_as_text["total_value"] = view_response[1]
+		data_as_text["columns"] = view_response[2]
+		# data = [33, 44]
+		# data = {44:33}
+		# raise Exception(data)
 	
 	# Country
 	if country2 == "all" and product == "show":
@@ -330,6 +354,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year):
 	
 	# Return page without visualization data
 	return render_to_response("explore/index.html", {
+		"data_as_text": data_as_text,
 		"app_name": app_name,
 		"title": title,
 		"trade_flow": trade_flow,
@@ -351,28 +376,60 @@ def explore(request, app_name, trade_flow, country1, country2, product, year):
 		"item_type": item_type}, context_instance=RequestContext(request))
 
 def api_casy(request, trade_flow, country1, year):
-	lang = request.GET.get("lang", "en")
+	crawler = request.GET.get("_escaped_fragment_", False)
+	# lang = request.GET.get("lang", "en")
+	
+	if 'django_language' in request.session:
+		lang = request.session['django_language']
+	else:
+		lang = "en"
+	lang = request.GET.get("lang", lang)
+	
+	query_params = request.GET.copy()
+	query_params["lang"] = lang
+	
 	country1 = Country.objects.get(name_3char=country1)
+	
+	if crawler == "":
+		db_response = Sitc4_cpy.objects.casy(country1, trade_flow, year, lang)
+		data = [list(x) + [(x[3] / db_response["sum"][x[0]])*100] for x in list(db_response["data"])]
+		return [data, db_response["sum"], db_response["columns"]]
 	
 	json_response = {}
 	
 	# casy means country1 / all / show / year
+	# raise Exception(Sitc4_cpy.objects.casy(country1, trade_flow))
 	json_response["data"] = Sitc4_cpy.objects.casy(country1, trade_flow)
 	json_response["attr_data"] = Sitc4.objects.get_all(lang)
 	json_response["country1"] = country1.to_json()
 	json_response["title"] = "What does %s %s?" % (country1.name, trade_flow.replace("_", " "))
 	json_response["year"] = year
+	json_response["other"] = query_params
 	if "." in year:
 		year_parts = [int(x) for x in year.split(".")]
 		json_response["year_start"] = year_parts[0]
 		json_response["year_end"] = year_parts[1]
 		json_response["year_interval"] = year_parts[2]
-	
+
 	return HttpResponse(json.dumps(json_response))
 
 def api_sapy(request, trade_flow, product, year):
-	lang = request.GET.get("lang", "en")
+	if 'django_language' in request.session:
+		lang = request.session['django_language']
+	else:
+		lang = "en"
+	lang = request.GET.get("lang", lang)
+	
+	crawler = request.GET.get("_escaped_fragment_", False)
+	query_params = request.GET.copy()
+	query_params["lang"] = lang
+	
 	product = Sitc4.objects.get(code=product)
+	
+	if crawler == "":
+		db_response = Sitc4_cpy.objects.sapy(product, trade_flow, year, lang)
+		data = [list(x) + [(x[3] / db_response["sum"][x[0]])*100] for x in list(db_response["data"])]
+		return [data, db_response["sum"], db_response["columns"]]
 	
 	json_response = {}
 	
@@ -382,19 +439,42 @@ def api_sapy(request, trade_flow, product, year):
 	json_response["title"] = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
 	json_response["product"] = product.to_json()
 	json_response["year"] = year
+	json_response["other"] = query_params
 	if "." in year:
 		year_parts = [int(x) for x in year.split(".")]
 		json_response["year_start"] = year_parts[0]
 		json_response["year_end"] = year_parts[1]
 		json_response["year_interval"] = year_parts[2]
 	
+	if crawler == "":
+		return Sitc4_cpy.objects.sapy(product, trade_flow, year)
 	return HttpResponse(json.dumps(json_response))
 
 def api_csay(request, trade_flow, country1, year):
-	lang = request.GET.get("lang", "en")
+	if 'django_language' in request.session:
+		lang = request.session['django_language']
+	else:
+		lang = "en"
+	lang = request.GET.get("lang", lang)
+	
+	crawler = request.GET.get("_escaped_fragment_", False)
+	query_params = request.GET.copy()
+	query_params["lang"] = lang
+	
 	country1 = Country.objects.get(name_3char=country1)
 	
 	article = "to" if trade_flow == "export" else "from"
+	
+	if crawler == "":
+		db_response = Sitc4_ccpy.objects.csay(country1, trade_flow, year, lang)
+		data = [list(x) + [(x[3] / db_response["sum"][x[0]])*100] for x in list(db_response["data"])]
+		return [data, db_response["sum"], db_response["columns"]]
+		# db_response = Sitc4_ccpy.objects.csay(country1, trade_flow, year, lang)
+		# total_value = db_response[0]
+		# data = [list(x) + [(x[2] / total_value)*100] for x in list(db_response[1])]
+		# columns = db_response[2]
+		# return [data, total_value, columns]
+	
 	json_response = {}
 	
 	# csay means country1 / show / all / year
@@ -403,6 +483,7 @@ def api_csay(request, trade_flow, country1, year):
 	json_response["title"] = "Where does %s %s %s?" % (country1.name, trade_flow, article)
 	json_response["country1"] = country1.to_json()
 	json_response["year"] = year
+	json_response["other"] = query_params
 	if "." in year:
 		year_parts = [int(x) for x in year.split(".")]
 		json_response["year_start"] = year_parts[0]
@@ -412,11 +493,26 @@ def api_csay(request, trade_flow, country1, year):
 	return HttpResponse(json.dumps(json_response))
 
 def api_ccsy(request, trade_flow, country1, country2, year):
-	lang = request.GET.get("lang", "en")
+	if 'django_language' in request.session:
+		lang = request.session['django_language']
+	else:
+		lang = "en"
+	lang = request.GET.get("lang", lang)
+	
+	crawler = request.GET.get("_escaped_fragment_", False)
+	query_params = request.GET.copy()
+	query_params["lang"] = lang
+	
 	country1 = Country.objects.get(name_3char=country1)
 	country2 = Country.objects.get(name_3char=country2)
 	
 	article = "to" if trade_flow == "export" else "from"
+	
+	if crawler == "":
+		db_response = Sitc4_ccpy.objects.ccsy(country1, country2, trade_flow, year, lang)
+		data = [list(x) + [(x[3] / db_response["sum"][x[0]])*100] for x in list(db_response["data"])]
+		return [data, db_response["sum"], db_response["columns"]]
+	
 	json_response = {}
 	
 	# ccsy means country1 / countr2 / show / year
@@ -426,6 +522,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
 	json_response["country1"] = country1.to_json()
 	json_response["country2"] = country2.to_json()
 	json_response["year"] = year
+	json_response["other"] = query_params
 	if "." in year:
 		year_parts = [int(x) for x in year.split(".")]
 		json_response["year_start"] = year_parts[0]
@@ -435,11 +532,26 @@ def api_ccsy(request, trade_flow, country1, country2, year):
 	return HttpResponse(json.dumps(json_response))
 
 def api_cspy(request, trade_flow, country1, product, year):
-	lang = request.GET.get("lang", "en")
+	if 'django_language' in request.session:
+		lang = request.session['django_language']
+	else:
+		lang = "en"
+	lang = request.GET.get("lang", lang)
+	
+	crawler = request.GET.get("_escaped_fragment_", False)
+	query_params = request.GET.copy()
+	query_params["lang"] = lang
+	
 	country1 = Country.objects.get(name_3char=country1)
 	product = Sitc4.objects.get(code=product)
 	
 	article = "to" if trade_flow == "export" else "from"
+	
+	if crawler == "":
+		db_response = Sitc4_ccpy.objects.cspy(country1, product, trade_flow, year, lang)
+		data = [list(x) + [(x[3] / db_response["sum"][x[0]])*100] for x in list(db_response["data"])]
+		return [data, db_response["sum"], db_response["columns"]]
+	
 	json_response = {}
 		
 	# cspy means country1 / countr2 / show / year
@@ -449,6 +561,7 @@ def api_cspy(request, trade_flow, country1, product, year):
 	json_response["country1"] = country1.to_json()
 	json_response["product"] = product.to_json()
 	json_response["year"] = year
+	json_response["other"] = query_params
 	if "." in year:
 		year_parts = [int(x) for x in year.split(".")]
 		json_response["year_start"] = year_parts[0]

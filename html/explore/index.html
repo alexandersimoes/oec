@@ -1,11 +1,12 @@
 {% load i18n %}
+{% load humanize %}
 <!doctype html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>The Observatory of Economic Complexity :: {% block page_title %}{% endblock %}</title>
+	<title>The Observatory | {{title}} ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %})</title>
 	<meta name="description" content="Networks in Macro Economics">
 	<meta name="author" content="Alexander Simoes">
 	<!-- Necessary for google to crawl the site, since it is purely ajax based.
@@ -184,7 +185,24 @@
 			<div id="content">
 				
 				<!-- the canvas for the visualization -->
+				{% if data_as_text %}
+				<div id="text_data">
+					<table>
+						<tr>
+							{% for c in data_as_text.columns %}
+							<th>{{c}}</th>
+							{% endfor %}
+						</tr>
+						{% for d in data_as_text.data %}
+						<tr class="{% cycle 'even' 'odd' %}">
+							<td>{{forloop.counter}}</td><td>{{d.0}}</td><td>{{d.1}}</td><td>{{d.2}}</td><td>${{d.3|floatformat|intcomma}}</td><td>{{d.4|floatformat:-2}}%</td>
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+				{% else %}
 				<div id="dataviz"></div>
+				{% endif %}
 				
 				<!-- the key for hovering over communities -->
 				<div class="key" id="communities">
@@ -385,12 +403,26 @@
 				</div>
 				{% endif %}
 				
+				<!-- Year interval List -->
+				{% if year_interval_list %}
+				<div class="dropdown_container" id="layout">
+					<h3>{% trans "Layout" %}</h3>
+					<input type="radio" id="stacked_value" name="radio" checked="checked" /><label for="stacked_value">value</label>
+					<input type="radio" id="stacked_share" name="radio" /><label for="stacked_share">share</label>
+				</div>
+				{% endif %}
+				
 				<button id="build">{% trans "Build Visualization" %} &raquo;</button>
 				<div class="download">
-					<h3>{% trans "Other options" %}</h3>
-					<img src="/media/img/app/download.png" /><a class="pdf" href="#">{% trans "Download PDF" %}</a><br />
-					<img src="/media/img/app/download.png" /><a class="svg" href="#">{% trans "Download SVG" %}</a><br />
-					<img src="/media/img/app/download.png" /><a class="png" href="#">{% trans "Download PNG" %}</a>
+					<h3>{% trans "Download" %}</h3>
+					<a class="pdf" href="#"><img src="/media/img/app/download.png" /> PDF</a>
+					<a class="svg" href="#"><img src="/media/img/app/download.png" /> SVG</a>
+					<a class="png" href="#"><img src="/media/img/app/download.png" /> PNG</a>
+					<a class="csv" href="#"><img src="/media/img/app/download.png" /> CSV</a>
+				</div>
+				<div class="download">
+					<a class="text" href="#"><img src="/media/img/app/text.png" /> View as text</a>
+					<a class="app" href="#"><img src="/media/img/app/text.png" /> View app</a>
 				</div>
 				<div class="download">
 					<h3>{% trans "Embed" %}</h3>
@@ -413,7 +445,7 @@
 			<input type="hidden" name="url" value="" />
 			<input type="hidden" name="title" value="" />
 			<input type="hidden" name="format" value="svg" />
-			<input type="hidden" name="svg_xml" value="" />
+			<input type="hidden" name="content" value="" />
 		</form>
 		<canvas style="display: none;" id="canvas" width="640px" height="500px"></canvas>
 	
@@ -438,13 +470,12 @@
 	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
 	s.parentNode.insertBefore(g,s)}(document,'script'));
 	
-	// default vars
-	// var lang = "{{LANGUAGE_CODE|safe}}",
-		// request = window.location.pathname + "?format=json&lang={{LANGUAGE_CODE}}",
+	// global vars
 	var playing = false;
 	
-	// General page stuff
-		
+	/*
+	 * General page stuff
+	 */
 	// set active link in top nav for current page
 	var current_page = "explore";
 	$(".nav ul a").each(function(i, el){
@@ -459,7 +490,9 @@
 		$("#timeline").hide();
 	}
 	
-	// App Pane Functions
+	/*
+	 * App Pane
+	 */
 	// set up the accordion in the app selection pane
 	$(".accordion").accordion({
 		collapsible: true,
@@ -476,8 +509,8 @@
 	}
 	
 	// tooltip links for key
-	$('#key a').tipsy({"gravity":'s',"fade":true});
-	$("#key a").click(function(){return false;});
+	$('.key a').tipsy({"gravity":'s',"fade":true});
+	$(".key a").click(function(){return false;});
 
 	// Embed link textbox
 	$(".app #main #tool_pane .embed_code").click(function(){
@@ -485,7 +518,9 @@
 		$(this).select();
 	})
 	
-	// Control Pane
+	/*
+	 * Control Pane
+	 */
 	// replace underscores with spaces for trade flow options
 	$(".dropdown_container#trade_flow option").each(function(i, el){
 		var new_text = $(el).text().replace("_", " ")
@@ -495,125 +530,207 @@
 	$(".dropdown_container select").chosen()
 	// build new app when button is clicked
 	$("button#build").click(new_app);
+	// butonset
+	$("#tool_pane #layout").buttonset();
 	
 	
-	// the function that makes the ajax call to the server using the
-	// current URL and appending ?format=json
-	build_app("{{api_uri}}?lang={{LANGUAGE_CODE}}", "{{app_name}}")
+	/*
+	 * App building functions
+	 */
+	// check to see if data_as_text variable is present if NOT then build the app
+	// otherwise the text returned will fill the app canvas
+	if(!"{{data_as_text.total_value}}"){
+		get_data("{{api_uri}}")
+	}
 	
-	function build_app(request, app_name){
+	// given an API URI fetch data and send it to build_app function
+	function get_data(request){
 		d3.select("#dataviz").html("")
 		d3.select("#loader").style("display", "block");
-
-		d3.json(request, function(json){
-		
-			json.attr_data.forEach(function(attr){
-				var id_property = attr["community_id"] ? "community_id" : "region_id",
-					name_property = attr["community__name"] ? "community__name" : "region__name",
-					color_property = attr["community__color"] ? "community__color" : "region__color",
-					text_color_property = attr["community__text_color"] ? "community__text_color" : "region__text_color";
-				attr["category_id"] = attr[id_property]; delete attr[id_property];
-				attr["category_name"] = attr[name_property]; delete attr[name_property];
-				attr["category_color"] = attr[color_property]; delete attr[color_property];
-				attr["category_text_color"] = attr[text_color_property]; delete attr[text_color_property];
-				attr["heirarchical_id"] = attr["category_id"].toString().substr(0,1) + "." + attr["category_id"] + "." + attr["id"];
-			})
-			json.attr_data = d3.nest()
-				.key(function(d) { return d["id"]; })
-				.rollup(function(d){ return d[0] })
-				.map(json.attr_data);
-			
-			update_app(json, app_name, request);
-			
-			var interval_id;
-			
-			// slider event
-			$("#timeline .slider").unbind( "slide");
-			$("#timeline .slider").bind( "slide", function(event, ui) {
-				json.year = parseInt(ui.value);
-				update_app(json, app_name, request);
-				// in case animation is going on 
-				window.clearInterval(interval_id);
-				$("#play").show();
-				$("#stop").hide();
-			});
-			
-			// play button event
-			$("#play").unbind("click");
-			$("#play").click(function(){
-				interval_id = window.setInterval(function(){
-					if(playing && json.year >= 2009){
-						playing = false;
-						$("#play").show();
-						$("#stop").hide();
-						window.clearInterval(interval_id);
-						return;
-					}
-					if(json.year >= 2009){
-						json.year = 1962;
-					}
-					else{
-						json.year++;
-					}
-					update_app(json, app_name, request)
-					playing = true;
-				}, 800);
-				$(this).hide();
-				$("#stop").show();
-			})
-			// stop button
-			$("#stop").unbind("click");
-			$("#stop").click(function(){
-				window.clearInterval(interval_id);
-				$(this).hide();
-				$("#play").show();
-				playing = false;
-				return false;
-			});
-			
-		});
-	} // END build app
+		d3.json(request, build_app);
+	}
 	
+	// build the app given the data from the server
+	function build_app(json){
+		var app_name = "{{app_name}}";
+		var request = "{{api_uri}}";
+		
+		// put data into common variables to they can be called from their respective
+		// app functions
+		json.attr_data.forEach(function(attr){
+			var id_property = attr["community_id"] ? "community_id" : "region_id",
+				name_property = attr["community__name"] ? "community__name" : "region__name",
+				color_property = attr["community__color"] ? "community__color" : "region__color",
+				text_color_property = attr["community__text_color"] ? "community__text_color" : "region__text_color";
+			attr["category_id"] = attr[id_property]; delete attr[id_property];
+			attr["category_name"] = attr[name_property]; delete attr[name_property];
+			attr["category_color"] = attr[color_property]; delete attr[color_property];
+			attr["category_text_color"] = attr[text_color_property]; delete attr[text_color_property];
+			attr["heirarchical_id"] = attr["category_id"].toString().substr(0,1) + "." + attr["category_id"] + "." + attr["id"];
+		})
+		
+		// turn flat attributes array into indexed object with ids
+		// either country or products as the key
+		json.attr_data = d3.nest()
+			.key(function(d) { return d["id"]; })
+			.rollup(function(d){ return d[0] })
+			.map(json.attr_data);
+		
+		// call update function, this is loosley coupled so that it can be called
+		// from other parts of the page without requiring the data to be reconfigured
+		update_app(json, app_name, request);
+		
+		// the timer's unique needs to be kept track of so when the user clicks
+		// stop, we can end the timer
+		var interval_id;
+		// slider event
+		$("#timeline .slider").unbind( "slide");
+		$("#timeline .slider").bind( "slide", function(event, ui) {
+			json.year = parseInt(ui.value);
+			update_app(json, app_name, request);
+			// in case animation is going on 
+			window.clearInterval(interval_id);
+			$("#play").show();
+			$("#stop").hide();
+		});
+		
+		// play button event
+		$("#play").unbind("click");
+		$("#play").click(function(){
+			interval_id = window.setInterval(function(){
+				if(playing && json.year >= 2009){
+					playing = false;
+					$("#play").show();
+					$("#stop").hide();
+					window.clearInterval(interval_id);
+					return;
+				}
+				if(json.year >= 2009){
+					json.year = 1962;
+				}
+				else{
+					json.year++;
+				}
+				update_app(json, app_name, request)
+				playing = true;
+			}, 800);
+			$(this).hide();
+			$("#stop").show();
+		})
+		// stop button
+		$("#stop").unbind("click");
+		$("#stop").click(function(){
+			window.clearInterval(interval_id);
+			$(this).hide();
+			$("#play").show();
+			playing = false;
+			return false;
+		});
+		
+	}
+	
+	// this is the function that actually build the SVG app on the page
 	function update_app(json, app_name, requested_uri){
+		// the parameters that will be passed to the respective app
 		var app_data = {
 			"attr_data": json.attr_data,
 			"raw_data": json.data,
 			"selector": "#dataviz",
 			"year": json.year,
 			"width": 640,
-			"height": 500}
+			"height": 500,
+			"other": json.other}
 	
 		switch(app_name){
 			case "tree_map":
-				tree_map_draw(app_data);
+				var app = new TreeMap(app_data);
 				set_accordion(0);
 				break;
 			case "stacked":
-				stacked_draw(app_data);
-				set_accordion(1)
+				var app = new Stacked(app_data);
+				set_accordion(1);
+				if(json.other){
+					if(json.other.layout == "share"){
+						$("#tool_pane #layout input#stacked_share").attr("checked", true)
+					}
+					else {
+						$("#tool_pane #layout input#stacked_value").attr("checked", true)
+					}
+					$("#tool_pane #layout").buttonset()
+				}
+				$("#tool_pane #layout input").change(function(){
+					app.change_layout($(this).attr("id"));
+				});
 				break;
 			case "product_space":
-				product_space_draw(app_data);
+				var app = new ProductSpace(app_data);
 				set_accordion(2);
 				break;
 			case "map":
-				map_draw(app_data);
+				var app = new Map(app_data);
 				set_accordion(4);
 				break;
 		}
 		
-		// set title
+		// now that the app has been instanciated, lets build the damn thing
+		app.build();
+		
+		// change center canvas to text view
+		$(".download .text").unbind("click");
+		$(".download .text").click(view_as_text(json.data, json.attr_data, json.year));
+		$(".download .app").click(function(){
+			$(".download .text").show();
+			$(".download .app").hide();
+			$("#text_data").hide();
+			$("#dataviz").show();
+			return false;
+		})
+		$(".download .csv").unbind("click");
+		$(".download .csv").click(function(){
+			view_as_text(json.data, json.attr_data, json.year, true)();
+			var content = []
+			$("#text_data table tr").each(function(i, el){
+				var row = []
+				var items = $(el).find("td").length ? $(el).find("td") : $(el).find("th");
+				items.each(function(i, el){
+					row.push($(el).text())
+				})
+				content.push(row)
+			})
+			// Add this content as the value of input
+			$("input[name='content']").val(JSON.stringify(content))
+			var format = $(this).attr("class");
+			$("input[name='format']").val(format);
+
+			var title = window.location.pathname.split("/")
+			title.splice(0, 1)
+			title.splice(0, 1)
+			title.splice(0, 1, "data")
+			title.splice(title.length-1, 1)
+			$("input[name='title']").val(title.join("_"));
+
+			// Submitting the form will trigger the action with will bring up
+			// the /export page. The view for this page takes the values from
+			// POST request and prompts the user to download the file
+			// console.log(format)
+			$('form.download').submit();
+			return false;
+		});
+		
+		// set title (even though we do this when the user first loads the page
+		// it is necessary in case the app has been changed within the page)
 		$(".app_title#title h2").text(json.title)
 		
-		// set control pane year and slider
+		// set the year on the page if it is not a stacked app
 		if(!json.year_start){
+			// set control pane year
 			$(".dropdown_container#year select").val(json.year);
 			$(".dropdown_container#year select").trigger("liszt:updated");
-			
+			// set slider year
 			$("#timeline .slider" ).slider("option", "value", json.year);	
 		}
 		
-		// set title icons year
+		// set title year
 		if(json.year_start){
 			$(".app_title#icons h2").text(json.year_start + " " + json.year_end)
 		}
@@ -647,24 +764,28 @@
 		
 		// Set new URL so browser back button will work
 		var new_url = requested_uri.split("/")
-		var new_embed_url = requested_uri.split("/")
-		
 		new_url.splice(1, 1, "explore") // replace "api" with "explore"
 		new_url.splice(2, 0, app_name) // add app name
 		new_url.splice(7, 1, json.year) // replace year in case slider is cause for new app
-		
-		new_embed_url.splice(1, 1, "embed");
-		new_embed_url.splice(2, 0, app_name);
-		
-		$(".app #main #tool_pane .embed_code").val('<iframe width="560" height="315" src="http://atlas.media.mit.edu'+new_embed_url.join("/")+'" frameborder="0"></iframe>');
 		set_address(new_url.join("/"), json.title)
 		
+		// set embed URL based on api
+		var new_embed_url = requested_uri.split("/")
+		new_embed_url.splice(1, 1, "embed");
+		new_embed_url.splice(2, 0, app_name);
+		$(".app #main #tool_pane .embed_code").val('<iframe width="560" height="315" '
+			+ 'src="http://atlas.media.mit.edu'+new_embed_url.join("/")+'" frameborder="0"></iframe>');
+		
+		// now that the app has been built we can 
 		d3.select("#loader").style("display", "none");
 	}
-
+	
+	// this function is called when the user clicks the build button
 	function new_app(){
+		// set defaults
 		var uri_parts = ["trade_flow", "country1", "country2", "product", "year"]
 		var uri_replacements = ["{{trade_flow}}", "{{country1}}", "{{country2}}", "{{product}}", "{{year}}"]
+		// replace defaults with values from control pane
 		uri_parts.forEach(function(uri_item, i){
 			if($(".dropdown_container#"+uri_item).length){
 				uri_parts[i] = $(".dropdown_container#"+uri_item+" :selected").val();
@@ -681,10 +802,10 @@
 			}
 		})
 		new_api_uri = "/api/" + uri_parts.join("/") + "/"
-		
 		build_app(new_api_uri+"?lang={{LANGUAGE_CODE}}", "{{app_name}}")
 	}
-
+	
+	// set the address bar to the permalink for the curent app
 	function set_address(new_url, title){
 		new_url = new_url.split("?")[0];
 		if(new_url != window.location.pathname){
@@ -827,13 +948,14 @@
 		
 	})
 	
-	$(".download a").click(function(){
-		
-		var svg_xml = d3.select("svg")
+	$("a.pdf, a.svg, a.png").click(function(){
+		var content = d3.select("svg")
 			.attr("title", title)
 			.attr("version", 1.1)
 			.attr("xmlns", "http://www.w3.org/2000/svg")
 			.node().parentNode.innerHTML;
+		// Add this content as the value of input
+		$("input[name='content']").val(content)
 		
 		var format = $(this).attr("class");
 		$("input[name='format']").val(format);
@@ -843,16 +965,95 @@
 		title.splice(0, 1)
 		title.splice(title.length-1, 1)
 		$("input[name='title']").val(title.join("_"));
-				
-		$("input[name='svg_xml']").val(svg_xml) // Add this svg xml as the value of input
+		
 		// Submitting the form will trigger the action with will bring up
 		// the /export page. The view for this page takes the values from
 		// POST request and prompts the user to download the file
 		// console.log(format)
 		$('form.download').submit();
-		return false;
-		
+		return false;		
 	})
+	
+	function view_as_text(data, attr_data, year, silent){
+		return function(e){
+			if(!silent){
+				$(".download .text").hide();
+				$(".download .app").show();
+			}
+			// hide curent viz
+			if($("#dataviz").is(":visible") && !silent){
+				$("#dataviz").hide();
+			}
+			
+			if($("div#text_data").length){
+				if($("div#text_data").data("year") == year){
+					if(!silent){
+						$("div#text_data").show();
+					}
+					return false;	
+				}
+				$("div#text_data").remove();
+			}
+			
+			if((year).toString().indexOf(".") > -1){
+				var years = year.split(".").map(function(y){ return parseInt(y); });
+				years = d3.range(years[0], years[1]+1, years[2]);
+			}
+			else {
+				years = [parseInt(year)]
+			}
+			
+			var current_data = data.filter(function(x){return years.indexOf(x.year) > -1});
+			
+			current_data.sort(function(a, b){
+				if (b.year < a.year) {
+					return -1;
+				} else if  (b.year > a.year) {
+					return 1;
+				} else {
+					return b.value - a.value;
+				}
+			})
+
+			var year_sums = {}
+			years.forEach(function(y){
+				year_sums[y] = d3.sum(current_data, function(d){return d.year == y ? d.value : 0})
+			})
+			// var total_value = d3.sum(current_data, function(d){return d.value})
+			// console.log(current_data)
+			var text_data = $("<div id='text_data' />");
+			if(silent){
+				text_data.css("display", "none");
+			}
+			text_data.data("year", year)
+			var table = $("<table />").appendTo(text_data);
+			var row = $("<tr />").appendTo(table);
+			if("{{item_type}}" == "countries"){
+				row.append("<th>#</th><th>Year</th><th>Alpha-3</th><th>Country</th><th>Value (USD)</th><th>%</th>");
+			}
+			else {
+				row.append("<th>#</th><th>Year</th><th>SITC4</th><th>Product Names</th><th>Value (USD)</th><th>%</th>");
+			}
+			current_data.forEach(function(d, i){
+				var class_n = (i%2) == 0 ? "even" : "odd";
+				var row = $("<tr class='"+class_n+"' />").appendTo(table);
+				row.append("<td>"+(i+1)+"</td>");
+				row.append("<td>"+d.year+"</td>");
+				if("{{item_type}}" == "countries"){
+					row.append("<td>"+attr_data[d.item_id].name_3char+"</td>");
+				}
+				else {
+					row.append("<td>"+attr_data[d.item_id].code+"</td>");
+				}
+				row.append("<td>"+attr_data[d.item_id].name+"</td>");
+				row.append("<td>$"+d3.format(",d")(d.value)+"</td>");
+				row.append("<td>"+d3.format(".2p")(d.value / year_sums[d.year])+"</td>");
+			})
+			$("#dataviz").after(text_data);
+			
+			return false;
+		}
+	}
 
 	</script>
 	
