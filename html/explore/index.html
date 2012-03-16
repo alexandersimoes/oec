@@ -802,7 +802,8 @@
 			}
 		})
 		new_api_uri = "/api/" + uri_parts.join("/") + "/"
-		build_app(new_api_uri+"?lang={{LANGUAGE_CODE}}", "{{app_name}}")
+		// build_app(new_api_uri+"?lang={{LANGUAGE_CODE}}", "{{app_name}}")
+		get_data(new_api_uri+"?lang={{LANGUAGE_CODE}}")
 	}
 	
 	// set the address bar to the permalink for the curent app
