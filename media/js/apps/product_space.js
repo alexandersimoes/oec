@@ -3,8 +3,8 @@ function ProductSpace(args){
 	this.attr_data = args.attr_data;
 	this.raw_data = args.raw_data;
 	this.selector = args.selector || window;
-	this.width = args.width || $(selector).width();
-	this.height = args.height || $(selector).height();
+	this.width = args.width || $(this.selector).width();
+	this.height = args.height || $(this.selector).height();
 	this.year = parseInt(args.year) || 2009;
 	this.mouseover = args.other ? args.other.mouseover || "true" : "true";
 	this.current_data = this.raw_data.filter(function(x){return x.year == _this.year});
