@@ -548,9 +548,12 @@ text-decoration: none;
  */
 .app #main #content #timeline {
 	padding: 10px;
+	overflow: hidden;
+	width: 100%;
 }
 .app #main #content #timeline button{
 	float: left;
+	height: 40px;
 	margin: 0 10px 0 0;
 	width: 60px;
 }
@@ -559,8 +562,15 @@ text-decoration: none;
 }
 .app #main #content #timeline .slider{
 	float: left;
-	margin: 10px 0;
+	margin: 0 0 8px 0;
 	width: 545px;
+}
+.app #main #content #timeline a{
+	display: inline-block;
+}
+.app #main #content #timeline a.next{
+	float: right;
+	margin: 0 20px 0 0;
 }
 
 

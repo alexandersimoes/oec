@@ -276,7 +276,10 @@
 					<button id="play">{% trans "Play" %}</button>
 					<button id="stop">{% trans "Stop" %}</button>
 					<div class="slider"></div>
-					<br class="clear" />
+					{% if app_name != "stacked" %}
+					<a class="prev" href="/explore/{{app_name}}/{{trade_flow}}/{% if country1.name_3char %}{{country1.name_3char|lower}}{% else %}{{country1}}{% endif %}/{% if country2.name_3char %}{{country2.name_3char|lower}}{% else %}{{country2}}{% endif %}/{% if product.code %}{{product.code}}{% else %}{{product}}{% endif %}/{% if year > 1962 %}{{year|add:-1}}{% else %}2009{% endif %}/">&laquo; {% trans "Previous" %}</a>
+					<a class="next" href="/explore/{{app_name}}/{{trade_flow}}/{% if country1.name_3char %}{{country1.name_3char|lower}}{% else %}{{country1}}{% endif %}/{% if country2.name_3char %}{{country2.name_3char|lower}}{% else %}{{country2}}{% endif %}/{% if product.code %}{{product.code}}{% else %}{{product}}{% endif %}/{% if year < 2009 %}{{year|add:1}}{% else %}1962{% endif %}/">{% trans "Next" %} &raquo;</a>
+					{% endif %}
 				</div>
 				
 			</div> <!-- END content -->
@@ -421,8 +424,8 @@
 					<a class="csv" href="#"><img src="/media/img/app/download.png" /> CSV</a>
 				</div>
 				<div class="download">
-					<a class="text" href="#"><img src="/media/img/app/text.png" /> View as text</a>
-					<a class="app" href="#"><img src="/media/img/app/text.png" /> View app</a>
+					<a class="text" href="#"><img src="/media/img/app/text.png" /> {% trans "View as text" %}</a>
+					<a class="app" href="#"><img src="/media/img/app/text.png" /> {% trans "View app" %}</a>
 				</div>
 				<div class="download">
 					<h3>{% trans "Embed" %}</h3>
@@ -584,6 +587,7 @@
 		// stop, we can end the timer
 		var interval_id;
 		// slider event
+		
 		$("#timeline .slider").unbind( "slide");
 		$("#timeline .slider").bind( "slide", function(event, ui) {
 			json.year = parseInt(ui.value);
@@ -593,6 +597,23 @@
 			$("#play").show();
 			$("#stop").hide();
 		});
+		$("#timeline a.prev, #timeline a.next").unbind("click")
+		$("#timeline a.prev, #timeline a.next").click(function(){
+			var year = parseInt($("#timeline .slider").slider("option", "value"));
+			if($(this).attr("class") == "next"){
+				year = (year >= 2009) ? 1962 : year+1;
+			} else {
+				year = (year <= 1962) ? 2009 : year-1;
+			}
+			$("#timeline .slider").slider("option", "value", year);
+			json.year = year;
+			update_app(json, app_name, request);
+			// in case animation is going on 
+			window.clearInterval(interval_id);
+			$("#play").show();
+			$("#stop").hide();
+			return false;
+		})
 		
 		// play button event
 		$("#play").unbind("click");
