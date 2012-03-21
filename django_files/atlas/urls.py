@@ -8,6 +8,9 @@ urlpatterns = patterns('',
 	(r'^i18n/', include('django.conf.urls.i18n')),
 	(r'^set_language/(?P<lang>[a-z-]{2,5})/$', 'observatory.views.set_language'),
 	
+	# product classification ####################################################
+	(r'^set_product_classification/(?P<prod_class>[a-z0-9]{3,5})/$', 'observatory.views.set_product_classification'),
+	
 	# general site ############################################################
 	(r'^$', 'observatory.views.home'),
 	(r'^download/$', 'observatory.views.download'),
@@ -15,7 +18,8 @@ urlpatterns = patterns('',
 	# about section ###########################################################
 	(r'^about/$', 'observatory.views.about'),
 	(r'^about/team/$', "observatory.views.team"),
-	(r'^about/team/$', "observatory.views.team"),
+	(r'^about/data/$', redirect_to, {'url': '/about/data/sitc4/'}),
+	(r'^about/data/(?P<data_type>\w+)/$', "observatory.views.about_data"),
 	(r'^about/permissions/$', "observatory.views.permissions"),
 	# blog
 	(r'^about/blog/$', "blog.views.blog_index"),

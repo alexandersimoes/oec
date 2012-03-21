@@ -91,7 +91,7 @@ Stacked.prototype.add_mouse_events = function(){
 		var sub_text = ""
 		var mouseover_d = {
 			"title": d.meta.name,
-			"img_src": d.meta.code ? "http://atlas.media.mit.edu/media/img/icons/community_"+d.meta.category_id+".png" : "http://atlas.media.mit.edu/media/img/icons/flag_"+d.meta.name_3char.toLowerCase()+".png",
+			"img_src": d.meta.code ? "/media/img/icons/community_"+d.meta.category_id+".png" : "/media/img/icons/flag_"+d.meta.name_3char.toLowerCase()+".png",
 			"sub_text": sub_text
 		}
 		make_mouseover(this, [_this.width, _this.height], mouseover_d)
