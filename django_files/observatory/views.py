@@ -25,6 +25,25 @@ def team(request):
 	return render_to_response("about/team.html", context_instance=RequestContext(request))
 def permissions(request):
 	return render_to_response("about/permissions.html", context_instance=RequestContext(request))
+def about_data(request, data_type):
+	lang = request.session['django_language'] if 'django_language' in request.session else "en"
+	lang = request.GET.get("lang", lang)
+	if data_type == "sitc4":
+		items = [[getattr(x, "name_%s"% (lang,)), x.code] for x in Sitc4.objects.filter(community__isnull=False)]
+		headers = ["Name", "SITC4 Code"]
+		title = "SITC4 product names and codes"
+	elif data_type == "hs4":
+		items = [[x.name, x.code] for x in Hs4.objects.filter(community__isnull=False)]
+		headers = ["Name", "HS4 Code"]
+		title = "HS4 (harmonized system) product names and codes"
+	elif data_type == "country":
+		items = [[getattr(x, "name_%s"% (lang,)), x.name_3char] for x in Country.objects.filter(name_3char__isnull=False, name_2char__isnull=False, region_id__isnull=False)]
+		headers = ["Name", "Alpha 3 Abbreviation"]
+		title = "Country names and abbreviations"
+	items.sort()
+	return render_to_response("about/data.html",
+		{"items":items, "headers":headers, "title": title},
+		context_instance=RequestContext(request))
 
 def api(request):
 	return render_to_response("api/index.html", context_instance=RequestContext(request))
@@ -54,6 +73,18 @@ def set_language(request, lang):
 		else:
 			response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
 			translation.activate(lang_code)
+	return response
+
+def set_product_classification(request, prod_class):
+	next = request.REQUEST.get('next', None)
+	if not next:
+		next = request.META.get('HTTP_REFERER', None)
+	if not next:
+		next = '/'
+	response = HttpResponseRedirect(next)
+	if prod_class:
+		if hasattr(request, 'session'):
+			request.session['product_classification'] = prod_class
 	return response
 
 def download(request):
@@ -245,14 +276,19 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 	# Get URL query parameters
 	crawler = request.GET.get("_escaped_fragment_", False)
 	options = request.GET.copy()
-	# lang = request.GET.get("lang", False)
-	if 'django_language' in request.session:
-		lang = request.session['django_language']
-	else:
-		lang = "en"
+	# set language (if session data available use that as default)
+	lang = request.session['django_language'] if 'django_language' in request.session else "en"
 	lang = request.GET.get("lang", lang)
 	options["lang"] = lang
+	# set product classification (if session data available use that as default)
+	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "sitc4"
+	prod_class = request.GET.get("product_classification", prod_class)
+	options["product_classification"] = prod_class
 	options = options.urlencode()
+	
+	# get distince years from db, different for diff product classifications
+	years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
+	years_available.sort()
 	
 	country1_list, country2_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None, None
 	data_as_text = {}
@@ -263,7 +299,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 	if app_name == "product_space":
 		trade_flow_list = [trade_flow_list[0]]
 	
-	year1_list = range(1962, 2010, 1)
+	year1_list = range(years_available[0], years_available[len(years_available)-1]+1, 1)
 	
 	if app_name == "stacked" and year == "2009":
 		year = "1969.2009.10"
@@ -283,17 +319,12 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 	api_uri = "/api/%s/%s/%s/%s/%s/?%s" % (trade_flow, country1, country2, product, year, options)
 	
 	if crawler == "":
-		# x, v = resolve(api_uri)
 		view, args, kwargs = resolve("/api/%s/%s/%s/%s/%s/" % (trade_flow, country1, country2, product, year))
 		kwargs['request'] = request
-		# raise Exception(view(*args, **kwargs))
 		view_response = view(*args, **kwargs)
 		data_as_text["data"] = view_response[0]
 		data_as_text["total_value"] = view_response[1]
 		data_as_text["columns"] = view_response[2]
-		# data = [33, 44]
-		# data = {44:33}
-		# raise Exception(data)
 	
 	# Country
 	if country2 == "all" and product == "show":
@@ -316,8 +347,12 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 	
 	# Product
 	elif country1 == "show" and country2 == "all":
-		product = Sitc4.objects.get(code=product)
-		product_list = Sitc4.objects.get_all(lang)
+		if prod_class == "sitc4":
+			product = Sitc4.objects.get(code=product)
+			product_list = Sitc4.objects.get_all(lang)
+		elif prod_class == "hs4":
+			product = Hs4.objects.get(code=product)
+			product_list = Hs4.objects.get_all(lang)
 		
 		item_type = "countries"
 		
@@ -342,11 +377,15 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 	
 	else:
 		country1 = Country.objects.get(name_3char=country1)
-		product = Sitc4.objects.get(code=product)
+		if prod_class == "sitc4":
+			product = Sitc4.objects.get(code=product)
+			product_list = Sitc4.objects.get_all(lang)
+		elif prod_class == "hs4":
+			product = Hs4.objects.get(code=product)
+			product_list = Hs4.objects.get_all(lang)
 		
 		# Lists used for control pane
 		country1_list = Country.objects.get_all(lang)
-		product_list = Sitc4.objects.get_all(lang)
 		if "net_export" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_export")]
 		if "net_import" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_import")]
 		
@@ -357,6 +396,8 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 	
 	# Return page without visualization data
 	return render_to_response("explore/index.html", {
+		"product_classification": prod_class,
+		"years_available": years_available,
 		"data_as_text": data_as_text,
 		"app_name": app_name,
 		"title": title,
@@ -380,16 +421,16 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 
 def api_casy(request, trade_flow, country1, year):
 	crawler = request.GET.get("_escaped_fragment_", False)
-	# lang = request.GET.get("lang", "en")
 	
-	if 'django_language' in request.session:
-		lang = request.session['django_language']
-	else:
-		lang = "en"
+	lang = request.session['django_language'] if 'django_language' in request.session else "en"
 	lang = request.GET.get("lang", lang)
+	
+	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "sitc4"
+	prod_class = request.GET.get("prod_class", prod_class)
 	
 	query_params = request.GET.copy()
 	query_params["lang"] = lang
+	query_params["product_classification"] = prod_class
 	
 	country1 = Country.objects.get(name_3char=country1)
 	
@@ -401,9 +442,13 @@ def api_casy(request, trade_flow, country1, year):
 	json_response = {}
 	
 	# casy means country1 / all / show / year
-	# raise Exception(Sitc4_cpy.objects.casy(country1, trade_flow))
-	json_response["data"] = Sitc4_cpy.objects.casy(country1, trade_flow)
-	json_response["attr_data"] = Sitc4.objects.get_all(lang)
+	if prod_class == "sitc4":
+		json_response["data"] = Sitc4_cpy.objects.casy(country1, trade_flow)
+		json_response["attr_data"] = Sitc4.objects.get_all(lang)
+	elif prod_class == "hs4":
+		json_response["data"] = Hs4_cpy.objects.casy(country1, trade_flow)
+		json_response["attr_data"] = Hs4.objects.get_all(lang)
+	
 	json_response["country1"] = country1.to_json()
 	json_response["title"] = "What does %s %s?" % (country1.name, trade_flow.replace("_", " "))
 	json_response["year"] = year
@@ -417,17 +462,19 @@ def api_casy(request, trade_flow, country1, year):
 	return HttpResponse(json.dumps(json_response))
 
 def api_sapy(request, trade_flow, product, year):
-	if 'django_language' in request.session:
-		lang = request.session['django_language']
-	else:
-		lang = "en"
+	crawler = request.GET.get("_escaped_fragment_", False)
+	
+	lang = request.session['django_language'] if 'django_language' in request.session else "en"
 	lang = request.GET.get("lang", lang)
 	
-	crawler = request.GET.get("_escaped_fragment_", False)
+	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "sitc4"
+	prod_class = request.GET.get("prod_class", prod_class)
+	
 	query_params = request.GET.copy()
 	query_params["lang"] = lang
+	query_params["product_classification"] = prod_class
 	
-	product = Sitc4.objects.get(code=product)
+	product = Sitc4.objects.get(code=product) if prod_class == "sitc4" else Hs4.objects.get(code=product)
 	
 	if crawler == "":
 		db_response = Sitc4_cpy.objects.sapy(product, trade_flow, year, lang)
@@ -437,8 +484,12 @@ def api_sapy(request, trade_flow, product, year):
 	json_response = {}
 	
 	# casy means country1 / all / show / year
-	json_response["data"] = Sitc4_cpy.objects.sapy(product, trade_flow)
-	json_response["attr_data"] = Country.objects.get_all(lang)
+	if prod_class == "sitc4":
+		json_response["data"] = Sitc4_cpy.objects.sapy(product, trade_flow)
+		json_response["attr_data"] = Country.objects.get_all(lang)
+	elif prod_class == "hs4":
+		json_response["data"] = Hs4_cpy.objects.sapy(product, trade_flow)
+		json_response["attr_data"] = Country.objects.get_all(lang)
 	json_response["title"] = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
 	json_response["product"] = product.to_json()
 	json_response["year"] = year
@@ -454,15 +505,17 @@ def api_sapy(request, trade_flow, product, year):
 	return HttpResponse(json.dumps(json_response))
 
 def api_csay(request, trade_flow, country1, year):
-	if 'django_language' in request.session:
-		lang = request.session['django_language']
-	else:
-		lang = "en"
+	crawler = request.GET.get("_escaped_fragment_", False)
+	
+	lang = request.session['django_language'] if 'django_language' in request.session else "en"
 	lang = request.GET.get("lang", lang)
 	
-	crawler = request.GET.get("_escaped_fragment_", False)
+	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "sitc4"
+	prod_class = request.GET.get("prod_class", prod_class)
+	
 	query_params = request.GET.copy()
 	query_params["lang"] = lang
+	query_params["product_classification"] = prod_class
 	
 	country1 = Country.objects.get(name_3char=country1)
 	
@@ -472,16 +525,14 @@ def api_csay(request, trade_flow, country1, year):
 		db_response = Sitc4_ccpy.objects.csay(country1, trade_flow, year, lang)
 		data = [list(x) + [(x[3] / db_response["sum"][x[0]])*100] for x in list(db_response["data"])]
 		return [data, db_response["sum"], db_response["columns"]]
-		# db_response = Sitc4_ccpy.objects.csay(country1, trade_flow, year, lang)
-		# total_value = db_response[0]
-		# data = [list(x) + [(x[2] / total_value)*100] for x in list(db_response[1])]
-		# columns = db_response[2]
-		# return [data, total_value, columns]
 	
 	json_response = {}
 	
 	# csay means country1 / show / all / year
-	json_response["data"] = Sitc4_ccpy.objects.csay(country1, trade_flow)
+	if prod_class == "sitc4":
+		json_response["data"] = Sitc4_ccpy.objects.csay(country1, trade_flow)
+	elif prod_class == "hs4":
+		json_response["data"] = Hs4_ccpy.objects.csay(country1, trade_flow)
 	json_response["attr_data"] = Country.objects.get_all(lang)
 	json_response["title"] = "Where does %s %s %s?" % (country1.name, trade_flow, article)
 	json_response["country1"] = country1.to_json()
@@ -496,15 +547,17 @@ def api_csay(request, trade_flow, country1, year):
 	return HttpResponse(json.dumps(json_response))
 
 def api_ccsy(request, trade_flow, country1, country2, year):
-	if 'django_language' in request.session:
-		lang = request.session['django_language']
-	else:
-		lang = "en"
+	crawler = request.GET.get("_escaped_fragment_", False)
+	
+	lang = request.session['django_language'] if 'django_language' in request.session else "en"
 	lang = request.GET.get("lang", lang)
 	
-	crawler = request.GET.get("_escaped_fragment_", False)
+	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "sitc4"
+	prod_class = request.GET.get("prod_class", prod_class)
+	
 	query_params = request.GET.copy()
 	query_params["lang"] = lang
+	query_params["product_classification"] = prod_class
 	
 	country1 = Country.objects.get(name_3char=country1)
 	country2 = Country.objects.get(name_3char=country2)
@@ -519,8 +572,12 @@ def api_ccsy(request, trade_flow, country1, country2, year):
 	json_response = {}
 	
 	# ccsy means country1 / countr2 / show / year
-	json_response["data"] = Sitc4_ccpy.objects.ccsy(country1, country2, trade_flow)
-	json_response["attr_data"] = Sitc4.objects.get_all(lang)
+	if prod_class == "sitc4":
+		json_response["data"] = Sitc4_ccpy.objects.ccsy(country1, country2, trade_flow)
+		json_response["attr_data"] = Sitc4.objects.get_all(lang)
+	elif prod_class == "hs4":
+		json_response["data"] = Hs4_ccpy.objects.ccsy(country1, country2, trade_flow)
+		json_response["attr_data"] = Hs4.objects.get_all(lang)
 	json_response["title"] = "What does %s %s %s %s?" % (country1.name, trade_flow, article, country2.name)
 	json_response["country1"] = country1.to_json()
 	json_response["country2"] = country2.to_json()
@@ -535,18 +592,20 @@ def api_ccsy(request, trade_flow, country1, country2, year):
 	return HttpResponse(json.dumps(json_response))
 
 def api_cspy(request, trade_flow, country1, product, year):
-	if 'django_language' in request.session:
-		lang = request.session['django_language']
-	else:
-		lang = "en"
+	crawler = request.GET.get("_escaped_fragment_", False)
+	
+	lang = request.session['django_language'] if 'django_language' in request.session else "en"
 	lang = request.GET.get("lang", lang)
 	
-	crawler = request.GET.get("_escaped_fragment_", False)
+	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "sitc4"
+	prod_class = request.GET.get("prod_class", prod_class)
+	
 	query_params = request.GET.copy()
 	query_params["lang"] = lang
+	query_params["product_classification"] = prod_class
 	
 	country1 = Country.objects.get(name_3char=country1)
-	product = Sitc4.objects.get(code=product)
+	product = Sitc4.objects.get(code=product) if prod_class == "sitc4" else Hs4.objects.get(code=product)
 	
 	article = "to" if trade_flow == "export" else "from"
 	
@@ -558,7 +617,10 @@ def api_cspy(request, trade_flow, country1, product, year):
 	json_response = {}
 		
 	# cspy means country1 / countr2 / show / year
-	json_response["data"] = Sitc4_ccpy.objects.cspy(country1, product, trade_flow)
+	if prod_class == "sitc4":
+		json_response["data"] = Sitc4_ccpy.objects.cspy(country1, product, trade_flow)
+	elif prod_class == "hs4":
+		json_response["data"] = Hs4_ccpy.objects.cspy(country1, product, trade_flow)
 	json_response["attr_data"] = Country.objects.get_all(lang)
 	json_response["title"] = "Where does %s %s %s %s?" % (country1.name, trade_flow, product.name_en, article)
 	json_response["country1"] = country1.to_json()

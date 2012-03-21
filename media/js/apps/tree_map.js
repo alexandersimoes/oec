@@ -82,6 +82,9 @@ TreeMap.prototype.build = function(){
 		.attr("font-stretch", "condensed")
 		.attr("font-size", tmap_get_text_height("font-size"))
 		.attr("letter-spacing", "-1px")
+		// .attr("font-family", '"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;')
+		// .attr("font-weight", "300")
+		// .attr("font-family", "'Knockout-HTF29-JuniorLiteweight'")
 		.attr("x", 2)
 		// .attr("y", 10)
 		.attr("y", tmap_get_text_height("y"))
@@ -207,7 +210,7 @@ TreeMap.prototype.add_mouse_events = function(){
 		var a = _this.attr_data[d.data.item_id]; // This items attributes
 		var mouseover_d = {
 			"title": a.name,
-			"img_src": a.code ? "http://atlas.media.mit.edu/media/img/icons/community_"+a.category_id+".png" : "http://atlas.media.mit.edu/media/img/icons/flag_"+a.name_3char.toLowerCase()+".png",
+			"img_src": a.code ? "/media/img/icons/community_"+a.category_id+".png" : "/media/img/icons/flag_"+a.name_3char.toLowerCase()+".png",
 			"sub_text": sub_text
 		}
 		make_mouseover(this, [_this.width, _this.height], mouseover_d)
