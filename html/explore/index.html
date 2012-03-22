@@ -114,15 +114,15 @@
 							</ul>
 							<h4>{% trans "Products" %}</h4>
 							<ul>
-								<li><a class="sapy" href="/explore/tree_map/export/show/all/3330/2009/">{% trans "Exports To Destination" %}</a></li>
-								<li><a class="sapy" href="/explore/tree_map/import/show/all/3330/2009/">{% trans "Imports From Origin" %}</a></li>
+								<li><a class="sapy" href="/explore/tree_map/export/show/all/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Exports To Destination" %}</a></li>
+								<li><a class="sapy" href="/explore/tree_map/import/show/all/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Imports From Origin" %}</a></li>
 							</ul>
 							<h4>{% trans "Bilateral" %}</h4>
 							<ul>
 								<li><a class="ccsy" href="/explore/tree_map/export/usa/chn/show/2009/">{% trans "Exports To Destination" %}</a></li>
 								<li><a class="ccsy" href="/explore/tree_map/import/usa/chn/show/2009/">{% trans "Imports From Origin" %}</a></li>
-								<li><a class="cspy" href="/explore/tree_map/export/usa/show/3354/2009/">{% trans "Exports by Product" %}</a></li>
-								<li><a class="cspy" href="/explore/tree_map/import/usa/show/3354/2009/">{% trans "Imports by Product" %}</a></li>
+								<li><a class="cspy" href="/explore/tree_map/export/usa/show/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Exports by Product" %}</a></li>
+								<li><a class="cspy" href="/explore/tree_map/import/usa/show/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Imports by Product" %}</a></li>
 							</ul>
 						</div>
 					</div>
