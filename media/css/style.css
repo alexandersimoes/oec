@@ -96,7 +96,20 @@ button:active {
 .warning {
 	border: solid 1px #f0c36d;
 	background: #f9edbe;
-	display: none;
+	color: #a07631;
+	font-size: 16px;
+	padding: 10px 0;
+}
+.warning a {
+	color: inherit;
+}
+.warning div{
+	margin: auto;
+	width: 1000px;
+}
+.warning h4 {
+	font-weight: bold;
+	margin: 0;
 }
 
 /*

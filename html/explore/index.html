@@ -33,6 +33,16 @@
 	<![endif]-->
 </head>
 <body class="app">
+	{% if alert %}
+	<div class="warning">
+		<div>
+			{% if alert.title %}
+			<h4>{{alert.title}}</h4>
+			{% endif %}
+			{% if alert.text %}{{alert.text|safe}}{% endif %}
+		</div>
+	</div>
+	{% endif %}
 	<div id="container">
 		<header>
 			<div class="logo">
@@ -66,7 +76,8 @@
 				<!-- Left icon -->
 				{% if product_list and not country1_list %}
 				<img class="img left community" src="/media/img/icons/community_{{ product.community.id }}.png" alt="product.name_en">
-				{% else %}
+				{% endif %}
+				{% if country1_list %}
 				<img class="img left" src="/media/img/icons/flag_{{ country1.name_3char|lower }}.png" alt="{{country1.name}}">
 				{% endif %}
 				
@@ -86,7 +97,7 @@
 				{% endif %}
 				
 			</div>
-			<div class="app_title" id="title"><h2>{{title}}</h2></div>
+			<div class="app_title" id="title"><h2>{% if title %}{{title}}{% else %}&nbsp;{% endif %}</h2></div>
 			
 			<!-- ajax loading gif -->
 			<div id="loader">
@@ -574,7 +585,8 @@
 	 */
 	// check to see if data_as_text variable is present if NOT then build the app
 	// otherwise the text returned will fill the app canvas
-	if(!"{{data_as_text.total_value}}"){
+	if(!"{{data_as_text.total_value}}" && "{{alert}}" == "None"){
+	// if(!"{{data_as_text.total_value}}"){
 		get_data("{{api_uri}}")
 	}
 	

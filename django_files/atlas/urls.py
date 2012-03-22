@@ -4,6 +4,7 @@ from django.conf.urls.defaults import *
 from django.views.generic.simple import redirect_to
 
 urlpatterns = patterns('',
+	(r'^new_ps/', 'observatory.views.new_ps'),
 	# internationalization ######################################################
 	(r'^i18n/', include('django.conf.urls.i18n')),
 	(r'^set_language/(?P<lang>[a-z-]{2,5})/$', 'observatory.views.set_language'),

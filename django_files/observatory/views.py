@@ -12,6 +12,10 @@ from django.utils.translation import gettext as _
 # App specific
 from observatory.models import *
 
+def new_ps(request):
+	ps_nodes = Sitc4.objects.get_all("en")
+	return render_to_response("new_ps.html", {"ps_nodes":json.dumps(ps_nodes, indent=2)},context_instance=RequestContext(request))
+
 def home(request):
 	try:
 		ip = request.META["HTTP_X_FORWARDED_FOR"]
@@ -291,6 +295,8 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 	years_available.sort()
 	
 	country1_list, country2_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None, None
+	alert = None
+	title = None
 	data_as_text = {}
 	# What is actually being shown on the page
 	item_type = "products"
@@ -315,6 +321,10 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 	else:
 		year_start, year_end, year_interval = None, None, None
 		year = int(year)
+		if year > years_available[len(years_available)-1]:
+			year = years_available[len(years_available)-1]
+		elif year < years_available[0]:
+			year = years_available[0]
 	
 	api_uri = "/api/%s/%s/%s/%s/%s/?%s" % (trade_flow, country1, country2, product, year, options)
 	
@@ -326,92 +336,87 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 		data_as_text["total_value"] = view_response[1]
 		data_as_text["columns"] = view_response[2]
 	
-	# Country
-	if country2 == "all" and product == "show":
-		country1 = Country.objects.get(name_3char=country1)
-		country1_list = Country.objects.get_all(lang)
-		
-		# country2, product = None, None
-		
-		title = "What does %s %s?" % (country1.name, trade_flow.replace("_", " "))
+	app_type = get_app_type(country1, country2, product, year)
 	
-	# Country but showing other country trade partners
-	elif country2 == "show" and product == "all":
-		country1 = Country.objects.get(name_3char=country1)
-		country1_list = Country.objects.get_all(lang)
-		
-		item_type = "countries"
-		
-		article = "to" if trade_flow == "export" else "from"
-		title = "Where does %s %s %s?" % (country1.name, trade_flow.replace("_", " "), article)
-	
-	# Product
-	elif country1 == "show" and country2 == "all":
+	# first check for errors
+	# check whether country can be found in database
+	countries = [None, None]
+	country_lists = [None, None]
+	for i, country in enumerate([country1, country2]):
+		if country != "show" and country != "all":
+			try:
+				countries[i] = Country.objects.get(name_3char=country)
+				country_lists[i] = Country.objects.get_all(lang)
+			except Country.DoesNotExist:
+				alert = {"title": "Country could not be found",
+					"text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='/about/data/country/'>list of countries</a>."%(country)}
+	if product != "show" and product != "all":
 		if prod_class == "sitc4":
-			product = Sitc4.objects.get(code=product)
-			product_list = Sitc4.objects.get_all(lang)
-		elif prod_class == "hs4":
-			product = Hs4.objects.get(code=product)
-			product_list = Hs4.objects.get_all(lang)
-		
-		item_type = "countries"
-		
-		title = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
+			try:
+				product = Sitc4.objects.get(code=product)
+			except Sitc4.DoesNotExist:
+				alert = {"title": "Product could not be found",
+					"text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/sitc4/'>list of SITC4 products</a>."%(product)}
+		if prod_class == "hs4":
+			try:
+				product = Hs4.objects.get(code=product)
+			except Hs4.DoesNotExist:
+				alert = {"title": "Product could not be found",
+					"text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/hs4/'>list of HS4 products</a>."%(product)}
 	
-	# Bilateral Country x Country
-	elif product == "show":
-		country1 = Country.objects.get(name_3char=country1)
-		country2 = Country.objects.get(name_3char=country2)
-
-		# Lists used for control pane
-		country1_list = Country.objects.get_all(lang)
-		country2_list = country1_list
-		# trade_flow_list = ["export", "import"]
-		if _("net_export") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_export"))]
-		if _("net_import") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_import"))]
-		
-		# product = None
-		
-		article = "to" if trade_flow == "export" else "from"
-		title = "What does %s %s %s %s?" % (country1.name, trade_flow, article, country2.name)
+	if not alert:
+		if app_type == "casy":
+			title = "What does %s %s?" % (countries[0].name, trade_flow.replace("_", " "))
 	
-	else:
-		country1 = Country.objects.get(name_3char=country1)
-		if prod_class == "sitc4":
-			product = Sitc4.objects.get(code=product)
-			product_list = Sitc4.objects.get_all(lang)
-		elif prod_class == "hs4":
-			product = Hs4.objects.get(code=product)
-			product_list = Hs4.objects.get_all(lang)
+		# Country but showing other country trade partners
+		elif app_type == "csay":
+			item_type = "countries"
+			article = "to" if trade_flow == "export" else "from"
+			title = "Where does %s %s %s?" % (countries[0].name, trade_flow.replace("_", " "), article)
+	
+		# Product
+		elif app_type == "sapy":
+			item_type = "countries"
+			title = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
+	
+		# Bilateral Country x Country
+		elif app_type == "ccsy":
+			# trade_flow_list = ["export", "import"]
+			if _("net_export") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_export"))]
+			if _("net_import") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_import"))]
 		
-		# Lists used for control pane
-		country1_list = Country.objects.get_all(lang)
-		if "net_export" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_export")]
-		if "net_import" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_import")]
+			article = "to" if trade_flow == "export" else "from"
+			title = "What does %s %s %s %s?" % (countries[0].name, trade_flow, article, countries[1].name)
+	
+		# Bilateral Country / Show / Product / Year
+		elif app_type == "cspy":
+			if "net_export" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_export")]
+			if "net_import" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_import")]
 		
-		item_type = "countries"
+			item_type = "countries"
 		
-		article = "to" if trade_flow == "export" else "from"
-		title = "Where does %s %s %s %s?" % (country1.name, trade_flow, product.name_en, article)
+			article = "to" if trade_flow == "export" else "from"
+			title = "Where does %s %s %s %s?" % (countries[0].name, trade_flow, product.name_en, article)
 	
 	# Return page without visualization data
 	return render_to_response("explore/index.html", {
+		"alert": alert,
 		"product_classification": prod_class,
 		"years_available": years_available,
 		"data_as_text": data_as_text,
 		"app_name": app_name,
 		"title": title,
 		"trade_flow": trade_flow,
-		"country1": country1,
-		"country2": country2,
+		"country1": countries[0],
+		"country2": countries[1],
 		"product": product,
 		"year": year,
 		"year_start": year_start,
 		"year_end": year_end,
 		"year_interval": year_interval,
 		"trade_flow_list": trade_flow_list,
-		"country1_list": country1_list,
-		"country2_list": country2_list,
+		"country1_list": country_lists[0],
+		"country2_list": country_lists[1],
 		"product_list": product_list,
 		"year1_list": year1_list,
 		"year2_list": year2_list,
@@ -641,3 +646,24 @@ def embed(request, app_name, trade_flow, country1, country2, product, year):
 	lang = request.GET.get("lang", "en")
 	query_string = request.GET
 	return render_to_response("explore/embed.html", {"app":app_name, "trade_flow": trade_flow, "country1":country1, "country2":country2, "product":product, "year":year, "other":json.dumps(query_string), "lang":lang})
+
+def get_app_type(country1, country2, product, year):
+	# country / all / show / year
+	if country2 == "all" and product == "show":
+		return "casy"
+	
+	# country / show / all / year
+	elif country2 == "show" and product == "all":
+		return "csay"
+	
+	# show / all / product / year
+	elif country1 == "show" and country2 == "all":
+		return "sapy"
+	
+	# country / country / show / year
+	elif product == "show":
+		return "ccsy"
+	
+	#  country / show / product / year
+	else:
+		return "cspy"
