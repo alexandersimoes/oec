@@ -713,10 +713,12 @@
 		switch(app_name){
 			case "tree_map":
 				var app = new TreeMap(app_data);
+				app.build();
 				set_accordion(0);
 				break;
 			case "stacked":
 				var app = new Stacked(app_data);
+				app.build();
 				set_accordion(1);
 				if(json.other){
 					if(json.other.layout == "share"){
@@ -737,6 +739,7 @@
 				break;
 			case "map":
 				var app = new Map(app_data);
+				app.build();
 				set_accordion(4);
 				break;
 		}
@@ -745,7 +748,6 @@
 		update_app_pane(requested_uri)
 		
 		// now that the app has been instanciated, lets build the damn thing
-		app.build();
 		
 		// change center canvas to text view
 		$(".download .text").unbind("click");
