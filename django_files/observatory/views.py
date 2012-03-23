@@ -354,12 +354,14 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 		if prod_class == "sitc4":
 			try:
 				product = Sitc4.objects.get(code=product)
+				product_list = Sitc4.objects.get_all(lang)
 			except Sitc4.DoesNotExist:
 				alert = {"title": "Product could not be found",
 					"text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/sitc4/'>list of SITC4 products</a>."%(product)}
 		if prod_class == "hs4":
 			try:
 				product = Hs4.objects.get(code=product)
+				product_list = Hs4.objects.get_all(lang)
 			except Hs4.DoesNotExist:
 				alert = {"title": "Product could not be found",
 					"text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/hs4/'>list of HS4 products</a>."%(product)}
