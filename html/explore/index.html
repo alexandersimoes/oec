@@ -938,7 +938,7 @@
 				break;
 			case "product_space":
 				var items_to_fade = d3.selectAll("circle");
-				var text_to_fade = d3.selectAll("text");
+				var text_to_fade = d3.select("svg").select("svg").selectAll("text");
 				break;
 		}
 		
@@ -1019,7 +1019,7 @@
 				break;
 			case "product_space":
 				var items_to_fade = d3.selectAll("circle");
-				var text_to_fade = d3.selectAll("text");
+				var text_to_fade = d3.select("svg").select("svg").selectAll("text");
 				break;
 		}
 		
