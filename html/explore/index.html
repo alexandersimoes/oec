@@ -937,50 +937,71 @@
 				var items_to_fade = d3.selectAll("g.stacked path");
 				break;
 			case "product_space":
-				var items_to_fade = d3.selectAll("path");
+				var items_to_fade = d3.selectAll("circle");
+				var text_to_fade = d3.selectAll("text");
 				break;
 		}
 		
-		items_to_fade.transition().duration(500).attr("fill", function(d){
-			if(d.children){
-				return "#fff"
-			}
-			
-			this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
-			if(this_class != class_name){
-				if(!d.color){
-					d.color = d3.select(this).attr("fill");
-				}
-				return "#ccc";
-			}
-			else {
-				if(!d.color){
-					return d3.select(this).attr("fill");
-				}
-				return d.color
-			}
-		})
-		
-		if(text_to_fade){
-			text_to_fade.transition().duration(500).attr("fill", function(d){
+		items_to_fade.transition().duration(500)
+			.attr("fill", function(d){
 				if(d.children){
 					return "#fff"
 				}
-				
+			
 				this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
 				if(this_class != class_name){
-					if(!d.text_color){
-						d.text_color = d3.select(this).attr("fill");
+					if(!d.color){
+						d.color = d3.select(this).attr("fill");
 					}
-					return "#fff";
+					return "#ccc";
 				}
 				else {
-					if(!d.text_color){
+					if(!d.color){
 						return d3.select(this).attr("fill");
 					}
-					return d.text_color
+					return d.color
 				}
 			})
+			.attr("stroke", function(d){
+				if(d.children){
+					return "#fff"
+				}
+				this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
+				if(this_class != class_name){
+					if(!d.stroke_color){
+						d.stroke_color = d3.select(this).attr("stroke");
+					}
+					return "#bbb";
+				}
+				else {
+					if(!d.stroke_color){
+						return d3.select(this).attr("stroke");
+					}
+					return d.stroke_color
+				}
+			})
+		
+		if(text_to_fade){
+			text_to_fade.transition().duration(500)
+				.attr("fill", function(d){
+					if(d.children){
+						return "#fff"
+					}
+				
+					this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
+					if(this_class != class_name){
+						if(!d.text_color){
+							d.text_color = d3.select(this).attr("fill");
+						}
+						return "#fff";
+					}
+					else {
+						if(!d.text_color){
+							return d3.select(this).attr("fill");
+						}
+						return d.text_color
+					}
+				})
 		}
 		
 	})
@@ -997,23 +1018,38 @@
 				var items_to_fade = d3.selectAll("g.stacked path");
 				break;
 			case "product_space":
-				var items_to_fade = d3.selectAll("path");
+				var items_to_fade = d3.selectAll("circle");
+				var text_to_fade = d3.selectAll("text");
 				break;
 		}
 		
-		items_to_fade.transition().duration(500).attr("fill", function(d){
-			if(d.children){
-				return "#fff"
-			}
+		items_to_fade.transition().duration(500)
+			.attr("fill", function(d){
+				if(d.children){
+					return "#fff"
+				}
 			
-			this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
-			if(this_class != class_name){
-				return d.color;
-			}
-			else {
-				return d3.select(this).attr("fill");
-			}
-		})
+				this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
+				if(this_class != class_name){
+					return d.color;
+				}
+				else {
+					return d3.select(this).attr("fill");
+				}
+			})
+			.attr("stroke", function(d){
+				if(d.children){
+					return "#fff"
+				}
+			
+				this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
+				if(this_class != class_name){
+					return d.stroke_color;
+				}
+				else {
+					return d3.select(this).attr("stroke");
+				}
+			})
 		
 		if(text_to_fade){
 			text_to_fade.transition().duration(500).attr("fill", function(d){
