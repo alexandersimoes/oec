@@ -64,18 +64,20 @@
 		switch("{{app}}"){
 			case "tree_map":
 				var app = new TreeMap(app_data);
+				app.build();
 				break;
 			case "stacked":
 				var app = new Stacked(app_data);
+				app.build();
 				break;
 			case "product_space":
 				var app = new ProductSpace(app_data);
 				break;
 			case "map":
 				var app = new Map(app_data);
+				app.build();
 				break;
 		}
-		app.build();
 		
 	})
 	</script>

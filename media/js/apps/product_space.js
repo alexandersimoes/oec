@@ -1,8 +1,8 @@
 function ProductSpace(args){
 	var _this = this;	
 	this.attr_data = args.attr_data;
-	this.width = args.width || $(this.selector).width();
-	this.height = args.height || $(this.selector).height();
+	this.width = args.width || $(args.selector).width();
+	this.height = args.height || $(args.selector).height();
 	this.year = parseInt(args.year) || 2009;
 	this.mouseover = args.other ? args.other.mouseover || "true" : "true";
 	this.current_data = args.raw_data.filter(function(x){return x.year == _this.year});
@@ -25,6 +25,7 @@ function ProductSpace(args){
 		"width":  this.width - this.padding.left - this.padding.right,
 		"height": this.height - this.padding.top  - this.padding.bottom
 	};
+	console.log(this.width, this.height)
 	
 	var x_range = [d3.min(d3.values(this.attr_data), function(d){return d.ps_x}), d3.max(d3.values(this.attr_data), function(d){return d.ps_x})]
 	var y_range = [d3.min(d3.values(this.attr_data), function(d){return d.ps_y}), d3.max(d3.values(this.attr_data), function(d){return d.ps_y})]
