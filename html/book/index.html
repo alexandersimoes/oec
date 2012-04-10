@@ -1,9 +1,30 @@
 {% extends "static_template.html" %}
 
 {% block page_title %}Atlas Book{% endblock %}
-{% block heading_title %}The Alas of Economic Complexity - The Book{% endblock %}
+{% block heading_title %}The Atlas of Economic Complexity - The Book{% endblock %}
 
-{% block css %}{% endblock %}
+{% block css %}
+<style>
+blockquote {
+	background: #eee;
+	font-size: 20px;
+	margin: 50px 0;
+}
+blockquote:before {
+	color: #aaa;
+	content: "“";
+	float: left;
+	font-family: georgia, times, serif;
+	font-size: 700%;
+	margin: -23px 0 0 0;
+	line-height: 120px;
+}
+blockquote p {
+	font-size: 14px;
+	margin: 0;
+}
+</style>
+{% endblock %}
 
 {% block sidebar %}
 <h3>Download</h3>
@@ -36,6 +57,16 @@
 </div>
 <img src="/media/img/book/atlas_authors.png" width="700" border="0" />
 <img src="/media/img/book/atlas_logos.png" width="700"/>
+
+<blockquote>
+	Emphasizing that not all products are the same for development is a significant departure from the establishment
+	<p>&mdash;Changyong Rhee, Chief Economist, Asian Development Bank (Cambridge, MA 2011)</p>
+</blockquote>
+<blockquote>
+	The ECI can play a very important role. It can help identify the role of developing countries
+	<p>&mdash;Justin Lin, Chief Economist, World Bank  (Cambridge, MA 2011)</p>
+</blockquote>
+
 <div class="license">
 	<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png"></a>
 	<br />
