@@ -122,7 +122,7 @@ ProductSpace.prototype.update = function(zoom_level) {
 		.attr("fill", function(d){
 			this_item = _this.current_data.filter(function(x){return x.item_id == d.id})[0]
 			if(this_item){
-				if(this_item.rca > 0.25) return d.category_color;
+				if(this_item.rca >= 1) return d.category_color;
 			}
 			var lighter_col = d3.hsl(d.category_color);
 			lighter_col.l = 0.95;
@@ -131,14 +131,14 @@ ProductSpace.prototype.update = function(zoom_level) {
 		.attr("stroke-width", function(d){
 			this_item = _this.current_data.filter(function(x){return x.item_id == d.id})[0]
 			if(this_item){
-				if(this_item.rca > 0.25) return 2;
+				if(this_item.rca >= 1) return 2;
 			}
 			return 0.5;
 		})
 		.attr("stroke", function(d){
 			this_item = _this.current_data.filter(function(x){return x.item_id == d.id})[0]
 			if(this_item){
-				if(this_item.rca > 0.25) return d3.rgb(d.category_color).darker().darker();
+				if(this_item.rca >= 1) return d3.rgb(d.category_color).darker().darker();
 			}
 			return d3.rgb(d.category_color).darker().toString();
 		})
@@ -199,7 +199,7 @@ ProductSpace.prototype.update = function(zoom_level) {
 		.attr("fill", function(d){
 			this_item = _this.current_data.filter(function(x){return x.item_id == d.id})[0]
 			if(this_item){
-				if(this_item.rca > 0.25) {
+				if(this_item.rca >= 1) {
 					var c = d3.hsl(d.category_color).l >= .5 ? d3.hsl(d.category_color).darker().darker() : d.category_color;
 					return c
 				}
@@ -261,7 +261,7 @@ ProductSpace.prototype.add_mouse_events = function(){
 		var this_item = _this.current_data.filter(function(x){return x.item_id == d.id})[0];
 		if(this_item){
 			d3.select(this).attr("r", function(){
-				if(this_item.rca > 0.25){
+				if(this_item.rca >= 1){
 					return _this.radius(d.ps_size) * 1.5;
 				}
 				return _this.radius(d.ps_size);
@@ -303,7 +303,7 @@ ProductSpace.prototype.add_mouse_events = function(){
 			text_el.attr("fill", function(d){
 				this_item = _this.current_data.filter(function(x){return x.item_id == d.id})[0];
 				if(this_item){
-					if(this_item.rca > 0.25) {
+					if(this_item.rca >= 1) {
 						var c = d3.hsl(d.category_color).l >= .5 ? d3.hsl(d.category_color).darker().darker() : d.category_color;
 						return c
 					}
