@@ -110,7 +110,7 @@ class Sitc4_manager(models.Manager):
 	def get_all(self, lang):
 		
 		products = self.filter_lang(lang)
-		products = products.filter(community__isnull=False, ps_size__isnull=False)	
+		products = products.filter(community__isnull=False, ps_size__isnull=False)
 		return list(products.values(
 			"id",
 			"name",
@@ -185,7 +185,7 @@ class Hs4_manager(models.Manager):
 
 	def get_all(self, lang):
 		products = self.filter_lang(lang)
-		products = products.filter(community__isnull=False)
+		products = products.filter(community__isnull=False, ps_size__isnull=False)
 		return list(products.values(
 			"id",
 			"name",
@@ -328,7 +328,8 @@ class Hs4_cpy_manager(models.Manager):
 		
 		data = q_set.filter(
 			country = country,
-			product__community__isnull = False)
+			product__community__isnull = False,
+			product__ps_x__isnull = False)
 			
 		if year:
 			if "." in year:
