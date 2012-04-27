@@ -142,27 +142,27 @@
 						<div>
 							<h4>{% trans "Country" %}</h4>
 							<ul>
-								<li><a class="casy" href="/explore/stacked/export/usa/all/show/1965.2005.5/">{% trans "Exports" %}</a></li>
-								<li><a class="casy" href="/explore/stacked/import/usa/all/show/1965.2005.5/">{% trans "Imports" %}</a></li>
-								<li><a class="casy" href="/explore/stacked/net_export/usa/all/show/1965.2005.5/">{% trans "Net Exports" %}</a></li>
-								<li><a class="casy" href="/explore/stacked/net_import/usa/all/show/1965.2005.5/">{% trans "Net Imports" %}</a></li>
+								<li><a class="casy" href="/explore/stacked/export/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports" %}</a></li>
+								<li><a class="casy" href="/explore/stacked/import/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports" %}</a></li>
+								<li><a class="casy" href="/explore/stacked/net_export/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Net Exports" %}</a></li>
+								<li><a class="casy" href="/explore/stacked/net_import/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Net Imports" %}</a></li>
 							</ul>
 							<h4>{% trans "Country (show trade partners)" %}</h4>
 							<ul>
-								<li><a class="csay" href="/explore/stacked/export/usa/show/all/1965.2005.5/">{% trans "Exports" %}</a></li>
-								<li><a class="csay" href="/explore/stacked/import/usa/show/all/1965.2005.5/">{% trans "Imports" %}</a></li>
+								<li><a class="csay" href="/explore/stacked/export/usa/show/all/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports" %}</a></li>
+								<li><a class="csay" href="/explore/stacked/import/usa/show/all/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports" %}</a></li>
 							</ul>
 							<h4>{% trans "Products" %}</h4>
 							<ul>
-								<li><a class="sapy" href="/explore/stacked/export/show/all/3330/1965.2005.5/">{% trans "Exports To Destination" %}</a></li>
-								<li><a class="sapy" href="/explore/stacked/import/show/all/3330/1965.2005.5/">{% trans "Imports From Origin" %}</a></li>
+								<li><a class="sapy" href="/explore/stacked/export/show/all/3330/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports To Destination" %}</a></li>
+								<li><a class="sapy" href="/explore/stacked/import/show/all/3330/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports From Origin" %}</a></li>
 							</ul>
 							<h4>{% trans "Bilateral" %}</h4>
 							<ul>
-								<li><a class="ccsy" href="/explore/stacked/export/usa/chn/show/1965.2005.5/">{% trans "Exports To Destination" %}</a></li>
-								<li><a class="ccsy" href="/explore/stacked/import/usa/chn/show/1965.2005.5/">{% trans "Imports From Origin" %}</a></li>
-								<li><a class="cspy" href="/explore/stacked/export/usa/show/3354/1965.2005.5/">{% trans "Exports by Product" %}</a></li>
-								<li><a class="cspy" href="/explore/stacked/import/usa/show/3354/1965.2005.5/">{% trans "Imports by Product" %}</a></li>
+								<li><a class="ccsy" href="/explore/stacked/export/usa/chn/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports To Destination" %}</a></li>
+								<li><a class="ccsy" href="/explore/stacked/import/usa/chn/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports From Origin" %}</a></li>
+								<li><a class="cspy" href="/explore/stacked/export/usa/show/3354/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports by Product" %}</a></li>
+								<li><a class="cspy" href="/explore/stacked/import/usa/show/3354/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports by Product" %}</a></li>
 							</ul>
 						</div>
 					</div>
@@ -856,6 +856,10 @@
 	
 	// this function is called when the user clicks the build button
 	function new_app(){
+	  // hide warning if there is one
+	  if($("div.warning").is(":visible")){
+	    $("div.warning").slideUp();
+	  }
 		// set defaults
 		var uri_parts = ["trade_flow", "country1", "country2", "product", "year"]
 		var uri_replacements = ["{{trade_flow}}", "{{country1}}", "{{country2}}", "{{product}}", "{{year}}"]
