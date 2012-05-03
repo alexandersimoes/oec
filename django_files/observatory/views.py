@@ -285,7 +285,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 	lang = request.GET.get("lang", lang)
 	options["lang"] = lang
 	# set product classification (if session data available use that as default)
-	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "sitc4"
+	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
 	prod_class = request.GET.get("product_classification", prod_class)
 	options["product_classification"] = prod_class
 	options = options.urlencode()
@@ -432,7 +432,7 @@ def api_casy(request, trade_flow, country1, year):
 	lang = request.session['django_language'] if 'django_language' in request.session else "en"
 	lang = request.GET.get("lang", lang)
 	
-	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "sitc4"
+	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
 	prod_class = request.GET.get("prod_class", prod_class)
 	
 	query_params = request.GET.copy()
@@ -474,7 +474,7 @@ def api_sapy(request, trade_flow, product, year):
 	lang = request.session['django_language'] if 'django_language' in request.session else "en"
 	lang = request.GET.get("lang", lang)
 	
-	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "sitc4"
+	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
 	prod_class = request.GET.get("prod_class", prod_class)
 	
 	query_params = request.GET.copy()
@@ -517,7 +517,7 @@ def api_csay(request, trade_flow, country1, year):
 	lang = request.session['django_language'] if 'django_language' in request.session else "en"
 	lang = request.GET.get("lang", lang)
 	
-	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "sitc4"
+	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
 	prod_class = request.GET.get("prod_class", prod_class)
 	
 	query_params = request.GET.copy()
@@ -559,7 +559,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
 	lang = request.session['django_language'] if 'django_language' in request.session else "en"
 	lang = request.GET.get("lang", lang)
 	
-	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "sitc4"
+	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
 	prod_class = request.GET.get("prod_class", prod_class)
 	
 	query_params = request.GET.copy()
@@ -604,7 +604,7 @@ def api_cspy(request, trade_flow, country1, product, year):
 	lang = request.session['django_language'] if 'django_language' in request.session else "en"
 	lang = request.GET.get("lang", lang)
 	
-	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "sitc4"
+	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
 	prod_class = request.GET.get("prod_class", prod_class)
 	
 	query_params = request.GET.copy()
