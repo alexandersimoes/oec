@@ -55,4 +55,9 @@ urlpatterns = patterns('',
 	
 	# Overview (Countries) ######################################################
 	(r'^overview/(?P<country>\w{2,3})/$', 'observatory.views_overview.country'),
+	(r'^overview/(?P<country>\w{2,3})/(?P<trade_flow>[a-z_]{6})/$', 'observatory.views_overview.country'),
+	
+	# Overview (Products) ######################################################
+	(r'^overview/(?P<product>\d{4})/$', 'observatory.views_overview.product'),
+	(r'^overview/(?P<product>\d{4})/(?P<trade_flow>[a-z_]{6})/$', 'observatory.views_overview.product'),
 )

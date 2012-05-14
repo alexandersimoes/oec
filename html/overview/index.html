@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>What does {{country.name}} export?</title>
+	<title>What does {{country.name}} {{trade_flow}}?</title>
 	<meta name="description" content="Networks in Macro Economics">
 	<meta name="author" content="Alexander Simoes">
 	
@@ -79,7 +79,7 @@
 		</header>
 	
 		<div id="main" role="main">
-			<div class="app_title" id="title"><h2>What does {{country.name}} export?</h2></div>
+			<div class="app_title" id="title"><h2>{% if country %}What does {{country.name}} {{trade_flow}}{% else %}Who {{trade_flow}}s {{product.name_en}}{% endif %}?</h2></div>
 		
 			<div id="content">
 			  <div id="community_treemap"></div>
@@ -87,10 +87,10 @@
           <table>
             {% for cpy in cpys %}
             <tr class="{% cycle 'even' 'odd' %}">
-              <td><img src="/media/img/icons/community_{{cpy.product.community.id}}.png" /></td>
-              <td>{{cpy.product.code}}</td>
-              <td>{{cpy.product.name_en}}</td>
-              <td>${{cpy.export_value|floatformat:0|intcomma}}</td>
+              <td><img src="/media/img/icons/{% if country %}community_{{cpy.0}}{% else %}flag_{{cpy.0|lower}}{% endif %}.png" /></td>
+              <td>{{cpy.1}}</td>
+              <td>{{cpy.2}}</td>
+              <td>${{cpy.3|floatformat:0|intcomma}}</td>
             </tr>
             {% endfor %}
           </table>
