@@ -17,7 +17,7 @@ function ProductSpace(args){
   }
   else {
     this.radius = d3.scale.pow(0.85).domain([15.0, 67.94873046875]).range([2.85,10]);
-    this.font_size = d3.scale.linear().domain([15.0, 67.94873046875]).range([9,22]);
+    this.font_size = d3.scale.pow(0.85).domain([15.0, 67.94873046875]).range([2.85,10]);
     // this.x = d3.scale.linear().domain([943.7775268554688, 2928.5103759765625]).range([10, this.width-20]);
     // this.y = d3.scale.linear().domain([1746.1142578125, 2969.8824462890625]).range([50, this.height-50]);
     // this.size = d3.scale.linear().domain([15.0, 67.94873046875]).range([15.0, 67.94873046875]);

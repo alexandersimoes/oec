@@ -1,0 +1,251 @@
+{% load i18n %}
+{% load humanize %}
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>What does {{country.name}} export?</title>
+	<meta name="description" content="Networks in Macro Economics">
+	<meta name="author" content="Alexander Simoes">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="/media/img/favicon.ico">
+	
+	<!-- Load non-standard fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
+	<link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
+	
+	<link rel="stylesheet" href="/media/css/normalize.css">
+	<link rel="stylesheet" href="/media/css/style.css">
+	<!-- <link rel="stylesheet" href="/media/css/home.css"> -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<style>
+    table img{
+      width: 15px;
+    }
+    #main #content {
+      border-radius: 10px;
+      float: none;
+      width: 990px;
+    }
+    div#community_treemap{
+      float: left;
+    }
+    div#data_text {
+      float: right;      
+      height: 400px;
+      overflow-y: scroll;
+      width: 420px;
+    }
+    table td {
+      line-height: 13px;
+      padding: 4px;
+      vertical-align: top;
+    }
+    table td:nth-child(4){
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+	<div id="container">
+		<header>
+			<div class="logo">
+				<h1><a href="/" title="Home"><img src="/media/img/all/logo_observatory_sm.png" alt="The Observatory of Economic Complexity" /></a></h1>
+			</div>
+			<div class="nav">
+				<ul>
+					<li><a href="/explore">Explore</a></li>
+					<li><a href="/book">Book</a></li>
+					<li><a href="/about">About</a></li>
+					<li><a href="/api">API</a></li>
+				</ul>
+				<p>
+					Change Language:
+					{% for lang in supported_langs %}
+						{% if lang.0.code == LANGUAGE_CODE %}
+						<a href="/set_language/{{lang.0.code}}/" title="{{lang.0.name_local}}"><img class="selected_lang" src="/media/img/icons/flag_{{lang.1}}.png" alt="lang.0.lang_local" /></a>
+						{% else %}
+						<a href="/set_language/{{lang.0.code}}/" title="{{lang.0.name_local}}"><img src="/media/img/icons/flag_{{lang.1}}.png" alt="lang.0.lang_local" /></a>
+						{% endif %}
+					{% endfor %}
+				</p>
+			</div>
+			<br class="clear">
+		</header>
+	
+		<div id="main" role="main">
+			<div class="app_title" id="title"><h2>What does {{country.name}} export?</h2></div>
+		
+			<div id="content">
+			  <div id="community_treemap"></div>
+			  <div id="data_text">
+          <table>
+            {% for cpy in cpys %}
+            <tr class="{% cycle 'even' 'odd' %}">
+              <td><img src="/media/img/icons/community_{{cpy.product.community.id}}.png" /></td>
+              <td>{{cpy.product.code}}</td>
+              <td>{{cpy.product.name_en}}</td>
+              <td>${{cpy.export_value|floatformat:0|intcomma}}</td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+			</div>
+
+		</div> <!-- END #main -->
+	
+		<footer>
+			<p>
+			<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
+			<br />
+			<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
+			</p>
+		</footer>
+	
+	</div> <!-- END #container -->
+	
+	<script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>
+	<script src="/media/js/libs/d3/d3.v2.min.js"></script>
+	<script>
+	// google analytics
+	var _gaq=[['_setAccount','UA-22403682-3'],['_trackPageview']]; 
+	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+	s.parentNode.insertBefore(g,s)}(document,'script'));
+	
+	$(function(){
+		var current_page = document.location.pathname.split("/")[1];
+		$(".nav ul a").each(function(i, el){
+			if($(el).text().toLowerCase() == current_page){
+				$(el).addClass("current");
+			}
+		})
+	})
+	
+	
+	
+	var json = {children: {{community_data|safe}}},
+	  w = 550,
+	  h = 400;
+	  
+  var treemap = d3.layout.treemap()
+    .size([w, h])
+    .value(function(d) { return +d[3]; })
+    .sort(function(a, b) { return a.value - b.value; });
+
+  var svg = d3.select('#community_treemap').append("svg")
+    .attr('width', w)
+    .attr('height', h);
+
+  var enter = svg.data([json]).selectAll("g")
+    // .data(treemap.nodes)
+    .data(treemap.nodes(json).filter(function(d) { return !d.children; }))
+    // .filter(function(d){ return !d.children; })
+    .enter().append('g')
+      .attr("transform", function(d){ return "translate("+d.x+","+d.y+")"; })
+
+  enter.append("rect")
+    .attr('width', function(d) { return Math.max(0, d.dx - 1); })
+    .attr('height', function(d) { return Math.max(0, d.dy - 1); })
+    .attr("fill", function(d){ return d[1]; });
+
+  enter.append("text")
+    .style("font-family", "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif")
+    .style("font-weight", 300)
+    .style("letter-spacing", "-.06em")
+    .attr("fill", function(d) {return d[2]; })
+    .attr("x",0)
+    // .attr("dx", "0.35em")
+    .attr("dy", "0.9em") 
+    .each(fontSize)
+    .each(wordWrap);
+
+  function fontSize(d,i) {
+    var percent = d3.format(".2p")((d.value / d.parent.value))
+    var size = d.dx/5;
+    // var words = d.data.key.split(' ');
+    var words = percent + " " + d[0];
+    var words = words.split(' ');
+    var word = words[0];
+    var width = d.dx;
+    var height = d.dy;
+    var length = 0;
+    d3.select(this).style("font-size", size + "px").text(word);
+    while(((this.getBBox().width >= width) || (this.getBBox().height >= height)) && (size > 12))
+     {
+      size--;
+      d3.select(this).style("font-size", size + "px");
+      this.firstChild.data = word;
+     }
+    }
+
+  function wordWrap(d, i){
+    var percent = d3.format(".2p")((d.value / d.parent.value))
+    // var words = d.data.key.split(' ');
+    var words = percent + " " + d[0];
+    var words = words.split(' ');
+    var line = new Array();
+    var length = 0;
+    var text = "";
+    var width = d.dx;
+    var height = d.dy;
+    var word;
+    do {
+       word = words.shift();
+       line.push(word);
+       if (words.length)
+         this.firstChild.data = line.join(' ') + " " + words[0]; 
+       else
+         this.firstChild.data = line.join(' ');
+       length = this.getBBox().width;
+       if (length < width && words.length) {
+         ;
+       }
+       else {
+         text = line.join(' ');
+         this.firstChild.data = text;
+         if (this.getBBox().width > width) { 
+           text = d3.select(this).select(function() {return this.lastChild;}).text();
+           text = text + "...";
+           d3.select(this).select(function() {return this.lastChild;}).text(text);
+           d3.select(this).classed("wordwrapped", true);
+           break;
+        }
+        else
+          ;
+
+      if (text != '') {
+        d3.select(this).append("svg:tspan")
+        .attr("x", 0)
+        .attr("dx", "0.15em")
+        .attr("dy", "0.9em")
+        .text(text);
+      }
+      else
+         ;
+
+      if(this.getBBox().height > height && words.length) {
+         text = d3.select(this).select(function() {return this.lastChild;}).text();
+         text = text + "...";
+         d3.select(this).select(function() {return this.lastChild;}).text(text);
+         d3.select(this).classed("wordwrapped", true);
+
+         break;
+      }
+      else
+         ;
+
+      line = new Array();
+        }
+      } while (words.length);
+      this.firstChild.data = '';
+    }
+	</script>
+	
+</body>
+</html>
