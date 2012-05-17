@@ -1157,7 +1157,12 @@
 				row.append("<th>#</th><th>Year</th><th>Alpha-3</th><th>Country</th><th>Value (USD)</th><th>%</th>");
 			}
 			else {
-				row.append("<th>#</th><th>Year</th><th>SITC4</th><th>Product Names</th><th>Value (USD)</th><th>%</th>");
+			  if("{{product_classification}}" == "sitc4"){
+				  row.append("<th>#</th><th>Year</th><th>SITC4</th><th>Product Names</th><th>Value (USD)</th><th>%</th>");
+			  }
+			  else {
+			    row.append("<th>#</th><th>Year</th><th>HS4</th><th>Product Names</th><th>Value (USD)</th><th>%</th>");
+			  }
 			}
 			current_data.forEach(function(d, i){
 				var class_n = (i%2) == 0 ? "even" : "odd";
@@ -1171,7 +1176,7 @@
 					row.append("<td>"+attr_data[d.item_id].code+"</td>");
 				}
 				row.append("<td>"+attr_data[d.item_id].name+"</td>");
-				row.append("<td>$"+d3.format(",d")(d.value)+"</td>");
+				row.append("<td>$"+d3.format(",f")(d.value)+"</td>");
 				row.append("<td>"+d3.format(".2p")(d.value / year_sums[d.year])+"</td>");
 			})
 			$("#dataviz").after(text_data);

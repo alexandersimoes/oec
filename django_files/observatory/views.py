@@ -124,9 +124,13 @@ def download(request):
 		surf.write_to_png(response)
 	
 	else:
-		response = HttpResponse(mimetype="text/csv")
+		response = HttpResponse(mimetype="text/csv;charset=UTF-8")
 		csv_writer = csv.writer(response, delimiter=',', quotechar='"')#, quoting=csv.QUOTE_MINIMAL)
-		csv_writer.writerows(json.loads(content))
+		item_list = json.loads(content,encoding='utf-8')
+    # raise Exception(content)
+    # raise Exception(aa)
+		for item in item_list:
+			csv_writer.writerow([i.encode("utf-8") for i in item])
 	
 	# Need to change with actual title
 	response["Content-Disposition"]= "attachment; filename=%s.%s" % (title, format)
