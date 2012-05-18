@@ -107,6 +107,9 @@ def country2(request, country):
   # get country name based on url parameter
   c = clean_country(country)
   
+  # get country ranking
+  ranking = Cy.objects.get(year=2008, country=c)
+  
   # get this country's exports
   export_products = get_products(c, "export")
   
@@ -124,6 +127,7 @@ def country2(request, country):
   
   return render_to_response("overview/country.html", {
     "country": c,
+    "ranking": ranking,
     "export_products": export_products,
     "export_countries": export_countries,
     "import_products": import_products,
