@@ -74,6 +74,16 @@ class Country(models.Model):
 	
 	objects = Country_manager()
 
+class Cy(models.Model):
+	country = models.ForeignKey(Country)
+	year = models.PositiveSmallIntegerField(max_length=4)
+	eci = models.FloatField(null=True)
+	eci_rank = models.PositiveSmallIntegerField(max_length=4)
+	oppvalue = models.FloatField(null=True)
+
+	def __unicode__(self):
+		return "%s rank: %d" % (self.country.name, self.eci_rank)
+
 ###############################################################################
 # product tables
 ###############################################################################
@@ -161,6 +171,15 @@ class Sitc4(models.Model):
 			"community_id": self.community.id}
 	
 	objects = Sitc4_manager()
+
+class Sitc4_py(models.Model):
+	product = models.ForeignKey(Sitc4)
+	year = models.PositiveSmallIntegerField(max_length=4)
+	pci = models.FloatField(null=True)
+	pci_rank = models.PositiveSmallIntegerField(max_length=4)
+
+	def __unicode__(self):
+		return "%s rank: %d" % (self.product.name, self.pci_rank)
 
 # Colors for HS4 clusters 
 # http://www.foreign-trade.com/reference/hscode.htm

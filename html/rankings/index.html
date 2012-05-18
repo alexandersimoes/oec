@@ -1,0 +1,172 @@
+{% extends "template.html" %}
+
+{% block page_title %}{{category|capfirst}} Rankings ({{year}}){% endblock %}
+{% block heading_title %}{{category|capfirst}} Rankings ({{year}}){% endblock %}
+
+{% block css %}
+<style>
+#sidebar a {
+  font-size: 18px;
+}
+.change_year {
+  overflow: hidden;
+  width: 100%;
+}
+.change_year a.prev {
+  display: block;
+  float: left;
+  font-size: 22px;
+}
+.change_year h3 {
+  float: left;
+  font-size: 34px;
+  margin: 0 215px;
+  text-align: center;
+}
+.change_year a.next {
+  display: block;
+  font-size: 22px;
+  float: right;
+}
+table {
+  margin: 30px 0;
+  width: 100%;
+}
+table thead th{
+  border-bottom: 1px solid #999;
+  cursor: pointer;
+  text-align: left;
+}
+table tbody tr td:nth-child(1) {
+  text-align: center;
+  padding: 4px;
+}
+table tbody tr td {
+  border-bottom: 1px solid #ddd;
+}
+table tbody tr td span {
+  display: block;
+  padding: 2px;
+  width: 20px;
+}
+.arrow_up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid green;
+}
+.arrow_down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid red;
+}
+button {
+  font-size: 18px;
+  width: 100%;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- the left pane -->
+<div id="sidebar">
+  <a href="/rankings/country/">Country Rankings</a>
+  <p>Rank countries based on their economic complexity for a given year</p>
+  <a href="/rankings/product/">Product Rankings</a>
+  <p>Rank products in the SITC4 classification based on their complexity for a given year</p>
+</div>
+
+<div id="content">
+  
+  <div class="change_year">
+    <a class="prev" href="/rankings/{{category}}/{{year|add:'-1'}}/">&laquo; Previous Year</a>
+    <h3>{{year}}</h3>
+    <a class="next" href="/rankings/{{category}}/{{year|add:'1'}}/">Next Year &raquo;</a>
+  </div>
+  
+  <table class="sortable"><thead><tr>
+    
+    {% if category == "country" %}
+    <th><a class="sort">Rank</a></th>
+    <th><a class="sort">Abbrv</a></th>
+    <th><a class="sort">Country</a></th>
+    <th><a class="sort">ECI Value</a></th>
+    <th></th>
+    <th><a class="sort">Delta</a></th>
+    {% else %}
+    <th><a class="sort">Rank</a></th>
+    <th><a class="sort">SITC4</a></th>
+    <th><a class="sort">Product</a></th>
+    <th><a class="sort">PCI Value</a></th>
+    <th></th>
+    <th><a class="sort">Delta</a></th>
+    {% endif %}
+    
+  </tr></thead>
+  <tbody>
+    
+    {% for r in rankings %}
+    <tr>
+      <td><span>{{r.0}}</span></td>
+      <td>{{r.1}}</td>
+      <td>{{r.2}}</td>
+      <td>{{r.3}}</td>
+      <td>{% if r.4 > 0 %}<div class="arrow_up"></div>{% endif %}{% if r.4 == 0 %}-{% endif %}{% if r.4 < 0 %}<div class="arrow_down"></div>{% endif %}</td>
+      <td>{{r.4}}</td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+  </table>
+  <button>Download as CSV</button>
+  <form class="download" method="POST" action="/download/">
+    {% csrf_token %}
+    <input type="hidden" name="title" value="" />
+    <input type="hidden" name="format" value="csv" />
+    <input type="hidden" name="content" value="" />
+  </form>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="/media/js/libs/d3/d3.v2.min.js"></script>
+<script src="/media/js/libs/sorttable/sorttable.js"></script>
+<script>
+
+// Add color to rankings
+var color = d3.scale.linear()
+  .domain([0, d3.selectAll("tbody tr")[0].length-1])
+  .interpolate(d3.interpolateRgb)
+  .range(["#7cbde2", "#fb9496"])
+d3.selectAll("tbody tr").select("td span").style("background", function(d, i){
+  return color(i);
+})
+
+// Handle download as CSV
+$("button").click(function(){
+  var data = [];
+  
+  $("tr").each(function(i, el){
+    var row = [];
+    $(el).children().each(function(i, el){
+      if($(el).text()){
+        row.push($(el).text())
+      }
+    })
+    data.push(row)
+  })
+  
+  $("input[name='content']").val(JSON.stringify(data));
+  $("input[name='title']").val("{{category}}_rankings_{{year}}");
+  
+  $('form').submit();
+  return false;
+})
+
+</script>
+{% endblock %}

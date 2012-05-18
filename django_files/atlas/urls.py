@@ -60,4 +60,9 @@ urlpatterns = patterns('',
 	# Overview (Products) ######################################################
 	(r'^overview/(?P<product>\d{4})/$', 'observatory.views_overview.product'),
 	(r'^overview/(?P<product>\d{4})/(?P<trade_flow>[a-z_]{6})/$', 'observatory.views_overview.product'),
+
+	# Rankings ##################################################################
+	(r'^rankings/$', 'observatory.views_rankings.index'),
+	(r'^rankings/(?P<category>\w{7})/$', 'observatory.views_rankings.index'),
+	(r'^rankings/(?P<category>\w{7})/(?P<year>[0-9\.]+)/$', 'observatory.views_rankings.index'),
 )
