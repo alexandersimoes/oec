@@ -1,0 +1,492 @@
+{% extends "template.html" %}
+{% load i18n %}
+{% load humanize %}
+
+{% block page_title %}{{country.name}} Exports, Imports and Trade Partners{% endblock %}
+{% block heading_title %}
+Learn More About: Trade in </h2>
+<dl id="sample" class="dropdown">
+    <dt><a href="#"><span>{{country.name}}</span></a></dt>
+    <dd>
+        <ul>
+          {% for s in siblings %}
+          <li><a alt="{{s.1}}" href="#">{{s.0}}</a></li>
+          {% endfor %}
+            <!-- <li><a href="#">Brazil<span class="value">BR</span></a></li> -->
+        </ul>
+    </dd>
+</dl>
+{% endblock %}
+
+{% block css %}
+<style>
+table img{
+  width: 15px;
+}
+#main #content {
+  border-radius: 10px;
+  float: none;
+  width: 990px;
+}
+div#community_treemap{
+  float: left;
+}
+div#headline_info {
+  float: right; 
+  width: 420px;
+}
+div#headline_info p span{
+  font-size: 20px;
+}
+div#headline_info img {
+  width: 20px;
+}
+div#data_text {
+  float: right;      
+  height: 400px;
+  overflow-y: scroll;
+  width: 420px;
+}
+table { width: 100%; }
+table th {
+  border-bottom: solid 1px #bbb;
+}
+table td {
+  line-height: 13px;
+  padding: 4px;
+  vertical-align: top;
+}
+table td:nth-child(4){
+  text-align: right;
+}
+
+#title h2 {
+  float: left;
+  margin: 6px 10px 0 10px;
+  width: auto;
+}
+
+.desc { color:#6b6b6b;}
+.desc a {color:#0092dd;}
+
+.dropdown {
+  display: inline;
+  float: left;
+  margin: 6px 0;
+}
+.dropdown dt{
+  display: inline;
+}
+.q {
+  float: left;
+}
+.dropdown dd, .dropdown dt, .dropdown ul { margin:0px; padding:0px; }
+.dropdown dd { position:relative; }
+.dropdown a, .dropdown a:visited { 
+/*      color:#816c5b;*/
+  text-decoration:none;
+  outline:none;
+}
+.dropdown a:hover {
+/*      color:#5d4617;*/
+}
+.dropdown dt a:hover {
+/*      color:#5d4617;*/
+  border: 1px solid #bbb;
+}
+.dropdown dt a {
+  font-family: 'Cardo', serif, 'Times';
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 36px;
+  
+  background: url("/media/img/all/arrow.png") no-repeat scroll right center;
+  padding-right: 20px;
+  border: 1px solid #eee;
+  width: 150px;
+}
+.dropdown dt a span {
+  cursor: pointer; 
+/*    display: inline-block;*/
+  padding: 5px;
+}
+.dropdown dd ul { 
+  background: white none repeat scroll 0 0;
+  border: 1px solid #efefef;
+  display: none;
+  left: 0px;
+  padding: 5px 0px;
+  position: absolute;
+  top: 2px;
+  width: auto;
+  min-width: 170px;
+  list-style: none;
+  height: 200px;
+  overflow-y: scroll;
+}
+.dropdown span.value { display:none; }
+.dropdown dd ul li a { padding:5px; display:block;}
+.dropdown dd ul li a:hover { background-color:#eee;}
+
+#content h2 {
+  border-bottom: solid 1px black;
+  font-size: 28px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.overview_data {
+  overflow: hidden;
+  width: 100%;
+}
+.overview_data .products {
+  float: left;
+  min-height: 200px;
+  width: 470px;
+}
+.overview_data .countries {
+  float: left;
+  margin: 0 0 0 40px;
+  min-height: 200px;
+  width: 470px;
+}
+.overview_data .list {
+  border: solid #bbb 1px;
+  height: 300px;
+  overflow-y: scroll;
+}
+.overview_data a.explore {
+  font-size: 18px;
+  	font-family: 'PT Sans Narrow',Helvetica,Arial;
+  	text-decoration: none;
+  	display: block;
+  	padding: 5px;
+  	border: 1px solid #DDD;
+  	text-align: center;
+
+  	-moz-border-radius: 0 0 5px 5px;
+  	-webkit-border-radius:0 0 5px 5px;
+  	-o-border-radius:0 0 5px 5px;
+  	border-radius:0 0 5px 5px;
+
+  	background:#FFFFFF;
+  	background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#EEE));
+  	background:-moz-linear-gradient(0% 90% 90deg, #EEE, #FFF);
+
+  	-webkit-transition: all .4s ease-in-out;
+  	-moz-transition: all .4s ease-in-out;
+  	-o-transition: all .4s ease-in-out;
+  	transition: all .4s ease-in-out;
+  }
+  .overview_data a.explore:hover {
+  	border-color:#999;
+  	background:#aaa;
+  	background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#bbb), to(#aaa));
+  	background:-moz-linear-gradient(0% 90% 90deg, #bbb, #aaa);
+}
+.overview_data h3 {
+  font-size: 22px;
+  margin: 0 0 5px 0;
+}
+#quick_glance {
+  overflow: hidden;
+  width: 100%;
+}
+#ranking_box {
+  border: solid 1px #999;
+  border-radius: 4px;
+  float: left;
+  padding: 0 5px;
+  width: 300px;
+}
+#ranking_box p.country_name {
+  border-bottom: solid 1px #999;
+  font-size: 30px;
+  margin: 0;
+/*  text-align: center;*/
+}
+#ranking_box p.country_name img {
+  margin: 3px 0 0 0;
+  width: 34px;
+  vertical-align: top;
+}
+#ranking_box p.eci_rank {
+  border-bottom: solid 1px #999;
+  font-size: 60px;
+  margin: 0;
+  padding: 20px 0;
+  text-align: center;
+}
+#ranking_box p.eci_rank span {
+  padding: 10px;
+}
+#ranking_box p.eci_value {
+  margin: 8px 0;
+}
+#ranking_box a {
+  padding: 10px 0;
+}
+#quick_info {
+  float: left;
+  margin: 0 0 0 20px;
+  width: 600px;
+}
+#quick_info p {
+  margin: 0 0 10px 0;
+}
+#quick_info table td {
+  border-bottom: solid 1px #ddd;
+  padding: 2px 2px 6px 2px;
+}
+#quick_info table td:nth-child(1) {
+  width: 170px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="content">
+  
+  <!-- top quick glance info -->
+  <div id="quick_glance">
+    
+    <div id="ranking_box">
+      <p class="country_name"><img src="/media/img/icons/flag_{{country.name_3char}}.png" alt="Flag of {{country.name}}" /> {{country.name}}</p>
+      <p class="eci_rank"><span>{{ranking.eci_rank}}</span></p>
+      <p class="eci_value"><a href="/rankings/country/">Economic Complexity Index (ECI)</a>: {{ranking.eci}}</p>
+    </div>
+    
+    <div id="quick_info">
+      <p>
+        <span style="font-size: 38px">{{country.name}}</span> is ranked <span style="font-size: 24px">{{ranking.eci_rank}}</span> with an ECI of {{ranking.eci}}.
+      </p>
+      <table>
+        <tr>
+          <td>Major exports:</td>
+          <td>
+            {% for p in export_products %}
+              {% if forloop.counter < 6 %}
+                {{p.3}} ({{p.5|floatformat:0}}%)
+                {% if forloop.counter != 5 %}
+                , 
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+        <tr>
+          <td>Major imports:</td>
+          <td>
+            {% for p in import_products %}
+              {% if forloop.counter < 6 %}
+                {{p.3}} ({{p.5|floatformat:0}}%)
+                {% if forloop.counter != 5 %}
+                , 
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+        <tr>
+          <td>Major trade partners (exports):</td>
+          <td>
+            {% for p in export_countries %}
+              {% if forloop.counter < 6 %}
+                {{p.1}} ({{p.3|floatformat:0}}%)
+                {% if forloop.counter != 5 %}
+                , 
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+        <tr>
+          <td>Major trade partners (imports):</td>
+          <td>
+            {% for p in import_countries %}
+              {% if forloop.counter < 6 %}
+                {{p.1}} ({{p.3|floatformat:0}}%)
+                {% if forloop.counter != 5 %}
+                , 
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+  </div>
+  
+  <h2>Exports</h2>
+  <div class="overview_data">
+    <div class="products">
+      
+      <h3>What products does {{country.name}} export?</h3>
+      
+      <iframe src="http://atlas.media.mit.edu/embed/tree_map/export/{{country.name_3char|lower}}/all/show/2010/" width="470" height="300" frameborder="0"></iframe>
+      
+      <div class="list">
+        <!-- table of product exports -->
+        <table>
+          <tr>
+            <th>&nbsp;</th>
+            <th>HS4</th>
+            <th>Name</th>
+            <th>Value</th>
+            <th>Percent</th>
+          </tr>
+          {% for p in export_products %}
+          <tr>
+            <td><img src="/media/img/icons/community_{{p.0}}.png" alt="{{p.1}}" /></td>
+            <td>{{p.2}}</td>
+            <td>{{p.3}}</td>
+            <td>${{p.4|floatformat:0|intcomma}}</td>
+            <td>{{p.5|floatformat:2}}%</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      
+      <a class="explore" href="/explore/tree_map/export/{{country.name_3char|lower}}/all/show/2010">Explore More Years &raquo;</a>
+      
+    </div>
+    <div class="countries">
+      
+      <h3>What countries does {{country.name}} export to?</h3>
+      
+      <iframe src="http://atlas.media.mit.edu/embed/tree_map/export/{{country.name_3char|lower}}/show/all/2010/" width="470" height="300" frameborder="0"></iframe>
+      
+      <div class="list">
+        <!-- table of product exports -->
+        <table>
+          <tr>
+            <th>&nbsp;</th>
+            <th>Abbrv</th>
+            <th>Name</th>
+            <th>Value</th>
+            <th>Percent</th>
+          </tr>
+          {% for c in export_countries %}
+          <tr>
+            <td><img src="/media/img/icons/flag_{{c.0}}.png" alt="{{c.1}}" /></td>
+            <td>{{c.0}}</td>
+            <td><a href="/overview/{{c.0|lower}}/">{{c.1}}</a></td>
+            <td>${{c.2|floatformat:0|intcomma}}</td>
+            <td>{{c.3|floatformat:2}}%</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      
+      <a class="explore" href="/explore/tree_map/export/{{country.name_3char|lower}}/show/all/2010">Explore More Years &raquo;</a>
+      
+    </div>
+  </div>
+  <h2>Imports</h2>
+  <div class="overview_data">
+    <div class="products">
+      
+      <h3>What products does {{country.name}} import?</h3>
+      
+      <iframe src="http://atlas.media.mit.edu/embed/tree_map/import/{{country.name_3char|lower}}/all/show/2010/" width="470" height="300" frameborder="0"></iframe>
+      
+      <div class="list">
+        <!-- table of product exports -->
+        <table>
+          <tr>
+            <th>&nbsp;</th>
+            <th>HS4</th>
+            <th>Name</th>
+            <th>Value</th>
+            <th>Percent</th>
+          </tr>
+          {% for p in import_products %}
+          <tr>
+            <td><img src="/media/img/icons/community_{{p.0}}.png" alt="{{p.1}}" /></td>
+            <td>{{p.2}}</td>
+            <td>{{p.3}}</td>
+            <td>${{p.4|floatformat:0|intcomma}}</td>
+            <td>{{p.5|floatformat:2}}%</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      
+      <a class="explore" href="/explore/tree_map/import/{{country.name_3char|lower}}/all/show/2010">Explore More Years &raquo;</a>
+      
+    </div>
+    <div class="countries">
+      
+      <h3>What countries does {{country.name}} import from?</h3>
+      
+      <iframe src="http://atlas.media.mit.edu/embed/tree_map/import/{{country.name_3char|lower}}/show/all/2010/" width="470" height="300" frameborder="0"></iframe>
+      
+      <div class="list">
+        <!-- table of product exports -->
+        <table>
+          <tr>
+            <th>&nbsp;</th>
+            <th>Abbrv</th>
+            <th>Name</th>
+            <th>Value</th>
+            <th>Percent</th>
+          </tr>
+          {% for c in import_countries %}
+          <tr>
+            <td><img src="/media/img/icons/flag_{{c.0}}.png" alt="{{c.1}}" /></td>
+            <td>{{c.0}}</td>
+            <td><a href="/overview/{{c.0|lower}}/">{{c.1}}</a></td>
+            <td>${{c.2|floatformat:0|intcomma}}</td>
+            <td>{{c.3|floatformat:2}}%</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      
+      <a class="explore" href="/explore/tree_map/import/{{country.name_3char|lower}}/show/all/2010">Explore More Years &raquo;</a>
+      
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="/media/js/libs/d3/d3.v2.min.js"></script>
+<script src="/media/js/libs/sorttable/sorttable.js"></script>
+<script>
+
+// Add color to rankings
+var color = d3.scale.linear()
+  .domain([0, 128])
+  .interpolate(d3.interpolateRgb)
+  .range(["#7cbde2", "#fb9496"])
+
+d3.select(".eci_rank span").style("background", function(d, i){
+  return color(parseInt(this.innerText));
+})
+
+// Handle dropdown click
+$(".dropdown dt a").click(function() {
+    $(".dropdown dd ul").toggle();
+    return false;
+});
+            
+$(".dropdown dd ul li a").click(function(e) {
+    var text = $(this).html();
+    $(".dropdown dt a span").html(text);
+    $(".dropdown dd ul").hide();
+    // get selected value and route new URL
+    var new_url = "/overview/" + e.target.getAttribute("alt").toLowerCase() + "/" + $("#trade_flow").text();
+    window.location = new_url;
+    // console.log(new_url)
+    return false;
+});
+
+$(document).bind('click', function(e) {
+    var $clicked = $(e.target);
+    if (! $clicked.parents().hasClass("dropdown"))
+        $(".dropdown dd ul").hide();
+});
+
+</script>
+{% endblock %}
