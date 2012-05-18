@@ -250,7 +250,7 @@ table td:nth-child(4){
   <div id="quick_glance">
     
     <div id="ranking_box">
-      <p class="country_name"><img src="/media/img/icons/flag_{{country.name_3char}}.png" alt="Flag of {{country.name}}" /> {{country.name}}</p>
+      <p class="country_name"><img src="/media/img/icons/flag_{{country.name_3char|lower}}.png" alt="Flag of {{country.name}}" /> {{country.name}}</p>
       <p class="eci_rank"><span>{{ranking.eci_rank}}</span></p>
       <p class="eci_value"><a href="/rankings/country/">Economic Complexity Index (ECI)</a>: {{ranking.eci}}</p>
     </div>
@@ -368,7 +368,7 @@ table td:nth-child(4){
           </tr>
           {% for c in export_countries %}
           <tr>
-            <td><img src="/media/img/icons/flag_{{c.0}}.png" alt="{{c.1}}" /></td>
+            <td><img src="/media/img/icons/flag_{{c.0|lower}}.png" alt="{{c.1}}" /></td>
             <td>{{c.0}}</td>
             <td><a href="/overview/{{c.0|lower}}/">{{c.1}}</a></td>
             <td>${{c.2|floatformat:0|intcomma}}</td>
@@ -433,7 +433,7 @@ table td:nth-child(4){
           </tr>
           {% for c in import_countries %}
           <tr>
-            <td><img src="/media/img/icons/flag_{{c.0}}.png" alt="{{c.1}}" /></td>
+            <td><img src="/media/img/icons/flag_{{c.0|lower}}.png" alt="{{c.1}}" /></td>
             <td>{{c.0}}</td>
             <td><a href="/overview/{{c.0|lower}}/">{{c.1}}</a></td>
             <td>${{c.2|floatformat:0|intcomma}}</td>
