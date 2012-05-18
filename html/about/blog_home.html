@@ -1,4 +1,4 @@
-{% extends "static_template.html" %}
+{% extends "template.html" %}
 
 {% block page_title %}Development Blog{% endblock %}
 {% block heading_title %}Development Blog{% endblock %}
@@ -11,19 +11,21 @@ p {
 </style>
 {% endblock %}
 
-{% block sidebar %}
-<nav role="navigation">
-	<ul>
-		<li><a href="/about/">About</a></li>
-		<li><a href="/about/data/">Data</a></li>
-		<li><a href="/about/team/">Team</a></li>
-		<li><a href="/about/blog/" class="active">Development Blog</a></li>
-		<li><a href="/about/permissions/">Permissions</a></li>
-	</ul>
-</nav>
-{% endblock %}
-
 {% block content %}
+<!-- the left pane -->
+<div id="sidebar">
+  <nav role="navigation">
+  	<ul>
+  		<li><a href="/about/">About</a></li>
+  		<li><a href="/about/data/">Data</a></li>
+  		<li><a href="/about/team/">Team</a></li>
+  		<li><a href="/about/blog/" class="active">Development Blog</a></li>
+  		<li><a href="/about/permissions/">Permissions</a></li>
+  	</ul>
+  </nav>
+</div>
+
+<div id="content">
 	{% for p in posts %}
 	<div class="post">
 		<h3><a href="{{p.get_absolute_url}}">{{p.title}}</a></h3>
@@ -31,6 +33,7 @@ p {
 		{{ p.content_html|safe }}
 	</div>
 	{% endfor %}
+</div>
 {% endblock %}
 
 {% block js %}

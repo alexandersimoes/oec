@@ -1,4 +1,4 @@
-{% extends "static_template.html" %}
+{% extends "template.html" %}
 
 {% block page_title %}Team{% endblock %}
 {% block heading_title %}Team{% endblock %}
@@ -85,125 +85,128 @@ ol.v_slats li a h3 {
 </style>
 {% endblock %}
 
-{% block sidebar %}
-<nav role="navigation">
-	<ul>
-		<li><a href="/about/">About</a></li>
-		<li><a href="/about/data/">Data</a></li>
-		<li><a href="/about/team/" class="active">Team</a></li>
-		<li><a href="/about/blog/">Development Blog</a></li>
-		<li><a href="/about/permissions/">Permissions</a></li>
-	</ul>
-</nav>
-{% endblock %}
-
 {% block content %}
-<h3>Lead Developer</h3>
-<ol class="slats">
-	<li class="group">
-		<a href="#">
-			<img src="/media/img/about/alexander_simoes.png" alt="thumbnail" />
-			<h3>Alexander Simoes</h3>
-			<p>Alex is the lead developer on the Observatory project. He has been working in the Macro Connections group developing technologies to better inform policy and decision makers by equipping them with tools to make sense of large datasets.<span class="meta">MIT Media Lab</span></p>
-		</a>
-	</li>
-</ol>
+<!-- the left pane -->
+<div id="sidebar">
+  <nav role="navigation">
+  	<ul>
+  		<li><a href="/about/">About</a></li>
+  		<li><a href="/about/data/">Data</a></li>
+  		<li><a href="/about/team/" class="active">Team</a></li>
+  		<li><a href="/about/blog/">Development Blog</a></li>
+  		<li><a href="/about/permissions/">Permissions</a></li>
+  	</ul>
+  </nav>
+</div>
 
-<h3>Faulty Advisors</h3>
-<ol class="slats">
-	<li class="group">
-		<a href="#">
-			<img src="/media/img/about/cesar_hidalgo.png" alt="thumbnail" />
-			<h3>Cesar Hidalgo</h3>
-			<p>César is the Asahi Broadcast Corporation Career Development Professor and an Assistant Professor at the MIT Media Lab, as well as a faculty associate at Harvard's University Center for International Development. His work focuses on improving the understanding of systems using and developing concepts of complexity, evolution and network science. <span class="meta">MIT Media Lab</span></p>
-		</a>
-	</li>
-	<li class="group">
-		<a href="#">
-			<img src="/media/img/about/ricardo_hausmann.png" alt="thumbnail" />
-			<h3>Ricardo Hausmann</h3>
-			<p>Ricardo Hausmann is Director of the Center for International Development and Professor of the Practice of Economic Development at Harvard University. <span class="meta">Harvard Kennedy School</span></p>
-		</a>
-	</li>
-</ol>
+<div id="content">
+  <h3>Lead Developer</h3>
+  <ol class="slats">
+  	<li class="group">
+  		<a href="#">
+  			<img src="/media/img/about/alexander_simoes.png" alt="thumbnail" />
+  			<h3>Alexander Simoes</h3>
+  			<p>Alex is the lead developer on the Observatory project. He has been working in the Macro Connections group developing technologies to better inform policy and decision makers by equipping them with tools to make sense of large datasets.<span class="meta">MIT Media Lab</span></p>
+  		</a>
+  	</li>
+  </ol>
 
-<h3>Technical Team</h3>
-<ol class="slats">
-	<li class="group">
-		<a href="#">
-			<img src="/media/img/about/crystal_noel.png" alt="thumbnail" />
-			<h3>Crystal Noel</h3>
-			<p>Crystal is an undergraduate at MIT majoring in Physics and focusing in Computer Science. She serves on the executive boards for both her sorority, Pi Beta Phi, and MIT Colleges Against Cancer.<span class="meta">MIT</span></p>
+  <h3>Faulty Advisors</h3>
+  <ol class="slats">
+  	<li class="group">
+  		<a href="#">
+  			<img src="/media/img/about/cesar_hidalgo.png" alt="thumbnail" />
+  			<h3>Cesar Hidalgo</h3>
+  			<p>César is the Asahi Broadcast Corporation Career Development Professor and an Assistant Professor at the MIT Media Lab, as well as a faculty associate at Harvard's University Center for International Development. His work focuses on improving the understanding of systems using and developing concepts of complexity, evolution and network science. <span class="meta">MIT Media Lab</span></p>
+  		</a>
+  	</li>
+  	<li class="group">
+  		<a href="#">
+  			<img src="/media/img/about/ricardo_hausmann.png" alt="thumbnail" />
+  			<h3>Ricardo Hausmann</h3>
+  			<p>Ricardo Hausmann is Director of the Center for International Development and Professor of the Practice of Economic Development at Harvard University. <span class="meta">Harvard Kennedy School</span></p>
+  		</a>
+  	</li>
+  </ol>
+
+  <h3>Technical Team</h3>
+  <ol class="slats">
+  	<li class="group">
+  		<a href="#">
+  			<img src="/media/img/about/crystal_noel.png" alt="thumbnail" />
+  			<h3>Crystal Noel</h3>
+  			<p>Crystal is an undergraduate at MIT majoring in Physics and focusing in Computer Science. She serves on the executive boards for both her sorority, Pi Beta Phi, and MIT Colleges Against Cancer.<span class="meta">MIT</span></p>
 			
-		</a>
-	</li>
-	<li class="group">
-		<a href="#">
-			<img src="/media/img/about/ali_almossawi.png" alt="thumbnail" />
-			<h3>Ali Almossawi</h3>
-			<p>Though a software engineer by education (Carnegie Mellon '06) and profession (4 years working for the government), Ali has made a slight detour in 2009 and co-founded a design and development company called Skyrill where he has done projects for companies like Adidas and Ogilvy and Mather.  Ali now spends all of his time on data analysis and visualization projects as well as finishing up his thesis, which is looking at predictors of bugs in the GNOME codebase. <span class="meta">MIT</span></p>
-		</a>
-	</li>
-	<li class="group">
-		<a href="#">
-			<img src="/media/img/about/sarah_chung.png" alt="thumbnail" />
-			<h3>Sarah Chung</h3>
-			<p><span class="meta">BU</span></p>
-		</a>
-	</li>
-</ol>
+  		</a>
+  	</li>
+  	<li class="group">
+  		<a href="#">
+  			<img src="/media/img/about/ali_almossawi.png" alt="thumbnail" />
+  			<h3>Ali Almossawi</h3>
+  			<p>Though a software engineer by education (Carnegie Mellon '06) and profession (4 years working for the government), Ali has made a slight detour in 2009 and co-founded a design and development company called Skyrill where he has done projects for companies like Adidas and Ogilvy and Mather.  Ali now spends all of his time on data analysis and visualization projects as well as finishing up his thesis, which is looking at predictors of bugs in the GNOME codebase. <span class="meta">MIT</span></p>
+  		</a>
+  	</li>
+  	<li class="group">
+  		<a href="#">
+  			<img src="/media/img/about/sarah_chung.png" alt="thumbnail" />
+  			<h3>Sarah Chung</h3>
+  			<p><span class="meta">BU</span></p>
+  		</a>
+  	</li>
+  </ol>
 
-<h3>Book Authors</h3>
-<ol class="v_slats">
-	<li class="group">
-		<a href="#">
-			<img src="/media/img/about/ricardo_hausmann.png" alt="thumbnail" />
-			<h3>Ricardo Hausmann</h3>
-		</a>
-	</li>
-	<li class="group">
-		<a href="#">
-			<img src="/media/img/about/cesar_hidalgo.png" alt="thumbnail" />
-			<h3>César Hidalgo</h3>
-		</a>
-	</li>
-	<li class="group">
-		<a href="#">
-			<img src="/media/img/about/sebastian_bustos.png" alt="thumbnail" />
-			<h3>Sebastián Bustos</h3>
-		</a>
-	</li>
-	<li class="group">
-		<a href="#">
-			<img src="/media/img/about/michele_coscia.png" alt="thumbnail" />
-			<h3>Michele Coscia</h3>
-		</a>
-	</li>
-	<li class="group">
-		<a href="#">
-			<img src="/media/img/about/sarah_chung.png" alt="thumbnail" />
-			<h3>Sarah Chung</h3>
-		</a>
-	</li>
-	<li class="group">
-		<a href="#">
-			<img src="/media/img/about/juan_jimenez.png" alt="thumbnail" />
-			<h3>Juan Jimenez</h3>
-		</a>
-	</li>
-	<li class="group">
-		<a href="#">
-			<img src="/media/img/about/alexander_simoes.png" alt="thumbnail" />
-			<h3>Alexander Simoes</h3>
-		</a>
-	</li>
-	<li class="group">
-		<a href="#">
-			<img src="/media/img/about/muhammed_a_yildirim.png" alt="thumbnail" />
-			<h3>Muhammed A. Yildirim</h3>
-		</a>
-	</li>
-</ol>
+  <h3>Book Authors</h3>
+  <ol class="v_slats">
+  	<li class="group">
+  		<a href="#">
+  			<img src="/media/img/about/ricardo_hausmann.png" alt="thumbnail" />
+  			<h3>Ricardo Hausmann</h3>
+  		</a>
+  	</li>
+  	<li class="group">
+  		<a href="#">
+  			<img src="/media/img/about/cesar_hidalgo.png" alt="thumbnail" />
+  			<h3>César Hidalgo</h3>
+  		</a>
+  	</li>
+  	<li class="group">
+  		<a href="#">
+  			<img src="/media/img/about/sebastian_bustos.png" alt="thumbnail" />
+  			<h3>Sebastián Bustos</h3>
+  		</a>
+  	</li>
+  	<li class="group">
+  		<a href="#">
+  			<img src="/media/img/about/michele_coscia.png" alt="thumbnail" />
+  			<h3>Michele Coscia</h3>
+  		</a>
+  	</li>
+  	<li class="group">
+  		<a href="#">
+  			<img src="/media/img/about/sarah_chung.png" alt="thumbnail" />
+  			<h3>Sarah Chung</h3>
+  		</a>
+  	</li>
+  	<li class="group">
+  		<a href="#">
+  			<img src="/media/img/about/juan_jimenez.png" alt="thumbnail" />
+  			<h3>Juan Jimenez</h3>
+  		</a>
+  	</li>
+  	<li class="group">
+  		<a href="#">
+  			<img src="/media/img/about/alexander_simoes.png" alt="thumbnail" />
+  			<h3>Alexander Simoes</h3>
+  		</a>
+  	</li>
+  	<li class="group">
+  		<a href="#">
+  			<img src="/media/img/about/muhammed_a_yildirim.png" alt="thumbnail" />
+  			<h3>Muhammed A. Yildirim</h3>
+  		</a>
+  	</li>
+  </ol>
+</div> <!-- END #content div -->
 {% endblock %}
 
 {% block js %}

@@ -1,27 +1,29 @@
-{% extends "static_template.html" %}
+{% extends "template.html" %}
 
 {% block page_title %}Development Blog{% endblock %}
 {% block heading_title %}Development Blog{% endblock %}
 
 {% block css %}{% endblock %}
 
-{% block sidebar %}
-<nav role="navigation">
-	<ul>
-		<li><a href="/about/">About</a></li>
-		<li><a href="/about/data/">Data</a></li>
-		<li><a href="/about/team/">Team</a></li>
-		<li><a href="/about/blog/" class="active">Development Blog</a></li>
-		<li><a href="/about/permissions/">Permissions</a></li>
-	</ul>
-</nav>
-{% endblock %}
-
 {% block content %}
-<h3>{{post.title}}</h3>
-<p class="date">{{ post.created|date:"b j Y" }}</p>
-{{ post.content_html|safe }}
+<!-- the left pane -->
+<div id="sidebar">
+  <nav role="navigation">
+  	<ul>
+  		<li><a href="/about/">About</a></li>
+  		<li><a href="/about/data/">Data</a></li>
+  		<li><a href="/about/team/">Team</a></li>
+  		<li><a href="/about/blog/" class="active">Development Blog</a></li>
+  		<li><a href="/about/permissions/">Permissions</a></li>
+  	</ul>
+  </nav>
+</div>
 
+<div id="content">
+  <h3>{{post.title}}</h3>
+  <p class="date">{{ post.created|date:"b j Y" }}</p>
+  {{ post.content_html|safe }}
+</div>
 {% endblock %}
 
 {% block js %}

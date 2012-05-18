@@ -1,128 +1,175 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+{% extends "template.html" %}
 
-	<title>The Atlas of Economic Complexity</title>
-	<meta name="description" content="Networks in Macro Economics">
-	<meta name="author" content="Alexander Simoes">
-	
-	<link rel="shortcut icon" type="image/x-icon" href="/media/img/favicon.ico">
-	
-	<!-- Load non-standard fonts -->
-	<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
-	<link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
-	
-	<link rel="stylesheet" href="/media/css/normalize.css">
-	<link rel="stylesheet" href="/media/css/style.css">
-	<link rel="stylesheet" href="/media/css/home.css">
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	<style>
-	.home #main #content .didyouknow_container{
-		height: 415px;
-	}
-	</style>
-</head>
-<body class="home">
-	<div id="container">
-		<header>
-			<div class="logo">
-				<h1><a href="/" title="Home"><img src="/media/img/all/logo_observatory_sm.png" alt="The Observatory of Economic Complexity" /></a></h1>
-			</div>
-			<div class="nav">
-				<ul>
-					<li><a href="/explore">Explore</a></li>
-					<li><a href="/book">Book</a></li>
-					<li><a href="/about">About</a></li>
-					<li><a href="/api">API</a></li>
-				</ul>
-				<p>
-					Change Language:
-					{% for lang in supported_langs %}
-						{% if lang.0.code == LANGUAGE_CODE %}
-						<a href="/set_language/{{lang.0.code}}/" title="{{lang.0.name_local}}"><img class="selected_lang" src="/media/img/icons/flag_{{lang.1}}.png" alt="lang.0.lang_local" /></a>
-						{% else %}
-						<a href="/set_language/{{lang.0.code}}/" title="{{lang.0.name_local}}"><img src="/media/img/icons/flag_{{lang.1}}.png" alt="lang.0.lang_local" /></a>
-						{% endif %}
-					{% endfor %}
-				</p>
-			</div>
-			<br class="clear">
-		</header>
-	
-		<div id="main" role="main">
+{% block page_title %}{% endblock %}
+{% block heading_title %}{% endblock %}
+
+{% block css %} 
+<style>
+#main #content .didyouknow_container{
+	height: 415px;
+}
+.app_title {
+  min-height: 0px;
+}
+#main {
+	border: none;
+}
+
+#main #content {
+	border-radius: 10px;
+	margin: 10px 0 0 0;
+	width: 998px;
+}
+
+#main #content .didyouknow_container{
+	height: 500px;
+}
+
+#main #content .didyouknow{
+	display: none;
+}
+
+#main #content .headline {
+/*	border-bottom: solid 1px #ccc;*/
+	background: rgba(255, 255, 255, 0.7);
+	margin: 0 0 10px 0;
+	overflow: hidden;
+	width: 100%;
+}
+#main #content .headline img.pin{
+	float: left;
+	margin: 0 25px 0 0;
+	width: 80px;
+}
+#main #content .headline h2{
+	font-size: 45px;
+	font-weight: 100;
+	float: left;
+	margin: 0;
+	width: 400px;
+	text-transform: uppercase;
+}
+
+#main #content img.pin{
+	float: left;
+	margin: 0 10px 0 0;
+	width: 80px;
+}
+#main #content h2{
+	font-size: 50px;
+	font-weight: 100;
+	float: left;
+	margin: 0;
+	width: 260px;
+	text-transform: uppercase;
+}
+
+#main #content .text{
+	float: left;
+	margin: 0 30px 0 0;
+	width: 365px;
+}
+#main #content .text h3{
+	line-height: 32px;
+	margin: 20px 0 10px 0;
+	font-size: 32px;
+	font-weight: 100;
+}
+#main #content .text p{
+	font-size: 22px;
+}
+#main #content .text ul{
+	font-size: 18px;
+	list-style: circle;
+	line-height: 26px;
+}
+#main #content .app {
+	margin: 10px 0 0 0;
+}
+#main #content .app h3{
+	font-size: 28px;
+	font-weight: normal;
+	margin: 0 0 0 0;
+	text-align: center;
+}
+#main #content .other_apps h3{
+	font-size: 28px;
+	font-weight: normal;
+	margin: 40px 0 10px 0;
+}
+#main #content .other_apps div{
+	float: left;
+	margin: 0 30px 0 0;
+}
+#main #content .other_apps div a{
+	display: inline-block;
+	border: solid 1px #ccc;
+	padding: 10px;
+}
+#main #content .other_apps div a:hover{
+	border: solid 1px #000;
+}
+#main #content .other_apps div img{
+	width: 200px;
+}
+#main #content .other_apps div:last-child{
+	margin: 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="content">
+	<div class="didyouknow_container">
 		
-			<div id="content">
-				<div class="didyouknow_container">
-					
-					<div class="didyouknow">
-						<div class="text">
-							<img class="pin" src="http://www.crossed-flag-pins.com/Friendship-Pins/Netherlands/Flag-Pins-Netherlands-Netherlands.jpg" />
-							<h2 style="font-size: 38px;">Learn about The Netherlands &amp; Flowers</h2>
-							<br style="clear:both"/><br />
-							<p>Watch the video for a brief introduction of how The Observatory works.</p>
-						</div>
-						<div class="app">
-							<iframe src="http://player.vimeo.com/video/40565955?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="600" height="443" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-						</div>
-					</div>
-					
-					<div class="didyouknow">
-						<div class="text">
-							<img class="pin" src="http://www.crossed-flag-pins.com/Friendship-Pins/Chile/Flag-Pins-Chile-Chile.jpg" />
-							<h2 style="font-size: 38px;">Learn about Chile &amp; Wine</h2>
-							<br style="clear:both"/><br />
-							<p>Watch the video for a brief introduction of how The Observatory works.</p>
-						</div>
-						<div class="app">
-							<iframe src="http://player.vimeo.com/video/40565954?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="600" height="443" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-						</div>
-					</div>
-					
-				</div>
-				<div class="other_apps">
-					<h3>Explore More Apps</h3>
-					<div class="item">
-						<a href="/explore/tree_map/export/usa/all/show/2009/"><img src="/media/img/home/teaser_tree_map.png"></a>
-					</div>
-					<div class="item">
-						<a href="/explore/stacked/export/usa/all/show/1990.2008.2/"><img src="/media/img/home/teaser_stacked.png"></a>
-					</div>
-					<div class="item">
-						<a href="/explore/map/export/show/all/3330/2009/"><img src="/media/img/home/teaser_map.png"></a>
-					</div>
-					<div class="item">
-						<a href="/explore/product_space/export/usa/all/show/2009/"><img src="/media/img/home/teaser_product_space.png"></a>
-					</div>
-				</div>
-			</div> <!-- END #content -->
+		<div class="didyouknow">
+			<div class="text">
+				<img class="pin" src="http://www.crossed-flag-pins.com/Friendship-Pins/Netherlands/Flag-Pins-Netherlands-Netherlands.jpg" />
+				<h2 style="font-size: 38px;">Learn about The Netherlands &amp; Flowers</h2>
+				<br style="clear:both"/><br />
+				<p>Watch the video for a brief introduction of how The Observatory works.</p>
+			</div>
+			<div class="app">
+				<iframe src="http://player.vimeo.com/video/40565955?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="600" height="443" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+			</div>
+		</div>
+		
+		<div class="didyouknow">
+			<div class="text">
+				<img class="pin" src="http://www.crossed-flag-pins.com/Friendship-Pins/Chile/Flag-Pins-Chile-Chile.jpg" />
+				<h2 style="font-size: 38px;">Learn about Chile &amp; Wine</h2>
+				<br style="clear:both"/><br />
+				<p>Watch the video for a brief introduction of how The Observatory works.</p>
+			</div>
+			<div class="app">
+				<iframe src="http://player.vimeo.com/video/40565954?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="600" height="443" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+			</div>
+		</div>
+		
+	</div>
+	<div class="other_apps">
+		<h3>Explore More Apps</h3>
+		<div class="item">
+			<a href="/explore/tree_map/export/usa/all/show/2009/"><img src="/media/img/home/teaser_tree_map.png"></a>
+		</div>
+		<div class="item">
+			<a href="/explore/stacked/export/usa/all/show/1990.2008.2/"><img src="/media/img/home/teaser_stacked.png"></a>
+		</div>
+		<div class="item">
+			<a href="/explore/map/export/show/all/3330/2009/"><img src="/media/img/home/teaser_map.png"></a>
+		</div>
+		<div class="item">
+			<a href="/explore/product_space/export/usa/all/show/2009/"><img src="/media/img/home/teaser_product_space.png"></a>
+		</div>
+	</div>
+</div> <!-- END #content div -->
+{% endblock %}
 
-		</div> <!-- END #main -->
-	
-		<footer>
-			<p>
-			<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
-			<br />
-			<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
-			</p>
-		</footer>
-	
-	</div> <!-- END #container -->
-	<script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>
-	<script>
-	// google analytics
-	var _gaq=[['_setAccount','UA-22403682-3'],['_trackPageview']]; 
-	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-	s.parentNode.insertBefore(g,s)}(document,'script'));
-	
-	
-	var vid = Math.round(Math.random());
-	$(".didyouknow").eq(vid).show();
-	</script>
-	
-</body>
-</html>
+
+{% block js %}
+<script>
+  // Rotate featured video randomly
+  var vid = Math.round(Math.random());
+  $(".didyouknow").eq(vid).show();
+</script>
+{% endblock %}
