@@ -36,6 +36,44 @@ table thead th{
   border-bottom: 1px solid #999;
   cursor: pointer;
   text-align: left;
+/*  padding: 0 12px 0 0;*/
+}
+table thead th a{
+  font-weight: normal;
+  color: #666;
+}
+table thead th.sorttable_sorted,
+table thead th.sorttable_sorted_reverse{
+/*  padding: 0;*/
+}
+table thead th.sorttable_sorted a,
+table thead th.sorttable_sorted_reverse a{
+  color: black;
+  font-weight: bold;
+}
+table tbody tr th:nth-child(1),
+table tbody tr td:nth-child(1) {
+  width: 60px;
+}
+table tbody tr th:nth-child(2),
+table tbody tr td:nth-child(2) {
+  width: 60px;
+}
+table tbody tr th:nth-child(3),
+table tbody tr td:nth-child(3) {
+  width: 420px;
+}
+table tbody tr th:nth-child(4),
+table tbody tr td:nth-child(4) {
+  width: 80px;
+}
+table tbody tr th:nth-child(5),
+table tbody tr td:nth-child(5) {
+  width: 10px;
+}
+table tbody tr th:nth-child(6),
+table tbody tr td:nth-child(6) {
+  width: 50px;
 }
 table tbody tr td:nth-child(1) {
   text-align: center;
@@ -62,6 +100,30 @@ table tbody tr td span {
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 5px solid red;
+}
+.sort_arrow_down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+  display: inline;
+/*  font-size: 4px;*/
+  position: relative;
+  top: 12px;
+  margin: 0 0 0 4px;
+}
+.sort_arrow_up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+  display: inline;
+/*  font-size: 4px;*/
+  position: relative;
+  bottom: 12px;
+  margin: 0 0 0 4px;
 }
 button {
   font-size: 18px;
@@ -91,14 +153,14 @@ button {
   <table class="sortable"><thead><tr>
     
     {% if category == "country" %}
-    <th><a class="sort">Rank</a></th>
+    <th class="sorttable_sorted"><a class="sort">Rank</a><div id="sorttable_sortfwdind" class="sort_arrow_down"></div></th>
     <th><a class="sort">Abbrv</a></th>
     <th><a class="sort">Country</a></th>
     <th><a class="sort">ECI Value</a></th>
-    <th></th>
+    <th class="sorttable_nosort"></th>
     <th><a class="sort">Delta</a></th>
     {% else %}
-    <th><a class="sort">Rank</a></th>
+    <th class="sorttable_sorted"><a class="sort">Rank</a><div id="sorttable_sortfwdind" class="sort_arrow_down"></div></th>
     <th><a class="sort">SITC4</a></th>
     <th><a class="sort">Product</a></th>
     <th><a class="sort">PCI Value</a></th>
