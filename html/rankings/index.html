@@ -319,7 +319,7 @@ $(".dropdown dd ul li a").click(function(e) {
     $(".dropdown dt a span").html(text);
     $(".dropdown dd ul").hide();
     // get selected value and route new URL
-    var new_url = "/rankings/country/" + e.target.getAttribute("alt").toLowerCase() + "/";
+    var new_url = "/rankings/{{category}}/" + e.target.getAttribute("alt").toLowerCase() + "/";
     window.location = new_url;
     // console.log(new_url)
     return false;
