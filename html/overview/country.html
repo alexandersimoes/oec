@@ -92,7 +92,7 @@ table td:nth-child(4){
 }
 .dropdown dt a:hover {
 /*      color:#5d4617;*/
-  border: 1px solid #bbb;
+  border: 1px solid #666;
 }
 .dropdown dt a {
   font-family: 'Cardo', serif, 'Times';
@@ -102,7 +102,7 @@ table td:nth-child(4){
   
   background: url("/media/img/all/arrow.png") no-repeat scroll right center;
   padding-right: 20px;
-  border: 1px solid #eee;
+  border: 1px solid #bbb;
   width: 150px;
 }
 .dropdown dt a span {
@@ -154,6 +154,12 @@ table td:nth-child(4){
   height: 300px;
   overflow-y: scroll;
 }
+/*.overview_data .list table tr td:nth-child(1){
+  width: 10px;
+}
+.overview_data .list table tr td:nth-child(2){
+  width: 20px;
+}*/
 .overview_data a.explore {
   font-size: 18px;
   	font-family: 'PT Sans Narrow',Helvetica,Arial;
@@ -251,13 +257,16 @@ table td:nth-child(4){
     
     <div id="ranking_box">
       <p class="country_name"><img src="/media/img/icons/flag_{{country.name_3char|lower}}.png" alt="Flag of {{country.name}}" /> {{country.name}}</p>
-      <p class="eci_rank"><span>{{ranking.eci_rank}}</span></p>
+      <p class="eci_rank"><span>{% if ranking %}{{ranking.eci_rank}}{% else %}N/A{% endif %}</span></p>
       <p class="eci_value"><a href="/rankings/country/">Economic Complexity Index (ECI)</a>: {{ranking.eci}}</p>
     </div>
     
     <div id="quick_info">
       <p>
-        <span style="font-size: 38px">{{country.name}}</span> is ranked <span style="font-size: 24px">{{ranking.eci_rank}}</span> with an ECI of {{ranking.eci}}.
+        <span style="font-size: 38px">{{country.name}}</span>
+        {% if ranking %}
+        is ranked <span style="font-size: 24px">{{ranking.eci_rank}}</span> with an ECI of {{ranking.eci}}.
+        {% endif %}
       </p>
       <table>
         <tr>
@@ -265,10 +274,7 @@ table td:nth-child(4){
           <td>
             {% for p in export_products %}
               {% if forloop.counter < 6 %}
-                {{p.3}} ({{p.5|floatformat:0}}%)
-                {% if forloop.counter != 5 %}
-                , 
-                {% endif %}
+                {{p.3}} ({{p.5|floatformat:0}}%){% if forloop.counter != 5 %},{% endif %}
               {% endif %}
             {% endfor %}
           </td>
@@ -278,10 +284,7 @@ table td:nth-child(4){
           <td>
             {% for p in import_products %}
               {% if forloop.counter < 6 %}
-                {{p.3}} ({{p.5|floatformat:0}}%)
-                {% if forloop.counter != 5 %}
-                , 
-                {% endif %}
+                {{p.3}} ({{p.5|floatformat:0}}%){% if forloop.counter != 5 %},{% endif %}
               {% endif %}
             {% endfor %}
           </td>
@@ -291,10 +294,7 @@ table td:nth-child(4){
           <td>
             {% for p in export_countries %}
               {% if forloop.counter < 6 %}
-                {{p.1}} ({{p.3|floatformat:0}}%)
-                {% if forloop.counter != 5 %}
-                , 
-                {% endif %}
+                {{p.1}} ({{p.3|floatformat:0}}%){% if forloop.counter != 5 %},{% endif %}
               {% endif %}
             {% endfor %}
           </td>
@@ -304,10 +304,7 @@ table td:nth-child(4){
           <td>
             {% for p in import_countries %}
               {% if forloop.counter < 6 %}
-                {{p.1}} ({{p.3|floatformat:0}}%)
-                {% if forloop.counter != 5 %}
-                , 
-                {% endif %}
+                {{p.1}} ({{p.3|floatformat:0}}%){% if forloop.counter != 5 %},{% endif %}
               {% endif %}
             {% endfor %}
           </td>
@@ -369,8 +366,8 @@ table td:nth-child(4){
           {% for c in export_countries %}
           <tr>
             <td><img src="/media/img/icons/flag_{{c.0|lower}}.png" alt="{{c.1}}" /></td>
-            <td>{{c.0}}</td>
-            <td><a href="/overview/{{c.0|lower}}/">{{c.1}}</a></td>
+            <td>{% if c.0 %}{{c.0}}{% endif %}</td>
+            <td><a href="/country/{{c.0|lower}}/">{{c.1}}</a></td>
             <td>${{c.2|floatformat:0|intcomma}}</td>
             <td>{{c.3|floatformat:2}}%</td>
           </tr>
@@ -434,8 +431,8 @@ table td:nth-child(4){
           {% for c in import_countries %}
           <tr>
             <td><img src="/media/img/icons/flag_{{c.0|lower}}.png" alt="{{c.1}}" /></td>
-            <td>{{c.0}}</td>
-            <td><a href="/overview/{{c.0|lower}}/">{{c.1}}</a></td>
+            <td>{% if c.0 %}{{c.0}}{% endif %}</td>
+            <td><a href="/country/{{c.0|lower}}/">{{c.1}}</a></td>
             <td>${{c.2|floatformat:0|intcomma}}</td>
             <td>{{c.3|floatformat:2}}%</td>
           </tr>
@@ -462,7 +459,7 @@ var color = d3.scale.linear()
   .range(["#7cbde2", "#fb9496"])
 
 d3.select(".eci_rank span").style("background", function(d, i){
-  return color(parseInt(this.innerText));
+  return color(parseInt(this.innerHTML));
 })
 
 // Handle dropdown click
@@ -476,7 +473,7 @@ $(".dropdown dd ul li a").click(function(e) {
     $(".dropdown dt a span").html(text);
     $(".dropdown dd ul").hide();
     // get selected value and route new URL
-    var new_url = "/overview/" + e.target.getAttribute("alt").toLowerCase() + "/" + $("#trade_flow").text();
+    var new_url = "/country/" + e.target.getAttribute("alt").toLowerCase() + "/" + $("#trade_flow").text();
     window.location = new_url;
     // console.log(new_url)
     return false;
@@ -488,5 +485,21 @@ $(document).bind('click', function(e) {
         $(".dropdown dd ul").hide();
 });
 
+// fix all broken images
+$(window).load(function() {
+  $('img').each(function() {
+    if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+      // image was broken, replace with your new image
+      this.src = '/media/img/icons/flag_wld.png';
+    }
+  });
+});
+
+// set current page
+$(".nav ul a").each(function(i, el){
+  if($(el).text().toLowerCase() == "profiles"){
+    $(el).addClass("current");
+  }
+})
 </script>
 {% endblock %}

@@ -108,7 +108,10 @@ def country2(request, country):
   c = clean_country(country)
   
   # get country ranking
-  ranking = Cy.objects.get(year=2008, country=c)
+  try:
+    ranking = Cy.objects.get(year=2008, country=c)
+  except Cy.DoesNotExist:
+    ranking = None
   
   # get this country's exports
   export_products = get_products(c, "export")
@@ -150,13 +153,13 @@ def get_products(c, trade_flow):
   prods = Hs4_cpy.objects.filter(country=c, year=2010)
   total_value = prods.aggregate(Sum("%s_value" % (trade_flow))).values()[0]
   prods = prods.values_list("product__community__id", "product__community__name", "product__code", "product__name_en", "%s_value" % (trade_flow,))
-  prods = [[p[0], p[1], p[2], p[3], p[4], (p[4]/total_value)*100] for p in prods]
+  prods = [[p[0], p[1], p[2], p[3], p[4], (p[4]/total_value)*100] for p in prods if p[4] > 0]
   prods.sort(key=lambda x: x[4], reverse=True)
   return prods
 
 def get_countries(input, trade_flow):
   partners = Hs4_ccpy.objects.filter(origin=input, year=2010).values_list("destination__name_3char", "destination__name_en").annotate(value=Sum('%s_value'%(trade_flow,)))
   total_value = sum([p[2] for p in partners])
-  partners = [[p[0], p[1], p[2], (p[2]/total_value)*100] for p in partners]
+  partners = [[p[0], p[1], p[2], (p[2]/total_value)*100] for p in partners if p[2] > 0]
   partners.sort(key=lambda p: p[2], reverse=True)
   return partners

@@ -175,7 +175,7 @@ button {
     <tr>
       <td><span>{{r.0}}</span></td>
       <td>{{r.1}}</td>
-      <td>{{r.2}}</td>
+      <td>{% if category == "country" %}<a href="/country/{{r.1|lower}}/">{{r.2}}</a>{% else %}{{r.2}}{% endif %}</td>
       <td>{{r.3}}</td>
       <td>{% if r.4 > 0 %}<div class="arrow_up"></div>{% endif %}{% if r.4 == 0 %}-{% endif %}{% if r.4 < 0 %}<div class="arrow_down"></div>{% endif %}</td>
       <td>{{r.4}}</td>
