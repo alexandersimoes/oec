@@ -65,4 +65,6 @@ urlpatterns = patterns('',
 	(r'^rankings/$', 'observatory.views_rankings.index'),
 	(r'^rankings/(?P<category>\w{7})/$', 'observatory.views_rankings.index'),
 	(r'^rankings/(?P<category>\w{7})/(?P<year>[0-9\.]+)/$', 'observatory.views_rankings.index'),
+	(r'^rankings/(?P<category>\w{7})/download/$', 'observatory.views_rankings.download'),
+	(r'^rankings/(?P<category>\w{7})/(?P<year>[0-9\.]+)/download/$', 'observatory.views_rankings.download'),
 )

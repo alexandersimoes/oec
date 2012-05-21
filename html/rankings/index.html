@@ -5,11 +5,12 @@
 
 {% block css %}
 <style>
-#sidebar a {
+#sidebar h3 {
+  border: none !important;
   font-size: 18px;
 }
 .change_year {
-  overflow: hidden;
+/*  overflow: hidden;*/
   width: 100%;
 }
 .change_year a.prev {
@@ -29,7 +30,7 @@
   float: right;
 }
 table {
-  margin: 30px 0;
+  margin: 70px 0 30px 0;
   width: 100%;
 }
 table thead th{
@@ -129,6 +130,69 @@ button {
   font-size: 18px;
   width: 100%;
 }
+
+.dropdown {
+  display: inline;
+  float: left;
+/*  margin: 6px 0;*/
+  font-size: 34px;
+  margin: 0 200px;
+  text-align: center;
+  z-index: 99;
+}
+.dropdown dt{
+  display: inline;
+}
+.q {
+  float: left;
+}
+.dropdown dd, .dropdown dt, .dropdown ul { margin:0px; padding:0px; }
+.dropdown dd { position:relative; }
+.dropdown a, .dropdown a:visited { 
+  text-decoration:none;
+  outline:none;
+  text-align: left;
+}
+.dropdown a:hover {
+/*      color:#5d4617;*/
+}
+.dropdown dt a:hover {
+/*      color:#5d4617;*/
+  border: 1px solid #666;
+}
+.dropdown dt a {
+  font-family: 'Cardo', serif, 'Times';
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 36px;
+  
+  background: url("/media/img/all/arrow.png") no-repeat scroll right center;
+  padding-right: 20px;
+  border: 1px solid #bbb;
+  width: 150px;
+}
+.dropdown dt a span {
+  cursor: pointer; 
+/*    display: inline-block;*/
+  padding: 5px;
+}
+.dropdown dd ul { 
+  background: white none repeat scroll 0 0;
+  border: 1px solid #efefef;
+  display: none;
+  left: 0px;
+  padding: 5px 0px;
+  position: absolute;
+  top: 2px;
+  width: auto;
+  min-width: 90px;
+  list-style: none;
+  height: 200px;
+  overflow-y: scroll;
+}
+.dropdown span.value { display:none; }
+.dropdown dd ul li a { padding:5px; display:block;}
+.dropdown dd ul li a:hover { background-color:#eee;}
 </style>
 {% endblock %}
 
@@ -136,17 +200,31 @@ button {
 
 <!-- the left pane -->
 <div id="sidebar">
-  <a href="/rankings/country/">Country Rankings</a>
+  <h3><a href="/rankings/country/">Country Rankings</a></h3>
   <p>Rank countries based on their economic complexity for a given year</p>
-  <a href="/rankings/product/">Product Rankings</a>
+  <h3><a href="/rankings/product/">Product Rankings</a></h3>
   <p>Rank products in the SITC4 classification based on their complexity for a given year</p>
+  <h3>Download</h3>
+  <p>
+    <a href="/rankings/{{category}}/{{year}}/download/">&raquo; Download {{year}} data</a><br />
+    <a href="/rankings/{{category}}/download/">&raquo; Download all years data</a>
+  </p>
 </div>
 
 <div id="content">
   
   <div class="change_year">
     <a class="prev" href="/rankings/{{category}}/{{year|add:'-1'}}/">&laquo; Previous Year</a>
-    <h3>{{year}}</h3>
+    <dl class="dropdown">
+      <dt><a href="#"><span>{{year}}</span></a></dt>
+      <dd>
+        <ul>
+          {% for y in year_list %}
+          <li><a alt="{{y}}" href="#">{{y}}</a></li>
+          {% endfor %}
+        </ul>
+      </dd>
+    </dl>
     <a class="next" href="/rankings/{{category}}/{{year|add:'1'}}/">Next Year &raquo;</a>
   </div>
   
@@ -230,5 +308,27 @@ $("button").click(function(){
   return false;
 })
 
+// Handle dropdown click
+$(".dropdown dt a").click(function() {
+    $(".dropdown dd ul").toggle();
+    return false;
+});
+
+$(".dropdown dd ul li a").click(function(e) {
+    var text = $(this).html();
+    $(".dropdown dt a span").html(text);
+    $(".dropdown dd ul").hide();
+    // get selected value and route new URL
+    var new_url = "/rankings/country/" + e.target.getAttribute("alt").toLowerCase() + "/";
+    window.location = new_url;
+    // console.log(new_url)
+    return false;
+});
+
+$(document).bind('click', function(e) {
+    var $clicked = $(e.target);
+    if (! $clicked.parents().hasClass("dropdown"))
+        $(".dropdown dd ul").hide();
+});
 </script>
 {% endblock %}

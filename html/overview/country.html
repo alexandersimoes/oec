@@ -5,16 +5,15 @@
 {% block page_title %}{{country.name}} Exports, Imports and Trade Partners{% endblock %}
 {% block heading_title %}
 Learn More About: Trade in </h2>
-<dl id="sample" class="dropdown">
-    <dt><a href="#"><span>{{country.name}}</span></a></dt>
-    <dd>
-        <ul>
-          {% for s in siblings %}
-          <li><a alt="{{s.1}}" href="#">{{s.0}}</a></li>
-          {% endfor %}
-            <!-- <li><a href="#">Brazil<span class="value">BR</span></a></li> -->
-        </ul>
-    </dd>
+<dl class="dropdown">
+  <dt><a href="#"><span>{{country.name}}</span></a></dt>
+  <dd>
+    <ul>
+      {% for s in siblings %}
+      <li><a alt="{{s.1}}" href="#">{{s.0}}</a></li>
+      {% endfor %}
+    </ul>
+  </dd>
 </dl>
 {% endblock %}
 

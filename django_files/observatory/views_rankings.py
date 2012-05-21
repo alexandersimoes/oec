@@ -11,15 +11,67 @@ from django.utils.translation import gettext as _
 from observatory.models import *
 
 def index(request, category="country", year=2008):
-  from collections import defaultdict
-  
   year = int(year)
+  
   min_year = 1964
   max_year = 2008 if category == "country" else 2009
   if year < min_year:
     return redirect('/rankings/%s/%d/' % (category, max_year))
   elif year > max_year:
     return redirect('/rankings/%s/%d/' % (category, min_year))
+  
+  rankings = get_rankings(category, year)
+  
+  # get list of all years available for dropdown
+  year_list = range(min_year, max_year+1)
+  year_list.reverse()
+  
+  return render_to_response("rankings/index.html", {
+    "category": category,
+    "year": year,
+    "year_list": year_list,
+    "rankings": rankings}, context_instance=RequestContext(request))
+
+def download(request, category="country", year=None):
+  import csv
+  
+  min_year = 1964
+  max_year = 2008 if category == "country" else 2009
+  
+  if category == "country":
+    header_row = ["rank", "abbrv", "country", "eci_value", "delta", "year"]
+  elif category == "product":
+    header_row = ["rank", "sitc4", "product", "pci_value", "delta", "year"]
+
+  response = HttpResponse(mimetype="text/csv;charset=UTF-8")
+  csv_writer = csv.writer(response, delimiter=',', quotechar='"')#, quoting=csv.QUOTE_MINIMAL)
+  csv_writer.writerow(header_row)
+
+  if year:
+    rankings = get_rankings(category, year)
+    for r in rankings:
+      r.append(year)
+      csv_writer.writerow(r)
+  else:
+    for y in range(min_year, max_year):
+      rankings = get_rankings(category, y)
+      for r in rankings:
+        r.append(y)
+        csv_writer.writerow(r)
+
+  if year:
+    file_name = "%s_rankings_%s" % (category, year)
+  else:
+    file_name = "%s_rankings" % (category,)
+
+  # Need to change with actual title
+  response["Content-Disposition"]= "attachment; filename=%s.csv" % (file_name)
+
+  return response
+
+def get_rankings(category, year):
+  from collections import defaultdict
+  year = int(year)
   
   rankings = defaultdict(dict)
   rankings_list = []
@@ -37,8 +89,4 @@ def index(request, category="country", year=2008):
     elif year-1 not in r:
       rankings_list.append([r[year][0], r[year][1], r[year][2], r[year][3], 0])
   rankings_list.sort(key=lambda x: x[0])
-  
-  return render_to_response("rankings/index.html", {
-    "category": category,
-    "year": year,
-    "rankings": rankings_list}, context_instance=RequestContext(request))
+  return rankings_list
