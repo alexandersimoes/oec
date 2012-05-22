@@ -41,7 +41,7 @@ def about_data(request, data_type):
 		headers = ["Name", "HS4 Code"]
 		title = "HS4 (harmonized system) product names and codes"
 	elif data_type == "country":
-		items = [[getattr(x, "name_%s"% (lang,)), x.name_3char] for x in Country.objects.filter(name_3char__isnull=False, name_2char__isnull=False, region_id__isnull=False)]
+		items = [[getattr(x, "name_%s"% (lang,)), x.name_3char] for x in Country.objects.filter(name_3char__isnull=False, name_2char__isnull=False, region__isnull=False)]
 		headers = ["Name", "Alpha 3 Abbreviation"]
 		title = "Country names and abbreviations"
 	items.sort()
