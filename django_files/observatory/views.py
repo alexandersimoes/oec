@@ -664,7 +664,7 @@ def similar(request, country, year):
   country_lookup = get_country_lookup()
   # raise Exception(c.id)
   prods = list(Sitc4.objects.filter(ps_size__isnull=False).values_list("id", flat=True))
-  cpys = Sitc4_cpy.objects.filter(year=y, rca__isnull=False, rca__gt=1).values_list("country", "product", "rca")
+  cpys = Sitc4_cpy.objects.filter(year=y, rca__isnull=False, rca__gt=0).values_list("country", "product", "rca")
   country_vectors = {}
   for cpy in cpys:
     if cpy[0] not in country_vectors:
