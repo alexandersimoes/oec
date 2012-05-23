@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Correlations</title>
+  <link rel="stylesheet" href="/media/css/style.css">
+</head>
+<body>
+  <table>
+    {% for c in cors %}
+    <tr>
+      <td>{{c.1}}</td>
+      <td>{{c.0}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

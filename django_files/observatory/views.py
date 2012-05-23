@@ -653,6 +653,57 @@ def embed(request, app_name, trade_flow, country1, country2, product, year):
 	query_string = request.GET
 	return render_to_response("explore/embed.html", {"app":app_name, "trade_flow": trade_flow, "country1":country1, "country2":country2, "product":product, "year":year, "other":json.dumps(query_string), "lang":lang})
 
+def similar(request, country, year):
+  correlation = request.GET.get("c", "pearson")
+  if correlation == "pearson":
+    from scipy.stats.stats import pearsonr as cor_func
+  else:
+    from scipy.stats.stats import spearmanr as cor_func
+  y = int(year)
+  c = clean_country(country)
+  country_lookup = get_country_lookup()
+  # raise Exception(c.id)
+  prods = list(Sitc4.objects.filter(ps_size__isnull=False).values_list("id", flat=True))
+  cpys = Sitc4_cpy.objects.filter(year=y, rca__isnull=False, rca__gt=1).values_list("country", "product", "rca")
+  country_vectors = {}
+  for cpy in cpys:
+    if cpy[0] not in country_vectors:
+      country_vectors[cpy[0]] = [0] * len(prods)
+    try:
+      prod_pos = prods.index(cpy[1])
+      country_vectors[cpy[0]][prod_pos] = cpy[2]
+    except:
+      pass
+  cors = []
+  for this_c, rcas in country_vectors.items():
+    cors.append([cor_func(country_vectors[c.id], rcas)[0], country_lookup[this_c]])
+  cors.sort(reverse=True)
+  # raise Exception(cors)
+  # raise Exception(pearsonr(country_vectors[50], country_vectors[105]))
+  return render_to_response("explore/similar.html", {"cors": cors})
+
+
+###############################################################################
+## Helpers
+###############################################################################
+def clean_country(country):
+  # first try looking up based on 3 character code
+  try:
+    c = Country.objects.get(name_3char=country)
+  except Country.DoesNotExist:
+    # next try 2 character code
+    try:
+      c = Country.objects.get(name_2char=country)
+    except Country.DoesNotExist:
+      c = None
+  return c
+
+def get_country_lookup():
+  lookup = {}
+  for c in Country.objects.all():
+    lookup[c.id] = c.name_en
+  return lookup
+
 def get_app_type(country1, country2, product, year):
 	# country / all / show / year
 	if country2 == "all" and product == "show":
