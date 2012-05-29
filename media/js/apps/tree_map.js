@@ -133,6 +133,9 @@ function tm_make_data_heirarchical(this_years_data, attrs){
 }
 function tm_memoize(node, root, attrs) {
 	if(!node.heirarchical_id){
+    if(!attrs[node.item_id]){
+      return
+    }
 		node.heirarchical_id = attrs[node.item_id].heirarchical_id;
 		// node.heirarchical_id = attrs[node.item_id].heirarchical_id.substr(0, 4);
 	}
