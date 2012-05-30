@@ -31,6 +31,89 @@
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+	<style>
+  #related {
+    border-bottom: none;
+    position: fixed;
+    bottom: -260px;
+/*    bottom: 0px;*/
+    z-index: 10;
+    -moz-transition: all .5s; 
+    -webkit-transition: all .5s;  
+    -ms-transition: all .5s;  
+    -o-transition: all .5s;  
+    transition: all .5s;
+  }
+  #related #prev,
+  #related #next {
+    font-size: 50px;
+    letter-spacing: 1px;
+    padding: 5px;
+    position: absolute;
+    text-decoration: none;
+    top: 110px;
+  }
+  #related #prev { left: -30px; }
+  #related #next { right: -30px; }
+  #related #toggle {
+    border: solid #999 1px;
+    border-bottom: none;
+    background: white;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 5px 10px 0 10px;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    top: 2px;
+  }
+  #related div {
+    background: white;
+    border: solid #999 1px;
+    height: 250px;
+    padding: 10px;
+    width: 994px;
+  }
+  #related div p {
+    margin: 0 0 10px 0;
+  }
+  #related div .related_item {
+    background: white;
+    border: solid #e6999f 1px;
+    display: inline-block;
+    height: 200px;
+    margin: 0 5px 0 0;
+    padding: 5px;
+    position: relative;
+    width: 180px;
+  }
+  #related div .related_item:last-child {
+    margin: 0;
+  }
+  #related div .related_item h4 {
+    margin: 0;
+  }
+  #related div .related_item h4 img {
+    margin: 0 5px 0 0;
+    position: relative;
+    top: 4px;
+    width: 20px;
+  }
+  #related div .related_item p {
+    font-size: 12px;
+    margin: 0;
+  }
+  #related div .related_item p.rank {
+    background: #e6999f;
+    font-size: 18px;
+    right: 10px;
+    margin: 0;
+    padding: 0 5px;
+    position: absolute;
+    top: 0;
+  }
+	</style>
 </head>
 <body class="app">
 	{% if alert %}
@@ -481,14 +564,63 @@
 			</p>
 		</footer>
 		
-		<form class="download" method="POST" action="/download/">
-			{% csrf_token %}
-			<input type="hidden" name="url" value="" />
-			<input type="hidden" name="title" value="" />
-			<input type="hidden" name="format" value="svg" />
-			<input type="hidden" name="content" value="" />
-		</form>
-		<canvas style="display: none;" id="canvas" width="640px" height="500px"></canvas>
+    <form class="download" method="POST" action="/download/">
+      {% csrf_token %}
+      <input type="hidden" name="url" value="" />
+      <input type="hidden" name="title" value="" />
+      <input type="hidden" name="format" value="svg" />
+      <input type="hidden" name="content" value="" />
+    </form>
+    <canvas style="display: none;" id="canvas" width="640px" height="500px"></canvas>
+    
+    <!--  Related -->
+    <div id="related">
+      <a id="prev" href="#">&laquo;</a>
+      <a id="next" href="#">&raquo;</a>
+      <a id="toggle" href="#">Related</a>
+      <div>
+        <p>
+          Show related countries based on 
+          <select data-country="{{ country1.name_3char|lower }}" data-year="{{year}}">
+            <option value="833">GNI per capita</option>
+            <option value="804">GDP</option>
+            <option value="1151">Population</option>
+            <option value="0">Productive Structure</option>
+            <option value="704">Exports of goods and services</option>
+          </select>
+        </p>
+        <div class="related_item">
+          <h4><img src="/media/img/icons/flag_wld.png">&nbsp;</h4>
+          <iframe src="" width="180" height="140" frameborder="0"></iframe>
+          <p class="value">&nbsp;</p>
+          <p class="rank">&nbsp;</p>
+        </div>
+        <div class="related_item">
+          <h4><img src="/media/img/icons/flag_wld.png">&nbsp;</h4>
+          <iframe src="" width="180" height="140" frameborder="0"></iframe>
+          <p class="value">&nbsp;</p>
+          <p class="rank">&nbsp;</p>
+        </div>
+        <div class="related_item">
+          <h4><img src="/media/img/icons/flag_wld.png">&nbsp;</h4>
+          <iframe src="" width="180" height="140" frameborder="0"></iframe>
+          <p class="value">&nbsp;</p>
+          <p class="rank">&nbsp;</p>
+        </div>
+        <div class="related_item">
+          <h4><img src="/media/img/icons/flag_wld.png">&nbsp;</h4>
+          <iframe src="" width="180" height="140" frameborder="0"></iframe>
+          <p class="value">&nbsp;</p>
+          <p class="rank">&nbsp;</p>
+        </div>
+        <div class="related_item">
+          <h4><img src="/media/img/icons/flag_wld.png">&nbsp;</h4>
+          <iframe src="" width="180" height="140" frameborder="0"></iframe>
+          <p class="value">&nbsp;</p>
+          <p class="rank">&nbsp;</p>
+        </div>
+      </div>
+    </div>
 	
 	</div> <!-- END #container -->
 	
@@ -608,17 +740,17 @@
 		
 		// put data into common variables to they can be called from their respective
 		// app functions
-		json.attr_data.forEach(function(attr){
-			var id_property = attr["community_id"] ? "community_id" : "region_id",
-				name_property = attr["community__name"] ? "community__name" : "region__name",
-				color_property = attr["community__color"] ? "community__color" : "region__color",
-				text_color_property = attr["community__text_color"] ? "community__text_color" : "region__text_color";
-			attr["category_id"] = attr[id_property]; delete attr[id_property];
-			attr["category_name"] = attr[name_property]; delete attr[name_property];
-			attr["category_color"] = attr[color_property]; delete attr[color_property];
-			attr["category_text_color"] = attr[text_color_property]; delete attr[text_color_property];
-			attr["heirarchical_id"] = attr["category_id"].toString().substr(0,1) + "." + attr["category_id"] + "." + attr["id"];
-		})
+    json.attr_data.forEach(function(attr){
+     var id_property = attr["community_id"] ? "community_id" : "region_id",
+       name_property = attr["community__name"] ? "community__name" : "region__name",
+       color_property = attr["community__color"] ? "community__color" : "region__color",
+       text_color_property = attr["community__text_color"] ? "community__text_color" : "region__text_color";
+     attr["category_id"] = attr[id_property]; delete attr[id_property];
+     attr["category_name"] = attr[name_property]; delete attr[name_property];
+     attr["category_color"] = attr[color_property]; delete attr[color_property];
+     attr["category_text_color"] = attr[text_color_property]; delete attr[text_color_property];
+     attr["heirarchical_id"] = attr["category_id"].toString().substr(0,1) + "." + attr["category_id"] + "." + attr["id"];
+    })
 		
 		// turn flat attributes array into indexed object with ids
 		// either country or products as the key
@@ -1188,11 +1320,21 @@
 	}
 	
 	function get_request_type(requested_uri){
-		var uri_parts = requested_uri.split("/"),
-			request = {"country1": uri_parts[3],
+		var uri_parts = requested_uri.split("/");
+		if (uri_parts.length == 9){
+		  var request = {"country1": uri_parts[4],
+				"country2": uri_parts[5],
+				"product": uri_parts[6],
+				"trade_flow": uri_parts[3],
+				"year": parseInt(uri_parts[7])};
+		}
+		else {
+			var request = {"country1": uri_parts[3],
 				"country2": uri_parts[4],
 				"product": uri_parts[5],
+				"trade_flow": uri_parts[2],
 				"year": parseInt(uri_parts[6])};
+		}
 		if(request.country1 == "show"){
 			request.type = "sapy"
 		}
@@ -1238,6 +1380,7 @@
 	}
 
 	</script>
+	<script src="/media/js/apps/related.js"></script>
 	
 </body>
 </html>

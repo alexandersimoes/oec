@@ -671,3 +671,24 @@ class Hs4_ccpy(models.Model):
 		return "%s -> %s" % (self.origin.name, self.destination.name)
 	
 	objects = Hs4_ccpy_manager()
+
+class Wdi(models.Model):
+  code = models.CharField(max_length=200)
+  name = models.CharField(max_length=200)
+  desc_short = models.CharField(max_length=255, null=True)
+  desc_long = models.TextField(max_length=255, null=True)
+  source = models.CharField(max_length=50, null=True)
+  topic = models.CharField(max_length=50, null=True)
+  aggregation = models.CharField(max_length=50, null=True)
+
+  def __unicode__(self):
+    return "%s: %s" % (self.code, self.name)
+
+class Wdi_cwy(models.Model):
+  country = models.ForeignKey(Country)
+  wdi = models.ForeignKey(Wdi)
+  year = models.PositiveSmallIntegerField(max_length=4)
+  value = models.FloatField(null=True)
+  
+  def __unicode__(self):
+    return "[%s] %s: %s" % (self.year, self.country.name_3char, self.wdi.name)
