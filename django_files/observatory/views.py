@@ -653,14 +653,16 @@ def embed(request, app_name, trade_flow, country1, country2, product, year):
 	query_string = request.GET
 	return render_to_response("explore/embed.html", {"app":app_name, "trade_flow": trade_flow, "country1":country1, "country2":country2, "product":product, "year":year, "other":json.dumps(query_string), "lang":lang})
 
-def similar(request, country, year):
-  correlation = request.GET.get("c", "pearson")
-  if correlation == "pearson":
-    from scipy.stats.stats import pearsonr as cor_func
-  else:
-    from scipy.stats.stats import spearmanr as cor_func
-  y = int(year)
-  c = clean_country(country)
+def get_similar_productive(country, year):
+  # correlation = request.GET.get("c", "pearson")
+  import math
+  from scipy.stats.stats import pearsonr as cor_func
+  # if correlation == "pearson":
+  #   from scipy.stats.stats import pearsonr as cor_func
+  # else:
+  #   from scipy.stats.stats import spearmanr as cor_func
+  y = year
+  c = country
   country_lookup = get_country_lookup()
   # raise Exception(c.id)
   prods = list(Sitc4.objects.filter(ps_size__isnull=False).values_list("id", flat=True))
@@ -671,17 +673,35 @@ def similar(request, country, year):
       country_vectors[cpy[0]] = [0] * len(prods)
     try:
       prod_pos = prods.index(cpy[1])
-      country_vectors[cpy[0]][prod_pos] = cpy[2]
+      country_vectors[cpy[0]][prod_pos] = math.log(cpy[2]+0.1, 10)
     except:
       pass
   cors = []
   for this_c, rcas in country_vectors.items():
-    cors.append([cor_func(country_vectors[c.id], rcas)[0], country_lookup[this_c]])
-  cors.sort(reverse=True)
+    # raise Exception(rcas, country_vectors[c.id])
+    cors.append([country_lookup[this_c][0], country_lookup[this_c][1], cor_func(country_vectors[c.id], rcas)[0]])
+    # raise Exception(cors)
+  cors.sort(key=lambda x: x[2], reverse=True)
+  return cors
   # raise Exception(cors)
-  # raise Exception(pearsonr(country_vectors[50], country_vectors[105]))
+  # raise Exception(cor_func(country_vectors[50], country_vectors[105]))
   return render_to_response("explore/similar.html", {"cors": cors})
 
+def similar_wdi(request, country, indicator, year):
+  y = int(year)
+  c = clean_country(country)
+  if indicator == "0":
+    this_index = 0
+    name = "Productive strucuture correlation"
+    values = get_similar_productive(c, y)
+  else:
+    i = Wdi.objects.get(pk=indicator)
+    this_wdi = wdis = Wdi_cwy.objects.get(year=y, wdi=i, country=c)
+    wdis = Wdi_cwy.objects.filter(year=y, wdi=i, country__region__isnull=False).order_by("-value")
+    this_index = list(wdis).index(this_wdi)
+    values = list(wdis.values_list("country__name_en", "country__name_3char", "value"))
+    name = i.name
+  return HttpResponse(json.dumps({"index": this_index, "values":values, "wdi": name}))
 
 ###############################################################################
 ## Helpers
@@ -701,7 +721,7 @@ def clean_country(country):
 def get_country_lookup():
   lookup = {}
   for c in Country.objects.all():
-    lookup[c.id] = c.name_en
+    lookup[c.id] = [c.name_en, c.name_3char]
   return lookup
 
 def get_app_type(country1, country2, product, year):
