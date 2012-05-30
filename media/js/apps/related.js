@@ -95,13 +95,16 @@ function make_related_boxes(ordered_data, index, title, year){
       return;
     }
     var name = ordered_data[index+current_index][0]
-    var name_3char = ordered_data[index+current_index][1].toLowerCase()
+    var flag_name_3char = ordered_data[index+current_index][1].toLowerCase()
+    // test for belgium
+    var c_name_3char = flag_name_3char == "bel" ? "blx" : flag_name_3char;
+    c_name_3char = flag_name_3char == "lux" ? "blx" : c_name_3char;
     var value = ordered_data[index+current_index][2]
     value = value >= 1 ? d3.format(",f")(value) : d3.format(".4f")(value);
-    $(box).find("h4").html('<img src="/media/img/icons/flag_'+name_3char+'.png"> '+name)
+    $(box).find("h4").html('<img src="/media/img/icons/flag_'+flag_name_3char+'.png"> '+name)
     $(box).find("iframe").attr("src", "http://atlas.media.mit.edu/embed/tree_map/" +
     request_type.trade_flow +
-    "/" + name_3char + 
+    "/" + c_name_3char + 
     "/" + request_type.country2 + 
     "/" + request_type.product + 
     "/" + year + "/?mouseover=false")
