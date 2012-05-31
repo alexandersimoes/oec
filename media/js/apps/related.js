@@ -109,7 +109,7 @@ function make_related_boxes(ordered_data, index, title, year){
     "/" + c_name_3char + 
     "/" + request_type.country2 + 
     "/" + request_type.product + 
-    "/" + year + "/?mouseover=false")
+    "/" + year + "/?mouseover=false&total=false")
     $(box).find("p.value").text(title + ": " + value)
     $(box).find("p.rank").text(rank)
     $(box).css("border-color", color(rank));
