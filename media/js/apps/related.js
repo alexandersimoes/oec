@@ -102,7 +102,8 @@ function make_related_boxes(ordered_data, index, title, year){
     c_name_3char = flag_name_3char == "lux" ? "blx" : c_name_3char;
     var value = ordered_data[index+current_index][2]
     value = value >= 1 ? d3.format(",f")(value) : d3.format(".4f")(value);
-    $(box).find("h4").html('<img src="/media/img/icons/flag_'+flag_name_3char+'.png"> '+name)
+    var url = "/explore/tree_map/"+request_type.trade_flow+"/"+c_name_3char+"/"+request_type.country2+"/"+request_type.product+"/"+request_type.year+"/";
+    $(box).find("h4").html('<img src="/media/img/icons/flag_'+flag_name_3char+'.png"> <a href="'+url+'">'+name+'</a>')
     $(box).find("iframe").attr("src", "http://atlas.media.mit.edu/embed/tree_map/" +
     request_type.trade_flow +
     "/" + c_name_3char + 
