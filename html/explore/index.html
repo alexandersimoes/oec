@@ -38,11 +38,16 @@
     bottom: -260px;
 /*    bottom: 0px;*/
     z-index: 10;
+    
     -moz-transition: all .5s; 
     -webkit-transition: all .5s;  
     -ms-transition: all .5s;  
     -o-transition: all .5s;  
     transition: all .5s;
+    
+    -moz-box-shadow:    0px 3px 5px 6px #cdcdcd;
+    -webkit-box-shadow: 0px 3px 5px 6px #cdcdcd;
+    box-shadow:         0px 3px 20px 2px #cdcdcd;
   }
   #related #prev,
   #related #next {
@@ -56,9 +61,10 @@
   #related #prev { left: -30px; }
   #related #next { right: -30px; }
   #related #toggle {
-    border: solid #999 1px;
+/*    border: solid #999 1px;*/
     border-bottom: none;
     background: white;
+    float: left;
     font-size: 16px;
     font-weight: bold;
     letter-spacing: 1px;
@@ -66,14 +72,27 @@
     position: relative;
     text-decoration: none;
     text-transform: uppercase;
-    top: 2px;
+    top: -24px;
+    z-index: -1;
+    
+    -moz-box-shadow:    0px 3px 5px 6px #cdcdcd;
+    -webkit-box-shadow: 0px 3px 5px 6px #cdcdcd;
+    box-shadow:         0px 3px 20px 2px #cdcdcd;
   }
+  #related #toggle .arrow_up {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+  	border-bottom: 5px solid black;
+	}
   #related div {
     background: white;
-    border: solid #999 1px;
+/*    border: solid #999 1px;*/
     height: 250px;
     padding: 10px;
     width: 994px;
+    z-index: 99;
   }
   #related div p {
     margin: 0 0 10px 0;
@@ -581,7 +600,7 @@
       <div>
         <p>
           Show related countries based on 
-          <select data-country="{{ country1.name_3char|lower }}" data-year="{{year}}">
+          <select>
             <option value="833">GNI per capita</option>
             <option value="804">GDP</option>
             <option value="1151">Population</option>
@@ -983,6 +1002,10 @@
 		new_embed_url.splice(2, 0, app_name);
 		$(".app #main #tool_pane .embed_code").val('<iframe width="560" height="315" '
 			+ 'src="http://atlas.media.mit.edu'+new_embed_url.join("/")+'" frameborder="0"></iframe>');
+		
+		// update the related apps pane
+		var rel_cat = $("#related div select").val();
+    show_related(rel_cat);
 		
 		// now that the app has been built we can 
 		d3.select("#loader").style("display", "none");

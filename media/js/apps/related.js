@@ -46,8 +46,9 @@ $("#related select").change(function(e){
 })
 
 function show_related(rel_cat){
-  var country = $("#related select").data().country
-  var year = $("#related select").data().year
+  var request_type = get_request_type(window.location.pathname);
+  var country = request_type.country1;
+  var year = request_type.year;
   var url = "/similar_wdi/"+country+"/"+rel_cat+"/"+year+"/"
 
   var cur_index = 0;
