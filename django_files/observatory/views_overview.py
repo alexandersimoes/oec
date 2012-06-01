@@ -110,8 +110,10 @@ def country2(request, country):
   # get country ranking
   try:
     ranking = Cy.objects.get(year=2008, country=c)
+    ranking_total = len(list(Cy.objects.filter(year=2008)))
   except Cy.DoesNotExist:
     ranking = None
+    ranking_total = 128
   
   # get this country's exports
   export_products = get_products(c, "export")
@@ -131,11 +133,45 @@ def country2(request, country):
   return render_to_response("overview/country.html", {
     "country": c,
     "ranking": ranking,
+    "ranking_total": ranking_total,
     "export_products": export_products,
     "export_countries": export_countries,
     "import_products": import_products,
     "import_countries": import_countries,
     "siblings": country_list}, context_instance=RequestContext(request))
+
+def product(request, product):
+  s = time.time()
+  # get country name based on url parameter
+  p = clean_product(product)
+  
+  # get country ranking
+  try:
+    ranking = Sitc4_py.objects.get(year=2009, product=p)
+    ranking_total = len(list(Sitc4_py.objects.filter(year=2009)))
+  except Sitc4_py.DoesNotExist:
+    ranking = None
+    ranking_total = 773
+  
+  # get this product's exporters
+  export_countries = get_countries(p, "export")
+  
+  # get this product's importers
+  import_countries = get_countries(p, "import")
+  
+  # get list of countries for dropdown
+  if p.__class__ == Hs4:
+    product_list = Hs4.objects.filter(code__isnull=False).order_by("name_en").values_list("name_en", "code")
+  else:
+    product_list = Sitc4.objects.filter(code__isnull=False).order_by("name_en").values_list("name_en", "code")
+  
+  return render_to_response("overview/product.html", {
+    "product": p,
+    "ranking": ranking,
+    "ranking_total": ranking_total,
+    "export_countries": export_countries,
+    "import_countries": import_countries,
+    "siblings": product_list}, context_instance=RequestContext(request))
 
 def clean_country(country):
   # first try looking up based on 3 character code
@@ -149,6 +185,18 @@ def clean_country(country):
       c = None
   return c
 
+def clean_product(product):
+  # first try looking up based on 3 character code
+  try:
+    p = Hs4.objects.get(code=product)
+  except Hs4.DoesNotExist:
+    # next try SITC4
+    try:
+      p = Sitc4.objects.get(code=product)
+    except Sitc4.DoesNotExist:
+      p = None
+  return p
+
 def get_products(c, trade_flow):
   prods = Hs4_cpy.objects.filter(country=c, year=2010)
   total_value = prods.aggregate(Sum("%s_value" % (trade_flow))).values()[0]
@@ -158,8 +206,18 @@ def get_products(c, trade_flow):
   return prods
 
 def get_countries(input, trade_flow):
-  partners = Hs4_ccpy.objects.filter(origin=input, year=2010).values_list("destination__name_3char", "destination__name_en").annotate(value=Sum('%s_value'%(trade_flow,)))
-  total_value = sum([p[2] for p in partners])
-  partners = [[p[0], p[1], p[2], (p[2]/total_value)*100] for p in partners if p[2] > 0]
-  partners.sort(key=lambda p: p[2], reverse=True)
-  return partners
+  if input.__class__ == Country:
+    countries = Hs4_ccpy.objects.filter(origin=input, year=2010).values_list("destination__name_3char", "destination__name_en").annotate(value=Sum('%s_value'%(trade_flow,)))
+    total_value = sum([c[2] for c in countries])
+    countries = [[c[0], c[1], c[2], (c[2]/total_value)*100] for c in countries if c[2] > 0]
+    countries.sort(key=lambda c: c[2], reverse=True)
+  else:
+    if input.__class__ == Hs4:
+      countries = Hs4_cpy.objects.filter(product=input, year=2010)
+    else:
+      countries = Sitc4_cpy.objects.filter(product=input, year=2009).exclude(country=231)
+    total_value = countries.aggregate(Sum("%s_value" % (trade_flow))).values()[0]
+    countries = countries.values_list("country__region__id", "country__region__name", "country__name_3char", "country__name_en", "%s_value" % (trade_flow,))
+    countries = [[c[0], c[1], c[2], c[3], c[4], (c[4]/total_value)*100] for c in countries if c[4] > 0]
+    countries.sort(key=lambda x: x[4], reverse=True)
+  return countries

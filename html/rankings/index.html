@@ -1,7 +1,7 @@
 {% extends "template.html" %}
 
-{% block page_title %}{{category|capfirst}} Rankings ({{year}}){% endblock %}
-{% block heading_title %}{{category|capfirst}} Rankings ({{year}}){% endblock %}
+{% block page_title %}{% if category == "product" %}SITC4{% endif %} {{category|capfirst}} Rankings ({{year}}){% endblock %}
+{% block heading_title %}{% if category == "product" %}SITC4{% endif %} {{category|capfirst}} Rankings ({{year}}){% endblock %}
 
 {% block css %}
 <style>

@@ -280,155 +280,162 @@ def app_redirect(request, app_name, trade_flow, filter, year):
 	return HttpResponsePermanentRedirect("/explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
 
 def explore(request, app_name, trade_flow, country1, country2, product, year="2009"):
-	# raise Exception(country1, country2, product, year)
-	# Get URL query parameters
-	crawler = request.GET.get("_escaped_fragment_", False)
-	options = request.GET.copy()
-	# set language (if session data available use that as default)
-	lang = request.session['django_language'] if 'django_language' in request.session else "en"
-	lang = request.GET.get("lang", lang)
-	options["lang"] = lang
-	# set product classification (if session data available use that as default)
-	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
-	prod_class = request.GET.get("product_classification", prod_class)
-	options["product_classification"] = prod_class
-	options = options.urlencode()
+  # raise Exception(country1, country2, product, year)
+  # Get URL query parameters
+  crawler = request.GET.get("_escaped_fragment_", False)
+  options = request.GET.copy()
+  # set language (if session data available use that as default)
+  lang = request.session['django_language'] if 'django_language' in request.session else "en"
+  lang = request.GET.get("lang", lang)
+  options["lang"] = lang
+  # set product classification (if session data available use that as default)
+  prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
+  prod_class = request.GET.get("product_classification", prod_class)
+  options["product_classification"] = prod_class
+  options = options.urlencode()
+
+  # get distince years from db, different for diff product classifications
+  years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
+  years_available.sort()
+
+  country1_list, country2_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None, None
+  alert = None
+  title = None
+  data_as_text = {}
+  # What is actually being shown on the page
+  item_type = "products"
+
+  trade_flow_list = [("export", _("Export")), ("import", _("Import")), ("net_export", _("Net Export")), ("net_import", _("Net Import"))]
+  if app_name == "product_space":
+    trade_flow_list = [trade_flow_list[0]]
+  
+  year1_list = range(years_available[0], years_available[len(years_available)-1]+1, 1)
+
+  if app_name == "stacked" and year == "2009":
+    year = "1969.2009.10"
+  if "." in year:
+    y = [int(x) for x in year.split(".")]
+    # year = range(y[0], y[1]+1, y[2])
+    year_start = y[0]
+    year_end = y[1]
+    year_interval = y[2]
+    year2_list = year1_list
+    year_interval_list = range(1, 11)
+    # year_interval = year[1] - year[0]
+  else:
+    year_start, year_end, year_interval = None, None, None
+    year = int(year)
+    if year > years_available[len(years_available)-1]:
+      year = years_available[len(years_available)-1]
+    elif year < years_available[0]:
+      year = years_available[0]
+  
+  api_uri = "/api/%s/%s/%s/%s/%s/?%s" % (trade_flow, country1, country2, product, year, options)
+  
+  if crawler == "":
+    view, args, kwargs = resolve("/api/%s/%s/%s/%s/%s/" % (trade_flow, country1, country2, product, year))
+    kwargs['request'] = request
+    view_response = view(*args, **kwargs)
+    data_as_text["data"] = view_response[0]
+    data_as_text["total_value"] = view_response[1]
+    data_as_text["columns"] = view_response[2]
+
+  app_type = get_app_type(country1, country2, product, year)
+
+  # first check for errors
+  # check whether country can be found in database
+  countries = [None, None]
+  country_lists = [None, None]
+  for i, country in enumerate([country1, country2]):
+    if country != "show" and country != "all":
+      try:
+        countries[i] = Country.objects.get(name_3char=country)
+        country_lists[i] = Country.objects.get_all(lang)
+      except Country.DoesNotExist:
+        alert = {"title": "Country could not be found",
+          "text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='/about/data/country/'>list of countries</a>."%(country)}
+  if product != "show" and product != "all":
+    p = clean_product(product)
+    if p:
+      if p.__class__ == Sitc4:
+        product_list = Sitc4.objects.get_all(lang)
+        request.session['product_classification'] = "sitc4"
+      else:
+        product_list = Hs4.objects.get_all(lang)
+        request.session['product_classification'] = "hs4"
+    else:
+      alert = {"title": "Product could not be found", "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/hs4/'>list of HS4 products</a>."%(product)}      
+    # if prod_class == "sitc4":
+    #   product_list = Sitc4.objects.get_all(lang)
+    #   try:
+    #     product = Sitc4.objects.get(code=product)
+    #   except Sitc4.DoesNotExist:
+    #     alert = {"title": "Product could not be found",
+    #       "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/sitc4/'>list of SITC4 products</a>."%(product)}
+    # if prod_class == "hs4":
+    #   product_list = Hs4.objects.get_all(lang)
+    #   try:
+    #     product = Hs4.objects.get(code=product)
+    #   except Hs4.DoesNotExist:
+    #     alert = {"title": "Product could not be found",
+    #       "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/hs4/'>list of HS4 products</a>."%(product)}
+
+  if not alert:
+    if app_type == "casy":
+      title = "What does %s %s?" % (countries[0].name, trade_flow.replace("_", " "))
+
+    # Country but showing other country trade partners
+    elif app_type == "csay":
+      item_type = "countries"
+      article = "to" if trade_flow == "export" else "from"
+      title = "Where does %s %s %s?" % (countries[0].name, trade_flow.replace("_", " "), article)
+  
+    # Product
+    elif app_type == "sapy":
+      item_type = "countries"
+      title = "Who %ss %s?" % (trade_flow.replace("_", " "), p.name_en)
+  
+    # Bilateral Country x Country
+    elif app_type == "ccsy":
+      # trade_flow_list = ["export", "import"]
+      if _("net_export") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_export"))]
+      if _("net_import") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_import"))]
+      article = "to" if trade_flow == "export" else "from"
+      title = "What does %s %s %s %s?" % (countries[0].name, trade_flow, article, countries[1].name)
+
+    # Bilateral Country / Show / Product / Year
+    elif app_type == "cspy":
+      if "net_export" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_export")]
+      if "net_import" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_import")]
+      item_type = "countries"		
+      article = "to" if trade_flow == "export" else "from"
+      title = "Where does %s %s %s %s?" % (countries[0].name, trade_flow, product.name_en, article)
 	
-	# get distince years from db, different for diff product classifications
-	years_available = list(Sitc4_cpy.objects.values_list("year", flat=True).distinct()) if prod_class == "sitc4" else list(Hs4_cpy.objects.values_list("year", flat=True).distinct())
-	years_available.sort()
-	
-	country1_list, country2_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None, None
-	alert = None
-	title = None
-	data_as_text = {}
-	# What is actually being shown on the page
-	item_type = "products"
-	
-	trade_flow_list = [("export", _("Export")), ("import", _("Import")), ("net_export", _("Net Export")), ("net_import", _("Net Import"))]
-	if app_name == "product_space":
-		trade_flow_list = [trade_flow_list[0]]
-	
-	year1_list = range(years_available[0], years_available[len(years_available)-1]+1, 1)
-	
-	if app_name == "stacked" and year == "2009":
-		year = "1969.2009.10"
-	if "." in year:
-		y = [int(x) for x in year.split(".")]
-		# year = range(y[0], y[1]+1, y[2])
-		year_start = y[0]
-		year_end = y[1]
-		year_interval = y[2]
-		year2_list = year1_list
-		year_interval_list = range(1, 11)
-		# year_interval = year[1] - year[0]
-	else:
-		year_start, year_end, year_interval = None, None, None
-		year = int(year)
-		if year > years_available[len(years_available)-1]:
-			year = years_available[len(years_available)-1]
-		elif year < years_available[0]:
-			year = years_available[0]
-	
-	api_uri = "/api/%s/%s/%s/%s/%s/?%s" % (trade_flow, country1, country2, product, year, options)
-	
-	if crawler == "":
-		view, args, kwargs = resolve("/api/%s/%s/%s/%s/%s/" % (trade_flow, country1, country2, product, year))
-		kwargs['request'] = request
-		view_response = view(*args, **kwargs)
-		data_as_text["data"] = view_response[0]
-		data_as_text["total_value"] = view_response[1]
-		data_as_text["columns"] = view_response[2]
-	
-	app_type = get_app_type(country1, country2, product, year)
-	
-	# first check for errors
-	# check whether country can be found in database
-	countries = [None, None]
-	country_lists = [None, None]
-	for i, country in enumerate([country1, country2]):
-		if country != "show" and country != "all":
-			try:
-				countries[i] = Country.objects.get(name_3char=country)
-				country_lists[i] = Country.objects.get_all(lang)
-			except Country.DoesNotExist:
-				alert = {"title": "Country could not be found",
-					"text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='/about/data/country/'>list of countries</a>."%(country)}
-	if product != "show" and product != "all":
-		if prod_class == "sitc4":
-			product_list = Sitc4.objects.get_all(lang)
-			try:
-				product = Sitc4.objects.get(code=product)
-			except Sitc4.DoesNotExist:
-				alert = {"title": "Product could not be found",
-					"text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/sitc4/'>list of SITC4 products</a>."%(product)}
-		if prod_class == "hs4":
-			product_list = Hs4.objects.get_all(lang)
-			try:
-				product = Hs4.objects.get(code=product)
-			except Hs4.DoesNotExist:
-				alert = {"title": "Product could not be found",
-					"text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/hs4/'>list of HS4 products</a>."%(product)}
-	
-	if not alert:
-		if app_type == "casy":
-			title = "What does %s %s?" % (countries[0].name, trade_flow.replace("_", " "))
-	
-		# Country but showing other country trade partners
-		elif app_type == "csay":
-			item_type = "countries"
-			article = "to" if trade_flow == "export" else "from"
-			title = "Where does %s %s %s?" % (countries[0].name, trade_flow.replace("_", " "), article)
-	
-		# Product
-		elif app_type == "sapy":
-			item_type = "countries"
-			title = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
-	
-		# Bilateral Country x Country
-		elif app_type == "ccsy":
-			# trade_flow_list = ["export", "import"]
-			if _("net_export") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_export"))]
-			if _("net_import") in trade_flow_list: del trade_flow_list[trade_flow_list.index(_("net_import"))]
-		
-			article = "to" if trade_flow == "export" else "from"
-			title = "What does %s %s %s %s?" % (countries[0].name, trade_flow, article, countries[1].name)
-	
-		# Bilateral Country / Show / Product / Year
-		elif app_type == "cspy":
-			if "net_export" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_export")]
-			if "net_import" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_import")]
-		
-			item_type = "countries"
-		
-			article = "to" if trade_flow == "export" else "from"
-			title = "Where does %s %s %s %s?" % (countries[0].name, trade_flow, product.name_en, article)
-	
-	# Return page without visualization data
-	return render_to_response("explore/index.html", {
-		"alert": alert,
-		"product_classification": prod_class,
-		"years_available": years_available,
-		"data_as_text": data_as_text,
-		"app_name": app_name,
-		"title": title,
-		"trade_flow": trade_flow,
-		"country1": countries[0] or country1,
-		"country2": countries[1] or country2,
-		"product": product,
-		"year": year,
-		"year_start": year_start,
-		"year_end": year_end,
-		"year_interval": year_interval,
-		"trade_flow_list": trade_flow_list,
-		"country1_list": country_lists[0],
-		"country2_list": country_lists[1],
-		"product_list": product_list,
-		"year1_list": year1_list,
-		"year2_list": year2_list,
-		"year_interval_list": year_interval_list,
-		"api_uri": api_uri,
-		"item_type": item_type}, context_instance=RequestContext(request))
+  # Return page without visualization data
+  return render_to_response("explore/index.html", {
+    "alert": alert,
+    "product_classification": prod_class,
+    "years_available": years_available,
+    "data_as_text": data_as_text,
+    "app_name": app_name,
+    "title": title,
+    "trade_flow": trade_flow,
+    "country1": countries[0] or country1,
+    "country2": countries[1] or country2,
+    "product": product,
+    "year": year,
+    "year_start": year_start,
+    "year_end": year_end,
+    "year_interval": year_interval,
+    "trade_flow_list": trade_flow_list,
+    "country1_list": country_lists[0],
+    "country2_list": country_lists[1],
+    "product_list": product_list,
+    "year1_list": year1_list,
+    "year2_list": year2_list,
+    "year_interval_list": year_interval_list,
+    "api_uri": api_uri,
+    "item_type": item_type}, context_instance=RequestContext(request))
 
 def api_casy(request, trade_flow, country1, year):
 	crawler = request.GET.get("_escaped_fragment_", False)
@@ -717,6 +724,18 @@ def clean_country(country):
     except Country.DoesNotExist:
       c = None
   return c
+
+def clean_product(product):
+  # first try looking up based on 3 character code
+  try:
+    p = Hs4.objects.get(code=product)
+  except Hs4.DoesNotExist:
+    # next try SITC4
+    try:
+      p = Sitc4.objects.get(code=product)
+    except Sitc4.DoesNotExist:
+      p = None
+  return p
 
 def get_country_lookup():
   lookup = {}
