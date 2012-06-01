@@ -40,7 +40,8 @@
 	
 	var url = "/api/{{trade_flow}}/{{country1}}/{{country2}}/{{product}}/{{year}}/?lang={{lang}}";
 	d3.json(url, function(data){
-    if(!data.data.length){
+	  var this_years_data = data.data.filter(function(d){ return d.year == parseInt(data.year)})
+    if(!this_years_data.length){
       $("#dataviz").html("No data available for this selection...")
       return;
     }
