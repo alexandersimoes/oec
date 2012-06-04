@@ -355,16 +355,17 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
         alert = {"title": "Country could not be found",
           "text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='/about/data/country/'>list of countries</a>."%(country)}
   if product != "show" and product != "all":
-    p = clean_product(product)
-    if p:
-      if p.__class__ == Sitc4:
+    p_code = product
+    product = clean_product(p_code)
+    if product:
+      if product.__class__ == Sitc4:
         product_list = Sitc4.objects.get_all(lang)
         request.session['product_classification'] = "sitc4"
       else:
         product_list = Hs4.objects.get_all(lang)
         request.session['product_classification'] = "hs4"
     else:
-      alert = {"title": "Product could not be found", "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/hs4/'>list of HS4 products</a>."%(product)}      
+      alert = {"title": "Product could not be found", "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/hs4/'>list of HS4 products</a>."%(p_code)}      
     # if prod_class == "sitc4":
     #   product_list = Sitc4.objects.get_all(lang)
     #   try:
@@ -393,7 +394,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     # Product
     elif app_type == "sapy":
       item_type = "countries"
-      title = "Who %ss %s?" % (trade_flow.replace("_", " "), p.name_en)
+      title = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
   
     # Bilateral Country x Country
     elif app_type == "ccsy":

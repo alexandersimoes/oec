@@ -257,14 +257,14 @@ table td:nth-child(4){
     <div id="ranking_box">
       <p class="country_name"><img src="/media/img/icons/community_{{product.community.id}}.png" alt="{{product.name_en}}" /> {{product.name_en}}</p>
       <p class="eci_rank"><span>{% if ranking %}{{ranking.pci_rank}}{% else %}N/A{% endif %}</span></p>
-      <p class="eci_value"><a href="/rankings/country/">Product Complexity Index (PCI)</a>: {{ranking.eci}}</p>
+      <p class="eci_value"><a href="/rankings/product/">Product Complexity Index (PCI)</a>: {{ranking.pci}}</p>
     </div>
     
     <div id="quick_info">
       <p>
         <span style="font-size: 38px">{{product.name_en}}</span>
         {% if ranking %}
-        is ranked <span style="font-size: 24px">{{ranking.eci_rank}}</span> with a PCI of {{ranking.eci}}.
+        is ranked <span style="font-size: 24px">{{ranking.pci_rank}}</span> with a PCI of {{ranking.pci}}.
         {% endif %}
       </p>
       <table>

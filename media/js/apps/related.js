@@ -47,6 +47,9 @@ $("#related select").change(function(e){
 
 function show_related(rel_cat){
   var request_type = get_request_type(window.location.pathname);
+  if(request_type.type == "sapy" || request_type.type == "cspy"){
+    return;
+  }
   var country = request_type.country1;
   var year = request_type.year;
   var url = "/similar_wdi/"+country+"/"+rel_cat+"/"+year+"/"
