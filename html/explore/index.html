@@ -1094,8 +1094,8 @@
 		
 		switch("{{app_name}}"){
 			case "tree_map":
-				var items_to_fade = d3.selectAll("rect");
-				var text_to_fade = d3.selectAll("text");
+				var items_to_fade = d3.selectAll("g.viz rect");
+				var text_to_fade = d3.selectAll("g.viz text");
 				break;
 			case "stacked":
 				var items_to_fade = d3.selectAll("g.stacked path");
@@ -1175,8 +1175,8 @@
 		
 		switch("{{app_name}}"){
 			case "tree_map":
-				var items_to_fade = d3.selectAll("rect");
-				var text_to_fade = d3.selectAll("text");
+				var items_to_fade = d3.selectAll("g.viz rect");
+				var text_to_fade = d3.selectAll("g.viz text");
 				break;
 			case "stacked":
 				var items_to_fade = d3.selectAll("g.stacked path");
