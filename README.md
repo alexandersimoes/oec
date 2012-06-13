@@ -1,4 +1,4 @@
-# The Atlas of Economic Complexity Site
+### The Atlas of Economic Complexity Site
 
 The **Atlas** is a site housing **The Observatory**, the master's thesis work
 of Alexander Simoes. This **Observatory** is a tool that allows users to quickly
