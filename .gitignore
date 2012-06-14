@@ -1,4 +1,5 @@
 *.pyc
+*.DS_Store
 logs/
 robots.txt
 google8f7012b9de435ae0.html

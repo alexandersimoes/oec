@@ -117,37 +117,35 @@ button:active {
  */
 header {
 	margin: 0 0 0 0;
-	overflow: hidden; /* to clear floats */
-	width: 100%; /* to clear floats */
 }
 header .logo {
 	float: left;
-	width: 48%;
+	width: 30%;
 }
-header .nav {
+header nav {
 	float: right;
-	width: 50%;
-	text-align: right;
+	width: 448px;
+	text-align: center;
+	margin-top: 27px;
 }
-header .nav ul {
+header nav ul {
 	background: white;
 	border: solid 1px #ccc;
 	float: right;
+	display: inline;
+	height: 26px;
 	margin: 0;
 	padding: 0;
 	
-	-moz-border-bottom-left-radius:5px;
-	-moz-border-bottom-right-radius:5px;
-	-webkit-border-bottom-left-radius:5px;
-	-webkit-border-bottom-right-radius:5px;
-	border-bottom-left-radius:5px;
-	border-bottom-right-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
 }
-header .nav ul li{
+header nav ul li{
 	display: inline;
 	margin: 0;
 }
-header .nav ul li a{
+header nav ul li a{
 	color: grey;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, .1), 0 0 30px rgba(255, 255, 255, .125);
 	font-size: 18px;
@@ -155,25 +153,23 @@ header .nav ul li a{
 	padding: 2px 15px 2px 15px;
 	text-decoration: none;
 }
-header .nav ul li a:hover{
+header nav ul li a:hover{
 	color: black;
+	text-decoration: none;
 }
-header .nav ul li a.current{
+header nav ul li a.current{
 	color: black;
 	text-decoration: underline;
 }
-header .nav p{
-	clear: right;
-	margin: 0;
-	padding-top: 10px;
-	text-align: right;
+header .language_select{
+	display: inline;
+	float: right;
+	margin-right: 10px;
+	text-align: center;
+	margin-top: 27px;
 }
-header .nav p a img{
-	width: 20px;
-	vertical-align: top;
-}
-header .nav p a img.selected_lang{
-	border-bottom: solid 2px #999;
+header .language_select select{
+	width: 120px;
 }
 header h1 {
 	font-size: 12px;

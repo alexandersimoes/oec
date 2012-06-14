@@ -16,7 +16,8 @@
   <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
 
   <link rel="stylesheet" href="/media/css/normalize.css">
-  <link rel="stylesheet" href="/media/css/style.css">
+  <link rel="stylesheet" href="/media/css/style.css">	
+  <link rel="stylesheet" href="/media/js/libs/chosen/chosen.css" />
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -27,8 +28,8 @@
     <header>
       <div class="logo">
         <h1><a href="/" title="Home"><img src="/media/img/all/logo_observatory_sm.png" alt="The Observatory of Economic Complexity" /></a></h1>
-      </div>
-      <div class="nav">
+      </div>  
+      <nav>
         <ul>
           <li><a href="/explore">Explore</a></li>
           <li><a href="/country/usa">Profiles</a></li>
@@ -37,17 +38,15 @@
           <li><a href="/about">About</a></li>
           <li><a href="/api">API</a></li>
         </ul>
-        <p>
-          Change Language:
-          {% for lang in supported_langs %}
-            {% if lang.0.code == LANGUAGE_CODE %}
-            <a href="/set_language/{{lang.0.code}}/" title="{{lang.0.name_local}}"><img class="selected_lang" src="/media/img/icons/flag_{{lang.1}}.png" alt="lang.0.lang_local" /></a>
-            {% else %}
-            <a href="/set_language/{{lang.0.code}}/" title="{{lang.0.name_local}}"><img src="/media/img/icons/flag_{{lang.1}}.png" alt="lang.0.lang_local" /></a>
-            {% endif %}
-          {% endfor %}
-        </p>
-      </div>
+      </nav> 
+    		<div class="language_select">
+    			Language:
+    			<select>
+    	          {% for lang in supported_langs %}
+    				<option style="width: 70px; padding-right: 26px;" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
+    	          {% endfor %}
+    			</select>
+    		</div>
       <br class="clear">
     </header>
 
@@ -70,17 +69,29 @@
 
   </div> <!-- END #container -->
 
-  <script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>
+  <script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>	
+	<script src="/media/js/libs/chosen/chosen.jquery.min.js" ></script>
   <script>
+	
+	// language select dropdown
+	$(".language_select select").chosen();
+	$(".language_select .chzn-search").hide();
+	$(".language_select select").chosen().change(function(){
+		// set session data to new language
+		var language = $(this).val();
+		window.location = "/set_language/"+language+"/";
+	});
+	
   // google analytics
   var _gaq=[['_setAccount','UA-22403682-3'],['_trackPageview']]; 
   (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
   g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
   s.parentNode.insertBefore(g,s)}(document,'script'));
 
+  // current nav styling
 	$(function(){
 		var current_page = document.location.pathname.split("/")[1];
-		$(".nav ul a").each(function(i, el){
+		$("nav ul a").each(function(i, el){
 			if($(el).text().toLowerCase() == current_page){
 				$(el).addClass("current");
 			}
