@@ -10,6 +10,7 @@ body {
 	padding: 0;
 }
 
+a:active, a:focus { outline-style: none; -moz-outline-style:none; }
 a, a:active, a:visited { color: #4f4f4f; }
 a:hover { text-decoration: underline; }
 
@@ -126,7 +127,6 @@ header nav {
 	float: right;
 	width: 448px;
 	text-align: center;
-	margin-top: 27px;
 }
 header nav ul {
 	background: white;
@@ -134,12 +134,15 @@ header nav ul {
 	float: right;
 	display: inline;
 	height: 26px;
-	margin: 0;
-	padding: 0;
+	margin: -2px 0px 0px 0px;
+	padding: 11px 0px 10px 0px;
 	
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
+	-moz-border-radius: 10px;
+	-moz-border-bottom-left-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
 }
 header nav ul li{
 	display: inline;
@@ -166,7 +169,7 @@ header .language_select{
 	float: right;
 	margin-right: 10px;
 	text-align: center;
-	margin-top: 27px;
+	margin-top: 9px;
 }
 header .language_select select{
 	width: 120px;
@@ -177,8 +180,8 @@ header h1 {
 	margin: 0;
 }
 header h1 a img {
-	margin: 0;
-	width: 200px;
+	margin: -5px 0px 0px 0px;
+	height: 57px;
 }
 
 
@@ -187,8 +190,6 @@ header h1 a img {
  */
 #main {
 	border: 0px solid black;
-	border-top: 1px solid #e0e0e0;
-	border-bottom: 1px solid #e0e0e0
 	margin: 0;
 	margin-bottom: 10px;
 	overflow: hidden; /* to clear floats */
@@ -201,7 +202,7 @@ header h1 a img {
  */
 .app_title{
 	float: left;
-	min-height: 60px;
+	min-height: 50px;
 }
 .app_title h2 {
 	font-family: 'Cardo', serif, 'Times';
@@ -229,7 +230,7 @@ header h1 a img {
 	line-height: 34px;
 }
 .app_title#icons img{
-	width: 55px;
+	width: 50px;
 }
 .app_title#icons img.community{
 	margin: 10px 0 0 0;
