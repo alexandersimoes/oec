@@ -164,7 +164,9 @@
 				</ul>
 			</nav> 
     		<div class="language_select">
-    			Language:
+    		  <div class="text">
+    			  Language:
+    			</div>
     			<select>
     	          {% for lang in supported_langs %}
     				<option style="width: 70px; padding-right: 26px;" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>

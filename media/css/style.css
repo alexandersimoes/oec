@@ -137,7 +137,7 @@ header nav ul {
 	margin: -2px 0px 0px 0px;
 	padding: 11px 0px 10px 0px;
 	
-	-moz-border-radius: 10px;
+	-moz-border-bottom-right-radius: 10px;
 	-moz-border-bottom-left-radius: 10px;
 	-webkit-border-bottom-right-radius: 10px;
 	-webkit-border-bottom-left-radius: 10px;
@@ -173,6 +173,14 @@ header .language_select{
 }
 header .language_select select{
 	width: 120px;
+	float: left;
+}
+header .language_select .text{
+	margin: 5px;
+	float: left;
+}
+header .language_select .chzn-container{
+	float: left;
 }
 header h1 {
 	font-size: 12px;
