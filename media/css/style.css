@@ -542,7 +542,8 @@ text-decoration: none;
 	z-index: 10;
 }
 .app #main #content #dataviz {
-	height: 500px;
+	height: 260px;
+	border-bottom: 1px solid #cccccc;
 }
 .app #main #content #text_data{
 	height: 500px;
@@ -567,7 +568,6 @@ text-decoration: none;
 }
 /* key */
 .app #main #content .key {
-	border-top: 1px solid #cccccc;
 /*	padding: 3px 0 3px 1px;*/
 	padding: 3px;
 	text-align: center;
@@ -631,9 +631,10 @@ text-decoration: none;
 	clear: both;
 	display: none;
 	height: 0;
-	left: 785px;
+	width: 640px;
+	text-align: center;
 	position: relative;
-	top: 10px;
+	top: 100px;
 	z-index: 99999;
 }
 .app #loader img{

@@ -27,11 +27,9 @@ Map.prototype.build = function(){
 		.domain(value_range)
 		.interpolate(d3.interpolateRgb)
 		.range([color_gradient[0],color_gradient[1],color_gradient[2],color_gradient[3],color_gradient[4],color_gradient[5],color_gradient[6],color_gradient[7],color_gradient[8],color_gradient[9]])
-	var albers_world = d3.geo.albers()
-		.origin([10, 30])
-		.parallels([-34.9, 35])
-		.scale(130)
-		.translate([330, 95]);	
+	var map_projection = d3.geo.mercator()
+		.scale(660)
+		.translate([310, 220]);	
 
 	var country_paths = _this.svg.select("#countries")
 		.selectAll("path")
@@ -49,7 +47,7 @@ Map.prototype.build = function(){
 		})
 		.attr("stroke", color_countryStroke)
 		.attr("stroke-width", 0.4)
-		.attr("d", d3.geo.path().projection(albers_world))
+		.attr("d", d3.geo.path().projection(map_projection))
 		.on("mouseover", function(d, i){
 			
 			var item_data = get_map_val(d.id, _this.current_data, _this.attr_data)
@@ -59,6 +57,8 @@ Map.prototype.build = function(){
 			if(item_data && ((format_big_num(item_data.value)[0] + format_big_num(item_data.value)[1]) != 0)){
 				sub_text = "Value: $" + format_big_num(item_data.value)[0] + format_big_num(item_data.value)[1]
 					sub_text += item_data.rca ? " RCA: " + d3.format(".2f")(item_data.rca) : "";
+			} else {
+				sub_text = "No Data"
 			}
 			
 			var mouseover_d = {
@@ -93,16 +93,16 @@ Map.prototype.build = function(){
 		}
 
 		_this.svg.append("rect")
-			.attr("x", 20)
-			.attr("y", 235)
+			.attr("x", 260)
+			.attr("y", 310)
 			.attr("width", 120)
 			.attr("height", 10)
 			.attr("stroke", color_noData)
 			.style("fill", "url(#gradient)");
 		
 		_this.svg.append("text")
-			.attr("x", 20)
-			.attr("y", 247)
+			.attr("x", 260)
+			.attr("y", 322)
 			.attr("dy", 12)
 			.attr("text-anchor", "start")
 			.text(function(){
@@ -110,8 +110,8 @@ Map.prototype.build = function(){
 			})
 		
 		_this.svg.append("text")
-			.attr("x", 140)
-			.attr("y", 247)
+			.attr("x", 380)
+			.attr("y", 322)
 			.attr("dy", 12)
 			.attr("text-anchor", "end")
 			.text(function(){

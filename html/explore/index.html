@@ -205,11 +205,6 @@
 				
 			</div>
 			<div class="app_title" id="title"><h2>{% if title %}{{title}}{% else %}&nbsp;{% endif %}</h2></div>
-			
-			<!-- ajax loading gif -->
-			<div id="loader">
-				<img src="/media/img/all/loader.gif" alt="loading" />
-			</div>
 		
 			<!-- the left pane -->
 			<div id="app_pane">
@@ -291,7 +286,7 @@
 						<h3><a href="#">Maps</a></h3>
 						<ul>
 							<li><a class="sapy" href="/explore/map/export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2009/">Exports</a></li>
-							<li><a class="sapy" href="/explore/map/export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2009/">Imports</a></li>
+							<li><a class="sapy" href="/explore/map/import/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2009/">Imports</a></li>
 							<li><a class="sapy" href="/explore/map/net_export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2009/">Net exports</a></li>
 							<li><a class="sapy" href="/explore/map/net_import/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2009/">Net imports</a></li>
 						</ul>
@@ -319,6 +314,12 @@
 					</table>
 				</div>
 				{% else %}
+
+  			<!-- ajax loading gif -->
+  			<div id="loader">
+  				<img src="/media/img/all/loader.gif" alt="loading" />
+  				<br />Loading...
+  			</div>
 				<div id="dataviz"></div>
 				{% endif %}
 				
@@ -908,8 +909,8 @@
 				set_accordion(2);
 				break;
 			case "map":
-    		app_data.height = 330;
-    		$("#dataviz").css("height",330);
+    		app_data.height = 400;
+    		$("#dataviz").css("height",400);
 				var app = new Map(app_data);
 				app.build();
 				set_accordion(4);
