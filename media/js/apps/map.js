@@ -14,15 +14,19 @@ function Map(args){
 		.attr("height", this.height);
 	this.svg.append("g")
 		.attr("id", "countries")			
-		.attr("transform", "translate(0,75)");
+		.attr("transform", "translate(0,0)");
 }
 Map.prototype.build = function(){
 	var _this = this;
+	var color_noData = "#ccc";
+	var color_countryStroke = "#fff";
+	var color_gradient = ["#000096","#000cec","#005fff","#05bef8","#2affd4","#90ff70","#eaf215","#ffa200","#f94300","#d90000","#960000"];
+	
 	var value_range = get_range(_this.current_data);
-	var value_color = d3.scale.log()
+	var value_color = d3.scale.linear()
 		.domain(value_range)
 		.interpolate(d3.interpolateRgb)
-		.range(["#ccc", "#a1ce00"])
+		.range([color_gradient[0],color_gradient[1],color_gradient[2],color_gradient[3],color_gradient[4],color_gradient[5],color_gradient[6],color_gradient[7],color_gradient[8],color_gradient[9]])
 	var albers_world = d3.geo.albers()
 		.origin([10, 30])
 		.parallels([-34.9, 35])
@@ -41,9 +45,9 @@ Map.prototype.build = function(){
 			if(item_data){
 				if(item_data.value > 0) return value_color(item_data.value);
 			}
-			return "#ccc"
+			return color_noData
 		})
-		.attr("stroke", "#fff")
+		.attr("stroke", color_countryStroke)
 		.attr("stroke-width", 0.4)
 		.attr("d", d3.geo.path().projection(albers_world))
 		.on("mouseover", function(d, i){
@@ -52,8 +56,8 @@ Map.prototype.build = function(){
 			var attr = get_map_attr(d.id, _this.attr_data)
 			
 			var sub_text = ""
-			if(item_data){
-				sub_text = "Value: " + format_big_num(item_data.value)[0] + format_big_num(item_data.value)[1]
+			if(item_data && ((format_big_num(item_data.value)[0] + format_big_num(item_data.value)[1]) != 0)){
+				sub_text = "Value: $" + format_big_num(item_data.value)[0] + format_big_num(item_data.value)[1]
 					sub_text += item_data.rca ? " RCA: " + d3.format(".2f")(item_data.rca) : "";
 			}
 			
@@ -76,32 +80,29 @@ Map.prototype.build = function(){
 			.append("linearGradient")
 				.attr("id", "gradient")
 				.attr("x1", "0%")
-				.attr("y1", "100%")
-				.attr("x2", "0%")
-				.attr("y2", "100%")
+				.attr("y1", "0%")
+				.attr("x2", "100%")
+				.attr("y2", "0%")
 				.attr("spreadMethod", "pad");
-
-		gradient.append("stop")
-			.attr("offset", "0%")
-			.attr("stop-color", "#cccccc")
-			.attr("stop-opacity", 1);
-
-		gradient.append("stop")
-			.attr("offset", "100%")
-			.attr("stop-color", "#a1ce00")
-			.attr("stop-opacity", 1);
+		
+		for( i=0; i<=100; i=i+10 ){
+			gradient.append("stop")
+				.attr("offset", i+"%")
+				.attr("stop-color", color_gradient[i/10])
+				.attr("stop-opacity", 1);
+		}
 
 		_this.svg.append("rect")
-			.attr("x", 10)
-			.attr("y", 420)
-			.attr("width", 150)
+			.attr("x", 20)
+			.attr("y", 235)
+			.attr("width", 120)
 			.attr("height", 10)
-			.attr("stroke", "#777")
+			.attr("stroke", color_noData)
 			.style("fill", "url(#gradient)");
 		
 		_this.svg.append("text")
-			.attr("x", 10)
-			.attr("y", 432)
+			.attr("x", 20)
+			.attr("y", 247)
 			.attr("dy", 12)
 			.attr("text-anchor", "start")
 			.text(function(){
@@ -109,12 +110,12 @@ Map.prototype.build = function(){
 			})
 		
 		_this.svg.append("text")
-			.attr("x", 160)
-			.attr("y", 432)
+			.attr("x", 140)
+			.attr("y", 247)
 			.attr("dy", 12)
 			.attr("text-anchor", "end")
 			.text(function(){
-				return "$"+format_big_num(value_range[1])[0].split(".")[0] + " " + format_big_num(value_range[1])[1];
+				return "$"+format_big_num(value_range[10])[0].split(".")[0] + " " + format_big_num(value_range[10])[1];
 			})
 	
 }
@@ -148,10 +149,8 @@ function get_range(this_years_data){
 	var max = d3.max(this_years_data, function(c) {
 		if(c.value > 0) return c.value
 	});
-	return [min, max];
+	return [min, (min+(max-min)*0.1), (min+(max-min)*0.2), (min+(max-min)*0.3), (min+(max-min)*0.4), (min+(max-min)*0.5), (min+(max-min)*0.6), (min+(max-min)*0.7), (min+(max-min)*0.8), (min+(max-min)*0.9), max];
 }
-
-
 
 
 

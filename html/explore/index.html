@@ -667,6 +667,7 @@
 	
 	// global vars
 	var playing = false;
+	var app_div = "#dataviz";
 	
 	/*
 	 * General page stuff
@@ -755,9 +756,23 @@
 		get_data("{{api_uri}}")
 	}
 	
+  if("{{app_name}}" == "tree_map"){
+    app_div = "#dataviz_tree";
+    document.getElementById('dataviz').id='dataviz_tree';
+  } else if("{{app_name}}" == "stacked"){
+    app_div = "#dataviz_stacked";
+    document.getElementById('dataviz').id='dataviz_stacked';
+  } else if("{{app_name}}" == "product_space"){
+    app_div = "#dataviz_productSpace";
+    document.getElementById('dataviz').id='dataviz_productSpace';
+  } else if("{{app_name}}" == "map"){
+    app_div = "#dataviz_map";
+    document.getElementById('dataviz').id ='dataviz_map';
+  }
+	
 	// given an API URI fetch data and send it to build_app function
 	function get_data(request){
-		d3.select("#dataviz").html("")
+		d3.select(app_div).html("")
 		d3.select("#loader").style("display", "block");
 		d3.json(request, function(json){
 			build_app(json, request)
@@ -865,23 +880,30 @@
 	
 	// this is the function that actually build the SVG app on the page
 	function update_app(json, app_name, requested_uri){
-		// the parameters that will be passed to the respective app
-		var app_data = {
-			"attr_data": json.attr_data,
-			"raw_data": json.data,
-			"selector": "#dataviz",
-			"year": json.year,
-			"width": 640,
-			"height": 500,
-			"other": json.other}
 	
 		switch(app_name){
 			case "tree_map":
+    		var app_data = {
+    			"attr_data": json.attr_data,
+    			"raw_data": json.data,
+    			"selector": app_div,
+    			"year": json.year,
+    			"width": 640,
+    			"height": 500,
+    			"other": json.other}
 				var app = new TreeMap(app_data);
 				app.build();
 				set_accordion(0);
 				break;
 			case "stacked":
+    		var app_data = {
+    			"attr_data": json.attr_data,
+    			"raw_data": json.data,
+    			"selector": app_div,
+    			"year": json.year,
+    			"width": 640,
+    			"height": 500,
+    			"other": json.other}
 				var app = new Stacked(app_data);
 				app.build();
 				set_accordion(1);
@@ -899,10 +921,26 @@
 				});
 				break;
 			case "product_space":
+    		var app_data = {
+    			"attr_data": json.attr_data,
+    			"raw_data": json.data,
+    			"selector": app_div,
+    			"year": json.year,
+    			"width": 640,
+    			"height": 500,
+    			"other": json.other}
 				var app = new ProductSpace(app_data);
 				set_accordion(2);
 				break;
 			case "map":
+    		var app_data = {
+    			"attr_data": json.attr_data,
+    			"raw_data": json.data,
+    			"selector": app_div,
+    			"year": json.year,
+    			"width": 640,
+    			"height": 330,
+    			"other": json.other}
 				var app = new Map(app_data);
 				app.build();
 				set_accordion(4);
@@ -921,7 +959,7 @@
 			$(".download .text").show();
 			$(".download .app").hide();
 			$("#text_data").hide();
-			$("#dataviz").show();
+			$(app_div).show();
 			return false;
 		})
 		$(".download .csv").unbind("click");
@@ -1275,8 +1313,8 @@
 				$(".download .app").show();
 			}
 			// hide curent viz
-			if($("#dataviz").is(":visible") && !silent){
-				$("#dataviz").hide();
+			if($(app_div).is(":visible") && !silent){
+				$(app_div).hide();
 			}
 			
 			if($("div#text_data").length){
@@ -1348,7 +1386,7 @@
 				row.append("<td>$"+d3.format(",f")(d.value)+"</td>");
 				row.append("<td>"+d3.format(".2p")(d.value / year_sums[d.year])+"</td>");
 			})
-			$("#dataviz").after(text_data);
+			$(app_div).after(text_data);
 			
 			return false;
 		}

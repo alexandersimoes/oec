@@ -23,7 +23,7 @@ function TreeMap(args){
 
   this.svg = d3.select(this.selector).html("").append("svg")
     .attr("width", this.width)
-    .attr("height", this.height)
+    .attr("height", this.height+20)
   this.viz = this.svg.append("g")
     .attr("class", "viz")
     .data([this.heirarchical_data])
