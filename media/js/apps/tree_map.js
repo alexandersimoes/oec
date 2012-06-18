@@ -215,7 +215,7 @@ TreeMap.prototype.add_mouse_events = function(){
 	var _this = this;
 	var cell = this.viz.selectAll("g")
 	cell.on("mouseover", function(d){
-		var sub_text = "Value: " + format_big_num(d.value)[0] + format_big_num(d.value)[1]
+		var sub_text = "Value: $" + format_big_num(d.value)[0] + format_big_num(d.value)[1]
 			sub_text += " Share: " + d3.format(".2p")(d.value / d.parent.parent.parent.value)
 			sub_text += d.data.rca ? " RCA: " + d3.format(".2f")(d.data.rca) : "";
 		var a = _this.attr_data[d.data.item_id]; // This items attributes
