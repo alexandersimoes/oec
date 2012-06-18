@@ -85,7 +85,7 @@ Map.prototype.build = function(){
 				.attr("y2", "0%")
 				.attr("spreadMethod", "pad");
 		
-		for( i=0; i<=100; i=i+10 ){
+		for( var i=0; i<=100; i=i+10 ){
 			gradient.append("stop")
 				.attr("offset", i+"%")
 				.attr("stop-color", color_gradient[i/10])
@@ -106,7 +106,7 @@ Map.prototype.build = function(){
 			.attr("dy", 12)
 			.attr("text-anchor", "start")
 			.text(function(){
-				return "$"+format_big_num(value_range[0])[0].split(".")[0] + " " + format_big_num(value_range[0])[1];
+				return "$"+format_big_num(value_range[0])[0] + " " + format_big_num(value_range[0])[1];
 			})
 		
 		_this.svg.append("text")
@@ -115,7 +115,7 @@ Map.prototype.build = function(){
 			.attr("dy", 12)
 			.attr("text-anchor", "end")
 			.text(function(){
-				return "$"+format_big_num(value_range[10])[0].split(".")[0] + " " + format_big_num(value_range[10])[1];
+				return "$"+format_big_num(value_range[10])[0] + " " + format_big_num(value_range[10])[1];
 			})
 	
 }

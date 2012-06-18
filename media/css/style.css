@@ -231,7 +231,7 @@ header h1 a img {
 	font-size: 20px;
 	line-height: 20px;
 	margin: 15px 0 0 10px;
-	width: 58px;
+	width: 120px;
 }
 .app_title#icons h2.larger{
 	font-size: 30px;
@@ -542,19 +542,7 @@ text-decoration: none;
 	z-index: 10;
 }
 .app #main #content #dataviz {
-	height: 0px;
-}
-.app #main #content #dataviz_tree {
-	height: 520px;
-}
-.app #main #content #dataviz_stacked {
-	height: 520px;
-}
-.app #main #content #dataviz_productSpace {
-	height: 520px;
-}
-.app #main #content #dataviz_map {
-	height: 330px;
+	height: 500px;
 }
 .app #main #content #text_data{
 	height: 500px;

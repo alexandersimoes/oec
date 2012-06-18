@@ -5,7 +5,7 @@ function Stacked(args){
 	this.selector = args.selector || window;
 	this.width = args.width || $(selector).width();
 	this.height = args.height || $(selector).height();
-	this.padding = [0, 45, 30, 0];
+	this.padding = [10, 45, 30, 0];
 	
 	var year_parts = args.year.split(".").map(function(y){ return parseInt(y); });
 	this.years = d3.range(year_parts[0], year_parts[1]+1, year_parts[2]);

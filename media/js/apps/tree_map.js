@@ -224,7 +224,7 @@ TreeMap.prototype.add_mouse_events = function(){
 			"img_src": a.code ? "/media/img/icons/community_"+a.category_id+".png" : "/media/img/icons/flag_"+a.name_3char.toLowerCase()+".png",
 			"sub_text": sub_text
 		}
-		make_mouseover(this, [_this.width, _this.height], mouseover_d)
+		make_mouseover(this, [_this.width, _this.height+20], mouseover_d)
 		// to highlight the node create new box around it
 		d3.select(this).select("rect")
 			.attr("stroke", "black")
@@ -328,7 +328,7 @@ function make_mouseover(element, dimensions, data){
 		sub_text = data.sub_text,
 		svg = find_parent(element, "svg");
 		
-	var info_h = h / 10;
+	var info_h = 36;
 	var padding = info_h * .10;
 	// create grouping
 	var info = d3.select(svg).append("g")
@@ -341,7 +341,7 @@ function make_mouseover(element, dimensions, data){
 	// create semi-transparent background
 	info.append("rect")
 		.attr("fill", "black")
-		.attr("opacity", 0.6)
+		.attr("opacity", 0.5)
 		.attr("x", 0)
 		.attr("y", 0)
 		.attr("width", w)
@@ -351,23 +351,24 @@ function make_mouseover(element, dimensions, data){
 		.attr("xlink:href", img_src)
 		.attr("x", padding)
 		.attr("y", padding)
-		.attr("height", info_h/2)
-		.attr("width", info_h/2)
+		.attr("height", info_h-padding*2)
+		.attr("width", info_h-padding*2)
 	info.append("text")
-		.attr("x", (padding*2) + (info_h/2))
+		.attr("x", padding + info_h)
 		.attr("y", padding)
 		.attr("dy", info_h/2 - padding)
-		.attr("font-size", info_h/2)
+		.attr("font-size", 16)
+		.attr("font-weight", "bold")
 		.attr("fill", "white")
-		.style("text-shadow", "black 0.1em 0.1em 0.2em")
+		.style("text-shadow", "1px 1px 2px black")
 		.text(title)
 	info.append("text")
-		.attr("x", (padding*2) + (info_h/2))
+		.attr("x", padding + info_h)
 		.attr("y", info_h - (padding*2))
 		.attr("dy", info_h/4 - (padding*2))
-		.attr("font-size", info_h/4)
+		.attr("font-size", 12)
 		.attr("fill", "white")
-		.style("text-shadow", "black 0.1em 0.1em 0.2em")
+		.style("text-shadow", "1px 1px 2px black")
 		.text(sub_text)
 }
 function tmap_get_text_height(attr){
