@@ -410,11 +410,11 @@
 				
 				<!-- the timeline -->
 				<div id="timeline">
-					<button id="play">{% trans "Play" %}</button>
-					<button id="stop">{% trans "Stop" %}</button>
 					<div class="slider"></div>
 					{% if app_name != "stacked" %}
 					<a class="prev" href="/explore/{{app_name}}/{{trade_flow}}/{% if country1.name_3char %}{{country1.name_3char|lower}}{% else %}{{country1}}{% endif %}/{% if country2.name_3char %}{{country2.name_3char|lower}}{% else %}{{country2}}{% endif %}/{% if product.code %}{{product.code}}{% else %}{{product}}{% endif %}/{% if year > years_available.0 %}{{year|add:-1}}{% else %}{{years_available.last}}{% endif %}/">&laquo; {% trans "Previous" %}</a>
+  					<button id="play">{% trans "Play" %}</button>
+  					<button id="stop">{% trans "Stop" %}</button>
 					<a class="next" href="/explore/{{app_name}}/{{trade_flow}}/{% if country1.name_3char %}{{country1.name_3char|lower}}{% else %}{{country1}}{% endif %}/{% if country2.name_3char %}{{country2.name_3char|lower}}{% else %}{{country2}}{% endif %}/{% if product.code %}{{product.code}}{% else %}{{product}}{% endif %}/{% if year < years_available.last %}{{year|add:1}}{% else %}{{years_available.0}}{% endif %}/">{% trans "Next" %} &raquo;</a>
 					{% endif %}
 				</div>

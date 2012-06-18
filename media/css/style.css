@@ -313,14 +313,16 @@ header h1 a img {
  */	
 .app #main #app_pane {
 	background-color: #fff;
-	border: 1px solid #cccccc;
+	border-top: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
 	border-radius: 10px 0 0 10px;
 	font-size: 90%;
 	float: left;
 /*	padding: 10px;*/
 	margin-left: 0px;
 	padding-bottom: 0px;
-	min-height: 457px;
+	min-height: 440px;
 	width: 185px;
 	z-index: 1;
 }
@@ -388,7 +390,9 @@ text-decoration: none;
  */
 .app #main #tool_pane {
 	background: #fff;
-	border:1px solid #cccccc;
+	border-top: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
 	border-radius: 0 10px 10px 0;
 	font-size:90%;
 	float: left;
@@ -542,7 +546,7 @@ text-decoration: none;
 	z-index: 10;
 }
 .app #main #content #dataviz {
-	height: 260px;
+	height: 380px;
 	border-bottom: 1px solid #cccccc;
 }
 .app #main #content #text_data{
@@ -602,28 +606,31 @@ text-decoration: none;
 .app #main #content #timeline {
 	padding: 10px;
 	overflow: hidden;
-	width: 100%;
 }
 .app #main #content #timeline button{
 	float: left;
-	height: 40px;
-	margin: 0 10px 0 0;
+	height: 30px;
 	width: 60px;
+	padding: 0px;
+	margin: 0px 160px;
 }
 .app #main #content #timeline button#stop{
 	display: none;
 }
 .app #main #content #timeline .slider{
-	float: left;
-	margin: 0 0 8px 0;
-	width: 545px;
+	margin: 0 10px 10px 10px;
+	width: 600px;
 }
-.app #main #content #timeline a{
-	display: inline-block;
+.app #main #content #timeline a.prev{
+	float: left;
+	width: 100px;
+	margin-left: 20px;
 }
 .app #main #content #timeline a.next{
 	float: right;
-	margin: 0 20px 0 0;
+	width: 100px;
+	margin-right: 20px;
+	text-align: right;
 }
 
 
@@ -634,7 +641,7 @@ text-decoration: none;
 	width: 640px;
 	text-align: center;
 	position: relative;
-	top: 100px;
+	top: 150px;
 	z-index: 99999;
 }
 .app #loader img{
