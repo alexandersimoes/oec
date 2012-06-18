@@ -94,6 +94,13 @@ button:active {
 /*
  * Warning top of page
  */
+.alert {
+  border: solid 1px #EED3D7;
+  background: #F2DEDE;
+  color: #B94A48;
+  font-size: 16px;
+  padding: 10px 0;
+}
 .warning {
 	border: solid 1px #f0c36d;
 	background: #f9edbe;
@@ -101,13 +108,16 @@ button:active {
 	font-size: 16px;
 	padding: 10px 0;
 }
+.alert a,
 .warning a {
 	color: inherit;
 }
+.alert div,
 .warning div{
 	margin: auto;
 	width: 1000px;
 }
+.alert h4,
 .warning h4 {
 	font-weight: bold;
 	margin: 0;

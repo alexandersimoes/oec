@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Django
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
@@ -282,6 +282,7 @@ def app_redirect(request, app_name, trade_flow, filter, year):
 def explore(request, app_name, trade_flow, country1, country2, product, year="2009"):
   # raise Exception(country1, country2, product, year)
   # Get URL query parameters
+  was_redirected = request.GET.get("redirect", False)
   crawler = request.GET.get("_escaped_fragment_", False)
   options = request.GET.copy()
   # set language (if session data available use that as default)
@@ -299,12 +300,27 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   years_available.sort()
 
   country1_list, country2_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None, None
-  alert = None
-  title = None
+  warning, alert, title = None, None, None
   data_as_text = {}
   # What is actually being shown on the page
   item_type = "products"
-
+  
+  # Test for country exceptions
+  if prod_class == "hs4":
+    # redirect if and exception country
+    if country1 == "bel" or country1 == "lux":
+      return redirect('/explore/%s/%s/blx/%s/%s/%s/?redirect=true' % (app_name, trade_flow, country2, product, year))
+    if country1 == "bwa" or country1 == "lso" or country1 == "nam" or country1 == "swz":
+      return redirect('/explore/%s/%s/zaf/%s/%s/%s/?redirect=true' % (app_name, trade_flow, country2, product, year))
+  if was_redirected:
+    # display warning is redirected from exception
+    if country1 == "blx":
+      warning = {"title": "Country Substitution",
+        "text": "In the Harmonized System (HS) classification, trade for Belgium and Luxembourg is reported as 'Belgium-Luxembourg'."}
+    if country1 == "zaf":
+      warning = {"title": "Country Substitution",
+        "text": "In the Harmonized System (HS) classification, trade for Namibia, Republic of South Africa, Botswana, Lesotho and Swaziland is reported under 'South African Customs Union'."}
+  
   trade_flow_list = [("export", _("Export")), ("import", _("Import")), ("net_export", _("Net Export")), ("net_import", _("Net Import"))]
   if app_name == "product_space":
     trade_flow_list = [trade_flow_list[0]]
@@ -365,21 +381,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
         product_list = Hs4.objects.get_all(lang)
         request.session['product_classification'] = "hs4"
     else:
-      alert = {"title": "Product could not be found", "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/hs4/'>list of HS4 products</a>."%(p_code)}      
-    # if prod_class == "sitc4":
-    #   product_list = Sitc4.objects.get_all(lang)
-    #   try:
-    #     product = Sitc4.objects.get(code=product)
-    #   except Sitc4.DoesNotExist:
-    #     alert = {"title": "Product could not be found",
-    #       "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/sitc4/'>list of SITC4 products</a>."%(product)}
-    # if prod_class == "hs4":
-    #   product_list = Hs4.objects.get_all(lang)
-    #   try:
-    #     product = Hs4.objects.get(code=product)
-    #   except Hs4.DoesNotExist:
-    #     alert = {"title": "Product could not be found",
-    #       "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/hs4/'>list of HS4 products</a>."%(product)}
+      alert = {"title": "Product could not be found", "text": "There was no product with the 4 digit code <strong>%s</strong>. Please double check the <a href='/about/data/hs4/'>list of HS4 products</a>."%(p_code)}
 
   if not alert:
     if app_type == "casy":
@@ -414,6 +416,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
 	
   # Return page without visualization data
   return render_to_response("explore/index.html", {
+    "warning": warning,
     "alert": alert,
     "product_classification": prod_class,
     "years_available": years_available,

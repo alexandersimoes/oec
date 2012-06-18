@@ -139,12 +139,22 @@
 </head>
 <body class="app">
 	{% if alert %}
-	<div class="warning">
+	<div class="alert">
 		<div>
 			{% if alert.title %}
 			<h4>{{alert.title}}</h4>
 			{% endif %}
 			{% if alert.text %}{{alert.text|safe}}{% endif %}
+		</div>
+	</div>
+	{% endif %}
+	{% if warning %}
+	<div class="warning">
+		<div>
+			{% if warning.title %}
+			<h4>{{warning.title}}</h4>
+			{% endif %}
+			{% if warning.text %}{{warning.text|safe}}{% endif %}
 		</div>
 	</div>
 	{% endif %}
