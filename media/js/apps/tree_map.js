@@ -217,7 +217,7 @@ TreeMap.prototype.add_mouse_events = function(){
 	cell.on("mouseover", function(d){
 		var sub_text = "Value: $" + format_big_num(d.value)[0] + format_big_num(d.value)[1]
 			sub_text += " Share: " + d3.format(".2p")(d.value / d.parent.parent.parent.value)
-			sub_text += d.data.rca ? " RCA: " + d3.format(".2f")(d.data.rca) : "";
+			sub_text += d.data.rca ? " RCA: " + d3.format(".2r")(d.data.rca) : "";
 		var a = _this.attr_data[d.data.item_id]; // This items attributes
 		var mouseover_d = {
 			"title": a.name,
@@ -299,19 +299,19 @@ function format_big_num(d){
 	}
 	d = Math.abs(d);
 	if(d >= 1e3){
-		n = d3.format(".2f")(d/1e3);
+		n = d3.format(".2r")(d/1e3);
 		s = "k";
 	}
 	if(d >= 1e6){
-		n = d3.format(".2f")(d/1e6);
+		n = d3.format(".2r")(d/1e6);
 		s = "M";
 	}
 	if(d >= 1e9){
-		n = d3.format(".2f")(d/1e9);
+		n = d3.format(".2r")(d/1e9);
 		s = "B";
 	}
 	if(d >= 1e12){
-		n = d3.format(".2f")(d/1e12);
+		n = d3.format(".2r")(d/1e12);
 		s = "T";
 	}
 	if(d == 0){

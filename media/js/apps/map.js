@@ -20,10 +20,12 @@ Map.prototype.build = function(){
 	var _this = this;
 	var color_noData = "#ccc";
 	var color_countryStroke = "#fff";
+	var color_countryHighlight = "#444";
   // var color_gradient = ["#000096","#000cec","#005fff","#05bef8","#2affd4","#90ff70","#eaf215","#ffa200","#f94300","#d90000","#960000"];
   var color_gradient = ["#f2ecb4", "#f2e671", "#f6d626", "#f9b344", "#eb8c30", "#e84d24"]
 	
-	var value_range = get_range(_this.current_data);
+	var value_range = get_range(_this.current_data,5);
+	var value_range_big = get_range(_this.current_data,10);
 	var value_color = d3.scale.log()
 		.domain(value_range)
 		.interpolate(d3.interpolateRgb)
@@ -43,22 +45,26 @@ Map.prototype.build = function(){
 		.attr("fill", function(d){
 			var item_data = get_map_val(d.id, _this.current_data, _this.attr_data)
 			if(item_data){
-				if(item_data.value > 0) return value_color(item_data.value);
+				if(item_data.value > 100000) return value_color(item_data.value);
+				else return color_noData;
 			}
 			return color_noData
 		})
 		.attr("stroke", color_countryStroke)
-		.attr("stroke-width", 0.4)
+		.attr("stroke-width", 0.5)
 		.attr("d", d3.geo.path().projection(map_projection))
 		.on("mouseover", function(d, i){
 			
+			this.parentNode.appendChild(this);
+			d3.select(this).attr("stroke",color_countryHighlight);
+			d3.select(this).attr("stroke-width",1);
 			var item_data = get_map_val(d.id, _this.current_data, _this.attr_data)
 			var attr = get_map_attr(d.id, _this.attr_data)
 			
 			var sub_text = ""
 			if(item_data && ((format_big_num(item_data.value)[0] + format_big_num(item_data.value)[1]) != 0)){
-				sub_text = "Value: $" + format_big_num(item_data.value)[0] + format_big_num(item_data.value)[1]
-					sub_text += item_data.rca ? " RCA: " + d3.format(".2f")(item_data.rca) : "";
+				sub_text = "Value: $" + format_big_num(item_data.value)[0] + format_big_num(item_data.value)[1];
+				if(item_data.rca && (item_data.rca != 0)) sub_text += " RCA: " + d3.format(".2r")(item_data.rca);
 			} else {
 				sub_text = "No Data"
 			}
@@ -73,6 +79,8 @@ Map.prototype.build = function(){
 		})
 		.on("mouseout", function(d, i){
 			_this.svg.select(".info").remove();
+			d3.select(this).attr("stroke",color_countryStroke);
+			d3.select(this).attr("stroke-width",0.5);
 		})
 		
 		
@@ -88,36 +96,90 @@ Map.prototype.build = function(){
 				.attr("spreadMethod", "pad");
 		
 		for(var i=0; i<=100; i=i+20 ){
+		  percent = Math.round((1*Math.pow((100/1),i/100)))
 			gradient.append("stop")
-				.attr("offset", i+"%")
+				.attr("offset", percent+"%")
 				.attr("stop-color", color_gradient[i/20])
 				.attr("stop-opacity", 1);
 		}
 
 		_this.svg.append("rect")
-			.attr("x", 260)
-			.attr("y", 310)
-			.attr("width", 120)
+			.attr("x", 50)
+			.attr("y", 370)
+			.attr("width", 540)
 			.attr("height", 10)
-			.attr("stroke", color_noData)
 			.style("fill", "url(#gradient)");
+			
+      for(var i=1; i<10; i++ ){
+    		_this.svg.append("rect")
+    			.attr("x", Math.round((50*Math.pow((590/50),i/10))))
+    			.attr("y", 370)
+    			.attr("width", 2)
+    			.attr("height", 10)
+    			.style("fill", "#fff");
+			}
 		
 		_this.svg.append("text")
-			.attr("x", 260)
-			.attr("y", 322)
+			.attr("x", 50)
+			.attr("y", 382)
 			.attr("dy", 12)
-			.attr("text-anchor", "start")
+			.attr("text-anchor", "middle")
 			.text(function(){
 				return "$"+format_big_num(value_range[0])[0] + " " + format_big_num(value_range[0])[1];
 			})
+
+		_this.svg.append("text")
+			.attr("x", Math.round((50*Math.pow((590/50),0.4))))
+			.attr("y", 382)
+			.attr("dy", 12)
+			.attr("text-anchor", "middle")
+			.text(function(){
+				return "$"+format_big_num(value_range_big[4])[0] + " " + format_big_num(value_range_big[4])[1];
+			})
+
+		_this.svg.append("text")
+			.attr("x", Math.round((50*Math.pow((590/50),0.6))))
+			.attr("y", 382)
+			.attr("dy", 12)
+			.attr("text-anchor", "middle")
+			.text(function(){
+				return "$"+format_big_num(value_range_big[6])[0] + " " + format_big_num(value_range_big[6])[1];
+			})
+
+		_this.svg.append("text")
+			.attr("x", Math.round((50*Math.pow((590/50),0.7))))
+			.attr("y", 382)
+			.attr("dy", 12)
+			.attr("text-anchor", "middle")
+			.text(function(){
+				return "$"+format_big_num(value_range_big[7])[0] + " " + format_big_num(value_range_big[7])[1];
+			})
+
+		_this.svg.append("text")
+			.attr("x", Math.round((50*Math.pow((590/50),0.8))))
+			.attr("y", 382)
+			.attr("dy", 12)
+			.attr("text-anchor", "middle")
+			.text(function(){
+				return "$"+format_big_num(value_range_big[8])[0] + " " + format_big_num(value_range_big[8])[1];
+			})
+
+  		_this.svg.append("text")
+  			.attr("x", Math.round((50*Math.pow((590/50),0.9))))
+  			.attr("y", 382)
+  			.attr("dy", 12)
+  			.attr("text-anchor", "middle")
+  			.text(function(){
+  				return "$"+format_big_num(value_range_big[9])[0] + " " + format_big_num(value_range_big[9])[1];
+  			})
 		
 		_this.svg.append("text")
-			.attr("x", 380)
-			.attr("y", 322)
+			.attr("x", 590)
+			.attr("y", 382)
 			.attr("dy", 12)
-			.attr("text-anchor", "end")
+			.attr("text-anchor", "middle")
 			.text(function(){
-				return "$"+format_big_num(value_range[5])[0] + " " + format_big_num(value_range[5])[1];
+				return "$"+format_big_num(value_range_big[10])[0] + " " + format_big_num(value_range_big[10])[1];
 			})
 	
 }
@@ -144,9 +206,9 @@ function get_map_attr(name_3char, attr_data){
 	return attr_item[0];
 }
 
-function get_range(this_years_data){
+function get_range(this_years_data,size){
 	var min = d3.min(this_years_data, function(c) {
-		if(c.value > 0) return c.value
+		if(c.value > 100000) return c.value
 	});
 	var max = d3.max(this_years_data, function(c) {
 		if(c.value > 0) return c.value
@@ -157,7 +219,8 @@ function get_range(this_years_data){
   // console.log(linear_10_buckets)
   // console.log(log_10_buckets)
   // console.log(log_5_buckets)
-	return log_5_buckets;
+	if (size == 10 ) return log_10_buckets;
+	if (size == 5 ) return log_5_buckets;
 }
 
 
