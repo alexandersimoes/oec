@@ -20,13 +20,15 @@ Map.prototype.build = function(){
 	var _this = this;
 	var color_noData = "#ccc";
 	var color_countryStroke = "#fff";
-	var color_gradient = ["#000096","#000cec","#005fff","#05bef8","#2affd4","#90ff70","#eaf215","#ffa200","#f94300","#d90000","#960000"];
+  // var color_gradient = ["#000096","#000cec","#005fff","#05bef8","#2affd4","#90ff70","#eaf215","#ffa200","#f94300","#d90000","#960000"];
+  var color_gradient = ["#f2ecb4", "#f2e671", "#f6d626", "#f9b344", "#eb8c30", "#e84d24"]
 	
 	var value_range = get_range(_this.current_data);
-	var value_color = d3.scale.linear()
+	var value_color = d3.scale.log()
 		.domain(value_range)
 		.interpolate(d3.interpolateRgb)
-		.range([color_gradient[0],color_gradient[1],color_gradient[2],color_gradient[3],color_gradient[4],color_gradient[5],color_gradient[6],color_gradient[7],color_gradient[8],color_gradient[9]])
+		.range([color_gradient[0], color_gradient[1], color_gradient[2], color_gradient[3], color_gradient[4], color_gradient[5]])
+    // .range([color_gradient[0],color_gradient[1],color_gradient[2],color_gradient[3],color_gradient[4],color_gradient[5],color_gradient[6],color_gradient[7],color_gradient[8],color_gradient[9]])
 	var map_projection = d3.geo.mercator()
 		.scale(660)
 		.translate([310, 220]);	
@@ -85,10 +87,10 @@ Map.prototype.build = function(){
 				.attr("y2", "0%")
 				.attr("spreadMethod", "pad");
 		
-		for( var i=0; i<=100; i=i+10 ){
+		for(var i=0; i<=100; i=i+20 ){
 			gradient.append("stop")
 				.attr("offset", i+"%")
-				.attr("stop-color", color_gradient[i/10])
+				.attr("stop-color", color_gradient[i/20])
 				.attr("stop-opacity", 1);
 		}
 
@@ -115,7 +117,7 @@ Map.prototype.build = function(){
 			.attr("dy", 12)
 			.attr("text-anchor", "end")
 			.text(function(){
-				return "$"+format_big_num(value_range[10])[0] + " " + format_big_num(value_range[10])[1];
+				return "$"+format_big_num(value_range[5])[0] + " " + format_big_num(value_range[5])[1];
 			})
 	
 }
@@ -149,7 +151,13 @@ function get_range(this_years_data){
 	var max = d3.max(this_years_data, function(c) {
 		if(c.value > 0) return c.value
 	});
-	return [min, (min+(max-min)*0.1), (min+(max-min)*0.2), (min+(max-min)*0.3), (min+(max-min)*0.4), (min+(max-min)*0.5), (min+(max-min)*0.6), (min+(max-min)*0.7), (min+(max-min)*0.8), (min+(max-min)*0.9), max];
+	var linear_10_buckets = [min, (min+(max-min)*0.1), (min+(max-min)*0.2), (min+(max-min)*0.3), (min+(max-min)*0.4), (min+(max-min)*0.5), (min+(max-min)*0.6), (min+(max-min)*0.7), (min+(max-min)*0.8), (min+(max-min)*0.9), max];
+	var log_10_buckets = [min, (min*Math.pow((max/min),0.1)), (min*Math.pow((max/min),0.2)), (min*Math.pow((max/min),0.3)), (min*Math.pow((max/min),0.4)), (min*Math.pow((max/min),0.5)), (min*Math.pow((max/min),0.6)), (min*Math.pow((max/min),0.7)), (min*Math.pow((max/min),0.8)), (min*Math.pow((max/min),0.9)), max];
+	var log_5_buckets = [min, (min*Math.pow((max/min),0.2)), (min*Math.pow((max/min),0.4)), (min*Math.pow((max/min),0.6)), (min*Math.pow((max/min),0.8)), max];
+  // console.log(linear_10_buckets)
+  // console.log(log_10_buckets)
+  // console.log(log_5_buckets)
+	return log_5_buckets;
 }
 
 
