@@ -50,18 +50,15 @@ section.next {
   z-index: 2;
 }
 section a.tag {
-  border: solid green 1px;
   cursor: pointer;
   display: block;
   margin: 0;
-  padding: 50px 20px;
   position: absolute;
-  top: -120px;
+  text-align: center;
+  width: 60px;
+  top: -70px;
+  left: 1260px;
   right: 0px;
-  -webkit-transform: rotate(-90deg);
-  -webkit-transform-origin: right bottom;
-  width: 100%;
-  text-align: right;
 }
 ul.featured {
   margin: 0;
@@ -260,7 +257,7 @@ div#popover_bg {
 .accordion-heading a {
   font-size: 30px;
   line-height: 50px;
-  font-weight: bold;
+  font-weight: normal;
   background-color: #4380b4;
   color: #fff;
 }
@@ -271,8 +268,9 @@ div#popover_bg {
   border-left: solid #ddd 1px;
   border-right: solid #ddd 1px;
   background-color: #eee;
+  height: 42px;
 }
-.accordion-inner a.btn-large {
+a.btn-large {
 /*  font-size: 25px;*/  
   -moz-border-radius: 0px; 
   -webkit-border-radius: 0px; 
@@ -286,4 +284,19 @@ div#popover_bg {
 }
 .accordion-inner a.btn img {
 /*  width: 38px;*/
+}
+.float-left {
+  text-align: left;
+  float: left;
+}
+.float-right {
+  text-align: right;
+  float: right;
+}
+h1 {
+  font-size: 30px;
+  line-height: 50px;
+  font-weight: normal;
+  color: #000;
+  text-align: center;
 }

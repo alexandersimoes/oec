@@ -217,7 +217,7 @@ function change_section(next_section, option){
 }
 $("a.next").click(function(){
   $(this).parents("section").find("a.tag").remove()
-  var bcrumb = $('<a class="tag">'+$(this).text()+'</a>').appendTo($(this).parents("section"));
+  var bcrumb = $('<a class="tag btn btn-large" href="#"><i class="icon-chevron-left" style="margin-top:3px;"></i> Back</a>').appendTo($(this).parents("section"));
   bcrumb.click(prev_section)
   
   var next_section_uri = $(this).attr("href")
