@@ -10,10 +10,6 @@
 // Assign events to click of selection (products or countries)
 ///////////////////////////////////////////////////////////////////////////////
 
-// $(".trade").click(trade_click)
-// $(".country_origin").click(country_origin_click);
-// $(".country_destination").click(country_dest_click)
-// $(".product").click(function(){App.product = $(this).data().code})
 $(".featured a").click(click_selection)
 $("section[data-uri='products'] a.more").click(show_product_popover("products/view"))
 $("section[data-uri='countries'] a.more").click(show_country_popover("countries/view"))
@@ -158,7 +154,7 @@ $(".select .next").click(function(){
   return false;
 })
 // build the app given the data from the server
-function build_app(json, request){
+function build_app(json, request, app_type){
   // put data into common variables to they can be called from their respective
   // app functions
   json.attr_data.forEach(function(attr){
@@ -190,7 +186,12 @@ function build_app(json, request){
     "height": 600,
     "other": json.other}
   
-  var app = new TreeMap(app_data);
+  if(app_type == "tree_map"){
+    var app = new TreeMap(app_data);
+  }
+  if(app_type == "product_space"){
+    var app = new ProductSpace(app_data);
+  }
   app.build();
 }
 
@@ -231,33 +232,15 @@ function prev_section(e){
   $(this).remove();
 }
 
-// Click an item from the popup list
 function click_selection(){
-  // var type = $(this).parent().parent().data().type;
-  var type = $(this).data().type ? $(this).data().type : $(this).parent().parent().data().type;
+  var type = $(this).parent().parent().data().type;
   var abbrv = $(this).data().abbrv;
   var name = $(this).text();
-  var element = $("a.select_"+type)
-  // console.log(type, abbrv, name, element)
-  // set element's text
-  // console.log(element)
-  if(element.find("img").length){
-    // replace source
-    var img = element.find("img");
-    var src_arr = img.attr("src").split("/");
-    var file_name = src_arr[src_arr.length-1];
-    var base = file_name.split("_")[0] + "_";
-    src_arr.splice(src_arr.length-1, 1, base + abbrv + ".png");
-    img.attr("src", src_arr.join("/"));
-  }
-  element.find("span").text(name)
-  // set parent element's data
-  element.parent().data("abbrv", abbrv)
-  $(".popover").hide();
-  $("#popover_bg").hide();
-  // console.log(type, abbrv, name, element)
-  // console.log(element.parent(), element.parent().data())
-  return false;
+  // console.log(type, abbrv, name)
+  var element_to_change = $(".select_trade").parents(".accordion-body").prev().find("span.select_"+type);
+  console.log(element_to_change)
+  element_to_change.text(name)
+  element_to_change.data("abbrv", abbrv)
 }
 
 // Scroll events
@@ -290,4 +273,55 @@ $(".col_1 li a").live("click", function(){
   $(".col_2 li").hide();
   $(".col_2 li."+class_name).show();
   return false;
+})
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+// Build app !!!
+///////////////////////////////////////////////////////////////////////////////
+$(".modal-footer .btn").click(function(){
+  var app = $(this).data().app;
+  var type = $(this).parents(".accordion-group").data().type;
+  switch(type) {
+    case "casy":
+      var trade_flow = $(this).parents(".accordion-body").prev().find("span.select_trade").data().abbrv;
+      var country_origin = $(this).parents(".accordion-body").prev().find("span.select_country_origin").data().abbrv;
+      var country_dest = "all"
+      var product = "show"
+      break;
+    case "csay":
+      var trade_flow = $(this).parents(".accordion-body").prev().find("span.select_trade").data().abbrv;
+      var country_origin = $(this).parents(".accordion-body").prev().find("span.select_country_origin").data().abbrv;
+      var country_dest = "show"
+      var product = "all"
+      break;
+    case "ccsy":
+      var trade_flow = $(this).parents(".accordion-body").prev().find("span.select_trade").data().abbrv;
+      var country_origin = $(this).parents(".accordion-body").prev().find("span.select_country_origin").data().abbrv;
+      var country_dest = $(this).parents(".accordion-body").prev().find("span.select_country_dest").data().abbrv;
+      var product = "show"
+      break;
+    case "cspy":
+      var trade_flow = $(this).parents(".accordion-body").prev().find("span.select_trade").data().abbrv;
+      var country_origin = $(this).parents(".accordion-body").prev().find("span.select_country_origin").data().abbrv;
+      var country_dest = "show";
+      var product = $(this).parents(".accordion-body").prev().find("span.select_product").data().abbrv;
+      break;
+    case "sapy":
+      var trade_flow = $(this).parents(".accordion-body").prev().find("span.select_trade").data().abbrv;
+      var country_origin = "show";
+      var country_dest = "all";
+      var product = $(this).parents(".accordion-body").prev().find("span.select_product").data().abbrv;
+      break;
+  }
+  var url_request = "/api/"+trade_flow+"/"+country_origin+"/"+country_dest+"/"+product+"/2009/";
+  d3.json(url_request, function(json){
+    console.log(json)
+    build_app(json, url_request, app)
+  });
 })

@@ -126,7 +126,6 @@ ProductSpace.prototype.update = function(zoom_level) {
 			return "cat_"+d.category_id;
 		})
 		.attr("r", function(d){
-		  console.log(d.ps_size)
 			return _this.radius(d.ps_size)
 		})
 		.attr("fill", function(d){
