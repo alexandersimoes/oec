@@ -238,7 +238,7 @@ function click_selection(){
   var name = $(this).text();
   // console.log(type, abbrv, name)
   var element_to_change = $(".select_trade").parents(".accordion-body").prev().find("span.select_"+type);
-  console.log(element_to_change)
+  // console.log(element_to_change)
   element_to_change.text(name)
   element_to_change.data("abbrv", abbrv)
 }
@@ -251,7 +251,10 @@ function scroll(div_to_scroll, updown){
 }
 var interval_id = 0;
 $("a.scroll").live("click", function(e){
-   e.stopPropagation()
+  var div_to_scroll = $(this).siblings("ul");
+  var updown = $(this).hasClass("down") ? 1 : -1;
+  div_to_scroll.scrollTop(div_to_scroll.scrollTop()+(35*updown))
+  e.stopPropagation();
 })
 $("a.scroll").live("mousedown", function(e){
   var div_to_scroll = $(this).siblings("ul");
