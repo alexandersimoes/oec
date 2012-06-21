@@ -1,7 +1,7 @@
 body, html{
   height: 100%;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-weight: 200;
+  font-weight: bold;
   overflow: hidden;
 }
 a:hover {
@@ -15,13 +15,16 @@ h1, h2, h3 {
   margin: auto;
   width: 1200px;
 }
+div #logo {
+  margin: 20px;
+  text-align: center;
+}
 section {
   -webkit-transition: all 1s;
   background: white;
   height: 100%;
   margin-left: 1200px;
   opacity: 0;
-  padding: 40px;
   position: absolute;
   width: 1200px;
   visibility: hidden;
@@ -101,22 +104,31 @@ div.view_selection div.select {
   width: 100px;
 }
 .popover {
-  border: solid gray 2px;
-  width: 450px; 
+  border: 0px;
+  width: 500px; 
   background: white;
   display: block;
   position: absolute;
+  padding: 0px;
+  top: 120px;
+  left: 300px;
   -moz-border-radius: 5px; 
   -webkit-border-radius: 5px; 
   border-radius: 5px;
-  padding: 10px;
-  top: 120px;
-  left: 300px;
   -webkit-box-shadow: 0px 0px 25px 12px rgba(0, 0, 0, 0.4);
   z-index: 1001;
 }
+.popover h3 {
+  text-align: center;
+  color: #888;
+  padding: 10px 15px;
+  font-weight: bold;
+}
 .popover.single_col {
-  width: 155px; 
+  width: 200px;
+  text-align: center;
+  font-size: 16px;
+  text-transform: capitalize;
 }
 .popover ul {
   list-style: none;
@@ -125,26 +137,35 @@ div.view_selection div.select {
 }
 .popover ul li a:hover,
 .popover ul li a.selected {
-  box-shadow: inset 0 0 10px #aaa;
+  background-color: #782f70;
+  box-shadow: inset 0 0 10px #562250;
+  color: #fff;
+}
+.popover ul li a {
+  color: #000;
+  font-weight: bold;
 }
 .popover .col_1 {
   float: left;
   height: 300px;
-  width: 150px;
+  width: 180px;
   position: relative;
+  padding: 0px 10px;
 }
 .popover.single_col .col_1 {
   height: inherit;
 }
 .popover .col_1 ul {
+  padding: 0px;
   height: 220px;
-  margin: 40px 0;
+  margin: 35px 5px;
+  box-shadow: inset 0 0 10px #aaa;
   overflow: hidden;
 }
 .popover .col_1 ul li a {
-  border: solid 1px #ededed;
+  border: 0px;
   display: block;
-  padding: 5px;  
+  padding: 10px;  
   position: relative;
   overflow: hidden;
 }
@@ -154,10 +175,10 @@ div.view_selection div.select {
 }
 .popover.single_col .col_1 ul {
   height: inherit;
-  margin: 0;
+  margin: 10px 0px;
 }
 .popover .col_2 {
-/*  border: solid 1px #ededed;*/
+/*  border: solid 1px #ededed;*/  
   float: left;
   height: 300px;
   margin: 0;
@@ -166,23 +187,25 @@ div.view_selection div.select {
   position: relative;
 }
 .popover .col_2 ul {
+  box-shadow: inset 0 0 10px #aaa;
+  padding: 5px;
   height: 220px;
-  margin: 40px 0;
+  margin: 35px 5px;
   overflow: hidden;
 }
 .popover .col_2 ul li {
   display: none;
 }
 .popover .col_2 ul li a {
-  border: solid 1px #ededed;
   display: block;
-  padding: 5px;
+  padding: 11px 8px 8px 8px;
 }
 .popover .col_2 ul li img{
   width: 22px;
+  padding-bottom: 5px;
 }
 .popover .col_1 a.scroll {
-  width: 128px;
+  width: 158px;
 }
 .popover .col_2 a.scroll {
   width: 268px;
@@ -193,20 +216,23 @@ div.view_selection div.select {
   padding: 10px;
   position: absolute;
   text-align: center;
+  background-color: #ddd;
+  -moz-border-radius: 5px; 
+  -webkit-border-radius: 5px; 
+  border-radius: 5px;
 }
 .popover a.scroll.up {
-  border-bottom: solid 1px gray;
   box-shadow: 0px 4px 4px -2px #AAA;
 }
 .popover a.scroll.down {
-  border-top: solid 1px gray;
   bottom: 0;
   box-shadow: 0px -4px 4px -3px #AAA;
+  margin-bottom: 10px;
 }
 
 
 div#popover_bg {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
   height: 100%;
   left: 0;
   position: absolute;
@@ -221,21 +247,36 @@ div#popover_bg {
   height: auto !important;
 }
 .accordion-group {
-  margin: 0 0 5px 0;
+  margin: 0 0 10px 0;
+  border: 0px;
+  border-bottom: solid #4380b4 1px;
+  -moz-border-radius: 0px; 
+  -webkit-border-radius: 0px; 
+  border-radius: 0px;
+}
+.accordion-heading .accordion-toggle {
+  padding-left: 20px;
 }
 .accordion-heading a {
-  font-size: 40px;
+  font-size: 30px;
   line-height: 50px;
+  font-weight: bold;
+  background-color: #4380b4;
+  color: #fff;
 }
 .accordion-inner {
   font-size: 35px;
-  padding: 0;
-}
-.accordion-inner p {
-  padding: 10px;
+  padding: 20px;
+  text-align: center;
+  border-left: solid #ddd 1px;
+  border-right: solid #ddd 1px;
+  background-color: #eee;
 }
 .accordion-inner a.btn-large {
-/*  font-size: 25px;*/
+/*  font-size: 25px;*/  
+  -moz-border-radius: 0px; 
+  -webkit-border-radius: 0px; 
+  border-radius: 0px;
 }
 .accordion-inner p a.btn-large {
 /*  font-size: 35px;*/
