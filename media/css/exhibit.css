@@ -110,7 +110,7 @@ div.view_selection div.select {
   display: block;
   position: absolute;
   padding: 0px;
-  top: 120px;
+  top: 0px;
   left: 300px;
   -moz-border-radius: 5px; 
   -webkit-border-radius: 5px; 

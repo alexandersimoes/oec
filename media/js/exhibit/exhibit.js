@@ -44,7 +44,7 @@ function show_country_popover(next_uri){
     // console.log($(".popover#"+this_id).height())
     $(".popover#"+this_id).css({
       "left": (window.innerWidth / 2) - ($(".popover#"+this_id).width() / 2),
-      "top": 200,
+      "top": (window.innerHeight / 2) - 174,
     })
     return false;
   }
@@ -69,7 +69,7 @@ function show_product_popover(next_uri){
     }
     $(".popover#product").css({
       "left": (window.innerWidth / 2) - ($(".popover#product").width() / 2),
-      "top": 200,
+      "top": (window.innerHeight / 2) - 174,
     })
     return false;
   }
@@ -90,7 +90,7 @@ $("a.select_trade").click(function(e){
   }
   $(".popover#trade").css({
     "left": (window.innerWidth / 2) - ($(".popover#trade").width() / 2),
-    "top": 200,
+    "top": (window.innerHeight / 2) - 86,
   })
   return false;
 })
