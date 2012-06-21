@@ -220,7 +220,7 @@ header h1 a img {
  */
 .app_title{
 	float: left;
-	min-height: 50px;
+	height: 50px;
 }
 .app_title h2 {
 	font-family: 'Cardo', serif, 'Times';
@@ -240,8 +240,12 @@ header h1 a img {
 .app_title#icons h2{
 	font-size: 20px;
 	line-height: 20px;
-	margin: 15px 0 0 10px;
-	width: 120px;
+	width: 60px;
+	text-align: center;
+	margin: 6px 0px 0px 0px;
+}
+.app_title#icons h2.small{
+	margin-top: 15px;
 }
 .app_title#icons h2.larger{
 	font-size: 30px;
