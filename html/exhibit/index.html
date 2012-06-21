@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>The Observatory of Economic Complexity :: Exhibit</title>
+  <meta name="description" content="Networks in Macro Economics">
+  <meta name="author" content="Alexander Simoes">
+
+  <link rel="shortcut icon" type="image/x-icon" href="/media/img/favicon.ico">
+
+  <!-- <link rel="stylesheet" href="/media/css/normalize.css"> -->
+  <link rel="stylesheet" href="/media/js/libs/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/media/css/exhibit.css">
+
+</head>
+<body>
+  
+  <div id="content">
+    
+    <section data-pos="0">
+      <h1>Welcome to The Observatory</h1>
+      <p>Learn About</p>
+      <a class="next" href="countries">Countries</a>
+      <a class="next" href="products">Products</a>
+      <!-- <a class="next" href="world">World</a> -->
+      <p>Or</p>
+      <button>Take a tour</button>
+    </section>
+  
+    <section data-pos="1" data-uri="countries">
+      <h1>Select a country</h1>
+      <ul class="featured">
+        <li>
+          <img src="/media/img/icons/flag_usa.png" /><br />
+          <p class="next" data-type='country_origin' data-abbrv='usa' href="countries/view">United States</p>
+        </li>
+        <li>
+          <img src="/media/img/icons/flag_bra.png" /><br />
+          <p class="next" data-type='country_origin' data-abbrv='usa' href="countries/view">Brazil</p>
+        </li>
+        <li>
+          <img src="/media/img/icons/flag_chn.png" /><br />
+          <p class="next" data-type='country_origin' data-abbrv='chn' href="countries/view">China</p>
+        </li>
+        <li>
+          <img src="/media/img/icons/flag_kor.png" /><br />
+          <p class="next" data-type='country_origin' data-abbrv='kor' href="countries/view">Korea</p>
+        </li>
+        <li>
+          <img src="/media/img/icons/flag_gha.png" /><br />
+          <p class="next" data-type='country_origin' data-abbrv='gha' href="countries/view">Ghana</p>
+        </li>
+        <li>
+          <img src="/media/img/icons/flag_fin.png" /><br />
+          <p class="next" data-type='country_origin' data-abbrv='fin' href="countries/view">Finland</p>
+        </li>
+        <li>
+          <img src="/media/img/icons/flag_chl.png" /><br />
+          <p class="next" data-type='country_origin' data-abbrv='chl' href="countries/view">Chile</p>
+        </li>
+        <li>
+          <img src="/media/img/icons/flag_tur.png" /><br />
+          <p class="next" data-type='country_origin' data-abbrv='tur' href="countries/view">Turkey</p>
+        </li>
+        <!-- <li><a class="next" data-type='country_origin' data-abbrv='bra' href="countries/view">Brazil</a></li>
+        <li><a class="next" data-type='country_origin' data-abbrv='chn' href="countries/view">China</a></li>
+        <li><a class="next" data-type='country_origin' data-abbrv='kor' href="countries/view">Korea</a></li>
+        <li><a class="next" data-type='country_origin' data-abbrv='gha' href="countries/view">Ghana</a></li>
+        <li><a class="next" data-type='country_origin' data-abbrv='fin' href="countries/view">Finland</a></li> -->
+      </ul>
+      <!-- <a class="more" href="#">View more countries</a> -->
+      <a class="btn btn-large more" href="#"><i class="icon-plus"></i> View more countries</a>
+    </section>
+    <section data-pos="1" data-uri="products">
+      <h1>Select a product</h1>
+      <ul class="featured">
+        <!-- <li><a class="next" data-type='product' data-abbrv='2709' href="products/view">Petroleum oils, crude</a></li> -->
+        <li>
+          <img src="/media/img/icons/community_206.png" /><br />
+          <p class="next" data-type='product' data-abbrv='2709' href="countries/view">Petroleum oils, crude</p>
+        </li>
+        <li>
+          <img src="/media/img/icons/community_906.png" /><br />
+          <p class="next" data-type='product' data-abbrv='9206' href="countries/view">Percussion musical instruments</p>
+        </li>
+        <li>
+          <img src="/media/img/icons/community_306.png" /><br />
+          <p class="next" data-type='product' data-abbrv='2941' href="countries/view">Antibiotics</p>
+        </li>
+        <li>
+          <img src="/media/img/icons/community_416.png" /><br />
+          <p class="next" data-type='product' data-abbrv='6110' href="countries/view">Sweaters, pullovers, sweatshirts, etc</p>
+        </li>
+        <li>
+          <img src="/media/img/icons/community_116.png" /><br />
+          <p class="next" data-type='product' data-abbrv='0702' href="countries/view">Tomatoes</p>
+        </li>
+        <li>
+          <img src="/media/img/icons/community_406.png" /><br />
+          <p class="next" data-type='product' data-abbrv='4101' href="countries/view">Raw hides (leather)</p>
+        </li>
+        <li>
+          <img src="/media/img/icons/community_706.png" /><br />
+          <p class="next" data-type='product' data-abbrv='8504' href="countries/view">Electrical transformers</p>
+        </li>
+        <li>
+          <img src="/media/img/icons/community_716.png" /><br />
+          <p class="next" data-type='product' data-abbrv='8703' href="countries/view">Cars</p>
+        </li>
+      </ul>
+      <a class="btn btn-large more" href="#"><i class="icon-plus"></i> View more products</a>
+    </section>
+    <section data-pos="1" data-uri="world">
+      <h1>World</h1>
+    </section>
+  
+    <section data-pos="2" data-uri="countries/view">
+      <h1>Please select the country view you would like</h1>
+      
+      <div class="accordion" id="accordion2">
+        
+        <!-- PRODUCTS -->
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+              Products
+            </a>
+          </div>
+          <div id="collapseOne" class="accordion-body in collapse" style="height: auto; ">
+            <div class="accordion-inner">
+              <p>
+                What products does <a class="btn btn-large select_country_origin" href="#"><img src='/media/img/icons/flag_chn.png' /> <span>China</span></a> <a class="btn btn-large select_trade" href="#"><span>export</span></a>?
+              </p>
+              <div class="modal-footer">
+                <a class="btn btn-success btn-large" href="#">Build &raquo;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- COUNTRIES -->
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+              Countries
+            </a>
+          </div>
+          <div id="collapseTwo" class="accordion-body collapse" style="height: 0px; ">
+            <div class="accordion-inner">
+              <p>
+                What countries does <a class="btn btn-large select_country_origin" href="#"><img src='/media/img/icons/flag_chn.png' /> <span>China</span></a> <a class="btn btn-large select_trade" href="#"><span>export to</span></a>?
+              </p>
+              <div class="modal-footer">
+                <a class="btn btn-success btn-large" href="#">Build &raquo;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- PRODUCTS TO DEST -->
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+              Products to/from destination
+            </a>
+          </div>
+          <div id="collapseThree" class="accordion-body collapse" style="height: 0px; ">
+            <div class="accordion-inner">
+              <p>
+                What products does <a class="btn btn-large select_country_origin" href="#"><img src='/media/img/icons/flag_chn.png' /> <span>China</span></a> <a class="btn btn-large select_trade" href="#">export to</a> <a class="btn btn-large select_country_dest" href="#"><img src='/media/img/icons/flag_usa.png' /> <span>United States</span></a>?
+              </p>
+              <div class="modal-footer">
+                <a class="btn btn-success btn-large" href="#">Build &raquo;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- COUNTRIES FOR PRODUCT -->
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+              Countries of product
+            </a>
+          </div>
+          <div id="collapseFour" class="accordion-body collapse" style="height: 0px; ">
+            <div class="accordion-inner">
+              <p>
+                What countries does <a class="btn btn-large select_country_origin" href="#"><img src='/media/img/icons/flag_chn.png' /> <span>China</span></a> <a class="btn btn-large select_trade" href="#"><span>export</span></a> <a class="btn btn-large select_product" href="#"><img src='/media/img/icons/community_116.png' /> <span>Grapes</span></a> to?
+              </p>
+              <div class="modal-footer">
+                <a class="btn btn-success btn-large" href="#">Build &raquo;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      </div> <!-- End .accordion -->
+
+    </section>
+    <section data-pos="2" data-uri="products/view">
+      <h1>Please Select the product view you would like</h1>
+      <div class="view_selection">
+        <h2>Products</h2>
+        <div class="options">
+          <table>
+            <tr>
+              <td>Trade Direction</td>
+              <td>Origin Country</td>
+              <td>Destination Country</td>
+              <td>Product</td>
+              <td>Year</td>
+            </tr>
+            <tr>
+              <td data-type="trade" data-abbrv="export"><a class="select_trade" href="#">Export</a></td>
+              <td data-type="country_origin" data-abbrv="show">Show</td>
+              <td data-type="country_dest" data-abbrv="all">All</td>
+              <td data-type="product" data-abbrv="0527"><a class="select_product" href="#">Wine</a></td>
+              <td data-type="year" data-abbrv="2008"><a class="select_year" href="#">2008</a></td>
+            </tr>
+          </table>
+        </div>
+        <div class="select">
+          <a class="next" href="countries/view/app">GO &raquo;</a>
+        </div>
+      </div>
+    </section>
+    
+    <section data-pos="3" data-uri="countries/view/app">
+      <h1>The App!</h1>
+      <div id="dataviz">
+    </section>
+    
+    <section data-pos="4">
+      <h1>Welcome to The Observatory 4</h1>
+      <p>Learn About</p>
+      <button>Countries</button>
+      <button>Products</button>
+      <button>World</button>
+      <p>Or</p>
+      <button>Take a tour</button>
+    </section>
+    
+  </div>
+
+  <script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>
+	<script src="/media/js/libs/d3/d3.v2.min.js"></script>
+  <script src="/media/js/libs/bootstrap/js/bootstrap.min.js"></script>
+	<!-- App -->
+	<script src="/media/js/apps/tree_map.js"></script>
+  <script src="/media/js/exhibit/exhibit.js"></script>
+  <script>
+  var App = {}
+  
+  // for testing
+  $("section").removeClass()
+ 
+  // $("section[data-uri='countries']").addClass("prev")
+  // $("section[data-uri='countries/view']").addClass("current")
+  // home
+  $("section[data-pos='0']").addClass("current")
+  // country selection
+  // $("section[data-pos='0']").addClass("prev")  
+  // $("section[data-uri='countries']").addClass("current")
+  </script>
+
+</body>
+</html>

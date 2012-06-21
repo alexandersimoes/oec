@@ -1,0 +1,248 @@
+body, html{
+  height: 100%;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: 200;
+  overflow: hidden;
+}
+a:hover {
+  text-decoration: none;
+}
+h1, h2, h3 {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: 200;
+}
+#content {
+  margin: auto;
+  width: 1200px;
+}
+section {
+  -webkit-transition: all 1s;
+  background: white;
+  height: 100%;
+  margin-left: 1200px;
+  opacity: 0;
+  padding: 40px;
+  position: absolute;
+  width: 1200px;
+  visibility: hidden;
+  z-index: -1;
+}
+section.prev {
+  background: lightgray;
+  margin-left: -1200px !important;
+  opacity: 1;
+  visibility: visible;
+  z-index: 0;
+}
+section.current {
+  margin-left: 0 !important;
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+section.next {
+  margin-left: 1200px !important;
+  opacity: 0;
+  visibility: visible;
+  z-index: 2;
+}
+section a.tag {
+  border: solid green 1px;
+  cursor: pointer;
+  display: block;
+  margin: 0;
+  padding: 50px 20px;
+  position: absolute;
+  top: -120px;
+  right: 0px;
+  -webkit-transform: rotate(-90deg);
+  -webkit-transform-origin: right bottom;
+  width: 100%;
+  text-align: right;
+}
+ul.featured {
+  margin: 0;
+  padding: 0;
+}
+ul.featured li {
+  border: solid 1px #bbb;
+  display: inline-block;
+  height: 150px;
+  margin: 0 5px 20px 0;
+  padding: 20px;
+  text-align: center;
+  vertical-align: top;
+  width: 250px;
+}
+ul.featured li p {
+  font-size: 22px;
+}
+ul.featured li img {
+  max-width: 100px;
+}
+/*ul.featured li a {
+  border: solid 1px black;
+  display: block;
+  height: 300px;
+  width: 300px;
+}*/
+div.view_selection {
+  overflow: hidden;
+  width: 100%;
+}
+div.view_selection div.options {
+  border: solid 1px green;
+  float: left;
+  width: 600px;
+}
+div.view_selection div.select {
+  border: solid 1px red;
+  float: left;
+  width: 100px;
+}
+.popover {
+  border: solid gray 2px;
+  width: 450px; 
+  background: white;
+  display: block;
+  position: absolute;
+  -moz-border-radius: 5px; 
+  -webkit-border-radius: 5px; 
+  border-radius: 5px;
+  padding: 10px;
+  top: 120px;
+  left: 300px;
+  -webkit-box-shadow: 0px 0px 25px 12px rgba(0, 0, 0, 0.4);
+  z-index: 1001;
+}
+.popover.single_col {
+  width: 155px; 
+}
+.popover ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.popover ul li a:hover,
+.popover ul li a.selected {
+  box-shadow: inset 0 0 10px #aaa;
+}
+.popover .col_1 {
+  float: left;
+  height: 300px;
+  width: 150px;
+  position: relative;
+}
+.popover.single_col .col_1 {
+  height: inherit;
+}
+.popover .col_1 ul {
+  height: 220px;
+  margin: 40px 0;
+  overflow: hidden;
+}
+.popover .col_1 ul li a {
+  border: solid 1px #ededed;
+  display: block;
+  padding: 5px;  
+  position: relative;
+  overflow: hidden;
+}
+#country_dest.popover .col_1 ul,
+#country_origin.popover .col_1 ul {
+  margin: 0;
+}
+.popover.single_col .col_1 ul {
+  height: inherit;
+  margin: 0;
+}
+.popover .col_2 {
+/*  border: solid 1px #ededed;*/
+  float: left;
+  height: 300px;
+  margin: 0;
+  overflow: hidden;
+  width: 290px;
+  position: relative;
+}
+.popover .col_2 ul {
+  height: 220px;
+  margin: 40px 0;
+  overflow: hidden;
+}
+.popover .col_2 ul li {
+  display: none;
+}
+.popover .col_2 ul li a {
+  border: solid 1px #ededed;
+  display: block;
+  padding: 5px;
+}
+.popover .col_2 ul li img{
+  width: 22px;
+}
+.popover .col_1 a.scroll {
+  width: 128px;
+}
+.popover .col_2 a.scroll {
+  width: 268px;
+}
+.popover a.scroll {
+  border: solid 1px #ededed;
+  display: block;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+}
+.popover a.scroll.up {
+  border-bottom: solid 1px gray;
+  box-shadow: 0px 4px 4px -2px #AAA;
+}
+.popover a.scroll.down {
+  border-top: solid 1px gray;
+  bottom: 0;
+  box-shadow: 0px -4px 4px -3px #AAA;
+}
+
+
+div#popover_bg {
+  background: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+
+/* Accordion */
+#accordion2{
+  height: auto !important;
+}
+.accordion-group {
+  margin: 0 0 5px 0;
+}
+.accordion-heading a {
+  font-size: 40px;
+  line-height: 50px;
+}
+.accordion-inner {
+  font-size: 35px;
+  padding: 0;
+}
+.accordion-inner p {
+  padding: 10px;
+}
+.accordion-inner a.btn-large {
+  font-size: 25px;
+}
+.accordion-inner p a.btn-large {
+  font-size: 35px;
+}
+.accordion-inner p a.btn-large i {
+  margin-top: 15px;
+}
+.accordion-inner a.btn img {
+  width: 38px;
+}
