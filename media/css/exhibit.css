@@ -24,6 +24,7 @@ div #logo {
   position: absolute;
   left: 40px;
   opacity: 0;
+  margin-top: 10px;
 }
 section {
   -webkit-transition: all 1s;
@@ -323,6 +324,7 @@ section[data-uri='app'] .main {
 section[data-uri='app'] .main #dataviz {
   float: left;
   width: 840px;
+  font-weight: normal;
 }
 section[data-uri='app'] .main #datainfo {
   float: left;
@@ -342,31 +344,48 @@ section[data-uri='app'] .main #datainfo a img{
   width: 20px;
 }
 section[data-uri='app'] .main #datainfo table {
-  border: 1px solid #782f70;
-  margin: 0 0 10px 0;
+  border: 0px;
+  margin: 5px 10px;
   padding: 10px;
   width: 100%;
 }
 
-ul.nav {
-  border-bottom: solid 4px #4380B4;
+ul.nav, .nav-tabs {
+  border-bottom: 0px;
   margin: 0;
 }
 .nav-tabs > li > a,
 .nav-tabs > li > a:hover {
   background: white;
-  border: 2px solid #4380B4;
+  border: 2px solid #782f70;
+  text-align: center;
+  color: #888;
+  width: 130px;
+  font-size: 16px;
+  font-weight: bold;
   -moz-border-radius: 0px; 
   -webkit-border-radius: 0px; 
   border-radius: 0px;
-  color: #4380B4;
 }
 .nav-tabs > .active > a,
 .nav-tabs > .active > a:hover{
-  border: 2px solid #4380B4;
-  background-color: #4380B4;
-  -moz-border-radius: 0px; 
-  -webkit-border-radius: 0px; 
-  border-radius: 0px; 
+  border: 0px;
+  background-color: #782f70;
+  border: 2px solid #782f70;
+  text-align: center;
   color: white;
+  width: 130px;
+  font-size: 16px;
+  font-weight: bold;
+  -moz-border-radius: 0px; 
+  -webkit-border-radius: 0px;
+}
+.tab-content > .active, .pill-content > .active {
+  overflow: hidden;
+}
+.loading {
+  text-align: center;
+  width: 1200px;
+  margin-top: 200px;
+  font-weight: bold;
 }

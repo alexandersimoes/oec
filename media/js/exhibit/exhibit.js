@@ -182,19 +182,26 @@ function build_app(json, request, app_type){
     "raw_data": json.data,
     "selector": "#dataviz",
     "year": json.year,
-    "width": 840,
-    "height": 600,
     "other": json.other}
   
   if(app_type == "tree_map"){
+    app_data.height = 600;
+    app_data.width = 840;
+    $("#dataviz").css("width",840);
+    $("#dataviz").css("margin-left",0);
     var app = new TreeMap(app_data);
     app.build();
   }
   if(app_type == "product_space"){
+    app_data.height = 600;
+    app_data.width = 840;
+    $("#dataviz").css("width",840);
+    $("#dataviz").css("margin-left",0);
     var app = new ProductSpace(app_data);
   }
   if(app_type == "map"){
     app_data.height = 450;
+    app_data.width = 640;
     $("#dataviz").css("width",740);
     $("#dataviz").css("margin-left",100);
     var app = new Map(app_data);
