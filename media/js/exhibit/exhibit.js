@@ -396,7 +396,7 @@ function add_top_elements(json, app, sub_heading){
     var item_attr = json.attr_data[item.item_id]
     // console.log(item_attr)
     if(item_attr.name_3char){
-      var change_link = $("<a href='#'><img src='/media/img/icons/flag_"+item_attr.name_3char+".png' />"+item_attr.name+"</a>").appendTo(top_tab)
+      var change_link = $("<a href='#'><img src='/media/img/icons/flag_"+item_attr.name_3char.toLowerCase()+".png' />"+item_attr.name+"</a>").appendTo(top_tab)
       var title = "What products does "+item_attr.name+" export?"
       var sub_heading = "Top Products"
       var url_request = "/api/export/"+item_attr.name_3char+"/all/show/2009/"
