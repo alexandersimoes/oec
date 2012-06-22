@@ -19,6 +19,12 @@ div #logo {
   margin: 20px;
   text-align: center;
 }
+.back.btn {
+  -webkit-transition: all 1s;
+  position: absolute;
+  left: 40px;
+  opacity: 0;
+}
 section {
   -webkit-transition: all 1s;
   background: white;
@@ -323,7 +329,7 @@ section[data-uri='app'] .main #datainfo {
   padding: 10px;
   width: 340px;
 }
-section[data-uri='app'] .main #datainfo a {
+section[data-uri='app'] .main #datainfo .tab-content a {
   background-color: #782f70;
   color: white;
   display: block;
@@ -340,4 +346,27 @@ section[data-uri='app'] .main #datainfo table {
   margin: 0 0 10px 0;
   padding: 10px;
   width: 100%;
+}
+
+ul.nav {
+  border-bottom: solid 4px #4380B4;
+  margin: 0;
+}
+.nav-tabs > li > a,
+.nav-tabs > li > a:hover {
+  background: white;
+  border: 2px solid #4380B4;
+  -moz-border-radius: 0px; 
+  -webkit-border-radius: 0px; 
+  border-radius: 0px;
+  color: #4380B4;
+}
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover{
+  border: 2px solid #4380B4;
+  background-color: #4380B4;
+  -moz-border-radius: 0px; 
+  -webkit-border-radius: 0px; 
+  border-radius: 0px; 
+  color: white;
 }

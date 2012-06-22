@@ -57,6 +57,8 @@ urlpatterns = patterns('',
 	(r'^api/(?P<trade_flow>[a-z_]{6,10})/(?P<country1>\w{3})/show/(?P<product>\w{4})/(?P<year>[0-9\.]+)/$', 'observatory.views.api_cspy'),
 	(r'^api/(?P<trade_flow>[a-z_]{6,10})/show/all/(?P<product>\w{4})/(?P<year>[0-9\.]+)/$', 'observatory.views.api_sapy'),
 	
+	(r'^api/near/(?P<country>\w{3})/(?P<year>[0-9\.]+)/(?P<num_prods>\d+)/$', 'observatory.views_exhibit.api_near'),
+	
 	# Overview (Countries) ######################################################
 	(r'^country/(?P<country>\w{2,3})/$', 'observatory.views_overview.country2'),
 	(r'^hs4/(?P<product>\d{4})/$', 'observatory.views_overview.product'),

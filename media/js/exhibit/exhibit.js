@@ -82,10 +82,10 @@ $("a.select_trade").click(function(e){
   else {
     var cont = $("<div class='popover single_col' id='trade'>").appendTo($("body"))
     var list = $("<ul data-type='trade'>").appendTo($("<div class='col_1'>").appendTo(cont))
-    list.append("<li><a class='trade' data-abbrv='export' href='#'>export</a></li>")
-    list.append("<li><a class='trade' data-abbrv='import' href='#'>import</a></li>")
-    list.append("<li><a class='trade' data-abbrv='net_export' href='#'>net export</a></li>")
-    list.append("<li><a class='trade' data-abbrv='net_import' href='#'>net import</a></li>")
+    list.append("<li><a class='trade' data-abbrv='export' data-prep='to' href='#'>export</a></li>")
+    list.append("<li><a class='trade' data-abbrv='import' data-prep='from' href='#'>import</a></li>")
+    list.append("<li><a class='trade' data-abbrv='net_export' data-prep='to' href='#'>net export</a></li>")
+    list.append("<li><a class='trade' data-abbrv='net_import' data-prep='from' href='#'>net import</a></li>")
     list.find("a").click(click_selection)
   }
   $(".popover#trade").css({
@@ -188,11 +188,18 @@ function build_app(json, request, app_type){
   
   if(app_type == "tree_map"){
     var app = new TreeMap(app_data);
+    app.build();
   }
   if(app_type == "product_space"){
     var app = new ProductSpace(app_data);
   }
-  app.build();
+  if(app_type == "map"){
+    app_data.height = 450;
+    $("#dataviz").css("width",740);
+    $("#dataviz").css("margin-left",100);
+    var app = new Map(app_data);
+    app.build();
+  }
 }
 
 //
@@ -207,23 +214,29 @@ function change_section(next_section, option){
     return;
   }
   else if(direction > 0){
+    $(".back.btn").css("opacity", 1)
     $("section.current").removeClass().addClass("prev")
     next_section.removeClass().addClass("current")
   }
   else {
+    $(".back.btn").css("opacity", 0)
     $("section.current").removeClass()
     next_section.removeClass().addClass("current")
   }
 }
 $("a.next").click(function(){
   $(this).parents("section").find("a.tag").remove()
-  var bcrumb = $('<a class="tag btn btn-large" href="#"><i class="icon-chevron-left" style="margin-top:3px;"></i> Back</a>').appendTo($(this).parents("section"));
-  bcrumb.click(prev_section)
+  // var bcrumb = $('<a class="tag btn btn-large" href="#"><i class="icon-chevron-left" style="margin-top:3px;"></i> Back</a>').appendTo($(this).parents("section"));
+  // bcrumb.click(prev_section)
   
   var next_section_uri = $(this).attr("href")
   var next_section = $("section[data-uri='"+next_section_uri+"']")
   change_section(next_section)
   
+  return false;
+})
+$(".back.btn").click(function(){
+  change_section($("section[data-pos='0']"));
   return false;
 })
 function prev_section(e){
@@ -239,8 +252,14 @@ function click_selection(){
   // console.log(type, abbrv, name)
   var element_to_change = $(".select_trade").parents(".accordion-body").prev().find("span.select_"+type);
   // console.log(element_to_change)
+  if(type == "trade"){
+    var prep = $(this).data().prep
+    $(".select_trade").parents(".accordion-body").prev().find("span.select_prep").text(prep);
+  }
   element_to_change.text(name)
   element_to_change.data("abbrv", abbrv)
+  $(".popover").hide();
+  $("#popover_bg").hide();
 }
 
 // Scroll events
@@ -339,16 +358,17 @@ function change_viz(title, sub_heading, app, url_request){
   $("section[data-uri='app'] h1").text(title);
   d3.json(url_request, function(json){
     build_app(json, url_request, app)
-    add_top_elements(json, sub_heading);
+    add_top_elements(json, app, sub_heading);
+    // if product space get nearby products
+    if(app == "product_space"){
+      d3.json("/api/near/"+json.country1.name_3char+"/2009/5/", function(nearby_prods){
+        add_nearby_prods(nearby_prods, json.attr_data)
+      })
+    }
   });
 }
 
-function xx(t){
-  return function(){
-    console.log(t)
-  }
-}
-function add_top_elements(json, sub_heading){
+function add_top_elements(json, app, sub_heading){
   var current_data = json.data.filter(function(x){return x.year == json.year});
   current_data.sort(function(a, b){
     if (a.value < b.value) return 1;
@@ -360,20 +380,29 @@ function add_top_elements(json, sub_heading){
   current_data.forEach(function(x){ sum += parseFloat(x["value"]); })
   // clear previous data
   $("#datainfo").html("");
-  $("#datainfo").append("<h2>"+sub_heading+"</h2>");
+  // if(app == "tree_map"){
+  //   $("#datainfo").append("<h2>"+sub_heading+"</h2>");
+  // }
+  // if(app == "product_space"){
+  var list = $('<ul class="nav nav-tabs" id="myTab">').appendTo("#datainfo");
+  list.append('<li class="active"><a href="#top">'+sub_heading+'</a></li>')
+  var tabs = $('<div class="tab-content">').appendTo("#datainfo");
+  var top_tab = $('<div class="tab-pane active" id="top">').appendTo(tabs);
+
+  // }
   // Loop through top 5 elements
   for(var i = 0; i < 5; i++){
     var item = current_data[i];
     var item_attr = json.attr_data[item.item_id]
     // console.log(item_attr)
     if(item_attr.name_3char){
-      var change_link = $("<a href='#'><img src='/media/img/icons/flag_"+item_attr.name_3char+".png' />"+item_attr.name+"</a>").appendTo("#datainfo")
+      var change_link = $("<a href='#'><img src='/media/img/icons/flag_"+item_attr.name_3char+".png' />"+item_attr.name+"</a>").appendTo(top_tab)
       var title = "What products does "+item_attr.name+" export?"
       var sub_heading = "Top Products"
       var url_request = "/api/export/"+item_attr.name_3char+"/all/show/2009/"
     }
     else {
-      var change_link = $("<a href='#'><img src='/media/img/icons/community_"+item_attr.category_id+".png' />"+item_attr.name+"</a>").appendTo("#datainfo")
+      var change_link = $("<a href='#'><img src='/media/img/icons/community_"+item_attr.category_id+".png' />"+item_attr.name+"</a>").appendTo(top_tab)
       var title = "What countries export "+item_attr.name+"?"
       var sub_heading = "Top Countries"
       var url_request = "/api/export/show/all/"+item_attr.code+"/2009/"
@@ -389,8 +418,60 @@ function add_top_elements(json, sub_heading){
     //   console.log(title)
     //   change_viz(title, sub_heading, "tree_map", url_request);
     // })
-    var t = $("<table>").appendTo("#datainfo");
+    
+    var t = $("<table>").appendTo(top_tab);
     t.append("<tr><td>Value</td><td>$"+format_big_num(item.value)[0]+format_big_num(item.value)[1]+"</td></tr>")
     t.append("<tr><td>Percent of total trade</td><td>"+d3.format(".2p")(item.value/sum)+"</td></tr>")
   }
+  
+}
+
+function add_nearby_prods(nearby_prods, attr_data){
+  // console.log("building newby prods")
+  $("#myTab").append('<li><a href="#nearby">Nearby Products</a></li>')
+  var nearby_tab = $('<div class="tab-pane" id="nearby">').appendTo(".tab-content")
+  
+  nearby_prods.forEach(function(np){
+    var density = np[0]
+    var p_id = np[1]
+    var item_attr = attr_data[p_id]
+    
+    var change_link = $("<a href='#'><img src='/media/img/icons/community_"+item_attr.category_id+".png' />"+item_attr.name+"</a>").appendTo(nearby_tab);
+    // var title = "What countries export "+item_attr.name+"?"
+    // var sub_heading = "Top Countries"
+    // var url_request = "/api/export/show/all/"+item_attr.code+"/2009/"
+      
+    // change_link.click(xx(title));
+    (function(id) {
+      change_link.click(function(){ 
+        d3.select("circle#overlay_"+id).remove();
+        var overlay = clone("circle#id_"+id)
+        overlay.attr("id", "overlay_"+id)
+          .style("fill", "none")
+          .style("stroke", "red")
+          .style("stroke-opacity", 1e-6)
+          .style("stroke-width", 3)
+        .transition()
+          .duration(750)
+          .attr("r", 12)
+          .style("stroke-opacity", 1);
+        return false;
+      });
+      
+    })(p_id);
+    
+    var t = $("<table>").appendTo(nearby_tab);
+    t.append("<tr><td>Density Value</td><td>"+d3.format(".4g")(density)+"</td></tr>")
+    
+  })
+  
+  $('#myTab a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+  })
+}
+
+function clone(selector) {
+  var node = d3.select(selector).node();
+  return d3.select(node.parentNode.insertBefore(node.cloneNode(true), node.nextSibling));
 }

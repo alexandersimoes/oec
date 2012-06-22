@@ -122,6 +122,9 @@ ProductSpace.prototype.update = function(zoom_level) {
 	
 	// enter attributes (static)
 	circle.enter().append("circle")
+	  .attr("id", function(d){
+	    return "id_"+d.id;
+	  })
 		.attr("class", function(d){
 			return "cat_"+d.category_id;
 		})
