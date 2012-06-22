@@ -363,6 +363,10 @@ $(".next.btn").click(function(){
 
 function change_viz(title, sub_heading, app, url_request){
   $("section[data-uri='app'] h1").text(title);
+  // clear previous data
+  $("#datainfo").html("");
+  $("#dataviz").html("<div class='loading'>Loading...</div>")
+  // now get the data
   d3.json(url_request, function(json){
     build_app(json, url_request, app)
     add_top_elements(json, app, sub_heading);
@@ -385,14 +389,14 @@ function add_top_elements(json, app, sub_heading){
   // get sum for percentages
   var sum = 0;
   current_data.forEach(function(x){ sum += parseFloat(x["value"]); })
-  // clear previous data
-  $("#datainfo").html("");
   // if(app == "tree_map"){
   //   $("#datainfo").append("<h2>"+sub_heading+"</h2>");
   // }
   // if(app == "product_space"){
   var list = $('<ul class="nav nav-tabs" id="myTab">').appendTo("#datainfo");
-  list.append('<li class="active"><a href="#top">'+sub_heading+'</a></li>')
+  var li = $("<li class='active'>").appendTo(list);
+  var a = $('<a href="#top">'+sub_heading+'</a>').appendTo(li);
+  a.click(function(){ return false; })
   var tabs = $('<div class="tab-content">').appendTo("#datainfo");
   var top_tab = $('<div class="tab-pane active" id="top">').appendTo(tabs);
 
