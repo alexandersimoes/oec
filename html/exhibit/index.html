@@ -83,7 +83,7 @@
                 <a class="btn btn-large select_trade" href="#"><i class="icon-resize-horizontal"></i> Change Trade Direction</a>
               </div>
               <div class="float-right">
-                <a class="btn btn-success btn-large" data-app="tree_map" href="#"><i class="icon-th icon-white" style="margin-top:2px;"></i> Generate Tree Map &raquo;</a>
+                <a class="btn btn-success btn-large next" data-app="tree_map" href="app"><i class="icon-th icon-white" style="margin-top:2px;"></i> Generate Tree Map &raquo;</a>
               </div>
             </div>
           </div>
@@ -93,7 +93,7 @@
         <div class="accordion-group" data-type="cspy">
           <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
-              What countries does <span class="select_country_origin" data-abbrv="usa">United States</span> <span class="select_trade" data-abbrv="export">export</span> <span class="select_product" data-abbrv="0229">Grapes</span> to?
+              What countries does <span class="select_country_origin" data-abbrv="usa">United States</span> <span class="select_trade" data-abbrv="export">export</span> <span class="select_product" data-abbrv="0806">Grapes</span> to?
             </a>
           </div>
           <div id="collapseFour" class="accordion-body collapse" style="height: 0px; ">
@@ -104,7 +104,7 @@
                 <a class="btn btn-large select_trade" href="#"><i class="icon-resize-horizontal"></i> Change Trade Direction</a>
               </div>
               <div class="float-right">
-                <a class="btn btn-success btn-large" data-app="tree_map" href="#"><i class="icon-th icon-white" style="margin-top:2px;"></i> Generate Tree Map &raquo;</a>
+                <a class="btn btn-success btn-large next" data-app="tree_map" href="app"><i class="icon-th icon-white" style="margin-top:2px;"></i> Generate Tree Map &raquo;</a>
               </div>
             </div>
           </div>
@@ -114,7 +114,7 @@
         <div class="accordion-group" data-type="sapy">
           <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
-              What countries <span class="select_trade" data-abbrv="export">export</span> <span class="select_product" data-abbrv="0229">Grapes</span>?
+              What countries <span class="select_trade" data-abbrv="export">export</span> <span class="select_product" data-abbrv="0806">Grapes</span>?
             </a>
           </div>
           <div id="collapseFive" class="accordion-body collapse" style="height: 0px; ">
@@ -124,8 +124,8 @@
                 <a class="btn btn-large select_trade" href="#"><i class="icon-resize-horizontal"></i> Change Trade Direction</a>
               </div>
               <div class="float-right">
-                <a class="btn btn-success btn-large" data-app="tree_map" href="#"><i class="icon-th icon-white" style="margin-top:2px;"></i> Generate Tree Map &raquo;</a>
-                <a class="btn btn-success btn-large" data-app="map" href="#"><i class="icon-globe icon-white" style="margin-top:3px;"></i> Generate Map &raquo;</a>
+                <a class="btn btn-success btn-large next" data-app="tree_map" href="app"><i class="icon-th icon-white" style="margin-top:2px;"></i> Generate Tree Map &raquo;</a>
+                <a class="btn btn-success btn-large next" data-app="map" href="app"><i class="icon-globe icon-white" style="margin-top:3px;"></i> Generate Map &raquo;</a>
               </div>
             </div>
           </div>
@@ -133,23 +133,15 @@
       
       </div> <!-- End .accordion -->
     </section>
-  
-    <section data-pos="1" data-uri="countries">
-    </section>
     
     <section data-pos="3" data-uri="app">
       <h1>Alex, make this the blue header text of the selected chart.</h1>
-      <div id="dataviz">Make sure that whatever chart is shown here is centered both vertically and horizontally inside of this div. Also, make sure it's height is within the bounds of the screen. We don't want users scrolling on the touch screens!</div>
-    </section>
-    
-    <section data-pos="4">
-      <h1>Welcome to The Observatory 4</h1>
-      <p>Learn About</p>
-      <button>Countries</button>
-      <button>Products</button>
-      <button>World</button>
-      <p>Or</p>
-      <button>Take a tour</button>
+      <div class="main">
+        <div id="dataviz">Loading...</div>
+        <div id="datainfo">
+          <h2></h2>
+        </div>
+      </div>
     </section>
     
   </div>

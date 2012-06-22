@@ -33,7 +33,7 @@ section {
 section.prev {
   background: lightgray;
   margin-left: -1200px !important;
-  opacity: 1;
+  opacity: 0;
   visibility: visible;
   z-index: 0;
 }
@@ -300,6 +300,44 @@ h1 {
   color: #000;
   text-align: center;
 }
-#dataviz {
-  text-align: center;
+
+section[data-uri='app'] h1{
+  background-color: #4380b4;
+  color: #fff;
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 50px;
+  padding: 8px 15px 8px 20px;
+  text-align: left;
+}
+section[data-uri='app'] .main {
+  overflow: hidden;
+  width: 100%;
+}
+section[data-uri='app'] .main #dataviz {
+  float: left;
+  width: 840px;
+}
+section[data-uri='app'] .main #datainfo {
+  float: left;
+  padding: 10px;
+  width: 340px;
+}
+section[data-uri='app'] .main #datainfo a {
+  background-color: #782f70;
+  color: white;
+  display: block;
+  line-height: 15px;
+  padding: 10px 10px 10px 45px;
+  text-indent: -33px;
+}
+section[data-uri='app'] .main #datainfo a img{
+  margin: 0 12px 0 0;
+  width: 20px;
+}
+section[data-uri='app'] .main #datainfo table {
+  border: 1px solid #782f70;
+  margin: 0 0 10px 0;
+  padding: 10px;
+  width: 100%;
 }

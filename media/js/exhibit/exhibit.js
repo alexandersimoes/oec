@@ -287,44 +287,110 @@ $(".col_1 li a").live("click", function(){
 ///////////////////////////////////////////////////////////////////////////////
 // Build app !!!
 ///////////////////////////////////////////////////////////////////////////////
-$(".modal-footer .btn").click(function(){
+$(".next.btn").click(function(){
   var app = $(this).data().app;
   var type = $(this).parents(".accordion-group").data().type;
+  var title = $(this).parents(".accordion-body").prev().find(".accordion-toggle").text();
   switch(type) {
     case "casy":
       var trade_flow = $(this).parents(".accordion-body").prev().find("span.select_trade").data().abbrv;
       var country_origin = $(this).parents(".accordion-body").prev().find("span.select_country_origin").data().abbrv;
       var country_dest = "all"
       var product = "show"
+      var sub_heading = "Top Products"
       break;
     case "csay":
       var trade_flow = $(this).parents(".accordion-body").prev().find("span.select_trade").data().abbrv;
       var country_origin = $(this).parents(".accordion-body").prev().find("span.select_country_origin").data().abbrv;
-      var country_dest = "show"
-      var product = "all"
+      var country_dest = "show";
+      var product = "all";
+      var sub_heading = "Top Countries"
       break;
     case "ccsy":
       var trade_flow = $(this).parents(".accordion-body").prev().find("span.select_trade").data().abbrv;
       var country_origin = $(this).parents(".accordion-body").prev().find("span.select_country_origin").data().abbrv;
       var country_dest = $(this).parents(".accordion-body").prev().find("span.select_country_dest").data().abbrv;
-      var product = "show"
+      var product = "show";
+      var sub_heading = "Top Products";
       break;
     case "cspy":
       var trade_flow = $(this).parents(".accordion-body").prev().find("span.select_trade").data().abbrv;
       var country_origin = $(this).parents(".accordion-body").prev().find("span.select_country_origin").data().abbrv;
       var country_dest = "show";
       var product = $(this).parents(".accordion-body").prev().find("span.select_product").data().abbrv;
+      var sub_heading = "Top Countries"
       break;
     case "sapy":
       var trade_flow = $(this).parents(".accordion-body").prev().find("span.select_trade").data().abbrv;
       var country_origin = "show";
       var country_dest = "all";
       var product = $(this).parents(".accordion-body").prev().find("span.select_product").data().abbrv;
+      var sub_heading = "Top Countries"
       break;
   }
+  if(parseInt(product) == product && (product+"").length < 4){
+    product = "0"+product;
+  }
   var url_request = "/api/"+trade_flow+"/"+country_origin+"/"+country_dest+"/"+product+"/2009/";
-  d3.json(url_request, function(json){
-    console.log(json)
-    build_app(json, url_request, app)
-  });
+  change_viz(title, sub_heading, app, url_request)
 })
+
+function change_viz(title, sub_heading, app, url_request){
+  $("section[data-uri='app'] h1").text(title);
+  d3.json(url_request, function(json){
+    build_app(json, url_request, app)
+    add_top_elements(json, sub_heading);
+  });
+}
+
+function xx(t){
+  return function(){
+    console.log(t)
+  }
+}
+function add_top_elements(json, sub_heading){
+  var current_data = json.data.filter(function(x){return x.year == json.year});
+  current_data.sort(function(a, b){
+    if (a.value < b.value) return 1;
+    if (a.value > b.value) return -1;
+    return 0;
+  })
+  // get sum for percentages
+  var sum = 0;
+  current_data.forEach(function(x){ sum += parseFloat(x["value"]); })
+  // clear previous data
+  $("#datainfo").html("");
+  $("#datainfo").append("<h2>"+sub_heading+"</h2>");
+  // Loop through top 5 elements
+  for(var i = 0; i < 5; i++){
+    var item = current_data[i];
+    var item_attr = json.attr_data[item.item_id]
+    // console.log(item_attr)
+    if(item_attr.name_3char){
+      var change_link = $("<a href='#'><img src='/media/img/icons/flag_"+item_attr.name_3char+".png' />"+item_attr.name+"</a>").appendTo("#datainfo")
+      var title = "What products does "+item_attr.name+" export?"
+      var sub_heading = "Top Products"
+      var url_request = "/api/export/"+item_attr.name_3char+"/all/show/2009/"
+    }
+    else {
+      var change_link = $("<a href='#'><img src='/media/img/icons/community_"+item_attr.category_id+".png' />"+item_attr.name+"</a>").appendTo("#datainfo")
+      var title = "What countries export "+item_attr.name+"?"
+      var sub_heading = "Top Countries"
+      var url_request = "/api/export/show/all/"+item_attr.code+"/2009/"
+    }
+    // change_link.click(xx(title));
+    (function(a, b, c, d) {
+      change_link.click(function(){ 
+        change_viz(a, b, c, d);
+        return false;
+      });
+    })(title, sub_heading, "tree_map", url_request);
+    // change_link.click(function(){
+    //   console.log(title)
+    //   change_viz(title, sub_heading, "tree_map", url_request);
+    // })
+    var t = $("<table>").appendTo("#datainfo");
+    t.append("<tr><td>Value</td><td>$"+format_big_num(item.value)[0]+format_big_num(item.value)[1]+"</td></tr>")
+    t.append("<tr><td>Percent of total trade</td><td>"+d3.format(".2p")(item.value/sum)+"</td></tr>")
+  }
+}
