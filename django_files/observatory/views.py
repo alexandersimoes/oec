@@ -372,7 +372,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
           "text": "There was no country with the 3 letter abbreviateion <strong>%s</strong>. Please double check the <a href='/about/data/country/'>list of countries</a>."%(country)}
   if product != "show" and product != "all":
     p_code = product
-    product = clean_product(p_code)
+    product = clean_product(p_code, prod_class)
     if product:
       if product.__class__ == Sitc4:
         product_list = Sitc4.objects.get_all(lang)
@@ -497,7 +497,7 @@ def api_sapy(request, trade_flow, product, year):
   query_params["product_classification"] = prod_class
 
   # product = Sitc4.objects.get(code=product) if prod_class == "sitc4" else Hs4.objects.get(code=product)
-  product = clean_product(product)
+  product = clean_product(product, prod_class)
 
   if crawler == "":
     if product.__class__ == Sitc4:
@@ -733,16 +733,28 @@ def clean_country(country):
       c = None
   return c
 
-def clean_product(product):
+def clean_product(product, prod_class):
   # first try looking up based on 3 character code
-  try:
-    p = Hs4.objects.get(code=product)
-  except Hs4.DoesNotExist:
-    # next try SITC4
+  if prod_class == "hs4":
+    try:
+      p = Hs4.objects.get(code=product)
+    except Hs4.DoesNotExist:
+      # next try SITC4
+      try:
+        conv_code = Sitc4.objects.get(code=product).conversion_code
+        p = Hs4.objects.get(code=conv_code)
+      except Hs4.DoesNotExist:
+        p = None
+  else:
     try:
       p = Sitc4.objects.get(code=product)
     except Sitc4.DoesNotExist:
-      p = None
+      # next try SITC4
+      try:
+        conv_code = Hs4.objects.get(code=product).conversion_code
+        p = Sitc4.objects.get(code=conv_code)
+      except Hs4.DoesNotExist:
+        p = None
   return p
 
 def get_country_lookup():

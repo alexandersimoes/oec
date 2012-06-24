@@ -137,6 +137,7 @@ class Sitc4_manager(models.Manager):
 class Sitc4(models.Model):
 	name = models.CharField(max_length=255)
 	code = models.CharField(max_length=4)
+	conversion_code = models.CharField(max_length=4)
 	leamer = models.ForeignKey(Sitc4_leamer, null=True)
 	community = models.ForeignKey(Sitc4_community, null=True)
 	ps_x = models.FloatField(null=True)
@@ -221,6 +222,7 @@ class Hs4_manager(models.Manager):
 class Hs4(models.Model):
 	name = models.CharField(max_length=255)
 	code = models.CharField(max_length=4)
+	conversion_code = models.CharField(max_length=4)
 	community = models.ForeignKey(Hs4_community, null=True)
 	ps_x = models.FloatField(null=True)
 	ps_y = models.FloatField(null=True)
