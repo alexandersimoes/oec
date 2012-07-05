@@ -9,11 +9,13 @@ function TreeMap(args){
   this.mouseover = args.other ? args.other.mouseover || "true" : "true";
   this.total = args.other ? args.other.total || "true" : "true";
   this.current_data = this.raw_data.filter(function(x){return x.year == _this.year});
+  // console.log(this.current_data)
 
   // If there is no data
   if(!this.current_data.length){ return; }
 
   this.heirarchical_data = tm_make_data_heirarchical(this.current_data, this.attr_data);
+  // console.log(this.heirarchical_data)
 
   // Create treemap as SVG
   this.tree_map = d3.layout.treemap()
@@ -33,80 +35,82 @@ function TreeMap(args){
 }
 
 TreeMap.prototype.build = function(){
-	var _this = this;
-	// Enter
-	this.tree_map.value(function(d) {
-		return d["value"];
-	})
-	var cell = _this.viz.selectAll("g")
-		.data(this.tree_map)
-		
-	var cell_enter = cell.enter().append("g")
-		.attr("class", function(d){
-			if(!d.children){
-				return "cat_"+_this.attr_data[d.data.item_id].category_id;
-			}
-		})
-		
-	cell_enter.append("rect").attr("fill", "white").attr("stroke", "white");
-	cell_enter.append("text")
-	// Update
-	cell.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-	cell.select("rect")
-		.attr("stroke", "white")
-		.attr("stroke-width", 0.4)
-		.attr("fill", function(d) {
-			if(d.children){
-				return "white";
-			}
-			else {
-				return _this.attr_data[d.data.item_id].category_color;
-			}
-		})
-		.attr("width", function(d){ 
-			if(d.dx < 0){
-				return 0;
-			}
-			else if(d.dx > 1){
-				return d.dx-1;
-			}
-			return d.dx 
-		})
-		.attr("height", function(d){ 
-			if(d.dy < 0){
-				return 0;
-			}
-			else if(d.dy > 1){
-				return d.dy-1;
-			}
-			return d.dy
-		})
-	cell.select("text")
-		.attr("font-family", "'PT Sans Narrow', 'Arial Narrow', 'Helvetica Neue', Helvetica, Arial, sans-serif")
-		.attr("font-stretch", "condensed")
-		.attr("font-size", tmap_get_text_height("font-size"))
-		.attr("letter-spacing", "-1px")
-		// .attr("font-family", '"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;')
-		// .attr("font-weight", "300")
-		// .attr("font-family", "'Knockout-HTF29-JuniorLiteweight'")
-		.attr("x", 2)
-		// .attr("y", 10)
-		.attr("y", tmap_get_text_height("y"))
-		.attr("fill", function(d) {
-			if(d.children){
-				return null;
-			}
-			else {
-				return _this.attr_data[d.data.item_id].category_text_color ? _this.attr_data[d.data.item_id].category_text_color : "white";
-			}
-		})
-		.attr("text-anchor", "start")
-		.each(function(d, i){
-			if(!d.children && (d.dx > 35 && d.dy > 25)){
-				// format_text(d, this, _this.attr_data[d.data.item_id].name);
-				_this.format_text(this, d);
-			}
-		})
+  var _this = this;
+
+  // Enter
+  this.tree_map.value(function(d) {
+    return d["value"];
+  })
+  var cell = _this.viz.selectAll("g")
+    .data(this.tree_map)
+
+  var cell_enter = cell.enter().append("g")
+    .attr("class", function(d){
+      if(!d.children){
+        return "cat_"+_this.attr_data[d.data.item_id].category_id;
+      }
+    })
+
+  cell_enter.append("rect").attr("fill", "white").attr("stroke", "white");
+  cell_enter.append("text")
+
+  // Update
+  cell.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+  cell.select("rect")
+    .attr("stroke", "white")
+    .attr("stroke-width", 0.4)
+    .attr("fill", function(d) {
+      if(d.children){
+        return "white";
+      }
+      else {
+        return _this.attr_data[d.data.item_id].category_color;
+      }
+    })
+    .attr("width", function(d){ 
+      if(d.dx < 0){
+        return 0;
+      }
+      else if(d.dx > 1){
+        return d.dx-1;
+      }
+      return d.dx 
+    })
+    .attr("height", function(d){ 
+      if(d.dy < 0){
+        return 0;
+      }
+      else if(d.dy > 1){
+        return d.dy-1;
+      }
+      return d.dy
+    })
+  cell.select("text")
+    .attr("font-family", "'PT Sans Narrow', 'Arial Narrow', 'Helvetica Neue', Helvetica, Arial, sans-serif")
+    .attr("font-stretch", "condensed")
+    .attr("font-size", tmap_get_text_height("font-size"))
+    .attr("letter-spacing", "-1px")
+    // .attr("font-family", '"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;')
+    // .attr("font-weight", "300")
+    // .attr("font-family", "'Knockout-HTF29-JuniorLiteweight'")
+    .attr("x", 2)
+    // .attr("y", 10)
+    .attr("y", tmap_get_text_height("y"))
+    .attr("fill", function(d) {
+      if(d.children){
+        return null;
+      }
+      else {
+        return _this.attr_data[d.data.item_id].category_text_color ? _this.attr_data[d.data.item_id].category_text_color : "white";
+      }
+    })
+    .attr("text-anchor", "start")
+    .each(function(d, i){
+      if(!d.children && (d.dx > 35 && d.dy > 25)){
+        // format_text(d, this, _this.attr_data[d.data.item_id].name);
+        _this.format_text(this, d);
+      }
+    })
   // Exit
   cell.exit().remove();
   // Events
@@ -133,30 +137,29 @@ TreeMap.prototype.build = function(){
  * Tree map helper functions
  */
 function tm_make_data_heirarchical(this_years_data, attrs){
-	var heirarchical_data = {children: []};
-	for(var i = 0; i < this_years_data.length; i++){
-		tm_memoize(this_years_data[i], heirarchical_data, attrs);
-	}
-	return heirarchical_data;
+  var heirarchical_data = {children: []};
+  for(var i = 0; i < this_years_data.length; i++){
+    tm_memoize(this_years_data[i], heirarchical_data, attrs);
+  }
+  return heirarchical_data;
 }
 function tm_memoize(node, root, attrs) {
 	if(!node.heirarchical_id){
     if(!attrs[node.item_id]){
       return
     }
-		node.heirarchical_id = attrs[node.item_id].heirarchical_id;
-		// node.heirarchical_id = attrs[node.item_id].heirarchical_id.substr(0, 4);
-	}
-	var i = node.heirarchical_id.lastIndexOf("."), 
-		p = i < 0 ? root : tm_memoize({"heirarchical_id": node.heirarchical_id.substring(0, i), children: []}, root, attrs), 
-		n = p.children.length; 
-	for (i = -1; ++i < n;) { 
-		if (p.children[i].heirarchical_id === node.heirarchical_id) { 
-			return p.children[i]; 
-		} 
-	} 
-	p.children.push(node); 
-	return node; 
+    node.heirarchical_id = attrs[node.item_id].heirarchical_id;
+  }
+  var i = node.heirarchical_id.lastIndexOf("."), 
+      p = i < 0 ? root : tm_memoize({"heirarchical_id": node.heirarchical_id.substring(0, i), children: []}, root, attrs),
+      n = p.children.length; 
+  for (i = -1; ++i < n;) { 
+    if (p.children[i].heirarchical_id === node.heirarchical_id) { 
+      return p.children[i]; 
+    } 
+  } 
+  p.children.push(node); 
+  return node; 
 }
 TreeMap.prototype.format_text = function(element, d){
 	// remove incumbent

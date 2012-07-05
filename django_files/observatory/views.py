@@ -441,226 +441,306 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "api_uri": api_uri,
     "item_type": item_type}, context_instance=RequestContext(request))
 
+'''<COUNTRY> / all / show / <YEAR>'''
 def api_casy(request, trade_flow, country1, year):
-	crawler = request.GET.get("_escaped_fragment_", False)
-	
-	lang = request.session['django_language'] if 'django_language' in request.session else "en"
-	lang = request.GET.get("lang", lang)
-	
-	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
-	prod_class = request.GET.get("prod_class", prod_class)
-	
-	query_params = request.GET.copy()
-	query_params["lang"] = lang
-	query_params["product_classification"] = prod_class
-	
-	country1 = Country.objects.get(name_3char=country1)
-	
-	if crawler == "":
-		db_response = Sitc4_cpy.objects.casy(country1, trade_flow, year, lang)
-		data = [list(x) + [(x[3] / db_response["sum"][x[0]])*100] for x in list(db_response["data"])]
-		return [data, db_response["sum"], db_response["columns"]]
-	
-	json_response = {}
-	
-	# casy means country1 / all / show / year
-	if prod_class == "sitc4":
-		json_response["data"] = Sitc4_cpy.objects.casy(country1, trade_flow)
-		json_response["attr_data"] = Sitc4.objects.get_all(lang)
-	elif prod_class == "hs4":
-		json_response["data"] = Hs4_cpy.objects.casy(country1, trade_flow)
-		json_response["attr_data"] = Hs4.objects.get_all(lang)
-	
-	json_response["country1"] = country1.to_json()
-	json_response["title"] = "What does %s %s?" % (country1.name, trade_flow.replace("_", " "))
-	json_response["year"] = year
-	json_response["other"] = query_params
-	if "." in year:
-		year_parts = [int(x) for x in year.split(".")]
-		json_response["year_start"] = year_parts[0]
-		json_response["year_end"] = year_parts[1]
-		json_response["year_interval"] = year_parts[2]
-
-	return HttpResponse(json.dumps(json_response))
-
-def api_sapy(request, trade_flow, product, year):
-  crawler = request.GET.get("_escaped_fragment_", False)
-
-  lang = request.session['django_language'] if 'django_language' in request.session else "en"
-  lang = request.GET.get("lang", lang)
-
+  '''Init variables'''
   prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
   prod_class = request.GET.get("prod_class", prod_class)
-
+  lang = request.session['django_language'] if 'django_language' in request.session else "en"
+  lang = request.GET.get("lang", lang)
+  crawler = request.GET.get("_escaped_fragment_", False)
+  country1 = Country.objects.get(name_3char=country1)
+  
+  '''Set query params with our changes'''
   query_params = request.GET.copy()
   query_params["lang"] = lang
   query_params["product_classification"] = prod_class
-
-  # product = Sitc4.objects.get(code=product) if prod_class == "sitc4" else Hs4.objects.get(code=product)
-  product = clean_product(product, prod_class)
-
+  
+  '''Define parameters for query'''
+  year_where = "AND year = %s" % (year,) if crawler == "" else " "
+  rca_col = "null"
+  if trade_flow == "net_export":
+    val_col = "export_value - import_value as val"
+    rca_col = "rca"
+  elif trade_flow == "net_import":
+    val_col = "import_value - export_value as val"
+  elif trade_flow == "export":
+    val_col = "export_value as val"
+    rca_col = "rca"
+  else:
+    val_col = "import_value as val"
+  
+  '''Create query [year, id, abbrv, name_lang, val, rca]'''
+  q = """
+    SELECT year, p.id, p.code, p.name_%s, %s, %s 
+    FROM observatory_%s_cpy as cpy, observatory_%s as p 
+    WHERE country_id=%s and cpy.product_id = p.id %s
+    HAVING val > 0
+    ORDER BY val DESC
+    """ % (lang, val_col, rca_col, prod_class, prod_class, country1.id, year_where)
+  # raise Exception(q)
+  rows = raw_q(query=q, params=None)
+  
+  total_val = sum([r[4] for r in rows])
+  
+  '''Add percentage value to return vals'''
+  # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
+  rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+  
   if crawler == "":
-    if product.__class__ == Sitc4:
-      db_response = Sitc4_cpy.objects.sapy(product, trade_flow, year, lang)
-    else:
-      db_response = Hs4_cpy.objects.sapy(product, trade_flow, year, lang)
-    data = [list(x) + [(x[3] / db_response["sum"][x[0]])*100] for x in list(db_response["data"])]
-    return [data, db_response["sum"], db_response["columns"]]
-
+    return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+  
+  '''Prepare JSON response'''
   json_response = {}
-
-  # casy means country1 / all / show / year
-  if product.__class__ == Sitc4:
-    json_response["data"] = Sitc4_cpy.objects.sapy(product, trade_flow)
-    json_response["attr_data"] = Country.objects.get_all(lang)
-  elif product.__class__ == Hs4:
-    json_response["data"] = Hs4_cpy.objects.sapy(product, trade_flow)
-    json_response["attr_data"] = Country.objects.get_all(lang)
-  json_response["title"] = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
-  json_response["product"] = product.to_json()
+  json_response["data"] = rows
+  json_response["attr_data"] = Sitc4.objects.get_all(lang) if prod_class == "sitc4" else Hs4.objects.get_all(lang)
+  json_response["country1"] = country1.to_json()
+  json_response["title"] = "What does %s %s?" % (country1.name, trade_flow.replace("_", " "))
   json_response["year"] = year
   json_response["other"] = query_params
-  if "." in year:
-    year_parts = [int(x) for x in year.split(".")]
-    json_response["year_start"] = year_parts[0]
-    json_response["year_end"] = year_parts[1]
-    json_response["year_interval"] = year_parts[2]
 
+  '''Return to browser as JSON for AJAX request'''
+  return HttpResponse(json.dumps(json_response))
+
+def api_sapy(request, trade_flow, product, year):
+  '''Init variables'''
+  prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
+  prod_class = request.GET.get("prod_class", prod_class)
+  lang = request.session['django_language'] if 'django_language' in request.session else "en"
+  lang = request.GET.get("lang", lang)
+  crawler = request.GET.get("_escaped_fragment_", False)
+  product = clean_product(product, prod_class)
+  
+  '''Set query params with our changes'''
+  query_params = request.GET.copy()
+  query_params["lang"] = lang
+  query_params["product_classification"] = prod_class
+  
+  '''Define parameters for query'''
+  year_where = "AND year = %s" % (year,) if crawler == "" else " "
+  rca_col = "null"
+  if trade_flow == "net_export":
+    val_col = "export_value - import_value as val"
+    rca_col = "rca"
+  elif trade_flow == "net_import":
+    val_col = "import_value - export_value as val"
+  elif trade_flow == "export":
+    val_col = "export_value as val"
+    rca_col = "rca"
+  else:
+    val_col = "import_value as val"
+  
+  '''Create query [year, id, abbrv, name_lang, val, rca]'''
+  q = """
+    SELECT year, c.id, c.name_3char, c.name_%s, %s, %s 
+    FROM observatory_%s_cpy as cpy, observatory_country as c 
+    WHERE product_id=%s and cpy.country_id = c.id %s
+    HAVING val > 0
+    ORDER BY val DESC
+    """ % (lang, val_col, rca_col, prod_class, product.id, year_where)
+  # raise Exception(q)
+  rows = raw_q(query=q, params=None)
+  
+  total_val = sum([r[4] for r in rows])
+  
+  '''Add percentage value to return vals'''
+  # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
+  rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+  
   if crawler == "":
-    return Sitc4_cpy.objects.sapy(product, trade_flow, year)
+    return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+  
+  '''Prepare JSON response'''
+  json_response = {}
+  json_response["data"] = rows
+  json_response["attr_data"] = Country.objects.get_all(lang)
+  json_response["product"] = product.to_json()
+  json_response["title"] = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
+  json_response["year"] = year
+  json_response["other"] = query_params
+
+  '''Return to browser as JSON for AJAX request'''
   return HttpResponse(json.dumps(json_response))
 
 def api_csay(request, trade_flow, country1, year):
-	crawler = request.GET.get("_escaped_fragment_", False)
-	
-	lang = request.session['django_language'] if 'django_language' in request.session else "en"
-	lang = request.GET.get("lang", lang)
-	
-	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
-	prod_class = request.GET.get("prod_class", prod_class)
-	
-	query_params = request.GET.copy()
-	query_params["lang"] = lang
-	query_params["product_classification"] = prod_class
-	
-	country1 = Country.objects.get(name_3char=country1)
-	
-	article = "to" if trade_flow == "export" else "from"
-	
-	if crawler == "":
-		db_response = Sitc4_ccpy.objects.csay(country1, trade_flow, year, lang)
-		data = [list(x) + [(x[3] / db_response["sum"][x[0]])*100] for x in list(db_response["data"])]
-		return [data, db_response["sum"], db_response["columns"]]
-	
-	json_response = {}
-	
-	# csay means country1 / show / all / year
-	if prod_class == "sitc4":
-		json_response["data"] = Sitc4_ccpy.objects.csay(country1, trade_flow)
-	elif prod_class == "hs4":
-		json_response["data"] = Hs4_ccpy.objects.csay(country1, trade_flow)
-	json_response["attr_data"] = Country.objects.get_all(lang)
-	json_response["title"] = "Where does %s %s %s?" % (country1.name, trade_flow, article)
-	json_response["country1"] = country1.to_json()
-	json_response["year"] = year
-	json_response["other"] = query_params
-	if "." in year:
-		year_parts = [int(x) for x in year.split(".")]
-		json_response["year_start"] = year_parts[0]
-		json_response["year_end"] = year_parts[1]
-		json_response["year_interval"] = year_parts[2]
-	
-	return HttpResponse(json.dumps(json_response))
+  '''Init variables'''
+  prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
+  prod_class = request.GET.get("prod_class", prod_class)
+  lang = request.session['django_language'] if 'django_language' in request.session else "en"
+  lang = request.GET.get("lang", lang)
+  crawler = request.GET.get("_escaped_fragment_", False)
+  country1 = Country.objects.get(name_3char=country1)
+  
+  '''Set query params with our changes'''
+  query_params = request.GET.copy()
+  query_params["lang"] = lang
+  query_params["product_classification"] = prod_class
+  
+  '''Define parameters for query'''
+  year_where = "AND year = %s" % (year,) if crawler == "" else " "
+  rca_col = "null"
+  if trade_flow == "net_export":
+    val_col = "SUM(export_value - import_value) as val"
+  elif trade_flow == "net_import":
+    val_col = "SUM(import_value - export_value) as val"
+  elif trade_flow == "export":
+    val_col = "SUM(export_value) as val"
+  else:
+    val_col = "SUM(import_value) as val"
+  
+  '''Create query [year, id, abbrv, name_lang, val, rca]'''
+  q = """
+    SELECT year, c.id, c.name_3char, c.name_%s, %s, %s 
+    FROM observatory_%s_ccpy as ccpy, observatory_country as c 
+    WHERE origin_id=%s and ccpy.destination_id = c.id %s
+    GROUP BY year, destination_id
+    HAVING val > 0
+    ORDER BY val DESC
+    """ % (lang, val_col, rca_col, prod_class, country1.id, year_where)
+  # raise Exception(q)
+  rows = raw_q(query=q, params=None)
+  
+  article = "to" if trade_flow == "export" else "from"
+  
+  total_val = sum([r[4] for r in rows])
+  '''Add percentage value to return vals'''
+  rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+  
+  if crawler == "":
+    return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+  
+  '''Prepare JSON response'''
+  json_response = {}
+  json_response["data"] = rows
+  json_response["attr_data"] = Country.objects.get_all(lang)
+  json_response["country1"] = country1.to_json()
+  json_response["title"] = "Where does %s %s %s?" % (country1.name, trade_flow, article)
+  json_response["year"] = year
+  json_response["other"] = query_params
+
+  '''Return to browser as JSON for AJAX request'''
+  return HttpResponse(json.dumps(json_response))
 
 def api_ccsy(request, trade_flow, country1, country2, year):
-	crawler = request.GET.get("_escaped_fragment_", False)
-	
-	lang = request.session['django_language'] if 'django_language' in request.session else "en"
-	lang = request.GET.get("lang", lang)
-	
-	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
-	prod_class = request.GET.get("prod_class", prod_class)
-	
-	query_params = request.GET.copy()
-	query_params["lang"] = lang
-	query_params["product_classification"] = prod_class
-	
-	country1 = Country.objects.get(name_3char=country1)
-	country2 = Country.objects.get(name_3char=country2)
-	
-	article = "to" if trade_flow == "export" else "from"
-	
-	if crawler == "":
-		db_response = Sitc4_ccpy.objects.ccsy(country1, country2, trade_flow, year, lang)
-		data = [list(x) + [(x[3] / db_response["sum"][x[0]])*100] for x in list(db_response["data"])]
-		return [data, db_response["sum"], db_response["columns"]]
-	
-	json_response = {}
-	
-	# ccsy means country1 / countr2 / show / year
-	if prod_class == "sitc4":
-		json_response["data"] = Sitc4_ccpy.objects.ccsy(country1, country2, trade_flow)
-		json_response["attr_data"] = Sitc4.objects.get_all(lang)
-	elif prod_class == "hs4":
-		json_response["data"] = Hs4_ccpy.objects.ccsy(country1, country2, trade_flow)
-		json_response["attr_data"] = Hs4.objects.get_all(lang)
-	json_response["title"] = "What does %s %s %s %s?" % (country1.name, trade_flow, article, country2.name)
-	json_response["country1"] = country1.to_json()
-	json_response["country2"] = country2.to_json()
-	json_response["year"] = year
-	json_response["other"] = query_params
-	if "." in year:
-		year_parts = [int(x) for x in year.split(".")]
-		json_response["year_start"] = year_parts[0]
-		json_response["year_end"] = year_parts[1]
-		json_response["year_interval"] = year_parts[2]
-		
-	return HttpResponse(json.dumps(json_response))
+  '''Init variables'''
+  prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
+  prod_class = request.GET.get("prod_class", prod_class)
+  lang = request.session['django_language'] if 'django_language' in request.session else "en"
+  lang = request.GET.get("lang", lang)
+  crawler = request.GET.get("_escaped_fragment_", False)
+  country1 = Country.objects.get(name_3char=country1)
+  country2 = Country.objects.get(name_3char=country2)
+  article = "to" if trade_flow == "export" else "from"
+  
+  '''Set query params with our changes'''
+  query_params = request.GET.copy()
+  query_params["lang"] = lang
+  query_params["product_classification"] = prod_class
+  
+  '''Define parameters for query'''
+  year_where = "AND year = %s" % (year,) if crawler == "" else " "
+  rca_col = "null"
+  if trade_flow == "net_export":
+    val_col = "(export_value - import_value) as val"
+  elif trade_flow == "net_import":
+    val_col = "(import_value - export_value) as val"
+  elif trade_flow == "export":
+    val_col = "export_value as val"
+  else:
+    val_col = "import_value as val"
+    
+  '''Create query'''
+  q = """
+    SELECT year, p.id, p.code, p.name_%s, %s, %s 
+    FROM observatory_%s_ccpy as ccpy, observatory_%s as p 
+    WHERE origin_id=%s and destination_id=%s and ccpy.product_id = p.id %s
+    HAVING val > 0
+    ORDER BY val DESC
+    """ % (lang, val_col, rca_col, prod_class, prod_class, country1.id, country2.id, year_where)
+  # raise Exception(q)
+  rows = raw_q(query=q, params=None)
+  
+  total_val = sum([r[4] for r in rows])
+  '''Add percentage value to return vals'''
+  rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+  
+  if crawler == "":
+    return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
+
+  '''Prepare JSON response'''
+  json_response = {}
+  json_response["data"] = rows
+  json_response["attr_data"] = Sitc4.objects.get_all(lang) if prod_class == "sitc4" else Hs4.objects.get_all(lang)
+  json_response["country1"] = country1.to_json()
+  json_response["country2"] = country2.to_json()
+  json_response["title"] = "What does %s %s %s %s?" % (country1.name, trade_flow, article, country2.name)
+  json_response["year"] = year
+  json_response["other"] = query_params
+
+  '''Return to browser as JSON for AJAX request'''
+  return HttpResponse(json.dumps(json_response))
 
 def api_cspy(request, trade_flow, country1, product, year):
-	crawler = request.GET.get("_escaped_fragment_", False)
-	
-	lang = request.session['django_language'] if 'django_language' in request.session else "en"
-	lang = request.GET.get("lang", lang)
-	
-	prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
-	prod_class = request.GET.get("prod_class", prod_class)
-	
-	query_params = request.GET.copy()
-	query_params["lang"] = lang
-	query_params["product_classification"] = prod_class
-	
-	country1 = Country.objects.get(name_3char=country1)
-	product = Sitc4.objects.get(code=product) if prod_class == "sitc4" else Hs4.objects.get(code=product)
-	
-	article = "to" if trade_flow == "export" else "from"
-	
-	if crawler == "":
-		db_response = Sitc4_ccpy.objects.cspy(country1, product, trade_flow, year, lang)
-		data = [list(x) + [(x[3] / db_response["sum"][x[0]])*100] for x in list(db_response["data"])]
-		return [data, db_response["sum"], db_response["columns"]]
-	
-	json_response = {}
-		
-	# cspy means country1 / countr2 / show / year
-	if prod_class == "sitc4":
-		json_response["data"] = Sitc4_ccpy.objects.cspy(country1, product, trade_flow)
-	elif prod_class == "hs4":
-		json_response["data"] = Hs4_ccpy.objects.cspy(country1, product, trade_flow)
-	json_response["attr_data"] = Country.objects.get_all(lang)
-	json_response["title"] = "Where does %s %s %s %s?" % (country1.name, trade_flow, product.name_en, article)
-	json_response["country1"] = country1.to_json()
-	json_response["product"] = product.to_json()
-	json_response["year"] = year
-	json_response["other"] = query_params
-	if "." in year:
-		year_parts = [int(x) for x in year.split(".")]
-		json_response["year_start"] = year_parts[0]
-		json_response["year_end"] = year_parts[1]
-		json_response["year_interval"] = year_parts[2]
+  '''Init variables'''
+  prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
+  prod_class = request.GET.get("prod_class", prod_class)
+  lang = request.session['django_language'] if 'django_language' in request.session else "en"
+  lang = request.GET.get("lang", lang)
+  crawler = request.GET.get("_escaped_fragment_", False)
+  country1 = Country.objects.get(name_3char=country1)
+  product = clean_product(product, prod_class)
+  article = "to" if trade_flow == "export" else "from"
+  
+  '''Set query params with our changes'''
+  query_params = request.GET.copy()
+  query_params["lang"] = lang
+  query_params["product_classification"] = prod_class
+  
+  '''Define parameters for query'''
+  year_where = "AND year = %s" % (year,) if crawler == "" else " "
+  rca_col = "null"
+  if trade_flow == "net_export":
+    val_col = "(export_value - import_value) as val"
+  elif trade_flow == "net_import":
+    val_col = "(import_value - export_value) as val"
+  elif trade_flow == "export":
+    val_col = "export_value as val"
+  else:
+    val_col = "import_value as val"
+  
+  '''Create query'''
+  q = """
+    SELECT year, c.id, c.name_3char, c.name_%s, %s, %s 
+    FROM observatory_%s_ccpy as ccpy, observatory_country as c 
+    WHERE origin_id=%s and ccpy.product_id=%s and ccpy.destination_id = c.id %s
+    GROUP BY year, destination_id
+    HAVING val > 0
+    ORDER BY val DESC
+    """ % (lang, val_col, rca_col, prod_class, country1.id, product.id, year_where)
+  # raise Exception(q)
+  rows = raw_q(query=q, params=None)
+  
+  article = "to" if trade_flow == "export" else "from"
+  
+  total_val = sum([r[4] for r in rows])
+  '''Add percentage value to return vals'''
+  rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+  
+  if crawler == "":
+    return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+  
+  '''Prepare JSON response'''
+  json_response = {}
+  json_response["data"] = rows
+  json_response["attr_data"] = Country.objects.get_all(lang)
+  json_response["title"] = "Where does %s %s %s %s?" % (country1.name, trade_flow, product.name_en, article)
+  json_response["country1"] = country1.to_json()
+  json_response["product"] = product.to_json()
+  json_response["year"] = year
+  json_response["other"] = query_params
 
-	return HttpResponse(json.dumps(json_response))
-
+  '''Return to browser as JSON for AJAX request'''
+  return HttpResponse(json.dumps(json_response))
 
 # Embed for iframe
 def embed(request, app_name, trade_flow, country1, country2, product, year):

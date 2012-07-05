@@ -1,51 +1,55 @@
 function Stacked(args){
-	
-	this.attr_data = args.attr_data;
-	this.raw_data = args.raw_data;
-	this.selector = args.selector || window;
-	this.width = args.width || $(selector).width();
-	this.height = args.height || $(selector).height();
-	this.padding = [10, 45, 30, 0];
-	
-	var year_parts = args.year.split(".").map(function(y){ return parseInt(y); });
-	this.years = d3.range(year_parts[0], year_parts[1]+1, year_parts[2]);
-	
-	this.mouseover = args.other ? args.other.mouseover || "true" : "true";
-	this.sort = args.other ? args.other.sort || "category" : "category";
-	this.labels = args.other ? args.other.labels || "true" : "true";
-	this.layout = args.other ? args.other.layout || "value" : "value";
-	
-	var stacked_width = this.width - this.padding[1] - this.padding[3];
-	var stacked_height = this.height - this.padding[0] - this.padding[2];
-	
-	// Nest raw data
-	this.raw_data = d3.nest()
-		.key(function(d) { return d["item_id"]; })
-		.key(function(d) { return d["year"]; })
-		.rollup(function(d){
-			return d[0]
-		})
-		.map(this.raw_data);
-	
-	this.std = st_data(this.raw_data, this.attr_data, this.years, this.sort);
-	
-	this.stack = d3.layout.stack()
-		.values(function(d) { return d["years"]; })
-	this.layout == "value" ? this.stack.offset("zero") : this.stack.offset("expand");
-	this.data = this.stack(this.std);
+  var _this = this;
+  this.attr_data = args.attr_data;
+  this.raw_data = args.raw_data;
+  this.selector = args.selector || window;
+  this.width = args.width || $(selector).width();
+  this.height = args.height || $(selector).height();
+  this.padding = [10, 45, 30, 0];
 
-	this.color = d3.interpolateRgb("#daa", "#955");
-	this.max_x = this.years.length - 1;
-	this.max_y = d3.max(this.data, function(d) {
-		return d3.max(d["years"], function(d) {
-			return d.y0 + d.y;
-		});
-	});
+  var year_parts = args.year.split(".").map(function(y){ return parseInt(y); });
+  this.years = d3.range(year_parts[0], year_parts[1]+1, year_parts[2]);
 
-	this.area = d3.svg.area()
-		.x(function(d) { return d.x * stacked_width / this.max_x; })
-		.y0(function(d) { return stacked_height - d.y0 * stacked_height / this.max_y; })
-		.y1(function(d) { return stacked_height - (d.y + d.y0) * stacked_height / this.max_y; });
+  this.mouseover = args.other ? args.other.mouseover || "true" : "true";
+  this.sort = args.other ? args.other.sort || "category" : "category";
+  this.labels = args.other ? args.other.labels || "true" : "true";
+  this.layout = args.other ? args.other.layout || "value" : "value";
+
+  var stacked_width = this.width - this.padding[1] - this.padding[3];
+  var stacked_height = this.height - this.padding[0] - this.padding[2];
+  
+  // this.raw_data = this.raw_data.filter(function(x){return x.year == 1999});
+  this.raw_data = this.raw_data.filter(function(x){ return _this.attr_data[x.item_id] });
+  // console.log(this.raw_data)
+  // return;
+  // Nest raw data
+  this.raw_data = d3.nest()
+    .key(function(d) { return d["item_id"]; })
+    .key(function(d) { return d["year"]; })
+    .rollup(function(d){
+      return d[0]
+    })
+    .map(this.raw_data);
+
+  this.std = st_data(this.raw_data, this.attr_data, this.years, this.sort);
+
+  this.stack = d3.layout.stack()
+    .values(function(d) { return d["years"]; })
+  this.layout == "value" ? this.stack.offset("zero") : this.stack.offset("expand");
+  this.data = this.stack(this.std);
+
+  this.color = d3.interpolateRgb("#daa", "#955");
+  this.max_x = this.years.length - 1;
+  this.max_y = d3.max(this.data, function(d) {
+    return d3.max(d["years"], function(d) {
+      return d.y0 + d.y;
+    });
+  });
+
+  this.area = d3.svg.area()
+    .x(function(d) { return d.x * stacked_width / this.max_x; })
+    .y0(function(d) { return stacked_height - d.y0 * stacked_height / this.max_y; })
+    .y1(function(d) { return stacked_height - (d.y + d.y0) * stacked_height / this.max_y; });
 
 }
 

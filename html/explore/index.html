@@ -3,35 +3,35 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>The Observatory | {{title}} ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %})</title>
-	<meta name="description" content="Networks in Macro Economics">
-	<meta name="author" content="Alexander Simoes">
-	<!-- Necessary for google to crawl the site, since it is purely ajax based.
-	     When the crawler reaches the page it will request the current URL plus
-	     the additional URL query parameter _escaped_fragment_= -->
-	<meta name="fragment" content="!">
-	
-	<link rel="shortcut icon" type="image/x-icon" href="/media/img/favicon.ico">
-	
-	<!-- Load non-standard fonts -->
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
-	<link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
-	
-	<link rel="stylesheet" href="/media/css/normalize.css">
-	<link rel="stylesheet" href="/media/css/style.css">
-	<link rel="stylesheet" href="/media/js/libs/chosen/chosen.css" />
-	<link rel="stylesheet" href="/media/js/libs/tipsy/tipsy.css" />
-	<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" type="text/css" media="all" /> -->
-	<link rel="stylesheet" href="/media/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
-	
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	<style>
+  <title>The Observatory | {{title}} ({% if year_start %}{{year_start}} - {{year_end}}{% else %}{{year}}{% endif %})</title>
+  <meta name="description" content="Networks in Macro Economics">
+  <meta name="author" content="Alexander Simoes">
+  <!-- Necessary for google to crawl the site, since it is purely ajax based.
+        When the crawler reaches the page it will request the current URL plus
+        the additional URL query parameter _escaped_fragment_= -->
+  <meta name="fragment" content="!">
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/media/img/favicon.ico">
+  
+  <!-- Load non-standard fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
+  <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
+  
+  <link rel="stylesheet" href="/media/css/normalize.css">
+  <link rel="stylesheet" href="/media/css/style.css">
+  <link rel="stylesheet" href="/media/js/libs/chosen/chosen.css" />
+  <link rel="stylesheet" href="/media/js/libs/tipsy/tipsy.css" />
+  <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" type="text/css" media="all" /> -->
+  <link rel="stylesheet" href="/media/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
+  
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style>
   #related {
     border-bottom: none;
     position: fixed;
@@ -304,299 +304,304 @@
 				</div>
 			</div> <!-- END app selection pane -->
 		
-			<!-- the dataviz -->
-			<div id="content">
-				
-				<!-- the canvas for the visualization -->
-				{% if data_as_text %}
-				<div id="text_data">
-					<table>
-						<tr>
-							{% for c in data_as_text.columns %}
-							<th>{{c}}</th>
-							{% endfor %}
-						</tr>
-						{% for d in data_as_text.data %}
-						<tr class="{% cycle 'even' 'odd' %}">
-<td>{{forloop.counter}}</td><td>{{d.0}}</td><td>{{d.1}}</td><td>{{d.2}}</td><td>${{d.3|floatformat|intcomma}}</td><td>{{d.4|floatformat:-2}}%</td>
-						</tr>
-						{% endfor %}
-					</table>
-				</div>
-				{% else %}
+      <!-- the Visualization -->
+      <div id="content">
+        
+        <!-- the canvas for the visualization -->
+        {% if data_as_text %}
+        <div id="text_data">
+          <table>
+            <tr>
+              {% for c in data_as_text.columns %}
+              <th>{{c}}</th>
+              {% endfor %}
+            </tr>
+            {% for d in data_as_text.data %}
+            <tr class="{% cycle 'even' 'odd' %}">
+              <td>{{forloop.counter}}</td>
+              <td>{{d.year}}</td>
+              <td>{{d.abbrv}}</td>
+              <td>{{d.name}}</td>
+              <td>${{d.val|floatformat:2|intcomma}}</td>
+              <td>{{d.rca|floatformat:-2}}</td>
+              <td>{{d.share|floatformat:-2}}%</td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+        {% else %}
 
-  			<!-- ajax loading gif -->
-  			<div id="loader">
-  				<img src="/media/img/all/loader.gif" alt="loading" />
-  				<br />Loading...
-  			</div>
-				<div id="dataviz"></div>
-				{% endif %}
-				
-				<!-- the key for hovering over communities -->
-				<div class="key" id="sitc4_communities">
-					<a href="#" class="cat_10" title="Machinery"><img src="/media/img/icons/community_10.png"></a>
-					<a href="#" class="cat_11" title="Electronics"><img src="/media/img/icons/community_11.png"></a>
-					<a href="#" class="cat_12" title="Aircraft"><img src="/media/img/icons/community_12.png"></a>
-					<a href="#" class="cat_13" title="Boilers"><img src="/media/img/icons/community_13.png"></a>
-					<a href="#" class="cat_14" title="Ships"><img src="/media/img/icons/community_14.png"></a>
-					<a href="#" class="cat_15" title="Metal Products"><img src="/media/img/icons/community_15.png"></a>
-					<a href="#" class="cat_20" title="Construction Materials and Equipment"><img src="/media/img/icons/community_20.png"></a>
-					<a href="#" class="cat_21" title="Home and Office Products"><img src="/media/img/icons/community_21.png"></a>
-					<a href="#" class="cat_22" title="Pulp and Paper"><img src="/media/img/icons/community_22.png"></a>
-					<a href="#" class="cat_30" title="Beer, Spirits and Cigarettes"><img src="/media/img/icons/community_30.png"></a>
-					<a href="#" class="cat_31" title="Food Processing"><img src="/media/img/icons/community_31.png"></a>
-					<a href="#" class="cat_40" title="Petrochemicals"><img src="/media/img/icons/community_40.png"></a>
-					<a href="#" class="cat_41" title="Inorganic Salts and Acids"><img src="/media/img/icons/community_41.png"></a>
-					<a href="#" class="cat_42" title="Other Chemicals"><img src="/media/img/icons/community_42.png"></a>
-					<a href="#" class="cat_43" title="Agrochemicals"><img src="/media/img/icons/community_43.png"></a>
-					<a href="#" class="cat_44" title="Chemicals and Health Related Products"><img src="/media/img/icons/community_44.png"></a>
-					<a href="#" class="cat_50" title="Coal"><img src="/media/img/icons/community_50.png"></a>
-					<a href="#" class="cat_51" title="Mining"><img src="/media/img/icons/community_51.png"></a>
-					<a href="#" class="cat_52" title="Oil"><img src="/media/img/icons/community_52.png"></a>
-					<a href="#" class="cat_54" title="Precious Stones"><img src="/media/img/icons/community_54.png"></a>
-					<a href="#" class="cat_60" title="Textile and Fabrics"><img src="/media/img/icons/community_60.png"></a>
-					<a href="#" class="cat_61" title="Garments"><img src="/media/img/icons/community_61.png"></a>
-					<a href="#" class="cat_70" title="Cereals and Vegetable Oils"><img src="/media/img/icons/community_70.png"></a>
-					<a href="#" class="cat_71" title="Cotton, Rice, Soy Beans and Others"><img src="/media/img/icons/community_71.png"></a>
-					<a href="#" class="cat_72" title="Tropical Treecrops and Flowers"><img src="/media/img/icons/community_72.png"></a>
-					<a href="#" class="cat_73" title="Tobacco"><img src="/media/img/icons/community_73.png"></a>
-					<a href="#" class="cat_74" title="Fruit"><img src="/media/img/icons/community_74.png"></a>
-					<a href="#" class="cat_75" title="Misc Agriculture"><img src="/media/img/icons/community_75.png"></a>
-					<a href="#" class="cat_80" title="Fish and Seafood"><img src="/media/img/icons/community_80.png"></a>
-					<a href="#" class="cat_81" title="Meat and Eggs"><img src="/media/img/icons/community_81.png"></a>
-					<a href="#" class="cat_82" title="Animal Fibers"><img src="/media/img/icons/community_82.png"></a>
-					<a href="#" class="cat_83" title="Milk and Cheese"><img src="/media/img/icons/community_83.png"></a>
-					<a href="#" class="cat_84" title="Leather"><img src="/media/img/icons/community_84.png"></a>
-					<a href="#" class="cat_90" title="Not Classified"><img src="/media/img/icons/community_90.png"></a>
-				</div>
-				<div class="key" id="hs4_communities">
-					<a href="#" class="cat_106" title="Animals &amp; Animal Products"><img src="/media/img/icons/community_106.png"></a>
-					<a href="#" class="cat_116" title="Vegetable Products"><img src="/media/img/icons/community_116.png"></a>
-					<a href="#" class="cat_126" title="Foodstuffs"><img src="/media/img/icons/community_126.png"></a>
-					<a href="#" class="cat_206" title="Mineral Products"><img src="/media/img/icons/community_206.png"></a>
-					<a href="#" class="cat_306" title="Chemicals &amp; Allied Industries"><img src="/media/img/icons/community_306.png"></a>
-					<a href="#" class="cat_316" title="Plastics / Rubbers"><img src="/media/img/icons/community_316.png"></a>
-					<a href="#" class="cat_406" title="Raw Hides, Skins, Leather, &amp; Furs"><img src="/media/img/icons/community_406.png"></a>
-					<a href="#" class="cat_416" title="Textiles"><img src="/media/img/icons/community_416.png"></a>
-					<a href="#" class="cat_426" title="Footwear / Headgear"><img src="/media/img/icons/community_426.png"></a>
-					<a href="#" class="cat_506" title="Wood &amp; Wood Products"><img src="/media/img/icons/community_506.png"></a>
-					<a href="#" class="cat_606" title="Stone / Glass"><img src="/media/img/icons/community_606.png"></a>
-					<a href="#" class="cat_616" title="Metals"><img src="/media/img/icons/community_616.png"></a>
-					<a href="#" class="cat_706" title="Machinery / Electrical"><img src="/media/img/icons/community_706.png"></a>
-					<a href="#" class="cat_716" title="Transportation"><img src="/media/img/icons/community_716.png"></a>
-					<a href="#" class="cat_906" title="Miscellaneous"><img src="/media/img/icons/community_906.png"></a>
-					<a href="#" class="cat_916" title="Services"><img src="/media/img/icons/community_916.png"></a>
-				</div>
-				<div class="key" id="regions">
-					<!-- Africa -->
-					<a href="#" class="cat_10" title="Eastern Africa" style="background:#CC6DB1">E Africa</a>
-					<a href="#" class="cat_11" title="Middle Africa" style="background:#BA4398">M Africa</a>
-					<a href="#" class="cat_12" title="North Africa" style="background:#99237D">N Africa</a>
-					<a href="#" class="cat_13" title="Southern Africa" style="background:#771564">S Africa</a>
-					<a href="#" class="cat_14" title="Western Africa" style="background:#560D48">W Africa</a>
-					<!-- Americas -->
-					<a href="#" class="cat_20" title="Northern America" style="background:#c7242b">N America</a>
-					<a href="#" class="cat_21" title="Caribbean" style="background:#af1f2b">Caribbean</a>
-					<a href="#" class="cat_22" title="Central America" style="background:#97192a">C America</a>
-					<a href="#" class="cat_23" title="South America" style="background:#7f142a">S America</a>
-					<!-- Asia -->
-					<a href="#" class="cat_30" title="Western Asia" style="background:#6bc191">W Asia</a>
-					<a href="#" class="cat_31" title="Central Africa" style="background:#5ca57c">C Asia</a>
-					<a href="#" class="cat_32" title="Southern Africa" style="background:#4c8966">S Asia</a>
-					<a href="#" class="cat_33" title="South-Eastern Africa" style="background:#3d6d51">SE Asia</a>
-					<a href="#" class="cat_34" title="Eastern Africa" style="background:#2d513b">E Asia</a>
-					<!-- Asia -->
-					<a href="#" class="cat_40" title="Western Europe" style="background:#88C7ED">W Europe</a>
-					<a href="#" class="cat_41" title="Southern Europe" style="background:#2A87D3">S Europe</a>
-					<a href="#" class="cat_42" title="Northern Europe" style="background:#1471A5">N Europe</a>
-					<a href="#" class="cat_43" title="Eastern Europe" style="background:#165E8E">E Europe</a>
-					<!-- Oceania -->
-					<a href="#" class="cat_50" title="Australia and New Zealand" style="background:#DD9F62">Australia and New Zealand</a>
-					<a href="#" class="cat_51" title="Melanesia" style="background:#E57D28">Melanesia</a>
-					<a href="#" class="cat_52" title="Micronesia" style="background:#D86612">Micronesia</a>
-					<a href="#" class="cat_53" title="Polynesia" style="background:#B5763C">Polynesia</a>
-				</div>
-				
-				<!-- the timeline -->
-				<div id="timeline">
-					<div class="slider"></div>
-					{% if app_name != "stacked" %}
-					<a class="prev" href="/explore/{{app_name}}/{{trade_flow}}/{% if country1.name_3char %}{{country1.name_3char|lower}}{% else %}{{country1}}{% endif %}/{% if country2.name_3char %}{{country2.name_3char|lower}}{% else %}{{country2}}{% endif %}/{% if product.code %}{{product.code}}{% else %}{{product}}{% endif %}/{% if year > years_available.0 %}{{year|add:-1}}{% else %}{{years_available.last}}{% endif %}/">&laquo; {% trans "Previous" %}</a>
-  					<button id="play">{% trans "Play" %}</button>
-  					<button id="stop">{% trans "Stop" %}</button>
-					<a class="next" href="/explore/{{app_name}}/{{trade_flow}}/{% if country1.name_3char %}{{country1.name_3char|lower}}{% else %}{{country1}}{% endif %}/{% if country2.name_3char %}{{country2.name_3char|lower}}{% else %}{{country2}}{% endif %}/{% if product.code %}{{product.code}}{% else %}{{product}}{% endif %}/{% if year < years_available.last %}{{year|add:1}}{% else %}{{years_available.0}}{% endif %}/">{% trans "Next" %} &raquo;</a>
-					{% endif %}
-				</div>
-				
-			</div> <!-- END content -->
-			
-			<!-- the right pane -->
-			<div id="tool_pane">
-				
-				<h3 class="pane_title">{% trans "Controls" %}</h3>
-				
-				<!-- Trade Flow -->
-				<div class="dropdown_container" id="trade_flow">
-					<h3>{% trans "Trade Flow" %}</h3>
-					<select data-url_pos="5">
-						{% for tf in trade_flow_list %}
-						{% if tf.0 == trade_flow %}
-						<option value="{{tf.0}}" selected="selected">{{ tf.1 }}</option>
-						{% else %}
-						<option value="{{tf.0}}">{{ tf.1 }}</option>
-						{% endif %}
-						{% endfor %}
-					</select>
-				</div>
-				
-				<!-- Country List -->
-				{% if country1_list  %}
-				<div class="dropdown_container" id="country1">
-					{% if country2_list %}
-					<h3>{% trans "Origin Country" %}</h3>
-					{% else %}
-					<h3>{% trans "Country" %}</h3>
-					{% endif %}
-					<select data-url_pos="5">
-						{% for c in country1_list %}
-						{% if c.id == country1.id %}
-						<option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
-						{% else %}
-						<option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-						{% endif %}
-						{% endfor %}
-					</select>
-				</div>
-				{% endif %}
-				
-				<!-- Country List -->
-				{% if country2_list %}
-				<div class="dropdown_container" id="country2">
-					<h3>{% trans "Destination Country" %}</h3>
-					<select data-url_pos="5" id="country2_select">
-						{% for c in country2_list %}
-						{% if c.id == country2.id %}
-						<option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
-						{% else %}
-						<option value="{{c.name_3char|lower}}">{{ c.name }}</option>
-						{% endif %}
-						{% endfor %}
-					</select>
-				</div>
-				{% endif %}
-				
-				<!-- Product List -->
-				{% if product_list %}
-				<div class="dropdown_container" id="product">
-					<h3>{% trans "Product" %}</h3>
-					<select data-url_pos="5">
-						{% for p in product_list %}
-						{% if p.id == product.id %}
-						<option value="{{p.code}}" selected="selected">{{ p.name }}</option>
-						{% else %}
-						<option value="{{p.code}}">{{ p.name }}</option>
-						{% endif %}
-						{% endfor %}
-					</select>
-				</div>
-				{% endif %}
-				
-				<!-- Year List -->
-				{% if year2_list %}
-				<div class="dropdown_container" id="year_start">
-					<h3>{% trans "Start Year" %}</h3>
-				{% else %}
-				<div class="dropdown_container" id="year">
-					<h3>{% trans "Year" %}</h3>
-					{% endif %}
-					<select data-url_pos="5" id="year1_select">
-						{% for y in year1_list %}
-						{% if y == year or y == year_start %}
-						<option value="{{y}}" selected="selected">{{ y }}</option>
-						{% else %}
-						<option value="{{y}}">{{ y }}</option>
-						{% endif %}
-						{% endfor %}
-					</select>
-				</div>
-				
-				<!-- Year2 List -->
-				{% if year2_list %}
-				<div class="dropdown_container" id="year_end">
-					<h3>{% trans "End Year" %}</h3>
-					<select data-url_pos="5">
-						{% for y in year2_list %}
-						{% if y == year_end %}
-						<option value="{{y}}" selected="selected">{{ y }}</option>
-						{% else %}
-						<option value="{{y}}">{{ y }}</option>
-						{% endif %}
-						{% endfor %}
-					</select>
-				</div>
-				{% endif %}
-				
-				<!-- Year interval List -->
-				{% if year_interval_list %}
-				<div class="dropdown_container" id="year_interval">
-					<h3>{% trans "Year Interval" %}</h3>
-					<select data-url_pos="5">
-						{% for i in year_interval_list %}
-						{% if i == year_interval %}
-						<option value="{{i}}" selected="selected">{{ i }}</option>
-						{% else %}
-						<option value="{{i}}">{{ i }}</option>
-						{% endif %}
-						{% endfor %}
-					</select>
-				</div>
-				{% endif %}
-				
-				<!-- Year interval List -->
-				{% if year_interval_list %}
-				<div class="dropdown_container" id="layout">
-					<h3>{% trans "Layout" %}</h3>
-					<input type="radio" id="stacked_value" name="radio" checked="checked" /><label for="stacked_value">value</label>
-					<input type="radio" id="stacked_share" name="radio" /><label for="stacked_share">share</label>
-				</div>
-				{% endif %}
-				
-				<button id="build">{% trans "Build Visualization" %} &raquo;</button>
-				<div class="download">
-					<h3>{% trans "Download" %}</h3>
-					<a class="pdf" href="#"><img src="/media/img/app/download.png" /> PDF</a>
-					<a class="svg" href="#"><img src="/media/img/app/download.png" /> SVG</a>
-					<a class="png" href="#"><img src="/media/img/app/download.png" /> PNG</a>
-					<a class="csv" href="#"><img src="/media/img/app/download.png" /> CSV</a>
-				</div>
-				<div class="download">
-					<a class="text" href="#"><img src="/media/img/app/text.png" /> {% trans "View as text" %}</a>
-					<a class="app" href="#"><img src="/media/img/app/text.png" /> {% trans "View app" %}</a>
-				</div>
-				<div class="download">
-					<h3>{% trans "Embed" %}</h3>
-					<input type="text" class="embed_code" value='&lt;iframe width="560" height="315" src="http://atlas.media.mit.edu/embed/tree_map/import/usa/show/all/2009/" frameborder="0" &gt;&lt;/iframe&gt;'></input>
-				</div>
-				<div class="product_class">
-					Product classification:
-					<select>
-						<option value="sitc4" {% if product_classification == "sitc4" %} selected="selected" {% endif %}>SITC4</option>
-						<option value="hs4" {% if product_classification == "hs4" %} selected="selected" {% endif %}>HS4</option>
-					</select>
-				</div>
-			</div>
-			
-		</div> <!-- END #main -->
-	
-		<footer>
-			<p>
-			<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
-			<br />
-			<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
-			</p>
-		</footer>
-		
+        <!-- ajax loading gif -->
+        <div id="loader">
+          <img src="/media/img/all/loader.gif" alt="loading" /><br />Loading...
+        </div>
+        <div id="dataviz"></div>
+        {% endif %}
+        
+        <!-- the key for hovering over communities -->
+        <div class="key" id="sitc4_communities">
+          <a href="#" class="cat_10" title="Machinery"><img src="/media/img/icons/community_10.png"></a>
+          <a href="#" class="cat_11" title="Electronics"><img src="/media/img/icons/community_11.png"></a>
+          <a href="#" class="cat_12" title="Aircraft"><img src="/media/img/icons/community_12.png"></a>
+          <a href="#" class="cat_13" title="Boilers"><img src="/media/img/icons/community_13.png"></a>
+          <a href="#" class="cat_14" title="Ships"><img src="/media/img/icons/community_14.png"></a>
+          <a href="#" class="cat_15" title="Metal Products"><img src="/media/img/icons/community_15.png"></a>
+          <a href="#" class="cat_20" title="Construction Materials and Equipment"><img src="/media/img/icons/community_20.png"></a>
+          <a href="#" class="cat_21" title="Home and Office Products"><img src="/media/img/icons/community_21.png"></a>
+          <a href="#" class="cat_22" title="Pulp and Paper"><img src="/media/img/icons/community_22.png"></a>
+          <a href="#" class="cat_30" title="Beer, Spirits and Cigarettes"><img src="/media/img/icons/community_30.png"></a>
+          <a href="#" class="cat_31" title="Food Processing"><img src="/media/img/icons/community_31.png"></a>
+          <a href="#" class="cat_40" title="Petrochemicals"><img src="/media/img/icons/community_40.png"></a>
+          <a href="#" class="cat_41" title="Inorganic Salts and Acids"><img src="/media/img/icons/community_41.png"></a>
+          <a href="#" class="cat_42" title="Other Chemicals"><img src="/media/img/icons/community_42.png"></a>
+          <a href="#" class="cat_43" title="Agrochemicals"><img src="/media/img/icons/community_43.png"></a>
+          <a href="#" class="cat_44" title="Chemicals and Health Related Products"><img src="/media/img/icons/community_44.png"></a>
+          <a href="#" class="cat_50" title="Coal"><img src="/media/img/icons/community_50.png"></a>
+          <a href="#" class="cat_51" title="Mining"><img src="/media/img/icons/community_51.png"></a>
+          <a href="#" class="cat_52" title="Oil"><img src="/media/img/icons/community_52.png"></a>
+          <a href="#" class="cat_54" title="Precious Stones"><img src="/media/img/icons/community_54.png"></a>
+          <a href="#" class="cat_60" title="Textile and Fabrics"><img src="/media/img/icons/community_60.png"></a>
+          <a href="#" class="cat_61" title="Garments"><img src="/media/img/icons/community_61.png"></a>
+          <a href="#" class="cat_70" title="Cereals and Vegetable Oils"><img src="/media/img/icons/community_70.png"></a>
+          <a href="#" class="cat_71" title="Cotton, Rice, Soy Beans and Others"><img src="/media/img/icons/community_71.png"></a>
+          <a href="#" class="cat_72" title="Tropical Treecrops and Flowers"><img src="/media/img/icons/community_72.png"></a>
+          <a href="#" class="cat_73" title="Tobacco"><img src="/media/img/icons/community_73.png"></a>
+          <a href="#" class="cat_74" title="Fruit"><img src="/media/img/icons/community_74.png"></a>
+          <a href="#" class="cat_75" title="Misc Agriculture"><img src="/media/img/icons/community_75.png"></a>
+          <a href="#" class="cat_80" title="Fish and Seafood"><img src="/media/img/icons/community_80.png"></a>
+          <a href="#" class="cat_81" title="Meat and Eggs"><img src="/media/img/icons/community_81.png"></a>
+          <a href="#" class="cat_82" title="Animal Fibers"><img src="/media/img/icons/community_82.png"></a>
+          <a href="#" class="cat_83" title="Milk and Cheese"><img src="/media/img/icons/community_83.png"></a>
+          <a href="#" class="cat_84" title="Leather"><img src="/media/img/icons/community_84.png"></a>
+          <a href="#" class="cat_90" title="Not Classified"><img src="/media/img/icons/community_90.png"></a>
+        </div>
+        <div class="key" id="hs4_communities">
+          <a href="#" class="cat_106" title="Animals &amp; Animal Products"><img src="/media/img/icons/community_106.png"></a>
+          <a href="#" class="cat_116" title="Vegetable Products"><img src="/media/img/icons/community_116.png"></a>
+          <a href="#" class="cat_126" title="Foodstuffs"><img src="/media/img/icons/community_126.png"></a>
+          <a href="#" class="cat_206" title="Mineral Products"><img src="/media/img/icons/community_206.png"></a>
+          <a href="#" class="cat_306" title="Chemicals &amp; Allied Industries"><img src="/media/img/icons/community_306.png"></a>
+          <a href="#" class="cat_316" title="Plastics / Rubbers"><img src="/media/img/icons/community_316.png"></a>
+          <a href="#" class="cat_406" title="Raw Hides, Skins, Leather, &amp; Furs"><img src="/media/img/icons/community_406.png"></a>
+          <a href="#" class="cat_416" title="Textiles"><img src="/media/img/icons/community_416.png"></a>
+          <a href="#" class="cat_426" title="Footwear / Headgear"><img src="/media/img/icons/community_426.png"></a>
+          <a href="#" class="cat_506" title="Wood &amp; Wood Products"><img src="/media/img/icons/community_506.png"></a>
+          <a href="#" class="cat_606" title="Stone / Glass"><img src="/media/img/icons/community_606.png"></a>
+          <a href="#" class="cat_616" title="Metals"><img src="/media/img/icons/community_616.png"></a>
+          <a href="#" class="cat_706" title="Machinery / Electrical"><img src="/media/img/icons/community_706.png"></a>
+          <a href="#" class="cat_716" title="Transportation"><img src="/media/img/icons/community_716.png"></a>
+          <a href="#" class="cat_906" title="Miscellaneous"><img src="/media/img/icons/community_906.png"></a>
+          <a href="#" class="cat_916" title="Services"><img src="/media/img/icons/community_916.png"></a>
+        </div>
+        <div class="key" id="regions">
+          <!-- Africa -->
+          <a href="#" class="cat_10" title="Eastern Africa" style="background:#CC6DB1">E Africa</a>
+          <a href="#" class="cat_11" title="Middle Africa" style="background:#BA4398">M Africa</a>
+          <a href="#" class="cat_12" title="North Africa" style="background:#99237D">N Africa</a>
+          <a href="#" class="cat_13" title="Southern Africa" style="background:#771564">S Africa</a>
+          <a href="#" class="cat_14" title="Western Africa" style="background:#560D48">W Africa</a>
+          <!-- Americas -->
+          <a href="#" class="cat_20" title="Northern America" style="background:#c7242b">N America</a>
+          <a href="#" class="cat_21" title="Caribbean" style="background:#af1f2b">Caribbean</a>
+          <a href="#" class="cat_22" title="Central America" style="background:#97192a">C America</a>
+          <a href="#" class="cat_23" title="South America" style="background:#7f142a">S America</a>
+          <!-- Asia -->
+          <a href="#" class="cat_30" title="Western Asia" style="background:#6bc191">W Asia</a>
+          <a href="#" class="cat_31" title="Central Africa" style="background:#5ca57c">C Asia</a>
+          <a href="#" class="cat_32" title="Southern Africa" style="background:#4c8966">S Asia</a>
+          <a href="#" class="cat_33" title="South-Eastern Africa" style="background:#3d6d51">SE Asia</a>
+          <a href="#" class="cat_34" title="Eastern Africa" style="background:#2d513b">E Asia</a>
+          <!-- Asia -->
+          <a href="#" class="cat_40" title="Western Europe" style="background:#88C7ED">W Europe</a>
+          <a href="#" class="cat_41" title="Southern Europe" style="background:#2A87D3">S Europe</a>
+          <a href="#" class="cat_42" title="Northern Europe" style="background:#1471A5">N Europe</a>
+          <a href="#" class="cat_43" title="Eastern Europe" style="background:#165E8E">E Europe</a>
+          <!-- Oceania -->
+          <a href="#" class="cat_50" title="Australia and New Zealand" style="background:#DD9F62">Australia and New Zealand</a>
+          <a href="#" class="cat_51" title="Melanesia" style="background:#E57D28">Melanesia</a>
+          <a href="#" class="cat_52" title="Micronesia" style="background:#D86612">Micronesia</a>
+          <a href="#" class="cat_53" title="Polynesia" style="background:#B5763C">Polynesia</a>
+        </div>
+        
+        <!-- the timeline -->
+        <div id="timeline">
+          <div class="slider"></div>
+          {% if app_name != "stacked" %}
+          <a class="prev" href="/explore/{{app_name}}/{{trade_flow}}/{% if country1.name_3char %}{{country1.name_3char|lower}}{% else %}{{country1}}{% endif %}/{% if country2.name_3char %}{{country2.name_3char|lower}}{% else %}{{country2}}{% endif %}/{% if product.code %}{{product.code}}{% else %}{{product}}{% endif %}/{% if year > years_available.0 %}{{year|add:-1}}{% else %}{{years_available.last}}{% endif %}/">&laquo; {% trans "Previous" %}</a>
+            <button id="play">{% trans "Play" %}</button>
+            <button id="stop">{% trans "Stop" %}</button>
+          <a class="next" href="/explore/{{app_name}}/{{trade_flow}}/{% if country1.name_3char %}{{country1.name_3char|lower}}{% else %}{{country1}}{% endif %}/{% if country2.name_3char %}{{country2.name_3char|lower}}{% else %}{{country2}}{% endif %}/{% if product.code %}{{product.code}}{% else %}{{product}}{% endif %}/{% if year < years_available.last %}{{year|add:1}}{% else %}{{years_available.0}}{% endif %}/">{% trans "Next" %} &raquo;</a>
+          {% endif %}
+        </div>
+
+      </div> <!-- END content -->
+      
+      <!-- the right pane -->
+      <div id="tool_pane">
+        
+        <h3 class="pane_title">{% trans "Controls" %}</h3>
+        
+        <!-- Trade Flow -->
+        <div class="dropdown_container" id="trade_flow">
+          <h3>{% trans "Trade Flow" %}</h3>
+          <select data-url_pos="5">
+            {% for tf in trade_flow_list %}
+            {% if tf.0 == trade_flow %}
+            <option value="{{tf.0}}" selected="selected">{{ tf.1 }}</option>
+            {% else %}
+            <option value="{{tf.0}}">{{ tf.1 }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        
+        <!-- Country List -->
+        {% if country1_list  %}
+        <div class="dropdown_container" id="country1">
+          {% if country2_list %}
+          <h3>{% trans "Origin Country" %}</h3>
+          {% else %}
+          <h3>{% trans "Country" %}</h3>
+          {% endif %}
+          <select data-url_pos="5">
+            {% for c in country1_list %}
+            {% if c.id == country1.id %}
+            <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
+            {% else %}
+            <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+
+        <!-- Country List -->
+        {% if country2_list %}
+        <div class="dropdown_container" id="country2">
+          <h3>{% trans "Destination Country" %}</h3>
+          <select data-url_pos="5" id="country2_select">
+            {% for c in country2_list %}
+            {% if c.id == country2.id %}
+            <option value="{{c.name_3char|lower}}" selected="selected">{{ c.name }}</option>
+            {% else %}
+            <option value="{{c.name_3char|lower}}">{{ c.name }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+        
+        <!-- Product List -->
+        {% if product_list %}
+        <div class="dropdown_container" id="product">
+          <h3>{% trans "Product" %}</h3>
+          <select data-url_pos="5">
+            {% for p in product_list %}
+            {% if p.id == product.id %}
+            <option value="{{p.code}}" selected="selected">{{ p.name }}</option>
+            {% else %}
+            <option value="{{p.code}}">{{ p.name }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+        
+        <!-- Year List -->
+        {% if year2_list %}
+        <div class="dropdown_container" id="year_start">
+          <h3>{% trans "Start Year" %}</h3>
+        {% else %}
+        <div class="dropdown_container" id="year">
+          <h3>{% trans "Year" %}</h3>
+          {% endif %}
+          <select data-url_pos="5" id="year1_select">
+            {% for y in year1_list %}
+            {% if y == year or y == year_start %}
+            <option value="{{y}}" selected="selected">{{ y }}</option>
+            {% else %}
+            <option value="{{y}}">{{ y }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        
+        <!-- Year2 List -->
+        {% if year2_list %}
+        <div class="dropdown_container" id="year_end">
+          <h3>{% trans "End Year" %}</h3>
+          <select data-url_pos="5">
+            {% for y in year2_list %}
+            {% if y == year_end %}
+            <option value="{{y}}" selected="selected">{{ y }}</option>
+            {% else %}
+            <option value="{{y}}">{{ y }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+        
+        <!-- Year interval List -->
+        {% if year_interval_list %}
+        <div class="dropdown_container" id="year_interval">
+          <h3>{% trans "Year Interval" %}</h3>
+          <select data-url_pos="5">
+            {% for i in year_interval_list %}
+            {% if i == year_interval %}
+            <option value="{{i}}" selected="selected">{{ i }}</option>
+            {% else %}
+            <option value="{{i}}">{{ i }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+
+        <!-- Year interval List -->
+        {% if year_interval_list %}
+        <div class="dropdown_container" id="layout">
+          <h3>{% trans "Layout" %}</h3>
+          <input type="radio" id="stacked_value" name="radio" checked="checked" /><label for="stacked_value">value</label>
+          <input type="radio" id="stacked_share" name="radio" /><label for="stacked_share">share</label>
+        </div>
+        {% endif %}
+
+        <button id="build">{% trans "Build Visualization" %} &raquo;</button>
+        <div class="download">
+          <h3>{% trans "Download" %}</h3>
+          <a class="pdf" href="#"><img src="/media/img/app/download.png" /> PDF</a>
+          <a class="svg" href="#"><img src="/media/img/app/download.png" /> SVG</a>
+          <a class="png" href="#"><img src="/media/img/app/download.png" /> PNG</a>
+          <a class="csv" href="#"><img src="/media/img/app/download.png" /> CSV</a>
+        </div>
+        <div class="download">
+          <a class="text" href="#"><img src="/media/img/app/text.png" /> {% trans "View as text" %}</a>
+          <a class="app" href="#"><img src="/media/img/app/text.png" /> {% trans "View app" %}</a>
+        </div>
+        <div class="download">
+          <h3>{% trans "Embed" %}</h3>
+          <input type="text" class="embed_code" value='&lt;iframe width="560" height="315" src="http://atlas.media.mit.edu/embed/tree_map/import/usa/show/all/2009/" frameborder="0" &gt;&lt;/iframe&gt;'></input>
+        </div>
+        <div class="product_class">
+          Product classification:
+          <select>
+            <option value="sitc4" {% if product_classification == "sitc4" %} selected="selected" {% endif %}>SITC4</option>
+            <option value="hs4" {% if product_classification == "hs4" %} selected="selected" {% endif %}>HS4</option>
+          </select>
+        </div>
+      </div>
+      
+    </div> <!-- END #main -->
+
+    <footer>
+      <p>
+        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
+        <br />
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
+      </p>
+    </footer>
+    
     <form class="download" method="POST" action="/download/">
       {% csrf_token %}
       <input type="hidden" name="url" value="" />
@@ -654,34 +659,34 @@
         </div>
       </div>
     </div>
-	
-	</div> <!-- END #container -->
-	
-	<!-- The JavaScript -->
-	<!-- Libraries -->
-	<script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>
-	<script src="/media/js/libs/jquery-ui/jquery-ui.min.js"></script>
-	<script src="/media/js/libs/tipsy/tipsy.jquery.js" ></script>
-	<script src="/media/js/libs/chosen/chosen.jquery.min.js" ></script>
-	<script src="/media/js/libs/d3/d3.v2.min.js"></script>
-	<!-- App -->
-	<script src="/media/js/apps/tree_map.js"></script>
-	<script src="/media/js/apps/stacked.js"></script>
-	<script src="/media/js/apps/product_space.js"></script>
-	<script src="/media/js/apps/map.js"></script>
-	<script>
-	// google analytics
-	var _gaq=[['_setAccount','UA-22403682-3'],['_trackPageview']]; 
-	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-	s.parentNode.insertBefore(g,s)}(document,'script'));
-	
-	// global vars
-	var playing = false;
-	
-	/*
-	 * General page stuff
-	 */
+    
+  </div> <!-- END #container -->
+
+  <!-- The JavaScript -->
+  <!-- Libraries -->
+  <script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>
+  <script src="/media/js/libs/jquery-ui/jquery-ui.min.js"></script>
+  <script src="/media/js/libs/tipsy/tipsy.jquery.js" ></script>
+  <script src="/media/js/libs/chosen/chosen.jquery.min.js" ></script>
+  <script src="/media/js/libs/d3/d3.v2.min.js"></script>
+  <!-- App -->
+  <script src="/media/js/apps/tree_map.js"></script>
+  <script src="/media/js/apps/stacked.js"></script>
+  <script src="/media/js/apps/product_space.js"></script>
+  <script src="/media/js/apps/map.js"></script>
+  <script>
+  // google analytics
+  var _gaq=[['_setAccount','UA-22403682-3'],['_trackPageview']]; 
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+
+  // global vars
+  var playing = false;
+
+  /*
+   * General page stuff
+   */
 
  	// language select dropdown
  	$(".language_select select").chosen();
@@ -1286,154 +1291,150 @@
 		return false;		
 	})
 	
-	function view_as_text(data, attr_data, year, silent){
-		return function(e){
-			if(!silent){
-				$(".download .text").hide();
-				$(".download .app").show();
-			}
-			// hide curent viz
-			if($("#dataviz").is(":visible") && !silent){
-				$("#dataviz").hide();
-			}
-			
-			if($("div#text_data").length){
-				if($("div#text_data").data("year") == year){
-					if(!silent){
-						$("div#text_data").show();
-					}
-					return false;	
-				}
-				$("div#text_data").remove();
-			}
-			
-			if((year).toString().indexOf(".") > -1){
-				var years = year.split(".").map(function(y){ return parseInt(y); });
-				years = d3.range(years[0], years[1]+1, years[2]);
-			}
-			else {
-				years = [parseInt(year)]
-			}
-			
-			var current_data = data.filter(function(x){return years.indexOf(x.year) > -1});
-			
-			current_data.sort(function(a, b){
-				if (b.year < a.year) {
-					return -1;
-				} else if  (b.year > a.year) {
-					return 1;
-				} else {
-					return b.value - a.value;
-				}
-			})
+  function view_as_text(data, attr_data, year, silent){
+    return function(e){
+      if(!silent){
+        $(".download .text").hide();
+        $(".download .app").show();
+      }
+      // hide curent viz
+      if($("#dataviz").is(":visible") && !silent){
+        $("#dataviz").hide();
+      }
+      
+      if($("div#text_data").length){
+        if($("div#text_data").data("year") == year){
+          if(!silent){
+            $("div#text_data").show();
+          }
+          return false;	
+        }
+        $("div#text_data").remove();
+      }
+      
+      if((year).toString().indexOf(".") > -1){
+        var years = year.split(".").map(function(y){ return parseInt(y); });
+        years = d3.range(years[0], years[1]+1, years[2]);
+      }
+      else {
+        years = [parseInt(year)]
+      }
+      
+      var current_data = data.filter(function(x){return years.indexOf(x.year) > -1});
+      
+      current_data.sort(function(a, b){
+        if (b.year < a.year) {
+          return -1;
+        } else if  (b.year > a.year) {
+          return 1;
+        } else {
+          return b.value - a.value;
+        }
+      })
 
-			var year_sums = {}
-			years.forEach(function(y){
-				year_sums[y] = d3.sum(current_data, function(d){return d.year == y ? d.value : 0})
-			})
-			// var total_value = d3.sum(current_data, function(d){return d.value})
-			// console.log(current_data)
-			var text_data = $("<div id='text_data' />");
-			if(silent){
-				text_data.css("display", "none");
-			}
-			text_data.data("year", year)
-			var table = $("<table />").appendTo(text_data);
-			var row = $("<tr />").appendTo(table);
-			if("{{item_type}}" == "countries"){
-				row.append("<th>#</th><th>Year</th><th>Alpha-3</th><th>Country</th><th>Value (USD)</th><th>%</th>");
-			}
-			else {
-			  if("{{product_classification}}" == "sitc4"){
-				  row.append("<th>#</th><th>Year</th><th>SITC4</th><th>Product Names</th><th>Value (USD)</th><th>%</th>");
-			  }
-			  else {
-			    row.append("<th>#</th><th>Year</th><th>HS4</th><th>Product Names</th><th>Value (USD)</th><th>%</th>");
-			  }
-			}
-			current_data.forEach(function(d, i){
-				var class_n = (i%2) == 0 ? "even" : "odd";
-				var row = $("<tr class='"+class_n+"' />").appendTo(table);
-				row.append("<td>"+(i+1)+"</td>");
-				row.append("<td>"+d.year+"</td>");
-				if("{{item_type}}" == "countries"){
-					row.append("<td>"+attr_data[d.item_id].name_3char+"</td>");
-				}
-				else {
-					row.append("<td>"+attr_data[d.item_id].code+"</td>");
-				}
-				row.append("<td>"+attr_data[d.item_id].name+"</td>");
-				row.append("<td>$"+d3.format(",f")(d.value)+"</td>");
-				row.append("<td>"+d3.format(".2p")(d.value / year_sums[d.year])+"</td>");
-			})
-			$("#dataviz").after(text_data);
-			
-			return false;
-		}
-	}
-	
-	function get_request_type(requested_uri){
-		var uri_parts = requested_uri.split("/");
-		if (uri_parts.length == 9){
-		  var request = {"country1": uri_parts[4],
-				"country2": uri_parts[5],
-				"product": uri_parts[6],
-				"trade_flow": uri_parts[3],
-				"year": parseInt(uri_parts[7])};
-		}
-		else {
-			var request = {"country1": uri_parts[3],
-				"country2": uri_parts[4],
-				"product": uri_parts[5],
-				"trade_flow": uri_parts[2],
-				"year": parseInt(uri_parts[6])};
-		}
-		if(request.country1 == "show"){
-			request.type = "sapy"
-		}
-		else if(request.country2 == "show" && request.product == "all"){
-			request.type = "csay"
-		}
-		else if(request.country2 == "all" && request.product == "show"){
-			request.type = "casy"
-		}
-		else if(request.country2 == "show"){
-			request.type = "cspy"
-		}
-		else {
-			request.type = "ccpy"
-		}
-		return request
-	}
-	
-	function update_app_pane(requested_uri){
-		var request = get_request_type(requested_uri);
-		// var urls_to_change = $("#app_pane a."+request.type)
-		var urls_to_change = $("#app_pane a")
-		urls_to_change.each(function(i, el){
-			var old_url = $(el).attr("href").split("/")
-			if(request.country1 != "all" && request.country1 != "show" &&
-					old_url[4] != "all" && old_url[4] != "show"){
-				old_url[4] = request.country1
-			}
-			if(request.country2 != "all" && request.country2 != "show" &&
-					old_url[5] != "all" && old_url[5] != "show"){
-				old_url[5] = request.country2
-			}
-			if(request.product != "all" && request.product != "show" &&
-					old_url[6] != "all" && old_url[6] != "show"){
-				old_url[6] = request.product
-			}
-			// old_url[4] = request.country1
-			// old_url[5] = request.country2
-			// old_url[6] = request.product
-			var new_url = old_url.join("/")
-			$(el).attr("href", new_url)
-		})
-	}
+      var year_sums = {}
+      years.forEach(function(y){
+        year_sums[y] = d3.sum(current_data, function(d){return d.year == y ? d.value : 0})
+      })
+      // var total_value = d3.sum(current_data, function(d){return d.value})
+      var text_data = $("<div id='text_data' />");
+      if(silent){
+        text_data.css("display", "none");
+      }
+      text_data.data("year", year)
+      var table = $("<table />").appendTo(text_data);
+      var row = $("<tr />").appendTo(table);
+      if("{{item_type}}" == "countries"){
+        row.append("<th>#</th><th>Year</th><th>Alpha-3</th><th>Country</th><th>Value (USD)</th><th>%</th>");
+      }
+      else {
+        if("{{product_classification}}" == "sitc4"){
+          row.append("<th>#</th><th>Year</th><th>SITC4</th><th>Product Names</th><th>Value (USD)</th><th>%</th>");
+        }
+        else {
+          row.append("<th>#</th><th>Year</th><th>HS4</th><th>Product Names</th><th>Value (USD)</th><th>%</th>");
+        }
+      }
+      current_data.forEach(function(d, i){
+        if(attr_data[d.item_id]){
+          var class_n = (i%2) == 0 ? "even" : "odd";
+          var row = $("<tr class='"+class_n+"' />").appendTo(table);
+          row.append("<td>"+(i+1)+"</td>");
+          row.append("<td>"+d.year+"</td>");
+          if("{{item_type}}" == "countries"){
+            row.append("<td>"+attr_data[d.item_id].name_3char+"</td>");
+          }
+          else {
+            row.append("<td>"+attr_data[d.item_id].code+"</td>");
+          }
+          row.append("<td>"+attr_data[d.item_id].name+"</td>");
+          row.append("<td>$"+d3.format(",f")(d.value)+"</td>");
+          row.append("<td>"+d3.format(".2p")(d.value / year_sums[d.year])+"</td>");
+        }
+      })
+      $("#dataviz").after(text_data);
+      return false;
+    }
+  }
+  
+  function get_request_type(requested_uri){
+    var uri_parts = requested_uri.split("/");
+    if (uri_parts.length == 9){
+      var request = {"country1": uri_parts[4],
+        "country2": uri_parts[5],
+        "product": uri_parts[6],
+        "trade_flow": uri_parts[3],
+        "year": parseInt(uri_parts[7])};
+    }
+    else {
+      var request = {"country1": uri_parts[3],
+        "country2": uri_parts[4],
+        "product": uri_parts[5],
+        "trade_flow": uri_parts[2],
+        "year": parseInt(uri_parts[6])};
+    }
+    if(request.country1 == "show"){
+      request.type = "sapy"
+    }
+    else if(request.country2 == "show" && request.product == "all"){
+      request.type = "csay"
+    }
+    else if(request.country2 == "all" && request.product == "show"){
+      request.type = "casy"
+    }
+    else if(request.country2 == "show"){
+      request.type = "cspy"
+    }
+    else {
+      request.type = "ccpy"
+    }
+    return request
+  }
+  
+  function update_app_pane(requested_uri){
+    var request = get_request_type(requested_uri);
+    var urls_to_change = $("#app_pane a")
+    urls_to_change.each(function(i, el){
+      var old_url = $(el).attr("href").split("/")
+      if(request.country1 != "all" && request.country1 != "show" &&
+          old_url[4] != "all" && old_url[4] != "show"){
+        old_url[4] = request.country1
+      }
+      if(request.country2 != "all" && request.country2 != "show" &&
+          old_url[5] != "all" && old_url[5] != "show"){
+        old_url[5] = request.country2
+      }
+      if(request.product != "all" && request.product != "show" &&
+        old_url[6] != "all" && old_url[6] != "show"){
+        old_url[6] = request.product
+      }
+      var new_url = old_url.join("/")
+      $(el).attr("href", new_url)
+    })
+  }
 
-	</script>
-	<script src="/media/js/apps/related.js"></script>
-	
+  </script>
+  <script src="/media/js/apps/related.js"></script>
+
 </body>
 </html>
