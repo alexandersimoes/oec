@@ -700,7 +700,7 @@ def raw_q(*args, **kwargs):
   '''Returns an array based on the keyword arguments'''
   from django.db import connection, transaction
   cursor = connection.cursor()
-  cursor.execute(kwargs["query"], kwargs["params"])
+  cursor.execute(kwargs["query"])
   # raise Exception(cursor.description)
   # raise Exception(cursor.rowcount)
   return cursor.fetchall()
