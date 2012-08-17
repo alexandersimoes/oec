@@ -3,8 +3,8 @@
 logs/
 robots.txt
 google8f7012b9de435ae0.html
+django_files/atlas/settings_local.py
 media/img/apps/
-django_files/atlas/settings.py
 .Python
 bin/
 include/
