@@ -32,23 +32,32 @@ Adding the Observatory to computer via virtualenv
 
 ### Getting The Observatory Running Locally via Virtualenv
 
-1. Create the folder you'd like The Observatory to live
-
-        mkdir observatory
-2. Clone from github
+1. Clone from github (this will create an atlas_economic_complexity folder in the current directory)
 
         git clone https://github.com/alexandersimoes/atlas_economic_complexity.git
-3. Create the virtual environment
+2. Create the virtual environment
 
-        mkvirtualenv observatory
-4. Activate this newly created environment
+        mkvirtualenv atlas_economic_complexity
+3. Activate this newly created environment
 
-        workon observatory
-5. Install the required Python libraries
+        workon atlas_economic_complexity
+4. Install the required Python libraries
 
         pip install -r requirements.txt
-6. Create local settings file based on missing info from settings.py
+5. Create a MySQL database on your local machine
+6. Import the latest dump of the database from [atlas.media.mit.edu/media/db/](http://atlas.media.mit.edu/media/db/)
+
+        mysql -u username -p -h localhost DB_NAME < observatory_xxxx-xx-xx.sql
+7. Create local settings file based on missing info from settings.py
 
         touch django_files/atlas/settings_local.py
-7. Install MySQL database on local machine using db/observatory_2012-08-17.sql.bz2
+8. Edit this file and add the following setting CONSTANTS to it based on comments in django_files/atlas/settings.py
 
+        DATABASES
+        LOCALE_PATHS
+        STATICFILES_DIRS
+        SECRET_KEY
+        TEMPLATE_DIRS
+9. Run the site locally!
+
+        django_files/manage.py runserver_
