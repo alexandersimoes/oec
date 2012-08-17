@@ -5,3 +5,7 @@ robots.txt
 google8f7012b9de435ae0.html
 media/img/apps/
 django_files/atlas/settings.py
+.Python
+bin/
+include/
+lib/
