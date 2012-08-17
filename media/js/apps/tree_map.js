@@ -20,7 +20,7 @@ function TreeMap(args){
 
   // Create treemap as SVG
   this.tree_map = d3.layout.treemap()
-    .size([this.width, this.height])
+    .size([this.width, this.height-this.padding.top])
     .sticky(false)
     .sort(function(a, b) { return a.value - b.value; });
 
