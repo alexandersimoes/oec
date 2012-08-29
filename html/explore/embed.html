@@ -1,91 +1,87 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>The Observatory... to go</title>
-	<meta name="description" content="Networks in Macro Economics">
-	<meta name="author" content="Alexander Simoes">
-	
-	<link rel="shortcut icon" type="image/x-icon" href="/media/img/favicon.ico">
-	
-	<link rel="stylesheet" href="/media/css/normalize.css">
-	<style>
-	*, html {
-		overflow: hidden;
-	}
-	</style>
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+  <title>The Observatory Embeded</title>
+  <meta name="description" content="Networks in Macro Economics">
+  <meta name="author" content="Alexander Simoes">
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/media/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/media/css/normalize.css">
+  <style>
+  *, html {
+    overflow: hidden;
+  }
+  </style>
 </head>
 <body>
-	
-	<div id="dataviz"><img src="/media/img/all/loader.gif" alt="please be patient..." /> Loading...</div>
-	
-	<!-- The JavaScript -->
-	<!-- Libraries -->
-	<script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>
-	<script src="/media/js/libs/d3/d3.v2.min.js"></script>
-	<!-- App -->
-	<script src="/media/js/apps/tree_map.js"></script>
-	<script src="/media/js/apps/stacked.js"></script>
-	<script src="/media/js/apps/product_space.js"></script>
-	<script>
-	
-	// viz holder dimensions to that of the window
-	$("#dataviz").width($(window).width())
-	$("#dataviz").height($(window).height())
-	
-	var url = "/api/{{trade_flow}}/{{country1}}/{{country2}}/{{product}}/{{year}}/?lang={{lang}}";
-	d3.json(url, function(data){
-	  var this_years_data = data.data.filter(function(d){ return d.year == parseInt(data.year)})
+
+  <div id="dataviz"><img src="/media/img/all/loader.gif" alt="please be patient..." /> Loading...</div>
+
+  <!-- The JavaScript -->
+  <!-- Libraries -->
+  <script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>
+  <script src="/media/js/libs/d3/d3.v2.min.js"></script>
+  <!-- App -->
+  <script src="/media/js/apps/general.js"></script>
+  {% if app == "tree_map" %}<script src="/media/js/apps/tree_map.js"></script>{% endif %}
+  {% if app == "stacked" %}<script src="/media/js/apps/stacked.js"></script>{% endif %}
+  {% if app == "product_space" %}<script src="/media/js/apps/product_space.js"></script>{% endif %}
+  <script>
+
+  // viz holder dimensions to that of the window
+  $("#dataviz").width($(window).width())
+  $("#dataviz").height($(window).height())
+  
+  var url = "/api/{{trade_flow}}/{{country1}}/{{country2}}/{{product}}/{{year}}/?lang={{lang}}";
+  d3.json(url, function(data){
+    var this_years_data = data.data.filter(function(d){ return d.year == parseInt(data.year)})
     if(!this_years_data.length){
       $("#dataviz").html("No data available for this selection...")
       return;
     }
-		data.attr_data.forEach(function(attr){
-			var id_property = attr["community_id"] ? "community_id" : "region_id",
-				name_property = attr["community__name"] ? "community__name" : "region__name",
-				color_property = attr["community__color"] ? "community__color" : "region__color",
-				text_color_property = attr["community__text_color"] ? "community__text_color" : "region__text_color";
-			attr["category_id"] = attr[id_property]; delete attr[id_property];
-			attr["category_name"] = attr[name_property]; delete attr[name_property];
-			attr["category_color"] = attr[color_property]; delete attr[color_property];
-			attr["category_text_color"] = attr[text_color_property]; delete attr[text_color_property];
-			attr["heirarchical_id"] = attr["category_id"].toString().substr(0,1) + "." + attr["category_id"] + "." + attr["id"];
-		})
-		data.attr_data = d3.nest()
-			.key(function(d) { return d["id"]; })
-			.rollup(function(d){ return d[0] })
-			.map(data.attr_data);
-		var app_data = {
-			"attr_data": data.attr_data,
-			"raw_data": data.data,
-			"selector": "#dataviz",
-			"year": "{{year}}",
-			"other": {{other|safe}}};
-		switch("{{app}}"){
-			case "tree_map":
-				var app = new TreeMap(app_data);
-				app.build();
-				break;
-			case "stacked":
-				var app = new Stacked(app_data);
-				app.build();
-				break;
-			case "product_space":
-				var app = new ProductSpace(app_data);
-				break;
-			case "map":
-				var app = new Map(app_data);
-				app.build();
-				break;
-		}
-		
-	})
-	</script>
-	
+    data.attr_data.forEach(function(attr){
+      var id_property = attr["community_id"] ? "community_id" : "region_id",
+        name_property = attr["community__name"] ? "community__name" : "region__name",
+        color_property = attr["community__color"] ? "community__color" : "region__color",
+        text_color_property = attr["community__text_color"] ? "community__text_color" : "region__text_color";
+      attr["category_id"] = attr[id_property]; delete attr[id_property];
+      attr["category_name"] = attr[name_property]; delete attr[name_property];
+      attr["category_color"] = attr[color_property]; delete attr[color_property];
+      attr["category_text_color"] = attr[text_color_property]; delete attr[text_color_property];
+      attr["heirarchical_id"] = attr["category_id"].toString().substr(0,1) + "." + attr["category_id"] + "." + attr["id"];
+    })
+    data.attr_data = d3.nest()
+      .key(function(d) { return d["id"]; })
+      .rollup(function(d){ return d[0] })
+      .map(data.attr_data);
+    var app_data = {
+      "attr_data": data.attr_data,
+      "raw_data": data.data,
+      "selector": "#dataviz",
+      "year": "{{year}}",
+      "other": {{other|safe}}};
+    switch("{{app}}"){
+      case "tree_map":
+        var app = new TreeMap(app_data);
+        app.build();
+        break;
+      case "stacked":
+        var app = new Stacked(app_data);
+        app.build();
+        break;
+      case "product_space":
+        var app = new ProductSpace(app_data);
+        break;
+      case "map":
+        var app = new Map(app_data);
+        app.build();
+        break;
+    }
+  })
+  </script>
 </body>
 </html>

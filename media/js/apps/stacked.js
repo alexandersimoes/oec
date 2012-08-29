@@ -3,8 +3,8 @@ function Stacked(args){
   this.attr_data = args.attr_data;
   this.raw_data = args.raw_data;
   this.selector = args.selector || window;
-  this.width = args.width || $(selector).width();
-  this.height = args.height || $(selector).height();
+  this.width = args.width || $(this.selector).width();
+  this.height = args.height || $(this.selector).height();
   this.padding = [10, 45, 30, 0];
 
   var year_parts = args.year.split(".").map(function(y){ return parseInt(y); });
