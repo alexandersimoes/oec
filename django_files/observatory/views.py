@@ -461,16 +461,16 @@ def api_casy(request, trade_flow, country1, year):
   rca_col = "null"
   if trade_flow == "net_export":
     val_col = "export_value - import_value as val"
-    rca_col = "rca"
+    rca_col = "export_rca"
   elif trade_flow == "net_import":
     val_col = "import_value - export_value as val"
   elif trade_flow == "export":
     val_col = "export_value as val"
-    rca_col = "rca"
+    rca_col = "export_rca"
   else:
     val_col = "import_value as val"
   
-  '''Create query [year, id, abbrv, name_lang, val, rca]'''
+  '''Create query [year, id, abbrv, name_lang, val, export_rca]'''
   q = """
     SELECT year, p.id, p.code, p.name_%s, %s, %s 
     FROM observatory_%s_cpy as cpy, observatory_%s as p 
@@ -521,16 +521,16 @@ def api_sapy(request, trade_flow, product, year):
   rca_col = "null"
   if trade_flow == "net_export":
     val_col = "export_value - import_value as val"
-    rca_col = "rca"
+    rca_col = "export_rca"
   elif trade_flow == "net_import":
     val_col = "import_value - export_value as val"
   elif trade_flow == "export":
     val_col = "export_value as val"
-    rca_col = "rca"
+    rca_col = "export_rca"
   else:
     val_col = "import_value as val"
   
-  '''Create query [year, id, abbrv, name_lang, val, rca]'''
+  '''Create query [year, id, abbrv, name_lang, val, export_rca]'''
   q = """
     SELECT year, c.id, c.name_3char, c.name_%s, %s, %s 
     FROM observatory_%s_cpy as cpy, observatory_country as c 
@@ -759,9 +759,8 @@ def get_similar_productive(country, year):
   y = year
   c = country
   country_lookup = get_country_lookup()
-  # raise Exception(c.id)
   prods = list(Sitc4.objects.filter(ps_size__isnull=False).values_list("id", flat=True))
-  cpys = Sitc4_cpy.objects.filter(year=y, rca__isnull=False, rca__gt=0).values_list("country", "product", "rca")
+  cpys = Sitc4_cpy.objects.filter(year=y, export_rca__isnull=False, export_rca__gt=0).values_list("country", "product", "export_rca")
   country_vectors = {}
   for cpy in cpys:
     if cpy[0] not in country_vectors:

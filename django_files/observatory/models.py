@@ -290,11 +290,11 @@ class Sitc4_cpy_manager(models.Manager):
 				else:
 					the_sum[y] = data.filter(year=y).aggregate(Sum("%s_value" % (trade_flow))).values()[0]
 			
-			the_data = data.filter(year__in=years).order_by("year", "-value").values_list("year", "product__code", "product__name_%s"%(lang,), "value", "rca")
+			the_data = data.filter(year__in=years).order_by("year", "-value").values_list("year", "product__code", "product__name_%s"%(lang,), "value", "export_rca")
 			columns = ["#", "Year", "SITC4", "Product Name", "Value (USD)", "RCA", "%"]
 			return {"sum":the_sum, "data":the_data, "columns":columns}
 		else:
-			return list(data.extra(select={'item_id': "product_id"}).values("item_id", "year", "value", "rca"))
+			return list(data.extra(select={'item_id': "product_id"}).values("item_id", "year", "value", "export_rca"))
 	
 	def sapy(self, product, trade_flow, year=None, lang="en"):
 		
@@ -322,7 +322,7 @@ class Sitc4_cpy_manager(models.Manager):
 			columns = ["#", "Year", "Alpha-3", "Country", "Value (USD)", "RCA", "%"]
 			return {"sum":the_sum, "data":the_data, "columns":columns}
 		else:
-			return list(data.extra(select={'item_id': "country_id"}).values("item_id", "year", "value", "rca"))
+			return list(data.extra(select={'item_id': "country_id"}).values("item_id", "year", "value", "export_rca"))
 
 class Sitc4_cpy(models.Model):
 	country = models.ForeignKey(Country)
@@ -330,7 +330,7 @@ class Sitc4_cpy(models.Model):
 	year = models.PositiveSmallIntegerField(max_length=4)
 	export_value = models.FloatField(null=True)
 	import_value = models.FloatField(null=True)
-	rca = models.FloatField(null=True)
+	export_rca = models.FloatField(null=True)
 	
 	def __unicode__(self):
 		return "CPY: %s.%s.%d" % (self.country.name, self.product.code, self.year)
@@ -371,7 +371,7 @@ class Hs4_cpy_manager(models.Manager):
 			columns = ["#", "Year", "HS4", "Product Name", "Value (USD)", "%"]
 			return {"sum":the_sum, "data":the_data, "columns":columns}
 		else:
-			return list(data.extra(select={'item_id': "product_id"}).values("item_id", "year", "value", "rca"))
+			return list(data.extra(select={'item_id': "product_id"}).values("item_id", "year", "value", "export_rca"))
 	
 	def sapy(self, product, trade_flow, year=None, lang="en"):
 		
@@ -399,7 +399,7 @@ class Hs4_cpy_manager(models.Manager):
 			columns = ["#", "Year", "Alpha-3", "Country", "Value (USD)", "RCA", "%"]
 			return {"sum":the_sum, "data":the_data, "columns":columns}
 		else:
-			return list(data.extra(select={'item_id': "country_id"}).values("item_id", "year", "value", "rca"))
+			return list(data.extra(select={'item_id': "country_id"}).values("item_id", "year", "value", "export_rca"))
 
 class Hs4_cpy(models.Model):
 	country = models.ForeignKey(Country)
@@ -407,7 +407,7 @@ class Hs4_cpy(models.Model):
 	year = models.PositiveSmallIntegerField(max_length=4)
 	export_value = models.FloatField(null=True)
 	import_value = models.FloatField(null=True)
-	rca = models.FloatField(null=True)
+	export_rca = models.FloatField(null=True)
 	
 	def __unicode__(self):
 		return "CPY: %s.%s.%d" % (self.country.name, self.product.code, self.year)
