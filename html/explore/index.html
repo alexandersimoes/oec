@@ -138,67 +138,67 @@
 	</style>
 </head>
 <body class="app">
-	{% if alert %}
-	<div class="alert">
-		<div>
-			{% if alert.title %}
-			<h4>{{alert.title}}</h4>
-			{% endif %}
-			{% if alert.text %}{{alert.text|safe}}{% endif %}
-		</div>
-	</div>
-	{% endif %}
-	{% if warning %}
-	<div class="warning">
-		<div>
-			{% if warning.title %}
-			<h4>{{warning.title}}</h4>
-			{% endif %}
-			{% if warning.text %}{{warning.text|safe}}{% endif %}
-		</div>
-	</div>
-	{% endif %}
-	<div id="container">
-		<header>
-			<div class="logo">
-				<h1><a href="/" title="Home"><img src="/media/img/all/logo_observatory_sm.png" alt="The Observatory of Economic Complexity" /></a></h1>
-			</div>
-			<nav>
-				<ul>
-					<li><a href="/explore">Explore</a></li>
-					<li><a href="/country/usa/">Profiles</a></li>
-					<li><a href="/book">Book</a></li>
-					<li><a href="/rankings">Rankings</a></li>
-					<li><a href="/about">About</a></li>
-					<li><a href="/api">API</a></li>
-				</ul>
-			</nav> 
-    		<div class="language_select">
-    		  <div class="text">
-    			  Language:
-    			</div>
-    			<select>
-    	          {% for lang in supported_langs %}
-    				<option style="width: 70px; padding-right: 26px;" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
-    	          {% endfor %}
-    			</select>
-    		</div>
-			<br class="clear">
-		</header>
-	
-		<div id="main" role="main">
-			
-			<div class="app_title" id="icons">
-				
-				<!-- Left icon -->
-				{% if product_list and not country1_list %}
-				<img class="img left community" src="/media/img/icons/community_{{ product.community.id }}.png" alt="product.name_en">
-				{% endif %}
-				{% if country1_list %}
-				<img class="img left" src="/media/img/icons/flag_{{ country1.name_3char|lower }}.png" alt="{{country1.name}}">
-				{% endif %}
-				
-				<!-- year(s) -->
+  {% if alert %}
+  <div class="alert">
+    <div>
+      {% if alert.title %}
+      <h4>{{alert.title}}</h4>
+      {% endif %}
+      {% if alert.text %}{{alert.text|safe}}{% endif %}
+    </div>
+  </div>
+  {% endif %}
+  {% if warning %}
+  <div class="warning">
+    <div>
+      {% if warning.title %}
+      <h4>{{warning.title}}</h4>
+      {% endif %}
+      {% if warning.text %}{{warning.text|safe}}{% endif %}
+    </div>
+  </div>
+  {% endif %}
+  <div id="container">
+    <header>
+      <div class="logo">
+        <h1><a href="/" title="Home"><img src="/media/img/all/logo_observatory_sm.png" alt="The Observatory of Economic Complexity" /></a></h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/explore">Explore</a></li>
+          <li><a href="/country/usa/">Profiles</a></li>
+          <li><a href="/book">Book</a></li>
+          <li><a href="/rankings">Rankings</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/api">API</a></li>
+        </ul>
+      </nav> 
+      <div class="language_select">
+        <div class="text">
+          Language:
+        </div>
+        <select>
+          {% for lang in supported_langs %}
+          <option style="width: 70px; padding-right: 26px;" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <br class="clear">
+    </header>
+    
+    <div id="main" role="main">
+      
+      <div class="app_title" id="icons">
+        
+        <!-- Left icon -->
+        {% if product_list and not country1_list %}
+        <img class="img left community" src="/media/img/icons/community_{{ product.community.id }}.png" alt="product.name_en">
+        {% endif %}
+        {% if country1_list %}
+        <img class="img left" src="/media/img/icons/flag_{{ country1.name_3char|lower }}.png" alt="{{country1.name}}">
+        {% endif %}
+        
+        <!-- year(s) -->
 				{% if year_start %}
 				<h2 class="left">{{year_start}}<br />{{year_end}}</h2>
 				{% else %}
@@ -670,10 +670,11 @@
   <script src="/media/js/libs/chosen/chosen.jquery.min.js" ></script>
   <script src="/media/js/libs/d3/d3.v2.min.js"></script>
   <!-- App -->
-  <script src="/media/js/apps/tree_map.js"></script>
-  <script src="/media/js/apps/stacked.js"></script>
-  <script src="/media/js/apps/product_space.js"></script>
-  <script src="/media/js/apps/map.js"></script>
+  <script src="/media/js/apps/general.js"></script>
+  {% if app_name == "tree_map" %}<script src="/media/js/apps/tree_map.js"></script>{% endif %}
+  {% if app_name == "stacked" %}<script src="/media/js/apps/stacked.js"></script>{% endif %}
+  {% if app_name == "product_space" %}<script src="/media/js/apps/product_space.js"></script>{% endif %}
+  {% if app_name == "map" %}<script src="/media/js/apps/map.js"></script>{% endif %}
   <script>
   // google analytics
   var _gaq=[['_setAccount','UA-22403682-3'],['_trackPageview']]; 

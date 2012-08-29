@@ -163,56 +163,56 @@ function tm_memoize(node, root, attrs) {
   return node; 
 }
 TreeMap.prototype.format_text = function(element, d){
-	// remove incumbent
-	d3.select(element).selectAll("tspan").remove();
-	if(parseInt(element) == element){
-		element = this;
-	}
-	var title = this.attr_data[d.data.item_id].name;
-	var percentage = d3.format(".2p")(d.value / d.parent.parent.parent.value), // format percentage to 2 decimal places
-		text = percentage + " " + title;
-		words = text.split(" "); // split text into array of words
-		svg_tspan = d3.select(element).append("tspan").text(words[0]+" ")
-		curr_tspan = svg_tspan;
-	// loop through each word and see if it fits
-	for(var i = 1; i < words.length; i++){
-		// add a word and see if it fits
-		curr_text = curr_tspan.text()
-		curr_tspan.text(curr_text + " " + words[i]);
-		// doesn't fit
-		if (element.getBBox().width > (d.dx - 10)) {
-			curr_tspan.text(curr_text)
-			var new_text = words[i]
-			curr_tspan = d3.select(element).append("tspan").text(new_text + " ")
-				.attr("x", 2)
-				.attr("dy", tmap_get_text_height("dy"))		
-			// Just added the new tspan, see if it's still too big with that one new word.
-			var frac = 6
-			var second_half
-		}
-		if(element.getBBox().width > (d.dx -1)){
-				// while the word still doesn't fit, cut off the end, add the first bit to the tspan
-				while(element.getBBox().width > (d.dx-1) && frac > 2){
-					point = new_text.length*frac/8
-					var first_half = new_text.substring(0,point) + "-";
-					if(new_text.substring(point-1,point) == "-"){
-						first_half = new_text.substring(0,point);
-					}
-					curr_tspan.text(first_half)
-					second_half = new_text.substr(point)
-					frac = frac - 1
-				}
-				
-				new_text = second_half
-				// Here's the part I'm adding to the new tspan
-				curr_tspan = d3.select(element).append("tspan").text(new_text + " ")
-				.attr("x", 2)
-				.attr("dy", tmap_get_text_height("dy"))
-		}
-		if (element.getBBox().height > (d.dy - 12)) {
-			return;
-		}
-	}
+  // remove incumbent
+  d3.select(element).selectAll("tspan").remove();
+  if(parseInt(element) == element){
+    element = this;
+  }
+  var title = this.attr_data[d.data.item_id].name;
+  var percentage = d3.format(".2p")(d.value / d.parent.parent.parent.value), // format percentage to 2 decimal places
+    text = percentage + " " + title;
+    words = text.split(" "); // split text into array of words
+    svg_tspan = d3.select(element).append("tspan").text(words[0]+" ")
+    curr_tspan = svg_tspan;
+  // loop through each word and see if it fits
+  for(var i = 1; i < words.length; i++){
+    // add a word and see if it fits
+    curr_text = curr_tspan.text()
+    curr_tspan.text(curr_text + " " + words[i]);
+    // doesn't fit
+    if (element.getBBox().width > (d.dx - 10)) {
+      curr_tspan.text(curr_text)
+      var new_text = words[i]
+      curr_tspan = d3.select(element).append("tspan").text(new_text + " ")
+        .attr("x", 2)
+        .attr("dy", tmap_get_text_height("dy"))		
+      // Just added the new tspan, see if it's still too big with that one new word.
+      var frac = 6
+      var second_half
+    }
+    if(element.getBBox().width > (d.dx -1)){
+      // while the word still doesn't fit, cut off the end, add the first bit to the tspan
+      while(element.getBBox().width > (d.dx-1) && frac > 2){
+        point = new_text.length*frac/8
+        var first_half = new_text.substring(0,point) + "-";
+        if(new_text.substring(point-1,point) == "-"){
+          first_half = new_text.substring(0,point);
+        }
+        curr_tspan.text(first_half)
+        second_half = new_text.substr(point)
+        frac = frac - 1
+      }
+      
+      new_text = second_half
+      // Here's the part I'm adding to the new tspan
+      curr_tspan = d3.select(element).append("tspan").text(new_text + " ")
+        .attr("x", 2)
+        .attr("dy", tmap_get_text_height("dy"))
+    }
+    if (element.getBBox().height > (d.dy - 12)) {
+      return;
+    }
+  }
 }
 
 TreeMap.prototype.add_mouse_events = function(){
@@ -285,114 +285,22 @@ TreeMap.prototype.add_total = function(){
     .attr("fill", "white")
   total_val.node().parentNode.appendChild(total_val.node())
 }
-
-
-function find_parent(e, name){
-  if(e.nodeName == name){
-    return e;
-  }
-  return find_parent(e.parentNode, name);
-}
-function format_big_num(d){
-	d = parseFloat(d);
-	var n = d;
-	var s = "";
-	var sign = "";
-	if(d < 0){
-		sign = "-"
-	}
-	d = Math.abs(d);
-	if(d >= 1e3){
-		n = d3.format(".2r")(d/1e3);
-		s = "k";
-	}
-	if(d >= 1e6){
-		n = d3.format(".2r")(d/1e6);
-		s = "M";
-	}
-	if(d >= 1e9){
-		n = d3.format(".2r")(d/1e9);
-		s = "B";
-	}
-	if(d >= 1e12){
-		n = d3.format(".2r")(d/1e12);
-		s = "T";
-	}
-	if(d == 0){
-		n = 0;
-	}
-	return [sign+n, s];
-}
-function make_mouseover(element, dimensions, data, padding){
-  // unpack function parameters
-  var w = dimensions[0],
-    h = dimensions[1],
-    title = data.title,
-    img_src = data.img_src,
-    sub_text = data.sub_text,
-    svg = find_parent(element, "svg"),
-    info_h = 36,
-    edge_padding = info_h * .10,
-    padding = padding ? padding : 0;
-  
-  // var padding = info_h * .10;
-  // create grouping
-  var info = d3.select(svg).append("g")
-    .attr("class", "info")
-    .attr("transform", function(d){
-      var mouse_y = d3.svg.mouse(svg)[1];
-      var y = mouse_y > (h - info_h - padding) ? 0 : h - info_h - padding;
-      return "translate(0, "+y+")";
-    })
-  // create semi-transparent background
-  info.append("rect")
-    .attr("fill", "black")
-    .attr("opacity", 0.5)
-    .attr("x", 0)
-    .attr("y", 0)
-    .attr("width", w)
-    .attr("height", info_h)
-  // <image xlink:href="firefox.jpg" x="0" y="0" height="50px" width="50px"/>
-  info.append("image")
-    .attr("xlink:href", img_src)
-    .attr("x", edge_padding)
-    .attr("y", edge_padding)
-    .attr("height", info_h-edge_padding*2)
-    .attr("width", info_h-edge_padding*2)
-  info.append("text")
-    .attr("x", edge_padding + info_h)
-    .attr("y", edge_padding)
-    .attr("dy", info_h/2 - edge_padding)
-    .attr("font-size", 16)
-    .attr("font-weight", "bold")
-    .attr("fill", "white")
-    .style("text-shadow", "1px 1px 2px black")
-    .text(title)
-  info.append("text")
-    .attr("x", edge_padding + info_h)
-    .attr("y", info_h - (edge_padding*2))
-    .attr("dy", info_h/4 - (edge_padding*2))
-    .attr("font-size", 12)
-    .attr("fill", "white")
-    .style("text-shadow", "1px 1px 2px black")
-    .text(sub_text)
-}
 function tmap_get_text_height(attr){
-	return function(d){
-		var area = d.dy*d.dx
-		var width = d.dx
-		var height = d.dy
-		if(area < 800 || width < 75 || height < 30){
-			return attr == "font-size" ? "9px" : "10px";
-		}
-		else if(width < 75 || height < 50){
-			return attr == "font-size" ? "12px" : "10px";
-		}
-		else if(area < 25000 && area>0){
-			return attr == "font-size" ? Math.sqrt(Math.min(area/30, 900)) + "px" : Math.sqrt(Math.min(area/30, 900)) + "px";
-		}
-		else{
-			return attr == "font-size" ? "35px" : "30px";
-		}
-	}
+  return function(d){
+    var area = d.dy*d.dx
+    var width = d.dx
+    var height = d.dy
+    if(area < 800 || width < 75 || height < 30){
+      return attr == "font-size" ? "9px" : "10px";
+    }
+    else if(width < 75 || height < 50){
+      return attr == "font-size" ? "12px" : "10px";
+    }
+    else if(area < 25000 && area>0){
+      return attr == "font-size" ? Math.sqrt(Math.min(area/30, 900)) + "px" : Math.sqrt(Math.min(area/30, 900)) + "px";
+    }
+    else{
+      return attr == "font-size" ? "35px" : "30px";
+    }
+  }
 }
