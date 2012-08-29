@@ -744,9 +744,12 @@ def api_cspy(request, trade_flow, country1, product, year):
 
 # Embed for iframe
 def embed(request, app_name, trade_flow, country1, country2, product, year):
-	lang = request.GET.get("lang", "en")
-	query_string = request.GET
-	return render_to_response("explore/embed.html", {"app":app_name, "trade_flow": trade_flow, "country1":country1, "country2":country2, "product":product, "year":year, "other":json.dumps(query_string), "lang":lang})
+  lang = request.GET.get("lang", "en")
+  prod_class = request.session['product_classification'] if 'product_classification' in request.session else "hs4"
+  prod_class = request.GET.get("product_classification", prod_class)
+  query_string = request.GET.copy()
+  query_string["product_classification"] = prod_class
+  return render_to_response("explore/embed.html", {"app":app_name, "trade_flow": trade_flow, "country1":country1, "country2":country2, "product":product, "year":year, "other":json.dumps(query_string), "lang":lang})
 
 def get_similar_productive(country, year):
   # correlation = request.GET.get("c", "pearson")

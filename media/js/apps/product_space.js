@@ -1,12 +1,14 @@
 function ProductSpace(args){
-	var _this = this;	
-	this.attr_data = args.attr_data;
-	this.width = args.width || $(args.selector).width();
-	this.height = args.height || $(args.selector).height();
-	this.year = parseInt(args.year) || 2009;
-	this.mouseover = args.other ? args.other.mouseover || "true" : "true";
-	this.current_data = args.raw_data.filter(function(x){return x.year == _this.year});
-	this.classification = args.other.product_classification;
+  var _this = this;	
+  this.attr_data = args.attr_data;
+  this.selector = args.selector || window;
+  this.width = args.width || $(this.selector).width();
+  this.height = args.height || $(this.selector).height();
+  this.year = parseInt(args.year) || 2009;
+  this.mouseover = args.other ? args.other.mouseover || "true" : "true";
+  this.current_data = args.raw_data.filter(function(x){return x.year == _this.year});
+  this.classification = args.other.product_classification;
+
   // [[943.7775268554688, 2928.5103759765625], [1746.1142578125, 2969.8824462890625], [15.0, 67.94873046875]]
 	if(this.classification == "sitc4"){
     // this.x = d3.scale.linear().domain([-3508.98632812, 5284.69091797]).range([10, this.width-20]);
