@@ -1,2 +1,3 @@
 Django
 MySQL-python
+numpy

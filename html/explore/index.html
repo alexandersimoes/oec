@@ -1039,13 +1039,13 @@
 		$(".app #main #tool_pane .embed_code").val('<iframe width="560" height="315" '
 			+ 'src="http://atlas.media.mit.edu'+new_embed_url.join("/")+'" frameborder="0"></iframe>');
 		
-		// update the related apps pane
-		var rel_cat = $("#related div select").val();
-    show_related(rel_cat);
-		
-		// now that the app has been built we can 
-		d3.select("#loader").style("display", "none");
-	}
+    // update the related apps pane
+    // var rel_cat = $("#related div select").val();
+    // show_related(rel_cat);
+    
+    // now that the app has been built we can 
+    d3.select("#loader").style("display", "none");
+  }
 	
 	// this function is called when the user clicks the build button
 	function new_app(){
@@ -1119,179 +1119,169 @@
 		$(".key#hs4_communities").hide()
 		$(".key#regions").hide()
 	}
-	
-	// Key mouseovers
-	$(".key a").mouseover(function(){
-		
-		var class_name = $(this).attr("class");
-		
-		switch("{{app_name}}"){
-			case "tree_map":
-				var items_to_fade = d3.selectAll("g.viz rect");
-				var text_to_fade = d3.selectAll("g.viz text");
-				break;
-			case "stacked":
-				var items_to_fade = d3.selectAll("g.stacked path");
-				break;
-			case "product_space":
-				var items_to_fade = d3.selectAll("circle");
-				var text_to_fade = d3.select("svg").select("svg").selectAll("text");
-				break;
-		}
-		
-		items_to_fade.transition().duration(500)
-			.attr("fill", function(d){
-				if(d.children){
-					return "#fff"
-				}
-			
-				this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
-				if(this_class != class_name){
-					if(!d.color){
-						d.color = d3.select(this).attr("fill");
-					}
-					return "#ccc";
-				}
-				else {
-					if(!d.color){
-						return d3.select(this).attr("fill");
-					}
-					return d.color
-				}
-			})
-			.attr("stroke", function(d){
-				if(d.children){
-					return "#fff"
-				}
-				this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
-				if(this_class != class_name){
-					if(!d.stroke_color){
-						d.stroke_color = d3.select(this).attr("stroke");
-					}
-					return "#bbb";
-				}
-				else {
-					if(!d.stroke_color){
-						return d3.select(this).attr("stroke");
-					}
-					return d.stroke_color
-				}
-			})
-		
-		if(text_to_fade){
-			text_to_fade.transition().duration(500)
-				.attr("fill", function(d){
-					if(d.children){
-						return "#fff"
-					}
-				
-					this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
-					if(this_class != class_name){
-						if(!d.text_color){
-							d.text_color = d3.select(this).attr("fill");
-						}
-						return "#fff";
-					}
-					else {
-						if(!d.text_color){
-							return d3.select(this).attr("fill");
-						}
-						return d.text_color
-					}
-				})
-		}
-		
+  
+  // Key mouseovers
+  $(".key a").mouseover(function(){
+    
+    var class_name = $(this).attr("class");
+    
+    switch("{{app_name}}"){
+      case "tree_map":
+        var items_to_fade = d3.selectAll("g.viz rect");
+        var text_to_fade = d3.selectAll("g.viz text");
+        break;
+      case "stacked":
+        var items_to_fade = d3.selectAll("g.stacked path");
+        break;
+      case "product_space":
+        var items_to_fade = d3.selectAll("circle");
+        var text_to_fade = d3.select("svg").select("svg").selectAll("text");
+        break;
+    }
+    
+    items_to_fade.transition().duration(500)
+      .attr("fill", function(d){
+        if(d.children){
+          return "#fff"
+        }
+        
+        this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
+        if(this_class != class_name){
+          if(!d.color){
+            d.color = d3.select(this).attr("fill");
+          }
+          return "#ccc";
+        }
+        else {
+          if(!d.color){
+            return d3.select(this).attr("fill");
+          }
+          return d.color
+        }
+      })
+      .attr("stroke", function(d){
+        if(d.children){
+          return "#fff"
+        }
+        this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
+        if(this_class != class_name){
+          if(!d.stroke_color){
+            d.stroke_color = d3.select(this).attr("stroke");
+          }
+          return "#bbb";
+        }
+        else {
+          if(!d.stroke_color){
+            return d3.select(this).attr("stroke");
+          }
+          return d.stroke_color
+        }
+      })
+      
+    if(text_to_fade){
+      text_to_fade.transition().duration(500)
+        .attr("fill", function(d){
+          if(d.children){
+            return "#fff"
+          }
+          
+          this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
+          if(this_class != class_name){
+            if(!d.text_color){
+              d.text_color = d3.select(this).attr("fill");
+            }
+            return "#fff";
+          }
+          else {
+            if(!d.text_color){
+              return d3.select(this).attr("fill");
+            }
+            return d.text_color
+          }
+        })
+    }
+    
+  })
+  $(".key a").mouseout(function(){
+    
+    var class_name = $(this).attr("class");
+    
+    switch("{{app_name}}"){
+      case "tree_map":
+        var items_to_fade = d3.selectAll("g.viz rect");
+        var text_to_fade = d3.selectAll("g.viz text");
+        break;
+      case "stacked":
+        var items_to_fade = d3.selectAll("g.stacked path");
+        break;
+      case "product_space":
+        var items_to_fade = d3.selectAll("circle");
+        var text_to_fade = d3.select("svg").select("svg").selectAll("text");
+        break;
+    }
+    
+    items_to_fade.transition().duration(500)
+      .attr("fill", function(d){
+        if(d.children){ return "#fff" }
+        
+        this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
+        if(this_class != class_name){ return d.color; }
+        else { return d3.select(this).attr("fill"); }
+      })
+      .attr("stroke", function(d){
+        if(d.children){ return "#fff" }
+        
+        this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
+        if(this_class != class_name){
+          return d.stroke_color;
+        }
+        else {
+          return d3.select(this).attr("stroke");
+        }
+      })
+    
+    if(text_to_fade){
+      text_to_fade.transition().duration(500).attr("fill", function(d){
+        if(d.children){ return "#fff" }
+        
+        this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
+        if(this_class != class_name){
+          return d.text_color;
+        }
+        else {
+          return d3.select(this).attr("fill");
+        }
+	    })
+	  }
+    
 	})
-	$(".key a").mouseout(function(){
-		
-		var class_name = $(this).attr("class");
-		
-		switch("{{app_name}}"){
-			case "tree_map":
-				var items_to_fade = d3.selectAll("g.viz rect");
-				var text_to_fade = d3.selectAll("g.viz text");
-				break;
-			case "stacked":
-				var items_to_fade = d3.selectAll("g.stacked path");
-				break;
-			case "product_space":
-				var items_to_fade = d3.selectAll("circle");
-				var text_to_fade = d3.select("svg").select("svg").selectAll("text");
-				break;
-		}
-		
-		items_to_fade.transition().duration(500)
-			.attr("fill", function(d){
-				if(d.children){
-					return "#fff"
-				}
-			
-				this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
-				if(this_class != class_name){
-					return d.color;
-				}
-				else {
-					return d3.select(this).attr("fill");
-				}
-			})
-			.attr("stroke", function(d){
-				if(d.children){
-					return "#fff"
-				}
-			
-				this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
-				if(this_class != class_name){
-					return d.stroke_color;
-				}
-				else {
-					return d3.select(this).attr("stroke");
-				}
-			})
-		
-		if(text_to_fade){
-			text_to_fade.transition().duration(500).attr("fill", function(d){
-				if(d.children){
-					return "#fff"
-				}
-				
-				this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
-				if(this_class != class_name){
-					return d.text_color;
-				}
-				else {
-					return d3.select(this).attr("fill");
-				}
-			})
-		}
-		
-	})
-	
-	$("a.pdf, a.svg, a.png").click(function(){
-		var content = d3.select("svg")
-			.attr("title", title)
-			.attr("version", 1.1)
-			.attr("xmlns", "http://www.w3.org/2000/svg")
-			.node().parentNode.innerHTML;
-		// Add this content as the value of input
-		$("input[name='content']").val(content)
-		
-		var format = $(this).attr("class");
-		$("input[name='format']").val(format);
-		
-		var title = window.location.pathname.split("/")
-		title.splice(0, 1)
-		title.splice(0, 1)
-		title.splice(title.length-1, 1)
-		$("input[name='title']").val(title.join("_"));
-		
-		// Submitting the form will trigger the action with will bring up
-		// the /export page. The view for this page takes the values from
-		// POST request and prompts the user to download the file
-		// console.log(format)
-		$('form.download').submit();
-		return false;		
-	})
-	
+  
+  $("a.pdf, a.svg, a.png").click(function(){
+    var content = d3.select("svg")
+      .attr("title", title)
+      .attr("version", 1.1)
+      .attr("xmlns", "http://www.w3.org/2000/svg")
+      .node().parentNode.innerHTML;
+    // Add this content as the value of input
+    $("input[name='content']").val(content)
+    
+    var format = $(this).attr("class");
+    $("input[name='format']").val(format);
+    
+    var title = window.location.pathname.split("/")
+    title.splice(0, 1)
+    title.splice(0, 1)
+    title.splice(title.length-1, 1)
+    $("input[name='title']").val(title.join("_"));
+    
+    // Submitting the form will trigger the action with will bring up
+    // the /export page. The view for this page takes the values from
+    // POST request and prompts the user to download the file
+    // console.log(format)
+    $('form.download').submit();
+    return false;		
+  })
+  
   function view_as_text(data, attr_data, year, silent){
     return function(e){
       if(!silent){

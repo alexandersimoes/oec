@@ -1,41 +1,7 @@
-// $("#toggle").toggle(
-//   function(){
-//     $("#toggle").css("bottom", 120);
-//     $("#related").css("bottom", -1);
-//     $("#related").css("visibility", "visible");
-//     return false;
-//   },
-//   function(){
-//     $("#toggle").css("bottom", -1);
-//     $("#related").css("bottom", -121);
-//     return false;
-//   }
-// )
-
-// function placeFooter() {    
-//     var windHeight = $(window).height();
-//     var footerHeight = $('#related').height();
-//     var offset = parseInt(windHeight) - parseInt(footerHeight);
-//     $('#related').css('top',offset);
-// }
-// 
-// $(function(){
-//     $(window).resize(function(e){
-//         placeFooter();
-//     });
-//     $(window).scroll(function(e){
-//         placeFooter();
-//     });
-//     placeFooter();
-//     // hide it before it's positioned
-//     $('#related').css('display','inline');
-// });
-
-var rel_cat = $("#related div select").val();
-show_related(rel_cat);
-
 $("#related #toggle").toggle(function(e){
   $("#related").css("bottom", 0);
+  var rel_cat = $("#related div select").val();
+  show_related(rel_cat);
 },function(){
   $("#related").css("bottom", -260);
 });
@@ -120,31 +86,3 @@ function make_related_boxes(ordered_data, index, title, year){
     $(box).css("visibility", "visible");
   })
 }
-
-
-
-// 
-// function make_related_boxes(title, data, cur_index){
-//   var color = d3.scale.linear()
-//     .interpolate(d3.interpolateRgb)
-//     .range(["#7cbde2", "#fb9496"])
-//     .domain([1, data.length]);
-//     
-//   related_boxes = $("div.related_item")
-//   related_boxes.each(function(i, box){
-//     var box_i = i-2;
-//     var wdi_name = title;
-//     // var rank = json.index+1+cur_index;
-//     var rank = 1;
-//     var name = data[json.index+cur_index][0]
-//     var name_3char = data[json.index+cur_index][1].toLowerCase()
-//     var value = data[json.index+cur_index][2]
-//     $(box).find("h4").html('<img src="/media/img/icons/flag_'+name_3char+'.png"> '+name)
-//     $(box).find("iframe").attr("src", "http://atlas.media.mit.edu/embed/tree_map/export/"+name_3char+"/all/show/"+year+"/")
-//     $(box).find("p.value").text(wdi_name + ": " + d3.format(",f")(value))
-//     $(box).find("p.rank").text(rank)
-//     $(box).css("border-color", color(rank));
-//     $(box).find("p.rank").css("background", color(rank));
-//   })
-// 
-// }
