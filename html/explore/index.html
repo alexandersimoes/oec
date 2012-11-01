@@ -31,111 +31,6 @@
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <style>
-  #related {
-    border-bottom: none;
-    position: fixed;
-    bottom: -260px;
-/*    bottom: 0px;*/
-    z-index: 10;
-    
-    -moz-transition: all .5s; 
-    -webkit-transition: all .5s;  
-    -ms-transition: all .5s;  
-    -o-transition: all .5s;  
-    transition: all .5s;
-    
-    -moz-box-shadow:    0px 3px 5px 6px #cdcdcd;
-    -webkit-box-shadow: 0px 3px 5px 6px #cdcdcd;
-    box-shadow:         0px 3px 20px 2px #cdcdcd;
-  }
-  #related #prev,
-  #related #next {
-    font-size: 50px;
-    letter-spacing: 1px;
-    padding: 5px;
-    position: absolute;
-    text-decoration: none;
-    top: 110px;
-  }
-  #related #prev { left: -30px; }
-  #related #next { right: -30px; }
-  #related #toggle {
-/*    border: solid #999 1px;*/
-    border-bottom: none;
-    background: white;
-    float: left;
-    font-size: 16px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    padding: 5px 10px 0 10px;
-    position: absolute;
-    text-decoration: none;
-    text-transform: uppercase;
-    top: -24px;
-    z-index: -1;
-    
-    -moz-box-shadow:    0px 3px 5px 6px #cdcdcd;
-    -webkit-box-shadow: 0px 3px 5px 6px #cdcdcd;
-    box-shadow:         0px 3px 20px 2px #cdcdcd;
-  }
-  #related #toggle .arrow_up {
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-  	border-bottom: 5px solid black;
-	}
-  #related div {
-    background: white;
-/*    border: solid #999 1px;*/
-    height: 250px;
-    padding: 10px;
-    width: 994px;
-    z-index: 99;
-  }
-  #related div p {
-    margin: 0 0 10px 0;
-  }
-  #related div .related_item {
-    background: white;
-    border: solid #e6999f 1px;
-    display: inline-block;
-    height: 200px;
-    margin: 0 5px 0 0;
-    padding: 5px;
-    position: relative;
-    width: 180px;
-  }
-  #related div .related_item:last-child {
-    margin: 0;
-  }
-  #related div .related_item h4 {
-    margin: 0;
-    overflow: hidden;
-    width: 180px;
-    white-space: nowrap;
-  }
-  #related div .related_item h4 img {
-    margin: 0 5px 0 0;
-    position: relative;
-    top: 4px;
-    width: 20px;
-  }
-  #related div .related_item p {
-    font-size: 12px;
-    margin: 0;
-  }
-  #related div .related_item p.rank {
-    background: #e6999f;
-    font-size: 18px;
-    right: 10px;
-    margin: 0;
-    padding: 0 5px;
-    position: absolute;
-    top: 0;
-  }
-	</style>
 </head>
 <body class="app">
   {% if alert %}
@@ -199,117 +94,122 @@
         {% endif %}
         
         <!-- year(s) -->
-				{% if year_start %}
-				<h2 class="left">{{year_start}}<br />{{year_end}}</h2>
-				{% else %}
-				<h2 class="left small">{{year}}</h2>
-				{% endif %}
-				
-				<!-- Right icon -->
-				{% if country2_list %}
-				<img class="img right" src="/media/img/icons/flag_{{ country2.name_3char|lower }}.png" alt="{{country2.name}}">
-				{% endif %}
-				{% if country1_list and product_list %}
-				<img class="img right community" src="/media/img/icons/community_{{ product.community.id }}.png" alt="{{product.name_en}}">
-				{% endif %}
-				
-			</div>
-			<div class="app_title" id="title"><h2>{% if title %}{{title}}{% else %}&nbsp;{% endif %}</h2></div>
-		
-			<!-- the left pane -->
-			<div id="app_pane">
-				<h3 class="pane_title">{% trans "App Selection" %}</h3>
-				<div class="accordion">
-					<div>
-						<h3><a href="#">Tree Maps</a></h3>
-						<div>
-							<h4>{% trans "Country" %}</h4>
-							<ul>
-								<li><a class="casy" href="/explore/tree_map/export/usa/all/show/2009/">{% trans "Exports" %}</a></li>
-								<li><a class="casy" href="/explore/tree_map/import/usa/all/show/2009/">{% trans "Imports" %}</a></li>
-								<li><a class="casy" href="/explore/tree_map/net_export/usa/all/show/2009/">{% trans "Net Exports" %}</a></li>
-								<li><a class="casy" href="/explore/tree_map/net_import/usa/all/show/2009/">{% trans "Net Imports" %}</a></li>
-							</ul>
-							<h4>{% trans "Country (show trade partners)" %}</h4>
-							<ul>
-								<li><a class="csay" href="/explore/tree_map/export/usa/show/all/2009/">{% trans "Exports" %}</a></li>
-								<li><a class="csay" href="/explore/tree_map/import/usa/show/all/2009/">{% trans "Imports" %}</a></li>
-							</ul>
-							<h4>{% trans "Products" %}</h4>
-							<ul>
-								<li><a class="sapy" href="/explore/tree_map/export/show/all/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Exports To Destination" %}</a></li>
-								<li><a class="sapy" href="/explore/tree_map/import/show/all/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Imports From Origin" %}</a></li>
-							</ul>
-							<h4>{% trans "Bilateral" %}</h4>
-							<ul>
-								<li><a class="ccsy" href="/explore/tree_map/export/usa/chn/show/2009/">{% trans "Exports To Destination" %}</a></li>
-								<li><a class="ccsy" href="/explore/tree_map/import/usa/chn/show/2009/">{% trans "Imports From Origin" %}</a></li>
-								<li><a class="cspy" href="/explore/tree_map/export/usa/show/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Exports by Product" %}</a></li>
-								<li><a class="cspy" href="/explore/tree_map/import/usa/show/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Imports by Product" %}</a></li>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<h3><a href="#">Stacked Area Charts</a></h3>
-						<div>
-							<h4>{% trans "Country" %}</h4>
-							<ul>
-								<li><a class="casy" href="/explore/stacked/export/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports" %}</a></li>
-								<li><a class="casy" href="/explore/stacked/import/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports" %}</a></li>
-								<li><a class="casy" href="/explore/stacked/net_export/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Net Exports" %}</a></li>
-								<li><a class="casy" href="/explore/stacked/net_import/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Net Imports" %}</a></li>
-							</ul>
-							<h4>{% trans "Country (show trade partners)" %}</h4>
-							<ul>
-								<li><a class="csay" href="/explore/stacked/export/usa/show/all/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports" %}</a></li>
-								<li><a class="csay" href="/explore/stacked/import/usa/show/all/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports" %}</a></li>
-							</ul>
-							<h4>{% trans "Products" %}</h4>
-							<ul>
-								<li><a class="sapy" href="/explore/stacked/export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports To Destination" %}</a></li>
-								<li><a class="sapy" href="/explore/stacked/import/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports From Origin" %}</a></li>
-							</ul>
-							<h4>{% trans "Bilateral" %}</h4>
-							<ul>
-								<li><a class="ccsy" href="/explore/stacked/export/usa/chn/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports To Destination" %}</a></li>
-								<li><a class="ccsy" href="/explore/stacked/import/usa/chn/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports From Origin" %}</a></li>
-								<li><a class="cspy" href="/explore/stacked/export/usa/show/3354/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports by Product" %}</a></li>
-								<li><a class="cspy" href="/explore/stacked/import/usa/show/3354/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports by Product" %}</a></li>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<h3><a href="#">Product Space</a></h3>
-						<ul>
-							<li><a class="casy" href="/explore/product_space/export/usa/all/show/2009/">Product Space of {% trans "Exports" %}</a></li>
-							<li><a class="disabled" href="#">Density Product Space</a></li>
-						</ul>
-					</div>
-					<div>
-						<h3><a href="#">Predictive Tools</a></h3>
-						<ul>
-							<li><a class="disabled" href="#">Density Bars</a></li>
-							<li><a class="disabled" href="#">Stepping Stone</a></li>
-						</ul>
-					</div>
-					<div>
-						<h3><a href="#">Maps</a></h3>
-						<ul>
-							<li><a class="sapy" href="/explore/map/export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2009/">Exports</a></li>
-							<li><a class="sapy" href="/explore/map/import/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2009/">Imports</a></li>
-							<li><a class="sapy" href="/explore/map/net_export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2009/">Net exports</a></li>
-							<li><a class="sapy" href="/explore/map/net_import/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2009/">Net imports</a></li>
-						</ul>
-					</div>
-				</div>
-			</div> <!-- END app selection pane -->
-		
+        {% if year_start %}
+        <h2 class="left">{{year_start}}<br />{{year_end}}</h2>
+        {% else %}
+        <h2 class="left small">{{year}}</h2>
+        {% endif %}
+        
+        <!-- Right icon -->
+        {% if country2_list %}
+        <img class="img right" src="/media/img/icons/flag_{{ country2.name_3char|lower }}.png" alt="{{country2.name}}">
+        {% endif %}
+        {% if country1_list and product_list %}
+        <img class="img right community" src="/media/img/icons/community_{{ product.community.id }}.png" alt="{{product.name_en}}">
+        {% endif %}
+        
+      </div>
+      <div class="app_title" id="title"><h2>{% if title %}{{title}}{% else %}&nbsp;{% endif %}</h2></div>
+
+      <!-- the left pane -->
+      <div id="app_pane">
+        <h3 class="pane_title">{% trans "App Selection" %}</h3>
+        <div class="accordion">
+          <div>
+            <h3><a href="#">Tree Maps</a></h3>
+            <div>
+              <h4>{% trans "Country" %}</h4>
+              <ul>
+                <li><a class="casy" href="/explore/tree_map/export/usa/all/show/2009/">{% trans "Exports" %}</a></li>
+                <li><a class="casy" href="/explore/tree_map/import/usa/all/show/2009/">{% trans "Imports" %}</a></li>
+                <li><a class="casy" href="/explore/tree_map/net_export/usa/all/show/2009/">{% trans "Net Exports" %}</a></li>
+                <li><a class="casy" href="/explore/tree_map/net_import/usa/all/show/2009/">{% trans "Net Imports" %}</a></li>
+              </ul>
+              <h4>{% trans "Country (show trade partners)" %}</h4>
+              <ul>
+                <li><a class="csay" href="/explore/tree_map/export/usa/show/all/2009/">{% trans "Exports" %}</a></li>
+                <li><a class="csay" href="/explore/tree_map/import/usa/show/all/2009/">{% trans "Imports" %}</a></li>
+              </ul>
+              <h4>{% trans "Products" %}</h4>
+              <ul>
+                <li><a class="sapy" href="/explore/tree_map/export/show/all/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Exports To Destination" %}</a></li>
+                <li><a class="sapy" href="/explore/tree_map/import/show/all/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Imports From Origin" %}</a></li>
+              </ul>
+              <h4>{% trans "Bilateral" %}</h4>
+              <ul>
+                <li><a class="ccsy" href="/explore/tree_map/export/usa/chn/show/2009/">{% trans "Exports To Destination" %}</a></li>
+                <li><a class="ccsy" href="/explore/tree_map/import/usa/chn/show/2009/">{% trans "Imports From Origin" %}</a></li>
+                <li><a class="cspy" href="/explore/tree_map/export/usa/show/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Exports by Product" %}</a></li>
+                <li><a class="cspy" href="/explore/tree_map/import/usa/show/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Imports by Product" %}</a></li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <h3><a href="#">Stacked Area Charts</a></h3>
+            <div>
+              <h4>{% trans "Country" %}</h4>
+              <ul>
+                <li><a class="casy" href="/explore/stacked/export/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports" %}</a></li>
+                <li><a class="casy" href="/explore/stacked/import/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports" %}</a></li>
+                <li><a class="casy" href="/explore/stacked/net_export/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Net Exports" %}</a></li>
+                <li><a class="casy" href="/explore/stacked/net_import/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Net Imports" %}</a></li>
+              </ul>
+              <h4>{% trans "Country (show trade partners)" %}</h4>
+              <ul>
+                <li><a class="csay" href="/explore/stacked/export/usa/show/all/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports" %}</a></li>
+                <li><a class="csay" href="/explore/stacked/import/usa/show/all/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports" %}</a></li>
+              </ul>
+              <h4>{% trans "Products" %}</h4>
+              <ul>
+                <li><a class="sapy" href="/explore/stacked/export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports To Destination" %}</a></li>
+                <li><a class="sapy" href="/explore/stacked/import/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports From Origin" %}</a></li>
+              </ul>
+              <h4>{% trans "Bilateral" %}</h4>
+              <ul>
+                <li><a class="ccsy" href="/explore/stacked/export/usa/chn/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports To Destination" %}</a></li>
+                <li><a class="ccsy" href="/explore/stacked/import/usa/chn/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports From Origin" %}</a></li>
+                <li><a class="cspy" href="/explore/stacked/export/usa/show/3354/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports by Product" %}</a></li>
+                <li><a class="cspy" href="/explore/stacked/import/usa/show/3354/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports by Product" %}</a></li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <h3><a href="#">Product Space</a></h3>
+            <ul>
+              <li><a class="casy" href="/explore/product_space/export/usa/all/show/2009/">Product Space of {% trans "Exports" %}</a></li>
+              <li><a class="disabled" href="#">Density Product Space</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3><a href="#">Predictive Tools</a></h3>
+            <ul>
+              <li><a class="disabled" href="#">Density Bars</a></li>
+              <li><a class="disabled" href="#">Stepping Stone</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3><a href="#">Maps</a></h3>
+            <ul>
+              <li><a class="sapy" href="/explore/map/export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2009/">Exports</a></li>
+              <li><a class="sapy" href="/explore/map/import/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2009/">Imports</a></li>
+              <li><a class="sapy" href="/explore/map/net_export/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2009/">Net exports</a></li>
+              <li><a class="sapy" href="/explore/map/net_import/show/all/{%if product_classification == "sitc4"%}3330{% else %}2709{% endif %}/2009/">Net imports</a></li>
+            </ul>
+          </div>
+        </div>
+      </div> <!-- END app selection pane -->
+      
       <!-- the Visualization -->
       <div id="content">
+
+        <!-- ajax loading gif -->
+        <div id="loader">
+          <img src="/media/img/all/loader.gif" alt="loading" /><br />Loading...
+        </div>
         
         <!-- the canvas for the visualization -->
-        {% if data_as_text %}
         <div id="text_data">
+        {% if data_as_text %}
           <table>
             <tr>
               {% for c in data_as_text.columns %}
@@ -328,111 +228,49 @@
             </tr>
             {% endfor %}
           </table>
-        </div>
         {% else %}
-
-        <!-- ajax loading gif -->
-        <div id="loader">
-          <img src="/media/img/all/loader.gif" alt="loading" /><br />Loading...
         </div>
+        
+        <!-- Container for the visualization -->
         <div id="dataviz"></div>
-        {% endif %}
         
-        <!-- the key for hovering over communities -->
-        <div class="key" id="sitc4_communities">
-          <a href="#" class="cat_10" title="Machinery"><img src="/media/img/icons/community_10.png"></a>
-          <a href="#" class="cat_11" title="Electronics"><img src="/media/img/icons/community_11.png"></a>
-          <a href="#" class="cat_12" title="Aircraft"><img src="/media/img/icons/community_12.png"></a>
-          <a href="#" class="cat_13" title="Boilers"><img src="/media/img/icons/community_13.png"></a>
-          <a href="#" class="cat_14" title="Ships"><img src="/media/img/icons/community_14.png"></a>
-          <a href="#" class="cat_15" title="Metal Products"><img src="/media/img/icons/community_15.png"></a>
-          <a href="#" class="cat_20" title="Construction Materials and Equipment"><img src="/media/img/icons/community_20.png"></a>
-          <a href="#" class="cat_21" title="Home and Office Products"><img src="/media/img/icons/community_21.png"></a>
-          <a href="#" class="cat_22" title="Pulp and Paper"><img src="/media/img/icons/community_22.png"></a>
-          <a href="#" class="cat_30" title="Beer, Spirits and Cigarettes"><img src="/media/img/icons/community_30.png"></a>
-          <a href="#" class="cat_31" title="Food Processing"><img src="/media/img/icons/community_31.png"></a>
-          <a href="#" class="cat_40" title="Petrochemicals"><img src="/media/img/icons/community_40.png"></a>
-          <a href="#" class="cat_41" title="Inorganic Salts and Acids"><img src="/media/img/icons/community_41.png"></a>
-          <a href="#" class="cat_42" title="Other Chemicals"><img src="/media/img/icons/community_42.png"></a>
-          <a href="#" class="cat_43" title="Agrochemicals"><img src="/media/img/icons/community_43.png"></a>
-          <a href="#" class="cat_44" title="Chemicals and Health Related Products"><img src="/media/img/icons/community_44.png"></a>
-          <a href="#" class="cat_50" title="Coal"><img src="/media/img/icons/community_50.png"></a>
-          <a href="#" class="cat_51" title="Mining"><img src="/media/img/icons/community_51.png"></a>
-          <a href="#" class="cat_52" title="Oil"><img src="/media/img/icons/community_52.png"></a>
-          <a href="#" class="cat_54" title="Precious Stones"><img src="/media/img/icons/community_54.png"></a>
-          <a href="#" class="cat_60" title="Textile and Fabrics"><img src="/media/img/icons/community_60.png"></a>
-          <a href="#" class="cat_61" title="Garments"><img src="/media/img/icons/community_61.png"></a>
-          <a href="#" class="cat_70" title="Cereals and Vegetable Oils"><img src="/media/img/icons/community_70.png"></a>
-          <a href="#" class="cat_71" title="Cotton, Rice, Soy Beans and Others"><img src="/media/img/icons/community_71.png"></a>
-          <a href="#" class="cat_72" title="Tropical Treecrops and Flowers"><img src="/media/img/icons/community_72.png"></a>
-          <a href="#" class="cat_73" title="Tobacco"><img src="/media/img/icons/community_73.png"></a>
-          <a href="#" class="cat_74" title="Fruit"><img src="/media/img/icons/community_74.png"></a>
-          <a href="#" class="cat_75" title="Misc Agriculture"><img src="/media/img/icons/community_75.png"></a>
-          <a href="#" class="cat_80" title="Fish and Seafood"><img src="/media/img/icons/community_80.png"></a>
-          <a href="#" class="cat_81" title="Meat and Eggs"><img src="/media/img/icons/community_81.png"></a>
-          <a href="#" class="cat_82" title="Animal Fibers"><img src="/media/img/icons/community_82.png"></a>
-          <a href="#" class="cat_83" title="Milk and Cheese"><img src="/media/img/icons/community_83.png"></a>
-          <a href="#" class="cat_84" title="Leather"><img src="/media/img/icons/community_84.png"></a>
-          <a href="#" class="cat_90" title="Not Classified"><img src="/media/img/icons/community_90.png"></a>
-        </div>
-        <div class="key" id="hs4_communities">
-          <a href="#" class="cat_106" title="Animals &amp; Animal Products"><img src="/media/img/icons/community_106.png"></a>
-          <a href="#" class="cat_116" title="Vegetable Products"><img src="/media/img/icons/community_116.png"></a>
-          <a href="#" class="cat_126" title="Foodstuffs"><img src="/media/img/icons/community_126.png"></a>
-          <a href="#" class="cat_206" title="Mineral Products"><img src="/media/img/icons/community_206.png"></a>
-          <a href="#" class="cat_306" title="Chemicals &amp; Allied Industries"><img src="/media/img/icons/community_306.png"></a>
-          <a href="#" class="cat_316" title="Plastics / Rubbers"><img src="/media/img/icons/community_316.png"></a>
-          <a href="#" class="cat_406" title="Raw Hides, Skins, Leather, &amp; Furs"><img src="/media/img/icons/community_406.png"></a>
-          <a href="#" class="cat_416" title="Textiles"><img src="/media/img/icons/community_416.png"></a>
-          <a href="#" class="cat_426" title="Footwear / Headgear"><img src="/media/img/icons/community_426.png"></a>
-          <a href="#" class="cat_506" title="Wood &amp; Wood Products"><img src="/media/img/icons/community_506.png"></a>
-          <a href="#" class="cat_606" title="Stone / Glass"><img src="/media/img/icons/community_606.png"></a>
-          <a href="#" class="cat_616" title="Metals"><img src="/media/img/icons/community_616.png"></a>
-          <a href="#" class="cat_706" title="Machinery / Electrical"><img src="/media/img/icons/community_706.png"></a>
-          <a href="#" class="cat_716" title="Transportation"><img src="/media/img/icons/community_716.png"></a>
-          <a href="#" class="cat_906" title="Miscellaneous"><img src="/media/img/icons/community_906.png"></a>
-          <a href="#" class="cat_916" title="Services"><img src="/media/img/icons/community_916.png"></a>
-        </div>
-        <div class="key" id="regions">
-          <!-- Africa -->
-          <a href="#" class="cat_10" title="Eastern Africa" style="background:#CC6DB1">E Africa</a>
-          <a href="#" class="cat_11" title="Middle Africa" style="background:#BA4398">M Africa</a>
-          <a href="#" class="cat_12" title="North Africa" style="background:#99237D">N Africa</a>
-          <a href="#" class="cat_13" title="Southern Africa" style="background:#771564">S Africa</a>
-          <a href="#" class="cat_14" title="Western Africa" style="background:#560D48">W Africa</a>
-          <!-- Americas -->
-          <a href="#" class="cat_20" title="Northern America" style="background:#c7242b">N America</a>
-          <a href="#" class="cat_21" title="Caribbean" style="background:#af1f2b">Caribbean</a>
-          <a href="#" class="cat_22" title="Central America" style="background:#97192a">C America</a>
-          <a href="#" class="cat_23" title="South America" style="background:#7f142a">S America</a>
-          <!-- Asia -->
-          <a href="#" class="cat_30" title="Western Asia" style="background:#6bc191">W Asia</a>
-          <a href="#" class="cat_31" title="Central Africa" style="background:#5ca57c">C Asia</a>
-          <a href="#" class="cat_32" title="Southern Africa" style="background:#4c8966">S Asia</a>
-          <a href="#" class="cat_33" title="South-Eastern Africa" style="background:#3d6d51">SE Asia</a>
-          <a href="#" class="cat_34" title="Eastern Africa" style="background:#2d513b">E Asia</a>
-          <!-- Asia -->
-          <a href="#" class="cat_40" title="Western Europe" style="background:#88C7ED">W Europe</a>
-          <a href="#" class="cat_41" title="Southern Europe" style="background:#2A87D3">S Europe</a>
-          <a href="#" class="cat_42" title="Northern Europe" style="background:#1471A5">N Europe</a>
-          <a href="#" class="cat_43" title="Eastern Europe" style="background:#165E8E">E Europe</a>
-          <!-- Oceania -->
-          <a href="#" class="cat_50" title="Australia and New Zealand" style="background:#DD9F62">Australia and New Zealand</a>
-          <a href="#" class="cat_51" title="Melanesia" style="background:#E57D28">Melanesia</a>
-          <a href="#" class="cat_52" title="Micronesia" style="background:#D86612">Micronesia</a>
-          <a href="#" class="cat_53" title="Polynesia" style="background:#B5763C">Polynesia</a>
-        </div>
+        <!-- Container for the key/legend -->
+        <div class="key"></div>
         
-        <!-- the timeline -->
+        <!-- Container for the timeline -->
         <div id="timeline">
-          <div class="slider"></div>
+          <div class="slider" id="year"></div>
           {% if app_name != "stacked" %}
           <a class="prev" href="/explore/{{app_name}}/{{trade_flow}}/{% if country1.name_3char %}{{country1.name_3char|lower}}{% else %}{{country1}}{% endif %}/{% if country2.name_3char %}{{country2.name_3char|lower}}{% else %}{{country2}}{% endif %}/{% if product.code %}{{product.code}}{% else %}{{product}}{% endif %}/{% if year > years_available.0 %}{{year|add:-1}}{% else %}{{years_available.last}}{% endif %}/">&laquo; {% trans "Previous" %}</a>
             <button id="play">{% trans "Play" %}</button>
             <button id="stop">{% trans "Stop" %}</button>
           <a class="next" href="/explore/{{app_name}}/{{trade_flow}}/{% if country1.name_3char %}{{country1.name_3char|lower}}{% else %}{{country1}}{% endif %}/{% if country2.name_3char %}{{country2.name_3char|lower}}{% else %}{{country2}}{% endif %}/{% if product.code %}{{product.code}}{% else %}{{product}}{% endif %}/{% if year < years_available.last %}{{year|add:1}}{% else %}{{years_available.0}}{% endif %}/">{% trans "Next" %} &raquo;</a>
+          {% else %}
+          <div id="stacked_controls">
+            <div>
+              <p>Year Interval: </p>
+              <div class="slider" id="interval"></div>
+            </div>
+            <div id="stacked_labels">
+              <p>Labels:</p>
+              <input type="radio" id="on" name="labels" checked="checked" /><label for="on">On</label>
+              <input type="radio" id="off" name="labels" /><label for="off">Off</label>
+            </div>
+            <div id="stacked_layout">
+              <p>Layout:</p>
+              <input type="radio" id="value" name="layout" checked="checked" /><label for="value">value</label>
+              <input type="radio" id="share" name="layout" /><label for="share">share</label>
+            </div>
+            <div id="stacked_order">
+              <p>Ordering:</p>
+              <input type="radio" id="community" name="order" checked="checked" /><label for="community">community</label>
+              <input type="radio" id="name" name="order" /><label for="name">name</label>
+              <input type="radio" id="val" name="order" /><label for="val">value</label>
+            </div>
+          </div>
           {% endif %}
         </div>
+        {% endif %}
 
       </div> <!-- END content -->
       
@@ -558,36 +396,26 @@
         </div>
         {% endif %}
 
-        <!-- Year interval List -->
-        {% if year_interval_list %}
-        <div class="dropdown_container" id="layout">
-          <h3>{% trans "Layout" %}</h3>
-          <input type="radio" id="stacked_value" name="radio" checked="checked" /><label for="stacked_value">value</label>
-          <input type="radio" id="stacked_share" name="radio" /><label for="stacked_share">share</label>
-        </div>
-        {% endif %}
-
         <button id="build">{% trans "Build Visualization" %} &raquo;</button>
-        <div class="download">
+        <div class="control_container" id="download">
           <h3>{% trans "Download" %}</h3>
           <a class="pdf" href="#"><img src="/media/img/app/download.png" /> PDF</a>
           <a class="svg" href="#"><img src="/media/img/app/download.png" /> SVG</a>
           <a class="png" href="#"><img src="/media/img/app/download.png" /> PNG</a>
           <a class="csv" href="#"><img src="/media/img/app/download.png" /> CSV</a>
         </div>
-        <div class="download">
-          <a class="text" href="#"><img src="/media/img/app/text.png" /> {% trans "View as text" %}</a>
-          <a class="app" href="#"><img src="/media/img/app/text.png" /> {% trans "View app" %}</a>
+        <div class="control_container" id="view_as_text">
+          <a class="text" href="#"><img src="/media/img/app/text.png" /> <span>{% trans "View as text" %}</span></a>
         </div>
-        <div class="download">
+        <div class="control_container">
           <h3>{% trans "Embed" %}</h3>
           <input type="text" class="embed_code" value='&lt;iframe width="560" height="315" src="http://atlas.media.mit.edu/embed/tree_map/import/usa/show/all/2009/" frameborder="0" &gt;&lt;/iframe&gt;'></input>
         </div>
         <div class="product_class">
           Product classification:
           <select>
-            <option value="sitc4" {% if product_classification == "sitc4" %} selected="selected" {% endif %}>SITC4</option>
-            <option value="hs4" {% if product_classification == "hs4" %} selected="selected" {% endif %}>HS4</option>
+            <option value="sitc4" {% if prod_class == "sitc4" %} selected="selected" {% endif %}>SITC4</option>
+            <option value="hs4" {% if prod_class == "hs4" %} selected="selected" {% endif %}>HS4</option>
           </select>
         </div>
       </div>
@@ -612,7 +440,7 @@
     <canvas style="display: none;" id="canvas" width="640px" height="500px"></canvas>
     
     <!--  Related -->
-    <div id="related">
+    <!-- <div id="related">
       <a id="prev" href="#">&laquo;</a>
       <a id="next" href="#">&raquo;</a>
       <a id="toggle" href="#">Related</a>
@@ -658,7 +486,7 @@
           <p class="rank">&nbsp;</p>
         </div>
       </div>
-    </div>
+    </div> -->
     
   </div> <!-- END #container -->
 
@@ -670,7 +498,10 @@
   <script src="/media/js/libs/chosen/chosen.jquery.min.js" ></script>
   <script src="/media/js/libs/d3/d3.v2.min.js"></script>
   <!-- App -->
-  <script src="/media/js/apps/general.js"></script>
+  <script src="/media/js/explore/general.js"></script>
+  <script src="/media/js/explore/key.js"></script>
+  <script src="/media/js/explore/timeline.js"></script>
+  <script src="/media/js/explore/controls.js"></script>
   {% if app_name == "tree_map" %}<script src="/media/js/apps/tree_map.js"></script>{% endif %}
   {% if app_name == "stacked" %}<script src="/media/js/apps/stacked.js"></script>{% endif %}
   {% if app_name == "product_space" %}<script src="/media/js/apps/product_space.js"></script>{% endif %}
@@ -681,757 +512,58 @@
   (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
   g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
   s.parentNode.insertBefore(g,s)}(document,'script'));
-
-  // global vars
-  var playing = false;
-
-  /*
-   * General page stuff
-   */
-
- 	// language select dropdown
- 	$(".language_select select").chosen();
- 	$(".language_select .chzn-search").hide();
- 	$(".language_select select").chosen().change(function(){
- 		// set session data to new language
- 		var language = $(this).val();
- 		window.location = "/set_language/"+language+"/";
- 	});
-	// set active link in top nav for current page
-	var current_page = "explore";
-	$("nav ul a").each(function(i, el){
-		if($(el).text().toLowerCase() == current_page){
-			$(el).addClass("current");
-		}
-	})
-	
-	// set up slider
-	$("#timeline .slider").slider({range: "min", value: "{{year}}", min: {{years_available|safe}}[0], max: {{years_available|safe}}[{{years_available|safe}}.length-1]});
-	if("{{app_name}}" == "stacked"){
-		$("#timeline").hide();
-	}
-	
-	/*
-	 * App Pane
-	 */
-	// set up the accordion in the app selection pane
-	$(".accordion").accordion({
-		collapsible: true,
-		active: false,
-		autoHeight: false,
-		header: "> div > h3"
-	});
-	// Open accordion if it is not already to the given index number
-	function set_accordion(i){
-		// Toggle if accordion is not already open to something
-		if($(".accordion").accordion("option", "active") === false){
-			$(".accordion").accordion("option", "active", i);
-		}
-	}
-	
-	// tooltip links for key
-	$('.key a').tipsy({"gravity":'s',"fade":true});
-	$(".key a").click(function(){return false;});
-
-	// Embed link textbox
-	$(".app #main #tool_pane .embed_code").click(function(){
-		$(this).focus();
-		$(this).select();
-	})
-	
-	/*
-	 * Control Pane
-	 */
-	// replace underscores with spaces for trade flow options
-	$(".dropdown_container#trade_flow option").each(function(i, el){
-		var new_text = $(el).text().replace("_", " ")
-		$(el).text(new_text)
-	})
-	// Use chosen plugin to make dropdowns look fancy
-	$(".dropdown_container select").chosen()
-	// build new app when button is clicked
-	$("button#build").click(new_app);
-	// butonset
-	$("#tool_pane #layout").buttonset();
-	// product classification dropdown
-	$(".product_class select").chosen()
-	$(".product_class select").chosen().change(function(){
-		// set session data to new product classificaiton
-		var prod_class = $(this).val();
-		window.location = "/set_product_classification/"+prod_class+"/";
-	});
-	
-	
-	/*
-	 * App building functions
-	 */
-	// check to see if data_as_text variable is present if NOT then build the app
-	// otherwise the text returned will fill the app canvas
-	if(!"{{data_as_text.total_value}}" && "{{alert}}" == "None"){
-	// if(!"{{data_as_text.total_value}}"){
-		get_data("{{api_uri}}")
-	}
-	
-	// given an API URI fetch data and send it to build_app function
-	function get_data(request){
-		d3.select("#dataviz").html("")
-		d3.select("#loader").style("display", "block");
-		d3.json(request, function(json){
-			build_app(json, request)
-		});
-	}
-	
-	// build the app given the data from the server
-	function build_app(json, request){
-		var app_name = "{{app_name}}";
-		// var request = "{{api_uri}}";
-		
-		// put data into common variables to they can be called from their respective
-		// app functions
-    json.attr_data.forEach(function(attr){
-     var id_property = attr["community_id"] ? "community_id" : "region_id",
-       name_property = attr["community__name"] ? "community__name" : "region__name",
-       color_property = attr["community__color"] ? "community__color" : "region__color",
-       text_color_property = attr["community__text_color"] ? "community__text_color" : "region__text_color";
-     attr["category_id"] = attr[id_property]; delete attr[id_property];
-     attr["category_name"] = attr[name_property]; delete attr[name_property];
-     attr["category_color"] = attr[color_property]; delete attr[color_property];
-     attr["category_text_color"] = attr[text_color_property]; delete attr[text_color_property];
-     attr["heirarchical_id"] = attr["category_id"].toString().substr(0,1) + "." + attr["category_id"] + "." + attr["id"];
-    })
-		
-		// turn flat attributes array into indexed object with ids
-		// either country or products as the key
-		json.attr_data = d3.nest()
-			.key(function(d) { return d["id"]; })
-			.rollup(function(d){ return d[0] })
-			.map(json.attr_data);
-		
-		// call update function, this is loosley coupled so that it can be called
-		// from other parts of the page without requiring the data to be reconfigured
-		update_app(json, app_name, request);
-		
-		// the timer's unique needs to be kept track of so when the user clicks
-		// stop, we can end the timer
-		var interval_id;
-		// slider event
-		
-		$("#timeline .slider").unbind( "slide");
-		$("#timeline .slider").bind( "slide", function(event, ui) {
-			json.year = parseInt(ui.value);
-			update_app(json, app_name, request);
-			// in case animation is going on 
-			window.clearInterval(interval_id);
-			$("#play").show();
-			$("#stop").hide();
-		});
-		$("#timeline a.prev, #timeline a.next").unbind("click")
-		$("#timeline a.prev, #timeline a.next").click(function(){
-			var year = parseInt($("#timeline .slider").slider("option", "value"));
-			var year_first = {{years_available|safe}}[0]
-			var year_last = {{years_available|safe}}[{{years_available|safe}}.length-1]
-			if($(this).attr("class") == "next"){
-				year = (year >= year_last) ? year_first : year+1;
-			} else {
-				year = (year <= year_first) ? year_last : year-1;
-			}
-			$("#timeline .slider").slider("option", "value", year);
-			json.year = year;
-			update_app(json, app_name, request);
-			// in case animation is going on 
-			window.clearInterval(interval_id);
-			$("#play").show();
-			$("#stop").hide();
-			return false;
-		})
-		
-		// play button event
-		$("#play").unbind("click");
-		$("#play").click(function(){
-			interval_id = window.setInterval(function(){
-				if(playing && json.year >= 2009){
-					playing = false;
-					$("#play").show();
-					$("#stop").hide();
-					window.clearInterval(interval_id);
-					return;
-				}
-				if(json.year >= 2009){
-					json.year = 1962;
-				}
-				else{
-					json.year++;
-				}
-				update_app(json, app_name, request)
-				playing = true;
-			}, 800);
-			$(this).hide();
-			$("#stop").show();
-		})
-		// stop button
-		$("#stop").unbind("click");
-		$("#stop").click(function(){
-			window.clearInterval(interval_id);
-			$(this).hide();
-			$("#play").show();
-			playing = false;
-			return false;
-		});
-		
-	}
-	
-	// this is the function that actually build the SVG app on the page
-	function update_app(json, app_name, requested_uri){
-	  
-		var app_data = {
-			"attr_data": json.attr_data,
-			"raw_data": json.data,
-			"selector": "#dataviz",
-			"year": json.year,
-			"width": 640,
-			"other": json.other}
-			
-		switch(app_name){
-			case "tree_map":
-      	app_data.height = 500;
-    		$("#dataviz").css("height",500);
-				var app = new TreeMap(app_data);
-				app.build();
-				set_accordion(0);
-				break;
-			case "stacked":
-        app_data.height = 510;
-    		$("#dataviz").css("height",520);
-				var app = new Stacked(app_data);
-				app.build();
-				set_accordion(1);
-				if(json.other){
-					if(json.other.layout == "share"){
-						$("#tool_pane #layout input#stacked_share").attr("checked", true)
-					}
-					else {
-						$("#tool_pane #layout input#stacked_value").attr("checked", true)
-					}
-					$("#tool_pane #layout").buttonset()
-				}
-				$("#tool_pane #layout input").change(function(){
-					app.change_layout($(this).attr("id"));
-				});
-				break;
-			case "product_space":
-      	app_data.height = 500;
-    		$("#dataviz").css("height",520);
-				var app = new ProductSpace(app_data);
-				set_accordion(2);
-				break;
-			case "map":
-    		app_data.height = 450;
-    		$("#dataviz").css("height",450);
-				var app = new Map(app_data);
-				app.build();
-				set_accordion(4);
-				break;
-		}
-		
-		// update app pane
-		update_app_pane(requested_uri)
-		
-		// now that the app has been instanciated, lets build the damn thing
-		
-		// change center canvas to text view
-		$(".download .text").unbind("click");
-		$(".download .text").click(view_as_text(json.data, json.attr_data, json.year));
-		$(".download .app").click(function(){
-			$(".download .text").show();
-			$(".download .app").hide();
-			$("#text_data").hide();
-			$("#dataviz").show();
-			return false;
-		})
-		$(".download .csv").unbind("click");
-		$(".download .csv").click(function(){
-			view_as_text(json.data, json.attr_data, json.year, true)();
-			var content = []
-			$("#text_data table tr").each(function(i, el){
-				var row = []
-				var items = $(el).find("td").length ? $(el).find("td") : $(el).find("th");
-				items.each(function(i, el){
-					row.push($(el).text())
-				})
-				content.push(row)
-			})
-			// Add this content as the value of input
-			$("input[name='content']").val(JSON.stringify(content))
-			var format = $(this).attr("class");
-			$("input[name='format']").val(format);
-
-			var title = window.location.pathname.split("/")
-			title.splice(0, 1)
-			title.splice(0, 1)
-			title.splice(0, 1, "data")
-			title.splice(title.length-1, 1)
-			$("input[name='title']").val(title.join("_"));
-
-			// Submitting the form will trigger the action with will bring up
-			// the /export page. The view for this page takes the values from
-			// POST request and prompts the user to download the file
-			// console.log(format)
-			$('form.download').submit();
-			return false;
-		});
-		
-		// set title (even though we do this when the user first loads the page
-		// it is necessary in case the app has been changed within the page)
-		$(".app_title#title h2").text(json.title)
-		
-		// set the year on the page if it is not a stacked app
-		if(!json.year_start){
-			// set control pane year
-			$(".dropdown_container#year select").val(json.year);
-			$(".dropdown_container#year select").trigger("liszt:updated");
-			// set slider year
-			$("#timeline .slider" ).slider("option", "value", json.year);	
-		}
-		
-		// set title year
-		if(json.year_start){
-			$(".app_title#icons h2").text(json.year_start + " " + json.year_end)
-		}
-		else {
-			$(".app_title#icons h2").text(json.year)
-		}
-		
-		// set title icons
-		if(json.country1){
-			$(".app_title#icons img.left").attr({
-				"src": "/media/img/icons/flag_"+json.country1.name_3char.toLowerCase()+".png",
-				"alt": json.country1.name})
-		}
-		if(json.country2){
-			$(".app_title#icons img.right").attr({
-				"src": "/media/img/icons/flag_"+json.country2.name_3char.toLowerCase()+".png",
-				"alt": json.country2.name})
-		}
-		if(json.product){
-			if(json.country1){
-				$(".app_title#icons img.right").attr({
-					"src": "/media/img/icons/community_"+json.product.community_id+".png",
-					"alt": json.product.name})
-			}
-			else {
-				$(".app_title#icons img.left").attr({
-					"src": "/media/img/icons/community_"+json.product.community_id+".png",
-					"alt": json.product.name})
-			}
-		}
-		
-		// Set new URL so browser back button will work
-		var new_url = requested_uri.split("/")
-		new_url.splice(1, 1, "explore") // replace "api" with "explore"
-		new_url.splice(2, 0, app_name) // add app name
-		new_url.splice(7, 1, json.year) // replace year in case slider is cause for new app
-		set_address(new_url.join("/"), json.title)
-		
-		// set embed URL based on api
-		var new_embed_url = requested_uri.split("/")
-		new_embed_url.splice(1, 1, "embed");
-		new_embed_url.splice(2, 0, app_name);
-		$(".app #main #tool_pane .embed_code").val('<iframe width="560" height="315" '
-			+ 'src="http://atlas.media.mit.edu'+new_embed_url.join("/")+'" frameborder="0"></iframe>');
-		
-    // update the related apps pane
-    // var rel_cat = $("#related div select").val();
-    // show_related(rel_cat);
-    
-    // now that the app has been built we can 
-    d3.select("#loader").style("display", "none");
-  }
-	
-	// this function is called when the user clicks the build button
-	function new_app(){
-	  // hide warning if there is one
-	  if($("div.warning").is(":visible")){
-	    $("div.warning").slideUp();
-	  }
-		// set defaults
-		var uri_parts = ["trade_flow", "country1", "country2", "product", "year"]
-		var uri_replacements = ["{{trade_flow}}", "{{country1}}", "{{country2}}", "{{product}}", "{{year}}"]
-		// replace defaults with values from control pane
-		uri_parts.forEach(function(uri_item, i){
-			if($(".dropdown_container#"+uri_item).length){
-				uri_parts[i] = $(".dropdown_container#"+uri_item+" :selected").val();
-			}
-			else {
-				uri_parts[i] = uri_replacements[i];
-			}
-			// handle if stacked with start and end years
-			if(uri_item == "year" && "{{year_start}}" != "None"){
-				year_start = $(".dropdown_container#year_start :selected").val()
-				year_end = $(".dropdown_container#year_end :selected").val()
-				year_interval = $(".dropdown_container#year_interval :selected").val()
-				uri_parts[i] = year_start+"."+year_end+"."+year_interval;
-			}
-		})
-		new_api_uri = "/api/" + uri_parts.join("/") + "/"
-		// build_app(new_api_uri+"?lang={{LANGUAGE_CODE}}", "{{app_name}}")
-		get_data(new_api_uri+"?lang={{LANGUAGE_CODE}}")
-	}
-	
-	// set the address bar to the permalink for the curent app
-	function set_address(new_url, title){
-		new_url = new_url.split("?")[0];
-		if(new_url != window.location.pathname){
-			window.history.pushState({"prev_request": new_url}, title, new_url);
-		}
-	}
-	
-	// deal with browser history
-	window.onpopstate = function(event){
-		// console.log(event.state)
-		// console.log(document.location.pathname)
-		if(event.state){
-			var new_uri = event.state.prev_request.split("/")
-			new_uri.splice(1, 1, "api")
-			var app_name = new_uri.splice(2, 1)[0]
-			build_app(new_uri.join('/'), app_name)
-		}
-	}
-	
-	if("{{item_type}}" == "countries"){
-		$(".key#sitc4_communities").hide()
-		$(".key#hs4_communities").hide()
-		$(".key#regions").show()
-	}
-	else {
-		if("{{product_classification}}" == "sitc4"){
-			$(".key#sitc4_communities").show()
-			$(".key#hs4_communities").hide()
-			$(".key#regions").hide()			
-		}
-		else if("{{product_classification}}" == "hs4"){
-			$(".key#hs4_communities").show()
-			$(".key#sitc4_communities").hide()
-			$(".key#regions").hide()			
-		}
-	}
-	if("{{app_name}}" == "map"){
-		$(".key#sitc4_communities").hide()
-		$(".key#hs4_communities").hide()
-		$(".key#regions").hide()
-	}
   
-  // Key mouseovers
-  $(".key a").mouseover(function(){
-    
-    var class_name = $(this).attr("class");
-    
-    switch("{{app_name}}"){
-      case "tree_map":
-        var items_to_fade = d3.selectAll("g.viz rect");
-        var text_to_fade = d3.selectAll("g.viz text");
-        break;
-      case "stacked":
-        var items_to_fade = d3.selectAll("g.stacked path");
-        break;
-      case "product_space":
-        var items_to_fade = d3.selectAll("circle");
-        var text_to_fade = d3.select("svg").select("svg").selectAll("text");
-        break;
-    }
-    
-    items_to_fade.transition().duration(500)
-      .attr("fill", function(d){
-        if(d.children){
-          return "#fff"
-        }
-        
-        this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
-        if(this_class != class_name){
-          if(!d.color){
-            d.color = d3.select(this).attr("fill");
-          }
-          return "#ccc";
-        }
-        else {
-          if(!d.color){
-            return d3.select(this).attr("fill");
-          }
-          return d.color
-        }
-      })
-      .attr("stroke", function(d){
-        if(d.children){
-          return "#fff"
-        }
-        this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
-        if(this_class != class_name){
-          if(!d.stroke_color){
-            d.stroke_color = d3.select(this).attr("stroke");
-          }
-          return "#bbb";
-        }
-        else {
-          if(!d.stroke_color){
-            return d3.select(this).attr("stroke");
-          }
-          return d.stroke_color
-        }
-      })
-      
-    if(text_to_fade){
-      text_to_fade.transition().duration(500)
-        .attr("fill", function(d){
-          if(d.children){
-            return "#fff"
-          }
-          
-          this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
-          if(this_class != class_name){
-            if(!d.text_color){
-              d.text_color = d3.select(this).attr("fill");
-            }
-            return "#fff";
-          }
-          else {
-            if(!d.text_color){
-              return d3.select(this).attr("fill");
-            }
-            return d.text_color
-          }
-        })
-    }
-    
-  })
-  $(".key a").mouseout(function(){
-    
-    var class_name = $(this).attr("class");
-    
-    switch("{{app_name}}"){
-      case "tree_map":
-        var items_to_fade = d3.selectAll("g.viz rect");
-        var text_to_fade = d3.selectAll("g.viz text");
-        break;
-      case "stacked":
-        var items_to_fade = d3.selectAll("g.stacked path");
-        break;
-      case "product_space":
-        var items_to_fade = d3.selectAll("circle");
-        var text_to_fade = d3.select("svg").select("svg").selectAll("text");
-        break;
-    }
-    
-    items_to_fade.transition().duration(500)
-      .attr("fill", function(d){
-        if(d.children){ return "#fff" }
-        
-        this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
-        if(this_class != class_name){ return d.color; }
-        else { return d3.select(this).attr("fill"); }
-      })
-      .attr("stroke", function(d){
-        if(d.children){ return "#fff" }
-        
-        this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
-        if(this_class != class_name){
-          return d.stroke_color;
-        }
-        else {
-          return d3.select(this).attr("stroke");
-        }
-      })
-    
-    if(text_to_fade){
-      text_to_fade.transition().duration(500).attr("fill", function(d){
-        if(d.children){ return "#fff" }
-        
-        this_class = d3.select(this).attr("class") || d3.select(this.parentNode).attr("class");
-        if(this_class != class_name){
-          return d.text_color;
-        }
-        else {
-          return d3.select(this).attr("fill");
-        }
-	    })
-	  }
-    
-	})
+  // variables from server
+  var app,
+    app_types = ["tree_map", "stacked", "product_space", "", "map"]
+    warning = "{{warning}}",
+    is_alert = "{{alert}}",
+    api_uri = "{{api_uri}}",
+    year =  "{{year}}",
+    app_name = "{{app_name}}",
+    years_available = {{years_available|safe}},
+    trade_flow = "{{trade_flow}}",
+    country1 = "{{country1}}",
+    country2 = "{{country2}}",
+    product = "{{product}}",
+    item_type = "{{item_type}}",
+    prod_class = "{{prod_class}}";
   
-  $("a.pdf, a.svg, a.png").click(function(){
-    var content = d3.select("svg")
-      .attr("title", title)
-      .attr("version", 1.1)
-      .attr("xmlns", "http://www.w3.org/2000/svg")
-      .node().parentNode.innerHTML;
-    // Add this content as the value of input
-    $("input[name='content']").val(content)
-    
-    var format = $(this).attr("class");
-    $("input[name='format']").val(format);
-    
-    var title = window.location.pathname.split("/")
-    title.splice(0, 1)
-    title.splice(0, 1)
-    title.splice(title.length-1, 1)
-    $("input[name='title']").val(title.join("_"));
-    
-    // Submitting the form will trigger the action with will bring up
-    // the /export page. The view for this page takes the values from
-    // POST request and prompts the user to download the file
-    // console.log(format)
-    $('form.download').submit();
-    return false;		
+  // Use chosen plugin to make dropdowns look fancy
+  $(".dropdown_container select").chosen()
+  // language select dropdown
+  $(".language_select select").chosen();
+  $(".language_select .chzn-search").hide();
+  $(".language_select select").chosen().change(function(){
+    // set session data to new language
+    var language = $(this).val();
+    window.location = "/set_language/"+language+"/";
+  });
+  
+  // set active link in top nav for current page
+  var current_page = "explore";
+  $("nav ul a").each(function(i, el){
+    if($(el).text().toLowerCase() == current_page){
+      $(el).addClass("current");
+    }
   })
   
-  function view_as_text(data, attr_data, year, silent){
-    return function(e){
-      if(!silent){
-        $(".download .text").hide();
-        $(".download .app").show();
-      }
-      // hide curent viz
-      if($("#dataviz").is(":visible") && !silent){
-        $("#dataviz").hide();
-      }
-      
-      if($("div#text_data").length){
-        if($("div#text_data").data("year") == year){
-          if(!silent){
-            $("div#text_data").show();
-          }
-          return false;	
-        }
-        $("div#text_data").remove();
-      }
-      
-      if((year).toString().indexOf(".") > -1){
-        var years = year.split(".").map(function(y){ return parseInt(y); });
-        years = d3.range(years[0], years[1]+1, years[2]);
-      }
-      else {
-        years = [parseInt(year)]
-      }
-      
-      var current_data = data.filter(function(x){return years.indexOf(x.year) > -1});
-      
-      current_data.sort(function(a, b){
-        if (b.year < a.year) {
-          return -1;
-        } else if  (b.year > a.year) {
-          return 1;
-        } else {
-          return b.value - a.value;
-        }
-      })
-
-      var year_sums = {}
-      years.forEach(function(y){
-        year_sums[y] = d3.sum(current_data, function(d){return d.year == y ? d.value : 0})
-      })
-      // var total_value = d3.sum(current_data, function(d){return d.value})
-      var text_data = $("<div id='text_data' />");
-      if(silent){
-        text_data.css("display", "none");
-      }
-      text_data.data("year", year)
-      var table = $("<table />").appendTo(text_data);
-      var row = $("<tr />").appendTo(table);
-      if("{{item_type}}" == "countries"){
-        row.append("<th>#</th><th>Year</th><th>Alpha-3</th><th>Country</th><th>Value (USD)</th><th>RCA</th><th>%</th>");
-      }
-      else {
-        if("{{product_classification}}" == "sitc4"){
-          row.append("<th>#</th><th>Year</th><th>SITC4</th><th>Product Names</th><th>Value (USD)</th><th>RCA</th><th>%</th>");
-        }
-        else {
-          row.append("<th>#</th><th>Year</th><th>HS4</th><th>Product Names</th><th>Value (USD)</th><th>RCA</th><th>%</th>");
-        }
-      }
-      current_data.forEach(function(d, i){
-        if(attr_data[d.item_id]){
-          var class_n = (i%2) == 0 ? "even" : "odd";
-          var row = $("<tr class='"+class_n+"' />").appendTo(table);
-          row.append("<td>"+(i+1)+"</td>");
-          row.append("<td>"+d.year+"</td>");
-          if("{{item_type}}" == "countries"){
-            row.append("<td>"+attr_data[d.item_id].name_3char+"</td>");
-          }
-          else {
-            row.append("<td>"+attr_data[d.item_id].code+"</td>");
-          }
-          row.append("<td>"+attr_data[d.item_id].name+"</td>");
-          row.append("<td>$"+d3.format(",f")(d.value)+"</td>");
-          if(d.rca){
-            row.append("<td>"+d3.format(".2f")(d.rca)+"</td>");
-          }
-          else {
-            row.append("<td></td>");
-          }
-          row.append("<td>"+d3.format(".2p")(d.value / year_sums[d.year])+"</td>");
-        }
-      })
-      $("#dataviz").after(text_data);
-      return false;
-    }
-  }
+  // Accordion for app selection
+  $(".accordion").accordion({
+    collapsible: true,
+    active: false,
+    autoHeight: false,
+    header: "> div > h3"
+  });
+  $(".accordion").accordion("option", "active", app_types.indexOf(app_name));
   
-  function get_request_type(requested_uri){
-    var uri_parts = requested_uri.split("/");
-    if (uri_parts.length == 9){
-      var request = {"country1": uri_parts[4],
-        "country2": uri_parts[5],
-        "product": uri_parts[6],
-        "trade_flow": uri_parts[3],
-        "year": parseInt(uri_parts[7])};
-    }
-    else {
-      var request = {"country1": uri_parts[3],
-        "country2": uri_parts[4],
-        "product": uri_parts[5],
-        "trade_flow": uri_parts[2],
-        "year": parseInt(uri_parts[6])};
-    }
-    if(request.country1 == "show"){
-      request.type = "sapy"
-    }
-    else if(request.country2 == "show" && request.product == "all"){
-      request.type = "csay"
-    }
-    else if(request.country2 == "all" && request.product == "show"){
-      request.type = "casy"
-    }
-    else if(request.country2 == "show"){
-      request.type = "cspy"
-    }
-    else {
-      request.type = "ccpy"
-    }
-    return request
-  }
+  // Allllllright, here goes. The meat and potatoes. The big kahuna...
+  // whatever you wanna call it. This is the single most important function.
+  // It triggers the data call to the server to fetch the data used in turn
+  // to build the app. Look in general.js for more info.
+  build_app(api_uri, "{{app_name}}", [640, 520]);
   
-  function update_app_pane(requested_uri){
-    var request = get_request_type(requested_uri);
-    var urls_to_change = $("#app_pane a")
-    urls_to_change.each(function(i, el){
-      var old_url = $(el).attr("href").split("/")
-      if(request.country1 != "all" && request.country1 != "show" &&
-          old_url[4] != "all" && old_url[4] != "show"){
-        old_url[4] = request.country1
-      }
-      if(request.country2 != "all" && request.country2 != "show" &&
-          old_url[5] != "all" && old_url[5] != "show"){
-        old_url[5] = request.country2
-      }
-      if(request.product != "all" && request.product != "show" &&
-        old_url[6] != "all" && old_url[6] != "show"){
-        old_url[6] = request.product
-      }
-      var new_url = old_url.join("/")
-      $(el).attr("href", new_url)
-    })
-  }
-
   </script>
   <script src="/media/js/apps/related.js"></script>
-
 </body>
 </html>

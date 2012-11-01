@@ -418,7 +418,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
   return render_to_response("explore/index.html", {
     "warning": warning,
     "alert": alert,
-    "product_classification": prod_class,
+    "prod_class": prod_class,
     "years_available": years_available,
     "data_as_text": data_as_text,
     "app_name": app_name,
@@ -497,6 +497,7 @@ def api_casy(request, trade_flow, country1, year):
   json_response["country1"] = country1.to_json()
   json_response["title"] = "What does %s %s?" % (country1.name, trade_flow.replace("_", " "))
   json_response["year"] = year
+  json_response["item_type"] = "product"
   json_response["other"] = query_params
 
   '''Return to browser as JSON for AJAX request'''
@@ -557,6 +558,7 @@ def api_sapy(request, trade_flow, product, year):
   json_response["product"] = product.to_json()
   json_response["title"] = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
   json_response["year"] = year
+  json_response["item_type"] = "country"
   json_response["other"] = query_params
 
   '''Return to browser as JSON for AJAX request'''
@@ -616,6 +618,7 @@ def api_csay(request, trade_flow, country1, year):
   json_response["country1"] = country1.to_json()
   json_response["title"] = "Where does %s %s %s?" % (country1.name, trade_flow, article)
   json_response["year"] = year
+  json_response["item_type"] = "country"
   json_response["other"] = query_params
 
   '''Return to browser as JSON for AJAX request'''
@@ -675,6 +678,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
   json_response["country2"] = country2.to_json()
   json_response["title"] = "What does %s %s %s %s?" % (country1.name, trade_flow, article, country2.name)
   json_response["year"] = year
+  json_response["item_type"] = "product"
   json_response["other"] = query_params
 
   '''Return to browser as JSON for AJAX request'''
@@ -737,6 +741,7 @@ def api_cspy(request, trade_flow, country1, product, year):
   json_response["country1"] = country1.to_json()
   json_response["product"] = product.to_json()
   json_response["year"] = year
+  json_response["item_type"] = "country"
   json_response["other"] = query_params
 
   '''Return to browser as JSON for AJAX request'''

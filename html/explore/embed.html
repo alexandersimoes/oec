@@ -11,10 +11,51 @@
   <link rel="shortcut icon" type="image/x-icon" href="/media/img/favicon.ico">
   
   <link rel="stylesheet" href="/media/css/normalize.css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />  
   <style>
-  *, html {
+  body {
     overflow: hidden;
+    font-family: 'PT Sans Narrow', sans-serif, 'Arial';
+    font-size: 14px;
   }
+  #mouseover {
+    position: absolute;
+    left: -125px;
+    font-size: 12px;
+    line-height: 15px;
+  /*  padding: 10px;*/
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.9);
+    color: black;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    border: 1px solid rgba(200, 200, 200, 0.85);
+    pointer-events: "none";
+    text-align: center;
+    width: 180px;
+    z-index: 999;
+  }
+  #mouseover_cat {
+    text-transform: uppercase;
+    text-align: left;
+    font-size: 10px;
+    margin-bottom: 2px;
+    color: #666;
+    text-align: center;
+  }
+  #mouseover_title {
+   font-size: 16px;
+   margin: 10px;
+  }
+  #mouseover_table {
+    margin: 10px;
+    text-align: left;
+    width: 160px;
+  }
+  #mouseover_table td:nth-child(2) {
+    text-align: right;
+  }
+  
   </style>
 </head>
 <body>
@@ -26,12 +67,13 @@
   <script src="/media/js/libs/jquery/jquery-1.7.1.min.js"></script>
   <script src="/media/js/libs/d3/d3.v2.min.js"></script>
   <!-- App -->
-  <script src="/media/js/apps/general.js"></script>
+  <script src="/media/js/explore/general.js"></script>
   {% if app == "tree_map" %}<script src="/media/js/apps/tree_map.js"></script>{% endif %}
   {% if app == "stacked" %}<script src="/media/js/apps/stacked.js"></script>{% endif %}
   {% if app == "product_space" %}<script src="/media/js/apps/product_space.js"></script>{% endif %}
   <script>
-
+  
+  /*
   // viz holder dimensions to that of the window
   $("#dataviz").width($(window).width())
   $("#dataviz").height($(window).height())
@@ -82,6 +124,12 @@
         break;
     }
   })
+  */
+  
+  var api_uri = "/api/{{trade_flow}}/{{country1}}/{{country2}}/{{product}}/{{year}}/?lang={{lang}}",
+    w = $(window).width(),
+    h = $(window).height();
+  build_app(api_uri, "{{app}}", [w, h], "embed")
   </script>
 </body>
 </html>
