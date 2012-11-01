@@ -337,12 +337,6 @@ function App() {
     return stacked;
   };
   
-  stacked.highlight = function(value) {
-    if (!arguments.length) return highlight;
-    highlight = value;
-    return stacked;
-  };
-  
   /////////////////////////////////////////////////////////////////////
   // BE SURE TO ALWAYS RETURN THE APP TO ALLOW FOR METHOD CHAINING
   ///////////////////////////////////////////////////////////////////// 
