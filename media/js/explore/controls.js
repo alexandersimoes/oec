@@ -39,12 +39,16 @@ function Controls() {
       
       // Set on click event for "view as text" button, ie trigger table view
       d3.selectAll("#view_as_text a").on("click", toggle_view_table)
+      
       // Set click event for download links
       d3.selectAll("#download a").on("click", download)
+      
       // Build new app when button is clicked
       d3.select("button#build").on("click", new_app)
+      
       // Actions for selecting the embed link
       d3.select("#tool_pane .embed_code").on("click", embed_link_click)
+      
       // Change the product classification
       $(".product_class select").chosen().change(function(){
         // set session data to new product classificaiton
@@ -173,35 +177,46 @@ function Controls() {
   }
   
   function download(){
-    // Get the d3js SVG element
-    // var svg = document.getElementById("ex1");
-    // Extract the data as SVG text string
-    // var svg_xml = (new XMLSerializer).serializeToString(svg);
-
-    // Submit the <FORM> to the server.
-    // The result will be an attachment file to download.
-    // var form = document.getElementById("svgform");
-    // form['output_format'].value = output_format;
-    // form['data'].value = svg_xml ;
-    // form.submit();
-
+    // Figure out the title for using as the filename
     var title = window.location.pathname.split("/")
     title.splice(0, 1)
     title.splice(0, 1)
     title.splice(title.length-1, 1)
     $("input[name='title']").val(title.join("_"));
-
-    var svg = d3.select("svg")
-      .attr("title", title.join("_"))
-      .attr("version", 1.1)
-      .attr("xmlns", "http://www.w3.org/2000/svg")
-
-    // Add this content as the value of input
-    var svg_xml = (new XMLSerializer).serializeToString(svg.node());
-    $("input[name='content']").val(svg_xml)
     
+    // Determine which link the user requested (svg, csv etc.)
     var format = $(this).attr("class");
     $("input[name='format']").val(format);
+    
+    // If the user wants text, we need to put the table into an array
+    // to send to the server
+    if(format == "csv"){
+      var data_rows = [];
+      $("#text_data table tr").each(function(d){ 
+        var this_row = [];
+        var td = $(this).find('td');
+        if (td.length > 0) {
+          td.each(function(i) {
+            var d = i == 5 ? $(this).text().replace(/,/g, "") : $(this).text();
+            this_row.push(d);
+          });
+          data_rows.push(this_row);
+        }
+      })
+      // serialize to send to server
+      $("input[name='content']").val(JSON.stringify(data_rows))
+    }
+    // Otherwise the user wants an image so get the SVG XML
+    else {
+      var svg = d3.select("svg")
+        .attr("title", title.join("_"))
+        .attr("version", 1.1)
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+
+      // Add this content as the value of input
+      var svg_xml = (new XMLSerializer).serializeToString(svg.node());
+      $("input[name='content']").val(svg_xml)
+    }
     
     // Submitting the form will trigger the action with will bring up
     // the /export page. The view for this page takes the values from

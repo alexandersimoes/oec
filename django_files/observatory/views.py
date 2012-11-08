@@ -13,271 +13,270 @@ from django.utils.translation import gettext as _
 from observatory.models import *
 
 def new_ps(request):
-	ps_nodes = Sitc4.objects.get_all("en")
-	return render_to_response("new_ps.html", {"ps_nodes":json.dumps(ps_nodes, indent=2)},context_instance=RequestContext(request))
+  ps_nodes = Sitc4.objects.get_all("en")
+  return render_to_response("new_ps.html", {"ps_nodes":json.dumps(ps_nodes, indent=2)},context_instance=RequestContext(request))
 
 def home(request):
-	try:
-		ip = request.META["HTTP_X_FORWARDED_FOR"]
-	except KeyError:
-		ip = request.META["REMOTE_ADDR"]
-	return render_to_response("home.html", context_instance=RequestContext(request))
+  try:
+    ip = request.META["HTTP_X_FORWARDED_FOR"]
+  except KeyError:
+    ip = request.META["REMOTE_ADDR"]
+  return render_to_response("home.html", context_instance=RequestContext(request))
 
 def about(request):
-	return render_to_response("about/index.html", context_instance=RequestContext(request))
+  return render_to_response("about/index.html", context_instance=RequestContext(request))
 def team(request):
-	return render_to_response("about/team.html", context_instance=RequestContext(request))
+  return render_to_response("about/team.html", context_instance=RequestContext(request))
 def permissions(request):
-	return render_to_response("about/permissions.html", context_instance=RequestContext(request))
+  return render_to_response("about/permissions.html", context_instance=RequestContext(request))
 def about_data(request, data_type):
-	lang = request.session['django_language'] if 'django_language' in request.session else "en"
-	lang = request.GET.get("lang", lang)
-	if data_type == "sitc4":
-		items = [[getattr(x, "name_%s"% (lang,)), x.code] for x in Sitc4.objects.filter(community__isnull=False)]
-		headers = ["Name", "SITC4 Code"]
-		title = "SITC4 product names and codes"
-	elif data_type == "hs4":
-		items = [[x.name, x.code] for x in Hs4.objects.filter(community__isnull=False)]
-		headers = ["Name", "HS4 Code"]
-		title = "HS4 (harmonized system) product names and codes"
-	elif data_type == "country":
-		items = [[getattr(x, "name_%s"% (lang,)), x.name_3char] for x in Country.objects.filter(name_3char__isnull=False, name_2char__isnull=False, region__isnull=False)]
-		headers = ["Name", "Alpha 3 Abbreviation"]
-		title = "Country names and abbreviations"
-	items.sort()
-	return render_to_response("about/data.html",
-		{"items":items, "headers":headers, "title": title},
-		context_instance=RequestContext(request))
+  lang = request.session['django_language'] if 'django_language' in request.session else "en"
+  lang = request.GET.get("lang", lang)
+  if data_type == "sitc4":
+    items = [[getattr(x, "name_%s"% (lang,)), x.code] for x in Sitc4.objects.filter(community__isnull=False)]
+    headers = ["Name", "SITC4 Code"]
+    title = "SITC4 product names and codes"
+  elif data_type == "hs4":
+    items = [[x.name, x.code] for x in Hs4.objects.filter(community__isnull=False)]
+    headers = ["Name", "HS4 Code"]
+    title = "HS4 (harmonized system) product names and codes"
+  elif data_type == "country":
+    items = [[getattr(x, "name_%s"% (lang,)), x.name_3char] for x in Country.objects.filter(name_3char__isnull=False, name_2char__isnull=False, region__isnull=False)]
+    headers = ["Name", "Alpha 3 Abbreviation"]
+    title = "Country names and abbreviations"
+  items.sort()
+  return render_to_response("about/data.html",
+    {"items":items, "headers":headers, "title": title},
+    context_instance=RequestContext(request))
 
 def api(request):
-	return render_to_response("api/index.html", context_instance=RequestContext(request))
+  return render_to_response("api/index.html", context_instance=RequestContext(request))
 
 def api_apps(request):
-	return render_to_response("api/apps.html", context_instance=RequestContext(request))
+  return render_to_response("api/apps.html", context_instance=RequestContext(request))
 
 def api_data(request):
-	return render_to_response("api/data.html", context_instance=RequestContext(request))
+  return render_to_response("api/data.html", context_instance=RequestContext(request))
 
 def book(request):
-	return render_to_response("book/index.html", context_instance=RequestContext(request))
+  return render_to_response("book/index.html", context_instance=RequestContext(request))
 
 def set_language(request, lang):
-	next = request.REQUEST.get('next', None)
-	if not next:
-		next = request.META.get('HTTP_REFERER', None)
-	if not next:
-		next = '/'
-	response = HttpResponseRedirect(next)
-	# if request.method == 'GET':
-	# 	lang_code = request.GET.get('language', None)
-	lang_code = lang
-	if lang_code:
-		if hasattr(request, 'session'):
-			request.session['django_language'] = lang_code
-		else:
-			response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
-			translation.activate(lang_code)
-	return response
+  next = request.REQUEST.get('next', None)
+  if not next:
+    next = request.META.get('HTTP_REFERER', None)
+  if not next:
+    next = '/'
+  response = HttpResponseRedirect(next)
+  # if request.method == 'GET':
+  #   lang_code = request.GET.get('language', None)
+  lang_code = lang
+  if lang_code:
+    if hasattr(request, 'session'):
+      request.session['django_language'] = lang_code
+    else:
+      response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
+      translation.activate(lang_code)
+  return response
 
 def set_product_classification(request, prod_class):
-	next = request.REQUEST.get('next', None)
-	if not next:
-		next = request.META.get('HTTP_REFERER', None)
-	if not next:
-		next = '/'
-	response = HttpResponseRedirect(next)
-	if prod_class:
-		if hasattr(request, 'session'):
-			request.session['product_classification'] = prod_class
-	return response
+  next = request.REQUEST.get('next', None)
+  if not next:
+    next = request.META.get('HTTP_REFERER', None)
+  if not next:
+    next = '/'
+  response = HttpResponseRedirect(next)
+  if prod_class:
+    if hasattr(request, 'session'):
+      request.session['product_classification'] = prod_class
+  return response
 
 def download(request):
-	try:
-		import cairo, rsvg, xml.dom.minidom
-	except:
-		pass
-	import csv
-	content = request.POST.get("content")
-	title = request.POST.get("title")
-	format = request.POST.get("format")
-	
-	if format == "svg" or format == "pdf" or format == "png":
-		svg = rsvg.Handle(data=content.encode("utf-8"))
-		x = width = svg.props.width
-		y = height = svg.props.height
-	
-	if format == "svg":
-		response = HttpResponse(content.encode("utf-8"), mimetype="application/octet-stream")
-			
-	elif format == "pdf":	
-		response = HttpResponse(mimetype='application/pdf')
-		surf = cairo.PDFSurface(response, x, y)
-		cr = cairo.Context(surf)
-		svg.render_cairo(cr)
-		surf.finish()
-	
-	elif format == "png":	
-		response = HttpResponse(mimetype='image/png')
-		surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, x, y)
-		cr = cairo.Context(surf)
-		svg.render_cairo(cr)
-		surf.write_to_png(response)
-	
-	else:
-		response = HttpResponse(mimetype="text/csv;charset=UTF-8")
-		csv_writer = csv.writer(response, delimiter=',', quotechar='"')#, quoting=csv.QUOTE_MINIMAL)
-		item_list = json.loads(content,encoding='utf-8')
+  try:
+    import cairo, rsvg, xml.dom.minidom
+  except:
+    pass
+  import csv
+  content = request.POST.get("content")
+  title = request.POST.get("title")
+  format = request.POST.get("format")
+  
+  if format == "svg" or format == "pdf" or format == "png":
+    svg = rsvg.Handle(data=content.encode("utf-8"))
+    x = width = svg.props.width
+    y = height = svg.props.height
+  
+  if format == "svg":
+    response = HttpResponse(content.encode("utf-8"), mimetype="application/octet-stream")
+      
+  elif format == "pdf":  
+    response = HttpResponse(mimetype='application/pdf')
+    surf = cairo.PDFSurface(response, x, y)
+    cr = cairo.Context(surf)
+    svg.render_cairo(cr)
+    surf.finish()
+  
+  elif format == "png":  
+    response = HttpResponse(mimetype='image/png')
+    surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, x, y)
+    cr = cairo.Context(surf)
+    svg.render_cairo(cr)
+    surf.write_to_png(response)
+  
+  else:
+    response = HttpResponse(mimetype="text/csv;charset=UTF-8")
+    csv_writer = csv.writer(response, delimiter=',', quotechar='"')#, quoting=csv.QUOTE_MINIMAL)
+    item_list = json.loads(content,encoding='utf-8')
     # raise Exception(content)
-    # raise Exception(aa)
-		for item in item_list:
-			csv_writer.writerow([i.encode("utf-8") for i in item])
-	
-	# Need to change with actual title
-	response["Content-Disposition"]= "attachment; filename=%s.%s" % (title, format)
-	
-	return response
+    for item in item_list:
+      csv_writer.writerow([i.encode("utf-8") for i in item])
+  
+  # Need to change with actual title
+  response["Content-Disposition"]= "attachment; filename=%s.%s" % (title, format)
+  
+  return response
 
 def app(request, app_name, trade_flow, filter, year):
-	# Get URL query parameters
-	format = request.GET.get("format", False)
-	lang = request.GET.get("lang", False)
-	crawler = request.GET.get("_escaped_fragment_", False)
-	
-	country1, country2, product = None, None, None
-	country1_list, country2_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None, None
-	
-	trade_flow_list = ["export", "import", "net_export", "net_import"]
-	
-	year1_list = range(1962, 2010, 1)
-	if "." in year:
-		y = [int(x) for x in year.split(".")]
-		year = range(y[0], y[1]+1, y[2])
-		year2_list = year1_list
-		year_interval_list = range(1, 11)
-		year_interval = year[1] - year[0]
-	else:
-		year = int(year)
-	
-	json_response = {
-		"year": year,
-		"app": app_name
-	}
-	
-	# Bilateral
-	if "." in filter:
-		bilateral_filters = filter.split(".")
-		
-		# Country x Product
-		if len(bilateral_filters[1]) > 3:
-			country1 = Country.objects.get(name_3char=bilateral_filters[0])
-			product = Sitc4.objects.get(code=bilateral_filters[1])
-			
-			# Lists used for control pane
-			country1_list = Country.objects.get_all(lang)
-			product_list = Sitc4.objects.get_all(lang)
-			trade_flow_list = ["export", "import"]
-			
-			article = "to" if trade_flow == "export" else "from"
-			title = "Where does %s %s %s %s?" % (country1.name, trade_flow, product.name_en, article)
-			
-			# cspy means country1 / countr2 / show / year
-			if crawler == "" or format == "json":
-				json_response["data"] = Sitc4_ccpy.objects.cspy(country1, product, trade_flow)
-				json_response["attr_data"] = Country.objects.get_all(lang)
-				json_response["title"] = title
-			
-		# Country x Country
-		else:
-			country1 = Country.objects.get(name_3char=bilateral_filters[0])
-			country2 = Country.objects.get(name_3char=bilateral_filters[1])
+  # Get URL query parameters
+  format = request.GET.get("format", False)
+  lang = request.GET.get("lang", False)
+  crawler = request.GET.get("_escaped_fragment_", False)
+  
+  country1, country2, product = None, None, None
+  country1_list, country2_list, product_list, year1_list, year2_list, year_interval_list, year_interval = None, None, None, None, None, None, None
+  
+  trade_flow_list = ["export", "import", "net_export", "net_import"]
+  
+  year1_list = range(1962, 2010, 1)
+  if "." in year:
+    y = [int(x) for x in year.split(".")]
+    year = range(y[0], y[1]+1, y[2])
+    year2_list = year1_list
+    year_interval_list = range(1, 11)
+    year_interval = year[1] - year[0]
+  else:
+    year = int(year)
+  
+  json_response = {
+    "year": year,
+    "app": app_name
+  }
+  
+  # Bilateral
+  if "." in filter:
+    bilateral_filters = filter.split(".")
+    
+    # Country x Product
+    if len(bilateral_filters[1]) > 3:
+      country1 = Country.objects.get(name_3char=bilateral_filters[0])
+      product = Sitc4.objects.get(code=bilateral_filters[1])
+      
+      # Lists used for control pane
+      country1_list = Country.objects.get_all(lang)
+      product_list = Sitc4.objects.get_all(lang)
+      trade_flow_list = ["export", "import"]
+      
+      article = "to" if trade_flow == "export" else "from"
+      title = "Where does %s %s %s %s?" % (country1.name, trade_flow, product.name_en, article)
+      
+      # cspy means country1 / countr2 / show / year
+      if crawler == "" or format == "json":
+        json_response["data"] = Sitc4_ccpy.objects.cspy(country1, product, trade_flow)
+        json_response["attr_data"] = Country.objects.get_all(lang)
+        json_response["title"] = title
+      
+    # Country x Country
+    else:
+      country1 = Country.objects.get(name_3char=bilateral_filters[0])
+      country2 = Country.objects.get(name_3char=bilateral_filters[1])
 
-			# Lists used for control pane
-			country1_list = Country.objects.get_all(lang)
-			country2_list = country1_list
-			trade_flow_list = ["export", "import"]
-			
-			article = "to" if trade_flow == "export" else "from"
-			title = "What does %s %s %s %s?" % (country1.name, trade_flow, article, country2.name)
-			
-			# ccsy means country1 / countr2 / show / year
-			if crawler == "" or format == "json":
-				json_response["data"] = Sitc4_ccpy.objects.ccsy(country1, country2, trade_flow)
-				json_response["attr_data"] = Sitc4.objects.get_all(lang)
-				json_response["title"] = title
-	
-	# Product
-	elif len(filter) > 3:
-		product = Sitc4.objects.get(code=filter)
-		product_list = Sitc4.objects.get_all(lang)
-				
-		title = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
-		
-		# sapy means show / all / product / year
-		if crawler == "" or format == "json":
-			json_response["data"] = Sitc4_cpy.objects.sapy(product, trade_flow)
-			json_response["attr_data"] = Country.objects.get_all(lang)
-			json_response["title"] = title
-	
-	# Country
-	else:
-		country1 = Country.objects.get(name_3char=filter)
-		country1_list = Country.objects.get_all(lang)
-		
-		title = "What does %s %s?" % (country1.name, trade_flow.replace("_", " "))
-		
-		# casy means country1 / all / show / year
-		if crawler == "" or format == "json":
-			json_response["data"] = Sitc4_cpy.objects.casy(country1, trade_flow)
-			json_response["attr_data"] = Sitc4.objects.get_all(lang)
-			json_response["title"] = title
-	
-	# Send data as JSON to browser via AJAX
-	if format == "json":
-		return HttpResponse(json.dumps(json_response))
-	
-	# Return page without visualization data
-	return render_to_response("app/index.html", {
-		"title": title,
-		"trade_flow": trade_flow,
-		"country1": country1,
-		"country2": country2,
-		"product": product,
-		"year": year,
-		"trade_flow_list": trade_flow_list,
-		"country1_list": country1_list,
-		"country2_list": country2_list,
-		"product_list": product_list,
-		"year1_list": year1_list,
-		"year2_list": year2_list,
-		"year_interval": year_interval,
-		"year_interval_list": year_interval_list}, context_instance=RequestContext(request))
+      # Lists used for control pane
+      country1_list = Country.objects.get_all(lang)
+      country2_list = country1_list
+      trade_flow_list = ["export", "import"]
+      
+      article = "to" if trade_flow == "export" else "from"
+      title = "What does %s %s %s %s?" % (country1.name, trade_flow, article, country2.name)
+      
+      # ccsy means country1 / countr2 / show / year
+      if crawler == "" or format == "json":
+        json_response["data"] = Sitc4_ccpy.objects.ccsy(country1, country2, trade_flow)
+        json_response["attr_data"] = Sitc4.objects.get_all(lang)
+        json_response["title"] = title
+  
+  # Product
+  elif len(filter) > 3:
+    product = Sitc4.objects.get(code=filter)
+    product_list = Sitc4.objects.get_all(lang)
+        
+    title = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
+    
+    # sapy means show / all / product / year
+    if crawler == "" or format == "json":
+      json_response["data"] = Sitc4_cpy.objects.sapy(product, trade_flow)
+      json_response["attr_data"] = Country.objects.get_all(lang)
+      json_response["title"] = title
+  
+  # Country
+  else:
+    country1 = Country.objects.get(name_3char=filter)
+    country1_list = Country.objects.get_all(lang)
+    
+    title = "What does %s %s?" % (country1.name, trade_flow.replace("_", " "))
+    
+    # casy means country1 / all / show / year
+    if crawler == "" or format == "json":
+      json_response["data"] = Sitc4_cpy.objects.casy(country1, trade_flow)
+      json_response["attr_data"] = Sitc4.objects.get_all(lang)
+      json_response["title"] = title
+  
+  # Send data as JSON to browser via AJAX
+  if format == "json":
+    return HttpResponse(json.dumps(json_response))
+  
+  # Return page without visualization data
+  return render_to_response("app/index.html", {
+    "title": title,
+    "trade_flow": trade_flow,
+    "country1": country1,
+    "country2": country2,
+    "product": product,
+    "year": year,
+    "trade_flow_list": trade_flow_list,
+    "country1_list": country1_list,
+    "country2_list": country2_list,
+    "product_list": product_list,
+    "year1_list": year1_list,
+    "year2_list": year2_list,
+    "year_interval": year_interval,
+    "year_interval_list": year_interval_list}, context_instance=RequestContext(request))
 
 def app_redirect(request, app_name, trade_flow, filter, year):
-	# Corrent for old spelling of tree map as one word
-	if app_name == "treemap":
-		app_name = "tree_map"
-	
-	# Bilateral
-	if "." in filter:
-		bilateral_filters = filter.split(".")
-		
-		# Country x Product
-		if len(bilateral_filters[1]) > 3:
-			country1, country2, product = bilateral_filters[0], "show", bilateral_filters[1]
-			
-		# Country x Country
-		else:
-			country1, country2, product = bilateral_filters[0], bilateral_filters[1], "show"
-	
-	# Product
-	elif len(filter) > 3:
-		country1, country2, product = "show", "all", filter
-	
-	# Country
-	else:
-		country1, country2, product = filter, "all", "show"
-	# raise Exception("/explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
-	return HttpResponsePermanentRedirect("/explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
+  # Corrent for old spelling of tree map as one word
+  if app_name == "treemap":
+    app_name = "tree_map"
+  
+  # Bilateral
+  if "." in filter:
+    bilateral_filters = filter.split(".")
+    
+    # Country x Product
+    if len(bilateral_filters[1]) > 3:
+      country1, country2, product = bilateral_filters[0], "show", bilateral_filters[1]
+      
+    # Country x Country
+    else:
+      country1, country2, product = bilateral_filters[0], bilateral_filters[1], "show"
+  
+  # Product
+  elif len(filter) > 3:
+    country1, country2, product = "show", "all", filter
+  
+  # Country
+  else:
+    country1, country2, product = filter, "all", "show"
+  # raise Exception("/explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
+  return HttpResponsePermanentRedirect("/explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
 
 def explore(request, app_name, trade_flow, country1, country2, product, year="2009"):
   # raise Exception(country1, country2, product, year)
@@ -410,10 +409,10 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     elif app_type == "cspy":
       if "net_export" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_export")]
       if "net_import" in trade_flow_list: del trade_flow_list[trade_flow_list.index("net_import")]
-      item_type = "countries"		
+      item_type = "countries"    
       article = "to" if trade_flow == "export" else "from"
       title = "Where does %s %s %s %s?" % (countries[0].name, trade_flow, product.name_en, article)
-	
+  
   # Return page without visualization data
   return render_to_response("explore/index.html", {
     "warning": warning,
@@ -851,22 +850,22 @@ def get_country_lookup():
   return lookup
 
 def get_app_type(country1, country2, product, year):
-	# country / all / show / year
-	if country2 == "all" and product == "show":
-		return "casy"
-	
-	# country / show / all / year
-	elif country2 == "show" and product == "all":
-		return "csay"
-	
-	# show / all / product / year
-	elif country1 == "show" and country2 == "all":
-		return "sapy"
-	
-	# country / country / show / year
-	elif product == "show":
-		return "ccsy"
-	
-	#  country / show / product / year
-	else:
-		return "cspy"
+  # country / all / show / year
+  if country2 == "all" and product == "show":
+    return "casy"
+  
+  # country / show / all / year
+  elif country2 == "show" and product == "all":
+    return "csay"
+  
+  # show / all / product / year
+  elif country1 == "show" and country2 == "all":
+    return "sapy"
+  
+  # country / country / show / year
+  elif product == "show":
+    return "ccsy"
+  
+  #  country / show / product / year
+  else:
+    return "cspy"
