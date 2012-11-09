@@ -17,11 +17,23 @@ def new_ps(request):
   return render_to_response("new_ps.html", {"ps_nodes":json.dumps(ps_nodes, indent=2)},context_instance=RequestContext(request))
 
 def home(request):
+  import urllib2
   try:
     ip = request.META["HTTP_X_FORWARDED_FOR"]
   except KeyError:
     ip = request.META["REMOTE_ADDR"]
-  return render_to_response("home.html", context_instance=RequestContext(request))
+  # fetch the url
+  url = "http://api.hostip.info/get_json.php?ip="+ip
+  json_response = json.loads(urllib2.urlopen(url).read())
+  country_code = json_response["country_code"]
+  try:
+    c = Country.objects.get(name_2char=country_code)
+  except Country.DoesNotExist:
+    c = Country.objects.get(name_2char="us")
+  
+  return render_to_response("home.html", 
+    {"default_country": c},
+    context_instance=RequestContext(request))
 
 def about(request):
   return render_to_response("about/index.html", context_instance=RequestContext(request))
