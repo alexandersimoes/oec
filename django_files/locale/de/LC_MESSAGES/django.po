@@ -1,4 +1,4 @@
-# Observatory website translations from english to spanish
+# Observatory website translations from english to german
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <simoes@mit.edu>, 2012.
 #
@@ -16,11 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
+
 msgid "Export"
-msgstr "Exportieren"
+msgstr "Exporte"
 
 msgid "Import"
-msgstr "Importieren"
+msgstr "Importe"
 
 msgid "Net Export"
 msgstr "Netto Export"
@@ -56,31 +57,31 @@ msgid "Net Imports"
 msgstr "Nettoeinfuhren"
 
 msgid "Exports To Destination"
-msgstr "Exporte nach Reiseziel"
+msgstr "Exporte nach Zielland"
 
 msgid "Imports From Origin"
-msgstr "Die Importe aus Origin"
+msgstr "Importe aus Ursprungsland"
 
 msgid "Exports by Product"
-msgstr "Die Exporte nach Produkt"
+msgstr "Exporte nach Gütergruppen"
 
 msgid "Imports by Product"
 msgstr "Importe nach Gütergruppen"
 
 msgid "Play"
-msgstr "Spielen"
+msgstr "Abspielen"
 
 msgid "Stop"
-msgstr "Stopp"
+msgstr "Stop"
 
 msgid "Controls"
-msgstr "Steuerung"
+msgstr "Einstellungen"
 
 msgid "Trade Flow"
-msgstr "Handelsverkehr"
+msgstr "Handelsströme"
 
 msgid "Origin Country"
-msgstr "Origin Land"
+msgstr "Ursprungsland"
 
 msgid "Destination Country"
 msgstr "Zielland"
@@ -92,19 +93,19 @@ msgid "Year"
 msgstr "Jahr"
 
 msgid "Start Year"
-msgstr "Beginn Jahr"
+msgstr "Anfangsjahr"
 
 msgid "End Year"
-msgstr "Ende Jahr"
+msgstr "Endjahr"
 
 msgid "Year Interval"
 msgstr "Jahres-Intervall"
 
 msgid "Build Visualization"
-msgstr "Baue Visualisierung"
+msgstr "Visualisierung aktualisieren"
 
 msgid "Download"
-msgstr "Laden Sie"
+msgstr "Herunterladen"
 
 msgid "View as text"
 msgstr "Textversion"
@@ -117,4 +118,3 @@ msgstr "Nächste"
 
 msgid "Previous"
 msgstr "Vorherige"
-
