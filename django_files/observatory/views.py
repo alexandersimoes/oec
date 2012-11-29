@@ -365,6 +365,8 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
       year = years_available[0]
   
   api_uri = "/api/%s/%s/%s/%s/%s/?%s" % (trade_flow, country1, country2, product, year, options)
+  country_code = None
+  if country1 != "show" and country1 != "all": country_code = country1
   
   if crawler == "":
     view, args, kwargs = resolve("/api/%s/%s/%s/%s/%s/" % (trade_flow, country1, country2, product, year))
@@ -457,6 +459,7 @@ def explore(request, app_name, trade_flow, country1, country2, product, year="20
     "year2_list": year2_list,
     "year_interval_list": year_interval_list,
     "api_uri": api_uri,
+    "country_code": country_code,
     "item_type": item_type}, context_instance=RequestContext(request))
 
 '''<COUNTRY> / all / show / <YEAR>'''

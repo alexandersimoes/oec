@@ -110,7 +110,7 @@
         
       </div>
       <div class="app_title" id="title"><h2>{% if title %}{{title}}{% else %}&nbsp;{% endif %}</h2></div>
-
+    
       <!-- the left pane -->
       <div id="app_pane">
         <h3 class="pane_title">{% trans "App Selection" %}</h3>
@@ -120,15 +120,15 @@
             <div>
               <h4>{% trans "Country" %}</h4>
               <ul>
-                <li><a class="casy" href="/explore/tree_map/export/usa/all/show/2009/">{% trans "Exports" %}</a></li>
-                <li><a class="casy" href="/explore/tree_map/import/usa/all/show/2009/">{% trans "Imports" %}</a></li>
-                <li><a class="casy" href="/explore/tree_map/net_export/usa/all/show/2009/">{% trans "Net Exports" %}</a></li>
-                <li><a class="casy" href="/explore/tree_map/net_import/usa/all/show/2009/">{% trans "Net Imports" %}</a></li>
+                <li><a class="casy" href="/explore/tree_map/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/2009/" >{% trans "Exports" %}</a></li>
+                <li><a class="casy" href="/explore/tree_map/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/2009/">{% trans "Imports" %}</a></li>
+                <li><a class="casy" href="/explore/tree_map/net_export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/2009/">{% trans "Net Exports" %}</a></li>
+                <li><a class="casy" href="/explore/tree_map/net_import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/2009/">{% trans "Net Imports" %}</a></li>
               </ul>
               <h4>{% trans "Country (show trade partners)" %}</h4>
               <ul>
-                <li><a class="csay" href="/explore/tree_map/export/usa/show/all/2009/">{% trans "Exports" %}</a></li>
-                <li><a class="csay" href="/explore/tree_map/import/usa/show/all/2009/">{% trans "Imports" %}</a></li>
+                <li><a class="csay" href="/explore/tree_map/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/show/all/2009/">{% trans "Exports" %}</a></li>
+                <li><a class="csay" href="/explore/tree_map/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/show/all/2009/">{% trans "Imports" %}</a></li>
               </ul>
               <h4>{% trans "Products" %}</h4>
               <ul>
@@ -137,10 +137,10 @@
               </ul>
               <h4>{% trans "Bilateral" %}</h4>
               <ul>
-                <li><a class="ccsy" href="/explore/tree_map/export/usa/chn/show/2009/">{% trans "Exports To Destination" %}</a></li>
-                <li><a class="ccsy" href="/explore/tree_map/import/usa/chn/show/2009/">{% trans "Imports From Origin" %}</a></li>
-                <li><a class="cspy" href="/explore/tree_map/export/usa/show/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Exports by Product" %}</a></li>
-                <li><a class="cspy" href="/explore/tree_map/import/usa/show/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Imports by Product" %}</a></li>
+                <li><a class="ccsy" href="/explore/tree_map/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/chn/show/2009/">{% trans "Exports To Destination" %}</a></li>
+                <li><a class="ccsy" href="/explore/tree_map/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/chn/show/2009/">{% trans "Imports From Origin" %}</a></li>
+                <li><a class="cspy" href="/explore/tree_map/export/{{country_code}}/show/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Exports by Product" %}</a></li>
+                <li><a class="cspy" href="/explore/tree_map/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/show/{% if product_classification == "sitc4" %}3330{% else %}2709{% endif %}/2009/">{% trans "Imports by Product" %}</a></li>
               </ul>
             </div>
           </div>
@@ -149,14 +149,14 @@
             <div>
               <h4>{% trans "Country" %}</h4>
               <ul>
-                <li><a class="casy" href="/explore/stacked/export/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports" %}</a></li>
-                <li><a class="casy" href="/explore/stacked/import/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports" %}</a></li>
-                <li><a class="casy" href="/explore/stacked/net_export/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Net Exports" %}</a></li>
-                <li><a class="casy" href="/explore/stacked/net_import/usa/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Net Imports" %}</a></li>
+                <li><a class="casy" href="/explore/stacked/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports" %}</a></li>
+                <li><a class="casy" href="/explore/stacked/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports" %}</a></li>
+                <li><a class="casy" href="/explore/stacked/net_export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Net Exports" %}</a></li>
+                <li><a class="casy" href="/explore/stacked/net_import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Net Imports" %}</a></li>
               </ul>
               <h4>{% trans "Country (show trade partners)" %}</h4>
               <ul>
-                <li><a class="csay" href="/explore/stacked/export/usa/show/all/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports" %}</a></li>
+                <li><a class="csay" href="/explore/stacked/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/show/all/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports" %}</a></li>
                 <li><a class="csay" href="/explore/stacked/import/usa/show/all/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports" %}</a></li>
               </ul>
               <h4>{% trans "Products" %}</h4>
@@ -166,17 +166,17 @@
               </ul>
               <h4>{% trans "Bilateral" %}</h4>
               <ul>
-                <li><a class="ccsy" href="/explore/stacked/export/usa/chn/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports To Destination" %}</a></li>
-                <li><a class="ccsy" href="/explore/stacked/import/usa/chn/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports From Origin" %}</a></li>
-                <li><a class="cspy" href="/explore/stacked/export/usa/show/3354/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports by Product" %}</a></li>
-                <li><a class="cspy" href="/explore/stacked/import/usa/show/3354/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports by Product" %}</a></li>
+                <li><a class="ccsy" href="/explore/stacked/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/chn/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports To Destination" %}</a></li>
+                <li><a class="ccsy" href="/explore/stacked/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/chn/show/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports From Origin" %}</a></li>
+                <li><a class="cspy" href="/explore/stacked/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/show/3354/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Exports by Product" %}</a></li>
+                <li><a class="cspy" href="/explore/stacked/import/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/show/3354/{%if product_classification == "sitc4"%}1965.2005.5{% else %}1995.2010.2{% endif %}/">{% trans "Imports by Product" %}</a></li>
               </ul>
             </div>
           </div>
           <div>
             <h3><a href="#">Product Space</a></h3>
             <ul>
-              <li><a class="casy" href="/explore/product_space/export/usa/all/show/2009/">Product Space of {% trans "Exports" %}</a></li>
+              <li><a class="casy" href="/explore/product_space/export/{% if country_code != None%}{{country_code}}{%else %}usa{% endif %}/all/show/2009/">Product Space of {% trans "Exports" %}</a></li>
               <li><a class="disabled" href="#">Density Product Space</a></li>
             </ul>
           </div>
