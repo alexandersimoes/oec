@@ -92,16 +92,6 @@ CACHES = {
     'default': {
         'BACKEND': 'redis_cache.cache.RedisCache',
         'LOCATION': '127.0.0.1:6379:0',
-#        'OPTIONS': {
-            #'PASSWORD': 'foopassword',
-            #'PICKLE_VERSION': -1,   # default
-            #'PARSER_CLASS': 'redis.connection.HiredisParser'
-            #'CLIENT_CLASS': 'redis_cache.client.DefaultClient',
-#        },
-    },
-    'alternative':{
-        'BACKEND': 'redis_cache.cache.RedisCache',
-        'LOCATION': '127.0.0.1:6379:0',   
     }, 
 }
 

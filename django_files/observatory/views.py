@@ -493,7 +493,7 @@ def api_casy(request, trade_flow, country1, year):
     val_col = "import_value as val"
 
   """Check cache"""
-  raw = get_redis_connection('alternative')
+  raw = get_redis_connection('default')
   key = "%s:%s:%s:%s:%s" % (country1.name_3char, "all", "show", prod_class, trade_flow)
   
   if (raw.hget(key, 'data') == None):	
@@ -566,7 +566,7 @@ def api_sapy(request, trade_flow, product, year):
     val_col = "import_value as val"
 
   """Check cache"""
-  raw = get_redis_connection('alternative')
+  raw = get_redis_connection('default')
   key = "%s:%s:%s:%s:%s" % ("show", "all", product.id, prod_class, trade_flow)
 
   if (raw.hget(key, 'data') == None):
@@ -633,7 +633,7 @@ def api_csay(request, trade_flow, country1, year):
     val_col = "SUM(import_value) as val"
 
   """ Check Cache """
-  raw = get_redis_connection('alternative')
+  raw = get_redis_connection('default')
   key = "%s:%s:%s:%s:%s" % (country1.name_3char, "show", "all", prod_class, trade_flow)
 
   if (raw.hget(key, 'data') == None):
@@ -706,7 +706,7 @@ def api_ccsy(request, trade_flow, country1, country2, year):
     val_col = "import_value as val"
   
   """Check Cache """
-  raw = get_redis_connection('alternative')
+  raw = get_redis_connection('default')
   key = "%s:%s:%s:%s:%s" % (country1.name_3char, country2.name_3char, "show", prod_class, trade_flow)
 
   if(raw.hget(key, 'data') == None):    
@@ -773,7 +773,7 @@ def api_cspy(request, trade_flow, country1, product, year):
   else:
     val_col = "import_value as val"
   
-  raw = get_redis_connection('alternative')
+  raw = get_redis_connection('default')
   key = "%s:%s:%s:%s:%s" % (country1.name_3char, "show", product.id,  prod_class, trade_flow)
 
   if (raw.hget(key, 'data') == None):
