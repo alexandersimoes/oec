@@ -85,9 +85,9 @@ INSTALLED_APPS = (
   'blog'
 )
 
-# When using unix domain sockets
-# Note: ``LOCATION`` needs to be the same as the ``unixsocket`` setting
-# in your redis.conf
+
+REDIS = True
+
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.cache.RedisCache',

@@ -5,6 +5,7 @@ from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect, Ht
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.core.urlresolvers import resolve
+from django.conf import settings
 # General
 import json
 # Project specific
@@ -12,12 +13,12 @@ from django.utils.translation import gettext as _
 # App specific
 from observatory.models import *
 # Import for cache
-from django.core.cache import cache, get_cache
-import redis
-import redis_cache
-from redis_cache import get_redis_connection
-# Import Msgpack library
-import msgpack
+if settings.REDIS:
+  from django.core.cache import cache, get_cache
+  import redis
+  import redis_cache
+  from redis_cache import get_redis_connection
+  import msgpack
 
 def new_ps(request):  
   ps_nodes = Sitc4.objects.get_all("en")
@@ -491,23 +492,43 @@ def api_casy(request, trade_flow, country1, year):
     rca_col = "export_rca"
   else:
     val_col = "import_value as val"
-
+  
+  """Create query [year, id, abbrv, name_lang, val, export_rca]"""
+  q = """
+    SELECT year, p.id, p.code, p.name_%s, %s, %s 
+    FROM observatory_%s_cpy as cpy, observatory_%s as p 
+    WHERE country_id=%s and cpy.product_id = p.id %s
+    HAVING val > 0
+    ORDER BY val DESC
+    """ % (lang, val_col, rca_col, prod_class, prod_class, country1.id, year_where)
+  
+  """Prepare JSON response"""
+  json_response = {}
+  
   """Check cache"""
-  raw = get_redis_connection('default')
-  key = "%s:%s:%s:%s:%s" % (country1.name_3char, "all", "show", prod_class, trade_flow)
+  if settings.REDIS:
+    raw = get_redis_connection('default')
+    key = "%s:%s:%s:%s:%s" % (country1.name_3char, "all", "show", prod_class, trade_flow)  
+    # See if this key is already in the cache
+    if (raw.hget(key, 'data') == None):
   
-  if (raw.hget(key, 'data') == None):	
-    """Create query [year, id, abbrv, name_lang, val, export_rca]"""
-    q = """
-      SELECT year, p.id, p.code, p.name_%s, %s, %s 
-      FROM observatory_%s_cpy as cpy, observatory_%s as p 
-      WHERE country_id=%s and cpy.product_id = p.id %s
-      HAVING val > 0
-      ORDER BY val DESC
-      """ % (lang, val_col, rca_col, prod_class, prod_class, country1.id, year_where)
-      # raise Exception(q)
+      rows = raw_q(query=q, params=None)
+      total_val = sum([r[4] for r in rows])
+      """Add percentage value to return vals"""
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+  
+      if crawler == "":
+        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+      # SAVE key in cache.
+      raw.hset(key, 'data', msgpack.dumps(rows))
+    
+    # If already cached, now simply retrieve
+    encoded = raw.hget(key, 'data')
+    decoded = msgpack.loads(encoded)
+    json_response["data"] = decoded  
+  
+  else:
     rows = raw_q(query=q, params=None)
-  
     total_val = sum([r[4] for r in rows])
   
     """Add percentage value to return vals"""
@@ -515,18 +536,10 @@ def api_casy(request, trade_flow, country1, year):
     rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
   
     if crawler == "":
-      return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+      return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
     
-    raw.hset(key, 'data', msgpack.dumps(rows))
-        
-  encoded = raw.hget(key, 'data')
-  decoded = msgpack.loads(encoded)
-  #total_val = sum([r[4] for r in decoded])
-  #raise Exception(total_val)
+    json_response["data"] = rows 
   
-  """Prepare JSON response"""
-  json_response = {}
-  json_response["data"] = decoded 
   json_response["attr_data"] = Sitc4.objects.get_all(lang) if prod_class == "sitc4" else Hs4.objects.get_all(lang)
   json_response["country1"] = country1.to_json()
   json_response["title"] = "What does %s %s?" % (country1.name, trade_flow.replace("_", " "))
@@ -565,37 +578,52 @@ def api_sapy(request, trade_flow, product, year):
   else:
     val_col = "import_value as val"
 
-  """Check cache"""
-  raw = get_redis_connection('default')
-  key = "%s:%s:%s:%s:%s" % ("show", "all", product.id, prod_class, trade_flow)
-
-  if (raw.hget(key, 'data') == None):
-    """Create query [year, id, abbrv, name_lang, val, export_rca]"""
-    q = """
-      SELECT year, c.id, c.name_3char, c.name_%s, %s, %s 
-      FROM observatory_%s_cpy as cpy, observatory_country as c 
-      WHERE product_id=%s and cpy.country_id = c.id %s
-      HAVING val > 0
-      ORDER BY val DESC
-      """ % (lang, val_col, rca_col, prod_class, product.id, year_where)
-    # raise Exception(q)
-    rows = raw_q(query=q, params=None)
-    
-    total_val = sum([r[4] for r in rows])
-     
-    """Add percentage value to return vals"""
-    # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
-    rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
-    
-    if crawler == "":
-      return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
-    
-    raw.hset(key, 'data', msgpack.dumps(rows))   
+  """Create query [year, id, abbrv, name_lang, val, export_rca]"""
+  q = """
+    SELECT year, c.id, c.name_3char, c.name_%s, %s, %s 
+    FROM observatory_%s_cpy as cpy, observatory_country as c 
+    WHERE product_id=%s and cpy.country_id = c.id %s
+    HAVING val > 0
+    ORDER BY val DESC
+    """ % (lang, val_col, rca_col, prod_class, product.id, year_where)
   
   """Prepare JSON response"""
   json_response = {}
-  data = raw.hget(key, 'data') 
-  json_response["data"] = msgpack.loads(data)
+  
+  """Check cache"""
+  if settings.REDIS:
+    raw = get_redis_connection('default')
+    key = "%s:%s:%s:%s:%s" % ("show", "all", product.id, prod_class, trade_flow)
+    # See if this key is already in the cache
+    if (raw.hget(key, 'data') == None):
+      rows = raw_q(query=q, params=None)
+      total_val = sum([r[4] for r in rows])
+      """Add percentage value to return vals"""
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+    
+      if crawler == "":
+        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+      # SAVE key in cache.
+      raw.hset(key, 'data', msgpack.dumps(rows))   
+    
+    # If already cached, now simply retrieve
+    encoded = raw.hget(key, 'data')
+    decoded = msgpack.loads(encoded)
+    json_response["data"] = decoded
+    
+  else:
+    rows = raw_q(query=q, params=None)
+    total_val = sum([r[4] for r in rows])
+  
+    """Add percentage value to return vals"""
+    # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
+    rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+  
+    if crawler == "":
+      return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
+    
+    json_response["data"] = rows
+    
   json_response["attr_data"] = Country.objects.get_all(lang)
   json_response["product"] = product.to_json()
   json_response["title"] = "Who %ss %s?" % (trade_flow.replace("_", " "), product.name_en)
@@ -632,41 +660,59 @@ def api_csay(request, trade_flow, country1, year):
   else:
     val_col = "SUM(import_value) as val"
 
-  """ Check Cache """
-  raw = get_redis_connection('default')
-  key = "%s:%s:%s:%s:%s" % (country1.name_3char, "show", "all", prod_class, trade_flow)
-
-  if (raw.hget(key, 'data') == None):
-    """Create query [year, id, abbrv, name_lang, val, rca]"""
-    q = """
-      SELECT year, c.id, c.name_3char, c.name_%s, %s, %s 
-      FROM observatory_%s_ccpy as ccpy, observatory_country as c 
-      WHERE origin_id=%s and ccpy.destination_id = c.id %s
-      GROUP BY year, destination_id
-      HAVING val > 0
-      ORDER BY val DESC
-      """ % (lang, val_col, rca_col, prod_class, country1.id, year_where)
-    # raise Exception(q)
+  """Create query [year, id, abbrv, name_lang, val, export_rca]"""
+  q = """
+    SELECT year, c.id, c.name_3char, c.name_%s, %s, %s 
+    FROM observatory_%s_cpy as cpy, observatory_country as c 
+    WHERE product_id=%s and cpy.country_id = c.id %s
+    HAVING val > 0
+    ORDER BY val DESC
+    """ % (lang, val_col, rca_col, prod_class, product.id, year_where)
+  
+  """Prepare JSON response"""
+  json_response = {}
+  
+  """Check cache"""
+  if settings.REDIS:
+    raw = get_redis_connection('default')
+    key = "%s:%s:%s:%s:%s" % (country1.name_3char, "show", "all", prod_class, trade_flow)
+    # See if this key is already in the cache
+    if (raw.hget(key, 'data') == None):
+      rows = raw_q(query=q, params=None)
+  
+      #article = "to" if trade_flow == "export" else "from"
+  
+      total_val = sum([r[4] for r in rows])
+      """Add percentage value to return vals"""
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+  
+      if crawler == "":
+        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+      # SAVE key in cache.
+      raw.hset(key, 'data', msgpack.dumps(rows))
+  
+    # If already cached, now simply retrieve
+    encoded = raw.hget(key, 'data')
+    decoded = msgpack.loads(encoded)
+    json_response["data"] = decoded
+  
+  else:
     rows = raw_q(query=q, params=None)
-  
-    #article = "to" if trade_flow == "export" else "from"
-  
     total_val = sum([r[4] for r in rows])
+  
     """Add percentage value to return vals"""
+    # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
     rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
   
     if crawler == "":
-      return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+      return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
+      
+    json_response["data"] = rows
     
-    raw.hset(key, 'data', msgpack.dumps(rows))
   
   """Set article variable for question """
   article = "to" if trade_flow == "export" else "from"
   
-  """Prepare JSON response"""
-  data = raw.hget(key, 'data')
-  json_response = {}
-  json_response["data"] = msgpack.loads(data)
   json_response["attr_data"] = Country.objects.get_all(lang)
   json_response["country1"] = country1.to_json()
   json_response["title"] = "Where does %s %s %s?" % (country1.name, trade_flow, article)
@@ -704,36 +750,53 @@ def api_ccsy(request, trade_flow, country1, country2, year):
     val_col = "export_value as val"
   else:
     val_col = "import_value as val"
+    
+  """Create query [year, id, abbrv, name_lang, val, export_rca]"""
+  q = """
+    SELECT year, c.id, c.name_3char, c.name_%s, %s, %s 
+    FROM observatory_%s_cpy as cpy, observatory_country as c 
+    WHERE product_id=%s and cpy.country_id = c.id %s
+    HAVING val > 0
+    ORDER BY val DESC
+    """ % (lang, val_col, rca_col, prod_class, product.id, year_where)
   
-  """Check Cache """
-  raw = get_redis_connection('default')
-  key = "%s:%s:%s:%s:%s" % (country1.name_3char, country2.name_3char, "show", prod_class, trade_flow)
-
-  if(raw.hget(key, 'data') == None):    
-    """Create query"""
-    q = """
-      SELECT year, p.id, p.code, p.name_%s, %s, %s 
-      FROM observatory_%s_ccpy as ccpy, observatory_%s as p 
-      WHERE origin_id=%s and destination_id=%s and ccpy.product_id = p.id %s
-      HAVING val > 0
-      ORDER BY val DESC
-      """ % (lang, val_col, rca_col, prod_class, prod_class, country1.id, country2.id, year_where)   
-    # raise Exception(q)
+  """Prepare JSON response"""
+  json_response = {}
+  
+  """Check cache"""
+  if settings.REDIS:  
+    raw = get_redis_connection('default')
+    key = "%s:%s:%s:%s:%s" % (country1.name_3char, country2.name_3char, "show", prod_class, trade_flow)
+    # See if this key is already in the cache
+    if(raw.hget(key, 'data') == None):    
+      rows = raw_q(query=q, params=None)
+      total_val = sum([r[4] for r in rows])
+      """Add percentage value to return vals"""
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+  
+      if crawler == "":
+        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
+      # SAVE key in cache.
+      raw.hset(key, 'data', msgpack.dumps(rows))
+    
+    # If already cached, now simply retrieve
+    encoded = raw.hget(key, 'data')
+    decoded = msgpack.loads(encoded)
+    json_response["data"] = decoded
+    
+  else:
     rows = raw_q(query=q, params=None)
-
     total_val = sum([r[4] for r in rows])
+  
     """Add percentage value to return vals"""
+    # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
     rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
   
     if crawler == "":
       return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
-
-    raw.hset(key, 'data', msgpack.dumps(rows))
+      
+    json_response["data"] = rows
   
-  """Prepare JSON response"""
-  json_response = {}
-  data = raw.hget(key, 'data')
-  json_response["data"] = msgpack.loads(data)
   json_response["attr_data"] = Sitc4.objects.get_all(lang) if prod_class == "sitc4" else Hs4.objects.get_all(lang)
   json_response["country1"] = country1.to_json()
   json_response["country2"] = country2.to_json()
@@ -772,38 +835,56 @@ def api_cspy(request, trade_flow, country1, product, year):
     val_col = "export_value as val"
   else:
     val_col = "import_value as val"
+    
+  """Create query [year, id, abbrv, name_lang, val, export_rca]"""
+  q = """
+    SELECT year, c.id, c.name_3char, c.name_%s, %s, %s 
+    FROM observatory_%s_cpy as cpy, observatory_country as c 
+    WHERE product_id=%s and cpy.country_id = c.id %s
+    HAVING val > 0
+    ORDER BY val DESC
+    """ % (lang, val_col, rca_col, prod_class, product.id, year_where)
   
-  raw = get_redis_connection('default')
-  key = "%s:%s:%s:%s:%s" % (country1.name_3char, "show", product.id,  prod_class, trade_flow)
-
-  if (raw.hget(key, 'data') == None):
-
-    """Create query"""
-    q = """
-      SELECT year, c.id, c.name_3char, c.name_%s, %s, %s 
-      FROM observatory_%s_ccpy as ccpy, observatory_country as c 
-      WHERE origin_id=%s and ccpy.product_id=%s and ccpy.destination_id = c.id %s
-      GROUP BY year, destination_id
-      HAVING val > 0
-      ORDER BY val DESC
-      """ % (lang, val_col, rca_col, prod_class, country1.id, product.id, year_where)
-    # raise Exception(q)
+  """Prepare JSON response"""
+  json_response = {}
+  
+  """Check cache"""
+  if settings.REDIS:
+    raw = get_redis_connection('default')
+    key = "%s:%s:%s:%s:%s" % (country1.name_3char, "show", product.id,  prod_class, trade_flow)
+    # See if this key is already in the cache
+    if (raw.hget(key, 'data') == None):
+      rows = raw_q(query=q, params=None)
+      total_val = sum([r[4] for r in rows])
+      """Add percentage value to return vals"""
+      rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
+  
+      if crawler == "":
+        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+      # SAVE key in cache.
+      raw.hset(key, 'data', msgpack.dumps(rows))
+    
+    # If already cached, now simply retrieve
+    encoded = raw.hget(key, 'data')
+    decoded = msgpack.loads(encoded)
+    json_response["data"] = decoded
+  
+  else:
     rows = raw_q(query=q, params=None)
-  
     total_val = sum([r[4] for r in rows])
+  
     """Add percentage value to return vals"""
+    # rows = [list(r) + [(r[4] / total_val)*100] for r in rows]
     rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
   
     if crawler == "":
-      return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
-    
-    raw.hset(key, 'data', msgpack.dumps(rows))
-
+      return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
+      
+    json_response["data"] = rows
+  
+  
   article = "to" if trade_flow == "export" else "from"
-  """Prepare JSON response"""
-  json_response = {}
-  data = raw.hget(key, 'data')
-  json_response["data"] = msgpack.loads(data)
+  
   json_response["attr_data"] = Country.objects.get_all(lang)
   json_response["title"] = "Where does %s %s %s %s?" % (country1.name, trade_flow, product.name_en, article)
   json_response["country1"] = country1.to_json()
