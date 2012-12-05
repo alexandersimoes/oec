@@ -29,6 +29,17 @@
 # 
 # SECRET_KEY = 'my_pets_name_is_eloise'
 #
+# IF YOU ARE RUNNING THE SERVER LOCALLY (AND DO NOT WANT TO INSTALL REDIS): 
+# Set the REDIS flag to false
+# Define a django dummy cache framework
+#
+# REDIS = False
+#
+# CACHES = {
+#    'default': {
+#        'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
+#    }, 
+#}
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

@@ -30,7 +30,7 @@ SVG support built in.
 
 Adding the Observatory to computer via virtualenv
 
-### Getting The Observatory Running Locally via Virtualenv
+### Getting The Observatory Running Locally via Virtualenv 
 
 1. Clone from github (this will create an atlas_economic_complexity folder in the current directory)
 
@@ -58,6 +58,36 @@ Adding the Observatory to computer via virtualenv
         STATICFILES_DIRS
         SECRET_KEY
         TEMPLATE_DIRS
+        REDIS
+        CACHE
+				
 9. Run the site locally!
 
         django_files/manage.py runserver_
+
+### Getting The Observatory Running With Redis Caching enabled (Optional)
+    
+10. If you would like to run the Observatory with a cache (if, for instance, you wished to deploy it on a live server)
+    All you will need to do is install the proper libraries and resources --
+
+11. Download, extract and compile Redis itself with:
+		
+        $ wget http://redis.googlecode.com/files/redis-2.6.7.tar.gz
+        $ tar xzf redis-2.6.7.tar.gz
+        $ cd redis-2.6.7
+        $ make  
+
+12.	Install the redis-py client with (from https://github.com/andymccurdy/redis-py)
+
+        $ sudo easy_install redis
+        $ sudo python setup.py install
+					
+13. Install the django-redis backend (from https://github.com/niwibe/django-redis)
+          
+        easy_install django_redis
+					
+14. You will also need the following serialization library: (from http://msgpack.org)									
+          
+        easy_install msgpack-python
+					
+15. The constants defined in settings.py have REDIS turned on by default. The example constants in the comments can be used to turn it off. 		 
