@@ -600,7 +600,8 @@ def api_sapy(request, trade_flow, product, year):
     raw = get_redis_connection('default')
     key = "%s:%s:%s:%s:%s" % ("show", "all", product.id, prod_class, trade_flow)
     # See if this key is already in the cache
-    if (raw.hget(key, 'data') == None):
+    cache_query = raw.hget(key, 'data')
+    if (cache_query == None):
       rows = raw_q(query=q, params=None)
       total_val = sum([r[4] for r in rows])
       """Add percentage value to return vals"""
@@ -608,13 +609,17 @@ def api_sapy(request, trade_flow, product, year):
     
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+      
+      json_response["data"] = rows
+      
       # SAVE key in cache.
       raw.hset(key, 'data', msgpack.dumps(rows))   
     
-    # If already cached, now simply retrieve
-    encoded = raw.hget(key, 'data')
-    decoded = msgpack.loads(encoded)
-    json_response["data"] = decoded
+    else:
+      # If already cached, now simply retrieve
+      encoded = cache_query
+      decoded = msgpack.loads(encoded)
+      json_response["data"] = decoded
     
   else:
     rows = raw_q(query=q, params=None)
@@ -682,7 +687,8 @@ def api_csay(request, trade_flow, country1, year):
     raw = get_redis_connection('default')
     key = "%s:%s:%s:%s:%s" % (country1.name_3char, "show", "all", prod_class, trade_flow)
     # See if this key is already in the cache
-    if (raw.hget(key, 'data') == None):
+    cache_query = raw.hget(key, 'data')
+    if (cache_query == None):
       rows = raw_q(query=q, params=None)
   
       #article = "to" if trade_flow == "export" else "from"
@@ -693,13 +699,17 @@ def api_csay(request, trade_flow, country1, year):
   
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+        
+      json_response["data"] = rows
+        
       # SAVE key in cache.
       raw.hset(key, 'data', msgpack.dumps(rows))
   
-    # If already cached, now simply retrieve
-    encoded = raw.hget(key, 'data')
-    decoded = msgpack.loads(encoded)
-    json_response["data"] = decoded
+    else:
+      # If already cached, now simply retrieve
+      encoded = cache_query
+      decoded = msgpack.loads(encoded)
+      json_response["data"] = decoded
   
   else:
     rows = raw_q(query=q, params=None)
@@ -773,7 +783,8 @@ def api_ccsy(request, trade_flow, country1, country2, year):
     raw = get_redis_connection('default')
     key = "%s:%s:%s:%s:%s" % (country1.name_3char, country2.name_3char, "show", prod_class, trade_flow)
     # See if this key is already in the cache
-    if(raw.hget(key, 'data') == None):    
+    cache_query = raw.hget(key, 'data')
+    if(cache_query == None):    
       rows = raw_q(query=q, params=None)
       total_val = sum([r[4] for r in rows])
       """Add percentage value to return vals"""
@@ -781,13 +792,17 @@ def api_ccsy(request, trade_flow, country1, country2, year):
   
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]
+        
+      json_response["data"] = rows  
+        
       # SAVE key in cache.
       raw.hset(key, 'data', msgpack.dumps(rows))
     
-    # If already cached, now simply retrieve
-    encoded = raw.hget(key, 'data')
-    decoded = msgpack.loads(encoded)
-    json_response["data"] = decoded
+    else: 
+      # If already cached, now simply retrieve
+      encoded = cache_query
+      decoded = msgpack.loads(encoded)
+      json_response["data"] = decoded
     
   else:
     rows = raw_q(query=q, params=None)
@@ -858,21 +873,26 @@ def api_cspy(request, trade_flow, country1, product, year):
     raw = get_redis_connection('default')
     key = "%s:%s:%s:%s:%s" % (country1.name_3char, "show", product.id,  prod_class, trade_flow)
     # See if this key is already in the cache
-    if (raw.hget(key, 'data') == None):
+    cache_query = raw.hget(key, 'data')
+    if (cache_query == None):
       rows = raw_q(query=q, params=None)
       total_val = sum([r[4] for r in rows])
       """Add percentage value to return vals"""
       rows = [{"year":r[0], "item_id":r[1], "abbrv":r[2], "name":r[3], "value":r[4], "rca":r[5], "share": (r[4] / total_val)*100} for r in rows]
   
       if crawler == "":
-        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
+        return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]] 
+      
+      json_response["data"] = rows
+         
       # SAVE key in cache.
       raw.hset(key, 'data', msgpack.dumps(rows))
     
-    # If already cached, now simply retrieve
-    encoded = raw.hget(key, 'data')
-    decoded = msgpack.loads(encoded)
-    json_response["data"] = decoded
+    else:
+      # If already cached, now simply retrieve
+      encoded = cache_query
+      decoded = msgpack.loads(encoded)
+      json_response["data"] = decoded
   
   else:
     rows = raw_q(query=q, params=None)
