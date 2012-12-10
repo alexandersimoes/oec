@@ -510,7 +510,8 @@ def api_casy(request, trade_flow, country1, year):
     raw = get_redis_connection('default')
     key = "%s:%s:%s:%s:%s" % (country1.name_3char, "all", "show", prod_class, trade_flow)  
     # See if this key is already in the cache
-    if (raw.hget(key, 'data') == None):
+    cache_query = raw.hget(key, 'data')
+    if (cache_query == None):
   
       rows = raw_q(query=q, params=None)
       total_val = sum([r[4] for r in rows])
@@ -520,12 +521,16 @@ def api_casy(request, trade_flow, country1, year):
       if crawler == "":
         return [rows, total_val, ["#", "Year", "Abbrv", "Name", "Value", "RCA", "%"]]  
       # SAVE key in cache.
+      
+      json_response["data"] = rows 
+      
       raw.hset(key, 'data', msgpack.dumps(rows))
     
-    # If already cached, now simply retrieve
-    encoded = raw.hget(key, 'data')
-    decoded = msgpack.loads(encoded)
-    json_response["data"] = decoded  
+    else:
+      # If already cached, now simply retrieve
+      encoded = cache_query
+      decoded = msgpack.loads(encoded)
+      json_response["data"] = decoded  
   
   else:
     rows = raw_q(query=q, params=None)
