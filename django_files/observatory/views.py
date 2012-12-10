@@ -670,14 +670,15 @@ def api_csay(request, trade_flow, country1, year):
   else:
     val_col = "SUM(import_value) as val"
 
-  """Create query [year, id, abbrv, name_lang, val, export_rca]"""
+  '''Create query [year, id, abbrv, name_lang, val, rca]'''
   q = """
     SELECT year, c.id, c.name_3char, c.name_%s, %s, %s 
-    FROM observatory_%s_cpy as cpy, observatory_country as c 
-    WHERE product_id=%s and cpy.country_id = c.id %s
+    FROM observatory_%s_ccpy as ccpy, observatory_country as c 
+    WHERE origin_id=%s and ccpy.destination_id = c.id %s
+    GROUP BY year, destination_id
     HAVING val > 0
     ORDER BY val DESC
-    """ % (lang, val_col, rca_col, prod_class, product.id, year_where)
+    """ % (lang, val_col, rca_col, prod_class, country1.id, year_where)
   
   """Prepare JSON response"""
   json_response = {}
@@ -766,14 +767,14 @@ def api_ccsy(request, trade_flow, country1, country2, year):
   else:
     val_col = "import_value as val"
     
-  """Create query [year, id, abbrv, name_lang, val, export_rca]"""
+  '''Create query'''
   q = """
-    SELECT year, c.id, c.name_3char, c.name_%s, %s, %s 
-    FROM observatory_%s_cpy as cpy, observatory_country as c 
-    WHERE product_id=%s and cpy.country_id = c.id %s
+    SELECT year, p.id, p.code, p.name_%s, %s, %s 
+    FROM observatory_%s_ccpy as ccpy, observatory_%s as p 
+    WHERE origin_id=%s and destination_id=%s and ccpy.product_id = p.id %s
     HAVING val > 0
     ORDER BY val DESC
-    """ % (lang, val_col, rca_col, prod_class, product.id, year_where)
+    """ % (lang, val_col, rca_col, prod_class, prod_class, country1.id, country2.id, year_where)
   
   """Prepare JSON response"""
   json_response = {}
@@ -856,14 +857,15 @@ def api_cspy(request, trade_flow, country1, product, year):
   else:
     val_col = "import_value as val"
     
-  """Create query [year, id, abbrv, name_lang, val, export_rca]"""
+  '''Create query'''
   q = """
     SELECT year, c.id, c.name_3char, c.name_%s, %s, %s 
-    FROM observatory_%s_cpy as cpy, observatory_country as c 
-    WHERE product_id=%s and cpy.country_id = c.id %s
+    FROM observatory_%s_ccpy as ccpy, observatory_country as c 
+    WHERE origin_id=%s and ccpy.product_id=%s and ccpy.destination_id = c.id %s
+    GROUP BY year, destination_id
     HAVING val > 0
     ORDER BY val DESC
-    """ % (lang, val_col, rca_col, prod_class, product.id, year_where)
+    """ % (lang, val_col, rca_col, prod_class, country1.id, product.id, year_where)
   
   """Prepare JSON response"""
   json_response = {}
