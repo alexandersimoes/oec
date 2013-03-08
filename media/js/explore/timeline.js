@@ -10,7 +10,7 @@ function Timeline() {
       years = {}
       data.forEach(function(d){ years[parseInt(d.year)] = 1; })
       years = d3.keys(years)
-      
+      years.reverse()
       // init the timeline
       var slider_year = [year]
       if(app_type == "stacked"){
@@ -55,16 +55,17 @@ function Timeline() {
         d3.selectAll(".slider#interval .ui-slider-handle").data(slider_interval).text(function(d){ return d; })
       }
       else {
-        $("#timeline .slider#year").slider({
+				$("#timeline .slider#year").slider({
           range: "min", 
           value: slider_year[0], 
-          min: parseInt(years[0]),
+					min: parseInt(years[0]),
           max: parseInt(years[years.length-1])
         });
-        $("#timeline .slider#year").bind("slide", function(event, ui) {
+				
+				$("#timeline .slider#year").bind("slide", function(event, ui) {
           $("#timeline #stop").click();
           // check if it's a range slider or not
-          slider_year = [ui.value];
+					slider_year = [ui.value];
           d3.select("#dataviz").call(app.year(ui.value));
           d3.select("#tool_pane").call(controls.year(ui.value));
           d3.selectAll("#year .ui-slider-handle").data(slider_year).text(function(d){ return d; })
