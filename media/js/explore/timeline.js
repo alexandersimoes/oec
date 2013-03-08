@@ -10,8 +10,11 @@ function Timeline() {
       years = {}
       data.forEach(function(d){ years[parseInt(d.year)] = 1; })
       years = d3.keys(years)
-      years.reverse()
-      // init the timeline
+			var max_of_array = Math.max.apply(Math, years);
+			var min_of_array = Math.min.apply(Math, years);
+			console.log(min_of_array);
+			console.log(max_of_array);
+			// init the timeline
       var slider_year = [year]
       if(app_type == "stacked"){
         slider_year = [year.split(".")[0], year.split(".")[1]]
@@ -19,8 +22,8 @@ function Timeline() {
         $("#timeline .slider#year").slider({
           range: true, 
           values: slider_year,
-          min: parseInt(years[0]),
-          max: parseInt(years[years.length-1])
+          min: parseInt(min_of_array),//years[0]),
+          max: parseInt(max_of_array)//years[years.length-1])
         });
         $("#timeline .slider#interval").slider({
           range: "min", 
@@ -58,8 +61,8 @@ function Timeline() {
 				$("#timeline .slider#year").slider({
           range: "min", 
           value: slider_year[0], 
-					min: parseInt(years[0]),
-          max: parseInt(years[years.length-1])
+					min: parseInt(min_of_array),//years[0]),
+          max: parseInt(max_of_array)//years[years.length-1])
         });
 				
 				$("#timeline .slider#year").bind("slide", function(event, ui) {
