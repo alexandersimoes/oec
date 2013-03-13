@@ -35,7 +35,7 @@ msgid "Country"
 msgstr "מדינה"
 
 msgid "Country (show trade partners)"
-msgstr "מדינה (הצג שותפות למסחר)"
+msgstr "(מדינה (הצג שותפות למסחר"
 
 msgid "Products"
 msgstr "מוצרים"
@@ -77,7 +77,7 @@ msgid "Controls"
 msgstr "בקרה"
 
 msgid "Trade Flow"
-msgstr "המסחר זרימה"
+msgstr "כיוון"
 
 msgid "Origin Country"
 msgstr "מדינת מקור"
@@ -110,7 +110,7 @@ msgid "View as text"
 msgstr "גרסת טקסט"
 
 msgid "View app"
-msgstr "צפה App"
+msgstr "גרסת איור"
 
 msgid "Next"
 msgstr "הבא"
