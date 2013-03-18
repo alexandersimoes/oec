@@ -299,7 +299,7 @@ def app_redirect(request, app_name, trade_flow, filter, year):
   # raise Exception("/explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
   return HttpResponsePermanentRedirect("/explore/%s/%s/%s/%s/%s/%s/" % (app_name, trade_flow, country1, country2, product, year))
 
-def explore(request, app_name, trade_flow, country1, country2, product, year="2009"):
+def explore(request, app_name, trade_flow, country1, country2, product, year="2010"):
   # raise Exception(country1, country2, product, year)
   # Get URL query parameters
   was_redirected = request.GET.get("redirect", False)
