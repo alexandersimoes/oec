@@ -63,7 +63,7 @@ Adding the Observatory to computer via virtualenv
 				
 9. Run the site locally!
 
-        django_files/manage.py runserver_
+        python django_files/manage.py runserver
 
 ### Getting The Observatory Running With Redis Caching enabled (Optional)
     
