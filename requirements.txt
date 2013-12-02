@@ -1,3 +1,20 @@
-Django
+# Flask framework
+flask
+
+# Helper lib for running scripts locally without server
+flask-Script
+
+# Localization
+flask-babel
+
+# DB libs for connecting to MySQL
+# WARNING: Must have MySQL server installed!
 MySQL-python
-numpy
+flask-sqlalchemy
+
+# Redis connector for caching/sessions 
+# WARNING: Must have Redis server installed!
+redis
+
+# Better JSON serializer that knows how to handle Decimal types
+simplejson
