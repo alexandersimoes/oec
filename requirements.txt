@@ -1,3 +1,13 @@
-Django
+# need to be able to connect to the DB
 MySQL-python
+
+# ipython a WAY better interactive python shell
+readline
+ipython
+
+# helpful library for advanced math / data manipulation similar to matlab
+# required for pandas
 numpy
+
+# Pandas library for doing matrix math, dataframes etc. similar to R
+pandas

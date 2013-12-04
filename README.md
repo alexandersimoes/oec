@@ -1,6 +1,6 @@
-# The Observatory of Economic Complexity Site
+# The Atlas of Economic Complexity Site
 
-The **OEC** is a site housing **The Observatory**, the master's thesis work
+The **Atlas** is a site housing **The Observatory**, the master's thesis work
 of Alexander Simoes. This **Observatory** is a tool that allows users to quickly
 compose a visual narrative about countries and the products they exchange.
 
@@ -34,13 +34,13 @@ Adding the Observatory to computer via virtualenv
 
 1. Clone from github (this will create an atlas_economic_complexity folder in the current directory)
 
-        git clone https://github.com/alexandersimoes/oec.git
+        git clone https://github.com/alexandersimoes/atlas_economic_complexity.git
 2. Create the virtual environment
 
-        mkvirtualenv oec
+        mkvirtualenv atlas_economic_complexity
 3. Activate this newly created environment
 
-        workon oec
+        workon atlas_economic_complexity
 4. Install the required Python libraries
 
         pip install -r requirements.txt
