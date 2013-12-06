@@ -11,3 +11,6 @@ numpy
 
 # Pandas library for doing matrix math, dataframes etc. similar to R
 pandas
+
+# string matching for matching country names
+fuzzywuzzy
