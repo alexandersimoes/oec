@@ -37,7 +37,7 @@ SQLALCHEMY_DATABASE_URI = "mysql://{0}:{1}@{2}/{3}".format(
     get_env_variable("OEC_DB_USER", "root"), 
     get_env_variable("OEC_DB_PW", ""), 
     get_env_variable("OEC_DB_HOST", "localhost"),
-    get_env_variable("OEC_DB_NAME", "dataminas"))
+    get_env_variable("OEC_DB_NAME", "oec"))
 
 ''' If user prefers to connect via socket set env var '''
 if "OEC_DB_SOCKET" in os.environ:
@@ -68,8 +68,6 @@ LANGUAGES = {
     'zh_cn': '中文'
 }
 
-STATIC_URL = get_env_variable("OEC_STATIC_URL")
-
 ''' 
     Setup redis caching connection to be used throughout the site. Credentials
     are set in their respective env vars.
@@ -80,5 +78,3 @@ REDIS = Redis(host=get_env_variable("OEC_REDIS_HOST", "localhost"),
 REDIS_CACHE = RedisCache(host=get_env_variable("OEC_REDIS_HOST", "localhost"), 
          port=get_env_variable("OEC_REDIS_PORT", 6379), 
          password=get_env_variable("OEC_REDIS_PW", None), default_timeout=2591999)
-
-'''
