@@ -2,7 +2,7 @@
 flask
 
 # Helper lib for running scripts locally without server
-flask-Script
+flask-script
 
 # Localization
 flask-babel
