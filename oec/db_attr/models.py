@@ -1,6 +1,36 @@
 from oec import db
 from oec.utils import AutoSerialize, exist_or_404
 
+class Country(db.Model, AutoSerialize):
+
+    __tablename__ = 'attr_country'
+    
+    id = db.Column(db.String(5), primary_key=True)
+    id_2char = db.Column(db.String(2))
+    id_3char = db.Column(db.String(3))
+    id_num = db.Column(db.String(20))
+    color = db.Column(db.String(7))
+    comtrade_name = db.Column(db.String(255))
+    
+    name = db.relationship("Country_name", backref = 'country', lazy = 'dynamic')
+
+    def __repr__(self):
+        return '<Country %r>' % (self.id_3char)
+
+class Country_name(db.Model, AutoSerialize):
+
+    __tablename__ = 'attr_country_name'
+    
+    country_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
+    lang = db.Column(db.String(5), primary_key=True)
+    name = db.Column(db.String(255))
+    gender = db.Column(db.String(1))
+    plural = db.Column(db.Boolean())
+    article = db.Column(db.Boolean())
+    
+    def __repr__(self):
+        return '<Country Name %r:%r>' % (self.country_id, self.lang)
+
 class Hs(db.Model, AutoSerialize):
 
     __tablename__ = 'attr_hs'
@@ -46,13 +76,6 @@ class Sitc(db.Model, AutoSerialize):
     color = db.Column(db.String(7))
     
     name = db.relationship("Sitc_name", backref = 'sitc', lazy = 'dynamic')
-    
-    # def name(self):
-    #     lang = getattr(g, "locale", "en")
-    #     return title_case(getattr(self,"name_"+lang))
-    #     
-    # def icon(self):
-    #     return "/static/img/icons/hs/hs_%s.png" % (self.id[:2])
 
     def __repr__(self):
         return '<Sitc %r>' % (self.sitc)
