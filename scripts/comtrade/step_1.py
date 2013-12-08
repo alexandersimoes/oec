@@ -42,7 +42,7 @@ def get_country_lookup():
     return cs
 
 def get_sitc_lookup():
-    cursor.execute("select concat('S2-', sitc_code), id from attr_sitc;")
+    cursor.execute("select concat('S2-', sitc), id from attr_sitc;")
     return {c[0]:c[1] for c in cursor.fetchall()}
 
 def calc_rca(yop):

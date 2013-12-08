@@ -28,7 +28,7 @@ def get_country_lookup():
     return cs
 
 def get_hs_lookup():
-    cursor.execute("select hs_code, id from attr_hs;")
+    cursor.execute("select hs, id from attr_hs;")
     return {c[0]:c[1] for c in cursor.fetchall()}
 
 def calc_rca(yop):
