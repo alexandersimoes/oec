@@ -1,0 +1,60 @@
+{% extends "templates/site.html" %}
+
+{% block page_title %}Atlas Book{% endblock %}
+{% block heading_title %}The Atlas of Economic Complexity - The Book{% endblock %}
+
+{% block head %}
+<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.book.css" />
+{% endblock %}
+
+{% block body %}
+<!-- the left pane -->
+<div id="sidebar">
+  <h3>Download</h3>
+  <dl class="file_list">
+    <dt>Full Book</dt>
+    <dd>
+      <img src="/static/img/icons/filetype_pdf.png" alt="Download as PDF" />
+      <p><a href="/static/atlas/pdf/HarvardMIT_AtlasOfEconomicComplexity.pdf">Full Version</a></p>
+      <p>364 pages (85.7 MB)</p>
+    </dd>
+    <dt>In Parts</dt>
+    <dd>
+      <img src="/static/img/icons/filetype_pdf.png" alt="Download as PDF" />
+      <p><a href="/static/atlas/pdf/HarvardMIT_AtlasOfEconomicComplexity_Part_I.pdf">Part I: Why, What and How &amp; Rankings</a></p>
+      <p>91 pages (8.2 MB)</p>
+      <br />
+      <img src="/static/img/icons/filetype_pdf.png" alt="Download as PDF" />
+      <p><a href="/static/atlas/pdf/HarvardMIT_AtlasOfEconomicComplexity_Part_II.pdf">Part II: Country Pages</a></p>
+      <p>271 pages (75.4 MB)</p>
+    </dd>
+  </dl>
+</div>
+
+<div id="content">
+  <img src="/static/img/book/atlas_title.png" width="700" />
+  <div class="atlas_book_content">
+    <a href="/static/atlas/pdf/HarvardMIT_AtlasOfEconomicComplexity.pdf"><img src="/static/img/book/atlas_free_sample.png" /></a>
+    <a href="/explore"><img src="/static/img/book/atlas_explore.png" /></a>
+  </div>
+  <img src="/static/img/book/atlas_authors.png" width="700" border="0" />
+  <img src="/static/img/book/atlas_logos.png" width="700"/>
+
+  <blockquote>
+    Emphasizing that not all products are the same for development is a significant departure from the establishment
+    <p>&mdash;Changyong Rhee, Chief Economist, Asian Development Bank (Cambridge, MA 2011)</p>
+  </blockquote>
+  <blockquote>
+    The ECI can play a very important role. It can help identify the role of developing countries
+    <p>&mdash;Justin Lin, Chief Economist, World Bank  (Cambridge, MA 2011)</p>
+  </blockquote>
+
+  <div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png"></a>
+    <br />
+    <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">The Atlas of Economic Complexity: Mapping Paths to Prosperity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="atlas.media.mit.edu" property="cc:attributionName" rel="cc:attributionURL">Hausmann, Hidalgo et al.</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
+    <br />
+    Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="http://atlas.media.mit.edu" rel="dct:source">atlas.media.mit.edu</a>.<br>Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu" rel="cc:morePermissions">atlas.media.mit.edu</a>
+  </div>
+</div> <!-- END #content div -->
+{% endblock %}

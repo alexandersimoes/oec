@@ -1,0 +1,477 @@
+/*
+ * Title of page
+ */
+.app_title{
+  float: left;
+  height: 50px;
+}
+.app_title h2 {
+  font-family: 'Cardo', serif, 'Times';
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 36px;
+  margin: 6px 0 0 10px;
+/*  width: 815px;*/
+  width: 828px;
+}
+.app_title#icons{
+  width: 188px;
+}
+.app_title#icons .left{
+  float: left;
+}
+.app_title#icons h2{
+  font-size: 20px;
+  line-height: 20px;
+  width: 60px;
+  text-align: center;
+  margin: 6px 0px 0px 0px;
+}
+.app_title#icons h2.small{
+  margin-top: 15px;
+}
+.app_title#icons h2.larger{
+  font-size: 30px;
+  line-height: 34px;
+}
+.app_title#icons img{
+  width: 50px;
+}
+.app_title#icons img.community{
+  margin: 10px 0 0 0;
+  width: 40px;
+}
+  
+  
+  
+  
+  #main .app_title_img {
+    float: left;
+    margin: 0 0 0 186px;
+    min-height: 45px;
+    width: 50px;
+  }
+    .explore #main .app_title_img img {
+      border: 0;
+      padding: 0 10px 0 0;
+      vertical-align: bottom;
+      width: 48px;
+    }
+    .explore #main .app_title_img.community_icon {
+      margin-top: 8px;
+      width: 40px;
+    }
+    .explore #main .app_title_img.community_icon img {
+      width: 26px;
+    }
+  .explore #main .app_title_title {
+    float: left;
+    margin: 7px 0 0 7px;
+    width: 415px;
+  }
+  .explore #main .app_title_year {
+    float: right;
+    margin: 3px 195px 0 0;
+    text-align: right;
+    width: 160px;
+  }
+    .explore #main .app_title_title h2,
+    .explore #main .app_title_year h2 {
+      font-size: 30px;
+      display: inline;
+      line-height: 1.4em;
+      margin: 0;
+      font-weight: normal;
+    }
+    .explore #main .app_title_title.product_name {
+      margin: 8px 0 0 0;
+    }
+    .explore #main .app_title_title.product_name h2{
+      font-size: 24px;
+    }
+  .explore #main .app_title_desc {
+    margin: 0 0 5px 186px;
+    text-align: left;
+  }
+  .explore #main .app_title_desc h3 {
+    display: inline;
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0;
+  }
+  .explore #main .app_title_desc img {
+    width: 22px;
+    vertical-align: top;
+  }
+  
+  #dataviz svg {
+    width:100%;
+    height: 100%;
+  }
+
+
+/*
+ * Left hand side the app selection pane
+ */  
+.explore #main #app_pane {
+  background-color: #fff;
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  border-radius: 10px 0 0 10px;
+  font-size: 90%;
+  float: left;
+/*  padding: 10px;*/
+  margin-left: 0px;
+  padding-bottom: 0px;
+  min-height: 440px;
+  width: 185px;
+  z-index: 1;
+}
+.explore #main #app_pane > *{
+  padding: 10px;
+}
+.explore #main #app_pane a{
+text-decoration: none;
+}
+.explore #main #app_pane .accordion {
+  width: 165px;
+  font-size: 95%;
+}
+.explore #main #app_pane .accordion > div > div,
+.explore #main #app_pane .accordion > div > ul {
+  display: none;
+}
+.explore #main #app_pane .accordion div a {
+  font-family:'PT Sans Narrow',Helvetica,Arial;
+  font-size:90%;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.explore #main #app_pane .accordion h3 {
+  font-family:'PT Sans Narrow',Helvetica,Arial;
+  font-size:120%;
+  font-weight:500;
+}
+.explore #main #app_pane .accordion div div{
+/*  display: none;*/
+  padding: 0 10px 5px 10px;
+}
+.explore #main #app_pane .accordion div div h4 {
+  border-bottom: solid 1px #999;
+  font-family:'PT Sans Narrow',Helvetica,Arial;
+  font-size:95%;
+  font-weight:500;
+  margin: 0;
+  padding: 0 0 2px 0;
+}
+.explore #main #app_pane .accordion div ul {
+  font-size: 10pt;
+  line-height:1.1;
+  margin: 0 0 5px 0;
+  overflow: hidden;
+  padding: 5px 10px 10px 10px;
+  text-align: left;
+}
+.explore #main #app_pane .accordion div ul li a,
+.explore #main #app_pane .accordion div div ul li a {
+  background: url("/media/img/app/minieye.png") left 4px no-repeat;
+  padding-left: 18px;
+}
+.explore #main #app_pane .accordion div ul li a.disabled,
+.explore #main #app_pane .accordion div div ul li a.disabled {
+  background: url("/media/img/app/minieye_disabled.png") left 4px no-repeat;
+}
+.explore #main #app_pane .accordion div div ul {
+  font-size: 10pt;
+  line-height:1.1;
+  list-style-type: none;
+  margin: 0 0 5px 0;
+  padding: 0;
+  text-align: left;
+}
+
+
+/*
+ * Right hand side the app specific tool pane
+ */
+.explore #main #tool_pane {
+  background: #fff;
+  border-top: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  border-radius: 0 10px 10px 0;
+  font-size:90%;
+  float: left;
+  z-index: 0;
+  width:185px;
+}
+.explore #main #tool_pane > *{
+  padding: 0 10px;
+}
+.explore #main #tool_pane h3 {
+  font-weight: normal;
+  margin: 0 0 2px 0;
+}
+.explore #main .ui-buttonset,
+.explore #main .ui-button {
+  font-family: 'PT Sans Narrow',Helvetica,Arial;
+}
+.explore #main .ui-button-text{
+  padding: 2px 6px
+}
+.explore #main #tool_pane .dropdown_container {
+  clear: both;
+}
+.explore #main #tool_pane .dropdown_container select {
+  margin: 0 0 14px 0;
+  width: 163px;
+}
+.explore #main #tool_pane .dropdown_container#year_start {
+  float: left;
+  padding-right: 5px;
+  clear: none;
+}
+.explore #main #tool_pane .dropdown_container#year_end {
+  float: left;
+  padding-left: 5px;
+  clear: none;
+}
+.explore #main #tool_pane .dropdown_container#year_start select,
+.explore #main #tool_pane .dropdown_container#year_end select {
+  width: 75px;
+}
+.explore #main #tool_pane .chzn-container {
+  cursor: pointer;
+  margin: 0 0 5px 0;
+}
+.explore #main #tool_pane button {
+  background:#888;
+  background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#888), to(#999));
+  background:-moz-linear-gradient(0% 90% 90deg, #999, #888);
+  color: #fff;
+  margin: 25px 10px 0 10px;
+  padding: 5px 0;
+  width: 165px;
+}
+.explore #main #tool_pane hr {
+  background: #cccccc;
+  clear: both;
+  margin: 12px 0;
+  height: 0.5px;
+}
+.explore #main #tool_pane .control_container {
+  margin: 10px 0;
+}
+.explore #main #tool_pane .control_container a {
+  margin: 0 5px 0 0;
+}
+
+.explore #main #tool_pane .control_container h3 {
+  font-size: 14px;
+  margin: 0;
+}
+.explore #main #tool_pane .control_container img {
+  width: 10px;
+}
+.explore #main #tool_pane .embed_code {
+  border: solid 1px #ccc;
+  font-family: monospace;
+  font-size: 10px;
+/*  height: 75px;*/
+  overflow: hidden;
+  width: 160px;
+}
+/* change product classification */
+.product_class select {
+  width: 52px
+}
+.product_class .chzn-container-single .chzn-single {
+  height: 18px;
+  line-height: 18px;
+  padding: 0 0 0 3px;
+}
+.product_class .chzn-container-single .chzn-single div {
+  width: 15px;
+}
+.product_class .chzn-container-single .chzn-single div b {
+  background-position: -1px -3px;
+}
+.product_class .chzn-container-single .chzn-single span {
+  margin-right: 15px;
+}
+.product_class .chzn-container-single .chzn-search {
+  display: none;
+}
+.product_class .chzn-container .chzn-results li {
+  padding: 3px 7px 4px;
+}
+.explore #main .pane_title{
+  background: url('/media/img/all/containers_trans.png') no-repeat;
+  background-position: -43px -104px;
+  margin: 0;
+  text-align: center;
+  padding: 10px !important;
+}
+
+
+/*
+ * Center of the page, app canvas
+ */  
+.explore #main #content {
+  background-color: #fff;
+  border: 1px solid #cccccc;
+  border-radius: 0 0 10px 10px !important;
+  float: left;
+  overflow: hidden;
+  padding: 0 !important;
+  width: 640px;
+  z-index: 10;
+}
+.explore #main #content #dataviz {
+  height: 380px;
+  border-bottom: 1px solid #cccccc;
+  position: relative;
+}
+.explore #main #content #text_data{
+  display: none;
+  height: 500px;
+  overflow-y: scroll;
+}
+.explore #main #content #text_data table{
+  width: 100%;
+}
+.explore #main #content #text_data table tr.odd{
+  background: #eee;
+}
+.explore #main #content #text_data table td,
+.explore #main #content #text_data table th{
+  padding: 2px 6px;
+  vertical-align: top;
+}
+.explore #main #content #text_data table td:nth-child(4),
+.explore #main #content #text_data table td:nth-child(5),
+.explore #main #content #text_data table td:nth-child(6){
+  text-align: right;
+}
+.explore #main #content #text_data table tbody tr:nth-child(even) {
+  background: white;
+}
+.explore #main #content #text_data table tbody tr:nth-child(odd) {
+  background: #F4F5F7;
+}
+/* key */
+.explore #main #content .key {
+  padding: 3px;
+  text-align: center;
+}
+.explore #main #content .key img {
+  width: 15px;
+}
+.explore #main #content .key#hs4 img {
+  width: 25px;
+}
+.explore #main #content .key#hs4 a {
+  padding: 2px 10px 2px 0;
+}
+.explore #main #content .key a {
+  cursor: pointer;
+  margin: 1px;
+}
+.explore #main #content .key a.country {
+  border-radius: 2px;
+  color: #fff;
+  display: inline-block;
+  margin: 3px 2px;
+  padding: 2px;
+  text-decoration: none;
+}
+
+/*
+ * Timeline
+ */
+.explore #main #content #timeline {
+  padding: 10px;
+  overflow: hidden;
+}
+.explore #main #content #timeline button{
+  float: left;
+  height: 30px;
+  width: 60px;
+  padding: 0px;
+  margin: 0px 160px;
+}
+.explore #main #content #timeline button#stop{
+  display: none;
+}
+.explore #main #content #timeline .slider{
+  margin: 0 10px 10px 10px;
+  width: 590px;
+}
+.explore #main #content #timeline .slider .ui-slider-handle{
+  font-size: 10px;
+  padding: 4px;
+  text-decoration: none;
+  width: auto;
+}
+.explore #main #content #timeline .slider#interval {
+/*  height: 4px;*/
+  margin: auto;
+  width: 100px;
+}
+.explore #main #content #timeline a.prev{
+  float: left;
+  width: 100px;
+  margin-left: 20px;
+}
+.explore #main #content #timeline a.next{
+  float: right;
+  width: 100px;
+  margin-right: 20px;
+  text-align: right;
+}
+.explore #main #content #timeline #stacked_controls {
+  display: none;
+  margin: auto;
+  width: 515px;
+}
+.explore #main #content #timeline #stacked_controls > div {
+  display: inline-block;
+  margin: 0 35px 0 0;
+  vertical-align: top;
+}
+.explore #main #content #timeline #stacked_controls > div:last-child {
+  margin: 0;
+}
+.explore #main #content #timeline #stacked_controls p {
+  margin: 0;
+}
+
+.explore #loader {
+  clear: both;
+  display: none;
+  height: 0;
+  width: 640px;
+  text-align: center;
+  position: relative;
+  top: 150px;
+  z-index: 99999;
+}
+.explore #no_data {
+  display: none;
+  left: 250px;
+  height: 0px;
+  position: relative;
+  top: 40px;
+  width: 600px;
+  z-index: 99999;
+}
+.explore #no_data h3 {
+  display: inline;
+  font-size: 36px;
+  margin: 0;
+}
+.explore #no_data p {
+  display: inline;
+  text-align: left;
+}  

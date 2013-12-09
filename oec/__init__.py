@@ -45,6 +45,7 @@ from oec.db_sitc.views import mod as db_sitc_module
 from oec.db_hs.views import mod as db_hs_module
 ''' front facing views/models of site '''
 from oec.general.views import mod as general_module
+from oec.explore.views import mod as explore_module
 
 ''' Register these modules as blueprints '''
 app.register_blueprint(db_attr_module)
@@ -52,3 +53,4 @@ app.register_blueprint(db_sitc_module)
 app.register_blueprint(db_hs_module)
 
 app.register_blueprint(general_module)
+app.register_blueprint(explore_module)

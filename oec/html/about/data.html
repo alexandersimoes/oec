@@ -1,0 +1,53 @@
+{% extends "templates/site.html" %}
+
+{% block head %}
+<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.about.css" />
+{% endblock %}
+
+{% block body %}
+<!-- the left pane -->
+<div id="sidebar">
+  <nav role="navigation">
+    <ul>
+      <li><a href="/about/">About</a></li>
+      <li>
+        <a href="/about/data/" class="active">Data</a>
+        <ul>
+          <li><a href="/about/data/sitc/">SITC4</a></li>
+          <li><a href="/about/data/hs/">HS4</a></li>
+          <li><a href="/about/data/country/">Country</a></li>
+        </ul>
+      </li>
+      <li><a href="/about/team/">Team</a></li>
+      <li><a href="/about/permissions/">Permissions</a></li>
+    </ul>
+  </nav>
+</div>
+
+<div id="content">
+  <table class="table table-bordered table-condensed table-striped">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        {% for h in headers %}
+        <th>{{ h }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ item.get_name() }}</td>
+        <td>{{ item.id }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div> <!-- END #content div -->
+{% endblock %}
+
+{% block js %}
+<script>
+</script>
+{% endblock %}

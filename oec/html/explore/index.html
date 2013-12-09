@@ -1,0 +1,213 @@
+{% extends "templates/site.html" %}
+
+{% block page_title %}Explore{% endblock %}
+{% block heading_title %}Explore{% endblock %}
+
+{% block head %}
+<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.explore.css" />
+
+<!-- Load non-standard fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
+
+<link rel="stylesheet" href="/static/js/libs/chosen/chosen.css" />
+<link rel="stylesheet" href="/static/js/libs/tipsy/tipsy.css" />
+<link rel="stylesheet" href="/static/js/libs/vizwiz/src/utils.slider.css" />
+<link rel="stylesheet" href="/static/js/libs/bootstrap/css/bootstrap-icon.css" />
+<link rel="stylesheet" href="/static/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
+{% endblock %}
+
+{% block body %}
+<!-- the left pane -->
+<div id="app_pane">
+  <h3 class="pane_title">App Selection</h3>
+  <div class="accordion">
+    <div>
+      <h3><a href="#">Tree Maps</a></h3>
+      <div>
+        <h4>Country</h4>
+        <ul>
+          <li><a class="casy" href="" >Exports</a></li>
+          <li><a class="casy" href="">Imports</a></li>
+          <li><a class="casy" href="">Net Exports</a></li>
+          <li><a class="casy" href="">Net Imports</a></li>
+        </ul>
+        <h4>Country (show trade partners)</h4>
+        <ul>
+          <li><a class="csay" href="">Exports</a></li>
+          <li><a class="csay" href="">Imports</a></li>
+        </ul>
+        <h4>Products</h4>
+        <ul>
+          <li><a class="sapy" href="">Exports To Destination</a></li>
+          <li><a class="sapy" href="">Imports From Origin</a></li>
+        </ul>
+        <h4>Bilateral</h4>
+        <ul>
+          <li><a class="ccsy" href="">Exports To Destination</a></li>
+          <li><a class="ccsy" href="">Imports From Origin</a></li>
+          <li><a class="cspy" href="">Exports by Product</a></li>
+          <li><a class="cspy" href="">Imports by Product</a></li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <h3><a href="#">Stacked Area Charts</a></h3>
+      <div>
+        <h4>Country</h4>
+        <ul>
+          <li><a class="casy" href="">Exports</a></li>
+          <li><a class="casy" href="">Imports</a></li>
+          <li><a class="casy" href="">Net Exports</a></li>
+          <li><a class="casy" href="">Net Imports</a></li>
+        </ul>
+        <h4>Country (show trade partners)</h4>
+        <ul>
+          <li><a class="csay" href="">Exports</a></li>
+          <li><a class="csay" href="">Imports</a></li>
+        </ul>
+        <h4>Products</h4>
+        <ul>
+          <li><a class="sapy" href="">Exports To Destination</a></li>
+          <li><a class="sapy" href="">Imports From Origin</a></li>
+        </ul>
+        <h4>Bilateral</h4>
+        <ul>
+          <li><a class="ccsy" href="">Exports To Destination</a></li>
+          <li><a class="ccsy" href="">Imports From Origin</a></li>
+          <li><a class="cspy" href="">Exports by Product</a></li>
+          <li><a class="cspy" href="">Imports by Product</a></li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <h3><a href="#">Product Space</a></h3>
+      <ul>
+        <li><a class="casy" href="">Product Space of Exports</a></li>
+        <li><a class="disabled" href="">Density Product Space</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3><a href="#">Diversification Options</a></h3>
+      <ul>
+        <li><a class="casy" href="">Pie Scatter Chart</a></li>
+        <li><a class="disabled" href="">Density Bars</a></li>
+        <li><a class="disabled" href="">Stepping Stone</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3><a href="">Maps</a></h3>
+      <ul>
+        <li><a class="sapy" href="">Exports</a></li>
+        <li><a class="sapy" href="">Imports</a></li>
+        <li><a class="sapy" href="">Net exports</a></li>
+        <li><a class="sapy" href="">Net imports</a></li>
+      </ul>
+    </div>
+  </div>
+</div> <!-- END app selection pane -->
+
+<!-- the Visualization -->
+<div id="content">
+
+  <!-- ajax loading gif -->
+  <div id="loader">
+    <img src="/media/img/all/loader.gif" alt="loading" /><br />Loading...
+  </div>
+  
+  <!-- the canvas for the visualization -->
+  <div id="text_data">
+
+  </div>
+  
+  <!-- Container for the visualization -->
+  <div id="viz"></div>
+  
+  <!-- Container for the key/legend -->
+  <div class="key {{prod_class}}"  ></div>
+  
+  <!-- Container for the timeline -->
+   <div id="timeline">
+    <div class="ui_bottom" id="ui_bottom" style="bottom:0px">
+    </div>
+    {% if app_name == "stacked" %}  
+    <div id="stacked_controls" style="width:70%">
+      <!-- <div>
+        <p>Year Interval: </p>
+        <div class="slider" id="interval"></div>
+      </div> -->
+      <div id="stacked_labels">
+        <p>Labels:</p>
+        <input type="radio" id="true" name="labels" checked="checked" /><label for="true">On</label>
+        <input type="radio" id="false" name="labels" /><label for="false">Off</label>
+      </div>
+      <div id="stacked_layout">
+        <p>Layout:</p>
+        <input type="radio" id="value" name="layout" checked="checked" /><label for="value">Value</label>
+        <input type="radio" id="share" name="layout" /><label for="share">Share</label>
+      </div>
+      <div id="stacked_order">
+        <p>Ordering:</p>
+        <input type="radio" id="community" name="order" checked="checked" /><label for="community">Community</label>
+        <input type="radio" id="totals" name="order" /><label for="totals">Totals</label>
+      </div>
+      {% if app_type != "sapy" %} 
+      <div id="stacked_capita" style="margin-left:40px">
+        <p>Adjust:</p>
+        <span style="">
+          <input type="radio" id="current" name="capita" checked="checked" /><label style="margin-top:4px" for="current">Current</label>
+          <input type="radio" id="notpc_constant" name="capita" /><label for="notpc_constant">Constant</label>
+        </span>
+        <span style="">
+          <input type="radio" id="pc_current" name="capita" /><label style="" for="pc_current">Per Capita Current</label>
+          <input type="radio" id="pc_constant" name="capita" /><label for="pc_constant">Per Capita Constant</label>
+        </span>
+      </div>
+      {% endif %}
+    </div>  
+    {% endif %}
+    {% if app_name == "pie_scatter" %}
+     <div id="pie_controls" style="margin-left:18px">
+       <div id="pie_yvar">
+         <p>Y-Axis:</p>
+         <input type="radio" id="complexity" name="yvar" checked="checked" /><label for="complexity">Complexity</label>
+         <input type="radio" id="opp_gain" name="yvar" /><label for="opp_gain">Opportunity Gain</label>
+       </div>
+       <div id="pie_spot">
+         <p>Missing products only:</p>
+         <input type="radio" id="spot_off" name="pie_spot" checked="checked" /><label for="spot_off">Off</label>
+         <input type="radio" id="spot_on" name="pie_spot" /><label for="spot_on">On</label>
+       </div>
+     </div>   
+    {% endif %}
+   </div>  
+     
+</div><!-- END content -->
+
+<!-- the right pane -->
+<div id="tool_pane">
+  
+  <h3 class="pane_title">Controls</h3>
+  
+</div>
+
+</div> <!-- END #main -->
+{% endblock %}
+
+{% block js %}
+<!-- The JavaScript -->
+<!-- Libraries -->
+<script src="/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
+<script src="/static/js/libs/jquery-ui/jquery-ui.min.js"></script>
+<script>
+// Accordion for app selection
+$(".accordion").accordion({
+  collapsible: true,
+  active: false,
+  autoHeight: false,
+  header: "> div > h3"
+});
+$(".accordion").accordion("option", "active", 0);
+</script>
+{% endblock %}

@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import Blueprint, render_template, g, request, current_app, session, redirect, url_for, flash, abort
 from flask.ext.babel import gettext
 
-from oec.db_attr.models import Country
+from oec.db_attr.models import Country, Sitc, Hs
 
 import time, urllib2, json
 
@@ -29,6 +29,8 @@ def before_request():
     
     # Set the locale to either 'pt' or 'en' on the global object
     if request.endpoint != 'static':
+        # g.locale = "hi"
+        # raise Exception(g.locale)
         g.locale = get_locale()
 
 @babel.localeselector
@@ -39,8 +41,7 @@ def get_locale(lang=None):
     if lang:
         if lang in supported_langs:
             new_lang = lang
-        else:
-            session['locale'] = new_lang
+        session['locale'] = new_lang
     else:
         current_locale = getattr(g, 'locale', None)
         # return new_lang
@@ -52,29 +53,6 @@ def get_locale(lang=None):
             session['locale'] = new_lang
     
     return new_lang
-
-###############################
-# General views 
-# ---------------------------
-@app.after_request
-def after_request(response):
-    return response
-    
-@mod.route('/')
-def home():
-    g.page_type = "home"
-    ip = request.remote_addr
-    
-    # fetch the url
-    url = "http://api.hostip.info/get_json.php?ip="+ip
-    json_response = json.loads(urllib2.urlopen(url).read())
-    country_code = json_response["country_code"]
-    
-    c = Country.query.filter_by(id_2char=country_code).first()
-    if c is None:
-        c = Country.query.filter_by(id="nausa").first()
-    
-    return render_template("home.html", default_country=c)
 
 ###############################
 # Set language views 
@@ -93,3 +71,77 @@ def set_lang(lang):
 def page_not_found(e):
     g.page_type = "error404"
     return render_template('general/404.html', error = e), 404
+
+###############################
+# General views 
+# ---------------------------
+@mod.route('/')
+def home():
+    g.page_type = "home"
+    ip = request.remote_addr
+    
+    # fetch the url
+    url = "http://api.hostip.info/get_json.php?ip="+ip
+    json_response = json.loads(urllib2.urlopen(url).read())
+    country_code = json_response["country_code"]
+    
+    c = Country.query.filter_by(id_2char=country_code).first()
+    if c is None:
+        c = Country.query.filter_by(id="nausa").first()
+    
+    return render_template("home.html", default_country=c)
+
+###############################
+# API views 
+# ---------------------------
+@mod.route('book/')
+def book():
+    g.page_type = "book"
+    return render_template("book/index.html")
+
+###############################
+# About views 
+# ---------------------------
+@mod.route('about/')
+def about():
+    g.page_type = "about"
+    return render_template("about/index.html")
+
+@mod.route('about/data/')
+def about_data_redirect():
+    return redirect(url_for('.about_data', data_type="sitc"))
+
+@mod.route('about/data/<data_type>/')
+def about_data(data_type):
+    lang = request.args.get('lang', g.locale)
+    
+    if data_type == "sitc":
+        items = Sitc.query.all()
+        headers = ["Name", "SITC4 Code"]
+        title = "SITC4 product names and codes"
+    elif data_type == "hs":
+        items = Hs.query.all()
+        headers = ["Name", "HS4 Code"]
+        title = "HS4 (harmonized system) product names and codes"
+    elif data_type == "country":
+        items = Country.query.all()
+        headers = ["Name", "Alpha 3 Abbreviation"]
+        title = "Country names and abbreviations"
+    
+    return render_template("about/data.html", items=items, headers=headers, title=title)
+
+@mod.route('about/team/')
+def about_team():
+    return render_template("about/team.html")
+
+@mod.route('about/permissions/')
+def about_permissions():
+    return render_template("about/permissions.html")
+
+###############################
+# API views 
+# ---------------------------
+@mod.route('api/')
+def api():
+    g.page_type = "api"
+    return render_template("api/index.html")

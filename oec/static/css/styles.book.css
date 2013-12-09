@@ -1,0 +1,18 @@
+blockquote {
+        background: #eee;
+        font-size: 20px;
+        margin: 50px 0;
+}
+blockquote:before {
+        color: #aaa;
+        content: "“";
+        float: left;
+        font-family: georgia, times, serif;
+        font-size: 700%;
+        margin: -23px 0 0 0;
+        line-height: 120px;
+}
+blockquote p {
+        font-size: 14px;
+        margin: 0;
+}
