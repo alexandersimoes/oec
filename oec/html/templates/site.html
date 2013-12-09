@@ -1,0 +1,52 @@
+<!-- extend from base layout -->
+{% extends "templates/base.html" %}
+
+{% block content %}
+
+<div id="container">
+  <header>
+    <div class="logo">
+      <h1><a href="/" title="Home"><img src="/static/img/nav/oec_sm.png" alt="The Observatory of Economic Complexity" /></a></h1>
+    </div>  
+    <nav>
+      <ul>
+        <li><a href="/explore">Explore</a></li>
+        <li><a href="/country/usa">Profiles</a></li>
+        <li><a href="/book">Book</a></li>
+        <li><a href="/rankings">Rankings</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/api">API</a></li>
+      </ul>
+    </nav> 
+    <div class="language_select">
+      <div class="text">
+        Language:
+      </div>
+      <select>
+        {% for lang_id, lang_name in g.supported_langs.iteritems() %}
+        <option style="width: 70px; padding-right: 26px;" value="{{ lang_id }}" {% if lang_id == g.locale %} selected="selected" {% endif %}>{{ lang_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <br class="clear">
+  </header>
+
+  <div id="main" role="main">
+    <div class="app_title" id="title"><h2>{% block heading_title %}{% endblock %}</h2></div>
+    
+    {% block body %}
+    {% endblock %}
+    
+  </div> <!-- END #main -->
+
+  <footer>
+    <p>
+      <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
+      <br />
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
+    </p>
+  </footer>
+
+</div> <!-- END #container -->
+
+{% endblock %}

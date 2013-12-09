@@ -1,0 +1,65 @@
+{% extends "templates/site.html" %}
+
+{% block head %}
+<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.home.css" />
+{% endblock %}
+
+{% block body %}
+<div id="content">
+  <div class="didyouknow_container">
+    
+    <div class="didyouknow">
+      <div class="text">
+        <img class="pin" src="http://www.crossed-flag-pins.com/Friendship-Pins/Netherlands/Flag-Pins-Netherlands-Netherlands.jpg" />
+        <h2 style="font-size: 38px;">Learn about The Netherlands &amp; Flowers</h2>
+        <br style="clear:both"/><br />
+        <p>Watch the video for a brief introduction of how The Observatory works.</p>
+      </div>
+      <div class="app">
+        <iframe src="http://player.vimeo.com/video/40565955?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="600" height="443" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+      </div>
+    </div>
+    
+    <div class="didyouknow">
+      <div class="text">
+        <img class="pin" src="http://www.crossed-flag-pins.com/Friendship-Pins/Chile/Flag-Pins-Chile-Chile.jpg" />
+        <h2 style="font-size: 38px;">Learn about Chile &amp; Wine</h2>
+        <br style="clear:both"/><br />
+        <p>Watch the video for a brief introduction of how The Observatory works.</p>
+      </div>
+      <div class="app">
+        <iframe src="http://player.vimeo.com/video/40565954?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="600" height="443" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+      </div>
+    </div>
+    
+  </div>
+  <div class="other_apps">
+    <h3>Explore More Apps</h3>
+    <div class="item">
+      <a href="/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2010/"><img src="/static/img/home/teaser_tree_map.png"></a>
+    </div>
+    <div class="item">
+      <a href="/explore/stacked/export/{{default_country.name_3char|lower}}/all/show/1995.2010.2/"><img src="/static/img/home/teaser_stacked.png"></a>
+    </div>
+    <div class="item">
+      <a href="/explore/map/export/show/all/3330/2010/"><img src="/static/img/home/teaser_map.png"></a>
+    </div>
+    <div class="item">
+      <a href="/explore/product_space/export/{{default_country.name_3char|lower}}/all/show/2010/"><img src="/static/img/home/teaser_product_space.png"></a>
+    </div>
+  </div>
+</div> <!-- END #content div -->
+{% endblock %}
+
+
+{% block js %}
+<script>
+  // Rotate featured video randomly
+  var vid = Math.round(Math.random());
+  var dyk = d3.selectAll(".didyouknow")[0][vid]
+  d3.select(dyk).style("display", "block");
+  // Set explore URL to be the default country aka where the 
+  // user's IP address says they are
+  // $("nav a").eq(0).attr("href", "/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2010/")
+</script>
+{% endblock %}

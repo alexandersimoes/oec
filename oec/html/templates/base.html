@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="{{ g.locale }}">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>
+      Observatory of Economic Complexity {% block title %}{% endblock %}
+    </title>
+    <link rel="shortcut icon" href="/static/img/favicon.ico?v=2">
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.reset.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.general.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.grid.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.icons.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/libs/font-awesome-4.0.0/css/font-awesome.min.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/libs/d3plus.css" />
+    
+    <script src="/static/js/libs/modernizr.custom.js"></script>
+    <script src="/static/js/libs/d3.v3.min.js"></script>
+    <script src="/static/js/libs/d3plus.js"></script>
+    <script src="/static/js/libs/leon.js"></script>
+    <script src="/static/js/libs/moment.min.js"></script>
+    <script>moment.lang("{{g.locale}}")</script>
+    
+    {% block head %}
+    {% endblock %}
+    
+  </head>
+  <body{% if g.page_type %} class="{{g.page_type}}"{% endif %}>
+    
+    {% block content %}
+    {% endblock %}
+        
+    {% block js %}
+    {% endblock %}
+    
+    <!-- Google Analytics! -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22403682-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

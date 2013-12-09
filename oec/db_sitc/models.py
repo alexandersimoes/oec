@@ -1,6 +1,6 @@
-from dataviva import db
-from dataviva.utils import AutoSerialize
-from dataviva.attrs.models import Country, Sitc
+from oec import db
+from oec.utils import AutoSerialize
+from oec.db_attr.models import Country, Sitc
 
 class Yo(db.Model, AutoSerialize):
     

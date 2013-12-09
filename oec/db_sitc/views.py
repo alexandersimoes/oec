@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, make_response, g
 
 from oec.utils import make_query
-from oec.sitc.models import Yo, Yd, Yp, Yod, Yop, Ydp, Yodp
+from oec.db_sitc.models import Yo, Yd, Yp, Yod, Yop, Ydp, Yodp
 
 mod = Blueprint('sitc', __name__, url_prefix='/sitc')
 

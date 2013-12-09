@@ -233,11 +233,12 @@ def location_values(ret,cat):
 ''' Returns modified query and return variable for data calls '''       
 def parse_filter(kwargs,id_type,query,data_table,ret):
 
-    from dataviva.attrs.models import Bra, Isic, Cbo, Hs, Wld
+    from oec.db_attr.models import Country, Hs, Sitc
 
     query = query.group_by(getattr(data_table, id_type))
     cat = id_type.split("_")[0]
-    table = locals()[cat.title()]
+    # raise Exception(cat, id_type)
+    table = locals()[cat.title()] if cat == "sitc" or cat == "hs" else Country
     ids = kwargs[id_type].split("_")
         
     id_list = []
@@ -359,15 +360,15 @@ def merge_objects(objs):
 
 def make_query(data_table, url_args, lang, **kwargs):
     
-    from dataviva import db
-    from dataviva.attrs.models import Bra, Isic, Cbo, Hs, Wld
+    from oec import db
+    from oec.db_attr.models import Country, Hs, Sitc
             
     ops = {">": operator.gt,
            ">=": operator.ge,
            "<": operator.lt,
            "<=": operator.le}
 
-    check_keys = ["bra_id", "isic_id", "cbo_id", "hs_id", "wld_id"]
+    check_keys = ["origin_id", "destination_id", "hs_id", "sitc_id"]
     unique_keys = []
     
     download = url_args.get("download", None)
@@ -583,7 +584,9 @@ def make_query(data_table, url_args, lang, **kwargs):
             resp = Response(generate(), mimetype="text/csv;charset=UTF-8", 
                             headers={"Content-Disposition": content_disposition})
         return resp
-
+    
+    raise Exception(ret)
+    
     # gzip and jsonify result
     ret = gzip_data(jsonify(ret).data)
 

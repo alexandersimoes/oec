@@ -1,0 +1,499 @@
+.decision.icon,
+.help.icon {
+  padding-left: 38px;
+}
+
+.decision.icon.square,
+.help.icon.square {
+  padding-left: 12px;
+}
+
+.decision.icon:before,
+.help.icon:before {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: 80%;
+  content: "";
+  display: block;
+  height: 100%;
+  font-family: FontAwesome;
+  font-size: 20px;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: normal;
+  left: 0px;
+  line-height: 50px;
+  position: absolute;
+  text-align: center;
+  text-decoration: inherit;
+  top: 0px;
+  width: 38px;
+}
+
+.decision.icon:before {
+  color: white;
+}
+
+.help.icon:before {
+  color: #888;
+}
+
+.help.icon.large,
+.decision.icon.large {
+  padding: 20px 40px 20px 150px;
+}
+
+.help.icon.large:before,
+.decision.icon.large:before {
+  height: 150px;
+  opacity: 0.25;
+  width: 150px;
+}
+
+.help.icon.large:after,
+.decision.icon.large:after {
+  font-size: 100px;
+  line-height: 130px;
+  padding-right: 20px;
+}
+
+.help.icon.square:before,
+.decision.icon.square:before {
+  background-size: 100%;
+  height: 100%;
+  font-size: 100px;
+  line-height: 160px;
+  opacity: 0.25;
+  width: 100%;
+}
+
+.decision.icon.short, .title.icon.short, .help.icon.short {
+  padding: 6px 24px 6px 24px !important;
+}
+
+.decision.icon.short:before,
+.help.icon.short:before {
+  font-size: 12px;
+  line-height: 27px;
+}
+
+/*******/
+/* Nav */
+/*******/
+
+.decision.icon.apps:before {
+  background-size: 95%;
+}
+
+.decision.icon.guide:before,
+.decision.icon.profiles:before,
+.decision.icon.data:before,
+.decision.icon.rankings:before,
+.decision.icon.learn:before {
+  background-size: 80%;
+}
+
+.decision.icon.guide:before {
+  background-image: url("/static/img/nav/icons/guide_white.png");
+}
+
+.decision.icon.profiles:before {
+  background-image: url("/static/img/nav/icons/profiles_white.png");
+}
+
+.decision.icon.apps:before {
+  background-image: url("/static/img/nav/icons/apps_white.png");
+}
+
+.decision.icon.data:before {
+  background-image: url("/static/img/nav/icons/data_white.png");
+}
+
+.decision.icon.rankings:before {
+  background-image: url("/static/img/nav/icons/rankings_white.png");
+}
+
+.decision.icon.learn:before {
+  background-image: url("/static/img/nav/icons/learn_white.png");
+}
+
+.decision.icon.guide {
+  background-color: #3daf49;
+}
+
+.decision.icon.profiles {
+  background-color: #e0902d;
+}
+
+.decision.icon.apps {
+  background-color: #af1f24;
+}
+
+.decision.icon.data {
+  background-color: #1abbee;
+}
+
+.decision.icon.rankings {
+  background-color: #742777;
+}
+
+.decision.icon.learn {
+  background-color: #d67ab0;
+}
+
+/***********/
+/* Filters */
+/***********/
+
+.decision.icon.bra:before {
+  background-image: url("/static/img/icons/bra/bra_all_alt.png");
+}
+
+.decision.icon.isic:before {
+  background-image: url("/static/img/icons/isic/isic_all.png");
+}
+
+.decision.icon.hs:before {
+  background-image: url("/static/img/icons/hs/hs_all.png");
+}
+
+.decision.icon.cbo:before {
+  background-image: url("/static/img/icons/cbo/cbo_all.png");
+}
+
+.decision.icon.wld:before {
+  background-image: url("/static/img/icons/wld/wld_all.png");
+}
+
+.help.icon.bra:before {
+  background-image: url("/static/img/icons/bra/bra_all_alt_black.png");
+  opacity: 0.2;
+}
+
+.help.icon.isic:before {
+  background-image: url("/static/img/icons/isic/isic_all_black.png");
+  opacity: 0.2;
+}
+
+.help.icon.hs:before {
+  background-image: url("/static/img/icons/hs/hs_all_black.png");
+  opacity: 0.2;
+}
+
+.help.icon.cbo:before {
+  background-image: url("/static/img/icons/cbo/cbo_all_black.png");
+  opacity: 0.2;
+}
+
+.help.icon.wld:before {
+  background-image: url("/static/img/icons/wld/wld_all_black.png");
+  opacity: 0.2;
+}
+
+/********/
+/* Apps */
+/********/
+
+.decision > i {
+  color: white;
+  bottom: 5px;
+  display: block;
+  font-size: 20px;
+  height: 20px;
+  opacity: 0.75;
+  position: absolute;
+  right: 5px;
+  width: 20px;
+}
+
+.decision > i:hover {
+  opacity: 1;
+}
+
+.decision.icon.tree_map {
+  background-color: #ffc41c !important;
+}
+.decision.icon.tree_map:before {
+  background-image: url("/static/img/icons/app/app_tree_map.png");
+}
+
+.decision.icon.stacked {
+  background-color: #742777 !important;
+}
+.decision.icon.stacked:before {
+  background-image: url("/static/img/icons/app/app_stacked.png");
+}
+
+.decision.icon.network {
+  background-color: #af1f24 !important;
+}
+.decision.icon.network:before {
+  background-image: url("/static/img/icons/app/app_network.png");
+}
+
+.decision.icon.rings {
+  background-color: #d67ab0 !important;
+}
+.decision.icon.rings:before {
+  background-image: url("/static/img/icons/app/app_rings.png");
+}
+
+.decision.icon.scatter {
+  background-color: #0b1097 !important;
+}
+.decision.icon.scatter:before {
+  background-image: url("/static/img/icons/app/app_scatter.png");
+}
+
+.decision.icon.compare {
+  background-color: #1abbee !important;
+}
+.decision.icon.compare:before {
+  background-image: url("/static/img/icons/app/app_compare.png");
+}
+
+.decision.icon.geo_map {
+  background-color: #3daf49 !important;
+}
+.decision.icon.geo_map:before {
+  background-image: url("/static/img/icons/app/app_geo_map.png");
+}
+
+.decision.icon.occugrid {
+  background-color: #e0902d !important;
+}
+.decision.icon.occugrid:before {
+  background-image: url("/static/img/icons/app/app_occugrid.png");
+}
+
+.help.icon.tree_map:before {
+  background-image: url("/static/img/icons/app/app_tree_map_black.png");
+  opacity: 0.2;
+}
+
+.help.icon.stacked:before {
+  background-image: url("/static/img/icons/app/app_stacked_black.png");
+  opacity: 0.2;
+}
+
+.help.icon.network:before {
+  background-image: url("/static/img/icons/app/app_network_black.png");
+  opacity: 0.2;
+}
+
+.help.icon.rings:before {
+  background-image: url("/static/img/icons/app/app_rings_black.png");
+  opacity: 0.2;
+}
+
+.help.icon.scatter:before {
+  background-image: url("/static/img/icons/app/app_scatter_black.png");
+  opacity: 0.2;
+}
+
+.help.icon.compare:before {
+  background-image: url("/static/img/icons/app/app_compare_black.png");
+  opacity: 0.2;
+}
+
+.help.icon.geo_map:before {
+  background-image: url("/static/img/icons/app/app_geo_map_black.png");
+  opacity: 0.2;
+}
+
+.help.icon.occugrid:before {
+  background-image: url("/static/img/icons/app/app_occugrid_black.png");
+  opacity: 0.2;
+}
+
+.decision.icon.next:before,
+.decision.icon.prev:before {
+  background-image: none;
+}
+
+.decision.icon.next {
+  padding: 10px 30px 10px 10px;
+}
+
+.decision.icon.prev:after {
+  content: "";
+}
+
+.decision.icon.prev {
+  padding: 10px 10px 10px 30px;
+}
+
+.decision.icon.prev:before {
+  bottom: 10px;
+  content: "\f104";
+  left: 12px;
+  line-height: 39px;
+  text-decoration: inherit;
+  width: auto;
+}
+
+/****************/
+/* Plan Buttons */
+/****************/
+
+.decision.icon.industry:before {
+  content: "\f085";
+}
+
+.decision.icon.yes:before {
+  content: "\f00c";
+}
+
+.decision.icon.no:before {
+  content: "\f128";
+}
+
+.decision.icon.growth:before {
+  content: "\f062";
+}
+
+.decision.icon.shrink:before {
+  content: "\f063";
+}
+
+.decision.icon.paths:before,
+.decision.icon.workforce:before {
+  content: "\f0c0";
+}
+
+.decision.icon.attract:before {
+  content: "\f0c0";
+}
+
+.decision.icon.opportunity:before {
+  content: "\f140";
+}
+
+.decision.icon.wages:before {
+  content: "\f0d6";
+}
+
+.decision.icon.destinations:before {
+  content: "\f0ac";
+}
+
+.decision.icon.diversification:before {
+  content: "\f074";
+}
+
+/****************/
+/* Data Buttons */
+/****************/
+
+.decision.icon.database:before {
+  content: "\f022";
+  line-height: 180px;
+}
+
+.decision.icon.source:before {
+  content: "\f14e";
+}
+
+.decision.icon.csv {
+  background-color: #00923f !important;
+}
+.decision.icon.csv:before {
+  background-image: url("/static/img/icons/file/file_csv.png");
+}
+
+/***************/
+/* Ask Buttons */
+/***************/
+
+.decision.icon.reply:before {
+  content: "\f112";
+}
+
+/*****************/
+/* About Buttons */
+/*****************/
+
+.decision.icon.short.rais:before {
+  background-image: url("/static/img/icons/cbo/cbo_all.png");
+}
+
+.decision.icon.short.secex:before {
+  background-image: url("/static/img/icons/hs/hs_all.png");
+}
+
+.decision.icon.short.comtrade:before {
+  background-image: url("/static/img/icons/wld/wld_all.png");
+}
+
+.help.icon.short.rais:before {
+  background-image: url("/static/img/icons/cbo/cbo_all_black.png");
+  opacity: 0.2;
+}
+
+.help.icon.short.secex:before {
+  background-image: url("/static/img/icons/hs/hs_all_black.png");
+  opacity: 0.2;
+}
+
+.help.icon.short.comtrade:before {
+  background-image: url("/static/img/icons/wld/wld_all_black.png");
+  opacity: 0.2;
+}
+
+.decision.icon.pdf:before {
+  content: "\f15c";
+  line-height: 40px;
+}
+
+/*******************/
+/* Account Buttons */
+/*******************/
+
+.decision.icon.replies,
+.decision.icon.questions {
+  background-color: #d67ab0 !important;
+}
+
+.decision.icon.replies:before {
+  content: "\f112";
+}
+
+.decision.icon.questions:before {
+  content: "\f075";
+}
+
+/*****************/
+/* Admin Buttons */
+/*****************/
+
+.decision.icon.pending,
+.decision.icon.approved,
+.decision.icon.rejected,
+.decision.icon.duplicate {
+  background-color: #333 !important;
+}
+
+.icon.pending:before {
+  content: "\f06a";
+}
+
+.icon.approved:before {
+  content: "\f00c";
+}
+
+.icon.rejected:before {
+  content: "\f00d";
+}
+
+.icon.duplicate:before {
+  content: "\f086";
+}
+
+
+/****************/
+/* Help info    */
+/****************/
+
+div.media {
+	text-align: center;
+}

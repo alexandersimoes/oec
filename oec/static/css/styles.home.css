@@ -1,0 +1,109 @@
+#main #content .didyouknow_container{
+	height: 415px;
+}
+.app_title {
+  display: none;
+}
+#main {
+  border: none;
+}
+
+#main #content {
+  border-radius: 10px;
+  margin: 10px 0 0 0;
+  width: 998px;
+}
+
+#main #content .didyouknow_container{
+  height: 450px;
+}
+
+#main #content .didyouknow{
+  display: none;
+}
+
+#main #content .headline {
+  background: rgba(255, 255, 255, 0.7);
+  margin: 0 0 10px 0;
+  overflow: hidden;
+  width: 100%;
+}
+#main #content .headline img.pin{
+  float: left;
+  margin: 0 25px 0 0;
+  width: 80px;
+}
+#main #content .headline h2{
+  font-size: 45px;
+  font-weight: 100;
+  float: left;
+  margin: 0;
+  width: 400px;
+  text-transform: uppercase;
+}
+
+#main #content img.pin{
+  float: left;
+  margin: 0 10px 0 0;
+  width: 80px;
+}
+#main #content h2{
+  font-size: 50px;
+  font-weight: 100;
+  float: left;
+  margin: 0;
+  width: 260px;
+  text-transform: uppercase;
+}
+
+#main #content .text{
+  float: left;
+  margin: 0 30px 0 0;
+  width: 365px;
+}
+#main #content .text h3{
+  line-height: 32px;
+  margin: 20px 0 10px 0;
+  font-size: 32px;
+  font-weight: 100;
+}
+#main #content .text p{
+  font-size: 22px;
+}
+#main #content .text ul{
+  font-size: 18px;
+  list-style: circle;
+  line-height: 26px;
+}
+#main #content .app {
+  margin: 10px 0 0 0;
+}
+#main #content .app h3{
+  font-size: 28px;
+  font-weight: normal;
+  margin: 0 0 0 0;
+  text-align: center;
+}
+#main #content .other_apps h3{
+  font-size: 28px;
+  font-weight: normal;
+  margin: 0px 0 10px 0;
+}
+#main #content .other_apps div{
+  float: left;
+  margin: 0 30px 0 0;
+}
+#main #content .other_apps div a{
+  display: inline-block;
+  border: solid 1px #ccc;
+  padding: 10px;
+}
+#main #content .other_apps div a:hover{
+  border: solid 1px #000;
+}
+#main #content .other_apps div img{
+  width: 200px;
+}
+#main #content .other_apps div:last-child{
+  margin: 0;
+}
