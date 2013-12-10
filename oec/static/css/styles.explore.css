@@ -321,11 +321,11 @@ text-decoration: none;
 .explore #main #content {
   background-color: #fff;
   border: 1px solid #cccccc;
-  border-radius: 0 0 10px 10px !important;
+  border-radius: 10px 0 10px 10px !important;
   float: left;
   overflow: hidden;
   padding: 0 !important;
-  width: 640px;
+  width: 830px;
   z-index: 10;
 }
 .explore #main #content #dataviz {

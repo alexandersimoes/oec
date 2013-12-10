@@ -19,115 +19,57 @@ class App(db.Model, AutoSerialize):
     def name(self):
         lang = getattr(g, "locale", "en")
         return getattr(self,"name_"+lang)
+    
+    def __repr__(self):
+        return '<App %r>' % (self.type)
 
 class Build(db.Model, AutoSerialize):
 
     __tablename__ = 'explore_build'
     
     id = db.Column(db.Integer, primary_key = True)
-    dataset = db.Column(db.String(20))
     trade_flow = db.Column(db.String(20))
     origin = db.Column(db.String(20))
-    destination = db.Column(db.String(20))
+    dest = db.Column(db.String(20))
     product = db.Column(db.String(20))
     title = db.Column(db.String(120))
     app_id = db.Column(db.Integer, db.ForeignKey(App.id))
     
-    ui = db.relationship('UI', secondary=build_ui, 
-            backref=db.backref('Builds'), lazy='dynamic')
+    # ui = db.relationship('UI', secondary=build_ui, 
+    #         backref=db.backref('Builds'), lazy='dynamic')
     app = db.relationship('App',
             backref=db.backref('Builds', lazy='dynamic'))
     
     def get_ui(self, ui_type):
         return self.ui.filter(UI.type == ui_type).first()
 
-    def set_bra(self, bra_id):
-        '''If build requires 2 bras and only 1 is given, supply a 2nd'''
-        if isinstance(self.bra, list):
-            return
-        if "_" in self.bra and "_" not in bra_id:
-            if bra_id == "rj":
-                bra_id = bra_id + "_mg"
-            else:
-                bra_id = bra_id + "_rj"
-        elif "_" not in self.bra and "_" in bra_id:
-            bra_id = bra_id.split("_")[0]
-        self.bra = []
-        for i, b in enumerate(bra_id.split("_")):
-            if b == "all":
-                self.bra.append(Wld.query.get("sabra"))
-                self.bra[i].id = "all"
-            else:
-                if "." in b:
-                    split = b.split(".")
-                    b = split[0]
-                    dist = split[1]
-                else:
-                    dist = 0
-                state = b[:2]
-                if self.output == "bra" and len(b) == 8 and dist == 0:
-                    b = state
-                    dist = 0
-                self.bra.append(Bra.query.get(b))
-                self.bra[i].distance = dist
-                self.bra[i].neighbor_ids = [b.bra_id_dest for b in self.bra[i].get_neighbors(dist)]
-                # raise Exception([b.id for b in self.bra[i].pr.all()])
-                self.bra[i].pr_ids = [b.id for b in self.bra[i].pr.all()]
-
-    def set_filter1(self, filter):
-        if self.filter1 != "all":
-            if self.dataset == "rais":
-                self.isic = []
-                for i, f in enumerate(filter.split("_")):
-                    if Isic.query.get(f):
-                        self.isic.append(Isic.query.get(f))
-                    else:
-                        self.isic.append(Isic.query.get('r9000'))
-                self.filter1 = "_".join([i.id for i in set(self.isic)])
-            elif self.dataset == "secex":
-                self.hs = []
-                for i, f in enumerate(filter.split("_")):
-                    if Hs.query.get(f):
-                        self.hs.append(Hs.query.get(f))
-                    else:
-                        self.hs.append(Hs.query.get('178703'))
-                self.filter1 = "_".join([h.id for h in set(self.hs)])
-    
-    def set_filter2(self, filter):
-        if self.filter2 != "all":
-            if self.dataset == "rais":
-                self.cbo = []
-                for i, f in enumerate(filter.split("_")):
-                    if Cbo.query.get(f):
-                        self.cbo.append(Cbo.query.get(f))
-                    else:
-                        self.cbo.append(Cbo.query.get('2211'))
-                self.filter2 = "_".join([c.id for c in set(self.cbo)])
-            elif self.dataset == "secex":
-                self.wld = []
-                for i, f in enumerate(filter.split("_")):
-                    if Wld.query.get(f):
-                        self.wld.append(Wld.query.get(f))
-                    else:
-                        self.wld.append(Wld.query.get('aschn'))
-                self.filter2 = "_".join([w.id for w in set(self.wld)])
+    def set_options(self, origin=None, dest=None, product=None, classification=None):
+        if origin and origin != "all" and origin != "show":
+            self.origin = Country.query.filter_by(id=origin).first()
+        if dest and dest != "all" and dest != "show":
+            self.dest = Country.query.filter_by(id=dest).first()
+        if product and product != "all" and product != "show":
+            if classification == "sitc":
+                self.product = Sitc.query.filter_by(id=product).first()
+            if classification == "hs":
+                self.product = Hs.query.filter_by(id=product).first()
+        if classification:
+            self.classification = classification
         
     '''Returns the URL for the specific build.'''
-    def url(self, **kwargs):
-
-        if isinstance(self.bra,(list,tuple)):
-            bras = []
-            for b in self.bra:
-                if b.id != "all" and b.distance > 0:
-                    bras.append(b.id+"."+b.distance)
-                else:
-                    bras.append(b.id)
-            bra_id = "_".join(bras)
-        else:
-            bra_id = "<bra>"
-        
-        url = '{0}/{1}/{2}/{3}/{4}/{5}/'.format(self.app.type, 
-                self.dataset, bra_id, self.filter1, self.filter2, self.output)
+    def url(self, year=None):
+        if not year:
+            year = __latest_year__[self.classification]
+        origin, dest, product = [self.origin, self.dest, self.product]
+        if isinstance(origin, Country):
+            origin = origin.id
+        if isinstance(dest, Country):
+            dest = dest.id
+        if isinstance(product, (Hs, Sitc)):
+            product = product.id
+        url = '{0}/{1}/{2}/{3}/{4}/{5}/{6}/'.format(self.app.type, 
+                self.classification, self.trade_flow, origin, dest, 
+                product, year)
         return url
 
     '''Returns the data URL for the specific build. This URL will return the 
@@ -327,4 +269,4 @@ class Build(db.Model, AutoSerialize):
         return auto_serialized
 
     def __repr__(self):
-        return '<Build %s:%r: %s/%s/%s>' % (self.id, self.app.type, self.filter1, self.filter2, self.output)
+        return '<Build %s:%r>' % (self.id, self.app.type)

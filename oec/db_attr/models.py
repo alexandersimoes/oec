@@ -21,7 +21,10 @@ class Country(db.Model, AutoSerialize):
         if len(_name):
             return _name[0].name
         return ""
-
+    
+    def get_icon(self):
+        return "/static/img/icons/country/country_%s.png" % (self.id)
+    
     def __repr__(self):
         return '<Country %r>' % (self.id_3char)
 
@@ -55,6 +58,9 @@ class Hs(db.Model, AutoSerialize):
         if len(_name):
             return _name[0].name
         return ""
+
+    def get_icon(self):
+        return "/static/img/icons/hs/hs_%s.png" % (self.id[:2])
 
     def __repr__(self):
         return '<Hs %r>' % (self.hs)
@@ -91,6 +97,9 @@ class Sitc(db.Model, AutoSerialize):
         if len(_name):
             return _name[0].name
         return ""
+
+    def get_icon(self):
+        return "/static/img/icons/sitc/sitc_%s.png" % (self.id[:2])
 
     def __repr__(self):
         return '<Sitc %r>' % (self.sitc)

@@ -27,7 +27,7 @@ SECRET_KEY = get_env_variable("OEC_SECRET_KEY", "default-dataviva.mg-secr3t")
 
 ''' Default debugging to True '''
 DEBUG = True
-SQLALCHEMY_ECHO = True
+SQLALCHEMY_ECHO = False
 
 ''' 
     Details for connecting to the database, credentials set as environment

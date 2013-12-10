@@ -1,8 +1,5 @@
 {% extends "templates/site.html" %}
 
-{% block page_title %}Explore{% endblock %}
-{% block heading_title %}Explore{% endblock %}
-
 {% block head %}
 <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.explore.css" />
 
@@ -19,95 +16,32 @@
 {% endblock %}
 
 {% block body %}
-<!-- the left pane -->
-<div id="app_pane">
-  <h3 class="pane_title">App Selection</h3>
-  <div class="accordion">
-    <div>
-      <h3><a href="#">Tree Maps</a></h3>
-      <div>
-        <h4>Country</h4>
-        <ul>
-          <li><a class="casy" href="" >Exports</a></li>
-          <li><a class="casy" href="">Imports</a></li>
-          <li><a class="casy" href="">Net Exports</a></li>
-          <li><a class="casy" href="">Net Imports</a></li>
-        </ul>
-        <h4>Country (show trade partners)</h4>
-        <ul>
-          <li><a class="csay" href="">Exports</a></li>
-          <li><a class="csay" href="">Imports</a></li>
-        </ul>
-        <h4>Products</h4>
-        <ul>
-          <li><a class="sapy" href="">Exports To Destination</a></li>
-          <li><a class="sapy" href="">Imports From Origin</a></li>
-        </ul>
-        <h4>Bilateral</h4>
-        <ul>
-          <li><a class="ccsy" href="">Exports To Destination</a></li>
-          <li><a class="ccsy" href="">Imports From Origin</a></li>
-          <li><a class="cspy" href="">Exports by Product</a></li>
-          <li><a class="cspy" href="">Imports by Product</a></li>
-        </ul>
-      </div>
-    </div>
-    <div>
-      <h3><a href="#">Stacked Area Charts</a></h3>
-      <div>
-        <h4>Country</h4>
-        <ul>
-          <li><a class="casy" href="">Exports</a></li>
-          <li><a class="casy" href="">Imports</a></li>
-          <li><a class="casy" href="">Net Exports</a></li>
-          <li><a class="casy" href="">Net Imports</a></li>
-        </ul>
-        <h4>Country (show trade partners)</h4>
-        <ul>
-          <li><a class="csay" href="">Exports</a></li>
-          <li><a class="csay" href="">Imports</a></li>
-        </ul>
-        <h4>Products</h4>
-        <ul>
-          <li><a class="sapy" href="">Exports To Destination</a></li>
-          <li><a class="sapy" href="">Imports From Origin</a></li>
-        </ul>
-        <h4>Bilateral</h4>
-        <ul>
-          <li><a class="ccsy" href="">Exports To Destination</a></li>
-          <li><a class="ccsy" href="">Imports From Origin</a></li>
-          <li><a class="cspy" href="">Exports by Product</a></li>
-          <li><a class="cspy" href="">Imports by Product</a></li>
-        </ul>
-      </div>
-    </div>
-    <div>
-      <h3><a href="#">Product Space</a></h3>
-      <ul>
-        <li><a class="casy" href="">Product Space of Exports</a></li>
-        <li><a class="disabled" href="">Density Product Space</a></li>
-      </ul>
-    </div>
-    <div>
-      <h3><a href="#">Diversification Options</a></h3>
-      <ul>
-        <li><a class="casy" href="">Pie Scatter Chart</a></li>
-        <li><a class="disabled" href="">Density Bars</a></li>
-        <li><a class="disabled" href="">Stepping Stone</a></li>
-      </ul>
-    </div>
-    <div>
-      <h3><a href="">Maps</a></h3>
-      <ul>
-        <li><a class="sapy" href="">Exports</a></li>
-        <li><a class="sapy" href="">Imports</a></li>
-        <li><a class="sapy" href="">Net exports</a></li>
-        <li><a class="sapy" href="">Net imports</a></li>
-      </ul>
-    </div>
-  </div>
-</div> <!-- END app selection pane -->
+<div class="app_title" id="icons">
+        
+  <!-- Left icon -->
+  {% if current_build.product != "all" and current_build.product != "show" %}
+  <img class="img left community" src="{{ current_build.product.get_icon() }}" alt="{{ current_build.product.get_name() }}">
+  {% endif %}
+  {% if current_build.origin != "all" and current_build.origin != "show" %}
+  <img class="img left" src="{{ current_build.origin.get_icon() }}" alt="{{ current_build.origin.get_name() }}">
+  {% endif %}
 
+  <!-- year(s) -->
+  {% if current_build.year %}
+  <h2 class="left small">{{current_build.year}}</h2>
+  {% endif %}
+
+  <!-- Right icon -->
+  {% if current_build.dest != "all" and current_build.dest != "show" %}
+  <img class="img right" src="{{ current_build.dest.get_icon() }}" alt="{{current_build.dest.name()}}">
+  {% endif %}
+  {% if current_build.product != "all" and current_build.product != "show" %}
+  <img class="img right community" src="{{ current_build.product.get_icon() }}" alt="{{current_build.product.get_name()}}">
+  {% endif %}
+        
+</div>
+
+<div class="app_title" id="title"><h2>Explore</h2></div>
 <!-- the Visualization -->
 <div id="content">
 
@@ -201,13 +135,6 @@
 <script src="/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
 <script src="/static/js/libs/jquery-ui/jquery-ui.min.js"></script>
 <script>
-// Accordion for app selection
-$(".accordion").accordion({
-  collapsible: true,
-  active: false,
-  autoHeight: false,
-  header: "> div > h3"
-});
-$(".accordion").accordion("option", "active", 0);
+
 </script>
 {% endblock %}
