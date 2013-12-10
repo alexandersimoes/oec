@@ -49,5 +49,12 @@
 
     </script>
     
+    <script>
+    document.querySelector(".language_select select").onchange = function(){
+        var lang = this.value;
+        window.location = "/set_lang/"+lang+"/";
+    };
+    </script>
+    
   </body>
 </html>

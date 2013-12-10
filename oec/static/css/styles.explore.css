@@ -11,8 +11,8 @@
   font-weight: normal;
   line-height: 36px;
   margin: 6px 0 0 10px;
-/*  width: 815px;*/
-  width: 828px;
+  width: 815px;
+/*  width: 828px;*/
 }
 .app_title#icons{
   width: 188px;
@@ -124,8 +124,9 @@
 /*  padding: 10px;*/
   margin-left: 0px;
   padding-bottom: 0px;
-  min-height: 440px;
-  width: 185px;
+/*  min-height: 440px;*/
+  position: relative;
+  width: 75px;
   z-index: 1;
 }
 .explore #main #app_pane > *{
@@ -321,11 +322,11 @@ text-decoration: none;
 .explore #main #content {
   background-color: #fff;
   border: 1px solid #cccccc;
-  border-radius: 10px 0 10px 10px !important;
+  border-radius: 0px 0 10px 10px !important;
   float: left;
   overflow: hidden;
   padding: 0 !important;
-  width: 830px;
+  width: 750px;
   z-index: 10;
 }
 .explore #main #content #dataviz {
@@ -475,3 +476,34 @@ text-decoration: none;
   display: inline;
   text-align: left;
 }  
+
+
+.builds {
+  background: white;
+  border: 1px solid #cccccc;
+  border-left: none;
+  display: none;
+  left: 75px;
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  width: 400px;
+}
+.builds ul{
+  list-style-type: none;
+}
+
+#tree_map{
+/*  display: block;*/
+}
+
+ul#app_select {
+  list-style-type: none;
+}
+ul#app_select a {
+  display: inline-block;
+  margin: 0 0 10px 0;
+}
+ul#app_select a img {
+  width: 50px;
+}

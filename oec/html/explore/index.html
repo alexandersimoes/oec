@@ -8,10 +8,6 @@
 <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
 <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
 
-<link rel="stylesheet" href="/static/js/libs/chosen/chosen.css" />
-<link rel="stylesheet" href="/static/js/libs/tipsy/tipsy.css" />
-<link rel="stylesheet" href="/static/js/libs/vizwiz/src/utils.slider.css" />
-<link rel="stylesheet" href="/static/js/libs/bootstrap/css/bootstrap-icon.css" />
 <link rel="stylesheet" href="/static/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
 {% endblock %}
 
@@ -41,13 +37,59 @@
         
 </div>
 
-<div class="app_title" id="title"><h2>Explore</h2></div>
+<div class="app_title" id="title"><h2>{{ current_build.get_name() }}</h2></div>
+
+<!-- the left pane -->
+<div id="app_pane">
+  
+  <ul id="app_select">
+    {% set pre_app = None %}
+    {% for build in all_builds %}
+
+      {% if pre_app != build.app.type %}
+        {% set pre_app = build.app.type %}
+        <li color="{{build.app.color}}" value="{{build.app.type}}">
+          <a href="#{{ build.app.get_name()|lower }}" title="{{ build.app.get_name()|lower }}">
+            <img style="background-color:{{build.app.color}};" src="/static/img/icons/app/app_{{build.app.type}}.png" alt="{{ build.app.get_name() }}" />
+          </a>
+        </li>
+      {% endif %}
+
+    {% endfor %}
+  </ul>
+  
+  <div id="all_builds">
+    {% set pre_app = None %}
+    {% for build in all_builds %}
+
+    {% if pre_app != build.app.type and pre_app != None %}
+      </ul>
+    </div>
+    {% endif %}
+    {% if pre_app != build.app.type %}
+    {% set pre_app = build.app.type %}
+    <div class="builds" id="{{ build.app.type }}">
+      <ul>
+    {% endif %}
+        <li>
+          <a href="/explore/{{ build.url() }}">
+          {{ build.get_name() }}
+          </a>
+        </li>
+
+    {% endfor %}
+      </ul>
+    </div>
+  </div>
+  
+</div>
+
 <!-- the Visualization -->
 <div id="content">
 
   <!-- ajax loading gif -->
   <div id="loader">
-    <img src="/media/img/all/loader.gif" alt="loading" /><br />Loading...
+    <img src="/static/img/explore/loader.gif" alt="loading" /><br />Loading...
   </div>
   
   <!-- the canvas for the visualization -->
@@ -135,6 +177,21 @@
 <script src="/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
 <script src="/static/js/libs/jquery-ui/jquery-ui.min.js"></script>
 <script>
+
+d3.selectAll("#app_select a").on("click", function(){
+  var div_to_show_id = this.title.replace(" ", "_");
+  var prev_display = d3.select("#"+div_to_show_id).style("display")
+  
+  // reset all
+  d3.selectAll(".builds").style("display", "none")
+  
+  // if it was hidden, display it
+  if(prev_display == "none"){
+    d3.select("#"+div_to_show_id).style("display", "block")
+  }
+  
+  d3.event.preventDefault();
+})
 
 </script>
 {% endblock %}

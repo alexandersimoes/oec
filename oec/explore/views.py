@@ -34,4 +34,5 @@ def explore(app_name, classification, trade_flow, origin, dest, \
         build.set_options(origin=origin, dest=dest, product=product, classification=classification)
 
     return render_template("explore/index.html",
-        current_build=current_build)
+        current_build = current_build,
+        all_builds = all_builds)

@@ -16,9 +16,10 @@ class App(db.Model, AutoSerialize):
     d3plus = db.Column(db.String(20))
     color = db.Column(db.String(7))
     
-    def name(self):
-        lang = getattr(g, "locale", "en")
-        return getattr(self,"name_"+lang)
+    def get_name(self):
+        # lang = getattr(g, "locale", "en")
+        # return getattr(self,"name_"+lang)
+        return self.name
     
     def __repr__(self):
         return '<App %r>' % (self.type)
@@ -35,24 +36,62 @@ class Build(db.Model, AutoSerialize):
     title = db.Column(db.String(120))
     app_id = db.Column(db.Integer, db.ForeignKey(App.id))
     
+    defaults = {
+        "hs": "010101",
+        "sitc": "105722",
+        "country": "sapry"
+    }
+    
     # ui = db.relationship('UI', secondary=build_ui, 
     #         backref=db.backref('Builds'), lazy='dynamic')
     app = db.relationship('App',
             backref=db.backref('Builds', lazy='dynamic'))
+    name = db.relationship("Build_name", backref="build", lazy="joined")
+    
+    def get_name(self, lang=None):
+        lang = lang or getattr(g, "locale", "en")
+        _name = filter(lambda x: x.lang == lang, self.name)
+        if len(_name):
+            _name = _name[0].name
+        else:
+            return ""
+        
+        if "<origin>" in _name:
+            _name = _name.replace("<origin>", self.origin.get_name(lang))
+        if "<dest>" in _name:
+            _name = _name.replace("<dest>", self.dest.get_name(lang))
+        if "<product>" in _name:
+            _name = _name.replace("<product>", self.product.get_name(lang))
+        
+        return _name
     
     def get_ui(self, ui_type):
         return self.ui.filter(UI.type == ui_type).first()
 
     def set_options(self, origin=None, dest=None, product=None, classification=None):
-        if origin and origin != "all" and origin != "show":
-            self.origin = Country.query.filter_by(id=origin).first()
-        if dest and dest != "all" and dest != "show":
-            self.dest = Country.query.filter_by(id=dest).first()
-        if product and product != "all" and product != "show":
-            if classification == "sitc":
-                self.product = Sitc.query.filter_by(id=product).first()
-            if classification == "hs":
-                self.product = Hs.query.filter_by(id=product).first()
+        if not isinstance(self.origin, Country):
+            if "<origin>" in self.origin:
+                if origin == "all" or origin == "show":
+                    self.origin = Country.query.filter_by(id=self.defaults["country"]).first()
+                else:
+                    self.origin = Country.query.filter_by(id=origin).first()
+        
+        if not isinstance(self.dest, Country):
+            if "<dest>" in self.dest:
+                if dest == "all" or dest == "show":
+                    self.dest = Country.query.filter_by(id=self.defaults["country"]).first()
+                else:
+                    self.dest = Country.query.filter_by(id=dest).first()
+        
+        if not isinstance(self.origin, (Sitc, Hs)):
+            if "<product>" in self.product:
+                tbl = Sitc if classification == "sitc" else Hs
+                if product == "all" or product == "show":
+                    prod_id = self.defaults["sitc"] if classification == "sitc" else self.defaults["hs"]
+                else:
+                    prod_id = product
+                self.product = tbl.query.filter_by(id=prod_id).first()
+        
         if classification:
             self.classification = classification
         
@@ -270,3 +309,15 @@ class Build(db.Model, AutoSerialize):
 
     def __repr__(self):
         return '<Build %s:%r>' % (self.id, self.app.type)
+
+class Build_name(db.Model, AutoSerialize):
+
+    __tablename__ = 'explore_build_name'
+    
+    build_id = db.Column(db.Integer, db.ForeignKey(Build.id), primary_key = True)
+    lang = db.Column(db.String(5), primary_key=True)
+    name = db.Column(db.String(255))
+    question = db.Column(db.String(255))
+    
+    def __repr__(self):
+        return '<Build Name %r:%r>' % (self.build_id, self.lang)
