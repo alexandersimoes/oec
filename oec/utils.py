@@ -311,12 +311,14 @@ def parse_filter(kwargs,id_type,query,data_table,ret):
             if cat not in ret:
                 ret[cat] = []
             ret[cat].append(ret_obj)
-            
+    
     if len(id_list) > 0:
         query = query.filter(getattr(data_table,id_type).in_(id_list))
     elif depth:
         query = query.filter(func.char_length(getattr(data_table,id_type)) == depth)
-        
+    
+    # raise Exception(query.all())
+    
     if cat == "bra" and obj_id:
         if len(ret[cat]) == 0:
             ret[cat].append(Wld.query.get_or_404("sabra").serialize())
@@ -368,7 +370,7 @@ def make_query(data_table, url_args, lang, **kwargs):
            "<": operator.lt,
            "<=": operator.le}
 
-    check_keys = ["origin_id", "destination_id", "hs_id", "sitc_id"]
+    check_keys = ["origin_id", "dest_id", "hs_id", "sitc_id"]
     unique_keys = []
     
     download = url_args.get("download", None)
@@ -420,6 +422,7 @@ def make_query(data_table, url_args, lang, **kwargs):
             if "show" in kwargs[key]:
                 show_id = key
             parse_results = parse_filter(kwargs,key,query,data_table,ret)
+            # raise Exception(parse_results["query"])
             query = parse_results["query"]
             ret = parse_results["ret"]
             

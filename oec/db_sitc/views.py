@@ -13,17 +13,17 @@ mod = Blueprint('sitc', __name__, url_prefix='/sitc')
 
 @mod.route('/all/<origin_id>/all/all/')
 @mod.route('/<year>/<origin_id>/all/all/')
-def rais_yb(**kwargs):
+def sitc_yo(**kwargs):
     return make_response(make_query(Yo, request.args, g.locale, **kwargs))
 
 @mod.route('/all/all/<destination_id>/all/')
 @mod.route('/<year>/all/<destination_id>/all/')
-def rais_yi(**kwargs):
+def sitc_yd(**kwargs):
     return make_response(make_query(Yd, request.args, g.locale, **kwargs))
 
 @mod.route('/all/all/all/<sitc_id>/')
 @mod.route('/<year>/all/all/<sitc_id>/')
-def rais_yo(**kwargs):
+def sitc_yp(**kwargs):
     return make_response(make_query(Yp, request.args, g.locale, **kwargs))
 
 ############################################################
@@ -34,17 +34,17 @@ def rais_yo(**kwargs):
 
 @mod.route('/all/<origin_id>/<destination_id>/all/')
 @mod.route('/<year>/<origin_id>/<destination_id>/all/')
-def rais_ybi(**kwargs):
+def sitc_yod(**kwargs):
     return make_response(make_query(Yod, request.args, g.locale, **kwargs))
 
 @mod.route('/all/<origin_id>/all/<sitc_id>/')
 @mod.route('/<year>/<origin_id>/all/<sitc_id>/')
-def rais_ybo(**kwargs):
+def sitc_yop(**kwargs):
     return make_response(make_query(Yop, request.args, g.locale, **kwargs))
 
 @mod.route('/all/all/<destination_id>/<sitc_id>/')
 @mod.route('/<year>/all/<destination_id>/<sitc_id>/')
-def rais_yio(**kwargs):
+def sitc_ydp(**kwargs):
     return make_response(make_query(Ydp, request.args, g.locale, **kwargs))
 
 ############################################################
@@ -55,5 +55,5 @@ def rais_yio(**kwargs):
 
 @mod.route('/all/<origin_id>/<destination_id>/<sitc_id>/')
 @mod.route('/<year>/<origin_id>/<destination_id>/<sitc_id>/')
-def rais_ybio(**kwargs):
+def sitc_yodp(**kwargs):
     return make_response(make_query(Yodp, request.args, g.locale, **kwargs))

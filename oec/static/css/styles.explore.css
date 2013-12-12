@@ -2,7 +2,7 @@
  * Title of page
  */
 .app_title{
-  float: left;
+/*  float: left;*/
   height: 50px;
 }
 .app_title h2 {
@@ -11,7 +11,7 @@
   font-weight: normal;
   line-height: 36px;
   margin: 6px 0 0 10px;
-  width: 815px;
+/*  width: 815px;*/
 /*  width: 828px;*/
 }
 .app_title#icons{
@@ -126,7 +126,8 @@
   padding-bottom: 0px;
 /*  min-height: 440px;*/
   position: relative;
-  width: 75px;
+/*  width: 75px;*/
+  width: 185px;
   z-index: 1;
 }
 .explore #main #app_pane > *{
@@ -308,7 +309,7 @@ text-decoration: none;
   padding: 3px 7px 4px;
 }
 .explore #main .pane_title{
-  background: url('/media/img/all/containers_trans.png') no-repeat;
+  background: url('/static/img/explore/containers_trans.png') no-repeat;
   background-position: -43px -104px;
   margin: 0;
   text-align: center;
@@ -326,7 +327,8 @@ text-decoration: none;
   float: left;
   overflow: hidden;
   padding: 0 !important;
-  width: 750px;
+/*  width: 750px;*/
+  width: 640px;
   z-index: 10;
 }
 .explore #main #content #dataviz {
@@ -479,7 +481,7 @@ text-decoration: none;
 
 
 .builds {
-  background: white;
+/*  background: white;
   border: 1px solid #cccccc;
   border-left: none;
   display: none;
@@ -487,10 +489,23 @@ text-decoration: none;
   padding: 10px;
   position: absolute;
   top: 0;
-  width: 400px;
+  width: 400px;*/
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 10px 10px 0 10px !important;
+  padding: 5px !important;
+  margin: 10px !important;
 }
 .builds ul{
   list-style-type: none;
+/*  display: none;*/
+  height: 0px;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  
+  overflow: hidden;
 }
 
 #tree_map{
@@ -500,10 +515,23 @@ text-decoration: none;
 ul#app_select {
   list-style-type: none;
 }
-ul#app_select a {
-  display: inline-block;
-  margin: 0 0 10px 0;
+a.app_name {
+  display: block;
+  font-size: 18px;
+/*  margin: 0 0 5px 0;*/
 }
-ul#app_select a img {
-  width: 50px;
+a.app_name img {
+  width: 22px;
+}
+.builds ul h4 {
+  border-bottom: solid 1px #999;
+  font-family: 'PT Sans Narrow',Helvetica,Arial;
+  font-size: 95%;
+  font-weight: 500;
+  margin: 5px 0 0 0;
+  padding: 0 0 2px 0;
+}
+.builds ul li a {
+  background: url("/static/img/icons/minieye.png") left 4px no-repeat;
+  padding-left: 18px;
 }

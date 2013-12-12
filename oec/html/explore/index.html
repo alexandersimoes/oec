@@ -12,76 +12,48 @@
 {% endblock %}
 
 {% block body %}
-<div class="app_title" id="icons">
-        
-  <!-- Left icon -->
-  {% if current_build.product != "all" and current_build.product != "show" %}
-  <img class="img left community" src="{{ current_build.product.get_icon() }}" alt="{{ current_build.product.get_name() }}">
-  {% endif %}
-  {% if current_build.origin != "all" and current_build.origin != "show" %}
-  <img class="img left" src="{{ current_build.origin.get_icon() }}" alt="{{ current_build.origin.get_name() }}">
-  {% endif %}
-
-  <!-- year(s) -->
-  {% if current_build.year %}
-  <h2 class="left small">{{current_build.year}}</h2>
-  {% endif %}
-
-  <!-- Right icon -->
-  {% if current_build.dest != "all" and current_build.dest != "show" %}
-  <img class="img right" src="{{ current_build.dest.get_icon() }}" alt="{{current_build.dest.name()}}">
-  {% endif %}
-  {% if current_build.product != "all" and current_build.product != "show" %}
-  <img class="img right community" src="{{ current_build.product.get_icon() }}" alt="{{current_build.product.get_name()}}">
-  {% endif %}
-        
-</div>
-
 <div class="app_title" id="title"><h2>{{ current_build.get_name() }}</h2></div>
 
 <!-- the left pane -->
 <div id="app_pane">
   
-  <ul id="app_select">
-    {% set pre_app = None %}
-    {% for build in all_builds %}
-
-      {% if pre_app != build.app.type %}
-        {% set pre_app = build.app.type %}
-        <li color="{{build.app.color}}" value="{{build.app.type}}">
-          <a href="#{{ build.app.get_name()|lower }}" title="{{ build.app.get_name()|lower }}">
-            <img style="background-color:{{build.app.color}};" src="/static/img/icons/app/app_{{build.app.type}}.png" alt="{{ build.app.get_name() }}" />
-          </a>
-        </li>
-      {% endif %}
-
-    {% endfor %}
-  </ul>
+  <h3 class="pane_title">App Selection</h3>
   
-  <div id="all_builds">
-    {% set pre_app = None %}
-    {% for build in all_builds %}
+  {% set pre_app = None %}
+  {% set pre_cat = None %}
+  {% for build in all_builds %}
 
-    {% if pre_app != build.app.type and pre_app != None %}
-      </ul>
-    </div>
-    {% endif %}
-    {% if pre_app != build.app.type %}
-    {% set pre_app = build.app.type %}
-    <div class="builds" id="{{ build.app.type }}">
-      <ul>
-    {% endif %}
-        <li>
-          <a href="/explore/{{ build.url() }}">
-          {{ build.get_name() }}
-          </a>
-        </li>
-
-    {% endfor %}
-      </ul>
-    </div>
+  {% if pre_app != build.app.type and pre_app != None %}
+    </ul>
   </div>
-  
+  {% endif %}
+
+  {% if pre_app != build.app.type %}
+  {% set pre_app = build.app.type %}
+  <div class="builds" id="{{ build.app.type }}">
+    <a class="app_name" href="#{{ build.app.get_name()|lower }}" title="{{ build.app.get_name()|lower }}">
+      <img style="background-color:#ccc;" src="/static/img/icons/app/app_{{build.app.type}}.png" alt="{{ build.app.get_name() }}" />
+      {{ build.app.get_name() }}
+    </a>
+    <ul>
+    {% endif %}
+    
+      {% if pre_cat != build.get_category() and build.get_category() != None %}
+      <h4>{{ build.get_category() }}</h4>
+      {% endif %}
+      {% set pre_cat = build.get_category() %}
+    
+      <li>
+        
+        <a href="/explore/{{ build.url() }}">
+        {{ build.get_short_name() }}
+        </a>
+        
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+    
 </div>
 
 <!-- the Visualization -->
@@ -166,6 +138,17 @@
   
   <h3 class="pane_title">Controls</h3>
   
+  {% for ui in current_build.get_ui() %}
+  <div class="dropdown_container" id="{{ui.name}}">
+    <h3>{{ ui.name }}</h3>
+    <select>
+      {% for option in ui.data %}
+      <option value="{% if option is string or option is number %}{{option}}{% else %}{{option.id}}{% endif %}" {% if ui.current == option %}selected="selected"{% endif %}>{% if option is string or option is number %}{{option}}{% else %}{{option.get_name()}}{% endif %}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endfor %}
+  
 </div>
 
 </div> <!-- END #main -->
@@ -178,16 +161,25 @@
 <script src="/static/js/libs/jquery-ui/jquery-ui.min.js"></script>
 <script>
 
-d3.selectAll("#app_select a").on("click", function(){
+d3.selectAll(".builds a.app_name").on("click", function(){
   var div_to_show_id = this.title.replace(" ", "_");
-  var prev_display = d3.select("#"+div_to_show_id).style("display")
+  var prev_display = d3.select("#"+div_to_show_id+ " ul").style("height")
   
   // reset all
-  d3.selectAll(".builds").style("display", "none")
+  // d3.selectAll(".builds ul").style("display", "none")
+  d3.selectAll(".builds ul").style("height", "0px")
   
   // if it was hidden, display it
-  if(prev_display == "none"){
-    d3.select("#"+div_to_show_id).style("display", "block")
+  // if(prev_display != "100px"){
+    // d3.select("#"+div_to_show_id+ " ul").style("display", "block")
+    // d3.select("#"+div_to_show_id+ " ul").style("height", "100px")
+  // }
+  if(prev_display == "0px"){
+    d3.select("#"+div_to_show_id+ " ul").style("height", "auto")
+    var x = d3.select("#"+div_to_show_id+ " ul").style("height")
+    d3.select("#"+div_to_show_id+ " ul").style("height", "0px")
+    d3.select("#"+div_to_show_id+ " ul").style("height", x)
+    console.log(x)
   }
   
   d3.event.preventDefault();

@@ -28,6 +28,7 @@ app.session_interface = RedisSessionInterface()
 
 # Global Latest Year Variables
 __latest_year__ = {"sitc": 2012, "hs": 2011, "population": 2012}
+available_years = {"sitc": range(1962, 2012), "hs": range(1995, 2012)}
 
 # babel configuration for lang support
 babel = Babel(app)

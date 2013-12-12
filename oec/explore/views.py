@@ -3,9 +3,10 @@ import time, urllib2, json
 from flask import Blueprint, render_template, g, request, current_app, session, redirect, url_for, flash, abort
 from flask.ext.babel import gettext
 
+from oec import app, db, babel
+from oec.utils import make_query
 from oec.db_attr.models import Country, Sitc, Hs
 from oec.explore.models import Build, App
-from oec import app, db, babel
 
 mod = Blueprint('explore', __name__, url_prefix='/explore')
 
@@ -22,17 +23,27 @@ def explore(app_name, classification, trade_flow, origin, dest, \
         if bf != "show" and bf != "all":
             build_filters[bf_name] = "<" + bf_name + ">"
     
+    # raise Exception(current_app, trade_flow, build_filters["origin"], build_filters["dest"], build_filters["product"])
     current_build = Build.query.filter_by(app=current_app, trade_flow=trade_flow, 
                         origin=build_filters["origin"], dest=build_filters["dest"], 
                         product=build_filters["product"]).first_or_404()
     current_build.set_options(origin=origin, dest=dest, product=product, 
-                                classification=classification)
+                                classification=classification, year=year)
     
     '''Every possible build for accordion links'''
     all_builds = Build.query.all()
-    for build in all_builds:
-        build.set_options(origin=origin, dest=dest, product=product, classification=classification)
-
+    for i, build in enumerate(all_builds):
+        build.set_options(origin=origin, dest=dest, product=product, classification=classification, year=year)
+        # if i == 12:
+        #     raise Exception(build.get_tbl())
+    
+    kwargs = {"trade_flow":trade_flow, "origin_id":origin, "dest_id":dest, "year":year}
+    if classification == "sitc":
+        kwargs["sitc_id"] = product
+    else:
+        kwargs["hs_id"] = product
+    # raise Exception(make_query(current_build.get_tbl(), request.args, g.locale, **kwargs))
+    
     return render_template("explore/index.html",
         current_build = current_build,
         all_builds = all_builds)

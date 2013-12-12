@@ -13,17 +13,17 @@ mod = Blueprint('hs', __name__, url_prefix='/hs')
 
 @mod.route('/all/<origin_id>/all/all/')
 @mod.route('/<year>/<origin_id>/all/all/')
-def rais_yb(**kwargs):
+def hs_yo(**kwargs):
     return make_response(make_query(Yo, request.args, g.locale, **kwargs))
 
 @mod.route('/all/all/<destination_id>/all/')
 @mod.route('/<year>/all/<destination_id>/all/')
-def rais_yi(**kwargs):
+def hs_yd(**kwargs):
     return make_response(make_query(Yd, request.args, g.locale, **kwargs))
 
 @mod.route('/all/all/all/<hs_id>/')
 @mod.route('/<year>/all/all/<hs_id>/')
-def rais_yo(**kwargs):
+def hs_yp(**kwargs):
     return make_response(make_query(Yp, request.args, g.locale, **kwargs))
 
 ############################################################
@@ -34,17 +34,17 @@ def rais_yo(**kwargs):
 
 @mod.route('/all/<origin_id>/<destination_id>/all/')
 @mod.route('/<year>/<origin_id>/<destination_id>/all/')
-def rais_ybi(**kwargs):
+def hs_yod(**kwargs):
     return make_response(make_query(Yod, request.args, g.locale, **kwargs))
 
 @mod.route('/all/<origin_id>/all/<hs_id>/')
 @mod.route('/<year>/<origin_id>/all/<hs_id>/')
-def rais_ybo(**kwargs):
+def hs_yop(**kwargs):
     return make_response(make_query(Yop, request.args, g.locale, **kwargs))
 
 @mod.route('/all/all/<destination_id>/<hs_id>/')
 @mod.route('/<year>/all/<destination_id>/<hs_id>/')
-def rais_yio(**kwargs):
+def hs_ydp(**kwargs):
     return make_response(make_query(Ydp, request.args, g.locale, **kwargs))
 
 ############################################################
@@ -55,5 +55,5 @@ def rais_yio(**kwargs):
 
 @mod.route('/all/<origin_id>/<destination_id>/<hs_id>/')
 @mod.route('/<year>/<origin_id>/<destination_id>/<hs_id>/')
-def rais_ybio(**kwargs):
+def hs_yodp(**kwargs):
     return make_response(make_query(Yodp, request.args, g.locale, **kwargs))
