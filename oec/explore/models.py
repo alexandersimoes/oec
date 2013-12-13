@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import g
+from sqlalchemy import desc
 from oec import db, __latest_year__, available_years
 from oec.utils import AutoSerialize, title_case
 from oec.db_attr.models import Country, Hs, Sitc
@@ -26,16 +27,31 @@ class App(db.Model, AutoSerialize):
     def __repr__(self):
         return '<App %r>' % (self.type)
 
+class Build_name(db.Model, AutoSerialize):
+
+    __tablename__ = 'explore_build_name'
+    
+    # build_id = db.Column(db.Integer, db.ForeignKey(Build.id), primary_key = True)
+    name_id = db.Column(db.Integer, primary_key = True)
+    lang = db.Column(db.String(5), primary_key=True)
+    name = db.Column(db.String(255))
+    short_name = db.Column(db.String(30))
+    question = db.Column(db.String(255))
+    category = db.Column(db.String(30))
+    
+    def __repr__(self):
+        return '<Build Name %r:%r>' % (self.name_id, self.lang)
+
 class Build(db.Model, AutoSerialize):
 
     __tablename__ = 'explore_build'
     
-    id = db.Column(db.Integer, primary_key = True)
+    app_id = db.Column(db.Integer, db.ForeignKey(App.id), primary_key = True)
+    name_id = db.Column(db.Integer, db.ForeignKey(Build_name.name_id), primary_key = True)
     trade_flow = db.Column(db.String(20))
     origin = db.Column(db.String(20))
     dest = db.Column(db.String(20))
     product = db.Column(db.String(20))
-    app_id = db.Column(db.Integer, db.ForeignKey(App.id))
     
     defaults = {
         "hs": "010101",
@@ -45,40 +61,40 @@ class Build(db.Model, AutoSerialize):
     
     app = db.relationship('App',
             backref=db.backref('Builds', lazy='dynamic'))
-    name = db.relationship("Build_name", backref="build", lazy="joined")
+    # name = db.relationship("Build_name", backref="build", lazy="joined")
     
     def get_short_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
-        _name = filter(lambda x: x.lang == lang, self.name)
-        if len(_name):
-            return _name[0].short_name
+        build_name = Build_name.query.filter_by(name_id=self.name_id, lang=lang).first()
+        if build_name:
+            return build_name.short_name
         else:
             return ""
     
     def get_category(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
-        _name = filter(lambda x: x.lang == lang, self.name)
-        if len(_name):
-            return _name[0].category
+        build_name = Build_name.query.filter_by(name_id=self.name_id, lang=lang).first()
+        if build_name:
+            return build_name.category
         else:
             return ""
     
     def get_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
-        _name = filter(lambda x: x.lang == lang, self.name)
-        if len(_name):
-            _name = _name[0].name
+        build_name = Build_name.query.filter_by(name_id=self.name_id, lang=lang).first()
+        if build_name:
+            name = build_name.name
         else:
             return ""
         
-        if "<origin>" in _name:
-            _name = _name.replace("<origin>", self.origin.get_name(lang))
-        if "<dest>" in _name:
-            _name = _name.replace("<dest>", self.dest.get_name(lang))
-        if "<product>" in _name:
-            _name = _name.replace("<product>", self.product.get_name(lang))
+        if "<origin>" in name:
+            name = name.replace("<origin>", self.origin.get_name(lang))
+        if "<dest>" in name:
+            name = name.replace("<dest>", self.dest.get_name(lang))
+        if "<product>" in name:
+            name = name.replace("<product>", self.product.get_name(lang))
         
-        return _name
+        return name
     
     def get_ui(self, ui_type):
         return self.ui.filter(UI.type == ui_type).first()
@@ -149,16 +165,30 @@ class Build(db.Model, AutoSerialize):
     
     def top_stats(self, entities=5):
         
-        query = self.get_tbl().query.filter_by(year=self.year)
+        tbl = self.get_tbl()
+        query = tbl.query
         
-        if "export" in self.trade_flow:
-            query = query.order_by(self.get_tbl().export_val.desc()).filter(self.get_tbl().export_val != None)
-            sum_query = db.session.query(db.func.sum(self.get_tbl().export_val))
-        if "import" in self.trade_flow:
-            query = query.order_by(self.get_tbl().import_val.desc()).filter(self.get_tbl().import_val != None)
-            sum_query = db.session.query(db.func.sum(self.get_tbl().import_val))
-        
+        if self.trade_flow == "export":
+            query = query.order_by(tbl.export_val.desc()).filter(tbl.export_val != None)
+            sum_query = db.session.query(db.func.sum(tbl.export_val))
+        elif self.trade_flow == "import":
+            query = query.order_by(tbl.import_val.desc()).filter(tbl.import_val != None)
+            sum_query = db.session.query(db.func.sum(tbl.import_val))
+        elif self.trade_flow == "net_export":
+            query = db.session \
+                        .query(tbl, tbl.export_val - tbl.import_val) \
+                        .filter((tbl.export_val - tbl.import_val) > 0) \
+                        .order_by(desc(tbl.export_val - tbl.import_val))
+            sum_query = db.session.query(db.func.sum(tbl.export_val - tbl.import_val)).filter((tbl.export_val - tbl.import_val) > 0)
+        elif self.trade_flow == "net_import":
+            query = db.session \
+                        .query(tbl, tbl.import_val - tbl.export_val) \
+                        .filter((tbl.import_val - tbl.export_val) > 0) \
+                        .order_by(desc(tbl.import_val - tbl.export_val))
+            sum_query = db.session.query(db.func.sum(tbl.import_val - tbl.export_val)).filter((tbl.import_val - tbl.export_val) > 0)
+
         sum_query = sum_query.filter_by(year=self.year)
+        query = query.filter_by(year=self.year)
         
         if isinstance(self.origin, Country):
             query = query.filter_by(origin_id=self.origin.id)
@@ -182,14 +212,18 @@ class Build(db.Model, AutoSerialize):
         for s in query.limit(entities).all():
             if self.trade_flow == "export":
                 val = s.export_val
+                attr = getattr(s, show_attr["show"])
             if self.trade_flow == "import":
                 val = s.import_val
+                attr = getattr(s, show_attr["show"])
             if self.trade_flow == "net_export":
-                val = s.export_val - s.import_val
+                attr = getattr(s[0], show_attr["show"])
+                val = s[1]
             if self.trade_flow == "net_import":
-                val = s.export_val - s.import_val
+                attr = getattr(s[0], show_attr["show"])
+                val = s[1]
             stat = {
-                "attr": getattr(s, show_attr["show"]),
+                "attr": attr,
                 "value": val,
                 "share": (val / sum) * 100
             }
@@ -201,12 +235,17 @@ class Build(db.Model, AutoSerialize):
         trade_flow = {
             "name": "Trade Flow",
             "current": self.trade_flow,
-            "data": ["export", "import", "net_export", "net_import"]
+            "data": ["Export", "Import", "Net Export", "Net Import"]
         }
         year = {
             "name": "Year",
             "current": int(self.year),
             "data": available_years[self.classification]
+        }
+        classification = {
+            "name": "Classification",
+            "current": self.classification,
+            "data": ["HS", "SITC"]
         }
         ui = [trade_flow, year]
         
@@ -240,21 +279,9 @@ class Build(db.Model, AutoSerialize):
             }
             ui.append(product)
         
+        ui.append(classification)
+        
         return ui
     
     def __repr__(self):
         return '<Build %s:%r>' % (self.id, self.app.type)
-
-class Build_name(db.Model, AutoSerialize):
-
-    __tablename__ = 'explore_build_name'
-    
-    build_id = db.Column(db.Integer, db.ForeignKey(Build.id), primary_key = True)
-    lang = db.Column(db.String(5), primary_key=True)
-    name = db.Column(db.String(255))
-    short_name = db.Column(db.String(30))
-    question = db.Column(db.String(255))
-    category = db.Column(db.String(30))
-    
-    def __repr__(self):
-        return '<Build Name %r:%r>' % (self.build_id, self.lang)

@@ -30,7 +30,7 @@ def explore(app_name, classification, trade_flow, origin, dest, \
     current_build.set_options(origin=origin, dest=dest, product=product, 
                                 classification=classification, year=year)
     
-    # raise Exception(current_build.top_stats(5))
+    # raise Exception(current_build.top_stats(5)["entries"][0])
     
     '''Every possible build for accordion links'''
     all_builds = Build.query.all()
