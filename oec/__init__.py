@@ -9,7 +9,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.babel import Babel
 # for new filters, redis sessions
 from utils import Momentjs, formatter, strip_html, jinja_split, \
-                    RedisSessionInterface
+                    RedisSessionInterface, format_currency, format_percent
 
 ''' Base directory of where the site is held '''
 oec_dir = os.path.abspath(os.path.dirname(__file__))
@@ -38,6 +38,8 @@ app.jinja_env.globals['momentjs'] = Momentjs
 app.jinja_env.globals['format'] = formatter
 app.jinja_env.filters['strip_html'] = strip_html
 app.jinja_env.filters['split'] = jinja_split
+app.jinja_env.filters['format_currency'] = format_currency
+app.jinja_env.filters['format_percent'] = format_percent
 
 # Load the modules for each different section of the site
 ''' data API view/models '''

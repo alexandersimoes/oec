@@ -147,6 +147,56 @@ class Build(db.Model, AutoSerialize):
         if isinstance(self.product, (Sitc, Hs)) and self.origin == "show":
             return getattr(models, "Yop")
     
+    def top_stats(self, entities=5):
+        
+        query = self.get_tbl().query.filter_by(year=self.year)
+        
+        if "export" in self.trade_flow:
+            query = query.order_by(self.get_tbl().export_val.desc()).filter(self.get_tbl().export_val != None)
+            sum_query = db.session.query(db.func.sum(self.get_tbl().export_val))
+        if "import" in self.trade_flow:
+            query = query.order_by(self.get_tbl().import_val.desc()).filter(self.get_tbl().import_val != None)
+            sum_query = db.session.query(db.func.sum(self.get_tbl().import_val))
+        
+        sum_query = sum_query.filter_by(year=self.year)
+        
+        if isinstance(self.origin, Country):
+            query = query.filter_by(origin_id=self.origin.id)
+            sum_query = sum_query.filter_by(origin_id=self.origin.id)
+        if isinstance(self.dest, Country):
+            query = query.filter_by(dest_id=self.dest.id)
+            sum_query = sum_query.filter_by(dest_id=self.dest.id)
+        if isinstance(self.product, Sitc):
+            query = query.filter_by(sitc_id=self.product.id)
+            sum_query = sum_query.filter_by(sitc_id=self.product.id)
+        if isinstance(self.product, Hs):
+            query = query.filter_by(hs_id=self.product.id)
+            sum_query = sum_query.filter_by(hs_id=self.product.id)
+            
+        # raise Exception(query.all())
+        sum = sum_query.first()[0]
+        
+        show_attr = {self.origin:"origin", self.dest:"dest", self.product:"product"}
+        
+        stats = []
+        for s in query.limit(entities).all():
+            if self.trade_flow == "export":
+                val = s.export_val
+            if self.trade_flow == "import":
+                val = s.import_val
+            if self.trade_flow == "net_export":
+                val = s.export_val - s.import_val
+            if self.trade_flow == "net_import":
+                val = s.export_val - s.import_val
+            stat = {
+                "attr": getattr(s, show_attr["show"]),
+                "value": val,
+                "share": (val / sum) * 100
+            }
+            stats.append(stat)
+        
+        return {"total":sum, "entries":stats}
+    
     def get_ui(self):
         trade_flow = {
             "name": "Trade Flow",

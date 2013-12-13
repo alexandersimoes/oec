@@ -15,12 +15,26 @@ class Country(db.Model, AutoSerialize):
     
     name = db.relationship("Country_name", backref="country", lazy="joined")
     
+    hs_yodp_origin = db.relationship("db_hs.models.Yodp", primaryjoin = ('db_hs.models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    hs_yodp_dest = db.relationship("db_hs.models.Yodp", primaryjoin = ('db_hs.models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    hs_yod_dest = db.relationship("db_hs.models.Yod", primaryjoin = ('db_hs.models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    hs_yop_origin = db.relationship("db_hs.models.Yop", primaryjoin = ('db_hs.models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    
+    sitc_yodp_origin = db.relationship("db_sitc.models.Yodp", primaryjoin = ('db_sitc.models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    sitc_yodp_dest = db.relationship("db_sitc.models.Yodp", primaryjoin = ('db_sitc.models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    sitc_yod_dest = db.relationship("db_sitc.models.Yod", primaryjoin = ('db_sitc.models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    sitc_yop_origin = db.relationship("db_sitc.models.Yop", primaryjoin = ('db_sitc.models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    
+    
     def get_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
         _name = filter(lambda x: x.lang == lang, self.name)
         if len(_name):
             return _name[0].name
         return ""
+    
+    def get_abbrv(self, lang=None):
+        return self.id_3char if self.id_3char else ""
     
     def get_icon(self):
         return "/static/img/icons/country/country_%s.png" % (self.id)
@@ -52,13 +66,19 @@ class Hs(db.Model, AutoSerialize):
     
     name = db.relationship("Hs_name", backref="hs", lazy="joined")
     
+    yodp_product = db.relationship("db_hs.models.Yodp", backref = 'product', lazy = 'dynamic')
+    yop_product = db.relationship("db_hs.models.Yop", backref = 'product', lazy = 'dynamic')
+    
     def get_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
         _name = filter(lambda x: x.lang == lang, self.name)
         if len(_name):
             return _name[0].name
         return ""
-
+    
+    def get_abbrv(self, lang=None):
+        return self.hs if self.hs else ""
+    
     def get_icon(self):
         return "/static/img/icons/hs/hs_%s.png" % (self.id[:2])
 
@@ -91,13 +111,19 @@ class Sitc(db.Model, AutoSerialize):
     
     name = db.relationship("Sitc_name", backref="sitc", lazy="joined")
     
+    yodp_product = db.relationship("db_sitc.models.Yodp", backref = 'product', lazy = 'dynamic')
+    yop_product = db.relationship("db_sitc.models.Yop", backref = 'product', lazy = 'dynamic')
+    
     def get_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
         _name = filter(lambda x: x.lang == lang, self.name)
         if len(_name):
             return _name[0].name
         return ""
-
+    
+    def get_abbrv(self, lang=None):
+        return self.sitc if self.sitc else ""
+    
     def get_icon(self):
         return "/static/img/icons/sitc/sitc_%s.png" % (self.id[:2])
 

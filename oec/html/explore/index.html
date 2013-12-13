@@ -66,11 +66,25 @@
   
   <!-- the canvas for the visualization -->
   <div id="text_data">
-
+    {% set stats = current_build.top_stats(20) %}
+    <h1>Top 20:</h1>
+    <h2>Total: {{ stats.total|format_currency }}</h2>
+    <table>
+    {% for entry in stats.entries %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ entry.attr.get_abbrv()|upper }}</td>
+        <td>{{ entry.attr.get_name() }}</td>
+        <td>{{ entry.value|format_currency }}</td>
+        <td>{{ entry.share|format_percent }}</td>
+      </tr>
+    {% endfor %}
+    </table>
   </div>
   
   <!-- Container for the visualization -->
-  <div id="viz"></div>
+  <div id="viz">
+  </div>
   
   <!-- Container for the key/legend -->
   <div class="key {{prod_class}}"  ></div>

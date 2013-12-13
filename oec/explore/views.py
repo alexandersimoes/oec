@@ -30,18 +30,19 @@ def explore(app_name, classification, trade_flow, origin, dest, \
     current_build.set_options(origin=origin, dest=dest, product=product, 
                                 classification=classification, year=year)
     
+    # raise Exception(current_build.top_stats(5))
+    
     '''Every possible build for accordion links'''
     all_builds = Build.query.all()
     for i, build in enumerate(all_builds):
         build.set_options(origin=origin, dest=dest, product=product, classification=classification, year=year)
-        # if i == 12:
-        #     raise Exception(build.get_tbl())
     
     kwargs = {"trade_flow":trade_flow, "origin_id":origin, "dest_id":dest, "year":year}
     if classification == "sitc":
         kwargs["sitc_id"] = product
     else:
         kwargs["hs_id"] = product
+        
     # raise Exception(make_query(current_build.get_tbl(), request.args, g.locale, **kwargs))
     
     return render_template("explore/index.html",

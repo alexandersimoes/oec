@@ -337,9 +337,13 @@ text-decoration: none;
   position: relative;
 }
 .explore #main #content #text_data{
-  display: none;
+/*  display: none;*/
   height: 500px;
-  overflow-y: scroll;
+/*  overflow-y: scroll;*/
+}
+.explore #main #content #text_data ol {
+/*  list-style-type: decimal;*/
+  margin: 0 0 0 40px;
 }
 .explore #main #content #text_data table{
   width: 100%;
@@ -352,9 +356,14 @@ text-decoration: none;
   padding: 2px 6px;
   vertical-align: top;
 }
+.explore #main #content #text_data table td:nth-child(1){
+  width: 20px;
+}
+.explore #main #content #text_data table td:nth-child(2){
+  width: 40px;
+}
 .explore #main #content #text_data table td:nth-child(4),
-.explore #main #content #text_data table td:nth-child(5),
-.explore #main #content #text_data table td:nth-child(6){
+.explore #main #content #text_data table td:nth-child(5){
   text-align: right;
 }
 .explore #main #content #text_data table tbody tr:nth-child(even) {

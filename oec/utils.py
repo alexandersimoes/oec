@@ -89,6 +89,12 @@ def strip_html(s):
 def jinja_split(s, char):
     return s.split(char)
 
+def format_currency(value):
+    return "${:,.2f}".format(value)
+
+def format_percent(value):
+    return "{:.2g} %".format(value)
+
 ''' A helper function for retrieving a specific item from the given model that
     will raise a 404 error if not found in the DB'''
 def exist_or_404(Model, id):
@@ -232,7 +238,7 @@ def location_values(ret,cat):
 
 ''' Returns modified query and return variable for data calls '''       
 def parse_filter(kwargs,id_type,query,data_table,ret):
-
+    # raise Exception(kwargs,id_type,query,data_table,ret)
     from oec.db_attr.models import Country, Hs, Sitc
 
     query = query.group_by(getattr(data_table, id_type))
