@@ -1,0 +1,15 @@
+{% extends "templates/base.html" %}
+
+{% block content %}
+{{ current_build.data_url() }}
+{% endblock %}
+
+{% block js %}
+
+<script>
+d3.json("{{ current_build.data_url() }}", function(response){
+  console.log(response)
+})
+</script>
+
+{% endblock %}

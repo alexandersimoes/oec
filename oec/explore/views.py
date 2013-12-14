@@ -10,6 +10,12 @@ from oec.explore.models import Build, App
 
 mod = Blueprint('explore', __name__, url_prefix='/explore')
 
+@mod.route('/')
+def explore_redirect():
+    return redirect(url_for('.explore', app_name="tree_map", \
+                classification="hs", trade_flow="export", origin="nausa", \
+                dest="all", product="show", year="2010"))
+
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/')
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
 def explore(app_name, classification, trade_flow, origin, dest, \
@@ -17,7 +23,6 @@ def explore(app_name, classification, trade_flow, origin, dest, \
     g.page_type = mod.name
     
     current_app = App.query.filter_by(type=app_name).first_or_404()
-    
     build_filters = {"origin":origin,"dest":dest,"product":product}
     for bf_name, bf in build_filters.items():
         if bf != "show" and bf != "all":
@@ -48,3 +53,21 @@ def explore(app_name, classification, trade_flow, origin, dest, \
     return render_template("explore/index.html",
         current_build = current_build,
         all_builds = all_builds)
+
+@mod.route('/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/embed/')
+def embed(app_name, classification, trade_flow, origin, dest, \
+                product, year="2011"):
+
+    current_app = App.query.filter_by(type=app_name).first_or_404()
+    build_filters = {"origin":origin,"dest":dest,"product":product}
+    for bf_name, bf in build_filters.items():
+        if bf != "show" and bf != "all":
+            build_filters[bf_name] = "<" + bf_name + ">"
+    
+    current_build = Build.query.filter_by(app=current_app, trade_flow=trade_flow, 
+                        origin=build_filters["origin"], dest=build_filters["dest"], 
+                        product=build_filters["product"]).first_or_404()
+    current_build.set_options(origin=origin, dest=dest, product=product, 
+                                classification=classification, year=year)
+
+    return render_template("explore/embed.html", current_build = current_build)

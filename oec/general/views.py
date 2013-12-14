@@ -144,5 +144,14 @@ def about_permissions():
 # ---------------------------
 @mod.route('api/')
 def api():
+    return redirect(url_for(".api_embed"))
+
+@mod.route('api/embed/')
+def api_embed():
     g.page_type = "api"
-    return render_template("api/index.html")
+    return render_template("api/embed.html")
+
+@mod.route('api/data/')
+def api_data():
+    g.page_type = "api"
+    return render_template("api/data.html")

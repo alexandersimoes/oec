@@ -696,6 +696,7 @@ dl.file_list p {
 }
 
 #main #sidebar nav[role="navigation"] ul {
+  list-style: none;
   margin: 0;
   padding: 0;
 }
@@ -882,4 +883,14 @@ dl.file_list p {
   padding: 0 5px;
   position: absolute;
   top: 0;
+}
+
+.app_title h2 {
+  font-family: 'Cardo', serif, 'Times';
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 36px;
+  margin: 6px 0 0 10px;
+  width: 815px;
+  width: 828px;
 }

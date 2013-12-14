@@ -29,6 +29,14 @@
       </select>
     </div>
     <br class="clear">
+    
+    <script>
+    document.querySelector(".language_select select").onchange = function(){
+        var lang = this.value;
+        window.location = "/set_lang/"+lang+"/";
+    };
+    </script>
+    
   </header>
 
   <div id="main" role="main">

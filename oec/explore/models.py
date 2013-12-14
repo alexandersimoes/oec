@@ -2,7 +2,7 @@
 from flask import g
 from sqlalchemy import desc
 from oec import db, __latest_year__, available_years
-from oec.utils import AutoSerialize, title_case
+from oec.utils import AutoSerialize
 from oec.db_attr.models import Country, Hs, Sitc
 from oec.db_hs import models as hs_models
 from oec.db_sitc import models as sitc_models
@@ -146,6 +146,22 @@ class Build(db.Model, AutoSerialize):
                 product, year)
         return url
 
+    '''Returns the data URL for the specific build.'''
+    def data_url(self, year=None):
+        year = self.year or year
+        if not year:
+            year = __latest_year__[self.classification]
+        origin, dest, product = [self.origin, self.dest, self.product]
+        if isinstance(origin, Country):
+            origin = origin.id
+        if isinstance(dest, Country):
+            dest = dest.id
+        if isinstance(product, (Hs, Sitc)):
+            product = product.id
+        url = '/{0}/{1}/{2}/{3}/{4}/{5}/'.format(self.classification, 
+                self.trade_flow, year, origin, dest, product)
+        return url
+
     def get_tbl(self):
         if self.classification == "hs":
             models = hs_models
@@ -284,4 +300,4 @@ class Build(db.Model, AutoSerialize):
         return ui
     
     def __repr__(self):
-        return '<Build %s:%r>' % (self.id, self.app.type)
+        return '<Build %d:%s>' % (self.name_id, self.app.type)

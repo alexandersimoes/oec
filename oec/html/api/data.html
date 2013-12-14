@@ -5,30 +5,24 @@
 {% endblock %}
 
 {% block body %}
+<div class="app_title" id="title"><h2>API</h2></div>
+
 <!-- the left pane -->
 <div id="sidebar">
   <nav role="navigation">
     <ul>
-      <li><a href="/api/" class ="active">Embed</a>
+      <li>
+        <a href="/api/embed/" class ="active">Embed</a>
+      </li>
+      <li><a href="/api/data/">Data</a>
         <ul>
-          <li><a href="#basics">Basics</a></li>
-          <li><a href="#uri">Options</a></li>
-          <li><a href="#query">Query Parameters</a></li>
-          <li><a href="#questions">Questions</a></li>
+          <li><a href="#structure">Structure</a></li>
         </ul>
       </li>
-      <!-- <li><a href="/api/apps">Example Apps</a>
-      <ul>
-        <li><a href="#tree_maps">Tree Maps</a></li>
-          <li><a href="#stacked">Stacked Area Charts</a></li>
-          <li><a href="#product_space">Product Space</a></li>
-          </ul>
-       </li> -->
     </ul>
   </nav>
 </div>
 
-<div class="app_title" id="title"><h2>API</h2></div>
 <div id="content">
 
   <h1>How to Embed Apps </h1>

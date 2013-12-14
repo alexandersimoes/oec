@@ -157,7 +157,8 @@
     <h3>{{ ui.name }}</h3>
     <select>
       {% for option in ui.data %}
-      <option value="{% if option is string or option is number %}{{option}}{% else %}{{option.id}}{% endif %}" {% if ui.current == option|lower|replace(" ", "_") %}selected="selected"{% endif %}>{% if option is string or option is number %}{{option}}{% else %}{{option.get_name()}}{% endif %}</option>
+      {{ ui.current|lower|replace(" ", "_") }} | {{ option|lower|replace(" ", "_") }}
+      <option value="{% if option is string or option is number %}{{option}}{% else %}{{option.id}}{% endif %}" {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") %}selected="selected"{% endif %}>{% if option is string or option is number %}{{option}}{% else %}{{option.get_name()}}{% endif %}</option>
       {% endfor %}
     </select>
   </div>
