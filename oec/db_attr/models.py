@@ -69,6 +69,8 @@ class Hs(db.Model, AutoSerialize):
     yodp_product = db.relationship("db_hs.models.Yodp", backref = 'product', lazy = 'dynamic')
     yop_product = db.relationship("db_hs.models.Yop", backref = 'product', lazy = 'dynamic')
     
+    classification = "hs"
+    
     def get_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
         _name = filter(lambda x: x.lang == lang, self.name)
@@ -113,6 +115,8 @@ class Sitc(db.Model, AutoSerialize):
     
     yodp_product = db.relationship("db_sitc.models.Yodp", backref = 'product', lazy = 'dynamic')
     yop_product = db.relationship("db_sitc.models.Yop", backref = 'product', lazy = 'dynamic')
+    
+    classification = "sitc"
     
     def get_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")

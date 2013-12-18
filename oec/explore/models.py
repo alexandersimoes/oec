@@ -96,33 +96,60 @@ class Build(db.Model, AutoSerialize):
         
         return name
     
+    def get_question(self, lang=None):
+        lang = lang or getattr(g, "locale", "en")
+        build_q = Build_name.query.filter_by(name_id=self.name_id, lang=lang).first()
+        if build_q:
+            q = build_q.question
+        else:
+            return ""
+        
+        if "<origin>" in q:
+            q = q.replace("<origin>", self.origin.get_name(lang))
+        if "<dest>" in q:
+            q = q.replace("<dest>", self.dest.get_name(lang))
+        if "<product>" in q:
+            q = q.replace("<product>", self.product.get_name(lang))
+        
+        return q
+    
     def get_ui(self, ui_type):
         return self.ui.filter(UI.type == ui_type).first()
 
-    def set_options(self, origin=None, dest=None, product=None, classification=None, year=None):
+    def set_options(self, origin=None, dest=None, product=None, classification="hs", year=2010):
         
-        if not isinstance(self.origin, Country):
-            if "<origin>" in self.origin:
-                if origin == "all" or origin == "show":
+        if self.origin != "show" and self.origin != "all":
+            if isinstance(origin, Country):
+                self.origin = origin
+            elif origin == "all" or origin == "show":
+                self.origin = Country.query.filter_by(id=self.defaults["country"]).first()
+            else:
+                self.origin = Country.query.filter_by(id=origin).first()
+                if not self.origin:
                     self.origin = Country.query.filter_by(id=self.defaults["country"]).first()
-                else:
-                    self.origin = Country.query.filter_by(id=origin).first()
         
-        if not isinstance(self.dest, Country):
-            if "<dest>" in self.dest:
-                if dest == "all" or dest == "show":
+        if self.dest != "show" and self.dest != "all":
+            if isinstance(dest, Country):
+                self.dest = dest
+            elif dest == "all" or dest == "show":
+                self.dest = Country.query.filter_by(id=self.defaults["country"]).first()
+            else:
+                self.dest = Country.query.filter_by(id=dest).first()
+                if not self.dest:
                     self.dest = Country.query.filter_by(id=self.defaults["country"]).first()
-                else:
-                    self.dest = Country.query.filter_by(id=dest).first()
         
-        if not isinstance(self.product, (Sitc, Hs)):
-            if "<product>" in self.product:
-                tbl = Sitc if classification == "sitc" else Hs
+        if self.product != "show" and self.product != "all":
+            tbl = Sitc if classification == "sitc" else Hs
+            if isinstance(product, (Sitc, Hs)):
+                self.product = product
+            else:
                 if product == "all" or product == "show":
                     prod_id = self.defaults["sitc"] if classification == "sitc" else self.defaults["hs"]
                 else:
                     prod_id = product
                 self.product = tbl.query.filter_by(id=prod_id).first()
+                if not self.product:
+                    self.product = tbl.query.filter_by(id=self.defaults["hs"]).first()
         
         if classification:
             self.classification = classification
@@ -219,6 +246,7 @@ class Build(db.Model, AutoSerialize):
             query = query.filter_by(hs_id=self.product.id)
             sum_query = sum_query.filter_by(hs_id=self.product.id)
             
+        # raise Exception(self.year, self.origin, self.dest)
         # raise Exception(query.all())
         sum = sum_query.first()[0]
         

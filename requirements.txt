@@ -18,3 +18,7 @@ redis
 
 # Better JSON serializer that knows how to handle Decimal types
 simplejson
+
+# Required for natural language processing to facilitate search
+textblob
+fuzzywuzzy
