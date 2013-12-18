@@ -13,13 +13,13 @@
     
       <div id="ranking_box">
         <p class="country_name"><img src="{{ entity.get_icon() }}" alt="{{ entity.get_name() }} icon">{{ entity.get_name() }}</p>
-        <p class="eci_rank"><span style="background-color: rgb(126, 188, 225); background-position: initial initial; background-repeat: initial initial;">2</span></p>
-        <p class="eci_value"><a href="/rankings/country/">Economic Complexity Index (ECI)</a>: ?</p>
+        <p class="eci_rank"><span style="background-color: rgb(126, 188, 225)">{{ entity.get_attr_yo().eci_rank }}</span></p>
+        <p class="eci_value"><a href="/rankings/country/">Economic Complexity Index (ECI)</a>: {{ entity.get_attr_yo().eci }}</p>
       </div>
     
       <div id="quick_info">
         <p>
-          <span style="font-size: 38px">{{ entity.get_name() }}</span> is ranked <span style="font-size: 24px">?</span> with an ECI of ?.
+          <span style="font-size: 38px">{{ entity.get_name() }}</span> is ranked <span style="font-size: 24px">{{ entity.get_attr_yo().eci_rank }}</span> with an ECI of {{ entity.get_attr_yo().eci }}.
         </p>
         <table class="striped">
           {% for b in builds %}
@@ -67,5 +67,14 @@
 
 {% block js %}
 <script>
+// Add color to rankings
+var color = d3.scale.linear()
+  .domain([0, 128])
+  .interpolate(d3.interpolateRgb)
+  .range(["#7cbde2", "#fb9496"])
+
+d3.select(".eci_rank span").style("background", function(d, i){
+  return color(parseInt(this.innerHTML));
+})
 </script>
 {% endblock %}

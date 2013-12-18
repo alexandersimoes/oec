@@ -15,6 +15,9 @@ class Country(db.Model, AutoSerialize):
     
     name = db.relationship("Country_name", backref="country", lazy="joined")
     
+    # attr_yo_origin = db.relationship("db_attr.models.Yo", backref = 'origin', lazy = 'dynamic')
+    attr_yo = db.relationship("db_attr.models.Yo", backref = 'origin', lazy = 'dynamic')
+    
     hs_yodp_origin = db.relationship("db_hs.models.Yodp", primaryjoin = ('db_hs.models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     hs_yodp_dest = db.relationship("db_hs.models.Yodp", primaryjoin = ('db_hs.models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
     hs_yod_dest = db.relationship("db_hs.models.Yod", primaryjoin = ('db_hs.models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
@@ -25,13 +28,17 @@ class Country(db.Model, AutoSerialize):
     sitc_yod_dest = db.relationship("db_sitc.models.Yod", primaryjoin = ('db_sitc.models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
     sitc_yop_origin = db.relationship("db_sitc.models.Yop", primaryjoin = ('db_sitc.models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     
-    
     def get_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
         _name = filter(lambda x: x.lang == lang, self.name)
         if len(_name):
             return _name[0].name
         return ""
+    
+    def get_attr_yo(self, year=2011):
+        yo = filter(lambda yo: yo.year == year, self.attr_yo)
+        if len(yo): return yo[0]
+        return None
     
     def get_abbrv(self, lang=None):
         return self.id_3char if self.id_3char else ""
@@ -149,3 +156,24 @@ class Sitc_name(db.Model, AutoSerialize):
     
     def __repr__(self):
         return '<Sitc Name %r:%r>' % (self.sitc_id, self.lang)
+
+class Yo(db.Model, AutoSerialize):
+    
+    __tablename__ = 'attr_yo'
+    
+    year = db.Column(db.Integer(4), primary_key=True)
+    origin_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
+    eci = db.Column(db.Float())
+    eci_rank = db.Column(db.Integer(11))
+    opp_value = db.Column(db.Float())
+    population = db.Column(db.Integer(11))
+    gdp = db.Column(db.Numeric(16,2))
+    gdp_pc = db.Column(db.Numeric(16,2))
+    leader = db.Column(db.String(100))
+    magic = db.Column(db.Float())
+    pc_constant = db.Column(db.Float())
+    pc_current = db.Column(db.Float())
+    notpc_constant = db.Column(db.Float())
+    
+    def __repr__(self):
+        return '<Yo %d.%s>' % (self.year, self.origin_id)
