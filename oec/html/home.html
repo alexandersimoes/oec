@@ -6,6 +6,13 @@
 
 {% block body %}
 <div id="content">
+  
+  <div id="search">
+    <h3>Search a Country or Product</h3>
+    <input type="text" data-provide="typeahead" autocomplete="off" autofocus="" placeholder="What does Paraguay export?" />
+  </div>
+  
+<!--   
   <div class="didyouknow_container">
     
     <div class="didyouknow">
@@ -33,6 +40,7 @@
     </div>
     
   </div>
+-->
   <div class="other_apps">
     <h3>Explore More Apps</h3>
     <div class="item">
@@ -53,6 +61,8 @@
 
 
 {% block js %}
+<script src="/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
+<script src="/static/js/libs/typeahead.min.js"></script>
 <script>
   // Rotate featured video randomly
   var vid = Math.round(Math.random());
@@ -61,5 +71,19 @@
   // Set explore URL to be the default country aka where the 
   // user's IP address says they are
   // $("nav a").eq(0).attr("href", "/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2010/")
+  
+  $('#search input').typeahead({
+    name: 'my_search',
+    remote: {
+      url:'/search/?q=%QUERY',
+      filter: function(resp) { return resp.items; }
+    }
+  });
+  
+  $('#search input').focus()
+  
+  $('#search input').bind('typeahead:selected', function(obj, datum, name) {      
+    console.log(obj, datum, name)
+  });
 </script>
 {% endblock %}

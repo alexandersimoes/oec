@@ -1,7 +1,9 @@
+from operator import itemgetter
 from datetime import datetime
 from textblob import TextBlob
 from fuzzywuzzy import process
-from flask import Blueprint, render_template, g, request, current_app, session, redirect, url_for, flash, abort
+from flask import Blueprint, render_template, g, request, current_app, \
+                    session, redirect, url_for, flash, abort, jsonify
 from flask.ext.babel import gettext
 
 from oec.db_attr.models import Country, Country_name, Sitc, Sitc_name, Hs, Hs_name
@@ -84,6 +86,7 @@ class Search():
     
     @staticmethod
     def get_attrs(words, name_tbl, attr_tbl_backref, lang):
+        # raise Exception(words, name_tbl, attr_tbl_backref, lang)
         found = []
         current_position = 0
         
@@ -176,7 +179,7 @@ class Search():
             
             for i, build in enumerate(all_builds.all()):
                 build.set_options(origin=origin, dest=dest, product=product, classification=classification)
-                builds.append(build.get_question())
+                builds.append({"name": build.get_question(), "value": build.url()})
         
         return builds
     
@@ -194,8 +197,12 @@ class Search():
             return []
         
         builds = self.get_builds(countries, sitc_products, hs_products, trade_flow)
+        builds_text = [b["name"] for b in builds]
         
-        return [result[0] for result in process.extract(self.text, builds, limit=20)]
+        ordering = [result[0] for result in process.extract(self.text, builds_text, limit=20)]
+        # raise Exception(ordering)
+        
+        raise Exception(map(itemgetter('text'), builds_text).index(ordering[0]))
 
 ###############################
 # General views 
@@ -218,6 +225,12 @@ def home():
         c = Country.query.filter_by(id="nausa").first()
     
     return render_template("home.html", default_country=c)
+
+@mod.route('search/')
+def search():
+    query = request.args.get('q', '')
+    results = {"items": Search(query).results()}
+    return jsonify(results)
 
 ###############################
 # API views 
