@@ -24,6 +24,20 @@ hr {
   margin: 10px;
 }
 
+.app_title h2 {
+  font-family: 'Cardo', serif, 'Times';
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 36px;
+  margin: 6px 0 0 10px;
+/*  width: 815px;*/
+/*  width: 828px;*/
+}
+.rtl .app_title h2 {
+  text-align: right;
+}
+
+
 #fullscreen {
   background-repeat: no-repeat;
   background-position: center;
@@ -653,7 +667,7 @@ footer p img{
 }
 #main #sidebar h3 {
   border-bottom: 1px solid #ccc;
-  font-family: 'Cardo', sans-serif, 'Arial';
+/*  font-family: 'Cardo', sans-serif, 'Arial';*/
   font-size: 20px;
   font-weight: normal;
   margin: 0;
@@ -883,14 +897,4 @@ dl.file_list p {
   padding: 0 5px;
   position: absolute;
   top: 0;
-}
-
-.app_title h2 {
-  font-family: 'Cardo', serif, 'Times';
-  font-size: 30px;
-  font-weight: normal;
-  line-height: 36px;
-  margin: 6px 0 0 10px;
-  width: 815px;
-  width: 828px;
 }

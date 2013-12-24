@@ -50,6 +50,7 @@ from oec.db_hs.views import mod as db_hs_module
 from oec.general.views import mod as general_module
 from oec.explore.views import mod as explore_module
 from oec.profile.views import mod as profile_module
+from oec.rankings.views import mod as rankings_module
 
 ''' Register these modules as blueprints '''
 app.register_blueprint(db_attr_module)
@@ -59,3 +60,4 @@ app.register_blueprint(db_hs_module)
 app.register_blueprint(general_module)
 app.register_blueprint(explore_module)
 app.register_blueprint(profile_module)
+app.register_blueprint(rankings_module)

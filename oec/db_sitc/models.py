@@ -34,6 +34,8 @@ class Yp(db.Model, AutoSerialize):
     sitc_id = db.Column(db.String(8), db.ForeignKey(Sitc.id), primary_key=True)
     export_val = db.Column(db.Numeric(16,2))
     import_val = db.Column(db.Numeric(16,2))
+    pci = db.Column(db.Float())
+    pci_rank = db.Column(db.Integer(11))
     
     def __repr__(self):
         return '<Yp %d.%s>' % (self.year, self.sitc_id)

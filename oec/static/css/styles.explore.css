@@ -3,16 +3,7 @@
  */
 .app_title{
 /*  float: left;*/
-  height: 50px;
-}
-.app_title h2 {
-  font-family: 'Cardo', serif, 'Times';
-  font-size: 30px;
-  font-weight: normal;
-  line-height: 36px;
-  margin: 6px 0 0 10px;
-/*  width: 815px;*/
-/*  width: 828px;*/
+  min-height: 50px;
 }
 .app_title#icons{
   width: 188px;
@@ -339,7 +330,7 @@ text-decoration: none;
 .explore #main #content #text_data{
 /*  display: none;*/
   height: 500px;
-/*  overflow-y: scroll;*/
+  overflow-y: scroll;
 }
 .explore #main #content #text_data ol {
 /*  list-style-type: decimal;*/
@@ -362,9 +353,15 @@ text-decoration: none;
 .explore #main #content #text_data table td:nth-child(2){
   width: 40px;
 }
+.rtl.explore #main #content #text_data table td:nth-child(3){
+  text-align: right;
+}
 .explore #main #content #text_data table td:nth-child(4),
 .explore #main #content #text_data table td:nth-child(5){
   text-align: right;
+}
+.explore #main #content #text_data table td:nth-child(5){
+  min-width: 35px;
 }
 .explore #main #content #text_data table tbody tr:nth-child(even) {
   background: white;

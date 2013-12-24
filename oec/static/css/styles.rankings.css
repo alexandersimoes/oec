@@ -1,0 +1,189 @@
+#sidebar h3 {
+  border: none !important;
+  font-size: 18px;
+}
+.change_year {
+/*  overflow: hidden;*/
+  width: 100%;
+}
+.change_year a.prev {
+  display: block;
+  float: left;
+  font-size: 22px;
+}
+.change_year h3 {
+  float: left;
+  font-size: 34px;
+  margin: 0 215px;
+  text-align: center;
+}
+.change_year a.next {
+  display: block;
+  font-size: 22px;
+  float: right;
+}
+table {
+  margin: 70px 0 30px 0;
+  width: 100%;
+}
+table thead th{
+  border-bottom: 1px solid #999;
+  cursor: pointer;
+  text-align: left;
+/*  padding: 0 12px 0 0;*/
+}
+table thead th a{
+  font-weight: normal;
+  color: #666;
+}
+table thead th.sorttable_sorted,
+table thead th.sorttable_sorted_reverse{
+/*  padding: 0;*/
+}
+table thead th.sorttable_sorted a,
+table thead th.sorttable_sorted_reverse a{
+  color: black;
+  font-weight: bold;
+}
+table tbody tr th:nth-child(1),
+table tbody tr td:nth-child(1) {
+  width: 60px;
+}
+table tbody tr th:nth-child(2),
+table tbody tr td:nth-child(2) {
+  width: 60px;
+}
+table tbody tr th:nth-child(3),
+table tbody tr td:nth-child(3) {
+  width: 420px;
+}
+table tbody tr th:nth-child(4),
+table tbody tr td:nth-child(4) {
+  width: 80px;
+}
+table tbody tr th:nth-child(5),
+table tbody tr td:nth-child(5) {
+  width: 10px;
+}
+table tbody tr th:nth-child(6),
+table tbody tr td:nth-child(6) {
+  width: 50px;
+}
+table tbody tr td:nth-child(1) {
+  text-align: center;
+  padding: 4px;
+}
+table tbody tr td {
+  border-bottom: 1px solid #ddd;
+}
+table tbody tr td span {
+  display: block;
+  padding: 2px;
+  width: 20px;
+}
+.arrow_up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid green;
+}
+.arrow_down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid red;
+}
+.sort_arrow_down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+  display: inline;
+/*  font-size: 4px;*/
+  position: relative;
+  top: 12px;
+  margin: 0 0 0 4px;
+}
+.sort_arrow_up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+  display: inline;
+/*  font-size: 4px;*/
+  position: relative;
+  bottom: 12px;
+  margin: 0 0 0 4px;
+}
+button {
+  font-size: 18px;
+  width: 100%;
+}
+
+.dropdown {
+  display: inline;
+  float: left;
+/*  margin: 6px 0;*/
+  font-size: 34px;
+  margin: 0 200px;
+  text-align: center;
+  z-index: 99;
+}
+.dropdown dt{
+  display: inline;
+}
+.q {
+  float: left;
+}
+.dropdown dd, .dropdown dt, .dropdown ul { margin:0px; padding:0px; }
+.dropdown dd { position:relative; }
+.dropdown a, .dropdown a:visited { 
+  text-decoration:none;
+  outline:none;
+  text-align: left;
+}
+.dropdown a:hover {
+/*      color:#5d4617;*/
+}
+.dropdown dt a:hover {
+/*      color:#5d4617;*/
+  border: 1px solid #666;
+}
+.dropdown dt a {
+  font-family: 'Cardo', serif, 'Times';
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 36px;
+  
+  background: url("/media/img/all/arrow.png") no-repeat scroll right center;
+  padding-right: 20px;
+  border: 1px solid #bbb;
+  width: 150px;
+}
+.dropdown dt a span {
+  cursor: pointer; 
+/*    display: inline-block;*/
+  padding: 5px;
+}
+.dropdown dd ul { 
+  background: white none repeat scroll 0 0;
+  border: 1px solid #efefef;
+  display: none;
+  left: 0px;
+  padding: 5px 0px;
+  position: absolute;
+  top: 2px;
+  width: auto;
+  min-width: 90px;
+  list-style: none;
+  height: 200px;
+  overflow-y: scroll;
+}
+.dropdown span.value { display:none; }
+.dropdown dd ul li a { padding:5px; display:block;}
+.dropdown dd ul li a:hover { background-color:#eee;}
+</style>

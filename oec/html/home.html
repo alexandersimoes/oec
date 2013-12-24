@@ -12,35 +12,6 @@
     <input type="text" data-provide="typeahead" autocomplete="off" autofocus="" placeholder="What does Paraguay export?" />
   </div>
   
-<!--   
-  <div class="didyouknow_container">
-    
-    <div class="didyouknow">
-      <div class="text">
-        <img class="pin" src="http://www.crossed-flag-pins.com/Friendship-Pins/Netherlands/Flag-Pins-Netherlands-Netherlands.jpg" />
-        <h2 style="font-size: 38px;">Learn about The Netherlands &amp; Flowers</h2>
-        <br style="clear:both"/><br />
-        <p>Watch the video for a brief introduction of how The Observatory works.</p>
-      </div>
-      <div class="app">
-        <iframe src="http://player.vimeo.com/video/40565955?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="600" height="443" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-      </div>
-    </div>
-    
-    <div class="didyouknow">
-      <div class="text">
-        <img class="pin" src="http://www.crossed-flag-pins.com/Friendship-Pins/Chile/Flag-Pins-Chile-Chile.jpg" />
-        <h2 style="font-size: 38px;">Learn about Chile &amp; Wine</h2>
-        <br style="clear:both"/><br />
-        <p>Watch the video for a brief introduction of how The Observatory works.</p>
-      </div>
-      <div class="app">
-        <iframe src="http://player.vimeo.com/video/40565954?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="600" height="443" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-      </div>
-    </div>
-    
-  </div>
--->
   <div class="other_apps">
     <h3>Explore More Apps</h3>
     <div class="item">
@@ -64,16 +35,10 @@
 <script src="/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
 <script src="/static/js/libs/typeahead.min.js"></script>
 <script>
-  // Rotate featured video randomly
-  var vid = Math.round(Math.random());
-  var dyk = d3.selectAll(".didyouknow")[0][vid]
-  d3.select(dyk).style("display", "block");
-  // Set explore URL to be the default country aka where the 
-  // user's IP address says they are
-  // $("nav a").eq(0).attr("href", "/explore/tree_map/export/{{default_country.name_3char|lower}}/all/show/2010/")
   
   $('#search input').typeahead({
     name: 'my_search',
+    limit: 10,
     remote: {
       url:'/search/?q=%QUERY',
       filter: function(resp) { return resp.items; }
@@ -83,7 +48,7 @@
   $('#search input').focus()
   
   $('#search input').bind('typeahead:selected', function(obj, datum, name) {      
-    console.log(obj, datum, name)
+    window.location = "explore/"+datum["name"];
   });
 </script>
 {% endblock %}

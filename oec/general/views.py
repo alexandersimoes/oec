@@ -1,4 +1,5 @@
 from operator import itemgetter
+from sqlalchemy import desc
 from datetime import datetime
 from textblob import TextBlob
 from fuzzywuzzy import process
@@ -6,6 +7,7 @@ from flask import Blueprint, render_template, g, request, current_app, \
                     session, redirect, url_for, flash, abort, jsonify
 from flask.ext.babel import gettext
 
+import oec
 from oec.db_attr.models import Country, Country_name, Sitc, Sitc_name, Hs, Hs_name
 from oec.explore.models import App, Build
 
@@ -96,9 +98,17 @@ class Search():
                             .filter_by(name=search_term).first()
             if exact_match:
                 return [exact_match]
-            return name_tbl.query \
-                        .filter_by(lang=lang) \
-                        .filter(name_tbl.name.like("%"+search_term+"%")).all()
+            starts_with_match = name_tbl.query \
+                                    .filter_by(lang=lang) \
+                                    .filter(name_tbl.name.startswith(search_term)).all()
+            if len(starts_with_match):
+                return starts_with_match
+            if attr_tbl_backref == "sitc" or attr_tbl_backref == "hs":
+                return name_tbl.query \
+                            .filter_by(lang=lang) \
+                            .filter(name_tbl.name.like("%"+search_term+"%")).all()
+            else:
+                return []
         
         while current_position < len(words):
             search_term = words[current_position]
@@ -151,11 +161,13 @@ class Search():
         if "export" in text:
             return "export"
         return None
-    
+
     @staticmethod
-    def get_builds(countries, sitc_products, hs_products, trade_flow):
-        builds = []
+    def get_builds2(countries, sitc_products, hs_products, trade_flow):
+        exact = []
+        close = []
         origins, dests, products = [[None]] * 3
+        app = App.query.filter_by(type="tree_map").first()
         
         if len(countries):
             origins = countries[0]
@@ -167,20 +179,84 @@ class Search():
         combos = itertools.product([trade_flow], origins, dests, products)
         combos = [c for c in combos if len(set(filter(None, c))) == len(filter(None, c))]
         
-        app = App.query.filter_by(type="tree_map").first()
-        for combo in combos:
+        def get_default(looking_for, have, trade_flow, classification):
+            if looking_for == "dest":
+                entity = oec.db_hs.models.Yod.query \
+                            .filter_by(origin=have) \
+                            .order_by(desc(trade_flow+"_val")).limit(1).first()
+            
+            elif looking_for == "origin":
+                entity = getattr(oec, "db_"+classification).models.Yop.query \
+                            .filter_by(product=have) \
+                            .order_by(desc(trade_flow+"_val")).limit(1).first()
+            
+            elif looking_for == "product":
+                entity = getattr(oec, "db_"+classification).models.Yop.query \
+                            .filter_by(origin=have) \
+                            .order_by(desc(trade_flow+"_val")).limit(1).first()
+            # raise Exception(getattr(entity, looking_for))
+            if entity:
+                return getattr(entity, looking_for)
+        
+        for combo in combos[:4]:
+            exact = []
+            close = []
             trade_flow, origin, dest, product = combo
             classification = product.classification if product else "hs"
-            # raise Exception(trade_flow, origin, dest, product, product.classification)
             
             all_builds = Build.query.filter_by(app=app)
             if trade_flow:
                 all_builds = all_builds.filter_by(trade_flow=trade_flow)
             
-            for i, build in enumerate(all_builds.all()):
-                build.set_options(origin=origin, dest=dest, product=product, classification=classification)
-                builds.append({"name": build.get_question(), "value": build.url()})
+            # first test for country + product builds
+            cp_builds = all_builds.filter_by(origin="<origin>", product="<product>")
+            # for b in cp_builds.all()[1]:
+            b = cp_builds.all()[0]
+            if origin and product:
+                b.set_options(origin=origin, dest=None, product=product, classification=classification)
+                exact.append({"value": b.get_question(), "name": b.url()})
+            elif origin:
+                default_product = get_default("product", origin, b.trade_flow, classification)
+                if default_product:
+                    b.set_options(origin=origin, dest=None, product=default_product, classification=classification)
+                    close.append({"value": b.get_question(), "name": b.url()})
+            elif product:
+                default_origin = get_default("origin", product, b.trade_flow, classification)
+                if default_origin:
+                    b.set_options(origin=default_origin, dest=None, product=product, classification=classification)
+                    close.append({"value": b.get_question(), "name": b.url()})
+            
+            # test for country + country builds
+            cc_builds = all_builds.filter_by(origin="<origin>", dest="<dest>")
+            for b in cc_builds.all():
+                if origin and dest:
+                    b.set_options(origin=origin, dest=dest, product=None, classification=classification)
+                    exact.append({"value": b.get_question(), "name": b.url()})
+                elif origin:
+                    default_dest = get_default("dest", origin, b.trade_flow, classification)
+                    if default_dest:
+                        b.set_options(origin=origin, dest=default_dest, product=None, classification=classification)
+                        close.append({"value": b.get_question(), "name": b.url()})
+            
+            # test for country builds
+            c_builds = all_builds.filter_by(origin="<origin>").filter(Build.dest!="<dest>").filter(Build.product!="<product>")
+            for b in c_builds.all():
+                if origin:
+                    b.set_options(origin=origin, dest=None, product=None, classification=classification)
+                    exact.append({"value": b.get_question(), "name": b.url()})
+            
+            # test for product builds
+            p_builds = all_builds.filter_by(product="<product>").filter(Build.dest!="<dest>").filter(Build.origin!="<origin>")
+            for b in p_builds.all():
+                if product:
+                    b.set_options(origin=None, dest=None, product=product, classification=classification)
+                    exact.append({"value": b.get_question(), "name": b.url()})
+            
+            exact += exact
+            close += close
         
+        builds = exact + close
+        # raise Exception(builds)
         return builds
     
     def results(self):
@@ -188,21 +264,27 @@ class Search():
         excluded_tags = ['TO', 'DT']
         cleaned_words = [tag[0] for tag in self.text.tags if tag[1] not in excluded_tags]
         
+        sitc_products, hs_products, trade_flow = [[]]*3
         countries = self.get_attrs(cleaned_words, Country_name, "country", lang)
-        sitc_products = sum(self.get_attrs(cleaned_words, Sitc_name, "sitc", lang), [])
-        hs_products = sum(self.get_attrs(cleaned_words, Hs_name, "hs", lang), [])
-        trade_flow = self.get_trade_flow(self.text)
+        if len(countries) < len(cleaned_words):
+            sitc_products = sum(self.get_attrs(cleaned_words, Sitc_name, "sitc", lang), [])
+            hs_products = sum(self.get_attrs(cleaned_words, Hs_name, "hs", lang), [])
+            trade_flow = self.get_trade_flow(self.text)
         
         if len(countries) + len(sitc_products) + len(hs_products) == 0:
             return []
         
-        builds = self.get_builds(countries, sitc_products, hs_products, trade_flow)
-        builds_text = [b["name"] for b in builds]
+        builds = self.get_builds2(countries, sitc_products, hs_products, trade_flow)
         
-        ordering = [result[0] for result in process.extract(self.text, builds_text, limit=20)]
-        # raise Exception(ordering)
+        return builds
         
-        raise Exception(map(itemgetter('text'), builds_text).index(ordering[0]))
+        # 
+        # builds = self.get_builds(countries, sitc_products, hs_products, trade_flow)
+        # builds_text = [b["value"] for b in builds]
+        # 
+        # ordering = [result[0] for result in process.extract(self.text, builds_text, limit=20)]
+        # ordered_builds = [builds[map(itemgetter('value'), builds).index(b)] for b in ordering]
+        # return ordered_builds
 
 ###############################
 # General views 
@@ -210,7 +292,8 @@ class Search():
 @mod.route('/')
 def home():
     # Search('where does yemen export cheese?').results()
-    # raise Exception(Search('where does yemen export cars to?').results())
+    # names = [b["value"] for b in Search('where does import yemen  cheese to?').results()]
+    # raise Exception(names)
     
     g.page_type = "home"
     ip = request.remote_addr

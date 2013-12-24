@@ -160,7 +160,8 @@ class Build(db.Model, AutoSerialize):
     '''Returns the URL for the specific build.'''
     def url(self, year=None):
         if not year:
-            year = __latest_year__[self.classification]
+            # year = __latest_year__[self.classification]
+            year = 2010
         origin, dest, product = [self.origin, self.dest, self.product]
         if isinstance(origin, Country):
             origin = origin.id

@@ -26,7 +26,7 @@
     {% endblock %}
     
   </head>
-  <body{% if g.page_type %} class="{{g.page_type}}"{% endif %}>
+  <body class="{% if g.page_type %}{{g.page_type}}{% endif %} {% if g.locale == 'ar' or g.locale == 'he' %}rtl{% endif %}">
     
     {% block content %}
     {% endblock %}

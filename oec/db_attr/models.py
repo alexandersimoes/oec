@@ -16,16 +16,18 @@ class Country(db.Model, AutoSerialize):
     name = db.relationship("Country_name", backref="country", lazy="joined")
     
     # attr_yo_origin = db.relationship("db_attr.models.Yo", backref = 'origin', lazy = 'dynamic')
-    attr_yo = db.relationship("db_attr.models.Yo", backref = 'origin', lazy = 'dynamic')
+    attr_yo = db.relationship("db_attr.models.Yo", backref = 'country', lazy = 'dynamic')
     
     hs_yodp_origin = db.relationship("db_hs.models.Yodp", primaryjoin = ('db_hs.models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     hs_yodp_dest = db.relationship("db_hs.models.Yodp", primaryjoin = ('db_hs.models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
     hs_yod_dest = db.relationship("db_hs.models.Yod", primaryjoin = ('db_hs.models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    hs_yod_origin = db.relationship("db_hs.models.Yod", primaryjoin = ('db_hs.models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     hs_yop_origin = db.relationship("db_hs.models.Yop", primaryjoin = ('db_hs.models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     
     sitc_yodp_origin = db.relationship("db_sitc.models.Yodp", primaryjoin = ('db_sitc.models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     sitc_yodp_dest = db.relationship("db_sitc.models.Yodp", primaryjoin = ('db_sitc.models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
     sitc_yod_dest = db.relationship("db_sitc.models.Yod", primaryjoin = ('db_sitc.models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    sitc_yod_origin = db.relationship("db_sitc.models.Yod", primaryjoin = ('db_sitc.models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     sitc_yop_origin = db.relationship("db_sitc.models.Yop", primaryjoin = ('db_sitc.models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     
     def get_name(self, lang=None):
@@ -75,6 +77,7 @@ class Hs(db.Model, AutoSerialize):
     
     yodp_product = db.relationship("db_hs.models.Yodp", backref = 'product', lazy = 'dynamic')
     yop_product = db.relationship("db_hs.models.Yop", backref = 'product', lazy = 'dynamic')
+    yp_product = db.relationship("db_hs.models.Yp", backref = 'product', lazy = 'dynamic')
     
     classification = "hs"
     
@@ -122,6 +125,7 @@ class Sitc(db.Model, AutoSerialize):
     
     yodp_product = db.relationship("db_sitc.models.Yodp", backref = 'product', lazy = 'dynamic')
     yop_product = db.relationship("db_sitc.models.Yop", backref = 'product', lazy = 'dynamic')
+    yp_product = db.relationship("db_sitc.models.Yp", backref = 'product', lazy = 'dynamic')
     
     classification = "sitc"
     
