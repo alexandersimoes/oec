@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import g
+from flask import g, url_for
 from sqlalchemy import desc
 from oec import db, __latest_year__, available_years
 from oec.utils import AutoSerialize
@@ -189,6 +189,13 @@ class Build(db.Model, AutoSerialize):
         url = '/{0}/{1}/{2}/{3}/{4}/{5}/'.format(self.classification, 
                 self.trade_flow, year, origin, dest, product)
         return url
+    
+    def attr_url(self):
+        if self.origin == "show" or self.dest == "show":
+            return url_for('attr.attrs', attr='country')
+        if self.classification == "sitc":
+            return url_for('attr.attrs', attr='sitc')
+        return url_for('attr.attrs', attr='hs')
 
     def get_tbl(self):
         if self.classification == "hs":

@@ -12,7 +12,25 @@
 {% endblock %}
 
 {% block body %}
+<div class="app_title" id="icons">
+  
+  {% if current_build.origin != "show" %}
+  <img src="{{ current_build.origin.get_icon() }}">
+  {% elif current_build.origin == "show" and current_build.product %}
+  <img style="background-color: {{ current_build.product.color }};" src="{{ current_build.product.get_icon() }}">
+  {% endif %}
+  
+  <h2>'88 - '98</h2>
+  {% if current_build.dest != "show" and current_build.dest != "all" %}
+  <img src="{{ current_build.dest.get_icon() }}">
+  {% elif current_build.origin != "show" and current_build.product %}
+  <img style="background-color: {{ current_build.product.color }};" src="{{ current_build.product.get_icon() }}">
+  {% endif %}
+</div>
+
 <div class="app_title" id="title"><h2>{{ current_build.get_name() }}</h2></div>
+
+<br class="clear" />
 
 <!-- the left pane -->
 <div id="app_pane">
@@ -45,7 +63,7 @@
     
       <li>
         
-        <a href="/explore/{{ build.url() }}">
+        <a {% if build == current_build %}class="active"{% endif %} href="/explore/{{ build.url() }}">
         {{ build.get_short_name() }}
         </a>
         
@@ -184,21 +202,26 @@ d3.selectAll(".builds a.app_name").on("click", function(){
   // d3.selectAll(".builds ul").style("display", "none")
   d3.selectAll(".builds ul").style("height", "0px")
   
-  // if it was hidden, display it
-  // if(prev_display != "100px"){
-    // d3.select("#"+div_to_show_id+ " ul").style("display", "block")
-    // d3.select("#"+div_to_show_id+ " ul").style("height", "100px")
-  // }
   if(prev_display == "0px"){
     d3.select("#"+div_to_show_id+ " ul").style("height", "auto")
     var x = d3.select("#"+div_to_show_id+ " ul").style("height")
     d3.select("#"+div_to_show_id+ " ul").style("height", "0px")
     d3.select("#"+div_to_show_id+ " ul").style("height", x)
-    console.log(x)
   }
   
   d3.event.preventDefault();
 })
+
+/////////////////////////////
+// Initialize page --
+////////////////////////////
+
+// Open default app selection accordion
+var div_to_show_id = "{{ current_build.app.type }}"
+d3.select("#"+div_to_show_id+ " ul").style("height", "auto")
+var x = d3.select("#"+div_to_show_id+ " ul").style("height")
+d3.select("#"+div_to_show_id+ " ul").style("height", x)
+
 
 </script>
 {% endblock %}

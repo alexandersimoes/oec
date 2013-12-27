@@ -24,6 +24,10 @@ hr {
   margin: 10px;
 }
 
+br.clear {
+  clear: both;
+}
+
 .app_title h2 {
   font-family: 'Cardo', serif, 'Times';
   font-size: 30px;
@@ -373,10 +377,10 @@ button {
   border: 1px solid #DDD;
   text-align: center;
 
-  -moz-border-radius:5px;
+/*  -moz-border-radius:5px;
   -webkit-border-radius:5px;
   -o-border-radius:5px;
-  border-radius:5px;
+  border-radius:5px;*/
 
   background:#FFFFFF;
   background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#EEE));
@@ -466,12 +470,12 @@ header nav ul {
   margin: -2px 0px 0px 0px;
   padding: 11px 0px 10px 0px;
   
-  -moz-border-bottom-right-radius: 10px;
+/*  -moz-border-bottom-right-radius: 10px;
   -moz-border-bottom-left-radius: 10px;
   -webkit-border-bottom-right-radius: 10px;
   -webkit-border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10px;*/
 }
 header nav ul li{
   display: inline;
@@ -602,9 +606,9 @@ footer p img{
   left:20px;
   border: solid 1px #ddd;
 
-  -moz-border-radius:4px; 
+/*  -moz-border-radius:4px; 
   -webkit-border-radius:4px; 
-  border-radius:4px;   
+  border-radius:4px; */  
   background:-webkit-gradient(linear, left top, left bottom, from(rgba(10,10,10,1)), to(rgba(25,25,25,.65)));
   background:-moz-linear-gradient(top,rgba(10,10,10,1),rgba(80,80,80,.9));
   background:-o-linear-gradient(top,rgba(10,10,10,1),rgba(80,80,80,.9));
@@ -646,7 +650,7 @@ footer p img{
 
 
 #main #sidebar {
-  border-radius: 10px 0 0 10px;
+/*  border-radius: 10px 0 0 10px;*/
   float: left;
   padding: 10px;
 /*  margin-left: 0px;
@@ -659,7 +663,7 @@ footer p img{
 #main #sidebar {
   background-color: #fff;
   border: 1px solid #cccccc;
-  border-radius: 10px 0 0 10px;
+/*  border-radius: 10px 0 0 10px;*/
   float: left;
   padding: 10px;
   text-align: left;
@@ -676,7 +680,7 @@ footer p img{
 #main #content {
   background-color: #fff;
   border: 1px solid #cccccc;
-  border-radius: 0 10px 10px 0;
+/*  border-radius: 0 10px 10px 0;*/
   float: left;
   overflow: hidden;
   padding: 10px;
@@ -746,7 +750,7 @@ dl.file_list p {
   font-size: 12px;
   line-height: 15px;
 /*  padding: 10px;*/
-  border-radius: 3px;
+/*  border-radius: 3px;*/
   background: rgba(255, 255, 255, 0.9);
   color: black;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);

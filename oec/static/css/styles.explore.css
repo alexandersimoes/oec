@@ -2,7 +2,7 @@
  * Title of page
  */
 .app_title{
-/*  float: left;*/
+  float: left;
   min-height: 50px;
 }
 .app_title#icons{
@@ -12,11 +12,13 @@
   float: left;
 }
 .app_title#icons h2{
+  display: inline-block;
   font-size: 20px;
   line-height: 20px;
-  width: 60px;
+  width: 77px;
   text-align: center;
-  margin: 6px 0px 0px 0px;
+  margin: 16px 0px 0px 0px;
+  vertical-align: top;
 }
 .app_title#icons h2.small{
   margin-top: 15px;
@@ -109,7 +111,7 @@
   border-top: 1px solid #cccccc;
   border-left: 1px solid #cccccc;
   border-bottom: 1px solid #cccccc;
-  border-radius: 10px 0 0 10px;
+/*  border-radius: 10px 0 0 10px;*/
   font-size: 90%;
   float: left;
 /*  padding: 10px;*/
@@ -193,7 +195,7 @@ text-decoration: none;
   border-top: 1px solid #cccccc;
   border-right: 1px solid #cccccc;
   border-bottom: 1px solid #cccccc;
-  border-radius: 0 10px 10px 0;
+/*  border-radius: 0 10px 10px 0;*/
   font-size:90%;
   float: left;
   z-index: 0;
@@ -314,7 +316,7 @@ text-decoration: none;
 .explore #main #content {
   background-color: #fff;
   border: 1px solid #cccccc;
-  border-radius: 0px 0 10px 10px !important;
+/*  border-radius: 0px 0 10px 10px !important;*/
   float: left;
   overflow: hidden;
   padding: 0 !important;
@@ -388,7 +390,7 @@ text-decoration: none;
   margin: 1px;
 }
 .explore #main #content .key a.country {
-  border-radius: 2px;
+/*  border-radius: 2px;*/
   color: #fff;
   display: inline-block;
   margin: 3px 2px;
@@ -497,7 +499,7 @@ text-decoration: none;
   top: 0;
   width: 400px;*/
   border: 1px solid #aaa;
-  border-radius: 4px;
+/*  border-radius: 4px;*/
   padding: 10px 10px 0 10px !important;
   padding: 5px !important;
   margin: 10px !important;
@@ -524,7 +526,8 @@ ul#app_select {
 a.app_name {
   display: block;
   font-size: 18px;
-/*  margin: 0 0 5px 0;*/
+  line-height: 125%;
+  vertical-align: top;
 }
 a.app_name img {
   width: 22px;
@@ -540,4 +543,7 @@ a.app_name img {
 .builds ul li a {
   background: url("/static/img/icons/minieye.png") left 4px no-repeat;
   padding-left: 18px;
+}
+.builds ul li a.active {
+  font-weight: bold;
 }

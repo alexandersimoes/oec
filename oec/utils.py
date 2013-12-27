@@ -184,13 +184,32 @@ def make_query(data_table, url_args, lang, **kwargs):
     cache_id = request.path
     ret = {}
     
+    '''Go through each of the filters from the URL and apply them to
+        the query'''
     for filter in ["year", "origin_id", "dest_id", "hs_id", "sitc_id"]:
         if filter in kwargs:
-            query = query.filter(getattr(data_table, filter) == kwargs[filter])
-    # raise Exception(kwargs, query)
+            
+            '''Dealing with year is a special case where we have to check for 
+                periods which allow users to select "periods" of data in the 
+                format start.end.interval i.e. 2000.2004.2 would return data 
+                for the years 2000, 2002, and 2004'''
+            if filter == "year":
+                if "." in kwargs[filter]:
+                    year_parts = [int(y) for y in kwargs[filter].split(".")]
+                    if len(year_parts) == 2:
+                        years = range(year_parts[0], year_parts[1]+1)
+                    else:
+                        years = range(year_parts[0], year_parts[1]+1, year_parts[2])
+                else:
+                    years = [kwargs[filter]]
+                query = query.filter(getattr(data_table, filter).in_(years))
+            
+            else:
+                query = query.filter(getattr(data_table, filter) == kwargs[filter])
+    
     ret["data"] = [row.serialize() for row in query.all()]
     
-    # gzip and jsonify result
+    '''gzip and jsonify result'''
     ret = gzip_data(jsonify(ret).data)
     
     cached_query(cache_id, ret)

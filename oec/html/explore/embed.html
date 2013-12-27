@@ -1,14 +1,46 @@
 {% extends "templates/base.html" %}
 
+{% block head %}
+<link type="text/css" rel="stylesheet" media="all" href="/static/css/libs/d3plus.css" />
+{% endblock %}
+
 {% block content %}
+
 {{ current_build.data_url() }}
+<div id="viz"></div>
+
 {% endblock %}
 
 {% block js %}
 
+<script src="/static/js/libs/modernizr.custom.js"></script>
+<script src="/static/js/libs/d3plus.js"></script>
+
 <script>
+
+var viz = d3plus.viz()
+
 d3.json("{{ current_build.data_url() }}", function(response){
-  console.log(response)
+  d3.json("{{ current_build.attr_url() }}", function(attr){
+    
+    var attrs = {"hs_id": attr.data}
+    
+    viz
+      .data(response.data)
+      .type("tree_map")
+      .attrs(attrs)
+      .size("export_val")
+      .id(["hs_id"])
+      .time({"key": "year", "solo": 2010})
+      .depth(0)
+      .shape("square")
+      .style({"labels": {"align": "start"}})
+      // .color("export_val")
+    
+    d3.select("#viz")
+      .call(viz)
+    
+  })
 })
 </script>
 
