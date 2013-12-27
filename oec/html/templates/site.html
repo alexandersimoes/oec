@@ -10,17 +10,17 @@
     </div>  
     <nav>
       <ul>
-        <li><a href="/explore">Explore</a></li>
-        <li><a href="/profile/country/nausa">Profiles</a></li>
-        <li><a href="/book">Book</a></li>
-        <li><a href="/rankings">Rankings</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/api">API</a></li>
+        <li><a href="{{ url_for('explore.explore_redirect') }}">{{ _('Explore') }}</a></li>
+        <li><a href="{{ url_for('profile.profile', origin_id='nausa') }}">{{ _('Profiles') }}</a></li>
+        <li><a href="{{ url_for('general.book') }}">{{ _('Book') }}</a></li>
+        <li><a href="{{ url_for('rankings.rankings_redirect') }}">{{ _('Rankings') }}</a></li>
+        <li><a href="{{ url_for('general.about') }}">{{ _('About') }}</a></li>
+        <li><a href="{{ url_for('general.api') }}">{{ _('API') }}</a></li>
       </ul>
     </nav> 
     <div class="language_select">
       <div class="text">
-        Language:
+        {{ _('Language') }}:
       </div>
       <select>
         {% for lang_id, lang_name in g.supported_langs.iteritems() %}

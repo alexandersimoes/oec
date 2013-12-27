@@ -458,7 +458,7 @@ header .logo {
 }
 header nav {
   float: right;
-  width: 448px;
+/*  width: 448px;*/
   text-align: center;
 }
 header nav ul {

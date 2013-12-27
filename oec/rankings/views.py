@@ -11,12 +11,12 @@ from oec.db_sitc.models import Yp as Yp_sitc
 mod = Blueprint('rankings', __name__, url_prefix='/rankings')
 
 @mod.route('/')
-def profile_redirect():
-    return redirect(url_for('.profile', category="country"))
+def rankings_redirect():
+    return redirect(url_for('.rankings', category="country"))
 
 @mod.route('/<category>/')
 @mod.route('/<category>/<int:year>/')
-def profile(category, year=2010):
+def rankings(category, year=2010):
     g.page_type = mod.name
     clamped_year = max(1962, min(year, 2011))
     if clamped_year != year:

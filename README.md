@@ -51,19 +51,11 @@ Adding the Observatory to computer via virtualenv
 7. Create local settings file based on missing info from settings.py
 
         touch django_files/atlas/settings_local.py
-8. Edit this file and add the following setting CONSTANTS to it based on comments in django_files/atlas/settings.py
+8. Updating translations (if something is changed)
 
-        DATABASES
-        LOCALE_PATHS
-        STATICFILES_DIRS
-        SECRET_KEY
-        TEMPLATE_DIRS
-        REDIS
-        CACHE
-				
-9. Run the site locally!
-
-        python django_files/manage.py runserver
+        pybabel extract -F babel.cfg -o messages.pot oec
+        pybabel update -i messages.pot -d oec/translations
+        pybabel compile -d oec/translations
 
 ### Getting The Observatory Running With Redis Caching enabled (Optional)
     
