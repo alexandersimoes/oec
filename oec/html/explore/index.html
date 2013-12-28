@@ -23,7 +23,7 @@
   <h2>'88 - '98</h2>
   {% if current_build.dest != "show" and current_build.dest != "all" %}
   <img src="{{ current_build.dest.get_icon() }}">
-  {% elif current_build.origin != "show" and current_build.product %}
+  {% elif current_build.origin != "show" and current_build.product != "show" and current_build.product != "all" %}
   <img style="background-color: {{ current_build.product.color }};" src="{{ current_build.product.get_icon() }}">
   {% endif %}
 </div>

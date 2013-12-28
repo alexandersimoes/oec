@@ -6,7 +6,7 @@ section a {
   text-decoration: underline !important;
 }
 hr {
-  margin: 20px 0;
+  margin: 20px 0 80px 0;
 }
 ol {
   list-style: decimal !important;
