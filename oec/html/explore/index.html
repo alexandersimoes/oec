@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="/static/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
 {% endblock %}
 
+{% block title %}{{ current_build.get_name() }}{% endblock %}
+
 {% block body %}
 <div class="app_title" id="icons">
   
@@ -20,7 +22,8 @@
   <img style="background-color: {{ current_build.product.color }};" src="{{ current_build.product.get_icon() }}">
   {% endif %}
   
-  <h2>'88 - '98</h2>
+  <h2>{{ current_build.year }}</h2>
+  
   {% if current_build.dest != "show" and current_build.dest != "all" %}
   <img src="{{ current_build.dest.get_icon() }}">
   {% elif current_build.origin != "show" and current_build.product != "show" and current_build.product != "all" %}
@@ -85,6 +88,7 @@
   <!-- table of data from visualization -->
   <div id="text_data">
     {% set stats = current_build.top_stats(20) %}
+    {% if stats.entries %}
     <h1>Top 20:</h1>
     <h2>Total: {{ stats.total|format_currency }}</h2>
     <table>
@@ -98,6 +102,7 @@
       </tr>
     {% endfor %}
     </table>
+    {% endif %}
   </div>
   
   <!-- Container for the visualization -->
@@ -171,7 +176,7 @@
   <h3 class="pane_title">Controls</h3>
   
   {% for ui in current_build.get_ui() %}
-  <div class="dropdown_container" id="{{ui.name}}">
+  <div class="dropdown_container" id="{{ ui.name|lower|replace(" ", "_") }}">
     <h3>{{ ui.name }}</h3>
     <select>
       {% for option in ui.data %}
@@ -181,6 +186,8 @@
     </select>
   </div>
   {% endfor %}
+  
+  <button id="build">Build Visualization</button>
   
 </div>
 
@@ -208,6 +215,49 @@ d3.selectAll(".builds a.app_name").on("click", function(){
     d3.select("#"+div_to_show_id+ " ul").style("height", "0px")
     d3.select("#"+div_to_show_id+ " ul").style("height", x)
   }
+  
+  d3.event.preventDefault();
+})
+
+d3.selectAll("button#build").on("click", function(){
+  
+  var tf = d3.select("#trade_flow select").node().value.toLowerCase()
+  
+  var year = d3.select("#year select").node().value
+  
+  if(d3.select("#origin select").node()){
+    var origin = d3.select("#origin select").node().value
+  } else {
+    var origin = "{{ current_build.origin }}"
+  }
+  
+  if(d3.select("#destination select").node()){
+    var dest = d3.select("#destination select").node().value
+  } else {
+    var dest = "{{ current_build.dest }}"
+  }
+  
+  if(d3.select("#prod select").node()){
+    var prod = d3.select("#prod select").node().value
+  } else {
+    var prod = "{{ current_build.product }}"
+  }
+  
+  if(d3.select("#classification select").node()){
+    var classification = d3.select("#classification select").node().value.toLowerCase()
+  } else {
+    var classification = "{{ current_build.classification }}"
+  }
+  
+  var new_url =  "/explore/{{ current_build.app.type }}/"
+      new_url += classification + "/"
+      new_url += tf + "/"
+      new_url += origin + "/"
+      new_url += dest + "/"
+      new_url += prod + "/"
+      new_url += year + "/"
+  
+  window.location = new_url
   
   d3.event.preventDefault();
 })

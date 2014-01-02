@@ -5,6 +5,10 @@
   float: left;
   min-height: 50px;
 }
+.rtl .app_title#title {
+  float: right;
+  text-align: right;
+}
 .app_title#icons{
   width: 188px;
 }
@@ -539,6 +543,9 @@ a.app_name img {
   font-weight: 500;
   margin: 5px 0 0 0;
   padding: 0 0 2px 0;
+}
+.rtl .builds ul li {
+  text-align: right;
 }
 .builds ul li a {
   background: url("/static/img/icons/minieye.png") left 4px no-repeat;

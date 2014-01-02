@@ -48,9 +48,18 @@ Adding the Observatory to computer via virtualenv
 6. Import the latest dump of the database from [atlas.media.mit.edu/media/db/](http://atlas.media.mit.edu/media/db/)
 
         mysql -u username -p -h localhost DB_NAME < observatory_xxxx-xx-xx.sql
-7. Create local settings file based on missing info from settings.py
+7. Be sure to create the following local environment variables
 
-        touch django_files/atlas/settings_local.py
+        OEC_SECRET_KEY=some_s3cret_k3y
+        OEC_DB_USER=my_db_username
+        OEC_DB_PW=my_db_password
+        OEC_DB_HOST=localhost
+        OEC_DB_NAME=oec
+        * OEC_REDIS_HOST=localhost
+        * OEC_REDIS_PORT=6379
+        * OEC_REDIS_PW=redis_password
+        
+        * only necessary if using redis for caching
 8. Updating translations (if something is changed)
 
         pybabel extract -F babel.cfg -o messages.pot oec

@@ -35,7 +35,7 @@ d3.json("{{ current_build.data_url() }}", function(response){
       .depth(0)
       .shape("square")
       .style({"labels": {"align": "start"}})
-      // .color("export_val")
+      .color({"hs_id": "color"})
     
     d3.select("#viz")
       .call(viz)

@@ -24,7 +24,9 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 
 # Set session store as server side (Redis)
-app.session_interface = RedisSessionInterface()
+redis_sesh = RedisSessionInterface()
+if redis_sesh.redis:
+    app.session_interface = redis_sesh
 
 # Global Latest Year Variables
 __latest_year__ = {"sitc": 2012, "hs": 2011, "population": 2012}
