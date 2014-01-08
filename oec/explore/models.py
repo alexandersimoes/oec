@@ -115,6 +115,29 @@ class Build(db.Model, AutoSerialize):
     
     def get_ui(self, ui_type):
         return self.ui.filter(UI.type == ui_type).first()
+    
+    def get_default(self, looking_for, have, trade_flow, classification):
+        models = sitc_models if classification == "sitc" else hs_models
+        product_id = "sitc_id" if classification == "sitc" else "hs_id"
+        trade_flow = "export_val" if "export" in trade_flow else "import_val"
+        
+        if looking_for == "dest":
+            entity = models.Yod.query \
+                        .filter_by(origin=have) \
+                        .order_by(desc(trade_flow)).limit(1).first()
+        
+        elif looking_for == "origin":
+            entity = models.Yop.query \
+                        .filter(getattr(models.Yop, product_id) == have) \
+                        .order_by(desc(trade_flow)).limit(1).first()
+        
+        elif looking_for == "product":
+            entity = models.Yop.query \
+                        .filter_by(origin_id=have) \
+                        .order_by(desc(trade_flow)).limit(1).first()
+        # raise Exception(getattr(entity, looking_for))
+        if entity:
+            return getattr(entity, looking_for)
 
     def set_options(self, origin=None, dest=None, product=None, classification="hs", year=2010):
         
@@ -122,32 +145,30 @@ class Build(db.Model, AutoSerialize):
             if isinstance(origin, Country):
                 self.origin = origin
             elif origin == "all" or origin == "show":
-                self.origin = Country.query.filter_by(id=self.defaults["country"]).first()
+                self.origin = self.get_default("origin", product, self.trade_flow, classification)
             else:
                 self.origin = Country.query.filter_by(id=origin).first()
                 if not self.origin:
-                    self.origin = Country.query.filter_by(id=self.defaults["country"]).first()
+                    self.origin = self.get_default("origin", product, self.trade_flow, classification)
         
         if self.dest != "show" and self.dest != "all":
             if isinstance(dest, Country):
                 self.dest = dest
             elif dest == "all" or dest == "show":
-                self.dest = Country.query.filter_by(id=self.defaults["country"]).first()
+                self.dest = self.get_default("dest", self.origin, self.trade_flow, classification)
             else:
                 self.dest = Country.query.filter_by(id=dest).first()
                 if not self.dest:
-                    self.dest = Country.query.filter_by(id=self.defaults["country"]).first()
+                    self.dest = self.get_default("dest", self.origin, self.trade_flow, classification)
         
         if self.product != "show" and self.product != "all":
             tbl = Sitc if classification == "sitc" else Hs
             if isinstance(product, (Sitc, Hs)):
                 self.product = product
+            elif product == "all" or product == "show":
+                self.product = self.get_default("product", origin, self.trade_flow, classification)
             else:
-                if product == "all" or product == "show":
-                    prod_id = self.defaults["sitc"] if classification == "sitc" else self.defaults["hs"]
-                else:
-                    prod_id = product
-                self.product = tbl.query.filter_by(id=prod_id).first()
+                self.product = tbl.query.filter_by(id=product).first()
                 if not self.product:
                     self.product = tbl.query.filter_by(id=self.defaults["hs"]).first()
         
@@ -189,6 +210,15 @@ class Build(db.Model, AutoSerialize):
         url = '/{0}/{1}/{2}/{3}/{4}/{5}/'.format(self.classification, 
                 self.trade_flow, year, origin, dest, product)
         return url
+    
+    def attr_type(self):
+        if self.origin == "show":
+            return "origin"
+        if self.dest == "show":
+            return "dest"
+        if self.classification == "sitc":
+            return "sitc"
+        return "hs"
     
     def attr_url(self):
         if self.origin == "show" or self.dest == "show":

@@ -67,6 +67,8 @@ def get_locale(lang=None):
 @mod.route('set_lang/<lang>/')
 def set_lang(lang):
     g.locale = get_locale(lang)
+    if lang != "en":
+        flash("We've noticed you've changed the language, if you see some translations that look odd and you think you could do better feel free to help us out **google spreadsheet link**")
     return redirect(request.args.get('next') or \
                request.referrer or \
                url_for('general.home'))

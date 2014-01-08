@@ -89,7 +89,6 @@
   <div id="text_data">
     {% set stats = current_build.top_stats(20) %}
     {% if stats.entries %}
-    <h1>Top 20:</h1>
     <h2>Total: {{ stats.total|format_currency }}</h2>
     <table>
     {% for entry in stats.entries %}
@@ -106,7 +105,8 @@
   </div>
   
   <!-- Container for the visualization -->
-  <div id="viz">
+  <div id="zviz">
+    <iframe src="/explore/{{ current_build.url() }}embed/" width="640" height="528" frameborder="0"></iframe>
   </div>
   
   <!-- Container for the key/legend -->
@@ -271,7 +271,6 @@ var div_to_show_id = "{{ current_build.app.type }}"
 d3.select("#"+div_to_show_id+ " ul").style("height", "auto")
 var x = d3.select("#"+div_to_show_id+ " ul").style("height")
 d3.select("#"+div_to_show_id+ " ul").style("height", x)
-
 
 </script>
 {% endblock %}

@@ -2,11 +2,16 @@
 
 {% block head %}
 <link type="text/css" rel="stylesheet" media="all" href="/static/css/libs/d3plus.css" />
+<style>
+#viz{
+  display: none;
+}
+</style>
 {% endblock %}
 
 {% block content %}
 
-{{ current_build.data_url() }}
+<div id="loading"><h1>Loading...</h1></div>
 <div id="viz"></div>
 
 {% endblock %}
@@ -19,25 +24,48 @@
 <script>
 
 var viz = d3plus.viz()
+// console.log("{{ current_build.attr_url() }}")
 
 d3.json("{{ current_build.data_url() }}", function(response){
   d3.json("{{ current_build.attr_url() }}", function(attr){
+    var attr_id = "{{ current_build.attr_type() }}_id"
     
-    var attrs = {"hs_id": attr.data}
+    nested_attrs = {
+      "id": {},
+      "nest": {}
+    }
+    
+    attr.data.forEach(function(d){
+      nested_attrs["id"][d.id] = d
+      nested_attrs["nest"][d.id.substr(0, 2)] = d
+    })
+    
+    // console.log(hs_attrs)
+    
+    response.data.forEach(function(d){
+      d.nest = d[attr_id].substr(0, 2)
+      d.id = d[attr_id]
+    })
+    
+    // var attrs = nested_attrs
     
     viz
       .data(response.data)
       .type("tree_map")
-      .attrs(attrs)
-      .size("export_val")
-      .id(["hs_id"])
+      .attrs(nested_attrs)
+      .size("{{ current_build.trade_flow }}_val")
+      .id(["nest", "id"])
       .time({"key": "year", "solo": 2010})
-      .depth(0)
+      .depth(1)
       .shape("square")
       .style({"labels": {"align": "start"}})
-      .color({"hs_id": "color"})
+      .color("color")
+    
+    d3.select("#loading")
+      .style("display", "none")
     
     d3.select("#viz")
+      .style("display", "block")
       .call(viz)
     
   })

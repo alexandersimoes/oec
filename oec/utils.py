@@ -116,6 +116,8 @@ def gzip_data(json):
     used as getter'''
 def cached_query(id, data=None):
     c = current_app.config.get('REDIS_CACHE')
+    if c is None:
+        return None
     if data is None:
         return c.get(id)
     return c.set(id, data)
@@ -188,6 +190,10 @@ def make_query(data_table, url_args, lang, **kwargs):
     cache_id = request.path
     ret = {}
     
+    cached_q = cached_query(cache_id)
+    if cached_q:
+        return cached_q
+    
     '''Go through each of the filters from the URL and apply them to
         the query'''
     for filter in ["year", "origin_id", "dest_id", "hs_id", "sitc_id"]:
@@ -217,5 +223,5 @@ def make_query(data_table, url_args, lang, **kwargs):
     ret = gzip_data(jsonify(ret).data)
     
     cached_query(cache_id, ret)
-
+    
     return ret

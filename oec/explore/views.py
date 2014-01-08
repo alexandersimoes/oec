@@ -50,7 +50,6 @@ def explore(app_name, classification, trade_flow, origin, dest, \
         
     # raise Exception(make_query(current_build.get_tbl(), request.args, g.locale, **kwargs))
     # raise Exception(current_build.top_stats(20))
-    
     return render_template("explore/index.html",
         current_build = current_build,
         all_builds = all_builds)

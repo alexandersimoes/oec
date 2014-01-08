@@ -424,12 +424,13 @@ button:active {
   font-size: 16px;
   padding: 10px 0;
 }
-.warning {
+#server_message{
   border: solid 1px #f0c36d;
   background: #f9edbe;
   color: #a07631;
   font-size: 16px;
   padding: 10px 0;
+  text-align: center;
 }
 .alert a,
 .warning a {

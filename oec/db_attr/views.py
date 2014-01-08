@@ -33,8 +33,9 @@ def attrs(attr="country", Attr_id=None):
         ret.headers['Content-Length'] = str(len(ret.data))
         return ret
     
-    attrs = Attr.query.filter(Hs.color!=None).all()
-    
+    attrs = Attr.query.filter(Attr.color!=None).all()
+    # attrs = Attr.query.all()
+    # raise Exception(attrs)
     ret["data"] = [a.serialize() for a in attrs]
     
     ret = jsonify(ret)
