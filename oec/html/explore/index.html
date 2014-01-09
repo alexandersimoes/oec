@@ -180,7 +180,6 @@
     <h3>{{ ui.name }}</h3>
     <select>
       {% for option in ui.data %}
-      {{ ui.current|lower|replace(" ", "_") }} | {{ option|lower|replace(" ", "_") }}
       <option value="{% if option is string or option is number %}{{option}}{% else %}{{option.id}}{% endif %}" {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") %}selected="selected"{% endif %}>{% if option is string or option is number %}{{option}}{% else %}{{option.get_name()}}{% endif %}</option>
       {% endfor %}
     </select>
@@ -223,24 +222,33 @@ d3.selectAll("button#build").on("click", function(){
   
   var tf = d3.select("#trade_flow select").node().value.toLowerCase()
   
-  var year = d3.select("#year select").node().value
+  if (d3.select("#year select").node()){
+    var year = d3.select("#year select").node().value
+  }
+  else {
+    var year = d3.select("#start_year select").node().value
+    year += "."
+    year += d3.select("#end_year select").node().value
+    year += "."
+    year += d3.select("#interval select").node().value
+  }
   
   if(d3.select("#origin select").node()){
     var origin = d3.select("#origin select").node().value
   } else {
-    var origin = "{{ current_build.origin }}"
+    var origin = "{{ current_build.origin.id }}" || "{{ current_build.origin }}"
   }
   
   if(d3.select("#destination select").node()){
     var dest = d3.select("#destination select").node().value
   } else {
-    var dest = "{{ current_build.dest }}"
+    var dest = "{{ current_build.dest.id }}" || "{{ current_build.dest }}"
   }
   
   if(d3.select("#prod select").node()){
     var prod = d3.select("#prod select").node().value
   } else {
-    var prod = "{{ current_build.product }}"
+    var prod = "{{ current_build.product.id }}" || "{{ current_build.product }}"
   }
   
   if(d3.select("#classification select").node()){

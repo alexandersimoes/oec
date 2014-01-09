@@ -34,13 +34,14 @@ def explore(app_name, classification, trade_flow, origin, dest, \
                         product=build_filters["product"]).first_or_404()
     current_build.set_options(origin=origin, dest=dest, product=product, 
                                 classification=classification, year=year)
-    
+    # raise Exception(current_build.data_url())
     # raise Exception(current_build.top_stats(5)["entries"][0])
     
     '''Every possible build for accordion links'''
     all_builds = Build.query.all()
     for i, build in enumerate(all_builds):
         build.set_options(origin=origin, dest=dest, product=product, classification=classification, year=year)
+    # raise Exception(all_builds[10].data_url())
     
     kwargs = {"trade_flow":trade_flow, "origin_id":origin, "dest_id":dest, "year":year}
     if classification == "sitc":

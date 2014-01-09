@@ -180,9 +180,11 @@ class Build(db.Model, AutoSerialize):
         
     '''Returns the URL for the specific build.'''
     def url(self, year=None):
+        year = self.year or year
         if not year:
-            # year = __latest_year__[self.classification]
-            year = 2010
+            year = __latest_year__[self.classification]
+        if "." in year and self.app.type != "stacked":
+            year = year.split(".")[0]
         origin, dest, product = [self.origin, self.dest, self.product]
         if isinstance(origin, Country):
             origin = origin.id
@@ -319,17 +321,42 @@ class Build(db.Model, AutoSerialize):
             "current": self.trade_flow,
             "data": ["Export", "Import", "Net Export", "Net Import"]
         }
-        year = {
-            "name": "Year",
-            "current": int(self.year),
-            "data": available_years[self.classification]
-        }
         classification = {
             "name": "Classification",
             "current": self.classification,
             "data": ["HS", "SITC"]
         }
-        ui = [trade_flow, year]
+        ui = [trade_flow]
+        
+        if "." in self.year:
+            year_parts = [int(y) for y in self.year.split(".")]
+            if len(year_parts) == 2:
+                years = range(year_parts[0], year_parts[1]+1)
+            else:
+                years = range(year_parts[0], year_parts[1]+1, year_parts[2])
+            start_year = {
+                "name": "Start Year",
+                "current": years[0],
+                "data": available_years[self.classification]
+            }
+            end_year = {
+                "name": "End Year",
+                "current": years[-1],
+                "data": available_years[self.classification]
+            }
+            interval = {
+                "name": "Interval",
+                "current": years[1] - years[0],
+                "data": range(1, 10)
+            }
+            ui = ui + [start_year, end_year, interval]
+        else:
+            year = {
+                "name": "Year",
+                "current": int(self.year),
+                "data": available_years[self.classification]
+            }
+            ui.append(year)
         
         if isinstance(self.origin, Country):
             country_list = Country.query.filter(Country.id_3char != None)
