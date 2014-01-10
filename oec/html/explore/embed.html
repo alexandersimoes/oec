@@ -20,75 +20,120 @@
 
 <script src="/static/js/libs/modernizr.custom.js"></script>
 <script src="/static/js/libs/d3plus.js"></script>
+<script src="/static/js/libs/queue.js"></script>
 
 <script>
 
 var viz = d3plus.viz()
-// console.log("{{ current_build.data_url() }}")
-
-d3.json("{{ current_build.data_url() }}", function(response){
-  d3.json("{{ current_build.attr_url() }}", function(attr){
-    var attr_id = "{{ current_build.attr_type() }}_id"
-    var app_type = "{{ current_build.app.type }}"
-    
-    nested_attrs = {
+var attr_id = "{{ current_build.attr_type() }}_id"
+var app_type = "{{ current_build.app.type }}" 
+var nested_attrs = {
       "id": {},
       "nest": {}
     }
-    
-    attr.data.forEach(function(d){
-      nested_attrs["id"][d.id] = d
-      nested_attrs["nest"][d.id.substr(0, 2)] = d
-    })
-    
-    response.data.forEach(function(d){
-      d.nest = d[attr_id].substr(0, 2)
-      d.id = d[attr_id]
-    })
-    
-    
-    switch (app_type){
+var q = queue()
+          .defer(d3.json, "{{ current_build.data_url() }}")
+          .defer(d3.json, "{{ current_build.attr_url() }}")
+
+switch (app_type){
+  
+  case "tree_map":
+    var go = function(error, raw_data, raw_attrs){
       
-      case "tree_map":
-        viz
-          .data(response.data)
-          .type("tree_map")
-          .attrs(nested_attrs)
-          .size("{{ current_build.trade_flow }}_val")
-          .id(["nest", "id"])
-          .time({"key": "year", "solo": 2010})
-          .depth(1)
-          .shape("square")
-          .style({"labels": {"align": "start"}})
-          .color("color")
-        break;
+      raw_attrs.data.forEach(function(d){
+        nested_attrs["id"][d.id] = d
+        nested_attrs["nest"][d.id.substr(0, 2)] = d
+      })
       
-      case "stacked":
-        viz
-          .data(response.data)
-          .type("stacked")
-          .attrs(nested_attrs)
-          .id(["nest", "id"])
-          .time({"key": "year"})
-          .depth(1)
-          .shape("area")
-          .style({"labels": {"align": "start"}})
-          .color("color")
-          .x("year")
-          .y("{{ current_build.trade_flow }}_val")
-          .order("nest")
-        break;
+      raw_data.data.forEach(function(d){
+        d.nest = d[attr_id].substr(0, 2)
+        d.id = d[attr_id]
+      })
+      
+      viz
+        .data(raw_data.data)
+        .type("tree_map")
+        .attrs(nested_attrs)
+        .size("{{ current_build.trade_flow }}_val")
+        .id(["nest", "id"])
+        // .time({"key": "year", "solo": 2010})
+        .time({"key": "year"})
+        .depth(1)
+        .shape("square")
+        .style({"labels": {"align": "start"}})
+        .color("color")
+        
+      d3.select("#loading")
+        .style("display", "none")
+  
+      d3.select("#viz")
+        .style("display", "block")
+        .call(viz)
     }
-    
-    d3.select("#loading")
-      .style("display", "none")
-    
-    d3.select("#viz")
-      .style("display", "block")
-      .call(viz)
-    
-  })
-})
+    break;
+  
+  case "stacked":
+    // viz
+    //   .data(response.data)
+    //   .type("stacked")
+    //   .attrs(nested_attrs)
+    //   .id(["nest", "id"])
+    //   .time({"key": "year"})
+    //   .depth(1)
+    //   .shape("area")
+    //   .style({"labels": {"align": "start"}})
+    //   .color("color")
+    //   .x("year")
+    //   .y("{{ current_build.trade_flow }}_val")
+    //   .order("nest")
+    break;
+  
+  case "network":
+    q = q.defer(d3.json, "/static/json/network_{{ current_build.classification }}.json")
+    var go = function(error, raw_data, raw_attrs, raw_network){
+      // console.log(error, raw_data, raw_attrs, raw_network.nodes, raw_network.edges)
+      
+      raw_attrs.data.forEach(function(d){
+        nested_attrs["id"][d.id] = d
+        nested_attrs["nest"][d.id.substr(0, 2)] = d
+      })
+      // console.log(raw_attrs.data)
+      
+      raw_data.data.forEach(function(d){
+        d.nest = d[attr_id].substr(0, 2)
+        d.id = d[attr_id]
+      })
+      
+      // raw_network.edges.forEach(function(d){
+      //   d.source = raw_network.nodes[d.source]
+      //   d.target = raw_network.nodes[d.target]
+      // })
+      
+      // console.log(JSON.stringify(raw_network))
+      
+      viz
+        .data(raw_data.data)
+        .attrs(nested_attrs)
+        .type("network")
+        .id("id")
+        // .style({"labels": {"align": "start"}})
+        .color("color")
+        .nodes(raw_network.nodes)
+        .links(raw_network.edges)
+      
+      d3.select("#loading")
+        .style("display", "none")
+  
+      d3.select("#viz")
+        .style("display", "block")
+        .call(viz)
+      
+    }
+    break;
+}
+
+q.await(go);
+
 </script>
 
 {% endblock %}
