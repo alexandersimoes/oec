@@ -183,7 +183,7 @@ class Build(db.Model, AutoSerialize):
         year = self.year or year
         if not year:
             year = __latest_year__[self.classification]
-        if "." in year and self.app.type != "stacked":
+        if "." in str(year) and self.app.type != "stacked":
             year = year.split(".")[0]
         origin, dest, product = [self.origin, self.dest, self.product]
         if isinstance(origin, Country):

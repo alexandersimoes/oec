@@ -21,6 +21,7 @@
 <script src="/static/js/libs/modernizr.custom.js"></script>
 <script src="/static/js/libs/d3plus.js"></script>
 <script src="/static/js/libs/queue.js"></script>
+<script src="/static/js/libs/topojson.js"></script>
 
 <script>
 
@@ -40,9 +41,14 @@ switch (app_type){
   case "tree_map":
     var go = function(error, raw_data, raw_attrs){
       
-      raw_attrs.data.forEach(function(d){
-        nested_attrs["id"][d.id] = d
-        nested_attrs["nest"][d.id.substr(0, 2)] = d
+      nested_attrs["nest"] = raw_attrs.data.filter(function(d){
+        return d.id.length == 2
+      })
+      nested_attrs["nest"].forEach(function(d){
+        d.nest = d.id
+      })
+      nested_attrs["id"] = raw_attrs.data.filter(function(d){
+        return d.id.length > 2
       })
       
       raw_data.data.forEach(function(d){
@@ -62,6 +68,7 @@ switch (app_type){
         .shape("square")
         .style({"labels": {"align": "start"}})
         .color("color")
+        .text({"nest":"name","id":"name"})
         
       d3.select("#loading")
         .style("display", "none")
@@ -73,57 +80,132 @@ switch (app_type){
     break;
   
   case "stacked":
-    // viz
-    //   .data(response.data)
-    //   .type("stacked")
-    //   .attrs(nested_attrs)
-    //   .id(["nest", "id"])
-    //   .time({"key": "year"})
-    //   .depth(1)
-    //   .shape("area")
-    //   .style({"labels": {"align": "start"}})
-    //   .color("color")
-    //   .x("year")
-    //   .y("{{ current_build.trade_flow }}_val")
-    //   .order("nest")
-    break;
-  
-  case "network":
-    q = q.defer(d3.json, "/static/json/network_{{ current_build.classification }}.json")
-    var go = function(error, raw_data, raw_attrs, raw_network){
-      // console.log(error, raw_data, raw_attrs, raw_network.nodes, raw_network.edges)
+    var go = function(error, raw_data, raw_attrs){
       
-      raw_attrs.data.forEach(function(d){
-        nested_attrs["id"][d.id] = d
-        nested_attrs["nest"][d.id.substr(0, 2)] = d
+      nested_attrs["nest"] = raw_attrs.data.filter(function(d){
+        return d.id.length == 2
       })
-      // console.log(raw_attrs.data)
+      nested_attrs["nest"].forEach(function(d){
+        d.nest = d.id
+      })
+      nested_attrs["id"] = raw_attrs.data.filter(function(d){
+        return d.id.length > 2
+      })
       
       raw_data.data.forEach(function(d){
         d.nest = d[attr_id].substr(0, 2)
         d.id = d[attr_id]
       })
       
-      // raw_network.edges.forEach(function(d){
-      //   d.source = raw_network.nodes[d.source]
-      //   d.target = raw_network.nodes[d.target]
-      // })
+      viz
+        .data(raw_data.data)
+        .type("stacked")
+        .attrs(nested_attrs)
+        .id(["nest", "id"])
+        .time({"key": "year"})
+        .depth(1)
+        .shape("area")
+        .color("color")
+        .x("year")
+        .y("{{ current_build.trade_flow }}_val")
+        .order("nest")
+        .text({"nest":"name","id":"name"})
+        
+      d3.select("#loading")
+        .style("display", "none")
+  
+      d3.select("#viz")
+        .style("display", "block")
+        .call(viz)
+    }
+    break;
+  
+  case "network":
+    q = q.defer(d3.json, "/static/json/network_{{ current_build.classification }}.json")
+    var go = function(error, raw_data, raw_attrs, raw_network){
       
-      // console.log(JSON.stringify(raw_network))
+      nested_attrs["nest"] = raw_attrs.data.filter(function(d){
+        return d.id.length == 2
+      })
+      nested_attrs["nest"].forEach(function(d){
+        d.nest = d.id
+      })
+      nested_attrs["id"] = raw_attrs.data.filter(function(d){
+        return d.id.length > 2
+      })
+      
+      raw_data.data.forEach(function(d){
+        d.nest = d[attr_id].substr(0, 2)
+        d.id = d[attr_id]
+      })
       
       viz
         .data(raw_data.data)
         .attrs(nested_attrs)
         .type("network")
         .id("id")
-        // .style({"labels": {"align": "start"}})
         .color("color")
         .nodes(raw_network.nodes)
         .links(raw_network.edges)
+        .active({
+          "key": function(d){
+            return d.export_rca >= 1;
+          },
+          "spotlight":true
+        })
+        
       
       d3.select("#loading")
         .style("display", "none")
   
+      d3.select("#viz")
+        .style("display", "block")
+        .call(viz)
+      
+    }
+    break;
+    
+  case "geo_map":
+    q = q.defer(d3.json, "/static/json/country_coords.json")
+    var go = function(error, raw_data, raw_attrs, raw_coords){
+      nested_attrs["nest"] = raw_attrs.data.filter(function(d){
+        return d.id.length == 2
+      })
+      nested_attrs["nest"].forEach(function(d){
+        d.nest = d.id
+      })
+      nested_attrs["id"] = raw_attrs.data.filter(function(d){
+        return d.id.length > 2
+      })
+      
+      raw_data.data.forEach(function(d){
+        d.nest = d[attr_id].substr(0, 2)
+        d.id = d[attr_id]
+        // console.log(d)
+      })
+      
+      raw_coords["objects"]["TM_WORLD_BORDERS-0.3"]["geometries"].forEach(function(d){
+        country = raw_attrs.data.filter(function(dd){
+          return dd.id.substr(2) == d.id.toLowerCase()
+        })
+        
+        if (country.length) {
+          d.id = country[0].id
+        }
+      })
+      
+      viz
+        .data(raw_data.data)
+        .attrs(nested_attrs)
+        .type("geo_map")
+        .id("id")
+        // .style({"labels": {"align": "start"}})
+        .color("{{ current_build.trade_flow }}_val")
+        .coords(raw_coords)
+      
+      d3.select("#loading")
+        .style("display", "none")
+        
       d3.select("#viz")
         .style("display", "block")
         .call(viz)

@@ -93,7 +93,13 @@ class Hs(db.Model, AutoSerialize):
     
     def get_icon(self):
         return "/static/img/icons/hs/hs_%s.png" % (self.id[:2])
+    
+    def serialize(self):
+        auto_serialized = super(Hs, self).serialize()
+        auto_serialized["name"] = self.get_name()
 
+        return auto_serialized
+    
     def __repr__(self):
         return '<Hs %r>' % (self.hs)
 
