@@ -16,7 +16,6 @@ def explore_redirect():
                 classification="hs", trade_flow="export", origin="nausa", \
                 dest="all", product="show", year="2010"))
 
-@mod.route('/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/')
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
 def explore(app_name, classification, trade_flow, origin, dest, \
                 product, year="2011"):
@@ -54,6 +53,21 @@ def explore(app_name, classification, trade_flow, origin, dest, \
     return render_template("explore/index.html",
         current_build = current_build,
         all_builds = all_builds)
+
+@mod.route('/<app_name>/<trade_flow>/<origin>/<dest>/<product>/')
+@mod.route('/<app_name>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
+def explore_legacy(app_name, trade_flow, origin, dest, product, year='2011'):
+    c = 'sitc' if int(year) < 1995 else 'hs'
+    if product != "show" and product != "all":
+        prod = Hs.query.filter_by(hs=product).first()
+        c = 'hs'
+        if not prod:
+            c = 'sitc'
+            prod = Sitc.query.filter_by(sitc=product).first()
+        product = prod.id
+    return redirect(url_for('.explore', app_name=app_name, \
+                classification=c, trade_flow=trade_flow, origin=origin, \
+                dest=dest, product=product, year=year))
 
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/embed/')
 def embed(app_name, classification, trade_flow, origin, dest, \

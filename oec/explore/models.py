@@ -147,7 +147,7 @@ class Build(db.Model, AutoSerialize):
             elif origin == "all" or origin == "show":
                 self.origin = self.get_default("origin", product, self.trade_flow, classification)
             else:
-                self.origin = Country.query.filter_by(id=origin).first()
+                self.origin = Country.query.filter_by(id_3char=origin).first()
                 if not self.origin:
                     self.origin = self.get_default("origin", product, self.trade_flow, classification)
         
@@ -157,7 +157,7 @@ class Build(db.Model, AutoSerialize):
             elif dest == "all" or dest == "show":
                 self.dest = self.get_default("dest", self.origin, self.trade_flow, classification)
             else:
-                self.dest = Country.query.filter_by(id=dest).first()
+                self.dest = Country.query.filter_by(id_3char=dest).first()
                 if not self.dest:
                     self.dest = self.get_default("dest", self.origin, self.trade_flow, classification)
         
@@ -171,7 +171,7 @@ class Build(db.Model, AutoSerialize):
                 self.product = tbl.query.filter_by(id=product).first()
                 if not self.product:
                     self.product = tbl.query.filter_by(id=self.defaults["hs"]).first()
-        
+        # raise Exception(self.origin)
         if classification:
             self.classification = classification
         
@@ -189,9 +189,9 @@ class Build(db.Model, AutoSerialize):
             year = "{0}.{1}.{2}".format(available_years[self.classification][0], year, 5)
         origin, dest, product = [self.origin, self.dest, self.product]
         if isinstance(origin, Country):
-            origin = origin.id
+            origin = origin.id_3char
         if isinstance(dest, Country):
-            dest = dest.id
+            dest = dest.id_3char
         if isinstance(product, (Hs, Sitc)):
             product = product.id
         url = '{0}/{1}/{2}/{3}/{4}/{5}/{6}/'.format(self.app.type, 
@@ -205,10 +205,11 @@ class Build(db.Model, AutoSerialize):
         if not year:
             year = __latest_year__[self.classification]
         origin, dest, product = [self.origin, self.dest, self.product]
+        
         if isinstance(origin, Country):
-            origin = origin.id
+            origin = origin.id_3char
         if isinstance(dest, Country):
-            dest = dest.id
+            dest = dest.id_3char
         if isinstance(product, (Hs, Sitc)):
             product = product.id
         url = '/{0}/{1}/{2}/{3}/{4}/{5}/'.format(self.classification, 

@@ -380,3 +380,21 @@ def api_embed():
 def api_data():
     g.page_type = "api"
     return render_template("api/data.html")
+
+###############################
+# Legacy support views
+# ---------------------------
+@mod.route('embed/<app_name>/<trade_flow>/<origin>/<dest>/<product>/')
+@mod.route('embed/<app_name>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
+def embed_legacy(app_name, trade_flow, origin, dest, product, year='2011'):
+    c = 'sitc' if int(year) < 1995 else 'hs'
+    if product != "show" and product != "all":
+        prod = Hs.query.filter_by(hs=product).first()
+        c = 'hs'
+        if not prod:
+            c = 'sitc'
+            prod = Sitc.query.filter_by(sitc=product).first()
+        product = prod.id
+    return redirect(url_for('explore.embed', app_name=app_name, \
+                classification=c, trade_flow=trade_flow, origin=origin, \
+                dest=dest, product=product, year=year))
