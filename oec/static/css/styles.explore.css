@@ -24,6 +24,9 @@
   margin: 16px 0px 0px 0px;
   vertical-align: top;
 }
+.app_title#icons h2.stacked{
+  font-size: 14px;
+}
 .app_title#icons h2.small{
   margin-top: 15px;
 }

@@ -47,9 +47,14 @@ class Country(db.Model, AutoSerialize):
     
     def get_icon(self):
         return "/static/img/icons/country/country_%s.png" % (self.id)
+
+    def serialize(self):
+        auto_serialized = super(Country, self).serialize()
+        auto_serialized["name"] = self.get_name()
+        return auto_serialized
     
     def __repr__(self):
-        return '<Country %r>' % (self.id_3char)
+        return '<Country %r>' % (self.id)
 
 class Country_name(db.Model, AutoSerialize):
 
@@ -97,7 +102,6 @@ class Hs(db.Model, AutoSerialize):
     def serialize(self):
         auto_serialized = super(Hs, self).serialize()
         auto_serialized["name"] = self.get_name()
-
         return auto_serialized
     
     def __repr__(self):
@@ -147,6 +151,11 @@ class Sitc(db.Model, AutoSerialize):
     
     def get_icon(self):
         return "/static/img/icons/sitc/sitc_%s.png" % (self.id[:2])
+
+    def serialize(self):
+        auto_serialized = super(Sitc, self).serialize()
+        auto_serialized["name"] = self.get_name()
+        return auto_serialized
 
     def __repr__(self):
         return '<Sitc %r>' % (self.sitc)

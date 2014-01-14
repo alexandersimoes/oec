@@ -22,7 +22,7 @@
   <img style="background-color: {{ current_build.product.color }};" src="{{ current_build.product.get_icon() }}">
   {% endif %}
   
-  <h2>{{ current_build.year }}</h2>
+  <h2 class="{{ current_build.app.type }}">{{ current_build.get_year() }}</h2>
   
   {% if current_build.dest != "show" and current_build.dest != "all" %}
   <img src="{{ current_build.dest.get_icon() }}">

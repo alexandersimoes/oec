@@ -63,6 +63,15 @@ class Build(db.Model, AutoSerialize):
             backref=db.backref('Builds', lazy='dynamic'))
     # name = db.relationship("Build_name", backref="build", lazy="joined")
     
+    def get_year(self):
+        if not self.year:
+            return "2011"
+        elif "." in self.year:
+            years = self.year.split(".")
+            return "{0} - {1}".format(years[0], years[1])
+        else:
+            return self.year
+    
     def get_short_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
         build_name = Build_name.query.filter_by(name_id=self.name_id, lang=lang).first()
@@ -272,9 +281,13 @@ class Build(db.Model, AutoSerialize):
                         .filter((tbl.import_val - tbl.export_val) > 0) \
                         .order_by(desc(tbl.import_val - tbl.export_val))
             sum_query = db.session.query(db.func.sum(tbl.import_val - tbl.export_val)).filter((tbl.import_val - tbl.export_val) > 0)
-
-        sum_query = sum_query.filter_by(year=self.year)
-        query = query.filter_by(year=self.year)
+        
+        year = self.year
+        if "." in str(year):
+            year = str(year).split(".")[1]
+        
+        sum_query = sum_query.filter_by(year=year)
+        query = query.filter_by(year=year)
         
         if isinstance(self.origin, Country):
             query = query.filter_by(origin_id=self.origin.id)
@@ -288,9 +301,7 @@ class Build(db.Model, AutoSerialize):
         if isinstance(self.product, Hs):
             query = query.filter_by(hs_id=self.product.id)
             sum_query = sum_query.filter_by(hs_id=self.product.id)
-            
-        # raise Exception(self.year, self.origin, self.dest)
-        # raise Exception(query.all())
+        
         sum = sum_query.first()[0]
         
         show_attr = {self.origin:"origin", self.dest:"dest", self.product:"product"}
