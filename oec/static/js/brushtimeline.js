@@ -1,16 +1,19 @@
 function make_timeline(container, min, max, init, min_required, callback){
-  var margin = {top: 5, right: 10, bottom: 5, left: 0},
+  var margin = {top: 0, right: 0, bottom: 0, left: 0},
       width = container.node().offsetWidth - margin.left - margin.right,
       height = container.node().offsetHeight - margin.top - margin.bottom,
-      min_required = min_required || 1;
+      min_required = min_required || 1,
+      grid_height = height / 4,
+      axis_height = grid_height * 3,
+      tick_width = width / (parseInt(max+1) - parseInt(min));
 
   var x = d3.time.scale()
-      .domain([new Date(min, 0, 1), new Date(max+1, 0, 1)])
+      .domain([new Date(parseInt(min), 0, 1), new Date(parseInt(max+1), 0, 1)])
       .range([0, width]);
 
   var brush = d3.svg.brush()
       .x(x)
-      .extent([new Date(init, 0, 1), new Date(init+1, 0, 1)])
+      .extent([new Date(parseInt(init), 0, 1), new Date(parseInt(init)+1, 0, 1)])
       .on("brush", brushed)
       .on("brushend", brushend);
 
@@ -24,41 +27,46 @@ function make_timeline(container, min, max, init, min_required, callback){
       .attr("class", "grid-background")
       .style("fill", "#ddd")
       .attr("width", width)
-      .attr("height", height/2);
+      .attr("height", grid_height);
 
   svg.append("g")
       .attr("class", "x grid")
-      .attr("transform", "translate(0," + height/2 + ")")
+      .attr("transform", "translate(0," + grid_height + ")")
       .call(d3.svg.axis()
           .scale(x)
           .orient("bottom")
           .ticks(d3.time.years, 1)
-          .tickSize(-height)
+          .tickSize(-grid_height)
           .tickFormat(""))
     .selectAll(".tick")
 
   svg.append("g")
       .attr("class", "x axis")
-      .attr("transform", "translate(0," + height/2 + ")")
+      // .attr("transform", "translate(0," + axis_height/2 + ")")
       .call(d3.svg.axis()
         .scale(x)
         .orient("bottom")
         // .ticks(d3.time.years)
         .ticks(function(start, end){
           var new_end = end.setFullYear(end.getFullYear()-1)
-          return d3.time.years(start, new_end, 2)
+          var interval = (start - new_end) > 20 ? 2 : 1;
+          return d3.time.years(start, new_end, interval)
         })
+        .tickSize(0)
         .tickPadding(0))
     .selectAll("text")
-        .attr("y", function(d){
-          return -this.getBBox().width/6
-          // return -this.getBBox().width
-        })
         .style("font", "11px sans-serif")
-        .attr("x", 4)
-        // .attr("y", 0)
-        .attr("dy", ".35em")
-        .attr("transform", "rotate(70)")
+        // .attr("y", tick_width*0.05)
+        // .attr("x", axis_height/3)
+        // .attr("dy", ".35em")
+        .attr("transform", function(d){
+          console.log(tick_width, axis_height)
+          var y_offset = tick_width/2;
+          var x_offset = axis_height/10;
+          // return "rotate(70)translate("+x_offset+", -"+y_offset+")"
+          // return "rotate(70)translate(0, -"+y_offset+")"
+          return "translate("+(tick_width/2)+", 10)rotate(70)"
+        })
         .style("text-anchor", "start");
   
   svg.selectAll(".domain").style("display", "none")
@@ -71,7 +79,7 @@ function make_timeline(container, min, max, init, min_required, callback){
       .call(brush);
 
   gBrush.selectAll("rect")
-      .attr("height", height/2);
+      .attr("height", grid_height);
 
   function brushed() {
     var extent0 = brush.extent(),

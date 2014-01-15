@@ -3,12 +3,20 @@
 {% block head %}
 <link type="text/css" rel="stylesheet" media="all" href="/static/css/libs/d3plus.css" />
 <style>
+body {
+  background: white;
+}
 #viz{
   display: none;
 }
 #timeline {
 /*  border: red 1px solid;*/
-  height: 60px;
+  height: 40px;
+}
+#timeline button {
+  display: none;
+  font-size: 15px;
+  margin: 4px auto;
 }
 </style>
 {% endblock %}
@@ -17,7 +25,7 @@
 
 <div id="loading"><h1>Loading...</h1></div>
 <div id="viz"></div>
-<div id="timeline"><button>Click to view all years...</button></div>
+<div id="timeline"><button>Click to view more years &raquo;</button></div>
 
 {% endblock %}
 
@@ -35,10 +43,7 @@
 var viz = d3plus.viz().container("#viz"),
     attr_id = "{{ current_build.attr_type() }}_id",
     app_type = "{{ current_build.app.type }}",
-    nested_attrs = {
-      "id": {},
-      "nest": {}
-    },
+    attrs = {},
     q = queue()
           .defer(d3.json, "{{ current_build.data_url() }}")
           .defer(d3.json, "{{ current_build.attr_url() }}");
@@ -47,18 +52,11 @@ var viz = d3plus.viz().container("#viz"),
     raw data with changes */
 function format_data(error, raw_data, raw_attrs, raw_other){
   
-  // create nested attrs with only 2 digit attrs
-  nested_attrs["nest"] = raw_attrs.data.filter(function(d){
-    return d.id.length == 2
-  })
   // set key 'nest' to their id
-  nested_attrs["nest"].forEach(function(d){
-    d.nest = d.id
+  raw_attrs.data.forEach(function(d){
+    attrs[d.id] = d
   })
-  // filter out *remove* any attrs that are in the nested attrs
-  nested_attrs["id"] = raw_attrs.data.filter(function(d){
-    return d.id.length > 2
-  })
+
   // go through raw data and set each items nest and id vars properly
   raw_data.data.forEach(function(d){
     d.nest = d[attr_id].substr(0, 2)
@@ -75,6 +73,8 @@ function finish(){
   d3.select("#viz")
     .style("display", "block")
     .call(viz)
+  
+  d3.select("#timeline button").style("display", "block")
 }
 
 /* the ~~BIG KAHUNA~~ 
@@ -94,18 +94,18 @@ switch (app_type){
       viz
         .data(raw_data.data)
         .type("tree_map")
-        .attrs(nested_attrs)
+        .attrs(attrs)
         .size("{{ current_build.trade_flow }}_val")
         .id(["nest", "id"])
-        .time({"key": "year", "solo": 2010})
+        .time({"key": "year", "solo": "{{ current_build.year }}" })
         // .time({"key": "year"})
         .depth(1)
         .shape("square")
         .style({"labels": {"align": "start"}})
         .color("color")
         .text({"nest":"name","id":"name"})
-        .title("Tree Map...")
-        .title({"total":true})
+        // .title("Tree Map...")
+        .title({"total": {"prefix":"Total: "}})
         .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
       
       finish()
@@ -206,15 +206,21 @@ q.await(go);
 d3.select("#timeline button").on("click", function(){
   d3.json("{{ current_build.data_url('all') }}", function(raw_data){
     
-    viz.data(raw_data.data).time({"solo": [2010]}).draw()
+    // go through raw data and set each items nest and id vars properly
+    raw_data.data.forEach(function(d){
+      d.nest = d[attr_id].substr(0, 2)
+      d.id = d[attr_id]
+    })
+    
+    viz.data(raw_data.data).time({"solo": ["{{ current_build.year }}"]}).draw()
     d3.select("#timeline button").remove()
     
-    make_timeline(d3.select("#timeline"), 1995, 2011, 2010, 1, function(start, end){
-      console.log(start)
-      viz.time({"solo": [start]}).draw()
+    make_timeline(d3.select("#timeline"), 1995, 2011, "{{ current_build.year }}", 1, function(start, end){
+      viz.time({"solo": d3.range(start, end)}).draw()
     })
     
   })
+  d3.event.preventDefault();
 })
 
 
