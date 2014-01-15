@@ -69,7 +69,8 @@ def explore_legacy(app_name, trade_flow, origin, dest, product, year='2011'):
                 classification=c, trade_flow=trade_flow, origin=origin, \
                 dest=dest, product=product, year=year))
 
-@mod.route('/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/embed/')
+@mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/')
+@mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
 def embed(app_name, classification, trade_flow, origin, dest, \
                 product, year="2011"):
 

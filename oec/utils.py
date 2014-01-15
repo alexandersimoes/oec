@@ -205,15 +205,16 @@ def make_query(data_table, url_args, lang, **kwargs):
                 format start.end.interval i.e. 2000.2004.2 would return data 
                 for the years 2000, 2002, and 2004'''
             if filter == "year":
-                if "." in kwargs[filter]:
-                    year_parts = [int(y) for y in kwargs[filter].split(".")]
-                    if len(year_parts) == 2:
-                        years = range(year_parts[0], year_parts[1]+1)
+                if kwargs[filter] != "all":
+                    if "." in kwargs[filter]:
+                        year_parts = [int(y) for y in kwargs[filter].split(".")]
+                        if len(year_parts) == 2:
+                            years = range(year_parts[0], year_parts[1]+1)
+                        else:
+                            years = range(year_parts[0], year_parts[1]+1, year_parts[2])
                     else:
-                        years = range(year_parts[0], year_parts[1]+1, year_parts[2])
-                else:
-                    years = [kwargs[filter]]
-                query = query.filter(getattr(data_table, filter).in_(years))
+                        years = [kwargs[filter]]
+                    query = query.filter(getattr(data_table, filter).in_(years))
             
             elif filter == "origin_id" or filter == "dest_id":
                 id = Country.query.filter_by(id_3char=kwargs[filter]).first().id

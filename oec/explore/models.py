@@ -210,7 +210,7 @@ class Build(db.Model, AutoSerialize):
 
     '''Returns the data URL for the specific build.'''
     def data_url(self, year=None):
-        year = self.year or year
+        year = year or self.year
         if not year:
             year = __latest_year__[self.classification]
         origin, dest, product = [self.origin, self.dest, self.product]
