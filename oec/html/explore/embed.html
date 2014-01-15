@@ -31,36 +31,65 @@
 
 <script>
 
-var viz = d3plus.viz().container("#viz").dev(true)
-var attr_id = "{{ current_build.attr_type() }}_id"
-var app_type = "{{ current_build.app.type }}" 
-var nested_attrs = {
+/* init vars */
+var viz = d3plus.viz().container("#viz"),
+    attr_id = "{{ current_build.attr_type() }}_id",
+    app_type = "{{ current_build.app.type }}",
+    nested_attrs = {
       "id": {},
       "nest": {}
-    }
-var q = queue()
-          .defer(d3.json, "{{ current_build.data_url('all') }}")
-          .defer(d3.json, "{{ current_build.attr_url() }}")
+    },
+    q = queue()
+          .defer(d3.json, "{{ current_build.data_url() }}")
+          .defer(d3.json, "{{ current_build.attr_url() }}");
 
+/* general function needed by all apps for making proper nesting and updating
+    raw data with changes */
+function format_data(error, raw_data, raw_attrs, raw_other){
+  
+  // create nested attrs with only 2 digit attrs
+  nested_attrs["nest"] = raw_attrs.data.filter(function(d){
+    return d.id.length == 2
+  })
+  // set key 'nest' to their id
+  nested_attrs["nest"].forEach(function(d){
+    d.nest = d.id
+  })
+  // filter out *remove* any attrs that are in the nested attrs
+  nested_attrs["id"] = raw_attrs.data.filter(function(d){
+    return d.id.length > 2
+  })
+  // go through raw data and set each items nest and id vars properly
+  raw_data.data.forEach(function(d){
+    d.nest = d[attr_id].substr(0, 2)
+    d.id = d[attr_id]
+  })
+  
+}
+
+/* to be executed after app has been drawn for first time */
+function finish(){
+  d3.select("#loading")
+    .style("display", "none")
+    
+  d3.select("#viz")
+    .style("display", "block")
+    .call(viz)
+}
+
+/* the ~~BIG KAHUNA~~ 
+    for each different type of app we need to initialize our viz slightly
+    different so instead of a bunch of if/elses we just have one large switch
+    statment. Any gerealized code is put in either the format_data() func or
+    the finish() func. */
 switch (app_type){
   
   case "tree_map":
-    var go = function(error, raw_data, raw_attrs){
+    var format_data_orig = format_data
+    var go = function(){
       
-      nested_attrs["nest"] = raw_attrs.data.filter(function(d){
-        return d.id.length == 2
-      })
-      nested_attrs["nest"].forEach(function(d){
-        d.nest = d.id
-      })
-      nested_attrs["id"] = raw_attrs.data.filter(function(d){
-        return d.id.length > 2
-      })
-      
-      raw_data.data.forEach(function(d){
-        d.nest = d[attr_id].substr(0, 2)
-        d.id = d[attr_id]
-      })
+      format_data_orig.apply(this, arguments);
+      raw_data = arguments[1]
       
       viz
         .data(raw_data.data)
@@ -78,33 +107,17 @@ switch (app_type){
         .title("Tree Map...")
         .title({"total":true})
         .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
-        
-      d3.select("#loading")
-        .style("display", "none")
-  
-      d3.select("#viz")
-        .style("display", "block")
-        .call(viz)
+      
+      finish()
     }
     break;
   
   case "stacked":
-    var go = function(error, raw_data, raw_attrs){
+    var format_data_orig = format_data
+    var go = function(){
       
-      nested_attrs["nest"] = raw_attrs.data.filter(function(d){
-        return d.id.length == 2
-      })
-      nested_attrs["nest"].forEach(function(d){
-        d.nest = d.id
-      })
-      nested_attrs["id"] = raw_attrs.data.filter(function(d){
-        return d.id.length > 2
-      })
-      
-      raw_data.data.forEach(function(d){
-        d.nest = d[attr_id].substr(0, 2)
-        d.id = d[attr_id]
-      })
+      format_data_orig.apply(this, arguments);
+      raw_data = arguments[1]
       
       viz
         .data(raw_data.data)
@@ -120,34 +133,19 @@ switch (app_type){
         .order("nest")
         .text({"nest":"name","id":"name"})
         
-      d3.select("#loading")
-        .style("display", "none")
-  
-      d3.select("#viz")
-        .style("display", "block")
-        .call(viz)
+      finish()
     }
     break;
   
   case "network":
     q = q.defer(d3.json, "/static/json/network_{{ current_build.classification }}.json")
-    var go = function(error, raw_data, raw_attrs, raw_network){
+    var format_data_orig = format_data
+    var go = function(){
       
-      nested_attrs["nest"] = raw_attrs.data.filter(function(d){
-        return d.id.length == 2
-      })
-      nested_attrs["nest"].forEach(function(d){
-        d.nest = d.id
-      })
-      nested_attrs["id"] = raw_attrs.data.filter(function(d){
-        return d.id.length > 2
-      })
-      
-      raw_data.data.forEach(function(d){
-        d.nest = d[attr_id].substr(0, 2)
-        d.id = d[attr_id]
-      })
-      
+      format_data_orig.apply(this, arguments);
+      raw_data = arguments[1];
+      raw_network = arguments[3];
+            
       viz
         .data(raw_data.data)
         .attrs(nested_attrs)
@@ -162,42 +160,25 @@ switch (app_type){
           },
           "spotlight":true
         })
-        
       
-      d3.select("#loading")
-        .style("display", "none")
-  
-      d3.select("#viz")
-        .style("display", "block")
-        .call(viz)
-      
+        finish()
     }
     break;
     
   case "geo_map":
     q = q.defer(d3.json, "/static/json/country_coords.json")
-    var go = function(error, raw_data, raw_attrs, raw_coords){
-      nested_attrs["nest"] = raw_attrs.data.filter(function(d){
-        return d.id.length == 2
-      })
-      nested_attrs["nest"].forEach(function(d){
-        d.nest = d.id
-      })
-      nested_attrs["id"] = raw_attrs.data.filter(function(d){
-        return d.id.length > 2
-      })
+    var format_data_orig = format_data
+    var go = function(){
       
-      raw_data.data.forEach(function(d){
-        d.nest = d[attr_id].substr(0, 2)
-        d.id = d[attr_id]
-        // console.log(d)
-      })
-      
+      format_data_orig.apply(this, arguments);
+      raw_data = arguments[1];
+      raw_attrs = arguments[2];
+      raw_coords = arguments[3];
+            
       raw_coords["objects"]["TM_WORLD_BORDERS-0.3"]["geometries"].forEach(function(d){
         country = raw_attrs.data.filter(function(dd){
           return dd.id.substr(2) == d.id.toLowerCase()
         })
-        
         if (country.length) {
           d.id = country[0].id
         }
@@ -208,49 +189,32 @@ switch (app_type){
         .attrs(nested_attrs)
         .type("geo_map")
         .id("id")
-        // .style({"labels": {"align": "start"}})
         .color("{{ current_build.trade_flow }}_val")
         .coords(raw_coords)
       
-      d3.select("#loading")
-        .style("display", "none")
-        
-      d3.select("#viz")
-        .style("display", "block")
-        .call(viz)
-      
+      finish()      
     }
     break;
 }
 
+/* unleash the dogs... make the AJAX requests in order to the server and when
+   they return execute the go() func */
 q.await(go);
 
-// d3.select("#timeline button").on("click", function(){
-//   d3.json("{{ current_build.data_url('all') }}", function(raw_data){
-//     viz
-//       .data(raw_data.data)
-//       .time({"key": "year", "solo": [2010]})
-//       .draw()
-//     
-//     d3.select("#timeline button").remove()
-//     
-//     make_timeline(d3.select("#timeline"), 1995, 2011, 2010, 1, function(start, end){
-//       console.log(start)
-//       viz.time({"solo": start}).draw()
-//     })
-//     
-//   })
-// })
-
+/* if user requests more years, fetch raw data call for all years and create
+   a timeline */
 d3.select("#timeline button").on("click", function(){
+  d3.json("{{ current_build.data_url('all') }}", function(raw_data){
     
+    viz.data(raw_data.data).time({"solo": [2010]}).draw()
     d3.select("#timeline button").remove()
     
     make_timeline(d3.select("#timeline"), 1995, 2011, 2010, 1, function(start, end){
       console.log(start)
-      viz.time({"solo": start}).draw()
+      viz.time({"solo": [start]}).draw()
     })
     
+  })
 })
 
 

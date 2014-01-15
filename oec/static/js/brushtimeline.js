@@ -84,8 +84,14 @@ function make_timeline(container, min, max, init, min_required, callback){
     // console.log(time_diff)
     if (time_diff < min_req_sec) {
       
-      extent1[0] = d3.time.year.round(d3.time.year.offset(extent0[0], -min_required/2));
-      extent1[1] = d3.time.year.round(d3.time.year.offset(extent0[1], min_required/2));
+      if(min_required > 1){
+        extent1[0] = d3.time.year.round(d3.time.year.offset(extent0[0], -min_required/2));
+        extent1[1] = d3.time.year.round(d3.time.year.offset(extent0[1], min_required/2));
+      }
+      else {
+        extent1[0] = d3.time.year.floor(extent0[0]);
+        extent1[1] = d3.time.year.ceil(extent0[1]);
+      }
       
     }
     

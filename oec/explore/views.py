@@ -13,7 +13,7 @@ mod = Blueprint('explore', __name__, url_prefix='/explore')
 @mod.route('/')
 def explore_redirect():
     return redirect(url_for('.explore', app_name="tree_map", \
-                classification="hs", trade_flow="export", origin="nausa", \
+                classification="hs", trade_flow="export", origin="usa", \
                 dest="all", product="show", year="2010"))
 
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
