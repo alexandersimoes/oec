@@ -180,12 +180,12 @@ class Yo(db.Model, AutoSerialize):
     
     __tablename__ = 'attr_yo'
     
-    year = db.Column(db.Integer(4), primary_key=True)
+    year = db.Column(db.Integer, primary_key=True)
     origin_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
     eci = db.Column(db.Float())
-    eci_rank = db.Column(db.Integer(11))
+    eci_rank = db.Column(db.Integer)
     opp_value = db.Column(db.Float())
-    population = db.Column(db.Integer(11))
+    population = db.Column(db.Integer)
     gdp = db.Column(db.Numeric(16,2))
     gdp_pc = db.Column(db.Numeric(16,2))
     leader = db.Column(db.String(100))

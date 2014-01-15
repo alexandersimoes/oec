@@ -7,7 +7,7 @@ class Yo(db.Model, AutoSerialize):
     
     __tablename__ = 'hs_yo'
     
-    year = db.Column(db.Integer(4), primary_key=True)
+    year = db.Column(db.Integer, primary_key=True)
     origin_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
     export_val = db.Column(db.Numeric(16,2))
     import_val = db.Column(db.Numeric(16,2))
@@ -19,7 +19,7 @@ class Yd(db.Model, AutoSerialize):
     
     __tablename__ = 'hs_yd'
     
-    year = db.Column(db.Integer(4), primary_key=True)
+    year = db.Column(db.Integer, primary_key=True)
     dest_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
     export_val = db.Column(db.Numeric(16,2))
     import_val = db.Column(db.Numeric(16,2))
@@ -31,12 +31,12 @@ class Yp(db.Model, AutoSerialize):
     
     __tablename__ = 'hs_yp'
     
-    year = db.Column(db.Integer(4), primary_key=True)
+    year = db.Column(db.Integer, primary_key=True)
     hs_id = db.Column(db.String(8), db.ForeignKey(Hs.id), primary_key=True)
     export_val = db.Column(db.Numeric(16,2))
     import_val = db.Column(db.Numeric(16,2))
     pci = db.Column(db.Float())
-    pci_rank = db.Column(db.Integer(11))
+    pci_rank = db.Column(db.Integer)
     
     def __repr__(self):
         return '<Yp %d.%s>' % (self.year, self.hs_id)
@@ -45,7 +45,7 @@ class Yop(db.Model, AutoSerialize):
     
     __tablename__ = 'hs_yop'
     
-    year = db.Column(db.Integer(4), primary_key=True)
+    year = db.Column(db.Integer, primary_key=True)
     origin_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
     hs_id = db.Column(db.String(8), db.ForeignKey(Hs.id), primary_key=True)
     export_val = db.Column(db.Numeric(16,2))
@@ -63,7 +63,7 @@ class Yod(db.Model, AutoSerialize):
     
     __tablename__ = 'hs_yod'
     
-    year = db.Column(db.Integer(4), primary_key=True)
+    year = db.Column(db.Integer, primary_key=True)
     origin_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
     dest_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
     export_val = db.Column(db.Numeric(16,2))
@@ -76,7 +76,7 @@ class Ydp(db.Model, AutoSerialize):
     
     __tablename__ = 'hs_ydp'
     
-    year = db.Column(db.Integer(4), primary_key=True)
+    year = db.Column(db.Integer, primary_key=True)
     dest_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
     hs_id = db.Column(db.String(8), db.ForeignKey(Hs.id), primary_key=True)
     export_val = db.Column(db.Numeric(16,2))
@@ -89,7 +89,7 @@ class Yodp(db.Model, AutoSerialize):
     
     __tablename__ = 'hs_yodp'
     
-    year = db.Column(db.Integer(4), primary_key=True)
+    year = db.Column(db.Integer, primary_key=True)
     origin_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
     dest_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
     hs_id = db.Column(db.String(8), db.ForeignKey(Hs.id), primary_key=True)
