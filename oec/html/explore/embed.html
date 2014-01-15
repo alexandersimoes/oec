@@ -122,7 +122,7 @@ switch (app_type){
       viz
         .data(raw_data.data)
         .type("stacked")
-        .attrs(nested_attrs)
+        .attrs(attrs)
         .id(["nest", "id"])
         .time({"key": "year"})
         .depth(1)
@@ -131,6 +131,7 @@ switch (app_type){
         .x("year")
         .y("{{ current_build.trade_flow }}_val")
         .order("nest")
+        .axes({"static":false})
         .text({"nest":"name","id":"name"})
         
       finish()
@@ -148,7 +149,7 @@ switch (app_type){
             
       viz
         .data(raw_data.data)
-        .attrs(nested_attrs)
+        .attrs(attrs)
         .type("network")
         .id("id")
         .color("color")
@@ -160,6 +161,7 @@ switch (app_type){
           },
           "spotlight":true
         })
+        .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
       
         finish()
     }
@@ -186,11 +188,12 @@ switch (app_type){
       
       viz
         .data(raw_data.data)
-        .attrs(nested_attrs)
+        .attrs(attrs)
         .type("geo_map")
         .id("id")
         .color("{{ current_build.trade_flow }}_val")
         .coords(raw_coords)
+        .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
       
       finish()      
     }
@@ -212,10 +215,20 @@ d3.select("#timeline button").on("click", function(){
       d.id = d[attr_id]
     })
     
-    viz.data(raw_data.data).time({"solo": ["{{ current_build.year }}"]}).draw()
+    var years = "{{ current_build.year }}"
+    if(years.indexOf(".") > 0){
+      years = years.split(".")
+      years = d3.range(parseInt(years[0]), parseInt(years[1])+1, parseInt(years[2]))
+    }
+    else {
+      years = [parseInt(years)]
+    }
+    console.log(years)
+    viz.data(raw_data.data).time({"solo": years}).draw()
     d3.select("#timeline button").remove()
     
-    make_timeline(d3.select("#timeline"), 1995, 2011, "{{ current_build.year }}", 1, function(start, end){
+    make_timeline(d3.select("#timeline"), 1995, 2011, years, 1, function(start, end){
+      // console.log(start, end)
       viz.time({"solo": d3.range(start, end)}).draw()
     })
     

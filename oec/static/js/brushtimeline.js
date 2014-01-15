@@ -10,10 +10,12 @@ function make_timeline(container, min, max, init, min_required, callback){
   var x = d3.time.scale()
       .domain([new Date(parseInt(min), 0, 1), new Date(parseInt(max+1), 0, 1)])
       .range([0, width]);
-
+  
+  var start_year = init instanceof Array ? init[0] : parseInt(init);
+  var end_year = init instanceof Array ? init[init.length-1] : start_year;
   var brush = d3.svg.brush()
       .x(x)
-      .extent([new Date(parseInt(init), 0, 1), new Date(parseInt(init)+1, 0, 1)])
+      .extent([new Date(start_year, 0, 1), new Date(end_year+1, 0, 1)])
       .on("brush", brushed)
       .on("brushend", brushend);
 
