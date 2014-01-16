@@ -125,57 +125,62 @@ class Build(db.Model, AutoSerialize):
     def get_ui(self, ui_type):
         return self.ui.filter(UI.type == ui_type).first()
     
-    def get_default(self, looking_for, have, trade_flow, classification):
+    def get_default(self, looking_for, have, trade_flow, classification, year):
         models = sitc_models if classification == "sitc" else hs_models
         product_id = "sitc_id" if classification == "sitc" else "hs_id"
         trade_flow = "export_val" if "export" in trade_flow else "import_val"
         
         if looking_for == "dest":
             entity = models.Yod.query \
+                        .filter_by(year = year) \
                         .filter_by(origin=have) \
                         .order_by(desc(trade_flow)).limit(1).first()
         
         elif looking_for == "origin":
             entity = models.Yop.query \
+                        .filter_by(year = year) \
                         .filter(getattr(models.Yop, product_id) == have) \
                         .order_by(desc(trade_flow)).limit(1).first()
         
         elif looking_for == "product":
             entity = models.Yop.query \
-                        .filter_by(origin_id=have) \
+                        .filter_by(year = year) \
+                        .filter(models.Yop.origin_id.contains(have)) \
                         .order_by(desc(trade_flow)).limit(1).first()
         # raise Exception(getattr(entity, looking_for))
         if entity:
             return getattr(entity, looking_for)
 
     def set_options(self, origin=None, dest=None, product=None, classification="hs", year=2010):
+        if year:
+            self.year = year
         
         if self.origin != "show" and self.origin != "all":
             if isinstance(origin, Country):
                 self.origin = origin
             elif origin == "all" or origin == "show":
-                self.origin = self.get_default("origin", product, self.trade_flow, classification)
+                self.origin = self.get_default("origin", product, self.trade_flow, classification, self.year)
             else:
                 self.origin = Country.query.filter_by(id_3char=origin).first()
                 if not self.origin:
-                    self.origin = self.get_default("origin", product, self.trade_flow, classification)
+                    self.origin = self.get_default("origin", product, self.trade_flow, classification, self.year)
         
         if self.dest != "show" and self.dest != "all":
             if isinstance(dest, Country):
                 self.dest = dest
             elif dest == "all" or dest == "show":
-                self.dest = self.get_default("dest", self.origin, self.trade_flow, classification)
+                self.dest = self.get_default("dest", self.origin, self.trade_flow, classification, self.year)
             else:
                 self.dest = Country.query.filter_by(id_3char=dest).first()
                 if not self.dest:
-                    self.dest = self.get_default("dest", self.origin, self.trade_flow, classification)
+                    self.dest = self.get_default("dest", self.origin, self.trade_flow, classification, self.year)
         
         if self.product != "show" and self.product != "all":
             tbl = Sitc if classification == "sitc" else Hs
             if isinstance(product, (Sitc, Hs)):
                 self.product = product
             elif product == "all" or product == "show":
-                self.product = self.get_default("product", origin, self.trade_flow, classification)
+                self.product = self.get_default("product", origin, self.trade_flow, classification, self.year)
             else:
                 self.product = tbl.query.filter_by(id=product).first()
                 if not self.product:
@@ -183,9 +188,6 @@ class Build(db.Model, AutoSerialize):
         # raise Exception(self.origin)
         if classification:
             self.classification = classification
-        
-        if year:
-            self.year = year
         
     '''Returns the URL for the specific build.'''
     def url(self, year=None):
@@ -374,18 +376,20 @@ class Build(db.Model, AutoSerialize):
         
         if isinstance(self.origin, Country):
             country_list = Country.query.filter(Country.id_3char != None)
+            country_list = [c.serialize() for c in country_list]
             country = {
                 "name": "Origin",
-                "current": self.origin,
+                "current": self.origin.serialize(),
                 "data": country_list
             }
             ui.append(country)
         
         if isinstance(self.dest, Country):
             country_list = Country.query.filter(Country.id_3char != None)
+            country_list = [c.serialize() for c in country_list]
             country = {
                 "name": "Destination",
-                "current": self.dest,
+                "current": self.dest.serialize(),
                 "data": country_list
             }
             ui.append(country)
@@ -395,9 +399,10 @@ class Build(db.Model, AutoSerialize):
                 product_list = Sitc.query.all()
             else:
                 product_list = Hs.query.all()
+            product_list = [p.serialize() for p in product_list]
             product = {
                 "name": "Product",
-                "current": self.product,
+                "current": self.product.serialize(),
                 "data": product_list
             }
             ui.append(product)

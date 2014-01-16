@@ -139,7 +139,7 @@ switch (app_type){
         .text({"nest":"name","id":"name"})
         .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
         
-      finish()
+      finish(raw_data.data, attrs)
     }
     break;
   
@@ -169,7 +169,7 @@ switch (app_type){
         })
         .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
       
-        finish()
+      finish(raw_data.data, attrs)
     }
     break;
     
@@ -203,7 +203,7 @@ switch (app_type){
         .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
         .time({"solo": ["2010"]})
       
-      finish()      
+      finish(raw_data.data, attrs)
     }
     break;
 }
@@ -233,13 +233,18 @@ d3.select("#timeline button").on("click", function(){
     else {
       years = [parseInt(years)]
     }
-    // console.log(years)
+    
     viz.data(raw_data.data).time({"solo": years}).draw()
     d3.select("#timeline button").remove()
     
     make_timeline(d3.select("#timeline"), 1995, 2011, years, 1, function(start, end){
-      // console.log(start, end)
-      viz.time({"solo": d3.range(start, end, year_interval)}).draw()
+      var years = d3.range(start, end, year_interval)
+      viz.time({"solo": years}).draw()
+      
+      if(parent.update_text_table){
+        var data_for_table = raw_data.data.filter(function(d){ return years.indexOf(d.year) >= 0 })
+        parent.update_text_table(data_for_table, attrs)
+      }
     })
     
   })
