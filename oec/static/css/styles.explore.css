@@ -342,6 +342,9 @@ text-decoration: none;
   position: absolute;
   z-index: -1;
 }
+.explore #main #content #text_data h2#total {
+  text-align:center;
+}
 .explore #main #content #text_data ol {
 /*  list-style-type: decimal;*/
   margin: 0 0 0 40px;

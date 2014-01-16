@@ -66,7 +66,7 @@ function format_data(error, raw_data, raw_attrs, raw_other){
 }
 
 /* to be executed after app has been drawn for first time */
-function finish(){
+function finish(data, attrs){
   d3.select("#loading")
     .style("display", "none")
     
@@ -75,6 +75,10 @@ function finish(){
     .call(viz)
   
   d3.select("#timeline button").style("display", "block")
+  
+  if(parent.update_text_table){
+    parent.update_text_table(data, attrs)
+  }
 }
 
 /* the ~~BIG KAHUNA~~ 
@@ -108,7 +112,7 @@ switch (app_type){
         .title({"total": {"prefix":"Total: "}})
         .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
       
-      finish()
+      finish(raw_data.data, attrs)
     }
     break;
   
@@ -133,6 +137,7 @@ switch (app_type){
         .order("nest")
         .axes({"static":false})
         .text({"nest":"name","id":"name"})
+        .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
         
       finish()
     }
@@ -153,6 +158,7 @@ switch (app_type){
         .type("network")
         .id("id")
         .color("color")
+        .time("year")
         .nodes(raw_network.nodes)
         .links(raw_network.edges)
         .active({
@@ -190,10 +196,12 @@ switch (app_type){
         .data(raw_data.data)
         .attrs(attrs)
         .type("geo_map")
+        .time("year")
         .id("id")
         .color("{{ current_build.trade_flow }}_val")
         .coords(raw_coords)
         .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
+        .time({"solo": ["2010"]})
       
       finish()      
     }
@@ -216,20 +224,22 @@ d3.select("#timeline button").on("click", function(){
     })
     
     var years = "{{ current_build.year }}"
+    var year_interval = 1
     if(years.indexOf(".") > 0){
       years = years.split(".")
-      years = d3.range(parseInt(years[0]), parseInt(years[1])+1, parseInt(years[2]))
+      year_interval = parseInt(years[2])
+      years = d3.range(parseInt(years[0]), parseInt(years[1])+1, year_interval)
     }
     else {
       years = [parseInt(years)]
     }
-    console.log(years)
+    // console.log(years)
     viz.data(raw_data.data).time({"solo": years}).draw()
     d3.select("#timeline button").remove()
     
     make_timeline(d3.select("#timeline"), 1995, 2011, years, 1, function(start, end){
       // console.log(start, end)
-      viz.time({"solo": d3.range(start, end)}).draw()
+      viz.time({"solo": d3.range(start, end, year_interval)}).draw()
     })
     
   })

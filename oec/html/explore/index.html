@@ -89,17 +89,19 @@
   <div id="text_data">
     {% set stats = current_build.top_stats(20) %}
     {% if stats.entries %}
-    <h2>Total: {{ stats.total|format_currency }}</h2>
+    <h2 id="total">Total: {{ stats.total|format_currency }}</h2>
     <table>
-    {% for entry in stats.entries %}
-      <tr>
-        <td>{{ loop.index }}</td>
-        <td>{{ entry.attr.get_abbrv()|upper }}</td>
-        <td>{{ entry.attr.get_name() }}</td>
-        <td>{{ entry.value|format_currency }}</td>
-        <td>{{ entry.share|format_percent }}</td>
-      </tr>
-    {% endfor %}
+      <tbody>
+      {% for entry in stats.entries %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ entry.attr.get_abbrv()|upper }}</td>
+          <td>{{ entry.attr.get_name() }}</td>
+          <td>{{ entry.value|format_currency }}</td>
+          <td>{{ entry.share|format_percent }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
     </table>
     {% endif %}
   </div>
@@ -264,7 +266,9 @@ d3.selectAll("#view_as_text a").on("click", function(){
     }
     return "static"
   })
-  d3.event.preventDefault();
+  if(d3.event){
+    d3.event.preventDefault();
+  }
 })
 
 // Download button logic
@@ -320,36 +324,31 @@ d3.selectAll("#download a").on("click", function(){
   d3.event.preventDefault();
 })
 
+function update_text_table(data, attrs){
+  // d3.selectAll("#view_as_text a").on("click")()
+  d3.selectAll("#text_data table tbody tr").remove()
+  
+  var format_currency = d3.format("$,.2f"),
+      format_percent = d3.format(",.2%"),
+      val = "{{ current_build.trade_flow }}_val",
+      attr_id = "{{ current_build.attr_type() }}_id",
+      total = d3.sum(data, function(d){ return d[val] });
+  
+  d3.selectAll("h2#total").text("Total: " + format_currency(total))
 
+  var tbody = d3.select("#text_data table tbody");
+  data = data.filter(function(d){ return d[val] > 0 })
+  data.sort(function(a,b){return b[val] - a[val]})
+  data.forEach(function(d, i){
+    var tr = tbody.append("tr")
+    tr.append("td").text(i+1)
+    tr.append("td").text(d[attr_id])
+    tr.append("td").text(attrs[d[attr_id]].name)
+    tr.append("td").text(format_currency(d[val]))
+    tr.append("td").text(format_percent(d[val]/total))
+  })
+  
+}
 
-
-
-
-
-// 
-// 
-// var form = document.getElementById("svgform");
-//       
-//       if(type == "csv"){
-//         form['data'].value = d3.csv.formatRows(app.viz.csv_columns(columns).csv_data());
-//       }
-//       else {
-//         if (app.build.app.type == "geo_map") var svg = d3.select("div#map svg")
-//         else var svg = d3.select("#app > svg")
-//         // Add necessary name space junk and get raw node
-//         svg.attr("version", 1.1)
-//           .attr("xmlns", "http://www.w3.org/2000/svg")
-//           .node()
-//         // Extract the data as SVG text string
-//         var svg_xml = (new XMLSerializer).serializeToString(svg.node());
-//         form['data'].value = svg_xml;
-//       }
-//       // Submit the <FORM> to the server.
-//       // The result will be an attachment file to download.
-//       form['output_format'].value = type;
-//       form['title'].value = title;
-//       form.submit();
-//       
-//       dataviva.popover.hide("#popover")
-// </script>
+</script>
 {% endblock %}
