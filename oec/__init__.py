@@ -10,12 +10,14 @@ from flask.ext.babel import Babel
 # for new filters, redis sessions
 from utils import Momentjs, formatter, strip_html, jinja_split, \
                     RedisSessionInterface, format_currency, format_percent
+from werkzeug.contrib.fixers import ProxyFix
 
 ''' Base directory of where the site is held '''
 oec_dir = os.path.abspath(os.path.dirname(__file__))
 
 # Initialize app
 app = Flask(__name__, template_folder=os.path.join(oec_dir, 'html'))
+app.wsgi_app = ProxyFix(app.wsgi_app)
 
 # Load default configuration from config.py
 app.config.from_object('config')
