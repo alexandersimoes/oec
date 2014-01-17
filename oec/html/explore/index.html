@@ -70,7 +70,8 @@
       </ul>
     </div>
     
-  </div><div class="col2">
+  </div>
+  <div class="col4">
 
     <!-- ajax loading gif -->
     <div id="loader">
@@ -101,59 +102,11 @@
   
     <!-- Container for the visualization -->
     <div id="zviz">
-      <iframe id="iframe_viz" src="/explore/embed/{{ current_build.url() }}" width="620" height="545" frameborder="0"></iframe>
+      <iframe id="iframe_viz" src="/explore/embed/{{ current_build.url() }}" width="770" height="545" frameborder="0"></iframe>
     </div>
   
     <!-- Container for the key/legend -->
     <div class="key {{prod_class}}"  ></div>
-  
-  </div><div class="col1" id="tool_pane">
-  
-    <h3 class="pane_title">Controls</h3>
-  
-    {% for ui in current_build.get_ui() %}
-    <div class="dropdown_container" id="{{ ui.name|lower|replace(" ", "_") }}">
-      <h3>{{ ui.name }}</h3>
-      <select>
-        {% for option in ui.data %}
-        <option value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
-        {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") %}selected="selected"{% endif %}>
-          {% if option is string or option is number %}{{ option }}
-          {% else %}{{ option.name }}
-          {% endif %}
-        </option>
-        {% endfor %}
-      </select>
-    </div>
-    {% endfor %}
-  
-    <button id="build">Build Visualization</button>
-  
-    <div class="control_container" id="download">
-      <h3>Download</h3>
-      <a class="pdf" href="#"><img src="/static/img/icons/download.png"> PDF</a>
-      <a class="svg" href="#"><img src="/static/img/icons/download.png"> SVG</a>
-      <a class="png" href="#"><img src="/static/img/icons/download.png"> PNG</a>
-      <a class="csv" href="#"><img src="/static/img/icons/download.png"> CSV</a>
-    </div>
-  
-    <div class="control_container" id="view_as_text">
-      <a class="text" href="#"><img src="/static/img/icons/text.png"> <span>View as text</span></a>
-    </div>
-  
-    <div class="control_container">
-      <h3>Embed</h3>
-      <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://atlas.media.mit.edu/explore/embed/{{ current_build.url() }}&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
-    </div>
-  
-    <!-- Hidden <FORM> to submit the SVG data to the server, which will convert it 
-           to SVG/PDF/PNG downloadable file. -->
-    <form id="svgform" action="/explore/download/" method="post">
-      <input type="hidden" name="url" value="" />
-      <input type="hidden" name="title" value="" />
-      <input type="hidden" name="format" value="svg" />
-      <input type="hidden" name="content" value="" />
-    </form>
   
   </div>
 

@@ -1,0 +1,112 @@
+body {
+  background-attachment: none;
+  background: transparent;
+  overflow: hidden;
+}
+#app {
+  float: left;
+}
+#app #viz{
+  display: none;
+}
+#app #timeline {
+/*  border: red 1px solid;*/
+  height: 40px;
+}
+#app #timeline button {
+  display: none;
+  font-size: 15px;
+  margin: 4px auto;
+}
+#controls {
+  background: #fff;
+  display: none;
+  font-size:90%;
+  right: 0px;
+  margin: 20px 0 0 0;
+  position: absolute;
+  width: 200px;
+}
+#controls #show_hide {
+  background: white;
+  cursor: pointer;
+  left: -28px;
+  position: absolute;
+  z-index: 999;
+}
+#controls #show_hide i{
+  -webkit-transition: 0.5s ease;
+  -moz-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+  -ms-transition: 0.5s ease;
+  transition: 0.5s ease;
+}
+#controls > *{
+  padding: 0 10px;
+}
+#controls h3 {
+  font-weight: normal;
+  margin: 0 0 2px 0;
+}
+#controls .dropdown_container {
+  clear: both;
+}
+#controls .dropdown_container select {
+  margin: 0 0 14px 0;
+  width: 163px;
+}
+#controls .dropdown_container#year_start {
+  float: left;
+  padding-right: 5px;
+  clear: none;
+}
+#controls .dropdown_container#year_end {
+  float: left;
+  padding-left: 5px;
+  clear: none;
+}
+#controls .dropdown_container#year_start select,
+#controls .dropdown_container#year_end select {
+  width: 75px;
+}
+#controls .chzn-container {
+  cursor: pointer;
+  margin: 0 0 5px 0;
+}
+#controls button {
+  background:#888;
+  background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#888), to(#999));
+  background:-moz-linear-gradient(0% 90% 90deg, #999, #888);
+  color: #fff;
+  margin: 25px 10px 0 10px;
+  padding: 5px 0;
+  width: 165px;
+}
+#controls hr {
+  background: #cccccc;
+  clear: both;
+  margin: 12px 0;
+  height: 0.5px;
+}
+#controls .control_container {
+  margin: 10px 0;
+}
+#controls .control_container a {
+  margin: 0 5px 0 0;
+}
+
+#controls .control_container h3 {
+  font-size: 14px;
+  margin: 0;
+}
+#controls .control_container img {
+  width: 10px;
+}
+#controls .embed_code {
+  border: solid 1px #ccc;
+  font-family: monospace;
+  font-size: 10px;
+/*  height: 75px;*/
+  overflow: hidden;
+  width: 160px;
+}

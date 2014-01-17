@@ -3,6 +3,7 @@
  */
 .app_title{
   min-height: 50px;
+  display: inline-block;
 }
 .rtl .app_title#title {
   float: right;
