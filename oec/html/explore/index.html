@@ -91,6 +91,7 @@
     {% if stats.entries %}
     <h2 id="total">Total: {{ stats.total|format_currency }}</h2>
     <table>
+      <thead><tr></tr></thead>
       <tbody>
       {% for entry in stats.entries %}
         <tr>
@@ -175,6 +176,7 @@
 <!-- Libraries -->
 <script src="/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
 <script src="/static/js/libs/jquery-ui/jquery-ui.min.js"></script>
+<script src="/static/js/d3.tabulate.js"></script>
 <script>
 
 d3.selectAll(".builds a.app_name").on("click", function(){
@@ -322,7 +324,6 @@ d3.selectAll("#download a").on("click", function(){
 
 function update_text_table(data, attrs){
   // d3.selectAll("#view_as_text a").on("click")()
-  d3.selectAll("#text_data table tbody tr").remove()
   
   var format_currency = d3.format("$,.2f"),
       format_percent = d3.format(",.2%"),
@@ -331,18 +332,27 @@ function update_text_table(data, attrs){
       total = d3.sum(data, function(d){ return d[val] });
   
   d3.selectAll("h2#total").text("Total: " + format_currency(total))
-
-  var tbody = d3.select("#text_data table tbody");
+  
+  var columns = ["#", "id", "name", "val", "percent"];
+  table_data = []
   data = data.filter(function(d){ return d[val] > 0 })
-  data.sort(function(a,b){return b[val] - a[val]})
+  data.sort(function(a,b){return d3.descending(a[val], b[val]) })
   data.forEach(function(d, i){
-    var tr = tbody.append("tr")
-    tr.append("td").text(i+1)
-    tr.append("td").text(d[attr_id])
-    tr.append("td").text(attrs[d[attr_id]].name)
-    tr.append("td").text(format_currency(d[val]))
-    tr.append("td").text(format_percent(d[val]/total))
+    table_data.push({
+      "#": i+1,
+      "id": d[attr_id],
+      "name": attrs[d[attr_id]].name,
+      "val": format_currency(d[val]),
+      "percent": format_percent(d[val]/total)
+    })
   })
+  
+  var tbl = tabulate("#text_data", table_data, columns)
+  // uppercase the column headers
+  tbl.selectAll("thead th")
+    .text(function(column) {
+      return column.charAt(0).toUpperCase() + column.substr(1);
+    });
   
 }
 
