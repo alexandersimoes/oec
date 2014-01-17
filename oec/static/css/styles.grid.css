@@ -1,47 +1,20 @@
-.grid1, .grid4col1, .grid4col2, .grid4col3, 
-.grid5col1, .grid5col2, .grid5col3, .grid5col4 {
+.col1, .col2, .col3 {
   display: inline-block;
-  margin: 0px 10px 0px 0px;
+  margin: 0px;
+  padding: 10px;
   position: relative;
   text-align: left;
+  vertical-align: top;
 }
 
-.grid1 {
-  width: 960px;
+.col1 {
+  width: 180px;
 }
 
-/*****************/
-/* 4 Column Grid */
-/*****************/
-
-.grid4col1 {
-  width: 225px;
+.col2 {
+  width: 580px;
 }
 
-.grid4col2 {
-  width: 470px;
-}
-
-.grid4col3 {
-  width: 715px;
-}
-
-/*****************/
-/* 4 Column Grid */
-/*****************/
-
-.grid5col1 {
-  width: 176px;
-}
-
-.grid5col2 {
-  width: 372px;
-}
-
-.grid5col3 {
-  width: 566px;
-}
-
-.grid5col4 {
-  width: 764px;
+.col3 {
+  width: 680px;
 }

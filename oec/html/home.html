@@ -1,33 +1,28 @@
 {% extends "templates/site.html" %}
 
 {% block head %}
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.home.css" />
+  <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.home.css" />
 {% endblock %}
 
 {% block body %}
-<div id="content">
+
+  <div id="logo_large"><h1>The Observatory of Economic Complexity</h1></div>
   
   <div id="search">
-    <h3>Search a Country or Product</h3>
+    
+    <select id="language_selector">
+      {% for lang_id, lang_name in g.supported_langs.iteritems() %}
+      <option value="{{ lang_id }}" {% if lang_id == g.locale %} selected="selected" {% endif %}>{{ lang_name }}</option>
+      {% endfor %}
+    </select>
+    
     <input type="text" data-provide="typeahead" autocomplete="off" autofocus="" placeholder="What does Paraguay export?" />
   </div>
   
-  <div class="other_apps">
-    <h3>Explore More Apps</h3>
-    <div class="item">
-      <a href="/explore/tree_map/export/{{ default_country.id_3char|lower }}/all/show/2010/"><img src="/static/img/home/teaser_tree_map.png"></a>
-    </div>
-    <div class="item">
-      <a href="/explore/stacked/export/{{ default_country.id_3char|lower }}/all/show/1995.2010.2/"><img src="/static/img/home/teaser_stacked.png"></a>
-    </div>
-    <div class="item">
-      <a href="/explore/map/export/show/all/3330/2010/"><img src="/static/img/home/teaser_map.png"></a>
-    </div>
-    <div class="item">
-      <a href="/explore/product_space/export/{{ default_country.id_3char|lower }}/all/show/2010/"><img src="/static/img/home/teaser_product_space.png"></a>
-    </div>
-  </div>
-</div> <!-- END #content div -->
+  <h2>
+    The Observatory of Economic Complexity makes international trade data and economic complexity indicators available through millions of interactive visualizations.
+  </h2>
+  
 {% endblock %}
 
 

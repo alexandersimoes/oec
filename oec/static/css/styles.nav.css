@@ -1,0 +1,120 @@
+/****************/
+/* Header Reset */
+/****************/
+header {
+  margin: 0;
+}
+
+/*************************************/
+/* Center content in all header DIVs */
+/*************************************/
+header > div {
+  text-align: center !important;
+}
+
+/************************/
+/* Small Logo in Header */
+/************************/
+header a#logo {
+  background-image: url("/static/img/nav/logo.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: inline-block;
+  height: 31px;
+  text-indent: -10000px;
+  width: 174px;
+}
+
+/********************/
+/* Nav Link Styling */
+/********************/
+header nav ul li {
+  display: inline-block;
+  margin: 6px 0px;
+  width: 100px;
+}
+
+header nav a {
+  color: #888888;
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  -webkit-transition: color .1s;
+          transition: color .1s;
+}
+
+header nav a:hover {
+  color: #444444;
+  text-decoration: none;
+}
+
+header nav a.current {
+  border-bottom: 1px solid #4f6d7f;
+  color: #4f6d7f;
+}
+
+/******************/
+/* Footer Styling */
+/******************/
+footer {
+  margin: 20px;
+  text-align: center;
+}
+
+footer > div#macro_connections {
+  background-image: url("/static/img/nav/macro_connections.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: inline-block;
+  height: 60px;
+  text-indent: -10000px;
+  width: 148px;
+  vertical-align: top;
+}
+
+footer > p {
+  color: #888888;
+  display: inline-block;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: lighter;
+  line-height: 13px;
+  margin: 10px;
+  text-align: left;
+  width: 450px;
+}
+
+footer > p > a {
+  color: #888888;
+  text-decoration: underline;
+}
+
+footer > p > a:hover {
+  color: #444444;
+}
+
+footer > p img {
+  vertical-align: top;
+}
+
+/**********************/
+/* Load Retina Images */
+/**********************/
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) { 
+  
+  header a#logo {
+    background-image: url("/static/img/nav/logo_retina.png");
+  }
+
+  footer > div#macro_connections {
+    background-image: url("/static/img/nav/macro_connections_retina.png");
+  }
+  
+}

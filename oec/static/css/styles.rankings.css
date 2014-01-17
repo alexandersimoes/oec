@@ -1,7 +1,3 @@
-#sidebar h3 {
-  border: none !important;
-  font-size: 18px;
-}
 .change_year {
 /*  overflow: hidden;*/
   width: 100%;
@@ -154,7 +150,6 @@ button {
   border: 1px solid #666;
 }
 .dropdown dt a {
-  font-family: 'Cardo', serif, 'Times';
   font-size: 30px;
   font-weight: normal;
   line-height: 36px;
