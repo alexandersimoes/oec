@@ -186,7 +186,7 @@ class RedisSessionInterface(SessionInterface):
                             domain=domain)
 
 def make_query(data_table, url_args, lang, **kwargs):
-    from oec.db_attr.models import Country
+    from oec.db_attr.models import Country, Hs, Sitc
     query = data_table.query
     cache_id = request.path
     ret = {}
@@ -218,6 +218,14 @@ def make_query(data_table, url_args, lang, **kwargs):
             
             elif filter == "origin_id" or filter == "dest_id":
                 id = Country.query.filter_by(id_3char=kwargs[filter]).first().id
+                query = query.filter(getattr(data_table, filter) == id)
+            
+            elif filter == "hs_id":
+                id = Hs.query.filter_by(hs=kwargs[filter]).first().id
+                query = query.filter(getattr(data_table, filter) == id)
+            
+            elif filter == "sitc_id":
+                id = Sitc.query.filter_by(hs=kwargs[filter]).first().id
                 query = query.filter(getattr(data_table, filter) == id)
             
             else:

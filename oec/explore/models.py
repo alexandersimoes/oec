@@ -54,9 +54,9 @@ class Build(db.Model, AutoSerialize):
     product = db.Column(db.String(20))
     
     defaults = {
-        "hs": "010101",
-        "sitc": "105722",
-        "country": "sapry"
+        "hs": "0101",
+        "sitc": "5722",
+        "country": "pry"
     }
     
     app = db.relationship('App',
@@ -139,13 +139,13 @@ class Build(db.Model, AutoSerialize):
         elif looking_for == "origin":
             entity = models.Yop.query \
                         .filter_by(year = year) \
-                        .filter(getattr(models.Yop, product_id) == have) \
+                        .filter(getattr(models.Yop, product_id).endswith(have)) \
                         .order_by(desc(trade_flow)).limit(1).first()
         
         elif looking_for == "product":
             entity = models.Yop.query \
                         .filter_by(year = year) \
-                        .filter(models.Yop.origin_id.contains(have)) \
+                        .filter(models.Yop.origin_id.endswith(have)) \
                         .order_by(desc(trade_flow)).limit(1).first()
         # raise Exception(getattr(entity, looking_for))
         if entity:
@@ -182,7 +182,7 @@ class Build(db.Model, AutoSerialize):
             elif product == "all" or product == "show":
                 self.product = self.get_default("product", origin, self.trade_flow, classification, self.year)
             else:
-                self.product = tbl.query.filter_by(id=product).first()
+                self.product = tbl.query.filter(getattr(tbl, classification)==product).first()
                 if not self.product:
                     self.product = tbl.query.filter_by(id=self.defaults["hs"]).first()
         # raise Exception(self.origin)
@@ -203,8 +203,10 @@ class Build(db.Model, AutoSerialize):
             origin = origin.id_3char
         if isinstance(dest, Country):
             dest = dest.id_3char
-        if isinstance(product, (Hs, Sitc)):
-            product = product.id
+        if isinstance(product, Hs):
+            product = product.hs
+        if isinstance(product, Sitc):
+            product = product.sitc
         url = '{0}/{1}/{2}/{3}/{4}/{5}/{6}/'.format(self.app.type, 
                 self.classification, self.trade_flow, origin, dest, 
                 product, year)
@@ -221,8 +223,10 @@ class Build(db.Model, AutoSerialize):
             origin = origin.id_3char
         if isinstance(dest, Country):
             dest = dest.id_3char
-        if isinstance(product, (Hs, Sitc)):
-            product = product.id
+        if isinstance(product, Hs):
+            product = product.hs
+        if isinstance(product, Sitc):
+            product = product.sitc
         url = '/{0}/{1}/{2}/{3}/{4}/{5}/'.format(self.classification, 
                 self.trade_flow, year, origin, dest, product)
         return url

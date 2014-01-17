@@ -178,18 +178,18 @@
 <script>
 
 d3.selectAll(".builds a.app_name").on("click", function(){
-  var div_to_show_id = this.title.replace(" ", "_");
-  var prev_display = d3.select("#"+div_to_show_id+ " ul").style("height")
+  var div_to_show_id = this.title.replace(" ", "_"),
+      ul = d3.select("#"+div_to_show_id+ " ul"),
+      prev_display = ul.style("height")
   
   // reset all
   // d3.selectAll(".builds ul").style("display", "none")
-  d3.selectAll(".builds ul").style("height", "0px")
+  d3.selectAll(".builds ul").transition().duration(500).style("height", "0px")
   
   if(prev_display == "0px"){
-    d3.select("#"+div_to_show_id+ " ul").style("height", "auto")
-    var x = d3.select("#"+div_to_show_id+ " ul").style("height")
-    d3.select("#"+div_to_show_id+ " ul").style("height", "0px")
-    d3.select("#"+div_to_show_id+ " ul").style("height", x)
+    var x = ul.style("height", "auto").style("height")
+    ul.style("height", "0px")
+    ul.transition().duration(500).style("height", x)
   }
   
   d3.event.preventDefault();
@@ -247,16 +247,6 @@ d3.selectAll("button#build").on("click", function(){
   
   d3.event.preventDefault();
 })
-
-/////////////////////////////
-// Initialize page --
-////////////////////////////
-
-// Open default app selection accordion
-var div_to_show_id = "{{ current_build.app.type }}"
-d3.select("#"+div_to_show_id+ " ul").style("height", "auto")
-var x = d3.select("#"+div_to_show_id+ " ul").style("height")
-d3.select("#"+div_to_show_id+ " ul").style("height", x)
 
 // View as text
 d3.selectAll("#view_as_text a").on("click", function(){
@@ -355,6 +345,18 @@ function update_text_table(data, attrs){
   })
   
 }
+
+
+/////////////////////////////
+// Initialize page --
+////////////////////////////
+
+// Open default app selection accordion
+var div_to_show_id = "{{ current_build.app.type }}",
+    ul = d3.select("#"+div_to_show_id+ " ul");
+ul.style("height", "auto")
+var x = ul.style("height")
+ul.transition().duration(500).style("height", x)
 
 </script>
 {% endblock %}
