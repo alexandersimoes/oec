@@ -5,22 +5,23 @@
 {% endblock %}
 
 {% block body %}
-<!-- the left pane -->
-<div class="app_title" id="title"><h2>About</h2></div>
+<div class="content">
+  
+  <div id="sidebar" class="col1">
+    
+    <nav role="navigation">
+      <ul>
+        <li><a href="/about/" class="active">Overview</a></li>
+        <li><a href="/about/team/">Team</a></li>
+        <li><a href="/about/data/">Data</a></li>
+        <li><a href="/about/permissions/">Permissions</a></li>
+      </ul>
+    </nav>
+    
+  </div>
 
-<div id="sidebar">
-  <nav role="navigation">
-    <ul>
-      <li><a href="/about/" class="active">About</a></li>
-      <li><a href="/about/data/">Data</a></li>
-      <li><a href="/about/team/">Team</a></li>
-      <li><a href="/about/permissions/">Permissions</a></li>
-    </ul>
-  </nav>
-</div>
-
-<div id="content">
-  <h3>What is it?</h3>
+  <div class="col2">
+    <h3>What is it?</h3>
   <p>The Observatory of Economic Complexity is a tool that allows users to quickly compose a visual narrative about countries and the products they exchange. </p>
   <h3>Apps</h3>
   <p>Each of the different visualizations allow for different views of the same data. The tree maps show the shares of trade that a country of product make up while the stacked area charts show this same data over time. The product space is a unique view of the network of relatedness of products that countries trade. The layout remains fixed while the countries export basket is overlayed with a thick black border on the products they were exporting in the given year.</p>
@@ -33,10 +34,10 @@
     <dd><a href="http://comtrade.un.org/">UN COMTRADE</a></dd>
   </dl>
   <h3>Re-using and Contributing</h3>
-  <p>The Observatory website is an open source platform built as part of the lead developer, Alexander Simoes' Master's Thesis at the MIT Media Lab. In being an open source project and leveraging the many technologies also available for fair use we welcome any and all collaborators to the project. Feel free to fork the site at:</p>
-  <blockquote><a href="https://github.com/alexandersimoes/atlas_economic_complexity" title="Fork me on github">github.com/alexandersimoes/atlas_economic_complexity</a></blockquote>
+  <p>The Observatory website is an open source platform built as part of the lead developer, Alexander Simoes' Master's Thesis at the MIT Media Lab. In being an open source project and leveraging the many technologies also available for fair use we welcome any and all collaborators to the project. Feel free to fork the site at: <a href="https://github.com/alexandersimoes/oec" title="Fork me on github">github.com/alexandersimoes/atlas_economic_complexity</a></p>
   <p>We also provide an <a href="/api">API</a> for the casual user interested in embedding their own Observatory app on any webpage.</p>
-</div> <!-- END #content div -->
+</div> 
+</div>
 {% endblock %}
 
 {% block js %}

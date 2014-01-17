@@ -1,90 +1,166 @@
 {% extends "templates/site.html" %}
 
 {% block head %}
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.about.css" />
+  <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.about.css" />
 {% endblock %}
 
 {% block body %}
-<div class="app_title" id="title"><h2>Team</h2></div>
 
-<!-- the left pane -->
-<div id="sidebar">
-  <nav role="navigation">
-    <ul>
-      <li><a href="/about/">About</a></li>
-      <li><a href="/about/data/">Data</a></li>
-      <li><a href="/about/team/" class="active">Team</a></li>
-      <li><a href="/about/permissions/">Permissions</a></li>
-    </ul>
-  </nav>
+<div class="content">
+  
+  <div id="sidebar" class="col1">
+    
+    <nav role="navigation">
+      <ul>
+        <li><a href="/about/">Overview</a></li>
+        <li><a href="/about/team/" class="active">Team</a></li>
+        <li><a href="/about/data/">Data</a></li>
+        <li><a href="/about/permissions/">Permissions</a></li>
+      </ul>
+    </nav>
+    
+  </div>
+
+  <div class="col2">
+
+    <h3>Team</h3>
+    <p>
+      The Observatory of Economic Complexity was Alex Simoes Master Thesis in Media Arts and Sciences at the MIT Media Lab. You can read Alex’s thesis <a href="http://macroconnections.media.mit.edu/wp-content/uploads/2010/09/SimoesMasterThesis.pdf" alt="Alex Simoes' MIT Master's Thesis on Observatory of Economic Complexity">here</a>. 
+    </p>
+    <p>
+      The project was conducted at The MIT Media Lab <a href="http://macroconnections.media.mit.edu/">Macro Connections</a> group. Alex’s Advisor was <a href="http://chidalgo.com">Cesar A. Hidalgo</a>, principal investigator of Macro Connections. 
+    </p>  
+    <p>
+      For a history of the contributions to The Observatory of Economic Complexity, you can <a href="https://github.com/alexandersimoes/atlas_economic_complexity/network">view the project’s contributions time lines on github</a>. A predecessors of the Observatory of Economic Complexity is the <a href="http://chidalgo.com/productspace/index.htm">product space site</a> built by Cesar as a graduate student in Notre Dame (2007), 
+    </p>
+  
+    <h3>Lead Developer</h3>
+    
+    <div class="member" id="alexander_simoes">
+      <h4>Alexander Simoes</h4>
+      <h5>2010 - Present</h5>
+      <p>
+        <a href="mailto:alexandersimoes@gmail.com" alt="E-Mail" target="_blank">
+          <i class="fa fa-envelope fa-lg"></i>
+        </a>
+        
+        <a href="https://github.com/alexandersimoes" alt="GitHub" target="_blank">
+          <i class="fa fa-github fa-lg"></i>
+        </a>
+        
+        <a href="https://twitter.com/ximoes" alt="Twitter" target="_blank">
+          <i class="fa fa-twitter fa-lg"></i>
+        </a>
+        
+        <a href="http://www.linkedin.com/pub/alex-simoes/42/71a/728" alt="LinkedIn" target="_blank">
+          <i class="fa fa-linkedin fa-lg"></i>
+        </a>
+        
+        <br>
+        Alex is the lead developer on the Observatory project. He has been working in the Macro Connections group developing technologies to better inform policy and decision makers by equipping them with tools to make sense of large datasets.</p>
+    </div>
+
+    <h3>Faculty Advisor</h3>
+    
+    <div class="member" id="cesar_hidalgo">
+      <h4>César Hidalgo</h4>
+      <h5>2010 - Present</h5>
+      <p>
+        <a href="https://twitter.com/cesifoti" alt="Twitter" target="_blank">
+          <i class="fa fa-twitter fa-lg"></i>
+        </a>
+        
+        <a href="http://www.linkedin.com/pub/cesar-a-hidalgo/5/30a/a61" alt="LinkedIn" target="_blank">
+          <i class="fa fa-linkedin fa-lg"></i>
+        </a>
+        
+        <br>
+        César is the Asahi Broadcast Corporation Career Development Professor and an Assistant Professor at the MIT Media Lab. His work focuses on improving the understanding of systems using and developing concepts of complexity, evolution and network science.</p>
+    </div>
+
+    <h3>Technical Team</h3>
+    
+    <div class="member" id="dave_landry">
+      <h4>Dave Landry</h4>
+      <h5>2012 - Present</h5>
+        
+      <p>
+        <a href="mailto:landry.dave@gmail.com" alt="E-Mail" target="_blank">
+          <i class="fa fa-envelope fa-lg"></i>
+        </a>
+        
+        <a href="https://github.com/davelandry" alt="GitHub" target="_blank">
+          <i class="fa fa-github fa-lg"></i>
+        </a>
+        
+        <a href="https://twitter.com/davelandry" alt="Twitter" target="_blank">
+          <i class="fa fa-twitter fa-lg"></i>
+        </a>
+        
+        <a href="http://www.linkedin.com/in/davelandry/" alt="LinkedIn" target="_blank">
+          <i class="fa fa-linkedin fa-lg"></i>
+        </a>
+        
+        <br>
+        Dave lead the 2013 redesign of the website, along with being co-author of the underlying visualization engine <a href="http://www.d3plus.org" target="_blank">D3plus</a>.
+      </p>
+    </div>
+    
+    <div class="member" id="eric_franco">
+      <h4>Eric Franco</h4>
+      <h5>2012 - 2013</h5>
+      <p>
+        <a href="mailto:ericjohnf@gmail.com" alt="E-Mail" target="_blank">
+          <i class="fa fa-envelope fa-lg"></i>
+        </a>
+        
+        <a href="https://github.com/ericjohnf" alt="GitHub" target="_blank">
+          <i class="fa fa-github fa-lg"></i>
+        </a>
+        
+        <a href="http://www.linkedin.com/in/ericjohnf" alt="LinkedIn" target="_blank">
+          <i class="fa fa-linkedin fa-lg"></i>
+        </a>
+        
+        <br>
+        Eric acted as the most recent lead developer for the project. He is cheifly responsible for the recent visualization updates.</p>
+    </div>
+    
+    <div class="member" id="sarah_chung">
+      <h4>Sarah Chung</h4>
+      <h5>2011 - 2012</h5>
+      <p>
+        <a href="http://www.linkedin.com/in/sarahchung7" alt="LinkedIn" target="_blank">
+          <i class="fa fa-linkedin fa-lg"></i>
+        </a>
+        
+        <br>
+        Sarah worked on developing algorithms for cleaning the raw SITC bilateral trade used on the site.</p>
+    </div>
+
+    <div class="member" id="crystal_noel">
+      <h4>Crystal Noel</h4>
+      <h5>2011 - 2012</h5>
+      <p>Crystal helped improve some of the original visualizations and code-base.</p>
+    </div>
+    
+    <div class="member" id="ali_almossawi">
+      <h4>Ali Almossawi</h4>
+      <h5>2010</h5>
+      <p>
+        <a href="https://github.com/almossawi" alt="GitHub" target="_blank">
+          <i class="fa fa-github fa-lg"></i>
+        </a>
+        
+        <a href="http://www.linkedin.com/in/almossawi" alt="LinkedIn" target="_blank">
+          <i class="fa fa-linkedin fa-lg"></i>
+        </a>
+        
+        <br>
+        Ali was instrumental in the intitial design, programming, and launch of The Observatory.</p>
+    </div>
+
+  </div>
+  
 </div>
-
-<div id="content">
-  
-  <p>
-    The Observatory of Economic Complexity was Alex Simoes Master Thesis in Media Arts and Sciences at the MIT Media Lab. You can read Alex’s thesis <a href="http://macroconnections.media.mit.edu/wp-content/uploads/2010/09/SimoesMasterThesis.pdf" alt="Alex Simoes' MIT Master's Thesis on Observatory of Economic Complexity">here</a>. 
-  </p>
-  <p>
-    The project was conducted at The MIT Media Lab <a href="http://macroconnections.media.mit.edu/">Macro Connections</a> group. Alex’s Advisor was <a href="http://chidalgo.com">Cesar A. Hidalgo</a>, principal investigator of Macro Connections. 
-  </p>  
-  <p>
-    For a history of the contributions to The Observatory of Economic Complexity, you can <a href="https://github.com/alexandersimoes/atlas_economic_complexity/network">view the project’s contributions time lines on github</a>. A predecessors of the Observatory of Economic Complexity is the <a href="http://chidalgo.com/productspace/index.htm">product space site</a> built by Cesar as a graduate student in Notre Dame (2007), 
-  </p>
-  
-  <h3>Lead Developer</h3>
-  <ol class="slats">
-    <li class="group">
-      <a href="#">
-        <img src="/static/img/about/alexander_simoes.png" alt="thumbnail" />
-        <h3>Alexander Simoes</h3>
-        <p>Alex is the lead developer on the Observatory project. He has been working in the Macro Connections group developing technologies to better inform policy and decision makers by equipping them with tools to make sense of large datasets.<span class="meta">2010 - Present</span></p>
-      </a>
-    </li>
-  </ol>
-
-  <h3>Faculty Advisor</h3>
-  <ol class="slats">
-    <li class="group">
-      <a href="#">
-        <img src="/static/img/about/cesar_hidalgo.png" alt="thumbnail" />
-        <h3>Cesar Hidalgo</h3>
-        <p>César is the Asahi Broadcast Corporation Career Development Professor and an Assistant Professor at the MIT Media Lab. His work focuses on improving the understanding of systems using and developing concepts of complexity, evolution and network science. <span class="meta">2010 - Present</span></p>
-      </a>
-    </li>
-  </ol>
-
-  <h3>Technical Team</h3>
-  <ol class="slats">
-    <li class="group">
-      <a href="mailto:ericjohnf@gmail.com">
-        <img src="/static/img/about/eric_franco.png" alt="thumbnail" />
-        <h3>Eric Franco</h3>
-        <p>Eric Franco acted as the most recent lead developer for the project. He is cheifly responsible for the recent visualization updates.<span class="meta">2012 - 2013</span></p>
-      </a>
-    </li>
-    <li class="group">
-      <a href="#">
-        <img src="/static/img/about/crystal_noel.png" alt="thumbnail" />
-        <h3>Crystal Noel</h3>
-        <p>Crystal is an undergraduate at MIT majoring in Physics and focusing in Computer Science. She serves on the executive boards for both her sorority, Pi Beta Phi, and MIT Colleges Against Cancer.<span class="meta">2011 - 2012</span></p>
-      
-      </a>
-    </li>
-    <li class="group">
-      <a href="#">
-        <img src="/static/img/about/ali_almossawi.png" alt="thumbnail" />
-        <h3>Ali Almossawi</h3>
-        <p>Though a software engineer by education (Carnegie Mellon '06) and profession (4 years working for the government), Ali has made a slight detour in 2009 and co-founded a design and development company called Skyrill where he has done projects for companies like Adidas and Ogilvy and Mather.  Ali now spends all of his time on data analysis and visualization projects as well as finishing up his thesis, which is looking at predictors of bugs in the GNOME codebase. <span class="meta">2010</span></p>
-      </a>
-    </li>
-    <li class="group">
-      <a href="#">
-        <img src="/static/img/about/sarah_chung.png" alt="thumbnail" />
-        <h3>Sarah Chung</h3>
-        <p>Sarah worked on developing algorithms for cleaning the raw SITC bilateral trade used on the site.<span class="meta">2011 - 2012</span></p>
-      </a>
-    </li>
-  </ol>
-
-</div> <!-- END #content div -->
 {% endblock %}

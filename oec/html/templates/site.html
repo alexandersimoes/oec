@@ -3,57 +3,82 @@
 
 {% block content %}
 
+<div id="fullscreen"></div>
+
 <div id="container">
+  
   <header>
-    <div class="logo">
-      <h1><a href="/" title="Home"><img src="/static/img/nav/oec_sm.png" alt="The Observatory of Economic Complexity" /></a></h1>
+    <div class="col1">
+      {% if g.page_type != 'home' %}
+        <a href="/" id="logo" title="Home"><h1>The Observatory of Economic Complexity</h1></a>
+      {% endif %}
     </div>  
+    <div class="col2">
     <nav>
       <ul>
-        <li><a href="{{ url_for('explore.explore_redirect') }}">{{ _('Explore') }}</a></li>
-        <li><a href="{{ url_for('profile.profile', origin_id='nausa') }}">{{ _('Profiles') }}</a></li>
-        <li><a href="{{ url_for('general.book') }}">{{ _('Book') }}</a></li>
-        <li><a href="{{ url_for('rankings.rankings_redirect') }}">{{ _('Rankings') }}</a></li>
-        <li><a href="{{ url_for('general.about') }}">{{ _('About') }}</a></li>
-        <li><a href="{{ url_for('general.api') }}">{{ _('API') }}</a></li>
+        <li><a role="button" class="{% if g.page_type == 'explore' %}current{% endif %}" href="{{ url_for('explore.explore_redirect') }}">{{ _('Explore') }}</a></li>
+        <li><a role="button" class="{% if g.page_type == 'profile' %}current{% endif %}" href="{{ url_for('profile.profile', origin_id='nausa') }}">{{ _('Profiles') }}</a></li>
+        <li><a role="button" class="{% if g.page_type == 'atlas' %}current{% endif %}" href="{{ url_for('general.atlas') }}">{{ _('Atlas') }}</a></li>
+        <li><a role="button" class="{% if g.page_type == 'rankings' %}current{% endif %}" href="{{ url_for('rankings.rankings_redirect') }}">{{ _('Blog') }}</a></li>
+        <li><a role="button" class="{% if g.page_type == 'about' %}current{% endif %}" href="{{ url_for('general.about') }}">{{ _('About') }}</a></li>
       </ul>
-    </nav> 
-    <div class="language_select">
-      <div class="text">
-        {{ _('Language') }}:
-      </div>
-      <select>
-        {% for lang_id, lang_name in g.supported_langs.iteritems() %}
-        <option style="width: 70px; padding-right: 26px;" value="{{ lang_id }}" {% if lang_id == g.locale %} selected="selected" {% endif %}>{{ lang_name }}</option>
-        {% endfor %}
-      </select>
+    </nav>
     </div>
-    <br class="clear">
-    
-    <script>
-    document.querySelector(".language_select select").onchange = function(){
-        var lang = this.value;
-        window.location = "/set_lang/"+lang+"/";
-    };
-    </script>
+    <div class="col1">
+      {% if g.page_type != 'home' %}
+        <select id="language_selector">
+          {% for lang_id, lang_name in g.supported_langs.iteritems() %}
+          <option value="{{ lang_id }}" {% if lang_id == g.locale %} selected="selected" {% endif %}>{{ lang_id }}</option>
+          {% endfor %}
+        </select>
+      {% endif %}
+    </div>
     
   </header>
-
-  <div id="main" role="main">
     
-    {% block body %}
-    {% endblock %}
-    
-  </div> <!-- END #main -->
+  {% block body %}
+  {% endblock %}
 
   <footer>
+    <div id="macro_connections">
+      <h5>Macro Connections @ The MIT Media Lab</h5>
+    </div>
     <p>
-      <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
-      <br />
+      <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic Complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
       <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
     </p>
   </footer>
 
 </div> <!-- END #container -->
+
+<script>
+
+  if (!d3.select("select#language_selector").empty()) {
+
+    document.querySelector("#language_selector").onchange = function(){
+        var lang = this.value;
+        window.location = "/set_lang/"+lang+"/";
+    };
+    
+  }
+  
+  resizebg = function() {
+    var w = window.innerWidth, 
+        h = window.innerHeight,
+        aspect = w/h
+        
+    if (aspect > 2) {
+      d3.select("#fullscreen").style("background-size",w+"px "+(w/2)+"px")
+    }
+    else {
+      d3.select("#fullscreen").style("background-size",(h*2)+"px "+h+"px")
+    }
+  }
+
+  resizebg()
+
+  window.onresize = resizebg
+  
+</script>
 
 {% endblock %}

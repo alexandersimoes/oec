@@ -3,11 +3,6 @@
 {% block head %}
 <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.explore.css" />
 
-<!-- Load non-standard fonts -->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css' />
-<link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css' />
-
 <link rel="stylesheet" href="/static/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
 {% endblock %}
 
@@ -32,8 +27,6 @@
 </div>
 
 <div class="app_title" id="title"><h2>{{ current_build.get_name() }}</h2></div>
-
-<br class="clear" />
 
 <!-- the left pane -->
 <div id="app_pane">
@@ -78,11 +71,11 @@
 </div>
 
 <!-- the Visualization -->
-<div id="content">
+<div class="content">
 
   <!-- ajax loading gif -->
   <div id="loader">
-    <img src="/static/img/explore/loader.gif" alt="loading" /><br />Loading...
+    Loading...
   </div>
   
   <!-- table of data from visualization -->
@@ -106,7 +99,7 @@
   
   <!-- Container for the visualization -->
   <div id="zviz">
-    <iframe id="iframe_viz" src="/explore/embed/{{ current_build.url() }}" width="640" height="545" frameborder="0"></iframe>
+    <iframe id="iframe_viz" src="/explore/embed/{{ current_build.url() }}" width="620" height="545" frameborder="0"></iframe>
   </div>
   
   <!-- Container for the key/legend -->

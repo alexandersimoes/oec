@@ -9,7 +9,7 @@
 <div class="app_title" id="title"><h2>Rankings</h2></div>
 
 <!-- the left pane -->
-<div id="sidebar">
+<div class="col1">
   <h3><a href="/rankings/country/">Country Rankings</a></h3>
   <p>Rank countries based on their economic complexity for a given year</p>
   <h3><a href="/rankings/hs/">HS Product Rankings</a></h3>
@@ -23,7 +23,7 @@
   </p>
 </div>
 
-<div id="content">
+<div class="content">
   
   <div class="change_year">
       <a class="prev" href="/rankings/{{ category }}/{{ year-1 }}/">&laquo; Previous Year</a>
@@ -68,7 +68,7 @@
     
     </table>
   
-</div> <!-- END #content div -->
+</div> 
 {% endblock %}
 
 

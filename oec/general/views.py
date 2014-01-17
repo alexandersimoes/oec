@@ -320,10 +320,10 @@ def search():
 ###############################
 # API views 
 # ---------------------------
-@mod.route('book/')
-def book():
-    g.page_type = "book"
-    return render_template("book/index.html")
+@mod.route('atlas/')
+def atlas():
+    g.page_type = "atlas"
+    return render_template("atlas/index.html")
 
 ###############################
 # About views 

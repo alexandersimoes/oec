@@ -8,7 +8,7 @@
 <div class="app_title" id="title"><h2>Data</h2></div>
 
 <!-- the left pane -->
-<div id="sidebar">
+<div class="col1">
   <nav role="navigation">
     <ul>
       <li><a href="/about/">About</a></li>
@@ -26,7 +26,7 @@
   </nav>
 </div>
 
-<div id="content">
+<div class="content">
   <table class="table table-bordered table-condensed table-striped">
     <thead>
       <tr>
@@ -46,7 +46,7 @@
       {% endfor %}
     </tbody>
   </table>
-</div> <!-- END #content div -->
+</div> 
 {% endblock %}
 
 {% block js %}

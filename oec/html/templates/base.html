@@ -3,15 +3,16 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <!-- <meta name="viewport" content="width=1100,initial-scale=1" /> -->
     <title>
-      Observatory of Economic Complexity {% block title %}{% endblock %}
+      The Observatory of Economic Complexity {% block title %}{% endblock %}
     </title>
     <link rel="shortcut icon" href="/static/img/favicon.ico?v=2">
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.reset.css" />
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.general.css" />
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.grid.css" />
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.icons.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.nav.css" />
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/libs/font-awesome-4.0.0/css/font-awesome.min.css" />
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/libs/d3plus.css" />
     
@@ -26,7 +27,7 @@
     {% endblock %}
     
   </head>
-  <body class="{% if g.page_type %}{{g.page_type}}{% endif %} {% if g.locale == 'ar' or g.locale == 'he' %}rtl{% endif %}">
+  <body class="{% if g.page_type %}{{g.page_type}}{% endif %}{% if g.locale == 'ar' or g.locale == 'he' %} rtl{% endif %}">
     
     {% for category, msg in get_flashed_messages(with_categories=true) %}
     <div id="server_message">

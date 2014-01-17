@@ -3,14 +3,14 @@
 {% block page_title %}Atlas Book{% endblock %}
 
 {% block head %}
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.book.css" />
+<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.atlas.css" />
 {% endblock %}
 
 {% block body %}
 <div class="app_title" id="title"><h2>Atlas of Economic Complexity Book</h2></div>
 
 <!-- the left pane -->
-<div id="sidebar">
+<div class="col1">
   <h3>Download</h3>
   <dl class="file_list">
     <dt>Full Book</dt>
@@ -32,14 +32,14 @@
   </dl>
 </div>
 
-<div id="content">
-  <img src="/static/img/book/atlas_title.png" width="700" />
-  <div class="atlas_book_content">
-    <a href="/static/atlas/pdf/HarvardMIT_AtlasOfEconomicComplexity.pdf"><img src="/static/img/book/atlas_free_sample.png" /></a>
-    <a href="/explore"><img src="/static/img/book/atlas_explore.png" /></a>
+<div class="content">
+  <img src="/static/img/atlas/atlas_title.png" width="700" />
+  <div class="atlas_atlas_content">
+    <a href="/static/atlas/pdf/HarvardMIT_AtlasOfEconomicComplexity.pdf"><img src="/static/img/atlas/atlas_free_sample.png" /></a>
+    <a href="/explore"><img src="/static/img/atlas/atlas_explore.png" /></a>
   </div>
-  <img src="/static/img/book/atlas_authors.png" width="700" border="0" />
-  <img src="/static/img/book/atlas_logos.png" width="700"/>
+  <img src="/static/img/atlas/atlas_authors.png" width="700" border="0" />
+  <img src="/static/img/atlas/atlas_logos.png" width="700"/>
 
   <blockquote>
     Emphasizing that not all products are the same for development is a significant departure from the establishment
@@ -57,5 +57,5 @@
     <br />
     Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="http://atlas.media.mit.edu" rel="dct:source">atlas.media.mit.edu</a>.<br>Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu" rel="cc:morePermissions">atlas.media.mit.edu</a>
   </div>
-</div> <!-- END #content div -->
+</div> 
 {% endblock %}
