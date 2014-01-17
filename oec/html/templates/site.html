@@ -12,8 +12,7 @@
       {% if g.page_type != 'home' %}
         <a href="/" id="logo" title="Home"><h1>The Observatory of Economic Complexity</h1></a>
       {% endif %}
-    </div>  
-    <div class="col2">
+    </div><div class="col2">
     <nav>
       <ul>
         <li><a role="button" class="{% if g.page_type == 'explore' %}current{% endif %}" href="{{ url_for('explore.explore_redirect') }}">{{ _('Explore') }}</a></li>
@@ -23,8 +22,7 @@
         <li><a role="button" class="{% if g.page_type == 'about' %}current{% endif %}" href="{{ url_for('general.about') }}">{{ _('About') }}</a></li>
       </ul>
     </nav>
-    </div>
-    <div class="col1">
+    </div><div class="col1">
       {% if g.page_type != 'home' %}
         <select id="language_selector">
           {% for lang_id, lang_name in g.supported_langs.iteritems() %}

@@ -29,137 +29,133 @@
 <div class="app_title" id="title"><h2>{{ current_build.get_name() }}</h2></div>
 
 <!-- the left pane -->
-<div id="app_pane">
-  
-  <h3 class="pane_title">App Selection</h3>
-  
-  {% set pre_app = None %}
-  {% set pre_cat = None %}
-  {% for build in all_builds %}
-
-  {% if pre_app != build.app.type and pre_app != None %}
-    </ul>
-  </div>
-  {% endif %}
-
-  {% if pre_app != build.app.type %}
-  {% set pre_app = build.app.type %}
-  <div class="builds" id="{{ build.app.type }}">
-    <a class="app_name" href="#{{ build.app.get_name()|lower }}" title="{{ build.app.get_name()|lower }}">
-      <img style="background-color:#ccc;" src="/static/img/icons/app/app_{{build.app.type}}.png" alt="{{ build.app.get_name() }}" />
-      {{ build.app.get_name() }}
-    </a>
-    <ul>
-    {% endif %}
-    
-      {% if pre_cat != build.get_category() and build.get_category() != None %}
-      <h4>{{ build.get_category() }}</h4>
-      {% endif %}
-      {% set pre_cat = build.get_category() %}
-    
-      <li>
-        
-        <a {% if build == current_build %}class="active"{% endif %} href="/explore/{{ build.url() }}">
-        {{ build.get_short_name() }}
-        </a>
-        
-      </li>
-    {% endfor %}
-    </ul>
-  </div>
-    
-</div>
-
-<!-- the Visualization -->
 <div class="content">
-
-  <!-- ajax loading gif -->
-  <div id="loader">
-    Loading...
-  </div>
   
-  <!-- table of data from visualization -->
-  <div id="text_data">
-    {% set stats = current_build.top_stats(20) %}
-    {% if stats.entries %}
-    <h2 id="total">Total: {{ stats.total|format_currency }}</h2>
-    <table>
-      <thead><tr></tr></thead>
-      <tbody>
-      {% for entry in stats.entries %}
-        <tr>
-          <td>{{ loop.index }}</td>
-          <td>{{ entry.attr.get_abbrv()|upper }}</td>
-          <td>{{ entry.attr.get_name() }}</td>
-          <td>{{ entry.value|format_currency }}</td>
-          <td>{{ entry.share|format_percent }}</td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+  <div class="col1" id="app_pane">
+  
+    <h3 class="pane_title">App Selection</h3>
+  
+    {% set pre_app = None %}
+    {% set pre_cat = None %}
+    {% for build in all_builds %}
+
+    {% if pre_app != build.app.type and pre_app != None %}
+      </ul>
+    </div>
     {% endif %}
-  </div>
-  
-  <!-- Container for the visualization -->
-  <div id="zviz">
-    <iframe id="iframe_viz" src="/explore/embed/{{ current_build.url() }}" width="620" height="545" frameborder="0"></iframe>
-  </div>
-  
-  <!-- Container for the key/legend -->
-  <div class="key {{prod_class}}"  ></div>
-  
-</div><!-- END content -->
 
-<!-- the right pane -->
-<div id="tool_pane">
-  
-  <h3 class="pane_title">Controls</h3>
-  
-  {% for ui in current_build.get_ui() %}
-  <div class="dropdown_container" id="{{ ui.name|lower|replace(" ", "_") }}">
-    <h3>{{ ui.name }}</h3>
-    <select>
-      {% for option in ui.data %}
-      <option value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
-      {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") %}selected="selected"{% endif %}>
-        {% if option is string or option is number %}{{ option }}
-        {% else %}{{ option.name }}
+    {% if pre_app != build.app.type %}
+    {% set pre_app = build.app.type %}
+    <div class="builds" id="{{ build.app.type }}">
+      <a class="app_name" href="#{{ build.app.get_name()|lower }}" title="{{ build.app.get_name()|lower }}">
+        <img style="background-color:#ccc;" src="/static/img/icons/app/app_{{build.app.type}}.png" alt="{{ build.app.get_name() }}" />
+        {{ build.app.get_name() }}
+      </a>
+      <ul>
+      {% endif %}
+    
+        {% if pre_cat != build.get_category() and build.get_category() != None %}
+        <h4>{{ build.get_category() }}</h4>
         {% endif %}
-      </option>
+        {% set pre_cat = build.get_category() %}
+    
+        <li>
+        
+          <a {% if build == current_build %}class="active"{% endif %} href="/explore/{{ build.url() }}">
+          {{ build.get_short_name() }}
+          </a>
+        
+        </li>
       {% endfor %}
-    </select>
+      </ul>
+    </div>
+    
+  </div><div class="col2">
+
+    <!-- ajax loading gif -->
+    <div id="loader">
+      Loading...
+    </div>
+  
+    <!-- table of data from visualization -->
+    <div id="text_data">
+      {% set stats = current_build.top_stats(20) %}
+      {% if stats.entries %}
+      <h2 id="total">Total: {{ stats.total|format_currency }}</h2>
+      <table>
+        <thead><tr></tr></thead>
+        <tbody>
+        {% for entry in stats.entries %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ entry.attr.get_abbrv()|upper }}</td>
+            <td>{{ entry.attr.get_name() }}</td>
+            <td>{{ entry.value|format_currency }}</td>
+            <td>{{ entry.share|format_percent }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+  
+    <!-- Container for the visualization -->
+    <div id="zviz">
+      <iframe id="iframe_viz" src="/explore/embed/{{ current_build.url() }}" width="620" height="545" frameborder="0"></iframe>
+    </div>
+  
+    <!-- Container for the key/legend -->
+    <div class="key {{prod_class}}"  ></div>
+  
+  </div><div class="col1" id="tool_pane">
+  
+    <h3 class="pane_title">Controls</h3>
+  
+    {% for ui in current_build.get_ui() %}
+    <div class="dropdown_container" id="{{ ui.name|lower|replace(" ", "_") }}">
+      <h3>{{ ui.name }}</h3>
+      <select>
+        {% for option in ui.data %}
+        <option value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
+        {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") %}selected="selected"{% endif %}>
+          {% if option is string or option is number %}{{ option }}
+          {% else %}{{ option.name }}
+          {% endif %}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    {% endfor %}
+  
+    <button id="build">Build Visualization</button>
+  
+    <div class="control_container" id="download">
+      <h3>Download</h3>
+      <a class="pdf" href="#"><img src="/static/img/icons/download.png"> PDF</a>
+      <a class="svg" href="#"><img src="/static/img/icons/download.png"> SVG</a>
+      <a class="png" href="#"><img src="/static/img/icons/download.png"> PNG</a>
+      <a class="csv" href="#"><img src="/static/img/icons/download.png"> CSV</a>
+    </div>
+  
+    <div class="control_container" id="view_as_text">
+      <a class="text" href="#"><img src="/static/img/icons/text.png"> <span>View as text</span></a>
+    </div>
+  
+    <div class="control_container">
+      <h3>Embed</h3>
+      <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://atlas.media.mit.edu/explore/embed/{{ current_build.url() }}&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
+    </div>
+  
+    <!-- Hidden <FORM> to submit the SVG data to the server, which will convert it 
+           to SVG/PDF/PNG downloadable file. -->
+    <form id="svgform" action="/explore/download/" method="post">
+      <input type="hidden" name="url" value="" />
+      <input type="hidden" name="title" value="" />
+      <input type="hidden" name="format" value="svg" />
+      <input type="hidden" name="content" value="" />
+    </form>
+  
   </div>
-  {% endfor %}
-  
-  <button id="build">Build Visualization</button>
-  
-  <div class="control_container" id="download">
-    <h3>Download</h3>
-    <a class="pdf" href="#"><img src="/static/img/icons/download.png"> PDF</a>
-    <a class="svg" href="#"><img src="/static/img/icons/download.png"> SVG</a>
-    <a class="png" href="#"><img src="/static/img/icons/download.png"> PNG</a>
-    <a class="csv" href="#"><img src="/static/img/icons/download.png"> CSV</a>
-  </div>
-  
-  <div class="control_container" id="view_as_text">
-    <a class="text" href="#"><img src="/static/img/icons/text.png"> <span>View as text</span></a>
-  </div>
-  
-  <div class="control_container">
-    <h3>Embed</h3>
-    <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://atlas.media.mit.edu/explore/embed/{{ current_build.url() }}&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
-  </div>
-  
-  <!-- Hidden <FORM> to submit the SVG data to the server, which will convert it 
-         to SVG/PDF/PNG downloadable file. -->
-  <form id="svgform" action="/explore/download/" method="post">
-    <input type="hidden" name="url" value="" />
-    <input type="hidden" name="title" value="" />
-    <input type="hidden" name="format" value="svg" />
-    <input type="hidden" name="content" value="" />
-  </form>
-  
-</div>
 
 </div> <!-- END #main -->
 {% endblock %}

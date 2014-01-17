@@ -1,5 +1,5 @@
 .col1, .col2, .col3 {
-  display: table-cell;
+  display: inline-block;
   margin: 0px;
   padding: 10px;
   position: relative;
