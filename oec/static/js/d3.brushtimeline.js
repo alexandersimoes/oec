@@ -58,15 +58,12 @@ function make_timeline(container, min, max, init, min_required, callback){
         .tickPadding(0))
     .selectAll("text")
         .style("font", "11px sans-serif")
-        // .attr("y", tick_width*0.05)
-        // .attr("x", axis_height/3)
+        .attr("y", 0)
+        .attr("x", 0)
         // .attr("dy", ".35em")
         .attr("transform", function(d){
-          console.log(tick_width, axis_height)
           var y_offset = tick_width/2;
           var x_offset = axis_height/10;
-          // return "rotate(70)translate("+x_offset+", -"+y_offset+")"
-          // return "rotate(70)translate(0, -"+y_offset+")"
           return "translate("+(tick_width/2)+", 10)rotate(70)"
         })
         .style("text-anchor", "start");

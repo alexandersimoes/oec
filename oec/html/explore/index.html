@@ -82,17 +82,20 @@
   <div id="text_data">
     {% set stats = current_build.top_stats(20) %}
     {% if stats.entries %}
-    <h2>Total: {{ stats.total|format_currency }}</h2>
+    <h2 id="total">Total: {{ stats.total|format_currency }}</h2>
     <table>
-    {% for entry in stats.entries %}
-      <tr>
-        <td>{{ loop.index }}</td>
-        <td>{{ entry.attr.get_abbrv()|upper }}</td>
-        <td>{{ entry.attr.get_name() }}</td>
-        <td>{{ entry.value|format_currency }}</td>
-        <td>{{ entry.share|format_percent }}</td>
-      </tr>
-    {% endfor %}
+      <thead><tr></tr></thead>
+      <tbody>
+      {% for entry in stats.entries %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ entry.attr.get_abbrv()|upper }}</td>
+          <td>{{ entry.attr.get_name() }}</td>
+          <td>{{ entry.value|format_currency }}</td>
+          <td>{{ entry.share|format_percent }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
     </table>
     {% endif %}
   </div>
@@ -117,7 +120,12 @@
     <h3>{{ ui.name }}</h3>
     <select>
       {% for option in ui.data %}
-      <option value="{% if option is string or option is number %}{{option}}{% else %}{{option.id}}{% endif %}" {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") %}selected="selected"{% endif %}>{% if option is string or option is number %}{{option}}{% else %}{{option.get_name()}}{% endif %}</option>
+      <option value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
+      {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") %}selected="selected"{% endif %}>
+        {% if option is string or option is number %}{{ option }}
+        {% else %}{{ option.name }}
+        {% endif %}
+      </option>
       {% endfor %}
     </select>
   </div>
@@ -161,21 +169,22 @@
 <!-- Libraries -->
 <script src="/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
 <script src="/static/js/libs/jquery-ui/jquery-ui.min.js"></script>
+<script src="/static/js/d3.tabulate.js"></script>
 <script>
 
 d3.selectAll(".builds a.app_name").on("click", function(){
-  var div_to_show_id = this.title.replace(" ", "_");
-  var prev_display = d3.select("#"+div_to_show_id+ " ul").style("height")
+  var div_to_show_id = this.title.replace(" ", "_"),
+      ul = d3.select("#"+div_to_show_id+ " ul"),
+      prev_display = ul.style("height")
   
   // reset all
   // d3.selectAll(".builds ul").style("display", "none")
-  d3.selectAll(".builds ul").style("height", "0px")
+  d3.selectAll(".builds ul").transition().duration(500).style("height", "0px")
   
   if(prev_display == "0px"){
-    d3.select("#"+div_to_show_id+ " ul").style("height", "auto")
-    var x = d3.select("#"+div_to_show_id+ " ul").style("height")
-    d3.select("#"+div_to_show_id+ " ul").style("height", "0px")
-    d3.select("#"+div_to_show_id+ " ul").style("height", x)
+    var x = ul.style("height", "auto").style("height")
+    ul.style("height", "0px")
+    ul.transition().duration(500).style("height", x)
   }
   
   d3.event.preventDefault();
@@ -199,19 +208,19 @@ d3.selectAll("button#build").on("click", function(){
   if(d3.select("#origin select").node()){
     var origin = d3.select("#origin select").node().value
   } else {
-    var origin = "{{ current_build.origin.id }}" || "{{ current_build.origin }}"
+    var origin = "{{ current_build.origin.id_3char }}" || "{{ current_build.origin }}"
   }
   
   if(d3.select("#destination select").node()){
     var dest = d3.select("#destination select").node().value
   } else {
-    var dest = "{{ current_build.dest.id }}" || "{{ current_build.dest }}"
+    var dest = "{{ current_build.dest.id_3char }}" || "{{ current_build.dest }}"
   }
   
-  if(d3.select("#prod select").node()){
-    var prod = d3.select("#prod select").node().value
+  if(d3.select("#product select").node()){
+    var prod = d3.select("#product select").node().value
   } else {
-    var prod = "{{ current_build.product.id }}" || "{{ current_build.product }}"
+    var prod = "{{ current_build.product.hs }}" || "{{ current_build.product.sitc }}" || "{{ current_build.product }}"
   }
   
   if(d3.select("#classification select").node()){
@@ -228,20 +237,11 @@ d3.selectAll("button#build").on("click", function(){
       new_url += prod + "/"
       new_url += year + "/"
   
+  // console.log(new_url)
   window.location = new_url
   
   d3.event.preventDefault();
 })
-
-/////////////////////////////
-// Initialize page --
-////////////////////////////
-
-// Open default app selection accordion
-var div_to_show_id = "{{ current_build.app.type }}"
-d3.select("#"+div_to_show_id+ " ul").style("height", "auto")
-var x = d3.select("#"+div_to_show_id+ " ul").style("height")
-d3.select("#"+div_to_show_id+ " ul").style("height", x)
 
 // View as text
 d3.selectAll("#view_as_text a").on("click", function(){
@@ -257,7 +257,9 @@ d3.selectAll("#view_as_text a").on("click", function(){
     }
     return "static"
   })
-  d3.event.preventDefault();
+  if(d3.event){
+    d3.event.preventDefault();
+  }
 })
 
 // Download button logic
@@ -313,36 +315,51 @@ d3.selectAll("#download a").on("click", function(){
   d3.event.preventDefault();
 })
 
+function update_text_table(data, attrs){
+  // d3.selectAll("#view_as_text a").on("click")()
+  
+  var format_currency = d3.format("$,.2f"),
+      format_percent = d3.format(",.2%"),
+      val = "{{ current_build.trade_flow }}_val",
+      attr_id = "{{ current_build.attr_type() }}_id",
+      total = d3.sum(data, function(d){ return d[val] });
+  
+  d3.selectAll("h2#total").text("Total: " + format_currency(total))
+  
+  var columns = ["#", "id", "name", "val", "percent"];
+  table_data = []
+  data = data.filter(function(d){ return d[val] > 0 })
+  data.sort(function(a,b){return d3.descending(a[val], b[val]) })
+  data.forEach(function(d, i){
+    table_data.push({
+      "#": i+1,
+      "id": d[attr_id],
+      "name": attrs[d[attr_id]].name,
+      "val": format_currency(d[val]),
+      "percent": format_percent(d[val]/total)
+    })
+  })
+  
+  var tbl = tabulate("#text_data", table_data, columns)
+  // uppercase the column headers
+  tbl.selectAll("thead th")
+    .text(function(column) {
+      return column.charAt(0).toUpperCase() + column.substr(1);
+    });
+  
+}
 
 
+/////////////////////////////
+// Initialize page --
+////////////////////////////
 
+// Open default app selection accordion
+var div_to_show_id = "{{ current_build.app.type }}",
+    ul = d3.select("#"+div_to_show_id+ " ul");
+ul.style("height", "auto")
+var x = ul.style("height")
+ul.transition().duration(500).style("height", x)
 
-
-
-// 
-// 
-// var form = document.getElementById("svgform");
-//       
-//       if(type == "csv"){
-//         form['data'].value = d3.csv.formatRows(app.viz.csv_columns(columns).csv_data());
-//       }
-//       else {
-//         if (app.build.app.type == "geo_map") var svg = d3.select("div#map svg")
-//         else var svg = d3.select("#app > svg")
-//         // Add necessary name space junk and get raw node
-//         svg.attr("version", 1.1)
-//           .attr("xmlns", "http://www.w3.org/2000/svg")
-//           .node()
-//         // Extract the data as SVG text string
-//         var svg_xml = (new XMLSerializer).serializeToString(svg.node());
-//         form['data'].value = svg_xml;
-//       }
-//       // Submit the <FORM> to the server.
-//       // The result will be an attachment file to download.
-//       form['output_format'].value = type;
-//       form['title'].value = title;
-//       form.submit();
-//       
-//       dataviva.popover.hide("#popover")
-// </script>
+</script>
 {% endblock %}
