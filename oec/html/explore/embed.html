@@ -2,30 +2,87 @@
 
 {% block head %}
 <link type="text/css" rel="stylesheet" media="all" href="/static/css/libs/d3plus.css" />
+<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.embed.css" />
 <style>
 body {
   background: white;
 }
-#viz{
+#app {
+  float: left;
+}
+#app #viz{
   display: none;
 }
-#timeline {
+#app #timeline {
 /*  border: red 1px solid;*/
   height: 40px;
 }
-#timeline button {
+#app #timeline button {
   display: none;
   font-size: 15px;
   margin: 4px auto;
 }
+
+
 </style>
 {% endblock %}
 
 {% block content %}
 
 <div id="loading"><h1>Loading...</h1></div>
-<div id="viz"></div>
-<div id="timeline"><button>Click to view more years &raquo;</button></div>
+<div id="app">
+  <div id="viz"></div>
+  <div id="timeline"><button>Click to view more years &raquo;</button></div>
+</div>
+<div id="controls">
+  
+  <div id="show_hide"><i class="fa fa-chevron-right"></i></div>
+  
+  {% for ui in current_build.get_ui() %}
+  <div class="dropdown_container" id="{{ ui.name|lower|replace(" ", "_") }}">
+    <h3>{{ ui.name }}</h3>
+    <select>
+      {% for option in ui.data %}
+      <option value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
+      {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") %}selected="selected"{% endif %}>
+        {% if option is string or option is number %}{{ option }}
+        {% else %}{{ option.name }}
+        {% endif %}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endfor %}
+  
+  <button id="build">Build Visualization</button>
+  
+  <div class="control_container" id="download">
+    <h3>Download</h3>
+    <a class="pdf" href="#"><img src="/static/img/icons/download.png"> PDF</a>
+    <a class="svg" href="#"><img src="/static/img/icons/download.png"> SVG</a>
+    <a class="png" href="#"><img src="/static/img/icons/download.png"> PNG</a>
+    <a class="csv" href="#"><img src="/static/img/icons/download.png"> CSV</a>
+  </div>
+  
+  <div class="control_container" id="view_as_text">
+    <a class="text" href="#"><img src="/static/img/icons/text.png"> <span>View as text</span></a>
+  </div>
+  
+  <div class="control_container">
+    <h3>Embed</h3>
+    <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://atlas.media.mit.edu/explore/embed/{{ current_build.url() }}&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
+  </div>
+  
+  <!-- Hidden <FORM> to submit the SVG data to the server, which will convert it 
+         to SVG/PDF/PNG downloadable file. -->
+  <form id="svgform" action="/explore/download/" method="post">
+    <input type="hidden" name="url" value="" />
+    <input type="hidden" name="title" value="" />
+    <input type="hidden" name="format" value="svg" />
+    <input type="hidden" name="content" value="" />
+  </form>
+  
+</div>
 
 {% endblock %}
 
@@ -44,10 +101,24 @@ var viz = d3plus.viz().container("#viz"),
     attr_id = "{{ current_build.attr_type() }}_id",
     app_type = "{{ current_build.app.type }}",
     attrs = {},
+    viz_height = window.innerHeight - d3.select("#timeline").node().offsetHeight,
+    viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
     q = queue()
           .defer(d3.json, "{{ current_build.data_url() }}")
           .defer(d3.json, "{{ current_build.attr_url() }}");
 
+function resize_viz(obj){
+  console.log("resize!")
+  if(viz.data().default.length){
+    var new_width = window.innerWidth - parseInt(d3.select("#controls").style("width"));
+    var new_height = window.innerHeight - d3.select("#timeline").node().offsetHeight;
+    if (obj){
+      new_width = obj.width || new_width;
+      new_height = obj.height || new_height;
+    }
+    viz.width(new_width).height(new_height).draw()
+  }
+}
 /* general function needed by all apps for making proper nesting and updating
     raw data with changes */
 function format_data(error, raw_data, raw_attrs, raw_other){
@@ -67,6 +138,9 @@ function format_data(error, raw_data, raw_attrs, raw_other){
 
 /* to be executed after app has been drawn for first time */
 function finish(data, attrs){
+  d3.select("#controls")
+    .style("display", "inline-block")
+    
   d3.select("#loading")
     .style("display", "none")
     
@@ -110,7 +184,8 @@ switch (app_type){
         .text({"nest":"name","id":"name"})
         // .title("Tree Map...")
         .title({"total": {"prefix":"Total: "}})
-        .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
+        .height(viz_height)
+        .width(viz_width)
       
       finish(raw_data.data, attrs)
     }
@@ -251,7 +326,27 @@ d3.select("#timeline button").on("click", function(){
   d3.event.preventDefault();
 })
 
+d3.select("#show_hide").on("click", function(){
+  var controls = d3.select("#controls")
+  if (controls.style("right") == "0px"){
+    // controls.style("left", "200px")
+    // resize_viz({"width": window.innerWidth})
+    controls.select("i").style("-webkit-transform", "rotate(180deg)")
+    controls.transition().duration(500)
+      .style("right", "-200px")
+      .each("end", function(){
+        resize_viz({"width": window.innerWidth})
+      })
+  }
+  else {
+    resize_viz()
+    controls.select("i").style("-webkit-transform", "rotate(0deg)")
+    controls.transition().delay(500).duration(500)
+      .style("right", "0px")
+  }
+})
 
+window.onresize = resize_viz
 </script>
 
 {% endblock %}
