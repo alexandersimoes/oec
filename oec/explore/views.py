@@ -50,6 +50,14 @@ def explore(app_name, classification, trade_flow, origin, dest, \
         
     # raise Exception(make_query(current_build.get_tbl(), request.args, g.locale, **kwargs))
     # raise Exception(current_build.top_stats(20))
+    
+    if session.pop('new_lang', None):
+        flash_txt = '''We've noticed you've changed the language, if you see 
+        some translations that look odd and you think you could do better feel 
+        free to help us out by <a target="_blank" href="{0}">adding your 
+        suggestions here</a>.'''.format(current_build.googledoc_url())
+        flash(flash_txt)
+    
     return render_template("explore/index.html",
         current_build = current_build,
         all_builds = all_builds)

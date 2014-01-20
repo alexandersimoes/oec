@@ -92,6 +92,7 @@ only screen and (                min-resolution: 2dppx) {
   background: #f9edbe;
   color: #a07631;
   font-size: 16px;
+  opacity: 1;
   padding: 10px 0;
   text-align: center;
 }

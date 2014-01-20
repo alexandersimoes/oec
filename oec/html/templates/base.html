@@ -59,5 +59,17 @@
 
     </script>
     
+    <!-- All Pages -->
+    <script type="text/javascript">
+    d3.select("#close_message").on("click", function(){
+      var div = d3.select("#server_message")
+      div.transition()
+        .duration(500)
+        .style("opacity", 0)
+        .each("end", function(){ d3.select(this).remove() })
+
+    });
+    </script>
+        
   </body>
 </html>
