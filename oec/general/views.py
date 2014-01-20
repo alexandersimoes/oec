@@ -1,5 +1,6 @@
 from operator import itemgetter
 from sqlalchemy import desc
+from sqlalchemy.sql.expression import func
 from datetime import datetime
 from textblob import TextBlob
 from fuzzywuzzy import process
@@ -165,7 +166,7 @@ class Search():
         return None
 
     @staticmethod
-    def get_builds2(countries, sitc_products, hs_products, trade_flow):
+    def get_builds(countries, sitc_products, hs_products, trade_flow):
         exact = []
         close = []
         origins, dests, products = [[None]] * 3
@@ -276,7 +277,7 @@ class Search():
         if len(countries) + len(sitc_products) + len(hs_products) == 0:
             return []
         
-        builds = self.get_builds2(countries, sitc_products, hs_products, trade_flow)
+        builds = self.get_builds(countries, sitc_products, hs_products, trade_flow)
         
         return builds
         
@@ -293,11 +294,8 @@ class Search():
 # ---------------------------
 @mod.route('/')
 def home():
-    # Search('where does yemen export cheese?').results()
-    # names = [b["value"] for b in Search('where does import yemen  cheese to?').results()]
-    # raise Exception(names)
-    
-    g.page_type = "home"
+    '''get user's country from IP address'''
+    '''g.page_type = "home"
     ip = request.remote_addr
     
     # fetch the url
@@ -308,6 +306,11 @@ def home():
     c = Country.query.filter_by(id_2char=country_code).first()
     if c is None:
         c = Country.query.filter_by(id="nausa").first()
+    '''
+    
+    '''get ramdom country'''
+    c = Country.query.filter(Country.id_2char != None) \
+                            .order_by(func.random()).limit(1).first()
     
     return render_template("home.html", default_country=c)
 
