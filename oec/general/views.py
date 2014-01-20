@@ -10,7 +10,7 @@ from flask.ext.babel import gettext
 
 import oec
 from oec.db_attr.models import Country, Country_name, Sitc, Sitc_name, Hs, Hs_name
-from oec.explore.models import App, Build
+from oec.explore.models import App, Build, Short
 
 import time, urllib2, json, itertools
 
@@ -402,3 +402,16 @@ def embed_legacy(app_name, trade_flow, origin, dest, product, year='2011'):
     return redirect(url_for('explore.embed', app_name=app_name, \
                 classification=c, trade_flow=trade_flow, origin=origin, \
                 dest=dest, product=product, year=year))
+
+###############################
+# Handle shortened URLs
+# ---------------------------
+@mod.route('<slug>/')
+def redirect_short_url(slug):
+    short = Short.query.filter_by(slug = slug).first_or_404()
+    short.clicks += 1
+    short.last_accessed = datetime.utcnow()
+    db.session.add(short)
+    db.session.commit()
+    
+    return redirect(short.long_url)

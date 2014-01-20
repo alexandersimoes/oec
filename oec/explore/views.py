@@ -1,12 +1,13 @@
-import time, urllib2, json
+import time, urllib, urllib2, json
 
-from flask import Blueprint, render_template, g, request, current_app, session, redirect, url_for, flash, abort
+from flask import Blueprint, render_template, g, request, session, redirect, \
+                    url_for, flash, jsonify
 from flask.ext.babel import gettext
 
 from oec import app, db, babel
 from oec.utils import make_query
 from oec.db_attr.models import Country, Sitc, Hs
-from oec.explore.models import Build, App
+from oec.explore.models import Build, App, Short
 
 mod = Blueprint('explore', __name__, url_prefix='/explore')
 
@@ -95,3 +96,21 @@ def embed(app_name, classification, trade_flow, origin, dest, \
                                 classification=classification, year=year)
 
     return render_template("explore/embed.html", current_build = current_build)
+
+@mod.route('/shorten/', methods=['GET', 'POST'])
+def shorten_url():
+    
+    if request.method == 'POST':
+        
+        long_url = urllib.unquote(request.form["url"].encode('utf-8')).decode("utf-8")
+        
+        short = Short.query.filter_by(long_url = long_url).first()
+        if short is None:
+            slug = Short.make_unique_slug(long_url)
+            short = Short(slug = slug, long_url = long_url)
+            db.session.add(short)
+            db.session.commit()
+            
+        return jsonify({"slug": short.slug})
+    
+    return jsonify({"error": "No URL given."})

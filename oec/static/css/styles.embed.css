@@ -102,11 +102,19 @@ body {
 #controls .control_container img {
   width: 10px;
 }
-#controls .embed_code {
+#controls input {
   border: solid 1px #ccc;
   font-family: monospace;
-  font-size: 10px;
+  font-size: 12px;
 /*  height: 75px;*/
   overflow: hidden;
   width: 160px;
+}
+#controls #share i {
+  display: inline-block;
+  font-size: 20px;
+  margin: 0 10px 0 0;
+}
+#controls #short{
+  display: none;
 }

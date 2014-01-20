@@ -51,6 +51,27 @@
     <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://atlas.media.mit.edu/explore/embed/{{ current_build.url() }}&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
   </div>
   
+  <div class="control_container" id="share">
+    <h3>Share</h3>
+    <a href="http://www.facebook.com/sharer.php?s=100&p[title]=Observatory of Economic Complexity&p[summary]={{ current_build.get_name() }}({{ current_build.get_year() }})&p[url]=http://atlas.media.mit.edu/explore/{{ current_build.url() }}&p[images][0]=http://atlas.media.mit.edu/static/img/icons/nav/logo_large.png" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=300')" id="Facebook" title="Facebook">
+      <i class="fa fa-facebook"></i>
+    </a>
+    <a href="https://twitter.com/share?url=http://atlas.media.mit.edu/explore/{{ current_build.url() }}&text={{ current_build.get_name() }}({{ current_build.get_year() }})&hashtags=oec" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=300')" id="Twitter" title="Tweet">
+      <i class="fa fa-twitter"></i>
+    </a>
+    <a href="https://plus.google.com/share?url=http://atlas.media.mit.edu/explore/{{ current_build.url() }}" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Google+', 'width=640,height=300')" id="Google" title="Google+">
+      <i class="fa fa-google-plus"></i>
+    </a>
+    <a href="#" id="shorten">
+      <i class="fa fa-link"></i>
+    </a>
+  </div>
+
+  <div class="control_container" id="short">
+    <h3>Short URL</h3>
+    <input type="text" class="short_url" onfocus="this.select()" onMouseUp="return false" value="http://atlas.media.mit.edu/asdlkj43">
+  </div>
+  
   <!-- Hidden <FORM> to submit the SVG data to the server, which will convert it 
          to SVG/PDF/PNG downloadable file. -->
   <form id="svgform" action="/explore/download/" method="post">
@@ -322,6 +343,29 @@ d3.select("#show_hide").on("click", function(){
     controls.transition().delay(500).duration(500)
       .style("right", "0px")
   }
+})
+
+d3.select("#share #shorten").on("click", function(){
+  
+  var url = encodeURIComponent(window.location.pathname + window.location.search)
+  if(window.location != window.parent.location){
+    var url = encodeURIComponent(window.parent.location.pathname + window.parent.location.search)
+  }
+  console.log(url)
+  
+  d3.json("/explore/shorten/")
+    .header("Content-type","application/x-www-form-urlencoded")
+    .post("url="+url, function(error,data) {
+      if (data.error) {
+        alert(data.error)
+      }
+      else{
+        d3.select("#short").style("display", "block")
+        d3.select("#short input").attr("value", "http://"+location.host+"/"+data.slug)
+      }
+    })
+  
+  d3.event.preventDefault();
 })
 
 window.onresize = resize_viz
