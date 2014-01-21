@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
 #
-#, fuzzy
+# fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-27 14:38-0500\n"
+"POT-Creation-Date: 2014-01-21 12:25-0500\n"
 "PO-Revision-Date: 2013-12-27 15:28-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: he <LL@li.org>\n"
@@ -18,31 +18,128 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/html/templates/site.html:13
+#: oec/explore/models.py:385
+msgid "Trade Flow"
+msgstr "סחר תזרים"
+
+#: oec/explore/models.py:387
+msgid "Export"
+msgstr "יצוא"
+
+#: oec/explore/models.py:387
+msgid "Import"
+msgstr "יבוא"
+
+#: oec/explore/models.py:387
+msgid "Net Export"
+msgstr "יצוא נטו"
+
+#: oec/explore/models.py:387
+msgid "Net Import"
+msgstr "יבוא נטו"
+
+#: oec/explore/models.py:390
+msgid "Classification"
+msgstr "מיון"
+
+#: oec/explore/models.py:403
+msgid "Start Year"
+msgstr "להתחיל שנה"
+
+#: oec/explore/models.py:408
+msgid "End Year"
+msgstr "סוף השנה"
+
+#: oec/explore/models.py:413
+msgid "Interval"
+msgstr "הפסקה"
+
+#: oec/explore/models.py:420
+msgid "Year"
+msgstr "שנה"
+
+#: oec/explore/models.py:430
+msgid "Origin"
+msgstr "מקור"
+
+#: oec/explore/models.py:440
+msgid "Destination"
+msgstr "יעד"
+
+#: oec/explore/models.py:453
+msgid "Product"
+msgstr "מוצר"
+
+#: oec/html/home.html:23
+msgid ""
+"The Observatory of Economic Complexity makes international trade data and"
+" economic complexity indicators available through millions of interactive"
+" visualizations."
+msgstr ""
+"המצפה כלכלי מורכבות הופך את נתוני סחר בינלאומי ואינדיקטורים מורכבות "
+"כלכלית זמינים דרך מיליוני פריטים חזותיים אינטראקטיביים."
+
+#: oec/html/explore/embed.html:10 oec/html/explore/index.html:78
+msgid "Loading"
+msgstr "טעינה"
+
+#: oec/html/explore/embed.html:13
+msgid "Click to view more years"
+msgstr "לחץ לצפייה בעוד שנים"
+
+#: oec/html/explore/embed.html:35
+msgid "Build Visualization"
+msgstr "לבנות ויזואליזציה"
+
+#: oec/html/explore/embed.html:38
+msgid "Download"
+msgstr "להורדה"
+
+#: oec/html/explore/embed.html:46
+msgid "View as text"
+msgstr "צפה כטקסט"
+
+#: oec/html/explore/embed.html:50
+msgid "Embed"
+msgstr "לשבץ"
+
+#: oec/html/explore/embed.html:55
+msgid "Share"
+msgstr "מניה"
+
+#: oec/html/explore/embed.html:71
+msgid "Short URL"
+msgstr "כתובת מקוצרת"
+
+#: oec/html/templates/site.html:18
 msgid "Explore"
 msgstr "לחקור"
 
-#: oec/html/templates/site.html:14
+#: oec/html/templates/site.html:19
 msgid "Profiles"
 msgstr "פרופילים"
 
-#: oec/html/templates/site.html:15
-msgid "Book"
-msgstr "ספר"
+#: oec/html/templates/site.html:20
+msgid "Atlas"
+msgstr ""
 
-#: oec/html/templates/site.html:16
-msgid "Rankings"
-msgstr "דירוג"
+#: oec/html/templates/site.html:21
+msgid "Blog"
+msgstr ""
 
-#: oec/html/templates/site.html:17
+#: oec/html/templates/site.html:22
 msgid "About"
 msgstr "על"
 
-#: oec/html/templates/site.html:18
-msgid "API"
-msgstr "API"
+#~ msgid "Book"
+#~ msgstr "ספר"
 
-#: oec/html/templates/site.html:23
-msgid "Language"
-msgstr "שפה"
+#~ msgid "Rankings"
+#~ msgstr "דירוג"
+
+#~ msgid "API"
+#~ msgstr "API"
+
+#~ msgid "Language"
+#~ msgstr "שפה"
 

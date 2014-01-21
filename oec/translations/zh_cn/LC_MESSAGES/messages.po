@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
 #
-#, fuzzy
+# fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-27 14:38-0500\n"
+"POT-Creation-Date: 2014-01-21 12:25-0500\n"
 "PO-Revision-Date: 2013-12-27 15:29-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh_Hans_CN <LL@li.org>\n"
@@ -18,31 +18,126 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/html/templates/site.html:13
+#: oec/explore/models.py:385
+msgid "Trade Flow"
+msgstr "贸易流"
+
+#: oec/explore/models.py:387
+msgid "Export"
+msgstr "出口"
+
+#: oec/explore/models.py:387
+msgid "Import"
+msgstr "进口"
+
+#: oec/explore/models.py:387
+msgid "Net Export"
+msgstr "净出口"
+
+#: oec/explore/models.py:387
+msgid "Net Import"
+msgstr "净进口"
+
+#: oec/explore/models.py:390
+msgid "Classification"
+msgstr "分类"
+
+#: oec/explore/models.py:403
+msgid "Start Year"
+msgstr "开始年份"
+
+#: oec/explore/models.py:408
+msgid "End Year"
+msgstr "结束年份"
+
+#: oec/explore/models.py:413
+msgid "Interval"
+msgstr "间隔"
+
+#: oec/explore/models.py:420
+msgid "Year"
+msgstr "年"
+
+#: oec/explore/models.py:430
+msgid "Origin"
+msgstr "起源"
+
+#: oec/explore/models.py:440
+msgid "Destination"
+msgstr "目的地"
+
+#: oec/explore/models.py:453
+msgid "Product"
+msgstr "产品"
+
+#: oec/html/home.html:23
+msgid ""
+"The Observatory of Economic Complexity makes international trade data and"
+" economic complexity indicators available through millions of interactive"
+" visualizations."
+msgstr "经济复杂性的天文台的国际贸易数据，并可以通过数以百万计的交互式可视化的经济复杂性的指标。"
+
+#: oec/html/explore/embed.html:10 oec/html/explore/index.html:78
+msgid "Loading"
+msgstr "载入中"
+
+#: oec/html/explore/embed.html:13
+msgid "Click to view more years"
+msgstr "点击查看更多年"
+
+#: oec/html/explore/embed.html:35
+msgid "Build Visualization"
+msgstr "建立可视化"
+
+#: oec/html/explore/embed.html:38
+msgid "Download"
+msgstr "下载"
+
+#: oec/html/explore/embed.html:46
+msgid "View as text"
+msgstr "查看文本"
+
+#: oec/html/explore/embed.html:50
+msgid "Embed"
+msgstr "嵌"
+
+#: oec/html/explore/embed.html:55
+msgid "Share"
+msgstr "共享"
+
+#: oec/html/explore/embed.html:71
+msgid "Short URL"
+msgstr "短网址"
+
+#: oec/html/templates/site.html:18
 msgid "Explore"
 msgstr "探索"
 
-#: oec/html/templates/site.html:14
+#: oec/html/templates/site.html:19
 msgid "Profiles"
 msgstr "简介"
 
-#: oec/html/templates/site.html:15
-msgid "Book"
-msgstr "书"
+#: oec/html/templates/site.html:20
+msgid "Atlas"
+msgstr ""
 
-#: oec/html/templates/site.html:16
-msgid "Rankings"
-msgstr "排行榜"
+#: oec/html/templates/site.html:21
+msgid "Blog"
+msgstr ""
 
-#: oec/html/templates/site.html:17
+#: oec/html/templates/site.html:22
 msgid "About"
 msgstr "关于"
 
-#: oec/html/templates/site.html:18
-msgid "API"
-msgstr "API"
+#~ msgid "Book"
+#~ msgstr "书"
 
-#: oec/html/templates/site.html:23
-msgid "Language"
-msgstr "语"
+#~ msgid "Rankings"
+#~ msgstr "排行榜"
+
+#~ msgid "API"
+#~ msgstr "API"
+
+#~ msgid "Language"
+#~ msgstr "语"
 

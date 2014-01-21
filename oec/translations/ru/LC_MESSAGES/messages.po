@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
 #
-#, fuzzy
+# fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-27 14:38-0500\n"
+"POT-Creation-Date: 2014-01-21 12:25-0500\n"
 "PO-Revision-Date: 2013-12-27 15:28-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ru <LL@li.org>\n"
@@ -19,31 +19,129 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/html/templates/site.html:13
+#: oec/explore/models.py:385
+msgid "Trade Flow"
+msgstr "О торговых потоках"
+
+#: oec/explore/models.py:387
+msgid "Export"
+msgstr "Экспорт"
+
+#: oec/explore/models.py:387
+msgid "Import"
+msgstr "Импорт"
+
+#: oec/explore/models.py:387
+msgid "Net Export"
+msgstr "Чистый экспорт"
+
+#: oec/explore/models.py:387
+msgid "Net Import"
+msgstr "Чистая Импорт"
+
+#: oec/explore/models.py:390
+msgid "Classification"
+msgstr "Классификация"
+
+#: oec/explore/models.py:403
+msgid "Start Year"
+msgstr "Год начала"
+
+#: oec/explore/models.py:408
+msgid "End Year"
+msgstr "Конец Год"
+
+#: oec/explore/models.py:413
+msgid "Interval"
+msgstr "Интервал"
+
+#: oec/explore/models.py:420
+msgid "Year"
+msgstr "Год"
+
+#: oec/explore/models.py:430
+msgid "Origin"
+msgstr "Происхождение"
+
+#: oec/explore/models.py:440
+msgid "Destination"
+msgstr "Назначение"
+
+#: oec/explore/models.py:453
+msgid "Product"
+msgstr "Продукт"
+
+#: oec/html/home.html:23
+msgid ""
+"The Observatory of Economic Complexity makes international trade data and"
+" economic complexity indicators available through millions of interactive"
+" visualizations."
+msgstr ""
+"Обсерватория экономического сложности делает международная торговля "
+"данные и показатели экономической сложности, доступные через миллионы "
+"интерактивных визуализаций."
+
+#: oec/html/explore/embed.html:10 oec/html/explore/index.html:78
+msgid "Loading"
+msgstr "Загрузка"
+
+#: oec/html/explore/embed.html:13
+msgid "Click to view more years"
+msgstr "Нажмите, чтобы посмотреть более лет"
+
+#: oec/html/explore/embed.html:35
+msgid "Build Visualization"
+msgstr "Построить Визуализация"
+
+#: oec/html/explore/embed.html:38
+msgid "Download"
+msgstr "Скачать"
+
+#: oec/html/explore/embed.html:46
+msgid "View as text"
+msgstr "Просмотр в виде текста"
+
+#: oec/html/explore/embed.html:50
+msgid "Embed"
+msgstr "Вставлять"
+
+#: oec/html/explore/embed.html:55
+msgid "Share"
+msgstr "Доля"
+
+#: oec/html/explore/embed.html:71
+msgid "Short URL"
+msgstr "Короткий URL"
+
+#: oec/html/templates/site.html:18
 msgid "Explore"
 msgstr "Исследовать"
 
-#: oec/html/templates/site.html:14
+#: oec/html/templates/site.html:19
 msgid "Profiles"
 msgstr "Профили"
 
-#: oec/html/templates/site.html:15
-msgid "Book"
-msgstr "Книга"
+#: oec/html/templates/site.html:20
+msgid "Atlas"
+msgstr ""
 
-#: oec/html/templates/site.html:16
-msgid "Rankings"
-msgstr "Рейтинг"
+#: oec/html/templates/site.html:21
+msgid "Blog"
+msgstr ""
 
-#: oec/html/templates/site.html:17
+#: oec/html/templates/site.html:22
 msgid "About"
 msgstr "О"
 
-#: oec/html/templates/site.html:18
-msgid "API"
-msgstr "API"
+#~ msgid "Book"
+#~ msgstr "Книга"
 
-#: oec/html/templates/site.html:23
-msgid "Language"
-msgstr "Язык"
+#~ msgid "Rankings"
+#~ msgstr "Рейтинг"
+
+#~ msgid "API"
+#~ msgstr "API"
+
+#~ msgid "Language"
+#~ msgstr "Язык"
 

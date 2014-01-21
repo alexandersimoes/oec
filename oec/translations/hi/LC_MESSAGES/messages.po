@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
 #
-#, fuzzy
+# fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-27 14:38-0500\n"
+"POT-Creation-Date: 2014-01-21 12:25-0500\n"
 "PO-Revision-Date: 2013-12-27 15:28-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: hi <LL@li.org>\n"
@@ -18,31 +18,129 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/html/templates/site.html:13
+#: oec/explore/models.py:385
+msgid "Trade Flow"
+msgstr "व्यापार प्रवाह"
+
+#: oec/explore/models.py:387
+msgid "Export"
+msgstr "निर्यात"
+
+#: oec/explore/models.py:387
+msgid "Import"
+msgstr "आयात"
+
+#: oec/explore/models.py:387
+msgid "Net Export"
+msgstr "शुद्ध निर्यात"
+
+#: oec/explore/models.py:387
+msgid "Net Import"
+msgstr "शुद्ध आयात"
+
+#: oec/explore/models.py:390
+msgid "Classification"
+msgstr "वर्गीकरण"
+
+#: oec/explore/models.py:403
+msgid "Start Year"
+msgstr "वर्ष शुरू"
+
+#: oec/explore/models.py:408
+msgid "End Year"
+msgstr "समाप्ति वर्ष"
+
+#: oec/explore/models.py:413
+msgid "Interval"
+msgstr "अंतराल"
+
+#: oec/explore/models.py:420
+msgid "Year"
+msgstr "वर्ष"
+
+#: oec/explore/models.py:430
+msgid "Origin"
+msgstr "मूल"
+
+#: oec/explore/models.py:440
+msgid "Destination"
+msgstr "गंतव्य"
+
+#: oec/explore/models.py:453
+msgid "Product"
+msgstr "उत्पाद"
+
+#: oec/html/home.html:23
+msgid ""
+"The Observatory of Economic Complexity makes international trade data and"
+" economic complexity indicators available through millions of interactive"
+" visualizations."
+msgstr ""
+"आर्थिक जटिलता की वेधशाला अंतर्राष्ट्रीय व्यापार डेटा और इंटरैक्टिव "
+"visualizations के लाखों लोगों के माध्यम से उपलब्ध आर्थिक जटिलता संकेतक "
+"बनाता है."
+
+#: oec/html/explore/embed.html:10 oec/html/explore/index.html:78
+msgid "Loading"
+msgstr "लदान"
+
+#: oec/html/explore/embed.html:13
+msgid "Click to view more years"
+msgstr "अधिक वर्षों देखने के लिए क्लिक करें"
+
+#: oec/html/explore/embed.html:35
+msgid "Build Visualization"
+msgstr "विज़ुअलाइज़ेशन बनाएँ"
+
+#: oec/html/explore/embed.html:38
+msgid "Download"
+msgstr "डाउनलोड"
+
+#: oec/html/explore/embed.html:46
+msgid "View as text"
+msgstr "पाठ के रूप में देखें"
+
+#: oec/html/explore/embed.html:50
+msgid "Embed"
+msgstr "एम्बेड"
+
+#: oec/html/explore/embed.html:55
+msgid "Share"
+msgstr "शेयर"
+
+#: oec/html/explore/embed.html:71
+msgid "Short URL"
+msgstr "लघु यूआरएल"
+
+#: oec/html/templates/site.html:18
 msgid "Explore"
 msgstr "अन्वेषण"
 
-#: oec/html/templates/site.html:14
+#: oec/html/templates/site.html:19
 msgid "Profiles"
 msgstr "प्रोफाइल"
 
-#: oec/html/templates/site.html:15
-msgid "Book"
-msgstr "किताब"
+#: oec/html/templates/site.html:20
+msgid "Atlas"
+msgstr ""
 
-#: oec/html/templates/site.html:16
-msgid "Rankings"
-msgstr "रैंकिंग"
+#: oec/html/templates/site.html:21
+msgid "Blog"
+msgstr ""
 
-#: oec/html/templates/site.html:17
+#: oec/html/templates/site.html:22
 msgid "About"
 msgstr "के बारे में"
 
-#: oec/html/templates/site.html:18
-msgid "API"
-msgstr "एपीआई"
+#~ msgid "Book"
+#~ msgstr "किताब"
 
-#: oec/html/templates/site.html:23
-msgid "Language"
-msgstr "भाषा"
+#~ msgid "Rankings"
+#~ msgstr "रैंकिंग"
+
+#~ msgid "API"
+#~ msgstr "एपीआई"
+
+#~ msgid "Language"
+#~ msgstr "भाषा"
 

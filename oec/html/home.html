@@ -16,11 +16,11 @@
       {% endfor %}
     </select>
     
-    <input type="text" data-provide="typeahead" autocomplete="off" autofocus="" placeholder="What does {{ default_country.get_name() }} export?" />
+    <input type="text" data-provide="typeahead" autocomplete="off" autofocus="" placeholder="{{ default_build.get_name() }}" />
   </div>
   
   <h2>
-    The Observatory of Economic Complexity makes international trade data and economic complexity indicators available through millions of interactive visualizations.
+    {{ _('The Observatory of Economic Complexity makes international trade data and economic complexity indicators available through millions of interactive visualizations.') }}
   </h2>
   
 {% endblock %}

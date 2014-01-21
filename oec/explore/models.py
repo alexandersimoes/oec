@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import g, url_for
+from flask.ext.babel import gettext as _
 from datetime import datetime
 from sqlalchemy import desc
 from oec import db, __latest_year__, available_years
@@ -381,12 +382,12 @@ class Build(db.Model, AutoSerialize):
     
     def get_ui(self):
         trade_flow = {
-            "name": "Trade Flow",
+            "name": _("Trade Flow"),
             "current": self.trade_flow,
-            "data": ["Export", "Import", "Net Export", "Net Import"]
+            "data": [_("Export"), _("Import"), _("Net Export"), _("Net Import")]
         }
         classification = {
-            "name": "Classification",
+            "name": _("Classification"),
             "current": self.classification,
             "data": ["HS", "SITC"]
         }
@@ -399,24 +400,24 @@ class Build(db.Model, AutoSerialize):
             else:
                 years = range(year_parts[0], year_parts[1]+1, year_parts[2])
             start_year = {
-                "name": "Start Year",
+                "name": _("Start Year"),
                 "current": years[0],
                 "data": available_years[self.classification]
             }
             end_year = {
-                "name": "End Year",
+                "name": _("End Year"),
                 "current": years[-1],
                 "data": available_years[self.classification]
             }
             interval = {
-                "name": "Interval",
+                "name": _("Interval"),
                 "current": years[1] - years[0],
                 "data": range(1, 10)
             }
             ui = ui + [start_year, end_year, interval]
         else:
             year = {
-                "name": "Year",
+                "name": _("Year"),
                 "current": int(self.year),
                 "data": available_years[self.classification]
             }
@@ -426,7 +427,7 @@ class Build(db.Model, AutoSerialize):
             country_list = Country.query.filter(Country.id_3char != None)
             country_list = [c.serialize() for c in country_list]
             country = {
-                "name": "Origin",
+                "name": _("Origin"),
                 "current": self.origin.serialize(),
                 "data": country_list
             }
@@ -436,7 +437,7 @@ class Build(db.Model, AutoSerialize):
             country_list = Country.query.filter(Country.id_3char != None)
             country_list = [c.serialize() for c in country_list]
             country = {
-                "name": "Destination",
+                "name": _("Destination"),
                 "current": self.dest.serialize(),
                 "data": country_list
             }
@@ -449,7 +450,7 @@ class Build(db.Model, AutoSerialize):
                 product_list = Hs.query.all()
             product_list = [p.serialize() for p in product_list]
             product = {
-                "name": "Product",
+                "name": _("Product"),
                 "current": self.product.serialize(),
                 "data": product_list
             }

@@ -33,7 +33,7 @@
   
   <div class="col1" id="app_pane">
   
-    <h3 class="pane_title">App Selection</h3>
+    <h3 class="pane_title">{{ _('App Selection') }}</h3>
   
     {% set pre_app = None %}
     {% set pre_cat = None %}
@@ -75,14 +75,14 @@
 
     <!-- ajax loading gif -->
     <div id="loader">
-      Loading...
+      {{ _('Loading') }}...
     </div>
   
     <!-- table of data from visualization -->
     <div id="text_data">
       {% set stats = current_build.top_stats(20) %}
       {% if stats.entries %}
-      <h2 id="total">Total: {{ stats.total|format_currency }}</h2>
+      <h2 id="total">{{ _('Total') }}: {{ stats.total|format_currency }}</h2>
       <table>
         <thead><tr></tr></thead>
         <tbody>

@@ -7,10 +7,10 @@
 
 {% block content %}
 
-<div id="loading"><h1>Loading...</h1></div>
+<div id="loading"><h1>{{ _('Loading') }}...</h1></div>
 <div id="app">
   <div id="viz"></div>
-  <div id="timeline"><button>Click to view more years &raquo;</button></div>
+  <div id="timeline"><button>{{ _('Click to view more years') }} &raquo;</button></div>
 </div>
 <div id="controls">
   
@@ -32,10 +32,10 @@
   </div>
   {% endfor %}
   
-  <button id="build">Build Visualization</button>
+  <button id="build">{{ _('Build Visualization') }}</button>
   
   <div class="control_container" id="download">
-    <h3>Download</h3>
+    <h3>{{ _('Download') }}</h3>
     <a class="pdf" href="#"><img src="/static/img/icons/download.png"> PDF</a>
     <a class="svg" href="#"><img src="/static/img/icons/download.png"> SVG</a>
     <a class="png" href="#"><img src="/static/img/icons/download.png"> PNG</a>
@@ -43,16 +43,16 @@
   </div>
   
   <div class="control_container" id="view_as_text">
-    <a class="text" href="#"><img src="/static/img/icons/text.png"> <span>View as text</span></a>
+    <a class="text" href="#"><img src="/static/img/icons/text.png"> <span>{{ _('View as text') }}</span></a>
   </div>
   
   <div class="control_container">
-    <h3>Embed</h3>
+    <h3>{{ _('Embed') }}</h3>
     <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://atlas.media.mit.edu/explore/embed/{{ current_build.url() }}&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
   </div>
   
   <div class="control_container" id="share">
-    <h3>Share</h3>
+    <h3>{{ _('Share') }}</h3>
     <a href="http://www.facebook.com/sharer.php?s=100&p[title]=Observatory of Economic Complexity&p[summary]={{ current_build.get_name() }}({{ current_build.get_year() }})&p[url]=http://atlas.media.mit.edu/explore/{{ current_build.url() }}&p[images][0]=http://atlas.media.mit.edu/static/img/icons/nav/logo_large.png" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=300')" id="Facebook" title="Facebook">
       <i class="fa fa-facebook"></i>
     </a>
@@ -68,7 +68,7 @@
   </div>
 
   <div class="control_container" id="short">
-    <h3>Short URL</h3>
+    <h3>{{ _('Short URL') }}</h3>
     <input type="text" class="short_url" onfocus="this.select()" onMouseUp="return false" value="http://atlas.media.mit.edu/asdlkj43">
   </div>
   
