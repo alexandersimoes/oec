@@ -52,7 +52,7 @@ def explore(app_name, classification, trade_flow, origin, dest, \
     # raise Exception(make_query(current_build.get_tbl(), request.args, g.locale, **kwargs))
     # raise Exception(current_build.top_stats(20))
     
-    if session.pop('new_lang', None):
+    if session.pop('new_lang', None) and g.locale != 'en':
         flash_txt = '''We've noticed you've changed the language, if you see 
         some translations that look odd and you think you could do better feel 
         free to help us out by <a target="_blank" href="{0}">adding your 

@@ -434,9 +434,9 @@ d3.select("#show_hide").on("click", function(){
 
 d3.select("#share #shorten").on("click", function(){
   
-  var url = encodeURIComponent(window.location.pathname + window.location.search)
+  var url = encodeURIComponent(window.location.pathname + "?lang={{ g.locale }}")
   if(window.location != window.parent.location){
-    var url = encodeURIComponent(window.parent.location.pathname + window.parent.location.search)
+    var url = encodeURIComponent(window.parent.location.pathname + "?lang={{ g.locale }}")
   }
   console.log(url)
   

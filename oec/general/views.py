@@ -35,10 +35,11 @@ def before_request():
     else:
         session['first_time'] = True
     
-    # Set the locale to either 'pt' or 'en' on the global object
+    lang = request.args.get('lang', None)
+    if lang:
+        g.locale = get_locale(lang)
+    
     if request.endpoint != 'static':
-        # g.locale = "hi"
-        # raise Exception(g.locale)
         g.locale = get_locale()
 
 @babel.localeselector
@@ -337,6 +338,15 @@ def atlas():
 # ---------------------------
 @mod.route('about/')
 def about():
+    return redirect(url_for('.about_team'))
+
+@mod.route('about/team/')
+def about_team():
+    g.page_type = "about"
+    return render_template("about/team.html")
+
+@mod.route('about/overview/')
+def about_overview():
     g.page_type = "about"
     return render_template("about/index.html")
 
@@ -362,10 +372,6 @@ def about_data(data_type):
         title = "Country names and abbreviations"
     
     return render_template("about/data.html", items=items, headers=headers, title=title)
-
-@mod.route('about/team/')
-def about_team():
-    return render_template("about/team.html")
 
 @mod.route('about/permissions/')
 def about_permissions():
