@@ -283,7 +283,10 @@ class Build(db.Model, AutoSerialize):
                 "zh_cn": "826330770"
             }
         }
-        return urls[attr_type()]["base"] + urls[attr_type()][lang]
+        if attr_type() in urls:
+            return urls[attr_type()]["base"] + urls[attr_type()][lang]
+        else:
+            return "https://docs.google.com/spreadsheets/d/1Ue5cRW2rWlsZrnISWEgzuUsouIt6C0YI9t_tAPewMio/"
     
     def attr_url(self):
         if self.origin == "show" or self.dest == "show":
@@ -382,11 +385,18 @@ class Build(db.Model, AutoSerialize):
     
     def get_ui(self):
         trade_flow = {
+            "id": "trade_flow",
             "name": _("Trade Flow"),
             "current": self.trade_flow,
-            "data": [_("Export"), _("Import"), _("Net Export"), _("Net Import")]
+            "data": [
+                {"name":_("Export"), "display_id":"export"},
+                {"name":_("Import"), "display_id":"import"},
+                {"name":_("Net Export"), "display_id":"net_export"},
+                {"name":_("Net Import"), "display_id":"net_import"}
+            ]
         }
         classification = {
+            "id": "classification",
             "name": _("Classification"),
             "current": self.classification,
             "data": ["HS", "SITC"]
@@ -400,16 +410,19 @@ class Build(db.Model, AutoSerialize):
             else:
                 years = range(year_parts[0], year_parts[1]+1, year_parts[2])
             start_year = {
+                "id": "start_year",
                 "name": _("Start Year"),
                 "current": years[0],
                 "data": available_years[self.classification]
             }
             end_year = {
+                "id": "end_year",
                 "name": _("End Year"),
                 "current": years[-1],
                 "data": available_years[self.classification]
             }
             interval = {
+                "id": "interval",
                 "name": _("Interval"),
                 "current": years[1] - years[0],
                 "data": range(1, 10)
@@ -417,6 +430,7 @@ class Build(db.Model, AutoSerialize):
             ui = ui + [start_year, end_year, interval]
         else:
             year = {
+                "id": "year",
                 "name": _("Year"),
                 "current": int(self.year),
                 "data": available_years[self.classification]
@@ -427,6 +441,7 @@ class Build(db.Model, AutoSerialize):
             country_list = Country.query.filter(Country.id_3char != None)
             country_list = [c.serialize() for c in country_list]
             country = {
+                "id": "origin",
                 "name": _("Origin"),
                 "current": self.origin.serialize(),
                 "data": country_list
@@ -437,6 +452,7 @@ class Build(db.Model, AutoSerialize):
             country_list = Country.query.filter(Country.id_3char != None)
             country_list = [c.serialize() for c in country_list]
             country = {
+                "id": "destination",
                 "name": _("Destination"),
                 "current": self.dest.serialize(),
                 "data": country_list
@@ -450,6 +466,7 @@ class Build(db.Model, AutoSerialize):
                 product_list = Hs.query.all()
             product_list = [p.serialize() for p in product_list]
             product = {
+                "id": "product",
                 "name": _("Product"),
                 "current": self.product.serialize(),
                 "data": product_list

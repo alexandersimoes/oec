@@ -301,52 +301,7 @@ text-decoration: none;
   height: 380px;
   position: relative;
 }
-.explore .content #text_data{
-  height: 500px;
-  overflow-y: scroll;
-  position: absolute;
-  z-index: -1;
-}
-.explore .content #text_data h2#total {
-  text-align:center;
-}
-.explore .content #text_data ol {
-/*  list-style-type: decimal;*/
-  margin: 0 0 0 40px;
-}
-.explore .content #text_data table{
-  width: 100%;
-}
-.explore .content #text_data table tr.odd{
-  background: #eee;
-}
-.explore .content #text_data table td,
-.explore .content #text_data table th{
-  padding: 2px 6px;
-  vertical-align: top;
-}
-.explore .content #text_data table td:nth-child(1){
-  width: 20px;
-}
-.explore .content #text_data table td:nth-child(2){
-  width: 40px;
-}
-.rtl.explore .content #text_data table td:nth-child(3){
-  text-align: right;
-}
-.explore .content #text_data table td:nth-child(4),
-.explore .content #text_data table td:nth-child(5){
-  text-align: right;
-}
-.explore .content #text_data table td:nth-child(5){
-  min-width: 35px;
-}
-.explore .content #text_data table tbody tr:nth-child(even) {
-  background: white;
-}
-.explore .content #text_data table tbody tr:nth-child(odd) {
-  background: #F4F5F7;
-}
+
 /* key */
 .explore .content .key {
   padding: 3px;

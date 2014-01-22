@@ -1,3 +1,6 @@
+/***********/
+/* General */
+/***********/
 body {
   background-attachment: none;
   background: transparent;
@@ -6,9 +9,80 @@ body {
 #app {
   float: left;
 }
+
+/*******/
+/* Viz */
+/*******/
 #app #viz{
   display: none;
 }
+
+/**************/
+/* Data Table */
+/**************/
+#app #text{
+  display: none;
+}
+#app #text{
+  overflow-y: scroll;
+/*  position: absolute;
+  z-index: -1;*/
+}
+#app #text h2#total {
+  text-align:center;
+}
+#app #text ol {
+/*  list-style-type: decimal;*/
+  margin: 0 0 0 40px;
+}
+#app #text table{
+  width: 100%;
+}
+#app #text table tr.odd{
+  background: #eee;
+}
+#app #text table td,
+#app #text table th{
+  padding: 2px 6px;
+  vertical-align: top;
+}
+#app #text table th {
+  text-align: left;
+}
+#app #text table th:nth-child(1),
+#app #text table td:nth-child(1){
+  width: 20px;
+}
+#app #text table th:nth-child(2),
+#app #text table td:nth-child(2){
+  width: 40px;
+}
+.rtl #app #text table th:nth-child(3),
+.rtl #app #text table td:nth-child(3){
+  text-align: right;
+}
+#app #text table td:nth-child(4){
+  width: 75px;
+  text-align: right;
+}
+#app #text table td:nth-child(5){
+  width: 40px;
+  text-align: right;
+}
+#app #text table th:nth-child(5),
+#app #text table td:nth-child(5){
+  min-width: 35px;
+}
+#app #text table tbody tr:nth-child(even) {
+  background: white;
+}
+#app #text table tbody tr:nth-child(odd) {
+  background: #F4F5F7;
+}
+
+/************/
+/* Timeline */
+/************/
 #app #timeline {
 /*  border: red 1px solid;*/
   height: 40px;
@@ -18,8 +92,11 @@ body {
   font-size: 15px;
   margin: 4px auto;
 }
+
+/************/
+/* Controls */
+/************/
 #controls {
-  background: #fff;
   display: none;
   font-size:90%;
   right: 0px;

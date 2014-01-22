@@ -76,9 +76,9 @@ msgid ""
 " economic complexity indicators available through millions of interactive"
 " visualizations."
 msgstr ""
-"El Observatorio de la Complejidad Económica hace que los datos de "
-"comercio internacional y los indicadores de complejidad económica "
-"disponibles a través de millones de visualizaciones interactivas."
+"El Observatorio de Complejidad Económica libera datos de comercio"
+" internacional e indicadores de complejidad económica a través de millones"
+" de visualizaciones interactivas."
 
 #: oec/html/explore/embed.html:10 oec/html/explore/index.html:78
 msgid "Loading"

@@ -12,7 +12,7 @@
 <div class="app_title" id="icons">
   
   {% if current_build.origin != "show" %}
-  <img src="{{ current_build.origin.get_icon() }}">
+  <img src="{{ current_build.origin.get_icon() }}" alt="{{ _('Flag of %(country)s', country=current_build.origin.get_name()) }}">
   {% elif current_build.origin == "show" and current_build.product %}
   <img style="background-color: {{ current_build.product.color }};" src="{{ current_build.product.get_icon() }}">
   {% endif %}
@@ -20,7 +20,7 @@
   <h2 class="{{ current_build.app.type }}">{{ current_build.get_year() }}</h2>
   
   {% if current_build.dest != "show" and current_build.dest != "all" %}
-  <img src="{{ current_build.dest.get_icon() }}">
+  <img src="{{ current_build.dest.get_icon() }}" alt="{{ _('Flag of %(country)s', country=current_build.dest.get_name()) }}">
   {% elif current_build.origin != "show" and current_build.product != "show" and current_build.product != "all" %}
   <img style="background-color: {{ current_build.product.color }};" src="{{ current_build.product.get_icon() }}">
   {% endif %}
@@ -118,7 +118,6 @@
 <!-- Libraries -->
 <script src="/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
 <script src="/static/js/libs/jquery-ui/jquery-ui.min.js"></script>
-<script src="/static/js/d3.tabulate.js"></script>
 <script>
 
 d3.selectAll(".builds a.app_name").on("click", function(){
@@ -137,78 +136,6 @@ d3.selectAll(".builds a.app_name").on("click", function(){
   }
   
   d3.event.preventDefault();
-})
-
-d3.selectAll("button#build").on("click", function(){
-  
-  var tf = d3.select("#trade_flow select").node().value.toLowerCase()
-  
-  if (d3.select("#year select").node()){
-    var year = d3.select("#year select").node().value
-  }
-  else {
-    var year = d3.select("#start_year select").node().value
-    year += "."
-    year += d3.select("#end_year select").node().value
-    year += "."
-    year += d3.select("#interval select").node().value
-  }
-  
-  if(d3.select("#origin select").node()){
-    var origin = d3.select("#origin select").node().value
-  } else {
-    var origin = "{{ current_build.origin.id_3char }}" || "{{ current_build.origin }}"
-  }
-  
-  if(d3.select("#destination select").node()){
-    var dest = d3.select("#destination select").node().value
-  } else {
-    var dest = "{{ current_build.dest.id_3char }}" || "{{ current_build.dest }}"
-  }
-  
-  if(d3.select("#product select").node()){
-    var prod = d3.select("#product select").node().value
-  } else {
-    var prod = "{{ current_build.product.hs }}" || "{{ current_build.product.sitc }}" || "{{ current_build.product }}"
-  }
-  
-  if(d3.select("#classification select").node()){
-    var classification = d3.select("#classification select").node().value.toLowerCase()
-  } else {
-    var classification = "{{ current_build.classification }}"
-  }
-  
-  var new_url =  "/explore/{{ current_build.app.type }}/"
-      new_url += classification + "/"
-      new_url += tf + "/"
-      new_url += origin + "/"
-      new_url += dest + "/"
-      new_url += prod + "/"
-      new_url += year + "/"
-  
-  // console.log(new_url)
-  window.location = new_url
-  
-  d3.event.preventDefault();
-})
-
-// View as text
-d3.selectAll("#view_as_text a").on("click", function(){
-  d3.select("#zviz").style("display", function(){
-    if(d3.select(this).style("display") != "none"){
-      return "none"
-    }
-    return "block"
-  })
-  d3.select("#text_data").style("position", function(){
-    if(d3.select(this).style("position") != "absolute"){
-      return "absolute"
-    }
-    return "static"
-  })
-  if(d3.event){
-    d3.event.preventDefault();
-  }
 })
 
 // Download button logic
@@ -264,40 +191,23 @@ d3.selectAll("#download a").on("click", function(){
   d3.event.preventDefault();
 })
 
-function update_text_table(data, attrs){
-  // d3.selectAll("#view_as_text a").on("click")()
-  
-  var format_currency = d3.format("$,.2f"),
-      format_percent = d3.format(",.2%"),
-      val = "{{ current_build.trade_flow }}_val",
-      attr_id = "{{ current_build.attr_type() }}_id",
-      total = d3.sum(data, function(d){ return d[val] });
-  
-  d3.selectAll("h2#total").text("Total: " + format_currency(total))
-  
-  var columns = ["#", "id", "name", "val", "percent"];
-  table_data = []
-  data = data.filter(function(d){ return d[val] > 0 })
-  data.sort(function(a,b){return d3.descending(a[val], b[val]) })
-  data.forEach(function(d, i){
-    table_data.push({
-      "#": i+1,
-      "id": d[attr_id],
-      "name": attrs[d[attr_id]].name,
-      "val": format_currency(d[val]),
-      "percent": format_percent(d[val]/total)
-    })
+function view_as_text(){
+  d3.select("#zviz").style("display", function(){
+    if(d3.select(this).style("display") != "none"){
+      return "none"
+    }
+    return "block"
   })
-  
-  var tbl = tabulate("#text_data", table_data, columns)
-  // uppercase the column headers
-  tbl.selectAll("thead th")
-    .text(function(column) {
-      return column.charAt(0).toUpperCase() + column.substr(1);
-    });
-  
+  d3.select("#text_data").style("display", function(){
+    if(d3.select(this).style("display") != "none"){
+      return "none"
+    }
+    return "block"
+  })
+  if(d3.event){
+    d3.event.preventDefault();
+  }
 }
-
 
 /////////////////////////////
 // Initialize page --
@@ -309,6 +219,9 @@ var div_to_show_id = "{{ current_build.app.type }}",
 ul.style("height", "auto")
 var x = ul.style("height")
 ul.transition().duration(500).style("height", x)
+
+// hide text on load
+d3.select("#text_data").style("display", "none");
 
 </script>
 {% endblock %}

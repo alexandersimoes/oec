@@ -9,6 +9,7 @@
 
 <div id="loading"><h1>{{ _('Loading') }}...</h1></div>
 <div id="app">
+  <div id="text"></div>
   <div id="viz"></div>
   <div id="timeline"><button>{{ _('Click to view more years') }} &raquo;</button></div>
 </div>
@@ -17,7 +18,7 @@
   <div id="show_hide"><i class="fa fa-chevron-right"></i></div>
   
   {% for ui in current_build.get_ui() %}
-  <div class="dropdown_container" id="{{ ui.name|lower|replace(" ", "_") }}">
+  <div class="dropdown_container" id="{{ ui.id }}">
     <h3>{{ ui.name }}</h3>
     <select>
       {% for option in ui.data %}
@@ -92,11 +93,12 @@
 <script src="/static/js/libs/queue.js"></script>
 <script src="/static/js/libs/topojson.js"></script>
 <script src="/static/js/d3.brushtimeline.js"></script>
+<script src="/static/js/d3.tabulate.js"></script>
 
 <script>
 
 /* init vars */
-var viz = d3plus.viz().container("#viz"),
+var viz = d3plus.viz().container("#viz").style({"background":"transparent"}),
     attr_id = "{{ current_build.attr_type() }}_id",
     app_type = "{{ current_build.app.type }}",
     attrs = {},
@@ -107,7 +109,7 @@ var viz = d3plus.viz().container("#viz"),
           .defer(d3.json, "{{ current_build.attr_url() }}");
 
 function resize_viz(obj){
-  console.log("resize!")
+  
   if(viz.data().default.length){
     var new_width = window.innerWidth - parseInt(d3.select("#controls").style("width"));
     var new_height = window.innerHeight - d3.select("#timeline").node().offsetHeight;
@@ -116,6 +118,7 @@ function resize_viz(obj){
       new_height = obj.height || new_height;
     }
     viz.width(new_width).height(new_height).draw()
+    d3.select("#app #text").style("width", new_width+"px").style("height", new_height+"px")
   }
 }
 /* general function needed by all apps for making proper nesting and updating
@@ -149,9 +152,7 @@ function finish(data, attrs){
   
   d3.select("#timeline button").style("display", "block")
   
-  if(parent.update_text_table){
-    parent.update_text_table(data, attrs)
-  }
+  update_text_table(data, attrs)
 }
 
 /* the ~~BIG KAHUNA~~ 
@@ -212,6 +213,7 @@ switch (app_type){
         .axes({"static":false})
         .text({"nest":"name","id":"name"})
         .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
+        .width(viz_width)
         
       finish(raw_data.data, attrs)
     }
@@ -242,6 +244,7 @@ switch (app_type){
           "spotlight":true
         })
         .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
+        .width(viz_width)
       
       finish(raw_data.data, attrs)
     }
@@ -276,15 +279,46 @@ switch (app_type){
         .coords(raw_coords)
         .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
         .time({"solo": ["2010"]})
+        .width(viz_width)
       
       finish(raw_data.data, attrs)
     }
     break;
 }
 
-/* unleash the dogs... make the AJAX requests in order to the server and when
-   they return execute the go() func */
-q.await(go);
+function update_text_table(data, attrs){
+  // d3.selectAll("#view_as_text a").on("click")()
+  
+  var format_currency = d3.format("$,.2f"),
+      format_percent = d3.format(",.2%"),
+      val = "{{ current_build.trade_flow }}_val",
+      attr_id = "{{ current_build.attr_type() }}_id",
+      total = d3.sum(data, function(d){ return d[val] });
+  
+  d3.selectAll("h2#total").text("Total: " + format_currency(total))
+  
+  var columns = ["#", "id", "name", "val", "percent"];
+  table_data = []
+  data = data.filter(function(d){ return d[val] > 0 })
+  data.sort(function(a,b){return d3.descending(a[val], b[val]) })
+  data.forEach(function(d, i){
+    table_data.push({
+      "#": i+1,
+      "id": d[attr_id],
+      "name": attrs[d[attr_id]].name,
+      "val": format_currency(d[val]),
+      "percent": format_percent(d[val]/total)
+    })
+  })
+  
+  var tbl = tabulate("#app #text", table_data, columns)
+  // uppercase the column headers
+  tbl.selectAll("thead th")
+    .text(function(column) {
+      return column.charAt(0).toUpperCase() + column.substr(1);
+    });
+  
+}
 
 /* if user requests more years, fetch raw data call for all years and create
    a timeline */
@@ -317,11 +351,64 @@ d3.select("#timeline button").on("click", function(){
       
       if(parent.update_text_table){
         var data_for_table = raw_data.data.filter(function(d){ return years.indexOf(d.year) >= 0 })
-        parent.update_text_table(data_for_table, attrs)
+        update_text_table(data_for_table, attrs)
       }
     })
     
   })
+  d3.event.preventDefault();
+})
+
+d3.selectAll("button#build").on("click", function(){
+  
+  var tf = d3.select("#trade_flow select").node().value.toLowerCase()
+  
+  if (d3.select("#year select").node()){
+    var year = d3.select("#year select").node().value
+  }
+  else {
+    var year = d3.select("#start_year select").node().value
+    year += "."
+    year += d3.select("#end_year select").node().value
+    year += "."
+    year += d3.select("#interval select").node().value
+  }
+  
+  if(d3.select("#origin select").node()){
+    var origin = d3.select("#origin select").node().value
+  } else {
+    var origin = "{{ current_build.origin.id_3char }}" || "{{ current_build.origin }}"
+  }
+  
+  if(d3.select("#destination select").node()){
+    var dest = d3.select("#destination select").node().value
+  } else {
+    var dest = "{{ current_build.dest.id_3char }}" || "{{ current_build.dest }}"
+  }
+  
+  if(d3.select("#product select").node()){
+    var prod = d3.select("#product select").node().value
+  } else {
+    var prod = "{{ current_build.product.hs }}" || "{{ current_build.product.sitc }}" || "{{ current_build.product }}"
+  }
+  
+  if(d3.select("#classification select").node()){
+    var classification = d3.select("#classification select").node().value.toLowerCase()
+  } else {
+    var classification = "{{ current_build.classification }}"
+  }
+  
+  var new_url =  "/explore/{{ current_build.app.type }}/"
+      new_url += classification + "/"
+      new_url += tf + "/"
+      new_url += origin + "/"
+      new_url += dest + "/"
+      new_url += prod + "/"
+      new_url += year + "/"
+  
+  console.log(new_url)
+  // window.location = new_url
+  
   d3.event.preventDefault();
 })
 
@@ -368,7 +455,29 @@ d3.select("#share #shorten").on("click", function(){
   d3.event.preventDefault();
 })
 
+// View as text
+d3.selectAll("#view_as_text a").on("click", function(){
+  d3.select("#app #viz").style("display", function(){
+    return d3.select(this).style("display") == "none" ? "block" : "none";
+  })
+  d3.select("#app #text").style("display", function(){
+    return d3.select(this).style("display") == "none" ? "block" : "none";
+  })
+  resize_viz();
+  d3.event.preventDefault();
+})
+
+
+/////////////////////////////
+// Initialize page --
+////////////////////////////
+
+/* set window resize func */
 window.onresize = resize_viz
+
+/* unleash the dogs... make the AJAX requests in order to the server and when
+   they return execute the go() func */
+q.await(go);
 </script>
 
 {% endblock %}
