@@ -98,7 +98,16 @@
 <script>
 
 /* init vars */
-var viz = d3plus.viz().container("#viz").style({"background":"transparent"}),
+var viz = d3plus.viz()
+            .container("#viz")
+            .style({"background":"transparent"})
+            .text_format(function(text, key){
+              console.log(text, key)
+              if(key == "display_id"){
+                return "ID"
+              }
+              return text
+            }),
     attr_id = "{{ current_build.attr_type() }}_id",
     app_type = "{{ current_build.app.type }}",
     attrs = {},
@@ -107,6 +116,15 @@ var viz = d3plus.viz().container("#viz").style({"background":"transparent"}),
     q = queue()
           .defer(d3.json, "{{ current_build.data_url() }}")
           .defer(d3.json, "{{ current_build.attr_url() }}");
+
+if(attr_id == "dest_id" || attr_id == "dest_id"){
+  viz = viz.tooltip({"Country":["name", "display_id"], "Values":["export_val"]} )
+}
+if(attr_id == "hs_id" || attr_id == "sitc_id" ){
+  viz = viz
+          .style({"icon":"knockout"})
+          .tooltip({"Product":["name", "display_id"], "Values":["export_val"]} )
+}
 
 function resize_viz(obj){
   
@@ -128,6 +146,19 @@ function format_data(error, raw_data, raw_attrs, raw_other){
   // set key 'nest' to their id
   raw_attrs.data.forEach(function(d){
     attrs[d.id] = d
+    if(attr_id == "dest_id" || attr_id == "dest_id"){
+      attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
+    }
+    else if(attr_id == "hs_id"){
+      attrs[d.id]["icon"] = "/static/img/icons/hs/hs_"+d.id.substr(0, 2)+".png"
+    }
+    else if(attr_id == "sitc_id"){
+      attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
+    }
+    if(attrs[d.id]["display_id"]){
+      attrs[d.id]["display_id"] = attrs[d.id]["display_id"].toUpperCase()
+    }
+    // console.log(attrs[d.id])
   })
 
   // go through raw data and set each items nest and id vars properly
@@ -186,6 +217,7 @@ switch (app_type){
         .title({"total": {"prefix":"Total: "}})
         .height(viz_height)
         .width(viz_width)
+        .icon("icon")
       
       finish(raw_data.data, attrs)
     }
