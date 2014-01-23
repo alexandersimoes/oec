@@ -1,7 +1,7 @@
 import time, urllib, urllib2, json
 
 from flask import Blueprint, render_template, g, request, session, redirect, \
-                    url_for, flash, jsonify
+                    url_for, flash, jsonify, Response
 from flask.ext.babel import gettext
 
 from oec import app, db, babel
@@ -114,3 +114,40 @@ def shorten_url():
         return jsonify({"slug": short.slug})
     
     return jsonify({"error": "No URL given."})
+
+@mod.route('/download/', methods=['GET', 'POST'])
+def download():
+    import tempfile, subprocess
+
+    data = request.form["content"]
+    format = request.form["format"]
+    title = request.form["title"]
+
+    temp = tempfile.NamedTemporaryFile()
+    temp.write(data.encode("utf-8"))
+    temp.seek(0)
+
+    if format == "png":
+        mimetype='image/png'
+    elif format == "pdf":
+        mimetype='application/pdf'
+    elif format == "svg":
+        mimetype='application/octet-stream'
+    elif format == "csv":
+        mimetype="text/csv;charset=UTF-8"
+
+    if format == "png" or format == "pdf":
+        zoom = "1"
+        background = "#ffffff"
+        p = subprocess.Popen(["rsvg-convert", "-z", zoom, "-f", format, "--background-color={0}".format(background), temp.name], stdout=subprocess.PIPE)
+        out, err = p.communicate()  
+        response_data = out
+    else:
+        response_data = data.encode("utf-8")
+    
+    content_disposition = "attachment;filename=%s.%s" % (title, format)
+    content_disposition = content_disposition.replace(",", "_")
+
+    return Response(response_data, 
+                        mimetype=mimetype, 
+                        headers={"Content-Disposition": content_disposition})

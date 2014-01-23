@@ -126,7 +126,6 @@ d3.selectAll(".builds a.app_name").on("click", function(){
       prev_display = ul.style("height")
   
   // reset all
-  // d3.selectAll(".builds ul").style("display", "none")
   d3.selectAll(".builds ul").transition().duration(500).style("height", "0px")
   
   if(prev_display == "0px"){
@@ -137,77 +136,6 @@ d3.selectAll(".builds a.app_name").on("click", function(){
   
   d3.event.preventDefault();
 })
-
-// Download button logic
-d3.selectAll("#download a").on("click", function(){
-  // Figure out the title for using as the filename
-  var title = window.location.pathname.split("/")
-  title.splice(0, 1)
-  title.splice(0, 1)
-  title.splice(title.length-1, 1)
-  d3.select("input[name='title']").attr("value", title.join("_"));
-  
-  // Determine which link the user requested (svg, csv etc.)
-  var format = $(this).attr("class");
-  $("input[name='format']").attr("value", format);
-  
-  // If the user wants text, we need to put the table into an array
-  // to send to the server
-  if(format == "csv"){
-    var data_rows = [];
-    $("#text_data table tr").each(function(d){ 
-      var this_row = [];
-      var td = $(this).find('td');
-      if (td.length > 0) {
-        td.each(function(i) {
-          var d = i == 5 ? $(this).text().replace(/,/g, "") : $(this).text();
-          this_row.push(d);
-        });
-        data_rows.push(this_row);
-      }
-    })
-    // serialize to send to server
-    $("input[name='content']").val(JSON.stringify(data_rows))
-  }
-  // Otherwise the user wants an image so get the SVG XML
-  else {
-    var iframe = document.getElementById('iframe_viz');
-    iframe = iframe.contentDocument || iframe.contentWindow.document;
-    
-    var svg = d3.select(iframe).select("svg")
-      .attr("title", title.join("_"))
-      .attr("version", 1.1)
-      .attr("xmlns", "http://www.w3.org/2000/svg")
-
-    // Add this content as the value of input
-    var svg_xml = (new XMLSerializer).serializeToString(svg.node());
-    d3.select("input[name='content']").attr("value", svg_xml)
-  }
-  
-  // Submitting the form will trigger the action with will bring up
-  // the /export page. The view for this page takes the values from
-  // POST request and prompts the user to download the file
-  // $('form.download').submit();
-  d3.event.preventDefault();
-})
-
-function view_as_text(){
-  d3.select("#zviz").style("display", function(){
-    if(d3.select(this).style("display") != "none"){
-      return "none"
-    }
-    return "block"
-  })
-  d3.select("#text_data").style("display", function(){
-    if(d3.select(this).style("display") != "none"){
-      return "none"
-    }
-    return "block"
-  })
-  if(d3.event){
-    d3.event.preventDefault();
-  }
-}
 
 /////////////////////////////
 // Initialize page --

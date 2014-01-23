@@ -75,7 +75,7 @@
   
   <!-- Hidden <FORM> to submit the SVG data to the server, which will convert it 
          to SVG/PDF/PNG downloadable file. -->
-  <form id="svgform" action="/explore/download/" method="post">
+  <form id="download" action="/explore/download/" method="post">
     <input type="hidden" name="url" value="" />
     <input type="hidden" name="title" value="" />
     <input type="hidden" name="format" value="svg" />
@@ -467,6 +467,53 @@ d3.selectAll("#view_as_text a").on("click", function(){
   d3.event.preventDefault();
 })
 
+// Download button logic
+d3.selectAll("#download a").on("click", function(){
+  // Figure out the title for using as the filename
+  var title = window.location.pathname.split("/")
+  title.splice(0, 1)
+  title.splice(0, 1)
+  title.splice(title.length-1, 1)
+  d3.select("input[name='title']").attr("value", title.join("_"));
+  
+  // Determine which link the user requested (svg, csv etc.)
+  var format = d3.select(this).attr("class");
+  d3.select("input[name='format']").attr("value", format);
+  
+  // If the user wants text, we need to put the table into an array
+  // to send to the server
+  if(format == "csv"){
+    var data_rows = [];
+    header = d3.select("#app #text table thead tr").node().innerHTML
+    header = header.substr(4, header.length-4-5)
+    data_rows.push(header.split("</th><th>"))
+    d3.selectAll("#app #text table tbody tr").each(function(d){
+      row = d3.select(this).node().innerHTML
+      row = row.substr(4, row.length-4-5)
+      data_rows.push(row.split("</td><td>"))
+    })
+    // serialize to send to server
+    d3.select("input[name='content']").attr("value", d3.csv.formatRows(data_rows))
+  }
+  // Otherwise the user wants an image so get the SVG XML
+  else {
+    
+    var svg = d3.select("#viz").select("svg")
+      .attr("title", title.join("_"))
+      .attr("version", 1.1)
+      .attr("xmlns", "http://www.w3.org/2000/svg")
+
+    // Add this content as the value of input
+    var svg_xml = (new XMLSerializer).serializeToString(svg.node());
+    d3.select("input[name='content']").attr("value", svg_xml)
+  }
+  
+  // Submitting the form will trigger the action with will bring up
+  // the /export page. The view for this page takes the values from
+  // POST request and prompts the user to download the file
+  d3.select('form#download').node().submit();
+  d3.event.preventDefault();
+})
 
 /////////////////////////////
 // Initialize page --
