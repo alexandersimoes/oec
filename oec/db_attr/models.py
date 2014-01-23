@@ -97,6 +97,11 @@ class Hs(db.Model, AutoSerialize):
             return _name[0].name
         return ""
     
+    def get_yp(self, year=2011):
+        yp = filter(lambda yp: yp.year == year, self.yp_product)
+        if len(yp): return yp[0]
+        return None
+    
     def get_abbrv(self, lang=None):
         return self.hs if self.hs else ""
     

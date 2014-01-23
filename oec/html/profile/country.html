@@ -6,20 +6,20 @@
 {% endblock %}
 
 {% block body %}
-<div class="app_title" id="title"><h2>Learn More About Trade in: {{ entity.get_name() }}</h2></div>
+<div class="app_title" id="title"><h2>Learn More About Trade in: {{ attr.get_name() }}</h2></div>
 <div class="content">
 
   <div id="quick_glance">
     
       <div id="ranking_box">
-        <p class="country_name"><img src="{{ entity.get_icon() }}" alt="{{ entity.get_name() }} icon">{{ entity.get_name() }}</p>
-        <p class="eci_rank"><span style="background-color: rgb(126, 188, 225)">{{ entity.get_attr_yo().eci_rank }}</span></p>
-        <p class="eci_value"><a href="/rankings/country/">Economic Complexity Index (ECI)</a>: {{ entity.get_attr_yo().eci }}</p>
+        <p class="country_name"><img src="{{ attr.get_icon() }}" alt="{{ attr.get_name() }} icon">{{ attr.get_name() }}</p>
+        <p class="eci_rank"><span style="background-color: rgb(126, 188, 225)">{{ attr.get_attr_yo().eci_rank }}</span></p>
+        <p class="eci_value"><a href="/rankings/country/">Economic Complexity Index (ECI)</a>: {{ attr.get_attr_yo().eci }}</p>
       </div>
     
       <div id="quick_info">
         <p>
-          <span style="font-size: 38px">{{ entity.get_name() }}</span> is ranked <span style="font-size: 24px">{{ entity.get_attr_yo().eci_rank }}</span> with an ECI of {{ entity.get_attr_yo().eci }}.
+          <span style="font-size: 38px">{{ attr.get_name() }}</span> is ranked <span style="font-size: 24px">{{ attr.get_attr_yo().eci_rank }}</span> with an ECI of {{ attr.get_attr_yo().eci }}.
         </p>
         <table class="striped">
           {% for b in builds %}

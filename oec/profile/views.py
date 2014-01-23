@@ -5,17 +5,17 @@ from flask.ext.babel import gettext
 
 from oec import app, db, babel
 from oec.utils import make_query
-from oec.db_attr.models import Country, Sitc, Hs
+from oec.db_attr import models as attr_models
 from oec.explore.models import Build, App
 
 mod = Blueprint('profile', __name__, url_prefix='/profile')
 
 @mod.route('/country/')
-@mod.route('/country/<origin_id>/')
-def profile(origin_id="nausa"):
+@mod.route('/country/<attr_id>/')
+def profile_country(attr_id="usa"):
     g.page_type = mod.name
     
-    entity = Country.query.filter_by(id=origin_id).first()
+    attr = getattr(attr_models, "Country").query.filter_by(id_3char=attr_id).first()
     
     tree_map = App.query.filter_by(type="tree_map").first()
     
@@ -45,12 +45,48 @@ def profile(origin_id="nausa"):
 
     builds = [exports, imports, destinations, origins]
     for b in builds:
-        b.set_options(origin=origin_id, 
+        b.set_options(origin=attr, 
                         dest=None, 
                         product=None, 
                         classification="hs", 
                         year="2010")
     
-    return render_template("profile/index.html", 
+    return render_template("profile/country.html", 
                                 builds=builds,
-                                entity=entity)
+                                attr=attr)
+
+@mod.route('/<attr_type>/')
+@mod.route('/<attr_type>/<attr_id>/')
+def profile_product(attr_type, attr_id="usa"):
+    g.page_type = mod.name
+    
+    if attr_type == "hs":
+        attr = getattr(attr_models, attr_type.capitalize()).query.filter_by(hs=attr_id).first()
+    else:
+        attr = getattr(attr_models, attr_type.capitalize()).query.filter_by(sitc=attr_id).first()
+    
+    tree_map = App.query.filter_by(type="tree_map").first()    
+    
+    exports = Build.query.filter_by(app=tree_map, 
+                                            trade_flow="export",
+                                            origin="show", 
+                                            dest="all", 
+                                            product="<product>").first()
+
+    imports = Build.query.filter_by(app=tree_map, 
+                                            trade_flow="import",
+                                            origin="show", 
+                                            dest="all", 
+                                            product="<product>").first()
+
+    builds = [exports, imports]
+    for b in builds:
+        b.set_options(origin=None, 
+                        dest=None, 
+                        product=attr, 
+                        classification=attr_type, 
+                        year="2010")
+    
+    return render_template("profile/product.html", 
+                                builds=builds,
+                                attr=attr)
