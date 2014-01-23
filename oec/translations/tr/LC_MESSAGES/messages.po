@@ -20,7 +20,7 @@ msgstr ""
 
 #: oec/explore/models.py:385
 msgid "Trade Flow"
-msgstr "Ticaret Akış"
+msgstr "Ticaret Akışı"
 
 #: oec/explore/models.py:387
 msgid "Export"
@@ -44,15 +44,15 @@ msgstr "Sınıflandırma"
 
 #: oec/explore/models.py:403
 msgid "Start Year"
-msgstr "Yıl başlayacak"
+msgstr "Başlangıç Yılı"
 
 #: oec/explore/models.py:408
 msgid "End Year"
-msgstr "Yıl Sonu"
+msgstr "Bitiş Yılı"
 
 #: oec/explore/models.py:413
 msgid "Interval"
-msgstr "Aralık"
+msgstr "Sıklık"
 
 #: oec/explore/models.py:420
 msgid "Year"
@@ -60,11 +60,11 @@ msgstr "Yıl"
 
 #: oec/explore/models.py:430
 msgid "Origin"
-msgstr "Köken"
+msgstr "Menşei"
 
 #: oec/explore/models.py:440
 msgid "Destination"
-msgstr "Hedef"
+msgstr "Varış Yeri"
 
 #: oec/explore/models.py:453
 msgid "Product"
@@ -86,11 +86,11 @@ msgstr "Yükleme"
 
 #: oec/html/explore/embed.html:13
 msgid "Click to view more years"
-msgstr "Yıl daha görmek için tıklayın"
+msgstr "Diğer yıllara göz atmak için tıklayınız"
 
 #: oec/html/explore/embed.html:35
 msgid "Build Visualization"
-msgstr "Görselleştirme inşa"
+msgstr "Görselleştir"
 
 #: oec/html/explore/embed.html:38
 msgid "Download"
@@ -102,11 +102,11 @@ msgstr "Metin olarak görüntüle"
 
 #: oec/html/explore/embed.html:50
 msgid "Embed"
-msgstr "Gömmek"
+msgstr "Yerleştir"
 
 #: oec/html/explore/embed.html:55
 msgid "Share"
-msgstr "Hisse"
+msgstr "Paylaş"
 
 #: oec/html/explore/embed.html:71
 msgid "Short URL"
