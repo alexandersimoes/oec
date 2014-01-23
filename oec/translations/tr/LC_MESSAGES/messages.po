@@ -76,9 +76,9 @@ msgid ""
 " economic complexity indicators available through millions of interactive"
 " visualizations."
 msgstr ""
-"Ekonomik Karmaşıklık Gözlemevi uluslararası ticaret verileri ve "
-"interaktif görsel milyonlarca aracılığıyla ekonomik karmaşıklığı "
-"göstergeleri yapar."
+"Ekonomik Karmaşıklık Gözlemevi, birbiriyle etkileşim halinde olan milyonlarca"
+" gösterge aracılığıyla uluslararası ticaret verileri ve  ekonomik karmaşıklık"
+" göstergelerini ulaşılabilir hale getirir."
 
 #: oec/html/explore/embed.html:10 oec/html/explore/index.html:78
 msgid "Loading"
@@ -114,11 +114,11 @@ msgstr "Kısa URL"
 
 #: oec/html/templates/site.html:18
 msgid "Explore"
-msgstr "Keşfetmek"
+msgstr "Keşfet"
 
 #: oec/html/templates/site.html:19
 msgid "Profiles"
-msgstr "Profilleri"
+msgstr "Görünüm"
 
 #: oec/html/templates/site.html:20
 msgid "Atlas"
