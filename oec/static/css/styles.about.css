@@ -105,3 +105,38 @@ div#sarah_chung:before {
 div#sarah_chung:hover:before {
   background-image: url("/static/img/about/team/sarah_chung_color.png");
 }
+
+/***********/
+/* Updates */
+/***********/
+#updates article {
+  line-height: 1.5em;
+  border-bottom: solid 1px;
+  padding: 25px 0;
+}
+#updates article:first-child {
+  padding-top: 10px;
+}
+#updates article:last-child {
+  border-bottom: none;
+}
+#updates article h2.title {
+  font-size: 26px;
+  margin: 0 0 5px 0;
+  text-align: left;
+}
+#updates article time {
+  display: inline-block;
+  margin: 0 0 20px 0;
+}
+#updates article h2 {
+  text-align: left;
+  font-size: 16px;
+  margin: 15px 0 4px 0;
+}
+#updates article p {
+  line-height: 1.5em;
+}
+#updates article ul {
+  padding: 0 0 0 20px;
+}

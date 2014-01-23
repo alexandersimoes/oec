@@ -22,3 +22,7 @@ simplejson
 # Required for natural language processing to facilitate search
 textblob
 fuzzywuzzy
+
+# Required for displaying releases from github
+markdown
+python-dateutil

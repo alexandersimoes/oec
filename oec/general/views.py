@@ -4,6 +4,7 @@ from sqlalchemy.sql.expression import func
 from datetime import datetime
 from textblob import TextBlob
 from fuzzywuzzy import process
+from markdown import markdown
 from flask import Blueprint, render_template, g, request, current_app, \
                     session, redirect, url_for, flash, abort, jsonify
 from flask.ext.babel import gettext
@@ -13,6 +14,7 @@ from oec.db_attr.models import Country, Country_name, Sitc, Sitc_name, Hs, Hs_na
 from oec.explore.models import App, Build, Short
 
 import time, urllib2, json, itertools
+from dateutil import parser
 
 mod = Blueprint('general', __name__, url_prefix='/')
 
@@ -376,6 +378,23 @@ def about_data(data_type):
 @mod.route('about/permissions/')
 def about_permissions():
     return render_template("about/permissions.html")
+
+@mod.route('about/updates/')
+def about_updates():
+    releases = json.load(urllib2.urlopen("https://api.github.com/repos/alexandersimoes/d3plus/releases"))
+    updates = []
+    for r in releases:
+        u = {
+            "title": r["name"], 
+            "body": markdown(r["body"]), 
+            "date": {
+                "human": parser.parse(r["published_at"]).strftime("%A, %b %d %Y"),
+                "meta": r["published_at"]
+            },
+            "url": r["html_url"]
+        }
+        updates.append(u)
+    return render_template("about/updates.html", updates=updates)
 
 ###############################
 # API views 
