@@ -11,7 +11,7 @@ body {
   background-position: top center;
   background-size: 100px;
   color: #444444;
-  font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", Helvetica, Arial, sans-serif;
   font-weight: lighter;
   font-size: 12px;
   height: 100%;
@@ -121,14 +121,17 @@ only screen and (                min-resolution: 2dppx) {
 /**********************/
 a {
   color: #0085BF;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: normal;
   text-decoration: none;
 }
 
 a:hover {
   color: #000000;
   text-decoration: underline;
+}
+
+a:active, a:focus { 
+  -moz-outline-style:none;
+       outline-style: none;
 }
 
 /****************/
@@ -172,7 +175,7 @@ h4 {
 h5 {
   color: #888888;
   display: block;
-  font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   font-weight: lighter;
   letter-spacing: 1px;
@@ -180,19 +183,12 @@ h5 {
   margin: 0px;
 }
 
-a:active, a:focus { 
-  -moz-outline-style:none;
-       outline-style: none;
-}
-
 /********************/
 /* Paragraph Styles */
 /********************/
 p {
   color: #444444;
-  font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
-  font-weight: lighter;
   letter-spacing: 1px;
   line-height: 16px;
   margin-bottom: 20px;
@@ -216,9 +212,7 @@ p {
 #sidebar li a {
   color: #888888;
   display: block;
-  font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
-  font-weight: lighter;
   height: 15px;
   letter-spacing: 1px;
   padding: 10px;

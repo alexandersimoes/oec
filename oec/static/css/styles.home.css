@@ -32,7 +32,7 @@ only screen and (                min-resolution: 2dppx) {
 input {
   border: 1px solid #dddddd;
   color: #888888;
-  font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 18px;
   font-weight: lighter;
   height: 15px;
@@ -74,9 +74,7 @@ input:focus {
 
 .tt-suggestion p {
   color: #888888;
-  font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
-  font-weight: lighter;
   margin: 5px !important;
   letter-spacing: 1px;
   -webkit-transition: color .1s;
