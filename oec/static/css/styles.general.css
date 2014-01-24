@@ -136,7 +136,7 @@ h2 {
   font-size: 22px;
   font-weight: lighter;
   line-height: 28px;
-  margin: 20px auto;
+  margin: 0px auto 10px;
   text-align: center;
   width: 700px;
 }
@@ -193,15 +193,15 @@ p {
   list-style-type: none;
 }
 
-#sidebar li {
+#sidebar > ul > li {
   border-bottom: 1px solid #aaaaaa;
 }
 
-#sidebar li:last-child {
+#sidebar > ul > li:last-child {
   border-bottom: 0px;
 }
 
-#sidebar li a {
+#sidebar > ul > li > a {
   color: #888888;
   display: block;
   font-size: 12px;
@@ -209,15 +209,61 @@ p {
   letter-spacing: 1px;
   padding: 10px;
   text-decoration: none;
+  -webkit-transition: background-color 0.3s, color 0.3s;
+          transition: background-color 0.3s, color 0.3s;
 }
 
-#sidebar li a:hover {
+#sidebar > ul > li > a:hover {
   color: #444444;
 }
 
-#sidebar li a.active {
+#sidebar > ul > li.active > a {
   background-color: #0085BF;
   color: #eeeeee;
+}
+
+#sidebar > ul > li > ul {
+/*  display: none;*/
+  height: 0px;
+  margin: 0px;
+  overflow: hidden;
+  padding: 0px;
+/*  -webkit-transition: height 0.6s;
+          transition: height 0.6s;*/
+}
+
+#sidebar > ul > li > ul > ul {
+  margin: 10px;
+}
+
+#sidebar > ul > li > ul > ul > h3 {
+  margin: 5px 0px;
+}
+
+#sidebar > ul > li > ul > ul > li > a {
+  color: #444;
+  display: block;
+  padding: 2px 5px;
+  position: relative;
+  width: 100%;
+}
+
+#sidebar > ul > li > ul > ul > li.active > a {
+  background-color: #eee;
+}
+
+#sidebar > ul > li > ul > ul > li.active > a:after {
+  color: #444;
+  content: "\f101";
+  display: block;
+  font-family: FontAwesome;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: normal;
+  position: absolute;
+  right: 5px;
+  top: 2px;
 }
 
 

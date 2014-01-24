@@ -5,16 +5,15 @@
 {% endblock %}
 
 {% block body %}
-<div class="app_title" id="title"><h2>Data</h2></div>
+<div class="content">
 
-<!-- the left pane -->
-<div class="col1">
-  <nav role="navigation">
+  <div class="col1" id="sidebar">
+  
     <ul>
       <li><a href="/about/team/">Team</a></li>
       <li><a href="/about/overview/">Overview</a></li>
-      <li>
-        <a href="/about/data/" class="active">Data</a>
+      <li class="active">
+        <a href="/about/data/">Data</a>
         <ul>
           <li><a href="/about/data/sitc/">SITC4</a></li>
           <li><a href="/about/data/hs/">HS4</a></li>
@@ -25,30 +24,32 @@
       <li><a href="/about/updates/">Updates</a></li>
       <li><a href="/about/faqs/">FAQs</a></li>
     </ul>
-  </nav>
-</div>
+    
+  </div>
 
-<div class="content">
-  <table class="table table-bordered table-condensed table-striped">
-    <thead>
-      <tr>
-        <th>&nbsp;</th>
-        {% for h in headers %}
-        <th>{{ h }}</th>
+  <div class="col3">
+    <table class="table table-bordered table-condensed table-striped">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          {% for h in headers %}
+          <th>{{ h }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ item.get_name() }}</td>
+          <td>{{ item.id }}</td>
+        </tr>
         {% endfor %}
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in items %}
-      <tr>
-        <td>{{ loop.index }}</td>
-        <td>{{ item.get_name() }}</td>
-        <td>{{ item.id }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div> 
+      </tbody>
+    </table>
+  </div>
+
+</div>
 {% endblock %}
 
 {% block js %}

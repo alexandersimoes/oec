@@ -1,126 +1,9 @@
-/*
- * Title of page
- */
-.app_title{
-  min-height: 50px;
-  display: inline-block;
-}
-.rtl .app_title#title {
-  float: right;
-  text-align: right;
-}
-.app_title#icons{
-  width: 188px;
-}
-.app_title#icons .left{
-  float: left;
-}
-.app_title#icons h2{
-  display: inline-block;
-  font-size: 20px;
-  line-height: 20px;
-  width: 77px;
-  text-align: center;
-  margin: 16px 0px 0px 0px;
-  vertical-align: top;
-}
-.app_title#icons h2.stacked{
-  font-size: 14px;
-}
-.app_title#icons h2.small{
-  margin-top: 15px;
-}
-.app_title#icons h2.larger{
-  font-size: 30px;
-  line-height: 34px;
-}
-.app_title#icons img{
-  width: 50px;
-}
-.app_title#icons img.community{
-  margin: 10px 0 0 0;
-  width: 40px;
-}
-  
-  
-  
-  
-  .app_title_img {
-    float: left;
-    margin: 0 0 0 186px;
-    min-height: 45px;
-    width: 50px;
-  }
-    .explore .app_title_img img {
-      border: 0;
-      padding: 0 10px 0 0;
-      vertical-align: bottom;
-      width: 48px;
-    }
-    .explore .app_title_img.community_icon {
-      margin-top: 8px;
-      width: 40px;
-    }
-    .explore .app_title_img.community_icon img {
-      width: 26px;
-    }
-  .explore .app_title_title {
-    float: left;
-    margin: 7px 0 0 7px;
-    width: 415px;
-  }
-  .explore .app_title_year {
-    float: right;
-    margin: 3px 195px 0 0;
-    text-align: right;
-    width: 160px;
-  }
-    .explore .app_title_title h2,
-    .explore .app_title_year h2 {
-      font-size: 30px;
-      display: inline;
-      line-height: 1.4em;
-      margin: 0;
-      font-weight: normal;
-    }
-    .explore .app_title_title.product_name {
-      margin: 8px 0 0 0;
-    }
-    .explore .app_title_title.product_name h2{
-      font-size: 24px;
-    }
-  .explore .app_title_desc {
-    margin: 0 0 5px 186px;
-    text-align: left;
-  }
-  .explore .app_title_desc h3 {
-    display: inline;
-    font-size: 18px;
-    font-weight: normal;
-    margin: 0;
-  }
-  .explore .app_title_desc img {
-    width: 22px;
-    vertical-align: top;
-  }
-  
-  #dataviz svg {
-    width:100%;
-    height: 100%;
-  }
-
 
 /*
  * Left hand side the app selection pane
  */  
 .explore #app_pane {
   position: relative;
-}
-.explore #app_pane > *{
-  padding: 10px;
-}
-.explore #app_pane a{
-text-decoration: none;
 }
 .explore #app_pane .accordion {
   width: 165px;
@@ -130,53 +13,8 @@ text-decoration: none;
 .explore #app_pane .accordion > div > ul {
   display: none;
 }
-.explore #app_pane .accordion div a {
-  font-family:'PT Sans Narrow',Helvetica,Arial;
-  font-size:90%;
-  padding-top: 2px;
-  padding-bottom: 2px;
-}
-.explore #app_pane .accordion h3 {
-  font-family:'PT Sans Narrow',Helvetica,Arial;
-  font-size:120%;
-  font-weight:500;
-}
-.explore #app_pane .accordion div div{
-/*  display: none;*/
-  padding: 0 10px 5px 10px;
-}
-.explore #app_pane .accordion div div h4 {
-  border-bottom: solid 1px #999;
-  font-family:'PT Sans Narrow',Helvetica,Arial;
-  font-size:95%;
-  font-weight:500;
-  margin: 0;
-  padding: 0 0 2px 0;
-}
 .explore #app_pane .accordion div ul {
-  font-size: 10pt;
-  line-height:1.1;
-  margin: 0 0 5px 0;
   overflow: hidden;
-  padding: 5px 10px 10px 10px;
-  text-align: left;
-}
-.explore #app_pane .accordion div ul li a,
-.explore #app_pane .accordion div div ul li a {
-  background: url("/media/img/app/minieye.png") left 4px no-repeat;
-  padding-left: 18px;
-}
-.explore #app_pane .accordion div ul li a.disabled,
-.explore #app_pane .accordion div div ul li a.disabled {
-  background: url("/media/img/app/minieye_disabled.png") left 4px no-repeat;
-}
-.explore #app_pane .accordion div div ul {
-  font-size: 10pt;
-  line-height:1.1;
-  list-style-type: none;
-  margin: 0 0 5px 0;
-  padding: 0;
-  text-align: left;
 }
 
 
@@ -265,26 +103,6 @@ text-decoration: none;
 .product_class select {
   width: 52px
 }
-.product_class .chzn-container-single .chzn-single {
-  height: 18px;
-  line-height: 18px;
-  padding: 0 0 0 3px;
-}
-.product_class .chzn-container-single .chzn-single div {
-  width: 15px;
-}
-.product_class .chzn-container-single .chzn-single div b {
-  background-position: -1px -3px;
-}
-.product_class .chzn-container-single .chzn-single span {
-  margin-right: 15px;
-}
-.product_class .chzn-container-single .chzn-search {
-  display: none;
-}
-.product_class .chzn-container .chzn-results li {
-  padding: 3px 7px 4px;
-}
 .explore .pane_title{
   background: url('/static/img/explore/containers_trans.png') no-repeat;
   background-position: -43px -104px;
@@ -329,66 +147,6 @@ text-decoration: none;
   text-decoration: none;
 }
 
-/*
- * Timeline
- */
-.explore .content #timeline {
-  padding: 10px;
-  overflow: hidden;
-}
-.explore .content #timeline button{
-  float: left;
-  height: 30px;
-  width: 60px;
-  padding: 0px;
-  margin: 0px 160px;
-}
-.explore .content #timeline button#stop{
-  display: none;
-}
-.explore .content #timeline .slider{
-  margin: 0 10px 10px 10px;
-  width: 590px;
-}
-.explore .content #timeline .slider .ui-slider-handle{
-  font-size: 10px;
-  padding: 4px;
-  text-decoration: none;
-  width: auto;
-}
-.explore .content #timeline .slider#interval {
-/*  height: 4px;*/
-  margin: auto;
-  width: 100px;
-}
-.explore .content #timeline a.prev{
-  float: left;
-  width: 100px;
-  margin-left: 20px;
-}
-.explore .content #timeline a.next{
-  float: right;
-  width: 100px;
-  margin-right: 20px;
-  text-align: right;
-}
-.explore .content #timeline #stacked_controls {
-  display: none;
-  margin: auto;
-  width: 515px;
-}
-.explore .content #timeline #stacked_controls > div {
-  display: inline-block;
-  margin: 0 35px 0 0;
-  vertical-align: top;
-}
-.explore .content #timeline #stacked_controls > div:last-child {
-  margin: 0;
-}
-.explore .content #timeline #stacked_controls p {
-  margin: 0;
-}
-
 .explore #loader {
   clear: both;
   display: none;
@@ -420,35 +178,15 @@ text-decoration: none;
 
 
 .builds {
-/*  background: white;
-  border: 1px solid #cccccc;
-  border-left: none;
-  display: none;
-  left: 75px;
-  padding: 10px;
-  position: absolute;
-  top: 0;
-  width: 400px;*/
   border: 1px solid #aaa;
-/*  border-radius: 4px;*/
   padding: 10px 10px 0 10px !important;
   padding: 5px !important;
   margin: 10px !important;
 }
 .builds ul{
   list-style-type: none;
-/*  display: none;*/
   height: 0px;
-/*  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;*/
-  
   overflow: hidden;
-}
-
-#tree_map{
-/*  display: block;*/
 }
 
 ul#app_select {
@@ -475,7 +213,6 @@ a.app_name img {
   text-align: right;
 }
 .builds ul li a {
-  background: url("/static/img/icons/minieye.png") left 4px no-repeat;
   padding-left: 18px;
 }
 .builds ul li a.active {
