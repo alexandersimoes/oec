@@ -6,7 +6,7 @@ html {
 
 body {
   background-attachment: fixed;
-  background-color: #eeeeee;
+  background-color: #f7f7f7;
   background-image: url("/static/img/nav/tile.png");
   background-position: top center;
   background-size: 100px;
@@ -29,6 +29,11 @@ div#fullscreen {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
+  image-rendering: -moz-crisp-edges;         /* Firefox */
+  image-rendering:   -o-crisp-edges;         /* Opera */
+  image-rendering: -webkit-optimize-contrast;/* Webkit (non-standard naming) */
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor;  /* IE (non-standard property) */
   position: fixed;
   top: 0px;
   left: 0px;
