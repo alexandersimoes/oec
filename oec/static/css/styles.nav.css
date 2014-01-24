@@ -31,15 +31,18 @@ header a#logo {
 header nav ul li {
   display: inline-block;
   margin: 6px 0px;
-  width: 100px;
+  width: 110px;
 }
 
 header nav a {
   color: #888888;
   display: inline-block;
+  font-family: "HelveticaNeue-Bold", "Helvetica Neue Bold", Helvetica, Arial, sans-serif;
   font-size: 14px;
+  font-weight: bold;
   letter-spacing: 1px;
   text-decoration: none;
+  text-transform: uppercase;
   -webkit-transition: color .1s;
           transition: color .1s;
 }
@@ -50,8 +53,8 @@ header nav a:hover {
 }
 
 header nav a.current {
-  border-bottom: 1px solid #4f6d7f;
-  color: #4f6d7f;
+  border-bottom: 2px solid #0085BF;
+  color: #0085BF;
 }
 
 /******************/
@@ -76,7 +79,7 @@ footer > div#macro_connections {
 footer > p {
   color: #888888;
   display: inline-block;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", Helvetica, Arial, sans-serif;
   font-size: 10px;
   font-weight: lighter;
   line-height: 13px;

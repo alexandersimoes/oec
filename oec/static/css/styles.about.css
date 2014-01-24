@@ -1,36 +1,3 @@
-#sidebar ul {
-  list-style-type: none;
-}
-
-#sidebar li {
-  border-bottom: 1px solid #888888;
-}
-
-#sidebar li:last-child {
-  border-bottom: 0px;
-}
-
-#sidebar li a {
-  color: #888888;
-  display: block;
-  font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  font-weight: lighter;
-  height: 15px;
-  letter-spacing: 1px;
-  padding: 10px;
-  text-decoration: none;
-}
-
-#sidebar li a:hover {
-  color: #444444;
-}
-
-#sidebar li a.active {
-  background-color: #4f6d7f;
-  color: #eeeeee;
-}
-
 div.member {
   margin-bottom: 20px;
   min-height: 100px;
@@ -54,7 +21,7 @@ div.member:before {
 }
 
 div.member i {
-  margin: 10px 5px;
+  margin: 5px 1px;
 }
 
 div#alexander_simoes:before {

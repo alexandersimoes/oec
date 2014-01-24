@@ -45,7 +45,7 @@ input {
 }
 
 input:focus {
-  border: 1px solid #4f6d7f;
+  border: 1px solid #0085BF;
   color: #444444;
   opacity: 1;
 }
@@ -84,7 +84,7 @@ input:focus {
 }
 
 .tt-suggestion.tt-is-under-cursor {
-  background-color: #4f6d7f;
+  background-color: #0085BF;
 }
 
 .tt-suggestion.tt-is-under-cursor p {

@@ -77,7 +77,7 @@ only screen and (                min-resolution: 2dppx) {
 /*************************/
 .content {
   background-color: rgba(255,255,255,0.75);
-  border: 1px solid #4f6d7f;
+  border: 1px solid #0085BF;
   margin: 0px auto 20px;
   width: 1000px;
 }
@@ -116,23 +116,38 @@ only screen and (                min-resolution: 2dppx) {
   margin: 0;
 }
 
+/**********************/
+/* Anchor Link Styles */
+/**********************/
+a {
+  color: #0085BF;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+
 /****************/
 /* Title Styles */
 /****************/
 h2 {
-  color: #4f6d7f;
+  color: #0085BF;
   display: block;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 22px;
   font-weight: lighter;
-  line-height: 22px;
+  line-height: 28px;
   margin: 20px auto;
   text-align: center;
   width: 700px;
 }
 
 h3 {
-  color: #4f6d7f;
+  color: #0085BF;
   display: block;
   font-family: "HelveticaNeue-Bold", "Helvetica Neue Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
@@ -170,27 +185,55 @@ a:active, a:focus {
        outline-style: none;
 }
 
+/********************/
+/* Paragraph Styles */
+/********************/
 p {
   color: #444444;
   font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   font-weight: lighter;
   letter-spacing: 1px;
-  line-height: 14px;
+  line-height: 16px;
   margin-bottom: 20px;
 }
 
-p a {
-  color: #4f6d7f;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: normal;
+/***********************/
+/* Sidebar Menu Styles */
+/***********************/
+#sidebar ul {
+  list-style-type: none;
+}
+
+#sidebar li {
+  border-bottom: 1px solid #aaaaaa;
+}
+
+#sidebar li:last-child {
+  border-bottom: 0px;
+}
+
+#sidebar li a {
+  color: #888888;
+  display: block;
+  font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: lighter;
+  height: 15px;
+  letter-spacing: 1px;
+  padding: 10px;
   text-decoration: none;
 }
 
-p a:hover {
-  color: #000000;
-  text-decoration: underline;
+#sidebar li a:hover {
+  color: #444444;
 }
+
+#sidebar li a.active {
+  background-color: #0085BF;
+  color: #eeeeee;
+}
+
 
 
 
