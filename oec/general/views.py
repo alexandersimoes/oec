@@ -1,6 +1,7 @@
 from operator import itemgetter
 from sqlalchemy import desc
 from sqlalchemy.sql.expression import func
+from sqlalchemy import not_
 from datetime import datetime
 from textblob import TextBlob
 from fuzzywuzzy import process
@@ -298,6 +299,7 @@ class Search():
 # ---------------------------
 @mod.route('/')
 def home():
+    g.page_type = "home"
     '''get user's country from IP address'''
     '''g.page_type = "home"
     ip = request.remote_addr
