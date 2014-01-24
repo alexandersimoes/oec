@@ -73,6 +73,26 @@ div#sarah_chung:hover:before {
   background-image: url("/static/img/about/team/sarah_chung_color.png");
 }
 
+/************/
+/* Overview */
+/************/
+div.data_sources {
+  overflow: auto;
+}
+div.data_sources div {
+  border: solid 1px #888;
+  display: inline-block;
+  float: left;
+  padding: 10px;
+  width: 250px;
+}
+div.data_sources div#hs {
+  margin: 0 0 0 30px;
+}
+div.data_sources h4 {
+  margin: 0 0 5px 0;
+}
+
 /***********/
 /* Updates */
 /***********/

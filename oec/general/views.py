@@ -376,6 +376,10 @@ def about_data(data_type):
 def about_permissions():
     return render_template("about/permissions.html")
 
+@mod.route('about/faqs/')
+def about_faqs():
+    return render_template("about/faqs.html")
+
 @mod.route('about/updates/')
 def about_updates():
     releases = json.load(urllib2.urlopen("https://api.github.com/repos/alexandersimoes/d3plus/releases"))

@@ -30,11 +30,11 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
         if origin in ["nam", "lso", "bwa", "swz"]:
             c = Country.query.filter_by(id_3char=origin).first()
             origin = "zaf"
-            msg = "{0} reports trade with South Africa in the HS classification".format(c.get_name())
+            msg = "{0} reports their trade under South Africa in the HS classification".format(c.get_name())
         if dest in ["nam", "lso", "bwa", "swz"]:
             c = Country.query.filter_by(id_3char=dest).first()
             dest = "zaf"
-            msg = "{0} reports trade with South Africa in the HS classification".format(c.get_name())
+            msg = "{0} reports their trade under South Africa in the HS classification".format(c.get_name())
     
     if msg:
         flash(msg)
