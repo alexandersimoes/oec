@@ -33,11 +33,9 @@
   <body class="{% if g.page_type %}{{g.page_type}}{% endif %}{% if g.locale == 'ar' or g.locale == 'he' %} rtl{% endif %}">
     
     {% for category, msg in get_flashed_messages(with_categories=true) %}
-    <div id="server_message">
-      <div class="decision flash-{{ category }}">
-        {{ msg|safe }}
-        <i id="close_message" class="fa fa-times-circle"></i>
-      </div>
+    <div id="server_message" class="flash-{{ category }}">
+      {{ msg|safe }}
+      <i id="close_message" class="fa fa-times-circle"></i>
     </div>
     {% endfor %}
     
@@ -65,11 +63,12 @@
     <!-- All Pages -->
     <script type="text/javascript">
     d3.select("#close_message").on("click", function(){
-      var div = d3.select("#server_message")
-      div.transition()
-        .duration(500)
-        .style("opacity", 0)
-        .each("end", function(){ d3.select(this).remove() })
+      
+      d3.select("#server_message")
+        .style("margin-top", function(){
+          return -this.offsetHeight+"px"
+        }).transition().delay(600)
+        .remove()
 
     });
     </script>

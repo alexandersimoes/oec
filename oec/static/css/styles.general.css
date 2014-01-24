@@ -85,35 +85,27 @@ only screen and (                min-resolution: 2dppx) {
 /***********************/
 /* Top of page Warning */
 /***********************/
-.alert {
-  border: solid 1px #EED3D7;
-  background: #F2DEDE;
-  color: #B94A48;
-  font-size: 16px;
-  padding: 10px 0;
-}
 #server_message{
-  border: solid 1px #f0c36d;
-  background: #f9edbe;
-  color: #a07631;
-  font-size: 16px;
-  opacity: 1;
+  background: #0085BF;
+  color: #ffffff;
+  font-size: 14px;
+  margin-top: 0px;
+  opacity: 0.75;
   padding: 10px 0;
   text-align: center;
+  -webkit-transition: margin-top 0.6s;
+          transition: margin-top 0.6s;
 }
-.alert a,
-.warning a {
-  color: inherit;
+
+#server_message i {
+  opacity: 0.5;
+  -webkit-transition: opacity 0.1s;
+          transition: opacity 0.1s;
 }
-.alert div,
-.warning div{
-  margin: auto;
-  width: 1000px;
-}
-.alert h4,
-.warning h4 {
-  font-weight: bold;
-  margin: 0;
+
+#server_message i:hover {
+  cursor: pointer;
+  opacity: 1;
 }
 
 /**********************/
