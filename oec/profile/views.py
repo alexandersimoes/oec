@@ -7,8 +7,19 @@ from oec import app, db, babel
 from oec.utils import make_query
 from oec.db_attr import models as attr_models
 from oec.explore.models import Build, App
+from sqlalchemy.sql.expression import func
+from sqlalchemy import not_
 
 mod = Blueprint('profile', __name__, url_prefix='/profile')
+
+@mod.route('/country/')
+def profile_country_redirect():
+    Country = getattr(attr_models, "Country")
+    c = Country.query.filter(Country.id_2char != None) \
+                        .filter(not_(Country.id.in_(["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", "nabes", "astwn", "nacuw", "navir", "eusjm"]))) \
+                        .order_by(func.random()).limit(1).first()
+    
+    return redirect(url_for(".profile_country", attr_id=c.id_3char))
 
 @mod.route('/country/')
 @mod.route('/country/<attr_id>/')

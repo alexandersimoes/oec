@@ -8,19 +8,46 @@ from oec import app, db, babel
 from oec.utils import make_query
 from oec.db_attr.models import Country, Sitc, Hs
 from oec.explore.models import Build, App, Short
+from sqlalchemy.sql.expression import func
+from sqlalchemy import not_
 
 mod = Blueprint('explore', __name__, url_prefix='/explore')
 
 @mod.route('/')
 def explore_redirect():
+    '''fetch random country'''
+    c = Country.query.filter(Country.id_2char != None) \
+                        .filter(not_(Country.id.in_(["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", "nabes", "astwn", "nacuw", "navir", "eusjm"]))) \
+                        .order_by(func.random()).limit(1).first()
+    
     return redirect(url_for('.explore', app_name="tree_map", \
-                classification="hs", trade_flow="export", origin="usa", \
-                dest="all", product="show", year="2010"))
+                classification="hs", trade_flow="export", origin=c.id_3char, \
+                dest="all", product="show", year="2011"))
+
+def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
+    msg = None
+    if classification == "hs":
+        if origin in ["nam", "lso", "bwa", "swz"]:
+            c = Country.query.filter_by(id_3char=origin).first()
+            origin = "zaf"
+            msg = "{0} reports trade with South Africa in the HS classification".format(c.get_name())
+        if dest in ["nam", "lso", "bwa", "swz"]:
+            c = Country.query.filter_by(id_3char=dest).first()
+            dest = "zaf"
+            msg = "{0} reports trade with South Africa in the HS classification".format(c.get_name())
+    
+    if msg:
+        flash(msg)
+        return redirect(url_for('.explore', app_name=app_name, \
+                    classification=classification, trade_flow=trade_flow, \
+                    origin=origin, dest=dest, product=product, year=year))
 
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
 def explore(app_name, classification, trade_flow, origin, dest, \
                 product, year="2011"):
     g.page_type = mod.name
+    redirect_resp = sanitize(app_name, classification, trade_flow, origin, dest, product, year)
+    if redirect_resp: return redirect_resp
     
     current_app = App.query.filter_by(type=app_name).first_or_404()
     build_filters = {"origin":origin,"dest":dest,"product":product}

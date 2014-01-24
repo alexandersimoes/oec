@@ -314,7 +314,8 @@ def home():
     
     '''get ramdom country'''
     c = Country.query.filter(Country.id_2char != None) \
-                            .order_by(func.random()).limit(1).first()
+                        .filter(not_(Country.id.in_(["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", "nabes", "astwn", "nacuw", "navir", "eusjm"]))) \
+                        .order_by(func.random()).limit(1).first()
     current_app = App.query.filter_by(type="tree_map").first_or_404()
     default_build = Build.query.filter_by(app=current_app, name_id=1).first_or_404()
     default_build.set_options(origin=c, dest="all", product="show", classification="hs")
