@@ -19,7 +19,7 @@ from dateutil import parser
 
 mod = Blueprint('general', __name__, url_prefix='/')
 
-from oec import app, db, babel
+from oec import app, db, babel, excluded_countries
 
 ###############################
 # General functions for ALL views
@@ -300,23 +300,18 @@ class Search():
 @mod.route('/')
 def home():
     g.page_type = "home"
-    '''get user's country from IP address'''
-    '''g.page_type = "home"
+    '''get user's country from IP address
     ip = request.remote_addr
     
     # fetch the url
     url = "http://api.hostip.info/get_json.php?ip="+ip
     json_response = json.loads(urllib2.urlopen(url).read())
     country_code = json_response["country_code"]
-    
-    c = Country.query.filter_by(id_2char=country_code).first()
-    if c is None:
-        c = Country.query.filter_by(id="nausa").first()
     '''
     
     '''get ramdom country'''
     c = Country.query.filter(Country.id_2char != None) \
-                        .filter(not_(Country.id.in_(["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", "nabes", "astwn", "nacuw", "navir", "eusjm"]))) \
+                        .filter(not_(Country.id.in_(excluded_countries))) \
                         .order_by(func.random()).limit(1).first()
     current_app = App.query.filter_by(type="tree_map").first_or_404()
     default_build = Build.query.filter_by(app=current_app, name_id=1).first_or_404()

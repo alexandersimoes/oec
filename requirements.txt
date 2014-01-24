@@ -16,6 +16,9 @@ flask-sqlalchemy
 # WARNING: Must have Redis server installed!
 redis
 
+# General caching for views (also requires redis)
+flask-cache
+
 # Better JSON serializer that knows how to handle Decimal types
 simplejson
 
