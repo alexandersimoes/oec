@@ -27,7 +27,6 @@ from oec import app, db, babel, excluded_countries
 @app.before_request
 def before_request():
     
-    g.color = "#af1f24"
     g.page_type = mod.name
     g.supported_langs = current_app.config.get('LANGUAGES')
     
