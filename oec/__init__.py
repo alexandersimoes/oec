@@ -11,6 +11,8 @@ from flask.ext.babel import Babel
 from utils import Momentjs, formatter, strip_html, jinja_split, \
                     RedisSessionInterface, format_currency, format_percent
 from werkzeug.contrib.fixers import ProxyFix
+# for caching views
+from flask.ext.cache import Cache
 
 ''' Base directory of where the site is held '''
 oec_dir = os.path.abspath(os.path.dirname(__file__))
@@ -25,6 +27,11 @@ app.config.from_object('config')
 # DB connection object
 db = SQLAlchemy(app)
 
+# set up cache for views
+view_cache = Cache(app, config={'CACHE_TYPE': 'redis', \
+                'CACHE_REDIS_HOST':'localhost', 'CACHE_REDIS_PORT':6379, \
+                'CACHE_REDIS_PASSWORD':None})
+
 # Set session store as server side (Redis)
 redis_sesh = RedisSessionInterface()
 if redis_sesh.redis:
@@ -33,6 +40,10 @@ if redis_sesh.redis:
 # Global Latest Year Variables
 __latest_year__ = {"sitc": 2012, "hs": 2011, "population": 2012}
 available_years = {"sitc": range(1962, 2012), "hs": range(1995, 2012)}
+
+# Global for excluded countries
+excluded_countries = ["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", \
+                        "nabes", "astwn", "nacuw", "navir", "eusjm", "namaf"]
 
 # babel configuration for lang support
 babel = Babel(app)

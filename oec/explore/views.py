@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, g, request, session, redirect, \
                     url_for, flash, jsonify, Response
 from flask.ext.babel import gettext
 
-from oec import app, db, babel
+from oec import app, db, babel, view_cache, excluded_countries
 from oec.utils import make_query
 from oec.db_attr.models import Country, Sitc, Hs
 from oec.explore.models import Build, App, Short
@@ -17,7 +17,7 @@ mod = Blueprint('explore', __name__, url_prefix='/explore')
 def explore_redirect():
     '''fetch random country'''
     c = Country.query.filter(Country.id_2char != None) \
-                        .filter(not_(Country.id.in_(["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", "nabes", "astwn", "nacuw", "navir", "eusjm"]))) \
+                        .filter(not_(Country.id.in_(excluded_countries))) \
                         .order_by(func.random()).limit(1).first()
     
     return redirect(url_for('.explore', app_name="tree_map", \
@@ -43,6 +43,7 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
                     origin=origin, dest=dest, product=product, year=year))
 
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
+@view_cache.cached(timeout=None)
 def explore(app_name, classification, trade_flow, origin, dest, \
                 product, year="2011"):
     g.page_type = mod.name

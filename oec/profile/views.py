@@ -3,7 +3,7 @@ import time, urllib2, json
 from flask import Blueprint, render_template, g, request, current_app, session, redirect, url_for, flash, abort
 from flask.ext.babel import gettext
 
-from oec import app, db, babel
+from oec import app, db, babel, view_cache, excluded_countries
 from oec.utils import make_query
 from oec.db_attr import models as attr_models
 from oec.explore.models import Build, App
@@ -16,13 +16,14 @@ mod = Blueprint('profile', __name__, url_prefix='/profile')
 def profile_country_redirect():
     Country = getattr(attr_models, "Country")
     c = Country.query.filter(Country.id_2char != None) \
-                        .filter(not_(Country.id.in_(["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", "nabes", "astwn", "nacuw", "navir", "eusjm"]))) \
+                        .filter(not_(Country.id.in_(excluded_countries))) \
                         .order_by(func.random()).limit(1).first()
     
     return redirect(url_for(".profile_country", attr_id=c.id_3char))
 
 @mod.route('/country/')
 @mod.route('/country/<attr_id>/')
+@view_cache.cached(timeout=None)
 def profile_country(attr_id="usa"):
     g.page_type = mod.name
     
@@ -68,6 +69,7 @@ def profile_country(attr_id="usa"):
 
 @mod.route('/<attr_type>/')
 @mod.route('/<attr_type>/<attr_id>/')
+@view_cache.cached(timeout=None)
 def profile_product(attr_type, attr_id="usa"):
     g.page_type = mod.name
     
