@@ -1,0 +1,49 @@
+div#cover {
+  background-image: url("/static/img/atlas/atlas_cover.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border: 1px solid #444;
+  float: left;
+  margin-bottom: 40px;
+  margin-right: 50px;
+  margin-top: 20px;
+  height: 408px;
+  width: 350px;
+}
+
+blockquote {
+  font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: lighter;
+  margin: 80px 40px;
+}
+blockquote p {
+  margin-top: 5px;
+  text-align: right;
+}
+
+div#authors {
+  background-image: url("/static/img/atlas/atlas_authors.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  clear: both;
+  display: block;
+  height: 54px;
+  margin: 40px auto 20px;
+  width: 700px;
+}
+
+div#license {
+  color: #888;
+  display: block;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: lighter;
+  margin: 10px auto;
+  width: 300px;
+}
+
+div#license img {
+  display: block;
+  margin: 10px auto;
+}
