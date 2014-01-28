@@ -30,17 +30,17 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
         if origin in ["nam", "lso", "bwa", "swz"]:
             c = Country.query.filter_by(id_3char=origin).first()
             origin = "zaf"
-            msg = "{0} reports their trade under South Africa in the HS classification".format(c.get_name())
+            msg = "{0} reports their trade under South Africa in the HS classification. ".format(c.get_name())
         if dest in ["nam", "lso", "bwa", "swz"]:
             c = Country.query.filter_by(id_3char=dest).first()
             dest = "zaf"
-            msg = "{0} reports their trade under South Africa in the HS classification".format(c.get_name())
+            msg = "{0} reports their trade under South Africa in the HS classification. ".format(c.get_name())
     
     if msg:
-        flash(msg)
-        return redirect(url_for('.explore', app_name=app_name, \
+        redirect_url = url_for('.explore', app_name=app_name, \
                     classification=classification, trade_flow=trade_flow, \
-                    origin=origin, dest=dest, product=product, year=year))
+                    origin=origin, dest=dest, product=product, year=year)
+        flash(msg+"<script>redirect('"+redirect_url+"', 10)</script>")
 
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
 @view_cache.cached(timeout=None)

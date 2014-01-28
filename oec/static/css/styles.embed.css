@@ -84,7 +84,7 @@ body {
 /* UI */
 /******/
 #app #ui {
-  border: red 1px solid;
+/*  border: red 1px solid;*/
 /*  display: none;*/
   height: 40px;
   text-align: center;
