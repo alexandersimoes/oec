@@ -6,81 +6,96 @@
 {% endblock %}
 
 {% block body %}
-<div class="app_title" id="title"><h2>Rankings</h2></div>
 
 <!-- the left pane -->
-<div class="col1">
-  <h3><a href="/rankings/country/">Country Rankings</a></h3>
-  <p>Rank countries based on their economic complexity for a given year</p>
-  <h3><a href="/rankings/hs/">HS Product Rankings</a></h3>
-  <p>Rank products in the HS4 classification based on their complexity for a given year</p>
-  <h3><a href="/rankings/sitc/">SITC Product Rankings</a></h3>
-  <p>Rank products in the SITC4 classification based on their complexity for a given year</p>
-  <h3>Download</h3>
-  <p>
-    <a href="/rankings/{{ category }}/year/download/">&raquo; Download year data</a><br />
-    <a href="/rankings/{{ category }}/download/">&raquo; Download all years data</a>
-  </p>
-</div>
-
 <div class="content">
   
-  <div class="change_year">
-      <a class="prev" href="/rankings/{{ category }}/{{ year-1 }}/">&laquo; Previous Year</a>
-      <dl class="dropdown">
-        <dt><a href="#"><span>{{ year }}</span></a></dt>
-        <dd>
-        </dd>
-      </dl>
-      <a class="next" href="/rankings/{{ category }}/{{ year+1 }}/">Next Year &raquo;</a>
-    </div>
-  
-    <table class="sortable">
-      <thead>
-        <tr>
-          
-          {% for c in cols %}
-          <th><a class="sort">{{ c }}</a></th>
-          {% endfor %}
-          
-        </tr>
-      </thead>
-      
-      <tbody>
-        
-        {% for r in rankings %}
-        <tr>
-          {% if category == "country" %}
-          <td><span>{{ r["eci_rank"] }}</span></td>
-          <td>{{ r.country.id_3char|upper }}</td>
-          <td>{{ r.country.get_name() }}</td>
-          <td>{{ r.eci }}</td>
-          {% else %}
-          <td><span>{{ r["pci_rank"] }}</span></td>
-          <td>{{ r.product.id }}</td>
-          <td>{{ r.product.get_name() }}</td>
-          <td>{{ r.pci }}</td>
-          {% endif %}
-        </tr>
-        {% endfor %}
-        
-      </tbody>
+  <div id="sidebar" class="col1">
     
-    </table>
+    <ul>
+      <li{% if category == "country" %} class="active"{% endif %}>
+        <a href="/rankings/country/">Country Rankings</a>
+      </li>
+      <li{% if category == "hs" %} class="active"{% endif %}>
+        <a href="/rankings/hs/">HS Product Rankings</a>
+      </li>
+      <li{% if category == "sitc" %} class="active"{% endif %}>
+        <a href="/rankings/sitc/">SITC Product Rankings</a>
+      </li>
+    </ul>
+    
+    <h3>Download</h3>
+    <p>
+      <a href="/rankings/{{ category }}/year/download/">&raquo; Download year data</a><br />
+      <a href="/rankings/{{ category }}/download/">&raquo; Download all years data</a>
+    </p>
   
-</div> 
+  </div><div class="col3">
+  
+    <div class="change_year">
+        <a class="prev" href="/rankings/{{ category }}/{{ year-1 }}/">&laquo; Previous Year</a>
+        <dl class="dropdown">
+          <dt><a href="#"><span>{{ year }}</span></a></dt>
+          <dd>
+          </dd>
+        </dl>
+        <a class="next" href="/rankings/{{ category }}/{{ year+1 }}/">Next Year &raquo;</a>
+      </div>
+  
+      <table class="sortable">
+        <thead>
+          <tr>
+          
+            {% for c in cols %}
+            <th><a class="sort">{{ c }}</a></th>
+            {% endfor %}
+          
+          </tr>
+        </thead>
+      
+        <tbody>
+        
+          {% for r in rankings %}
+          <tr>
+            {% if category == "country" %}
+            <td><span>{{ r["eci_rank"] }}</span></td>
+            <td>{{ r.country.id_3char|upper }}</td>
+            <td>{{ r.country.get_name() }}</td>
+            <td>{{ r.eci }}</td>
+            {% else %}
+            <td><span>{{ r["pci_rank"] }}</span></td>
+            <td>{{ r.product.id }}</td>
+            <td>{{ r.product.get_name() }}</td>
+            <td>{{ r.pci }}</td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        
+        </tbody>
+    
+      </table>
+  
+  </div>
+
+</div>
 {% endblock %}
 
 
 {% block js %}
-<script>
-// Add color to rankings
-var color = d3.scale.linear()
-  .domain([0, d3.selectAll("tbody tr")[0].length-1])
-  .interpolate(d3.interpolateRgb)
-  .range(["#7cbde2", "#fb9496"])
-d3.selectAll("tbody tr").select("td span").style("background", function(d, i){
-  return color(i);
-})
-</script>
+  <script>
+    var total = d3.selectAll("tbody tr")[0].length
+    // Add color to rankings
+    var color = d3.scale.linear()
+      .domain([0, total/2, total-1])
+      .interpolate(d3.interpolateRgb)
+      .range(["#00cc00", "#cccccc", "#cc0000"])
+    d3.selectAll("tbody tr").select("td span")
+      .style("background", function(d, i){
+        return color(i);
+      })
+      .style("color", function(d, i){
+        return d3plus.color.text(color(i));
+      })
+  
+  </script>
 {% endblock %}

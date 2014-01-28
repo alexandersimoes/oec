@@ -229,7 +229,7 @@ p {
   padding: 0px;
 }
 
-#sidebar > ul > li.active > ul {
+body.about #sidebar > ul > li.active > ul {
   height: auto;
 }
 
