@@ -223,13 +223,14 @@ p {
 }
 
 #sidebar > ul > li > ul {
-/*  display: none;*/
   height: 0px;
   margin: 0px;
   overflow: hidden;
   padding: 0px;
-/*  -webkit-transition: height 0.6s;
-          transition: height 0.6s;*/
+}
+
+#sidebar > ul > li.active > ul {
+  height: auto;
 }
 
 #sidebar > ul > li > ul > ul {

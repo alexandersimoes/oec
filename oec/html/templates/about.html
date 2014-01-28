@@ -1,0 +1,52 @@
+{% extends "templates/site.html" %}
+
+{% block head %}
+  <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.about.css" />
+{% endblock %}
+
+{% block body %}
+
+<div class="content">
+  
+  <div id="sidebar" class="col1">
+    
+    <ul>
+      <li{% if g.sub_title == "team" %} class="active"{% endif %}>
+        <a href="/about/team/">Team</a>
+      </li>
+      <li{% if g.sub_title == "data" %} class="active"{% endif %}>
+        <a href="/about/data/">Data</a>
+        <ul>
+          <ul><h3>Classifications</h3>
+            <li{% if data_type == "sitc" %} class="active"{% endif %}>
+              <a href="/about/data/sitc/">SITC4</a>
+            </li>
+            <li{% if data_type == "hs" %} class="active"{% endif %}>
+              <a href="/about/data/hs/">HS4</a>
+            </li>
+            <li{% if data_type == "country" %} class="active"{% endif %}>
+              <a href="/about/data/country/">Country</a>
+            </li>
+          </ul>
+        </ul>
+      </li>
+      <li{% if g.sub_title == "permissions" %} class="active"{% endif %}>
+        <a href="/about/permissions/">Permissions</a>
+      </li>
+      <li{% if g.sub_title == "updates" %} class="active"{% endif %}>
+        <a href="/about/updates/">Updates</a>
+      </li>
+      <li{% if g.sub_title == "faqs" %} class="active"{% endif %}>
+        <a href="/about/faqs/">FAQs</a>
+      </li>
+    </ul>
+    
+  </div><div class="col2">
+    
+    {% block about_content %}
+    {% endblock %}
+
+  </div>
+  
+</div>
+{% endblock %}

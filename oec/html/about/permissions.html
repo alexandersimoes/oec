@@ -1,39 +1,18 @@
-{% extends "templates/site.html" %}
+{% extends "templates/about.html" %}
 
-{% block head %}
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.about.css" />
-{% endblock %}
+{% block about_content %}
 
-{% block body %}
-<div class="content">
+  <h3>Permissions</h3>
+  <p>The observatory is published under a <a href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-Sharealike 3.0 Unported License</a> so feel free to share the site and embed the apps anywhere on the internet. When doing so, please remember to attribute the site and its <a href="/about/team/">creators</a><p>
+  <p>When refering to the site in publications please cite the following references:</p>
+
+    <blockquote>
+      <p>AJG Simoes, CA Hidalgo. The Economic Complexity Observatory: An Analytical Tool for Understanding the Dynamics of Economic Development. Workshops at the Twenty-Fifth AAAI Conference on Artificial Intelligence. (2011)</p>
+      <p>R Hausmann, CA Hidalgo, S Bustos, M Coscia, S Chung, J Jimenez, A Simoes, M Yildirim. The Atlas of Economic Complexity. Puritan Press. Cambridge MA. (2011)</p>
+    </blockquote>
+  <p>For more information please contact Varounny Chanthasiri(<a href="mailto:varounny@media.mit.edu">varounny@media.mit.edu</a>)</p>
+  <h3>Re-using and Contributing</h3>
+  <p>The Observatory website is an open source platform built as part of the lead developer, Alexander Simoes' Master's Thesis at the MIT Media Lab. In being an open source project and leveraging the many technologies also available for fair use we welcome any and all collaborators to the project. Feel free to fork the site at: <a href="https://github.com/alexandersimoes/oec" title="Fork me on github">github.com/alexandersimoes/atlas_economic_complexity</a></p>
+  <p>We also provide an <a href="/api">API</a> for the casual user interested in embedding their own Observatory app on any webpage.</p>
   
-  <div id="sidebar" class="col1">
-    
-    <ul>
-      <li><a href="/about/team/">Team</a></li>
-      <li><a href="/about/overview/">Overview</a></li>
-      <li><a href="/about/data/">Data</a></li>
-      <li class="active"><a href="/about/permissions/">Permissions</a></li>
-      <li><a href="/about/updates/">Updates</a></li>
-      <li><a href="/about/faqs/">FAQs</a></li>
-    </ul>
-    
-  </div>
-
-  <div class="col2">
-    <h3>Permissions</h3>
-    <p>The observatory is published under a <a href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-Sharealike 3.0 Unported License</a> so feel free to share the site and embed the apps anywhere on the internet. When doing so, please remember to attribute the site and its <a href="/about/team/">creators</a><p>
-    <p>When refering to the site in publications please cite the following references:</p>
-
-      <blockquote>
-        <p>AJG Simoes, CA Hidalgo. The Economic Complexity Observatory: An Analytical Tool for Understanding the Dynamics of Economic Development. Workshops at the Twenty-Fifth AAAI Conference on Artificial Intelligence. (2011)</p>
-        <p>R Hausmann, CA Hidalgo, S Bustos, M Coscia, S Chung, J Jimenez, A Simoes, M Yildirim. The Atlas of Economic Complexity. Puritan Press. Cambridge MA. (2011)</p>
-      </blockquote>
-    <p>For more information please contact Varounny Chanthasiri(<a href="mailto:varounny@media.mit.edu">varounny@media.mit.edu</a>)</p>
-    <h3>Re-using and Contributing</h3>
-    <p>The Observatory website is an open source platform built as part of the lead developer, Alexander Simoes' Master's Thesis at the MIT Media Lab. In being an open source project and leveraging the many technologies also available for fair use we welcome any and all collaborators to the project. Feel free to fork the site at: <a href="https://github.com/alexandersimoes/oec" title="Fork me on github">github.com/alexandersimoes/atlas_economic_complexity</a></p>
-    <p>We also provide an <a href="/api">API</a> for the casual user interested in embedding their own Observatory app on any webpage.</p>
-  </div> 
-
-</div>
 {% endblock %}

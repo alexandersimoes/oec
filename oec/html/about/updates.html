@@ -1,34 +1,13 @@
-{% extends "templates/site.html" %}
+{% extends "templates/about.html" %}
 
-{% block head %}
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.about.css" />
-{% endblock %}
+{% block about_content %}
 
-{% block body %}
-<div class="content">
-  
-  <div id="sidebar" class="col1">
+  {% for update in updates %}
+  <article>
+    <h2 class="title">{{ update.title }}</h2>
+    Released on <time pubdate date="{{ update.date.meta }}"><a href="{{ update.url }}">{{ update.date.human }}</a></time>
+    {{ update.body|safe }}
+  </article>
+  {% endfor %}
     
-    <ul>
-      <li><a href="/about/team/">Team</a></li>
-      <li><a href="/about/overview/">Overview</a></li>
-      <li><a href="/about/data/">Data</a></li>
-      <li><a href="/about/permissions/">Permissions</a></li>
-      <li class="active"><a href="/about/updates/">Updates</a></li>
-      <li><a href="/about/faqs/">FAQs</a></li>
-    </ul>
-    
-  </div>
-
-  <div class="col2" id="updates">
-    {% for update in updates %}
-    <article>
-      <h2 class="title">{{ update.title }}</h2>
-      Released on <time pubdate date="{{ update.date.meta }}"><a href="{{ update.url }}">{{ update.date.human }}</a></time>
-      {{ update.body|safe }}
-    </article>
-    {% endfor %}
-  </div> 
-
-</div>
 {% endblock %}

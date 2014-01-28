@@ -342,12 +342,8 @@ def about():
 @mod.route('about/team/')
 def about_team():
     g.page_type = "about"
+    g.sub_title = "team"
     return render_template("about/team.html")
-
-@mod.route('about/overview/')
-def about_overview():
-    g.page_type = "about"
-    return render_template("about/index.html")
 
 @mod.route('about/data/')
 def about_data_redirect():
@@ -355,6 +351,8 @@ def about_data_redirect():
 
 @mod.route('about/data/<data_type>/')
 def about_data(data_type):
+    g.page_type = "about"
+    g.sub_title = "data"
     lang = request.args.get('lang', g.locale)
     
     if data_type == "sitc":
@@ -370,18 +368,24 @@ def about_data(data_type):
         headers = ["Name", "Alpha 3 Abbreviation"]
         title = "Country names and abbreviations"
     
-    return render_template("about/data.html", items=items, headers=headers, title=title)
+    return render_template("about/data.html", items=items, headers=headers, title=title, data_type=data_type)
 
 @mod.route('about/permissions/')
 def about_permissions():
+    g.page_type = "about"
+    g.sub_title = "permissions"
     return render_template("about/permissions.html")
 
 @mod.route('about/faqs/')
 def about_faqs():
+    g.page_type = "about"
+    g.sub_title = "faqs"
     return render_template("about/faqs.html")
 
 @mod.route('about/updates/')
 def about_updates():
+    g.page_type = "about"
+    g.sub_title = "updates"
     releases = json.load(urllib2.urlopen("https://api.github.com/repos/alexandersimoes/d3plus/releases"))
     updates = []
     for r in releases:

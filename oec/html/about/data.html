@@ -1,58 +1,25 @@
-{% extends "templates/site.html" %}
+{% extends "templates/about.html" %}
 
-{% block head %}
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.about.css" />
-{% endblock %}
+{% block about_content %}
 
-{% block body %}
-<div class="content">
-
-  <div class="col1" id="sidebar">
-  
-    <ul>
-      <li><a href="/about/team/">Team</a></li>
-      <li><a href="/about/overview/">Overview</a></li>
-      <li class="active">
-        <a href="/about/data/">Data</a>
-        <ul>
-          <li><a href="/about/data/sitc/">SITC4</a></li>
-          <li><a href="/about/data/hs/">HS4</a></li>
-          <li><a href="/about/data/country/">Country</a></li>
-        </ul>
-      </li>
-      <li><a href="/about/permissions/">Permissions</a></li>
-      <li><a href="/about/updates/">Updates</a></li>
-      <li><a href="/about/faqs/">FAQs</a></li>
-    </ul>
-    
-  </div>
-
-  <div class="col3">
-    <table class="table table-bordered table-condensed table-striped">
-      <thead>
-        <tr>
-          <th>&nbsp;</th>
-          {% for h in headers %}
-          <th>{{ h }}</th>
-          {% endfor %}
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in items %}
-        <tr>
-          <td>{{ loop.index }}</td>
-          <td>{{ item.get_name() }}</td>
-          <td>{{ item.id }}</td>
-        </tr>
+  <table class="table table-bordered table-condensed table-striped">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        {% for h in headers %}
+        <th>{{ h }}</th>
         {% endfor %}
-      </tbody>
-    </table>
-  </div>
-
-</div>
-{% endblock %}
-
-{% block js %}
-<script>
-</script>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ item.get_name() }}</td>
+        <td>{{ item.id }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+    
 {% endblock %}
