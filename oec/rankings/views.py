@@ -16,31 +16,44 @@ def rankings_redirect():
 
 @mod.route('/<category>/')
 @mod.route('/<category>/<int:year>/')
-def rankings(category, year=2011):
-    g.page_type = mod.name
-    clamped_year = max(1962, min(year, 2011))
-    if clamped_year != year:
-        return redirect(url_for('.profile', category="country", year=clamped_year))
+def rankings(category=None,year=None):
     
-    cols = ["Rank", "Abbrv", "Country", "ECI Value"]
-    tbl = Yo
-    val_col = "eci"
+    g.page_type = mod.name
+    
+    if category == None:
+        category = "country"
+    
     if category == "sitc":
+        years = [1962,2010]
         cols = ["Rank", "SITC", "Product", "PCI Value"]
         tbl = Yp_sitc
         val_col = "pci"
     elif category == "hs":
+        years = [1995,2011]
         cols = ["Rank", "HS", "Product", "PCI Value"]
         tbl = Yp_hs
         val_col = "pci"
+    elif category == "country":
+        years = [1964,2011]
+        cols = ["Rank", "Abbrv", "Country", "ECI Value"]
+        tbl = Yo
+        val_col = "eci"
+        
+    if year == None:
+        year = years[1]
+    elif year > years[1]:
+        return redirect(url_for('.rankings', category=category, year=years[0]))
+    elif year < years[0]:
+        return redirect(url_for('.rankings', category=category, year=years[1]))
     
-    rankings = tbl.query.filter_by(year=clamped_year) \
+    rankings = tbl.query.filter_by(year=year) \
                         .filter(getattr(tbl, val_col) != None) \
                         .order_by(getattr(tbl, "{0}_rank".format(val_col))) \
                         .all()
     
     return render_template("rankings/index.html",
                                 category=category,
-                                year=clamped_year,
+                                year=year,
                                 cols=cols,
+                                years=years,
                                 rankings=rankings)
