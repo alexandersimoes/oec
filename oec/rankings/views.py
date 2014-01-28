@@ -16,7 +16,7 @@ def rankings_redirect():
 
 @mod.route('/<category>/')
 @mod.route('/<category>/<int:year>/')
-def rankings(category, year=2010):
+def rankings(category, year=2011):
     g.page_type = mod.name
     clamped_year = max(1962, min(year, 2011))
     if clamped_year != year:
