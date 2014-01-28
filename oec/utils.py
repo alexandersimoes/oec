@@ -93,7 +93,7 @@ def format_currency(value):
     return "${:,.2f}".format(value)
 
 def format_percent(value):
-    return "{:.2g} %".format(value)
+    return "{:.2g}%".format(value)
 
 ''' A helper function for retrieving a specific item from the given model that
     will raise a 404 error if not found in the DB'''
