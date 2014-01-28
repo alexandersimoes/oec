@@ -11,7 +11,22 @@
 <div id="app">
   <div id="text"></div>
   <div id="viz"></div>
-  <div id="timeline"><button>{{ _('Click to view more years') }} &raquo;</button></div>
+  <div id="ui">
+    <div id="timeline"><button>{{ _('Click to view more years') }} &raquo;</button></div>
+    <div id="depth">
+      <input type="radio" name="nesting" value="0">Category
+      <input type="radio" name="nesting" value="1" checked="checked">Full
+    </div>
+    <div id="color">
+      <select>
+        <option value="color">Category</option>
+        <option value="val_growth_pct">Annual Growth Rate (1 year)</option>
+        <option value="val_growth_pct_5">Annual Growth Rate (5 year)</option>
+        <option value="val_growth_val">Growth Value (1 year)</option>
+        <option value="val_growth_val_5">Growth Value (5 year)</option>
+      </select>
+    </div>
+  </div>
 </div>
 <div id="controls">
   
@@ -102,7 +117,6 @@ var viz = d3plus.viz()
             .container("#viz")
             .style({"background":"transparent"})
             .text_format(function(text, key){
-              console.log(text, key)
               if(key == "display_id"){
                 return "ID"
               }
@@ -111,7 +125,7 @@ var viz = d3plus.viz()
     attr_id = "{{ current_build.attr_type() }}_id",
     app_type = "{{ current_build.app.type }}",
     attrs = {},
-    viz_height = window.innerHeight - d3.select("#timeline").node().offsetHeight,
+    viz_height = window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
     q = queue()
           .defer(d3.json, "{{ current_build.data_url() }}")
@@ -128,13 +142,14 @@ if(attr_id == "hs_id" || attr_id == "sitc_id" ){
 
 function resize_viz(obj){
   
-  if(viz.data().default.length){
+  if(viz.data().value.length){
     var new_width = window.innerWidth - parseInt(d3.select("#controls").style("width"));
-    var new_height = window.innerHeight - d3.select("#timeline").node().offsetHeight;
+    var new_height = window.innerHeight - d3.select("#ui").node().offsetHeight;
     if (obj){
       new_width = obj.width || new_width;
       new_height = obj.height || new_height;
     }
+    console.log(new_width, new_height)
     viz.width(new_width).height(new_height).draw()
     d3.select("#app #text").style("width", new_width+"px").style("height", new_height+"px")
   }
@@ -160,6 +175,7 @@ function format_data(error, raw_data, raw_attrs, raw_other){
     }
     // console.log(attrs[d.id])
   })
+  console.log(raw_attrs.data)
 
   // go through raw data and set each items nest and id vars properly
   raw_data.data.forEach(function(d){
@@ -181,7 +197,7 @@ function finish(data, attrs){
     .style("display", "block")
     .call(viz)
   
-  d3.select("#timeline button").style("display", "block")
+  d3.select("#ui").style("display", "block")
   
   update_text_table(data, attrs)
 }
@@ -244,7 +260,7 @@ switch (app_type){
         .order("nest")
         .axes({"static":false})
         .text({"nest":"name","id":"name"})
-        .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
+        .height(window.innerHeight - d3.select("#ui").node().offsetHeight)
         .width(viz_width)
         
       finish(raw_data.data, attrs)
@@ -275,7 +291,7 @@ switch (app_type){
           },
           "spotlight":true
         })
-        .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
+        .height(window.innerHeight - d3.select("#ui").node().offsetHeight)
         .width(viz_width)
       
       finish(raw_data.data, attrs)
@@ -309,7 +325,7 @@ switch (app_type){
         .id("id")
         .color("{{ current_build.trade_flow }}_val")
         .coords(raw_coords)
-        .height(window.innerHeight - d3.select("#timeline").node().offsetHeight)
+        .height(window.innerHeight - d3.select("#ui").node().offsetHeight)
         .time({"solo": ["2010"]})
         .width(viz_width)
       
@@ -545,6 +561,19 @@ d3.selectAll("#download a").on("click", function(){
   // POST request and prompts the user to download the file
   d3.select('form#download').node().submit();
   d3.event.preventDefault();
+})
+
+d3.selectAll("#depth input").on("change", function(d){
+  var new_depth = d3.select(this).property("value");
+  viz.depth(new_depth).draw();
+})
+
+d3.selectAll("#color select").on("change", function(d){
+  var new_color = d3.select(this[this.selectedIndex]).property("value");
+  if(new_color != "color"){
+    new_color = "{{ current_build.trade_flow }}_"+new_color;
+  }
+  viz.color(new_color).draw()
 })
 
 /////////////////////////////

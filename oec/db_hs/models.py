@@ -51,10 +51,17 @@ class Yop(db.Model, AutoSerialize):
     export_val = db.Column(db.Numeric(16,2))
     import_val = db.Column(db.Numeric(16,2))
     
-    # net_export = classmethod(lambda s: (s.export_val - s.import_val))
-    
     export_rca = db.Column(db.Float())
     import_rca = db.Column(db.Float())
+    
+    export_val_growth_pct = db.Column(db.Float())
+    export_val_growth_pct_5 = db.Column(db.Float())
+    export_val_growth_val = db.Column(db.Numeric(16,2))
+    export_val_growth_val_5 = db.Column(db.Numeric(16,2))
+    import_val_growth_pct = db.Column(db.Float())
+    import_val_growth_pct_5 = db.Column(db.Float())
+    import_val_growth_val = db.Column(db.Numeric(16,2))
+    import_val_growth_val_5 = db.Column(db.Numeric(16,2))
     
     def __repr__(self):
         return '<Yop %d.%s.%s>' % (self.year, self.origin_id, self.hs_id)

@@ -80,15 +80,21 @@ body {
   background: #F4F5F7;
 }
 
-/************/
-/* Timeline */
-/************/
-#app #timeline {
-/*  border: red 1px solid;*/
+/******/
+/* UI */
+/******/
+#app #ui {
+  border: red 1px solid;
+/*  display: none;*/
   height: 40px;
+  text-align: center;
+}
+#app #timeline,
+#app #depth,
+#app #color {
+  display: inline-block;
 }
 #app #timeline button {
-  display: none;
   font-size: 15px;
   margin: 4px auto;
 }
