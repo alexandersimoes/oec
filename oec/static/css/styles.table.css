@@ -30,8 +30,16 @@ table td {
   padding: 8px;
   line-height: 1.428571429;
   vertical-align: top;
+}
+
+table tbody tr {
   border-top: 1px solid #ddd
 }
+
+table tbody tr:first-child {
+  border-top: 0px solid #ddd
+}
+
 table thead th {
   vertical-align: bottom;
   border-bottom: 2px solid #ddd
@@ -53,7 +61,7 @@ table.bordered thead td {
 }
 table.striped tbody tr:nth-child(odd)>td,
 table.striped tbody tr:nth-child(odd)>th {
-  background-color: #f9f9f9
+  background-color: #f7f7f7
 }
 table.hover tbody tr:hover>td,
 table.hover tbody tr:hover>th {

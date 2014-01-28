@@ -1,17 +1,60 @@
-.content {
-/*  border-radius: 10px;*/
-  float: none;
-  width: 990px;
+body.profile .content {
+  text-align: center;
 }
+
+.content .build {
+  display: inline-block;
+  margin: 10px 10px 30px 10px;
+  min-height: 200px;
+  width: 460px;
+}
+
+p.country_name {
+  font-size: 28px;
+  font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  line-height: 30px;
+  margin: 10px;
+  padding-left: 60px;
+  padding-top: 10px;
+  position: relative;
+}
+
+p.country_name img {
+  left: 0px;
+  margin: 0px 10px 0 0;
+  position: absolute;
+  top: 0px;
+  vertical-align: top;
+  width: 50px;
+}
+
+p.eci_value {
+  font-size: 15px;
+  line-height: 20px;
+  margin: 10px;
+}
+
+span.rank {
+  display: inline-block;
+  font-size: 14px;
+  font-family: "HelveticaNeue-Bold", "Helvetica Neue Bold", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  line-height: 14px;
+  min-width: 14px;
+  padding: 2px;
+  text-align: center;
+}
+
+
+
+
+
+
 
 
 table img{
   width: 15px;
-}
-.content {
-/*  border-radius: 10px;*/
-  float: none;
-  width: 990px;
 }
 div#community_treemap{
   float: left;
@@ -36,163 +79,13 @@ div#data_text {
 .desc { color:#6b6b6b;}
 .desc a {color:#0092dd;}
 
-.dropdown {
-  display: inline;
-  float: left;
-  margin: 6px 0;
-}
-.dropdown dt{
-  display: inline;
-}
-.q {
-  float: left;
-}
-.dropdown dd, .dropdown dt, .dropdown ul { margin:0px; padding:0px; }
-.dropdown dd { position:relative; }
-.dropdown a, .dropdown a:visited { 
-/*      color:#816c5b;*/
-  text-decoration:none;
-  outline:none;
-}
-.dropdown a:hover {
-/*      color:#5d4617;*/
-}
-.dropdown dt a:hover {
-/*      color:#5d4617;*/
-  border: 1px solid #666;
-}
-.dropdown dt a {
-  font-size: 30px;
-  font-weight: normal;
-  line-height: 36px;
-  
-  background: url("/media/img/all/arrow.png") no-repeat scroll right center;
-  padding-right: 20px;
-  border: 1px solid #bbb;
-  width: 150px;
-}
-.dropdown dt a span {
-  cursor: pointer; 
-/*    display: inline-block;*/
-  padding: 5px;
-}
-.dropdown dd ul { 
-  background: white none repeat scroll 0 0;
-  border: 1px solid #efefef;
-  display: none;
-  left: 0px;
-  padding: 5px 0px;
-  position: absolute;
-  top: 2px;
-  width: auto;
-  min-width: 170px;
-  list-style: none;
-  height: 200px;
-  overflow-y: scroll;
-}
-.dropdown span.value { display:none; }
-.dropdown dd ul li a { padding:5px; display:block;}
-.dropdown dd ul li a:hover { background-color:#eee;}
-
-.content h2 {
-  border-bottom: solid 1px black;
-  font-size: 28px;
-  letter-spacing: 2px;
-  margin: 40px 0;
-  text-transform: uppercase;
-}
-.content .build {
-  float: left;
-  margin: 10px 0 40px 0;
-  min-height: 200px;
-  width: 470px;
-}
-.content .build h3 {
-  font-size: 22px;
-  margin: 0 0 5px 0;
-}
-
 .content .build .list {
   border: solid #bbb 1px;
   height: 300px;
   overflow-y: scroll;
 }
-.content .build:nth-child(even) {
-  margin-left: 40px;
-}
 
-.content .build a.explore {
-  font-size: 18px;
-  text-decoration: none;
-  display: block;
-  padding: 5px;
-  border: 1px solid #DDD;
-  text-align: center;
-
-/*  -moz-border-radius: 0 0 5px 5px;
-  -webkit-border-radius:0 0 5px 5px;
-  -o-border-radius:0 0 5px 5px;
-  border-radius:0 0 5px 5px;
-*/
-  background:#FFFFFF;
-  background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#EEE));
-  background:-moz-linear-gradient(0% 90% 90deg, #EEE, #FFF);
-
-  -webkit-transition: all .4s ease-in-out;
-  -moz-transition: all .4s ease-in-out;
-  -o-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
-}
-.overview_data a.explore:hover {
-  border-color:#999;
-  background:#aaa;
-  background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#bbb), to(#aaa));
-  background:-moz-linear-gradient(0% 90% 90deg, #bbb, #aaa);
-}
 #quick_glance {
   overflow: hidden;
   width: 100%;
-}
-#ranking_box {
-  border: solid 1px #999;
-/*  border-radius: 4px;*/
-  float: left;
-  padding: 0 5px;
-  width: 300px;
-}
-#ranking_box p.country_name {
-  border-bottom: solid 1px #999;
-  font-size: 30px;
-  margin: 0;
-/*  text-align: center;*/
-}
-#ranking_box p.country_name img {
-  margin: 3px 0 0 0;
-  width: 34px;
-  vertical-align: top;
-}
-#ranking_box p.eci_rank {
-  border-bottom: solid 1px #999;
-  font-size: 60px;
-  margin: 0;
-  padding: 20px 0;
-  text-align: center;
-}
-#ranking_box p.eci_rank span {
-  padding: 10px;
-}
-#ranking_box p.eci_value {
-  margin: 8px 0;
-}
-#ranking_box a {
-  padding: 10px 0;
-}
-#quick_info {
-  float: left;
-  margin: 0 0 0 20px;
-  width: 600px;
-}
-#quick_info p {
-  margin: 0 0 10px 0;
-  vertical-align: center !important;
 }

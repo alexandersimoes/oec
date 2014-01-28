@@ -1,45 +1,42 @@
 {% extends "templates/site.html" %}
 
 {% block head %}
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.profile.css" />
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.table.css" />
+  <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.profile.css" />
+  <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.table.css" />
 {% endblock %}
 
 {% block body %}
-<div class="app_title" id="title"><h2>Learn More About Trade in: {{ attr.get_name() }}</h2></div>
-<div class="content">
 
-  <div id="quick_glance">
+<h2>Learn More About Trade in {{ attr.get_name() }}</h2>
+
+<div class="content">
     
-      <div id="ranking_box">
-        <p class="country_name"><img src="{{ attr.get_icon() }}" alt="{{ attr.get_name() }} icon">{{ attr.get_name() }}</p>
-        <p class="eci_rank"><span style="background-color: rgb(126, 188, 225)">{{ attr.get_attr_yo().eci_rank }}</span></p>
-        <p class="eci_value"><a href="/rankings/country/">Economic Complexity Index (ECI)</a>: {{ attr.get_attr_yo().eci }}</p>
-      </div>
-    
-      <div id="quick_info">
-        <p>
-          <span style="font-size: 38px">{{ attr.get_name() }}</span> is ranked <span style="font-size: 24px">{{ attr.get_attr_yo().eci_rank }}</span> with an ECI of {{ attr.get_attr_yo().eci }}.
-        </p>
-        <table class="striped">
-          {% for b in builds %}
-          {% set stats = b.top_stats(5) %}
-          <tr>
-            <th>{{ b.get_name() }}</th>
-            <td>
-              {% for entry in stats.entries %}
-              {{ entry.attr.get_name() }} ({{ entry.share|format_percent }}){% if not loop.last %}, {% endif %}
-              {% endfor %}
-            </td>
-          </tr>
+  <div class="col1_5">
+    <p class="country_name"><img src="{{ attr.get_icon() }}" alt="{{ attr.get_name() }} icon">{{ attr.get_name() }}</p>
+    {% if attr.get_attr_yo().eci_rank %}
+      <p class="eci_value">
+        {{ attr.get_name() }} is <a href="/rankings/country/">ranked</a> <span class="rank">{{ attr.get_attr_yo().eci_rank }}</span> with an Economic Complexity Index (ECI) of {{ attr.get_attr_yo().eci }}.
+      </p>
+    {% endif %}
+  </div><div class="col2">
+    <table class="striped">
+      {% for b in builds %}
+      {% set stats = b.top_stats(5) %}
+      <tr>
+        <th>Top 5 {{ b.get_name() }}</th>
+        <td>
+          {% for entry in stats.entries %}
+          {% if loop.last %}and {% endif %}{{ entry.attr.get_name() }} ({{ entry.share|format_percent }}){% if not loop.last %}, {% endif %}
           {% endfor %}
-        </table>
-      </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+      
+  <br>
     
-    </div>
-    
-    <h2>Stats</h2>
-    {% for b in builds %}
+  {% for b in builds %}
     {% set stats = b.top_stats(20) %}
     <div class="build">
       <h3>{{ b.get_question() }}</h3>
@@ -56,9 +53,9 @@
         {% endfor %}
         </table>
       </div>
-      <a class="explore" href="/explore/{{ b.url() }}">Explore More Years »</a>
+      <a class="button" href="/explore/{{ b.url() }}">View as Visualization »</a>
     </div>
-    {% endfor %}
+  {% endfor %}
 
 
 </div> 
@@ -67,14 +64,18 @@
 
 {% block js %}
 <script>
-// Add color to rankings
-var color = d3.scale.linear()
-  .domain([0, 128])
-  .interpolate(d3.interpolateRgb)
-  .range(["#7cbde2", "#fb9496"])
+  // Add color to rankings
+  var color = d3.scale.linear()
+    .domain([0, 128])
+    .interpolate(d3.interpolateRgb)
+    .range(["#00cc00", "#cc0000"])
 
-d3.select(".eci_rank span").style("background", function(d, i){
-  return color(parseInt(this.innerHTML));
-})
+  d3.select("span.rank")
+    .style("background-color", function(d, i){
+      return color(parseInt(this.innerHTML));
+    })
+    .style("color", function(d, i){
+      return d3plus.color.text(color(parseInt(this.innerHTML)));
+    })
 </script>
 {% endblock %}

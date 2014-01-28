@@ -1,4 +1,4 @@
-.col1, .col2, .col3 {
+.col1, .col2, .col3, .col1_5 {
   display: inline-block;
   height: 100%;
   margin: 0px;
@@ -18,4 +18,8 @@
 
 .col3 {
   width: 780px;
+}
+
+.col1_5 {
+  width: 280px;
 }

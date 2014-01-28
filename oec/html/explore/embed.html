@@ -107,7 +107,7 @@
 <script src="/static/js/libs/d3plus.js"></script>
 <script src="/static/js/libs/queue.js"></script>
 <script src="/static/js/libs/topojson.js"></script>
-<script src="/static/js/d3.brushtimeline.js"></script>
+<script src="/static/js/d3.brushmore_years.js"></script>
 <script src="/static/js/d3.tabulate.js"></script>
 
 <script>
@@ -117,6 +117,7 @@ var viz = d3plus.viz()
             .container("#viz")
             .style({"background":"transparent"})
             .text_format(function(text, key){
+              // console.log(text, key)
               if(key == "display_id"){
                 return "ID"
               }
@@ -149,10 +150,15 @@ function resize_viz(obj){
       new_width = obj.width || new_width;
       new_height = obj.height || new_height;
     }
-    console.log(new_width, new_height)
     viz.width(new_width).height(new_height).draw()
-    d3.select("#app #text").style("width", new_width+"px").style("height", new_height+"px")
+    d3.select("#app #viz")
+      .style("width", new_width+"px")
+      .style("height", new_height+"px")
+    d3.select("#app #text")
+      .style("width", new_width+"px")
+      .style("height", new_height+"px")
   }
+  
 }
 /* general function needed by all apps for making proper nesting and updating
     raw data with changes */
@@ -175,7 +181,6 @@ function format_data(error, raw_data, raw_attrs, raw_other){
     }
     // console.log(attrs[d.id])
   })
-  console.log(raw_attrs.data)
 
   // go through raw data and set each items nest and id vars properly
   raw_data.data.forEach(function(d){
@@ -368,9 +373,13 @@ function update_text_table(data, attrs){
   
 }
 
-/* if user requests more years, fetch raw data call for all years and create
-   a timeline */
-d3.select("#timeline button").on("click", function(){
+/* if user requests more years, fetch raw data call for all years */
+d3.select("#more_years button").on("click", function(){
+  
+  d3.select(this)
+    .on("click",null)
+    .text("Loading...")
+    
   d3.json("{{ current_build.data_url('all') }}", function(raw_data){
     
     // go through raw data and set each items nest and id vars properly
@@ -391,17 +400,19 @@ d3.select("#timeline button").on("click", function(){
     }
     
     viz.data(raw_data.data).time({"solo": years}).draw()
-    d3.select("#timeline button").remove()
+    d3.select("#more_years").remove()
     
-    make_timeline(d3.select("#timeline"), 1995, 2011, years, 1, function(start, end){
-      var years = d3.range(start, end, year_interval)
-      viz.time({"solo": years}).draw()
-      
-      if(parent.update_text_table){
-        var data_for_table = raw_data.data.filter(function(d){ return years.indexOf(d.year) >= 0 })
-        update_text_table(data_for_table, attrs)
-      }
-    })
+    // make_more_years(d3.select("#more_years"), 1995, 2011, years, 1, function(start, end){
+    // var years = d3.range(start, end, year_interval)
+    viz.time({"solo": years}).draw()
+    
+    if(parent.update_text_table){
+      var data_for_table = raw_data.data.filter(function(d){ return years.indexOf(d.year) >= 0 })
+      update_text_table(data_for_table, attrs)
+    }
+    
+    resize_viz()
+    // })
     
   })
   d3.event.preventDefault();
@@ -460,13 +471,14 @@ d3.selectAll("button#build").on("click", function(){
   d3.event.preventDefault();
 })
 
-d3.select("#show_hide").on("click", function(){
+d3.select("#show_hide").on(d3plus.evt.click, function(){
   var controls = d3.select("#controls")
   if (controls.style("right") == "0px"){
     // controls.style("left", "200px")
     // resize_viz({"width": window.innerWidth})
-    controls.select("i").style("-webkit-transform", "rotate(180deg)")
-    controls.transition().duration(500)
+    controls.select("i")
+      .style("-webkit-transform", "rotate(180deg)")
+    controls.transition().duration(600)
       .style("right", "-200px")
       .each("end", function(){
         resize_viz({"width": window.innerWidth})
@@ -474,8 +486,9 @@ d3.select("#show_hide").on("click", function(){
   }
   else {
     resize_viz()
-    controls.select("i").style("-webkit-transform", "rotate(0deg)")
-    controls.transition().delay(500).duration(500)
+    controls.select("i")
+      .style("-webkit-transform", "rotate(0deg)")
+    controls.transition().duration(600)
       .style("right", "0px")
   }
 })

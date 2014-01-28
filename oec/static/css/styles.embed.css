@@ -111,10 +111,10 @@ body {
   width: 200px;
 }
 #controls #show_hide {
-  background: white;
   cursor: pointer;
-  left: -28px;
+  left: -22px;
   position: absolute;
+  top: -23px;
   z-index: 999;
 }
 #controls #show_hide i{
@@ -124,8 +124,8 @@ body {
   -ms-transition: 0.5s ease;
   transition: 0.5s ease;
 }
-#controls > *{
-  padding: 0 10px;
+#controls > * {
+  padding: 5px 10px;
 }
 #controls h3 {
   font-weight: normal;
@@ -135,7 +135,7 @@ body {
   clear: both;
 }
 #controls .dropdown_container select {
-  margin: 0 0 14px 0;
+  margin: 0px;
   width: 163px;
 }
 #controls .dropdown_container#year_start {
@@ -157,12 +157,7 @@ body {
   margin: 0 0 5px 0;
 }
 #controls button {
-  background:#888;
-  background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#888), to(#999));
-  background:-moz-linear-gradient(0% 90% 90deg, #999, #888);
-  color: #fff;
-  margin: 25px 10px 0 10px;
-  padding: 5px 0;
+  margin: 10px;
   width: 165px;
 }
 #controls hr {
@@ -199,5 +194,16 @@ body {
   margin: 0 10px 0 0;
 }
 #controls #short{
+  display: none;
+}
+
+
+
+#more_years {
+  height: 40px;
+  text-align: center;
+}
+
+#more_years > button {
   display: none;
 }

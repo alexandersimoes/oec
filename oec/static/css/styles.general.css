@@ -267,6 +267,24 @@ body.about #sidebar > ul > li.active > ul {
   top: 2px;
 }
 
+/******************/
+/* Default Button */
+/******************/
+button, a.button {
+  background-color: #0085BF;
+  border: 0px;
+  color: #f7f7f7;
+  cursor: pointer;
+  display: inline-block;
+  margin: 5px;
+  padding: 7px 10px;
+  -webkit-transition: background-color .1s;
+          transition: background-color .1s;
+}
+button:hover, a.button:hover {
+  background-color: #1790C5;
+  text-decoration: none;
+}
 
 
 
@@ -319,33 +337,6 @@ dl dd {
   color: #bbb !important;
   cursor: default;
   pointer-events: none;
-}
-
-button {
-  text-decoration: none;
-  display: block;
-  padding: 5px;
-  border: 1px solid #DDD;
-  text-align: center;
-  background:#FFFFFF;
-  background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#EEE));
-  background:-moz-linear-gradient(0% 90% 90deg, #EEE, #FFF);
-
-  -webkit-transition: all .4s ease-in-out;
-  -moz-transition: all .4s ease-in-out;
-  -o-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
-}
-button:hover {
-  border-color:#999;
-  background:#aaa;
-  background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#bbb), to(#aaa));
-  background:-moz-linear-gradient(0% 90% 90deg, #bbb, #aaa);
-}
-button:active {
-  background:#888;
-  background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#888), to(#999));
-  background:-moz-linear-gradient(0% 90% 90deg, #888, #999);
 }
 
 

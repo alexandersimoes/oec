@@ -6,20 +6,20 @@
 {% endblock %}
 
 {% block body %}
-<div class="app_title" id="title"><h2>Learn More About Trade in: {{ attr.get_name() }}</h2></div>
+<div class="app_title" id="title"><h2>Learn More About Trade of {{ attr.get_name() }}</h2></div>
 <div class="content">
 
   <div id="quick_glance">
     
       <div id="ranking_box">
         <p class="country_name"><img src="{{ attr.get_icon() }}" alt="{{ attr.get_name() }} icon">{{ attr.get_name() }}</p>
-        <p class="pci_rank"><span style="background-color: rgb(126, 188, 225)">{{ attr.get_yp().pci_rank }}</span></p>
-        <p class="pci_value"><a href="/rankings/country/">Economic Complexity Index (PCI)</a>: {{ attr.get_yp().pci }}</p>
+        <p class="pci_rank"><span>{{ attr.get_yp().pci_rank }}</span></p>
+        <p class="pci_value"><a href="/rankings/country/">Product Complexity Index (PCI)</a>: {{ attr.get_yp().pci }}</p>
       </div>
     
       <div id="quick_info">
         <p>
-          <span style="font-size: 38px">{{ attr.get_name() }}</span> is ranked <span style="font-size: 24px">{{ attr.get_yp().pci_rank }}</span> with an PCI of {{ attr.get_yp().pci }}.
+          {{ attr.get_name() }} is ranked {{ attr.get_yp().pci_rank }} with an PCI of {{ attr.get_yp().pci }}.
         </p>
         <table class="striped">
           {% for b in builds %}
@@ -37,7 +37,6 @@
       </div>
     </div>
     
-    <h2>Stats</h2>
     {% for b in builds %}
     {% set stats = b.top_stats(20) %}
     <div class="build">
@@ -55,7 +54,7 @@
         {% endfor %}
         </table>
       </div>
-      <a class="explore" href="/explore/{{ b.url() }}">Explore More Years »</a>
+      <a class="explore" href="/explore/{{ b.url() }}">View as Visualization »</a>
     </div>
     {% endfor %}
     
@@ -65,14 +64,14 @@
 
 {% block js %}
 <script>
-// Add color to rankings
-var color = d3.scale.linear()
-  .domain([0, 128])
-  .interpolate(d3.interpolateRgb)
-  .range(["#7cbde2", "#fb9496"])
+  // Add color to rankings
+  var color = d3.scale.linear()
+    .domain([0, 1240])
+    .interpolate(d3.interpolateRgb)
+    .range(["#00cc00", "#cc0000"])
 
-d3.select(".pci_rank span").style("background", function(d, i){
-  return color(parseInt(this.innerHTML));
-})
+  d3.select(".pci_rank span").style("background", function(d, i){
+    return color(parseInt(this.innerHTML));
+  })
 </script>
 {% endblock %}

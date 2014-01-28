@@ -1,104 +1,14 @@
-
-/*
- * Left hand side the app selection pane
- */  
-.explore #app_pane {
-  position: relative;
-}
-.explore #app_pane .accordion {
-  width: 165px;
-  font-size: 95%;
-}
-.explore #app_pane .accordion > div > div,
-.explore #app_pane .accordion > div > ul {
-  display: none;
-}
-.explore #app_pane .accordion div ul {
-  overflow: hidden;
+body.explore #sidebar {
+  margin-top: 20px;
 }
 
 
-/*
- * Right hand side the app specific tool pane
- */
-.explore #tool_pane {
-}
-.explore #tool_pane > *{
-  padding: 0 10px;
-}
-.explore #tool_pane h3 {
-  font-weight: normal;
-  margin: 0 0 2px 0;
-}
-.explore .ui-buttonset,
-.explore .ui-button {
-  font-family: 'PT Sans Narrow',Helvetica,Arial;
-}
-.explore .ui-button-text{
-  padding: 2px 6px
-}
-.explore #tool_pane .dropdown_container {
-  clear: both;
-}
-.explore #tool_pane .dropdown_container select {
-  margin: 0 0 14px 0;
-  width: 163px;
-}
-.explore #tool_pane .dropdown_container#year_start {
-  float: left;
-  padding-right: 5px;
-  clear: none;
-}
-.explore #tool_pane .dropdown_container#year_end {
-  float: left;
-  padding-left: 5px;
-  clear: none;
-}
-.explore #tool_pane .dropdown_container#year_start select,
-.explore #tool_pane .dropdown_container#year_end select {
-  width: 75px;
-}
-.explore #tool_pane .chzn-container {
-  cursor: pointer;
-  margin: 0 0 5px 0;
-}
-.explore #tool_pane button {
-  background:#888;
-  background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#888), to(#999));
-  background:-moz-linear-gradient(0% 90% 90deg, #999, #888);
-  color: #fff;
-  margin: 25px 10px 0 10px;
-  padding: 5px 0;
-  width: 165px;
-}
-.explore #tool_pane hr {
-  background: #cccccc;
-  clear: both;
-  margin: 12px 0;
-  height: 0.5px;
-}
-.explore #tool_pane .control_container {
-  margin: 10px 0;
-}
-.explore #tool_pane .control_container a {
-  margin: 0 5px 0 0;
-}
 
-.explore #tool_pane .control_container h3 {
-  font-size: 14px;
-  margin: 0;
-}
-.explore #tool_pane .control_container img {
-  width: 10px;
-}
-.explore #tool_pane .embed_code {
-  border: solid 1px #ccc;
-  font-family: monospace;
-  font-size: 10px;
-/*  height: 75px;*/
-  overflow: hidden;
-  width: 160px;
-}
+
+
+
+
+
 /* change product classification */
 .product_class select {
   width: 52px
@@ -175,46 +85,3 @@
   display: inline;
   text-align: left;
 }  
-
-
-.builds {
-  border: 1px solid #aaa;
-  padding: 10px 10px 0 10px !important;
-  padding: 5px !important;
-  margin: 10px !important;
-}
-.builds ul{
-  list-style-type: none;
-  height: 0px;
-  overflow: hidden;
-}
-
-ul#app_select {
-  list-style-type: none;
-}
-a.app_name {
-  display: block;
-  font-size: 18px;
-  line-height: 125%;
-  vertical-align: top;
-}
-a.app_name img {
-  width: 22px;
-}
-.builds ul h4 {
-  border-bottom: solid 1px #999;
-  font-family: 'PT Sans Narrow',Helvetica,Arial;
-  font-size: 95%;
-  font-weight: 500;
-  margin: 5px 0 0 0;
-  padding: 0 0 2px 0;
-}
-.rtl .builds ul li {
-  text-align: right;
-}
-.builds ul li a {
-  padding-left: 18px;
-}
-.builds ul li a.active {
-  font-weight: bold;
-}
