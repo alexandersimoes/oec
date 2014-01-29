@@ -239,3 +239,8 @@ def make_query(data_table, url_args, lang, **kwargs):
     cached_query(cache_id, ret)
     
     return ret
+
+def make_cache_key(*args, **kwargs):
+    path = request.path
+    lang = g.locale
+    return (path + lang).encode('utf-8')

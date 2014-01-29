@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, g, request, current_app, session, 
 from flask.ext.babel import gettext
 
 from oec import app, db, babel, view_cache, excluded_countries
-from oec.utils import make_query
+from oec.utils import make_query, make_cache_key
 from oec.db_attr import models as attr_models
 from oec.explore.models import Build, App
 from sqlalchemy.sql.expression import func
@@ -38,7 +38,7 @@ def sanitize(id_3char):
 
 @mod.route('/country/')
 @mod.route('/country/<attr_id>/')
-@view_cache.cached(timeout=None)
+@view_cache.cached(timeout=None, key_prefix=make_cache_key)
 def profile_country(attr_id="usa"):
     g.page_type = mod.name
     
@@ -86,7 +86,7 @@ def profile_country(attr_id="usa"):
 
 @mod.route('/<attr_type>/')
 @mod.route('/<attr_type>/<attr_id>/')
-@view_cache.cached(timeout=None)
+@view_cache.cached(timeout=None, key_prefix=make_cache_key)
 def profile_product(attr_type, attr_id="usa"):
     g.page_type = mod.name
     
@@ -94,7 +94,6 @@ def profile_product(attr_type, attr_id="usa"):
         attr = getattr(attr_models, attr_type.capitalize()).query.filter_by(hs=attr_id).first()
     else:
         attr = getattr(attr_models, attr_type.capitalize()).query.filter_by(sitc=attr_id).first()
-    # raise Exception(attr.get_top(4)[0].country)
     
     tree_map = App.query.filter_by(type="tree_map").first()    
     

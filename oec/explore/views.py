@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, g, request, session, redirect, \
 from flask.ext.babel import gettext
 
 from oec import app, db, babel, view_cache, excluded_countries
-from oec.utils import make_query
+from oec.utils import make_query, make_cache_key
 from oec.db_attr.models import Country, Sitc, Hs
 from oec.explore.models import Build, App, Short
 from sqlalchemy.sql.expression import func
@@ -43,7 +43,7 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
         flash(msg+"<script>redirect('"+redirect_url+"', 10)</script>")
 
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
-@view_cache.cached(timeout=None)
+@view_cache.cached(timeout=None, key_prefix=make_cache_key)
 def explore(app_name, classification, trade_flow, origin, dest, \
                 product, year="2011"):
     g.page_type = mod.name
