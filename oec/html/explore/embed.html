@@ -473,8 +473,10 @@ d3.selectAll("button#build").on("click", function(){
       new_url += prod + "/"
       new_url += year + "/"
   
-  console.log(new_url)
-  // window.location = new_url
+  if(self==top){
+    window.location = new_url
+  }
+  window.parent.location = new_url
   
   d3.event.preventDefault();
 })

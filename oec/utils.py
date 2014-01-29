@@ -3,7 +3,7 @@ from re import sub
 from itertools import groupby
 from werkzeug.datastructures import CallbackDict
 from jinja2 import Markup
-from flask import abort, current_app, make_response, Flask, jsonify, request, Response, session
+from flask import abort, current_app, make_response, Flask, jsonify, request, Response, session, g
 from functools import update_wrapper
 from datetime import datetime, date, timedelta
 from math import ceil
