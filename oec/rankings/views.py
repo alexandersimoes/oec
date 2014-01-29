@@ -24,27 +24,27 @@ def rankings(category=None,year=None):
         category = "country"
     
     if category == "sitc":
-        years = [1962,2010]
+        years = range(1962, 2011)
         cols = ["Rank", "SITC", "Product", "PCI Value"]
         tbl = Yp_sitc
         val_col = "pci"
     elif category == "hs":
-        years = [1995,2011]
+        years = range(1995, 2012)
         cols = ["Rank", "HS", "Product", "PCI Value"]
         tbl = Yp_hs
         val_col = "pci"
     elif category == "country":
-        years = [1964,2011]
+        years = range(1962, 2011)
         cols = ["Rank", "Abbrv", "Country", "ECI Value"]
         tbl = Yo
         val_col = "eci"
         
     if year == None:
-        year = years[1]
-    elif year > years[1]:
+        year = years[-1]
+    elif year > years[-1]:
         return redirect(url_for('.rankings', category=category, year=years[0]))
     elif year < years[0]:
-        return redirect(url_for('.rankings', category=category, year=years[1]))
+        return redirect(url_for('.rankings', category=category, year=years[-1]))
     
     rankings = tbl.query.filter_by(year=year) \
                         .filter(getattr(tbl, val_col) != None) \

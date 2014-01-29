@@ -75,7 +75,7 @@ table tbody tr td {
 table tbody tr td span {
   display: block;
   padding: 2px;
-  width: 20px;
+  width: 30px;
 }
 .arrow_up {
   width: 0;
@@ -119,11 +119,8 @@ table tbody tr td span {
 .dropdown {
   display: inline;
   float: left;
-/*  margin: 6px 0;*/
-  font-size: 34px;
   margin: 0 200px;
   text-align: center;
-  z-index: 99;
 }
 .dropdown dt{
   display: inline;

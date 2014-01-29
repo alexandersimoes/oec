@@ -34,11 +34,13 @@
   
     <div class="change_year">
         <a class="prev" href="/rankings/{{ category }}/{{ year-1 }}/">&laquo; Previous Year</a>
-        <dl class="dropdown">
-          <dt><a href="#"><span>{{ year }}</span></a></dt>
-          <dd>
-          </dd>
-        </dl>
+        <div class="dropdown">
+          <select>
+            {% for y in years %}
+            <option value="{{ y }}" {% if y == year %}selected="selected"{% endif %}>{{ y }}</option>
+            {% endfor %}
+          </select>
+        </div>
         <a class="next" href="/rankings/{{ category }}/{{ year+1 }}/">Next Year &raquo;</a>
       </div>
   
@@ -93,9 +95,21 @@
       .style("background", function(d, i){
         return color(i);
       })
-      .style("color", function(d, i){
-        return d3plus.color.text(color(i));
-      })
+      .style("color", "white")
+      // .style("color", function(d, i){
+      //   return d3plus.color.text(color(i));
+      // })
+    d3.select(".dropdown select").on("change", function(){
+      var new_year = d3.select(this[this.selectedIndex]).property("value")
+      var url = window.location.pathname.split("/")
+      if(url.length == 5){
+        url.splice(3, 1, new_year)
+      }
+      else {
+        url.splice(3, 0, new_year)
+      }
+      window.location = url.join("/")
+    })
   
   </script>
 {% endblock %}
