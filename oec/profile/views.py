@@ -38,7 +38,7 @@ def sanitize(id_3char):
 
 @mod.route('/country/')
 @mod.route('/country/<attr_id>/')
-# @view_cache.cached(timeout=None)
+@view_cache.cached(timeout=None)
 def profile_country(attr_id="usa"):
     g.page_type = mod.name
     
@@ -86,7 +86,7 @@ def profile_country(attr_id="usa"):
 
 @mod.route('/<attr_type>/')
 @mod.route('/<attr_type>/<attr_id>/')
-# @view_cache.cached(timeout=None)
+@view_cache.cached(timeout=None)
 def profile_product(attr_type, attr_id="usa"):
     g.page_type = mod.name
     

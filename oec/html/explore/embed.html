@@ -126,11 +126,17 @@ var viz = d3plus.viz()
     attr_id = "{{ current_build.attr_type() }}_id",
     app_type = "{{ current_build.app.type }}",
     attrs = {},
+    vars = {{ global_vars|safe }},
     viz_height = window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
     q = queue()
           .defer(d3.json, "{{ current_build.data_url() }}")
           .defer(d3.json, "{{ current_build.attr_url() }}");
+
+if(vars.controls == "false"){
+  viz_width = window.innerWidth;
+  d3.select("#controls").remove();
+}
 
 if(attr_id == "dest_id" || attr_id == "dest_id"){
   viz = viz.tooltip({"Country":["name", "display_id"], "Values":["export_val"]} )
@@ -144,7 +150,10 @@ if(attr_id == "hs_id" || attr_id == "sitc_id" ){
 function resize_viz(obj){
   
   if(viz.data().value.length){
-    var new_width = window.innerWidth - parseInt(d3.select("#controls").style("width"));
+    var new_width = window.innerWidth;
+    if(vars.controls == "true"){
+       new_width = window.innerWidth - parseInt(d3.select("#controls").style("width"))
+    }
     var new_height = window.innerHeight - d3.select("#ui").node().offsetHeight;
     if (obj){
       new_width = obj.width || new_width;

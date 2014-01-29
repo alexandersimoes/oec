@@ -46,7 +46,7 @@
     {% set stats = b.top_stats(20) %}
     <div class="build">
       <h3>{{ b.get_question() }}</h3>
-      <iframe id="iframe_viz" src="/explore/embed/{{ b.url() }}" width="460" height="300" frameborder="0"></iframe>
+      <iframe id="iframe_viz" src="/explore/embed/{{ b.url() }}?controls=false" width="460" height="300" frameborder="0"></iframe>
       <div class="list">
         <table class="striped condensed">
         {% for entry in stats.entries %}

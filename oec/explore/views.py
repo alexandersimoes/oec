@@ -75,9 +75,6 @@ def explore(app_name, classification, trade_flow, origin, dest, \
         kwargs["sitc_id"] = product
     else:
         kwargs["hs_id"] = product
-        
-    # raise Exception(make_query(current_build.get_tbl(), request.args, g.locale, **kwargs))
-    # raise Exception(current_build.top_stats(20))
     
     if session.pop('new_lang', None) and g.locale != 'en':
         flash_txt = '''We've noticed you've changed the language, if you see 
@@ -121,8 +118,16 @@ def embed(app_name, classification, trade_flow, origin, dest, \
                         product=build_filters["product"]).first_or_404()
     current_build.set_options(origin=origin, dest=dest, product=product, 
                                 classification=classification, year=year)
-
-    return render_template("explore/embed.html", current_build = current_build)
+    
+    '''Get URL query parameters from reqest.args object to return to the view.
+    '''
+    global_vars = {x[0]:x[1] for x in request.args.items()}
+    if "controls" not in global_vars:
+        global_vars["controls"] = "true"
+    
+    return render_template("explore/embed.html", 
+        current_build = current_build,
+        global_vars = json.dumps(global_vars))
 
 @mod.route('/shorten/', methods=['GET', 'POST'])
 def shorten_url():
