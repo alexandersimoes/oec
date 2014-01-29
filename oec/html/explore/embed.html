@@ -107,7 +107,6 @@
 <script src="/static/js/libs/d3plus.js"></script>
 <script src="/static/js/libs/queue.js"></script>
 <script src="/static/js/libs/topojson.js"></script>
-<script src="/static/js/d3.brushmore_years.js"></script>
 <script src="/static/js/d3.tabulate.js"></script>
 
 <script>
@@ -211,7 +210,7 @@ function finish(data, attrs){
     .style("display", "block")
     .call(viz)
   
-  d3.select("#ui").style("display", "block")
+  d3.select("#ui").style("visibility", "visible")
   
   update_text_table(data, attrs)
 }

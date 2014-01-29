@@ -88,6 +88,7 @@ body {
 /*  display: none;*/
   height: 40px;
   text-align: center;
+  visibility: hidden;
 }
 #app #timeline,
 #app #depth,
@@ -202,8 +203,4 @@ body {
 #more_years {
   height: 40px;
   text-align: center;
-}
-
-#ui {
-  display: none;
 }
