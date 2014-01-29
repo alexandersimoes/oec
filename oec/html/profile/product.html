@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body %}
-<div class="app_title" id="title"><h2>Learn More About Trade of {{ attr.get_name() }}</h2></div>
+<h2>Learn More About Trade of {{ attr.get_name() }}</h2>
 <div class="content">
 
   <div class="col1_5">
@@ -58,7 +58,7 @@
         {% endfor %}
         </table>
       </div>
-      <a class="explore" href="/explore/{{ b.url() }}">View as Visualization »</a>
+      <a class="button" href="/explore/{{ b.url() }}">View as Visualization »</a>
     </div>
     {% endfor %}
     

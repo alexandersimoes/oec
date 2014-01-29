@@ -386,7 +386,7 @@ def about_faqs():
 def about_updates():
     g.page_type = "about"
     g.sub_title = "updates"
-    releases = json.load(urllib2.urlopen("https://api.github.com/repos/alexandersimoes/d3plus/releases"))
+    releases = json.load(urllib2.urlopen("https://api.github.com/repos/alexandersimoes/oec/releases"))
     updates = []
     for r in releases:
         u = {

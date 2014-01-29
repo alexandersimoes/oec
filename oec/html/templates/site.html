@@ -26,7 +26,7 @@
       {% if g.page_type != 'home' %}
         <select id="language_selector">
           {% for lang_id, lang_name in g.supported_langs.iteritems() %}
-          <option value="{{ lang_id }}" {% if lang_id == g.locale %} selected="selected" {% endif %}>{{ lang_id }}</option>
+          <option value="{{ lang_id }}" {% if lang_id == g.locale %} selected="selected" {% endif %}>{{ lang_name }}</option>
           {% endfor %}
         </select>
       {% endif %}
