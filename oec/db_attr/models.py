@@ -1,5 +1,5 @@
 from flask import g
-from oec import db
+from oec import db, __latest_year__
 from oec.utils import AutoSerialize, exist_or_404
 
 class Country(db.Model, AutoSerialize):
@@ -17,6 +17,9 @@ class Country(db.Model, AutoSerialize):
     
     # attr_yo_origin = db.relationship("db_attr.models.Yo", backref = 'origin', lazy = 'dynamic')
     attr_yo = db.relationship("db_attr.models.Yo", backref = 'country', lazy = 'dynamic')
+    
+    hs_yo = db.relationship("db_hs.models.Yo", backref = 'country', lazy = 'dynamic')
+    sitc_yo = db.relationship("db_sitc.models.Yo", backref = 'country', lazy = 'dynamic')
     
     hs_yodp_origin = db.relationship("db_hs.models.Yodp", primaryjoin = ('db_hs.models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     hs_yodp_dest = db.relationship("db_hs.models.Yodp", primaryjoin = ('db_hs.models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
@@ -47,7 +50,18 @@ class Country(db.Model, AutoSerialize):
     
     def get_icon(self):
         return "/static/img/icons/country/country_%s.png" % (self.id)
-
+    
+    def get_top(self, limit=10, year=__latest_year__["hs"]):
+        from oec.db_hs.models import Yp
+        return Yp.query.filter_by(year=year, top_exporter=self.id)\
+                .order_by(Yp.export_val.desc()).limit(limit).all()
+    
+    def get_profile_url(self):
+        if self.id_3char:
+            return "/profile/country/"+self.id_3char+"/"
+        else:
+            return "/profile/country/"
+    
     def serialize(self):
         auto_serialized = super(Country, self).serialize()
         auto_serialized["name"] = self.get_name()
@@ -97,6 +111,11 @@ class Hs(db.Model, AutoSerialize):
             return _name[0].name
         return ""
     
+    def get_top(self, limit=10, year=__latest_year__["hs"]):
+        from oec.db_hs.models import Yo
+        return Yo.query.filter_by(year=year, top_export=self.id)\
+                .order_by(Yo.export_val.desc()).limit(limit).all()
+    
     def get_yp(self, year=2011):
         yp = filter(lambda yp: yp.year == year, self.yp_product)
         if len(yp): return yp[0]
@@ -107,6 +126,9 @@ class Hs(db.Model, AutoSerialize):
     
     def get_icon(self):
         return "/static/img/icons/hs/hs_%s.png" % (self.id[:2])
+    
+    def get_profile_url(self):
+        return "/profile/hs/"+self.hs+"/"
     
     def serialize(self):
         auto_serialized = super(Hs, self).serialize()
@@ -164,6 +186,9 @@ class Sitc(db.Model, AutoSerialize):
     
     def get_icon(self):
         return "/static/img/icons/sitc/sitc_%s.png" % (self.id[:2])
+
+    def get_profile_url(self):
+        return "/profile/sitc/"+self.sitc+"/"
 
     def serialize(self):
         auto_serialized = super(Sitc, self).serialize()

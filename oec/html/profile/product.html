@@ -9,33 +9,36 @@
 <div class="app_title" id="title"><h2>Learn More About Trade of {{ attr.get_name() }}</h2></div>
 <div class="content">
 
-  <div id="quick_glance">
-    
-      <div id="ranking_box">
-        <p class="country_name"><img src="{{ attr.get_icon() }}" alt="{{ attr.get_name() }} icon">{{ attr.get_name() }}</p>
-        <p class="pci_rank"><span>{{ attr.get_yp().pci_rank }}</span></p>
-        <p class="pci_value"><a href="/rankings/country/">Product Complexity Index (PCI)</a>: {{ attr.get_yp().pci }}</p>
-      </div>
-    
-      <div id="quick_info">
-        <p>
-          {{ attr.get_name() }} is ranked {{ attr.get_yp().pci_rank }} with an PCI of {{ attr.get_yp().pci }}.
-        </p>
-        <table class="striped">
-          {% for b in builds %}
-          {% set stats = b.top_stats(5) %}
-          <tr>
-            <th>{{ b.get_name() }}</th>
-            <td>
-              {% for entry in stats.entries %}
-              {{ entry.attr.get_name() }} ({{ entry.share|format_percent }}){% if not loop.last %}, {% endif %}
-              {% endfor %}
-            </td>
-          </tr>
+  <div class="col1_5">
+    <p class="country_name" style="background-color:{{ attr.color }}"><img src="{{ attr.get_icon() }}" alt="{{ attr.get_name() }} icon">{{ attr.get_name() }}</p>
+    {% set top_countries = attr.get_top(10) %}
+    {% if attr.get_yp().pci_rank %}
+      <p class="eci_value">
+        {{ attr.get_name() }} is <a href="/rankings/hs/">ranked</a> <span class="rank">{{ attr.get_yp().pci_rank }}</span> with an Product Complexity Index (PCI) of {{ attr.get_yp().pci }}.
+      </p>
+    {% endif %}
+    {% if top_countries %}
+      <p class="eci_value">
+        {{ attr.get_name() }} is the top export of {% for yo in top_countries %} {% if loop.last and loop.length > 1 %}and {% endif %}<a href="{{ yo.country.get_profile_url() }}">{{ yo.country.get_name() }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.
+      </p>
+    {% endif %}
+  </div><div class="col2">
+    <table class="striped">
+      {% for b in builds %}
+      {% set stats = b.top_stats(5) %}
+      <tr>
+        <th>Top 5 {{ b.get_name() }}</th>
+        <td>
+          {% for entry in stats.entries %}
+          {% if loop.last %}and {% endif %}<a href="{{ entry.attr.get_profile_url() }}">{{ entry.attr.get_name() }}</a> ({{ entry.share|format_percent }}){% if not loop.last %}, {% endif %}
           {% endfor %}
-        </table>
-      </div>
-    </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+      
+  <br>
     
     {% for b in builds %}
     {% set stats = b.top_stats(20) %}
@@ -47,7 +50,7 @@
           <tr>
             <td>{{ loop.index }}</td>
             <td>{{ entry.attr.get_abbrv()|upper }}</td>
-            <td>{{ entry.attr.get_name() }}</td>
+            <td><a href="{{ entry.attr.get_profile_url() }}">{{ entry.attr.get_name() }}</a></td>
             <td>{{ entry.value|format_currency }}</td>
             <td>{{ entry.share|format_percent }}</td>
           </tr>

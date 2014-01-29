@@ -47,8 +47,7 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
 def explore(app_name, classification, trade_flow, origin, dest, \
                 product, year="2011"):
     g.page_type = mod.name
-    redirect_resp = sanitize(app_name, classification, trade_flow, origin, dest, product, year)
-    if redirect_resp: return redirect_resp
+    sanitize(app_name, classification, trade_flow, origin, dest, product, year)
     
     current_app = App.query.filter_by(type=app_name).first_or_404()
     build_filters = {"origin":origin,"dest":dest,"product":product}

@@ -44,7 +44,9 @@ available_years = {"sitc": range(1962, 2012), "hs": range(1995, 2012)}
 # Global for excluded countries
 excluded_countries = ["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", \
                         "nabes", "astwn", "nacuw", "navir", "eusjm", "namaf", \
-                        "afreu", "afssd", "afmyt"]
+                        "afreu", "afssd", "afmyt", "eufro", "eubel", "eulux", \
+                        "afswz", "afbwa", "aflso", "afnam", "napri", "namtq", \
+                        "euimn", "eulie"]
 
 # babel configuration for lang support
 babel = Babel(app)

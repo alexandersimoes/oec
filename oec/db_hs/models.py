@@ -11,6 +11,7 @@ class Yo(db.Model, AutoSerialize):
     origin_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
     export_val = db.Column(db.Numeric(16,2))
     import_val = db.Column(db.Numeric(16,2))
+    top_export = db.Column(db.String(8), db.ForeignKey(Hs.id))
     
     def __repr__(self):
         return '<Yo %d.%s>' % (self.year, self.origin_id)
@@ -37,6 +38,7 @@ class Yp(db.Model, AutoSerialize):
     import_val = db.Column(db.Numeric(16,2))
     pci = db.Column(db.Float())
     pci_rank = db.Column(db.Integer)
+    top_exporter = db.Column(db.String(5), db.ForeignKey(Country.id))
     
     def __repr__(self):
         return '<Yp %d.%s>' % (self.year, self.hs_id)

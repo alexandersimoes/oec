@@ -21,11 +21,28 @@ def profile_country_redirect():
     
     return redirect(url_for(".profile_country", attr_id=c.id_3char))
 
+def sanitize(id_3char):
+    msg = None
+    if id_3char in ["nam", "lso", "bwa", "swz"]:
+        c = getattr(attr_models, "Country").query.filter_by(id_3char=id_3char).first()
+        redirect_id_3char = "zaf"
+        msg = "{0} reports their trade under South Africa in the HS classification. ".format(c.get_name())
+    elif id_3char in ["bel", "lux"]:
+        c = getattr(attr_models, "Country").query.filter_by(id_3char=id_3char).first()
+        redirect_id_3char = "blx"
+        msg = "{0} reports their trade under Belgium-Luxembourg in the HS classification. ".format(c.get_name())
+    
+    if msg:
+        redirect_url = url_for('.profile_country', attr_id=redirect_id_3char)
+        flash(msg+"<script>redirect('"+redirect_url+"', 10)</script>")
+
 @mod.route('/country/')
 @mod.route('/country/<attr_id>/')
-@view_cache.cached(timeout=None)
+# @view_cache.cached(timeout=None)
 def profile_country(attr_id="usa"):
     g.page_type = mod.name
+    
+    sanitize(attr_id)
     
     attr = getattr(attr_models, "Country").query.filter_by(id_3char=attr_id).first()
     
@@ -69,7 +86,7 @@ def profile_country(attr_id="usa"):
 
 @mod.route('/<attr_type>/')
 @mod.route('/<attr_type>/<attr_id>/')
-@view_cache.cached(timeout=None)
+# @view_cache.cached(timeout=None)
 def profile_product(attr_type, attr_id="usa"):
     g.page_type = mod.name
     
@@ -77,6 +94,7 @@ def profile_product(attr_type, attr_id="usa"):
         attr = getattr(attr_models, attr_type.capitalize()).query.filter_by(hs=attr_id).first()
     else:
         attr = getattr(attr_models, attr_type.capitalize()).query.filter_by(sitc=attr_id).first()
+    # raise Exception(attr.get_top(4)[0].country)
     
     tree_map = App.query.filter_by(type="tree_map").first()    
     
