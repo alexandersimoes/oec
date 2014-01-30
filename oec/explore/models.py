@@ -131,6 +131,7 @@ class Build(db.Model, AutoSerialize):
         models = sitc_models if classification == "sitc" else hs_models
         product_id = "sitc_id" if classification == "sitc" else "hs_id"
         trade_flow = "export_val" if "export" in trade_flow else "import_val"
+        year = year.split(".")[1] if "." in year else year
         
         if looking_for == "dest":
             entity = models.Yod.query \
@@ -149,6 +150,7 @@ class Build(db.Model, AutoSerialize):
                         .filter_by(year = year) \
                         .filter(models.Yop.origin_id.endswith(have)) \
                         .order_by(desc(trade_flow)).limit(1).first()
+
         # raise Exception(getattr(entity, looking_for))
         if entity:
             return getattr(entity, looking_for)
@@ -221,10 +223,6 @@ class Build(db.Model, AutoSerialize):
             year = __latest_year__[self.classification]
         origin, dest, product = [self.origin, self.dest, self.product]
         
-        if isinstance(origin, Country):
-            origin = origin.id_3char
-        if isinstance(dest, Country):
-            dest = dest.id_3char
         if (isinstance(product, Hs) and dest == "all" and isinstance(origin, Country)) or \
             (isinstance(product, Sitc) and dest == "all" and isinstance(origin, Country)):
             product = "show"
@@ -232,6 +230,10 @@ class Build(db.Model, AutoSerialize):
             product = product.hs
         elif isinstance(product, Sitc):
             product = product.sitc
+        if isinstance(origin, Country):
+            origin = origin.id_3char
+        if isinstance(dest, Country):
+            dest = dest.id_3char
         url = '/{0}/{1}/{2}/{3}/{4}/{5}/'.format(self.classification, 
                 self.trade_flow, year, origin, dest, product)
         return url

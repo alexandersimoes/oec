@@ -14,15 +14,29 @@ from sqlalchemy import not_
 mod = Blueprint('explore', __name__, url_prefix='/explore')
 
 @mod.route('/')
-def explore_redirect():
-    '''fetch random country'''
-    c = Country.query.filter(Country.id_2char != None) \
+@mod.route('/<app_name>/')
+def explore_redirect(app_name='tree_map'):
+    if app_name in ["tree_map", "stacked", "network"]:
+        '''fetch random country'''
+        c = Country.query.filter(Country.id_2char != None) \
+                            .filter(not_(Country.id.in_(excluded_countries))) \
+                            .order_by(func.random()).limit(1).first()
+        redirect_url = url_for('.explore', app_name=app_name, \
+                        classification="hs", trade_flow="export", \
+                        origin=c.id_3char, dest="all", product="show", year="2011")
+    elif app_name in ["geo_map", "rings"]:
+        '''fetch random product'''
+        p = Hs.query.filter(Hs.hs != None) \
+                            .order_by(func.random()).limit(1).first()
+        origin = "show"
+        if app_name == "rings":
+            origin = Country.query.filter(Country.id_2char != None) \
                         .filter(not_(Country.id.in_(excluded_countries))) \
-                        .order_by(func.random()).limit(1).first()
-    
-    return redirect(url_for('.explore', app_name="tree_map", \
-                classification="hs", trade_flow="export", origin=c.id_3char, \
-                dest="all", product="show", year="2011"))
+                        .order_by(func.random()).limit(1).first().id_3char
+        redirect_url = url_for('.explore', app_name=app_name, \
+                        classification="hs", trade_flow="export", \
+                        origin=origin, dest="all", product=p.hs, year="2011")
+    return redirect(redirect_url)
 
 def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
     msg = None

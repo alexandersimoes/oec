@@ -116,11 +116,10 @@ var viz = d3plus.viz()
             .container("#viz")
             .style({"background":"transparent"})
             .text_format(function(text, key){
-              // console.log(text, key)
-              if(key == "display_id"){
-                return "ID"
-              }
-              return text
+              if(key == "display_id"){ return "ID"; }
+              if(text == "export_val"){ return "Export Value"; }
+              if(text == "import_val"){ return "Import Value"; }
+              return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
             }),
     attr_id = "{{ current_build.attr_type() }}_id",
     app_type = "{{ current_build.app.type }}",
@@ -257,7 +256,8 @@ switch (app_type){
     var go = function(){
       
       format_data_orig.apply(this, arguments);
-      raw_data = arguments[1]
+      raw_data = arguments[1];
+      var d = attr_id == "origin_id" ? 1 : 0;
       
       viz
         .data(raw_data.data)
@@ -265,13 +265,12 @@ switch (app_type){
         .attrs(attrs)
         .id(["nest", "id"])
         .time({"key": "year"})
-        .depth(1)
+        .depth(d)
         .shape("area")
         .color("color")
         .x("year")
         .y("{{ current_build.trade_flow }}_val")
         .order("nest")
-        .axes({"static":false})
         .text({"nest":"name","id":"name"})
         .height(viz_height)
         .width(viz_width)
@@ -331,6 +330,7 @@ switch (app_type){
           .id("id")
           .color("color")
           .time("year")
+          .text("name")
           .nodes(raw_network.nodes)
           .links(raw_network.edges)
           .active({
