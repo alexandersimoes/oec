@@ -23,12 +23,13 @@ blockquote p {
 }
 
 div#authors {
-  background-image: url("/static/img/atlas/atlas_authors.png");
+/*  background-image: url("/static/img/atlas/atlas_authors.png");*/
   background-repeat: no-repeat;
   background-size: 100%;
   clear: both;
   display: block;
-  height: 54px;
+/*  height: 54px;*/
+  height: 10px;
   margin: 40px auto 20px;
   width: 700px;
 }
