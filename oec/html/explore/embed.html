@@ -115,16 +115,36 @@
 var viz = d3plus.viz()
             .container("#viz")
             .style({"background":"transparent"})
+            // .number_format(function(number, key){
+            //   if(key){
+            //     if(key.indexOf("pct") > -1){
+            //       return d3.format(".2%")(number);
+            //     }
+            //   }
+            //   return d3plus.public.number_format["value"](number)
+            // })
             .text_format(function(text, key){
-              if(key == "display_id"){ return "ID"; }
-              if(text == "export_val"){ return "Export Value"; }
-              if(text == "import_val"){ return "Import Value"; }
-              return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+              if(key){
+                if(key == "display_id"){ return text.toUpperCase(); }
+              }
+              if(text){
+                if(text == "display_id"){ return "ID"; }
+                if(text == "export_val"){ return "Export value"; }
+                if(text == "import_val"){ return "Import value"; }
+                if(text.indexOf("growth") > -1){ 
+                  text = text.replace(/_/g," ");
+                  text = text.replace(/val/g,"value");
+                  text = text.replace(/pct/g,"percentage");
+                  return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+                }
+                return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+              }
             }),
     attr_id = "{{ current_build.attr_type() }}_id",
     app_type = "{{ current_build.app.type }}",
     attrs = {},
     vars = {{ global_vars|safe }},
+    trade_flow = "{{ current_build.trade_flow }}";
     viz_height = window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
     q = queue()
@@ -136,13 +156,13 @@ if(vars.controls == "false"){
   d3.select("#controls").remove();
 }
 
-if(attr_id == "dest_id" || attr_id == "dest_id"){
-  viz = viz.tooltip({"Country":["name", "display_id"], "Values":["export_val"]} )
+if(attr_id == "origin_id" || attr_id == "dest_id"){
+  viz = viz.tooltip({"Country":["name", "display_id"], "Values":[trade_flow+"_val"]} )
 }
 if(attr_id == "hs_id" || attr_id == "sitc_id" ){
   viz = viz
           .style({"icon":"knockout"})
-          .tooltip({"Product":["name", "display_id"], "Values":["export_val"]} )
+          .tooltip({"Product":["name", "display_id"], "Values":[trade_flow+"_val"]} )
 }
 
 function resize_viz(obj){
@@ -232,7 +252,7 @@ switch (app_type){
         .data(raw_data.data)
         .type("tree_map")
         .attrs(attrs)
-        .size("{{ current_build.trade_flow }}_val")
+        .size(trade_flow+"_val")
         .id(["nest", "id"])
         .time({"key": "year", "solo": "{{ current_build.year }}" })
         // .time({"key": "year"})
@@ -257,7 +277,7 @@ switch (app_type){
       
       format_data_orig.apply(this, arguments);
       raw_data = arguments[1];
-      var d = attr_id == "origin_id" ? 1 : 0;
+      var d = attr_id == "origin_id" || attr_id == "dest_id" ? 1 : 0;
       
       viz
         .data(raw_data.data)
@@ -269,7 +289,7 @@ switch (app_type){
         .shape("area")
         .color("color")
         .x("year")
-        .y("{{ current_build.trade_flow }}_val")
+        .y(trade_flow+"_val")
         .order("nest")
         .text({"nest":"name","id":"name"})
         .height(viz_height)
@@ -293,6 +313,7 @@ switch (app_type){
         .attrs(attrs)
         .type("network")
         .id("id")
+        .text("name")
         .color("color")
         .time("year")
         .nodes(raw_network.nodes)
@@ -367,6 +388,7 @@ switch (app_type){
         })
         if (country.length) {
           d.id = country[0].id
+          d.icon = "/static/img/icons/country/country_"+d.id+".png"
         }
       })
       
@@ -375,8 +397,9 @@ switch (app_type){
         .type("geo_map")
         .attrs(attrs)
         .id("id")
+        .text("name")
         .time({"key": "year", "solo": "{{ current_build.year }}" })
-        .color("{{ current_build.trade_flow }}_val")
+        .color(trade_flow+"_val")
         .coords(raw_coords)
         .height(viz_height)
         .width(viz_width)
@@ -392,7 +415,7 @@ function update_text_table(data, attrs){
   
   var format_currency = d3.format("$,.2f"),
       format_percent = d3.format(",.2%"),
-      val = "{{ current_build.trade_flow }}_val",
+      val = trade_flow+"_val",
       attr_id = "{{ current_build.attr_type() }}_id",
       total = d3.sum(data, function(d){ return d[val] });
   
@@ -638,10 +661,13 @@ d3.selectAll("#depth input").on("change", function(d){
 
 d3.selectAll("#color select").on("change", function(d){
   var new_color = d3.select(this[this.selectedIndex]).property("value");
+  var new_tooltip = viz.tooltip()["value"]
+  new_tooltip["Values"] = [trade_flow+"_val"]
   if(new_color != "color"){
-    new_color = "{{ current_build.trade_flow }}_"+new_color;
+    new_color = trade_flow+"_"+new_color;
+    new_tooltip["Values"] = [trade_flow+"_val", trade_flow+"_val_growth_pct", trade_flow+"_val_growth_pct_5", trade_flow+"_val_growth_val", trade_flow+"_growth_val_5"]
   }
-  viz.color(new_color).draw()
+  viz.color(new_color).tooltip(new_tooltip).draw()
 })
 
 /////////////////////////////

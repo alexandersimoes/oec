@@ -78,6 +78,15 @@ class Yod(db.Model, AutoSerialize):
     export_val = db.Column(db.Numeric(16,2))
     import_val = db.Column(db.Numeric(16,2))
     
+    export_val_growth_pct = db.Column(db.Float())
+    export_val_growth_pct_5 = db.Column(db.Float())
+    export_val_growth_val = db.Column(db.Numeric(16,2))
+    export_val_growth_val_5 = db.Column(db.Numeric(16,2))
+    import_val_growth_pct = db.Column(db.Float())
+    import_val_growth_pct_5 = db.Column(db.Float())
+    import_val_growth_val = db.Column(db.Numeric(16,2))
+    import_val_growth_val_5 = db.Column(db.Numeric(16,2))
+    
     def __repr__(self):
         return '<Yod %d.%s.%s>' % (self.year, self.origin_id, self.dest_id)
 
@@ -104,6 +113,15 @@ class Yodp(db.Model, AutoSerialize):
     hs_id = db.Column(db.String(8), db.ForeignKey(Hs.id), primary_key=True)
     export_val = db.Column(db.Numeric(16,2))
     import_val = db.Column(db.Numeric(16,2))
+    
+    export_val_growth_pct = db.Column(db.Float())
+    export_val_growth_pct_5 = db.Column(db.Float())
+    export_val_growth_val = db.Column(db.Numeric(16,2))
+    export_val_growth_val_5 = db.Column(db.Numeric(16,2))
+    import_val_growth_pct = db.Column(db.Float())
+    import_val_growth_pct_5 = db.Column(db.Float())
+    import_val_growth_val = db.Column(db.Numeric(16,2))
+    import_val_growth_val_5 = db.Column(db.Numeric(16,2))
     
     def __repr__(self):
         return '<Yodp %d.%s.%s.%s>' % (self.year, self.origin_id, self.dest_id, self.hs_id)
