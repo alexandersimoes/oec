@@ -38,7 +38,7 @@ def sanitize(id_3char):
 
 @mod.route('/country/')
 @mod.route('/country/<attr_id>/')
-@view_cache.cached(timeout=None, key_prefix=make_cache_key)
+@view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
 def profile_country(attr_id="usa"):
     g.page_type = mod.name
     

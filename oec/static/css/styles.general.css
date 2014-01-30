@@ -108,6 +108,11 @@ only screen and (                min-resolution: 2dppx) {
   opacity: 1;
 }
 
+#server_message a {
+  color: white;
+  text-decoration: underline;
+}
+
 /**********************/
 /* Anchor Link Styles */
 /**********************/
