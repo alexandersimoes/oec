@@ -33,7 +33,7 @@ SQLALCHEMY_ECHO = True
     Details for connecting to the database, credentials set as environment
     variables.
 '''
-SQLALCHEMY_DATABASE_URI = "mysql://{0}:{1}@{2}/{3}".format(
+SQLALCHEMY_DATABASE_URI = "mysql://{0}:{1}@{2}/{3}?charset=utf8".format(
     get_env_variable("OEC_DB_USER", "root"), 
     get_env_variable("OEC_DB_PW", ""), 
     get_env_variable("OEC_DB_HOST", "localhost"),

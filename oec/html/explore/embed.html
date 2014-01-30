@@ -273,7 +273,7 @@ switch (app_type){
         .order("nest")
         .axes({"static":false})
         .text({"nest":"name","id":"name"})
-        .height(window.innerHeight - d3.select("#ui").node().offsetHeight)
+        .height(viz_height)
         .width(viz_width)
         
       finish(raw_data.data, attrs)
@@ -304,13 +304,53 @@ switch (app_type){
           },
           "spotlight":true
         })
-        .height(window.innerHeight - d3.select("#ui").node().offsetHeight)
+        .height(viz_height)
         .width(viz_width)
       
       finish(raw_data.data, attrs)
     }
     break;
-    
+  
+  case "rings":
+    q = q.defer(d3.json, "/static/json/network_{{ current_build.classification }}.json")
+    var format_data_orig = format_data
+    var go = function(){
+      
+      format_data_orig.apply(this, arguments);
+      raw_data = arguments[1];
+      raw_network = arguments[3];
+      var focus = "{{ current_build.product.id }}";
+      
+      // make sure focused product is in network
+      var found = raw_network.nodes.filter(function(d){ return d.id == focus; });
+      if(found.length){
+        viz
+          .data(raw_data.data)
+          .attrs(attrs)
+          .type("rings")
+          .id("id")
+          .color("color")
+          .time("year")
+          .nodes(raw_network.nodes)
+          .links(raw_network.edges)
+          .active({
+            "key": function(d){
+              return d.export_rca >= 1;
+            },
+            "spotlight":true
+          })
+          .height(viz_height)
+          .width(viz_width)
+          .focus(focus)
+      }
+      else {
+        d3.select("#loading")
+          .html("<h1>No connections for this product... please try a different selection.</h1>")
+      }
+      finish(raw_data.data, attrs)
+    }
+    break;
+  
   case "geo_map":
     q = q.defer(d3.json, "/static/json/country_coords.json")
     var format_data_orig = format_data
@@ -332,15 +372,15 @@ switch (app_type){
       
       viz
         .data(raw_data.data)
-        .attrs(attrs)
         .type("geo_map")
-        .time("year")
+        .attrs(attrs)
         .id("id")
+        .time({"key": "year", "solo": "{{ current_build.year }}" })
         .color("{{ current_build.trade_flow }}_val")
         .coords(raw_coords)
-        .height(window.innerHeight - d3.select("#ui").node().offsetHeight)
-        .time({"solo": ["2010"]})
+        .height(viz_height)
         .width(viz_width)
+        .icon("icon")
       
       finish(raw_data.data, attrs)
     }
@@ -465,18 +505,24 @@ d3.selectAll("button#build").on("click", function(){
     var classification = "{{ current_build.classification }}"
   }
   
-  var new_url =  "/explore/{{ current_build.app.type }}/"
-      new_url += classification + "/"
-      new_url += tf + "/"
-      new_url += origin + "/"
-      new_url += dest + "/"
-      new_url += prod + "/"
-      new_url += year + "/"
-  
-  if(self==top){
-    window.location = new_url
+  var curr_window = window
+  if(self!=top){
+    curr_window = window.parent
   }
-  window.parent.location = new_url
+  
+  var new_url =  "/explore/"
+  if(curr_window.location.pathname.indexOf("embed") > -1){
+    new_url = "/explore/embed/"
+  }
+  new_url += "{{ current_build.app.type }}/"
+  new_url += classification + "/"
+  new_url += tf + "/"
+  new_url += origin + "/"
+  new_url += dest + "/"
+  new_url += prod + "/"
+  new_url += year + "/"
+  
+  curr_window.location = new_url
   
   d3.event.preventDefault();
 })
@@ -509,7 +555,6 @@ d3.select("#share #shorten").on("click", function(){
   if(window.location != window.parent.location){
     var url = encodeURIComponent(window.parent.location.pathname + "?lang={{ g.locale }}")
   }
-  console.log(url)
   
   d3.json("/explore/shorten/")
     .header("Content-type","application/x-www-form-urlencoded")

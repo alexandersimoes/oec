@@ -225,9 +225,12 @@ class Build(db.Model, AutoSerialize):
             origin = origin.id_3char
         if isinstance(dest, Country):
             dest = dest.id_3char
-        if isinstance(product, Hs):
+        if (isinstance(product, Hs) and dest == "all" and isinstance(origin, Country)) or \
+            (isinstance(product, Sitc) and dest == "all" and isinstance(origin, Country)):
+            product = "show"
+        elif isinstance(product, Hs):
             product = product.hs
-        if isinstance(product, Sitc):
+        elif isinstance(product, Sitc):
             product = product.sitc
         url = '/{0}/{1}/{2}/{3}/{4}/{5}/'.format(self.classification, 
                 self.trade_flow, year, origin, dest, product)
@@ -364,15 +367,15 @@ class Build(db.Model, AutoSerialize):
         for s in query.limit(entities).all():
             if self.trade_flow == "export":
                 val = s.export_val
-                attr = getattr(s, show_attr["show"])
+                attr = getattr(s, show_attr.get("show", "product"))
             if self.trade_flow == "import":
                 val = s.import_val
-                attr = getattr(s, show_attr["show"])
+                attr = getattr(s, show_attr.get("show", "product"))
             if self.trade_flow == "net_export":
-                attr = getattr(s[0], show_attr["show"])
+                attr = getattr(s[0], show_attr.get("show", "product"))
                 val = s[1]
             if self.trade_flow == "net_import":
-                attr = getattr(s[0], show_attr["show"])
+                attr = getattr(s[0], show_attr.get("show", "product"))
                 val = s[1]
             stat = {
                 "attr": attr,
