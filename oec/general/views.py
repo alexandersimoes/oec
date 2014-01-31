@@ -405,19 +405,21 @@ def about_updates():
 ###############################
 # API views 
 # ---------------------------
-@mod.route('api/')
+@mod.route('about/api/')
 def api():
     return redirect(url_for(".api_embed"))
 
-@mod.route('api/embed/')
+@mod.route('about/api/embed/')
 def api_embed():
-    g.page_type = "api"
-    return render_template("api/embed.html")
+    g.page_type = "about"
+    g.sub_title = "api"
+    return render_template("about/api_embed.html", data_type="embed")
 
-@mod.route('api/data/')
+@mod.route('about/api/data/')
 def api_data():
-    g.page_type = "api"
-    return render_template("api/data.html")
+    g.page_type = "about"
+    g.sub_title = "api"
+    return render_template("about/api_data.html", data_type="data")
 
 ###############################
 # Legacy support views

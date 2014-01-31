@@ -32,6 +32,19 @@
           </ul>
         </ul>
       </li>
+      <li{% if g.sub_title == "api" %} class="active"{% endif %}>
+        <a href="/about/api/">Api</a>
+        <ul>
+          <ul>
+            <li{% if data_type == "embed" %} class="active"{% endif %}>
+              <a href="/about/api/embed/">Embed</a>
+            </li>
+            <li{% if data_type == "data" %} class="active"{% endif %}>
+              <a href="/about/api/data/">Data</a>
+            </li>
+          </ul>
+        </ul>
+      </li>
       <li{% if g.sub_title == "permissions" %} class="active"{% endif %}>
         <a href="/about/permissions/">Permissions</a>
       </li>

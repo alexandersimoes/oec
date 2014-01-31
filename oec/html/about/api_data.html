@@ -1,81 +1,36 @@
-{% extends "templates/site.html" %}
-
+{% extends "templates/about.html" %}
 {% block head %}
 <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.api.css" />
-<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
-<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"> -->
-
 {% endblock %}
 
-{% block body %}
-<div class="app_title" id="title"><h2>API</h2></div>
+{% block about_title %}:: Data API{% endblock %}
 
-<!-- the left pane -->
-<div class="col1">
-  <nav role="navigation">
-    <ul>
-      <li><a href="/api/embed/" class ="active">Embed</a>
-        <ul>
-          <li><a href="#basics">Basics</a></li>
-          <li><a href="#uri">Options</a></li>
-          <li><a href="#query">Query Parameters</a></li>
-          <li><a href="#questions">Sample Questions</a></li>
-        </ul>
-      </li>
-      <li><a href="/api/data/">Data</a>
-    </ul>
-  </nav>
-</div>
+{% block about_content %}
+<h1>How to Query for Specific Data</h1>
+<section id="basics">
+  <h3>The Basic Call Structure</h3>
+  <p>Below is the basic call strucuture for returning JSON from the data API.</p>
+  <p>This is the URL structure used: <code>/CLASSIFICATION/TRADE_FLOW/YEAR/ORIGIN/DESTINATION/PRODUCT/</code>.</p>    
+  
+  <p>
+    Where <code>CLASSIFICATION</code> is <a href="#uri-classification">one of the these</a><br />
+    Where <code>TRADE_FLOW</code> is <a href="#uri-trade_flow">one of the these</a><br />
+    Where <code>ORIGIN</code> is <a href="#uri-country">one of the these</a><br />
+    Where <code>DESTINATION</code> is <a href="#uri-country">one of the these</a><br />
+    Where <code>PRODUCT</code> is <a href="#uri-product">one of the these</a><br />
+    Where <code>YEAR</code> is <a href="#uri-year">one of the these</a><br />
+  </p>
+  <p>You will notice that this URL structure has the following parameters: <code>YEAR / ORIGIN / DESTINATION / PRODUCT</code> which is a byproduct of the bilateral nature of the underlying dataset.</p>
+  
+  <h3>Sample API URL:</h3>
+  <pre class="prettyprint">http://atlas.media.mit.edu/CLASSIFICATION/TRADE_FLOW/YEAR/ORIGIN/DESTINATION/PRODUCT/</pre>
+</section>
 
-<div class="content">
 
-  <h1>How to Embed Apps </h1>
-  <section id="basics">
-    <h3>The Basic Call Structure</h3>
-    <p>This is the URL structure used: <code>/APP/CLASSIFICATION/TRADE_FLOW/ORIGIN/DESTINATION/PRODUCT/YEAR/</code>.</p>
-    <p>
-      Where <code>APP</code> is <a href="#uri-app">one of the these</a><br />
-      Where <code>CLASSIFICATION</code> is <a href="#uri-classification">one of the these</a><br />
-      Where <code>TRADE_FLOW</code> is <a href="#uri-trade_flow">one of the these</a><br />
-      Where <code>ORIGIN</code> is <a href="#uri-country">one of the these</a><br />
-      Where <code>DESTINATION</code> is <a href="#uri-country">one of the these</a><br />
-      Where <code>PRODUCT</code> is <a href="#uri-product">one of the these</a><br />
-      Where <code>YEAR</code> is <a href="#uri-year">one of the these</a><br />
-    </p>
-    <p>You will notice that this URL structure has the following parameters: <code>COUNTRY / COUNTRY / PRODUCT / YEAR</code> which is a byproduct of the bilateral nature of the dataset from which the apps are being built.</p>
-    
-    <h3>Sample Embed Code:</h3>
-    <pre class="prettyprint">&lt;iframe src="http://atlas.media.mit.edu/embed/APP/TRADE_FLOW/COUNTRY1/COUNTRY2/PRODUCT/YEAR/"&gt;&lt;/iframe&gt;</pre>
-  </section>
-
-  <section id="uri">
-    <h3>URI Options</h3>
-    <div class="accordion" id="accordion2"> <!-- Accordion -->
-    
-    <h4><a name="uri-app">App</a></h4>
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th style="width: 150px;">App ID</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>tree_map</code></td>
-          <td>Build a tree map of trade data for a particular year.</td>
-        </tr>                  
-        <tr>
-          <td><code>stacked</code></td>
-            <td>Build a stacked area chart of trade data over an interval of years.</td>
-        </tr>
-        <tr>
-          <td><code>product_space</code></td>
-          <td>Show a country's exports in the product space for a given year.</td>
-        </tr>
-      </tbody>
-    </table>
-    
+<section id="uri">
+  <h3>URI Options</h3>
+  <div class="accordion"> <!-- Accordion -->
+      
     <h4><a name="uri-classification">Classification</a></h4>
     <table class="table table-bordered table-striped">
       <thead>
@@ -95,7 +50,7 @@
         </tr>
       </tbody>
     </table>
-    
+  
     <h4><a name="uri-trade_flow">Trade flows</a></h4>
     <table class="table table-bordered table-striped">
       <thead>
@@ -115,7 +70,7 @@
         </tr>
       </tbody>
     </table>
-    
+  
     <h4><a name="uri-country">Countries</a></h4>
     <table class="table table-bordered table-striped">
       <thead>
@@ -169,7 +124,7 @@
         </tr>
       </tbody>
     </table>
-    
+  
     <h4><a name="uri-year">Years</a></h4>
     <table class="table table-bordered table-striped">
       <thead>
@@ -185,208 +140,285 @@
         </tr>
       </tbody>
     </table>
-    
-  </div> <!-- END accordion -->
   
-  </section> <!-- END #uri section -->
+  </div> <!-- END accordion -->
 
-  <section id="query">
-    <h2>Query parameter options</h2>
-    <table class="table table-bordered table-striped">
-      <thead>              
-        <tr>
-          <th>App</th>
-          <th>Name</th>
-          <th>Options</th>
-          <th>default</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td width="80px">All</th>
-          <td><code>mouseover</code></td>
-          <td><code>true</code>, <code>false</code></td>
-          <td><code>true</code></td>
-        </tr>
-        <tr>
-          <td width="80px">All</th>
-          <td><code>lang</code> (Language)</td>
-          <td>Deutsch: <code>de</code>, English: <code>en</code>, Español: <code>es</code>, français: <code>fr</code>, italiano: <code>it</code>, Nederlands: <code>nl</code>, português: <code>pt</code>, Pyccĸий: <code>ru</code>, Tϋrkçe: <code>tr</code>, Ελληνικά: <code>el</code>, 日本語: <code>ja</code>, 简体中文: <code>zh_cn</code>, 한국어: <code>ko</code>, हिंदी: <code>hi</code>, العربية: <code>ar</code>, עברית: <code>he</code></td>
-          <td><code>en</code></td>
-        </tr>
-        <tr>
-          <td width="80px">Stacked</th>
-          <td><code>layout</code></td>
-          <td><code>value</code>, <code>share</code></td>
-          <td><code>value</code></td>
-        </tr>
-        <tr>
-          <td width="80px">Stacked</th>
-          <td><code>sort</code></td>
-          <td><code>value</code>, <code>category</code></td>
-          <td><code>category</code></td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+</section> <!-- END #uri section -->
 
-  <section id="questions">
-    <h2>Sample Questions</h2>
-    <h3>What does a country trade?</h3>
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th>Trade Flow</th>
-          <th style="max-width: 90px;">Origin Country</th>
-          <th style="max-width: 90px;">Destination Country</th>
-          <th style="max-width: 90px;">Product</th>
-          <th style="max-width: 90px;">Year</th>
-          <th style="max-width: 90px;">Output</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>export OR import</td>
-          <td><a href="/about/data/country/" title="list of 3 character country codes">Any 3 char code</a></td>
-          <td>all</td>
-          <td>show</td>
-          <td>Any year from 1962 - 2009</td>
-          <td>Products</td>
-        </tr>
-      </tbody>
-    </table>  
-    <p><b>Example:</b> What did the US export in 2008?</p>
-    <pre class="prettyprint linenums">&lt;iframe src="http://atlas.media.mit.edu/embed/tree_map/export/usa/all/show/2008/" frameborder="0" width="600" height="480" &gt;&lt;/iframe&gt;</pre>
-
-    <hr />
-
-    <h3>With what other countries does a country trade?</h3>
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th>Trade Flow</th>
-          <th style="max-width: 90px;">Origin Country</th>
-          <th style="max-width: 90px;">Destination Country</th>
-          <th style="max-width: 90px;">Product</th>
-          <th style="max-width: 90px;">Year</th>
-          <th style="max-width: 90px;">Output</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>export OR import</td>
-          <td><a href="/about/data/country/" title="list of 3 character country codes">Any 3 char code</a></td>
-          <td>show</td>
-          <td>all</td>
-          <td>Any year from 1962 - 2009</td>
-          <td>Countries</td>
-        </tr>
-      </tbody>
-    </table>  
-    <p><b>Example:</b> Which countries did the US export to in 2008?</p>
-    <pre class="prettyprint linenums">&lt;iframe src="http://atlas.media.mit.edu/embed/tree_map/export/usa/show/all/2008/" frameborder="0" width="600" height="480" &gt;&lt;/iframe&gt;</pre>
-
-    <hr />
-
-    <h3>What does a country trade with another country?</h3>
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th>Trade Flow</th>
-          <th style="max-width: 90px;">Origin Country</th>
-          <th style="max-width: 90px;">Destination Country</th>
-          <th style="max-width: 90px;">Product</th>
-          <th style="max-width: 90px;">Year</th>
-          <th style="max-width: 90px;">Output</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>export OR import</td>
-          <td><a href="/about/data/country/" title="list of 3 character country codes">Any 3 char code</a></td>
-          <td><a href="/about/data/country/" title="list of 3 character country codes">Any 3 char code</a></td>
-          <td>show</td>
-          <td>Any year from 1962 - 2009</td>
-          <td>Products</td>
-        </tr>
-      </tbody>
-    </table>  
-    <p><b>Example:</b> What did the US export to China in 2008?</p>
-    <pre class="prettyprint linenums">&lt;iframe src="http://atlas.media.mit.edu/embed/tree_map/export/usa/chn/show/2008/" frameborder="0" width="600" height="480" &gt;&lt;/iframe&gt;</pre>
-
-    <hr />
-
-    <h3>With what other countries does a country trade a product?</h3>
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th>Trade Flow</th>
-          <th style="max-width: 90px;">Origin Country</th>
-          <th style="max-width: 90px;">Destination Country</th>
-          <th style="max-width: 90px;">Product</th>
-          <th style="max-width: 90px;">Year</th>
-          <th style="max-width: 90px;">Output</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>export OR import</td>
-          <td><a href="/about/data/country/" title="list of 3 character country codes">Any 3 char code</a></td>
-          <td>show</td>
-          <td><a href="/about/data/sitc4/" title="list of 4 digit SITC product codes">Any 4 digit SITC code</a></td>
-          <td>Any year from 1962 - 2009</td>
-          <td>Countries</td>
-        </tr>
-      </tbody>
-    </table>  
-    <p><b>Example:</b> Which countries did the US export cars to in 2008?</p>
-    <pre class="prettyprint linenums">&lt;iframe src="http://atlas.media.mit.edu/embed/tree_map/export/usa/show/7810/2008/" frameborder="0" width="600" height="480" &gt;&lt;/iframe&gt;</pre>
-
-    <hr />
-
-    <h3>Which countries trade a product?</h3>
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th>Trade Flow</th>
-          <th style="max-width: 90px;">Origin Country</th>
-          <th style="max-width: 90px;">Destination Country</th>
-          <th style="max-width: 90px;">Product</th>
-          <th style="max-width: 90px;">Year</th>
-          <th style="max-width: 90px;">Output</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>export OR import</td>
-          <td>show</td>
-          <td>all</td>
-          <td><a href="/about/data/sitc4/" title="list of 4 digit SITC product codes">Any 4 digit SITC code</a></td>
-          <td>Any year from 1962 - 2009</td>
-          <td>Countries</td>
-        </tr>
-      </tbody>
-    </table>  
-    <p><b>Example:</b> Which countries exported cars in 2008?</p>
-    <pre class="prettyprint linenums">&lt;iframe src="http://atlas.media.mit.edu/embed/tree_map/export/show/all/7810/2008/" frameborder="0" width="600" height="480" &gt;&lt;/iframe&gt;</pre>
-  </section> <!-- END #questions section -->
-
-</div> 
-{% endblock %}
-
-{% block js %}
-<script src="/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
-<script src="/static/js/libs/typeahead.min.js"></script>
-<script>
-$('#product-search').typeahead({                                
-  name: 'products',
-  local: $('#product-search').data()["source"],
-  limit: 5
-});
-$('#country-search').typeahead({                                
-  name: 'country',
-  local: $('#country-search').data()["source"],
-  limit: 5
-});
-</script>
+<section id="examples">
+  <h2>Examples</h2>
+  <h3>What does a country trade?</h3>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Classification</th>
+        <th>Trade Flow</th>
+        <th style="max-width: 90px;">Origin Country</th>
+        <th style="max-width: 90px;">Destination Country</th>
+        <th style="max-width: 90px;">Product</th>
+        <th style="max-width: 90px;">Year</th>
+        <th style="max-width: 90px;">Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>hs or sitc</td>
+        <td>export OR import</td>
+        <td><a href="/about/data/country/" title="list of 3 character country codes">Any 3 char code</a></td>
+        <td>all</td>
+        <td>show</td>
+        <td>Any year from 1962 - 2010</td>
+        <td>Products</td>
+      </tr>
+    </tbody>
+  </table>  
+  <p><b>Example:</b> What did the US export in 2010?</p>
+  <pre class="prettyprint linenums">http://atlas.media.mit.edu/hs/export/2010/nausa/all/show/</pre>
+  
+  <p><b>Output:</b></p>
+  <pre class="prettyprint linenums">
+    {
+      "data": [
+        {
+          "export_rca": 2.31506,
+          "export_val": 391879514.8,
+          "hs_id": "010101",
+          "import_rca": 0.953058,
+          "import_val": 247872199.21,
+          "origin_id": "nausa",
+          "year": 2010.0
+        },
+        {
+          "export_rca": 0.219569,
+          "export_val": 132221725.59,
+          "hs_id": "010102",
+          "import_rca": 1.74591,
+          "import_val": 1615371811.24,
+          "origin_id": "nausa",
+          "year": 2010.0
+        },
+        ...
+      ]
+    }
+  </pre>
+  <hr />
+  
+  
+  <h3>With what other countries does a country trade?</h3>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Classification</th>
+        <th>Trade Flow</th>
+        <th style="max-width: 90px;">Origin Country</th>
+        <th style="max-width: 90px;">Destination Country</th>
+        <th style="max-width: 90px;">Product</th>
+        <th style="max-width: 90px;">Year</th>
+        <th style="max-width: 90px;">Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>hs or sitc</td>
+        <td>export OR import</td>
+        <td><a href="/about/data/country/" title="list of 3 character country codes">Any 3 char code</a></td>
+        <td>show</td>
+        <td>all</td>
+        <td>Any year from 1962 - 2010</td>
+        <td>Destinations</td>
+      </tr>
+    </tbody>
+  </table>  
+  <p><b>Example:</b> Export destinations of the United States in 2010?</p>
+  <pre class="prettyprint linenums">http://atlas.media.mit.edu/hs/export/2010/nausa/show/all/</pre>
+  
+  <p><b>Output:</b></p>
+  <pre class="prettyprint linenums">
+    {
+      "data": [
+      {
+        "dest_id": "afago",
+        "export_val": 1198011229.0,
+        "import_val": 10639020342.25,
+        "origin_id": "nausa",
+        "year": 2010.0
+      },
+      {
+        "dest_id": "afbdi",
+        "export_val": 16436405.62,
+        "import_val": 3240393.0,
+        "origin_id": "nausa",
+        "year": 2010.0
+      },
+      ...
+      ]
+    }
+  </pre>
+  <hr />
+  
+  
+  <h3>What products does a country trade with a specific country?</h3>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Classification</th>
+        <th>Trade Flow</th>
+        <th style="max-width: 90px;">Origin Country</th>
+        <th style="max-width: 90px;">Destination Country</th>
+        <th style="max-width: 90px;">Product</th>
+        <th style="max-width: 90px;">Year</th>
+        <th style="max-width: 90px;">Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>hs or sitc</td>
+        <td>export OR import</td>
+        <td><a href="/about/data/country/" title="list of 3 character country codes">Any 3 char code</a></td>
+        <td><a href="/about/data/country/" title="list of 3 character country codes">Any 3 char code</a></td>
+        <td>show</td>
+        <td>Any year from 1962 - 2010</td>
+        <td>Products</td>
+      </tr>
+    </tbody>
+  </table>  
+  <p><b>Example:</b> What did the US export to China in 2010?</p>
+  <pre class="prettyprint linenums">http://atlas.media.mit.edu/hs/export/2010/nausa/aschn/show/</pre>
+  
+  <p><b>Output:</b></p>
+  <pre class="prettyprint linenums">
+    {
+      "data": [
+      {
+        "dest_id": "aschn",
+        "export_val": 2182742.47,
+        "hs_id": "010101",
+        "origin_id": "nausa",
+        "year": 2010.0
+      },
+      {
+        "dest_id": "aschn",
+        "export_val": 1229257.0,
+        "hs_id": "010103",
+        "origin_id": "nausa",
+        "year": 2010.0
+      },
+      ...
+      ]
+    }
+  </pre>
+  <hr />
+  
+  
+  <h3>What are the destinations that a country trades a specific product with?</h3>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Classification</th>
+        <th>Trade Flow</th>
+        <th style="max-width: 90px;">Origin Country</th>
+        <th style="max-width: 90px;">Destination Country</th>
+        <th style="max-width: 90px;">Product</th>
+        <th style="max-width: 90px;">Year</th>
+        <th style="max-width: 90px;">Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>hs or sitc</td>
+        <td>export OR import</td>
+        <td><a href="/about/data/country/" title="list of 3 character country codes">Any 3 char code</a></td>
+        <td>show</td>
+        <td>Any 4 digit <a href="/about/data/sitc/" title="list of 4 digit SITC product codes">SITC</a> or <a href="/about/data/hs/" title="list of 4 digit HS product codes">HS</a> code</td>
+        <td>Any year from 1962 - 2010</td>
+        <td>Products</td>
+      </tr>
+    </tbody>
+  </table>  
+  <p><b>Example:</b> Which countries did the US export cars to in 2010?</p>
+  <pre class="prettyprint linenums">http://atlas.media.mit.edu/hs/export/2010/nausa/show/178703/</pre>
+  
+  <p><b>Output:</b></p>
+  <pre class="prettyprint linenums">
+    {
+      "data": [
+      {
+        "dest_id": "afago",
+        "export_val": 45237295.0,
+        "hs_id": "178703",
+        "origin_id": "nausa",
+        "year": 2010.0
+      },
+      {
+        "dest_id": "afbdi",
+        "export_val": 317898.74,
+        "hs_id": "178703",
+        "import_val": 4346.0,
+        "origin_id": "nausa",
+        "year": 2010.0
+      },
+      ...
+      ]
+    }
+  </pre>
+  <hr />
+  
+  
+  <h3>Which countries trade a product?</h3>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Classification</th>
+        <th>Trade Flow</th>
+        <th style="max-width: 90px;">Origin Country</th>
+        <th style="max-width: 90px;">Destination Country</th>
+        <th style="max-width: 90px;">Product</th>
+        <th style="max-width: 90px;">Year</th>
+        <th style="max-width: 90px;">Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>hs or sitc</td>
+        <td>export OR import</td>
+        <td>show</td>
+        <td>all</td>
+        <td>Any 4 digit <a href="/about/data/sitc/" title="list of 4 digit SITC product codes">SITC</a> or <a href="/about/data/hs/" title="list of 4 digit HS product codes">HS</a> code</td>
+        <td>Any year from 1962 - 2010</td>
+        <td>Products</td>
+      </tr>
+    </tbody>
+  </table>  
+  <p><b>Example:</b> Which countries exported cars in 2010?</p>
+  <pre class="prettyprint linenums">http://atlas.media.mit.edu/hs/export/2010/show/all/178703/</pre>
+  
+  <p><b>Output:</b></p>
+  <pre class="prettyprint linenums">
+    {
+      "data": [
+      {
+        "export_rca": 0.0929652,
+        "export_val": 151466990.0,
+        "hs_id": "178703",
+        "import_rca": 0.664235,
+        "import_val": 379395016.0,
+        "origin_id": "afago",
+        "year": 2010.0
+      },
+      {
+        "export_rca": 0.156122,
+        "export_val": 709871.64,
+        "hs_id": "178703",
+        "import_rca": 1.09098,
+        "import_val": 20805803.64,
+        "origin_id": "afbdi",
+        "year": 2010.0
+      },
+      ...
+      ]
+    }
+  </pre>
+  <hr />
+  
+</section>
 {% endblock %}
