@@ -3,7 +3,7 @@ import time, urllib2, json
 from flask import Blueprint, render_template, g, request, current_app, session, redirect, url_for, flash, abort
 from flask.ext.babel import gettext
 
-from oec import app, db, babel, view_cache, excluded_countries
+from oec import app, db, babel, view_cache, excluded_countries, available_years
 from oec.utils import make_query, make_cache_key
 from oec.db_attr import models as attr_models
 from oec.explore.models import Build, App
@@ -78,7 +78,7 @@ def profile_country(attr_id="usa"):
                         dest=None, 
                         product=None, 
                         classification="hs", 
-                        year="2010")
+                        year=available_years["country"][-1])
     
     return render_template("profile/country.html", 
                                 builds=builds,
@@ -115,7 +115,7 @@ def profile_product(attr_type, attr_id="usa"):
                         dest=None, 
                         product=attr, 
                         classification=attr_type, 
-                        year="2010")
+                        year=available_years[attr_type][-1])
     
     return render_template("profile/product.html", 
                                 builds=builds,
