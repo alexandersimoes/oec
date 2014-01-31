@@ -7,12 +7,11 @@
 
 {% block content %}
 
-<div id="loading"><h1>{{ _('Loading') }}...</h1></div>
+<div id="loading"><h2>{{ _('Loading') }}...</h2></div>
 <div id="app">
   <div id="text"></div>
   <div id="viz"></div>
   <div id="ui">
-    <div id="more_years"><button>{{ _('Click to view more years') }} &raquo;</button></div>
     <div id="depth">
       <input type="radio" name="nesting" value="0">Category
       <input type="radio" name="nesting" value="1" checked="checked">Full
@@ -26,6 +25,7 @@
         <option value="val_growth_val_5">Growth Value (5 year)</option>
       </select>
     </div>
+    <div id="more_years"><button>{{ _('Click to view more years') }} &raquo;</button></div>
   </div>
 </div>
 <div id="controls">
@@ -35,7 +35,7 @@
   {% for ui in current_build.get_ui() %}
   <div class="dropdown_container" id="{{ ui.id }}">
     <h3>{{ ui.name }}</h3>
-    <select>
+    <select id="{{ ui.id }}_selector">
       {% for option in ui.data %}
       <option value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
       {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") %}selected="selected"{% endif %}>
@@ -111,18 +111,30 @@
 
 <script>
 
+d3.selectAll(".dropdown_container")
+  .each(function(){
+    d3plus.ui()
+      .type("drop")
+      .data(d3.select(this).select("select"))
+      .width(180)
+      .padding(5)
+      .font(12)
+      .color("#0085BF")
+      .draw()
+  })
+
 /* init vars */
 var viz = d3plus.viz()
             .container("#viz")
             .style({"background":"transparent"})
-            // .number_format(function(number, key){
-            //   if(key){
-            //     if(key.indexOf("pct") > -1){
-            //       return d3.format(".2%")(number);
-            //     }
-            //   }
-            //   return d3plus.public.number_format["value"](number)
-            // })
+            .number_format(function(number, key){
+              if(key){
+                if(key.indexOf("pct") > -1){
+                  return d3.format(".2%")(number);
+                }
+              }
+              return d3plus.public.number_format["value"](number,key)
+            })
             .text_format(function(text, key){
               if(key){
                 if(key == "display_id"){ return text.toUpperCase(); }
