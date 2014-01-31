@@ -3,7 +3,8 @@ import time, urllib2, json
 from flask import Blueprint, render_template, g, request, current_app, session, redirect, url_for, flash, abort
 from flask.ext.babel import gettext
 
-from oec import app, db, babel
+from oec import app, db, babel, view_cache
+from oec.utils import make_cache_key
 from oec.db_attr.models import Yo
 from oec.db_hs.models import Yp as Yp_hs
 from oec.db_sitc.models import Yp as Yp_sitc
@@ -16,6 +17,7 @@ def rankings_redirect():
 
 @mod.route('/<category>/')
 @mod.route('/<category>/<int:year>/')
+@view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
 def rankings(category=None,year=None):
     
     g.page_type = mod.name
@@ -34,7 +36,7 @@ def rankings(category=None,year=None):
         tbl = Yp_hs
         val_col = "pci"
     elif category == "country":
-        years = range(1962, 2011)
+        years = range(1962, 2012)
         cols = ["Rank", "Abbrv", "Country", "ECI Value"]
         tbl = Yo
         val_col = "eci"

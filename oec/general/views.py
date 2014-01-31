@@ -19,7 +19,7 @@ from dateutil import parser
 
 mod = Blueprint('general', __name__, url_prefix='/')
 
-from oec import app, db, babel, excluded_countries
+from oec import app, db, babel, excluded_countries, available_years
 
 ###############################
 # General functions for ALL views
@@ -29,6 +29,7 @@ def before_request():
     
     g.page_type = mod.name
     g.supported_langs = current_app.config.get('LANGUAGES')
+    g.available_years = available_years
     
     # Save variable in session so we can determine if this is the user's
     # first time on the site

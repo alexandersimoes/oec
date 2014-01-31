@@ -3,7 +3,7 @@ from flask import g, url_for
 from flask.ext.babel import gettext as _
 from datetime import datetime
 from sqlalchemy import desc
-from oec import db, __latest_year__, available_years
+from oec import db, available_years
 from oec.utils import AutoSerialize
 from oec.db_attr.models import Country, Hs, Sitc
 from oec.db_hs import models as hs_models
@@ -197,7 +197,7 @@ class Build(db.Model, AutoSerialize):
     def url(self, year=None):
         year = self.year or year
         if not year:
-            year = __latest_year__[self.classification]
+            year = available_years[self.classification][-1]
         if "." in str(year) and self.app.type != "stacked":
             year = year.split(".")[0]
         if "." not in str(year) and self.app.type == "stacked":
@@ -220,7 +220,7 @@ class Build(db.Model, AutoSerialize):
     def data_url(self, year=None):
         year = year or self.year
         if not year:
-            year = __latest_year__[self.classification]
+            year = available_years[self.classification][-1]
         origin, dest, product = [self.origin, self.dest, self.product]
         
         if (isinstance(product, Hs) and dest == "all" and isinstance(origin, Country)) or \

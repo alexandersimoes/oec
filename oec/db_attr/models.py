@@ -1,5 +1,5 @@
 from flask import g
-from oec import db, __latest_year__
+from oec import db, available_years
 from oec.utils import AutoSerialize, exist_or_404
 
 class Country(db.Model, AutoSerialize):
@@ -40,6 +40,9 @@ class Country(db.Model, AutoSerialize):
             return _name[0].name
         return ""
     
+    def get_display_id(self):
+        return self.id_3char
+    
     def get_attr_yo(self, year=2011):
         yo = filter(lambda yo: yo.year == year, self.attr_yo)
         if len(yo): return yo[0]
@@ -51,7 +54,7 @@ class Country(db.Model, AutoSerialize):
     def get_icon(self):
         return "/static/img/icons/country/country_%s.png" % (self.id)
     
-    def get_top(self, limit=10, year=__latest_year__["hs"]):
+    def get_top(self, limit=10, year=available_years["hs"][-1]):
         from oec.db_hs.models import Yp
         return Yp.query.filter_by(year=year, top_exporter=self.id)\
                 .order_by(Yp.export_val.desc()).limit(limit).all()
@@ -111,7 +114,10 @@ class Hs(db.Model, AutoSerialize):
             return _name[0].name
         return ""
     
-    def get_top(self, limit=10, year=__latest_year__["hs"]):
+    def get_display_id(self):
+        return self.hs
+    
+    def get_top(self, limit=10, year=available_years["hs"][-1]):
         from oec.db_hs.models import Yo
         return Yo.query.filter_by(year=year, top_export=self.id)\
                 .order_by(Yo.export_val.desc()).limit(limit).all()
@@ -180,6 +186,9 @@ class Sitc(db.Model, AutoSerialize):
         if len(_name):
             return _name[0].name
         return ""
+    
+    def get_display_id(self):
+        return self.sitc
     
     def get_abbrv(self, lang=None):
         return self.sitc if self.sitc else ""

@@ -1,8 +1,14 @@
 {% extends "templates/site.html" %}
 
 {% block head %}
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.rankings.css" />
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.table.css" />
+    {% if year > g.available_years[category][0]  %}
+    <link rel="prev" href="/rankings/{{ category }}/{{ year-1 }}/" />
+    {% endif %}
+    {% if year < g.available_years[category][-1]  %}
+    <link rel="next" href="/rankings/{{ category }}/{{ year+1 }}/" />
+    {% endif %}
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.rankings.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.table.css" />
 {% endblock %}
 
 {% block body %}
@@ -33,7 +39,9 @@
   </div><div class="col3">
   
     <div class="change_year">
+        {% if year > g.available_years[category][0]  %}
         <a class="prev" href="/rankings/{{ category }}/{{ year-1 }}/">&laquo; Previous Year</a>
+        {% endif %}
         <div class="dropdown">
           <select>
             {% for y in years %}
@@ -41,7 +49,9 @@
             {% endfor %}
           </select>
         </div>
+        {% if year < g.available_years[category][-1]  %}
         <a class="next" href="/rankings/{{ category }}/{{ year+1 }}/">Next Year &raquo;</a>
+        {% endif %}
       </div>
   
       <table class="sortable">
@@ -62,12 +72,12 @@
             {% if category == "country" %}
             <td><span>{{ r["eci_rank"] }}</span></td>
             <td>{{ r.country.id_3char|upper }}</td>
-            <td>{{ r.country.get_name() }}</td>
+            <td><a href="{{ r.country.get_profile_url() }}">{{ r.country.get_name() }}</a></td>
             <td>{{ r.eci }}</td>
             {% else %}
             <td><span>{{ r["pci_rank"] }}</span></td>
-            <td>{{ r.product.id }}</td>
-            <td>{{ r.product.get_name() }}</td>
+            <td>{{ r.product.get_display_id() }}</td>
+            <td><a href="{{ r.product.get_profile_url() }}">{{ r.product.get_name() }}</a></td>
             <td>{{ r.pci }}</td>
             {% endif %}
           </tr>
