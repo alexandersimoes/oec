@@ -29,6 +29,7 @@
           <option value="{{ lang_id }}" {% if lang_id == g.locale %} selected="selected" {% endif %}>{{ lang_name }}</option>
           {% endfor %}
         </select>
+        <input id="search" type="text" data-provide="typeahead" autocomplete="off" placeholder="Search" />
       {% endif %}
     </div>
     
@@ -50,14 +51,52 @@
 
 </div> <!-- END #container -->
 
+<script src="/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
+<script src="/static/js/libs/typeahead.min.js"></script>
 <script>
 
   if (!d3.select("select#language_selector").empty()) {
 
-    document.querySelector("#language_selector").onchange = function(){
-        var lang = this.value;
+    var change_language = function(lang){
         window.location = "/set_lang/"+lang+"/";
     };
+    
+    if ("{{g.page_type}}" == "home") {
+      var padding = 6.5,
+          size = 18,
+          text = "text",
+          arrow = "fa-angle-down",
+          width = false,
+          align = "left"
+    }
+    else {
+      var padding = 4,
+          size = 14,
+          text = {"drop": "text", "button": "value"},
+          arrow = false,
+          width = {"button": 30, "drop": false},
+          align = "center"
+    }
+    
+    d3plus.ui()
+      .type("drop")
+      .data("#language_selector")
+      .color("#0085BF")
+      .margin(0)
+      .padding(padding)
+      .text(text)
+      .icon(arrow)
+      .width(width)
+      .font({
+        "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+        "size": size,
+        "weight": "lighter",
+        "spacing": 1,
+        "align": align
+      })
+      .align(align)
+      .callback(change_language)
+      .draw()
     
   }
   
@@ -77,6 +116,23 @@
   resizebg()
 
   window.onresize = resizebg
+  
+  $('#search').typeahead({
+    name: 'my_search',
+    limit: 10,
+    remote: {
+      url:'/search/?q=%QUERY',
+      filter: function(resp) { return resp.items; }
+    }
+  });
+
+  if ("{{g.page_type}}" == "home") {
+    $('#search').focus()
+  }
+
+  $('#search').bind('typeahead:selected', function(obj, datum, name) {      
+    window.location = "/explore/"+datum["name"];
+  });
   
 </script>
 
