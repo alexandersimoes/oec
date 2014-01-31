@@ -291,9 +291,89 @@ button:hover, a.button:hover {
   text-decoration: none;
 }
 
+/*****************/
+/* Rankings Span */
+/*****************/
+span.rank {
+  color: #f7f7f7;
+  display: inline-block;
+  font-size: 14px;
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  line-height: 14px;
+  min-width: 14px;
+  padding: 2px;
+  text-align: center;
+}
 
+/*****************/
+/* Overall Input */
+/*****************/
+input#search {
+  background-color: white !important;
+  border: 1px solid #dddddd;
+  color: #888888;
+  display: inline-block;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: lighter;
+  height: 10px;
+  outline: none;
+  opacity: 0.75;
+  padding: 5px;
+  -webkit-transition: border-color .1s, color .1s, opacity .1s;
+          transition: border-color .1s, color .1s, opacity .1s;
+  width: 100px;
+}
 
+input#search:focus {
+  border: 1px solid #0085BF;
+  color: #444444;
+  opacity: 1;
+}
 
+/**********************/
+/* Typeahead Dropdown */
+/**********************/
+.tt-dropdown-menu {
+  padding: 0px;
+  background-color: white;
+  border-style: solid;
+  border-color: #888888;
+  border-width: 1px;
+  margin: 3px 0px 10px -34px;
+  min-width: 180px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  text-align: left;
+  width: 180px;
+}
+
+.tt-suggestion {
+  display: block;
+  padding: 3px 4px;
+  -webkit-transition: background-color .1s;
+          transition: background-color .1s;
+}
+
+.tt-suggestion p {
+  color: #888888;
+  font-size: 12px;
+  line-height: 13px;
+  margin: 3px !important;
+  letter-spacing: 1px;
+  -webkit-transition: color .1s;
+          transition: color .1s;
+}
+
+.tt-suggestion.tt-is-under-cursor {
+  background-color: #0085BF;
+}
+
+.tt-suggestion.tt-is-under-cursor p {
+  color: #ffffff;
+}
 
 
 
