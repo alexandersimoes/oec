@@ -57,6 +57,15 @@ header nav a.current {
   color: #0085BF;
 }
 
+header #d3plus_button_language_selector {
+  text-transform: uppercase;
+}
+
+header #search {
+  height: 15px;
+  width: 135px;
+}
+
 /******************/
 /* Footer Styling */
 /******************/
