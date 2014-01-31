@@ -44,7 +44,7 @@
         <a class="prev" href="/rankings/{{ category }}/{{ year-1 }}/">&laquo; Previous Year</a>
         {% endif %}
         <div class="dropdown">
-          <select>
+          <select id="change_year">
             {% for y in years %}
             <option value="{{ y }}" {% if y == year %}selected="selected"{% endif %}>{{ y }}</option>
             {% endfor %}
@@ -96,6 +96,36 @@
 
 {% block js %}
   <script>
+    
+    function change_year(new_year) {
+      
+      var url = window.location.pathname.split("/")
+      if(url.length == 5){
+        url.splice(3, 1, new_year)
+      }
+      else {
+        url.splice(3, 0, new_year)
+      }
+      window.location = url.join("/")
+      
+    }
+  
+    d3plus.ui()
+      .type("drop")
+      .data("#change_year")
+      .color("#0085BF")
+      .margin(0)
+      .padding(6)
+      .font({
+        "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+        "size": 18,
+        "weight": "lighter",
+        "spacing": 1
+      })
+      .callback(change_year)
+      .draw()
+  
+  
     var total = d3.selectAll("tbody tr")[0].length
     // Add color to rankings
     var color = d3.scale.linear()
@@ -106,21 +136,6 @@
       .style("background", function(d, i){
         return color(i);
       })
-      .style("color", "white")
-      // .style("color", function(d, i){
-      //   return d3plus.color.text(color(i));
-      // })
-    d3.select(".dropdown select").on("change", function(){
-      var new_year = d3.select(this[this.selectedIndex]).property("value")
-      var url = window.location.pathname.split("/")
-      if(url.length == 5){
-        url.splice(3, 1, new_year)
-      }
-      else {
-        url.splice(3, 0, new_year)
-      }
-      window.location = url.join("/")
-    })
   
   </script>
 {% endblock %}
