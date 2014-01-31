@@ -24,67 +24,36 @@ only screen and (                min-resolution: 2dppx) {
   }
 }
 
-#search {
+/****************/
+/* Search Input */
+/****************/
+#search_bar {
   margin: 25px 0 150px 0;
   text-align: center;
 }
 
-input {
-  border: 1px solid #dddddd;
-  color: #888888;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+#search_bar input#search {
   font-size: 18px;
-  font-weight: lighter;
   height: 15px;
-  outline: none;
-  opacity: 0.75;
   padding: 10px;
-  -webkit-transition: border-color .1s, color .1s, opacity .1s;
-          transition: border-color .1s, color .1s, opacity .1s;
   width: 450px;
 }
 
-input:focus {
-  border: 1px solid #0085BF;
-  color: #444444;
-  opacity: 1;
-}
-
-/* NOT DOUBLE-CHECKED BY DAVE */
-
-.tt-dropdown-menu {
+/*******************/
+/* Search Dropdown */
+/*******************/
+#search_bar .tt-dropdown-menu {
   width: 470px;
   min-width: 470px;
-  margin: 10px 0px;
-  padding: 0px;
-  background-color: rgba(255,255,255,0.75);
-  border: 1px solid #888888;
-*/  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-          box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  text-align: left;
+  margin: 0px 0px 10px;
+  border-width:0px 1px 1px 1px;
 }
 
-.tt-suggestion {
-  display: block;
+#search_bar .tt-suggestion {
   padding: 5px 10px;
-  -webkit-transition: background-color .1s;
-          transition: background-color .1s;
 }
 
-.tt-suggestion p {
-  color: #888888;
+#search_bar .tt-suggestion p {
   font-size: 14px;
   margin: 5px !important;
-  letter-spacing: 1px;
-  -webkit-transition: color .1s;
-          transition: color .1s;
-}
-
-.tt-suggestion.tt-is-under-cursor {
-  background-color: #0085BF;
-}
-
-.tt-suggestion.tt-is-under-cursor p {
-  color: #ffffff;
 }
