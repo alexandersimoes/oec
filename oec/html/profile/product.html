@@ -5,6 +5,8 @@
 <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.table.css" />
 {% endblock %}
 
+{% block title %}: {{ attr.get_name() }} ({{ attr.get_display_id() }}) Profile{% endblock %}
+
 {% block body %}
 <h2>Learn More About Trade of {{ attr.get_name() }}</h2>
 <div class="content">

@@ -199,6 +199,16 @@ class Sitc(db.Model, AutoSerialize):
     def get_profile_url(self):
         return "/profile/sitc/"+self.sitc+"/"
 
+    def get_top(self, limit=10, year=available_years["sitc"][-1]):
+        from oec.db_sitc.models import Yp
+        return Yp.query.filter_by(year=year, top_exporter=self.id)\
+                .order_by(Yp.export_val.desc()).limit(limit).all()
+
+    def get_yp(self, year=2011):
+        yp = filter(lambda yp: yp.year == year, self.yp_product)
+        if len(yp): return yp[0]
+        return None
+
     def serialize(self):
         auto_serialized = super(Sitc, self).serialize()
         auto_serialized["name"] = self.get_name()

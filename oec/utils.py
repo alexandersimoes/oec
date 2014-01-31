@@ -225,7 +225,7 @@ def make_query(data_table, url_args, lang, **kwargs):
                 query = query.filter(getattr(data_table, filter) == id)
             
             elif filter == "sitc_id":
-                id = Sitc.query.filter_by(hs=kwargs[filter]).first().id
+                id = Sitc.query.filter_by(sitc=kwargs[filter]).first().id
                 query = query.filter(getattr(data_table, filter) == id)
             
             else:

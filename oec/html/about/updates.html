@@ -1,7 +1,8 @@
 {% extends "templates/about.html" %}
 
-{% block about_content %}
+{% block about_title %}:: Updates / Blog{% endblock %}
 
+{% block about_content %}
   {% for update in updates %}
   <article>
     <h2 class="title">{{ update.title }}</h2>
@@ -9,5 +10,4 @@
     {{ update.body|safe }}
   </article>
   {% endfor %}
-    
 {% endblock %}

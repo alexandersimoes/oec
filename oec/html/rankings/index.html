@@ -11,8 +11,9 @@
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.table.css" />
 {% endblock %}
 
-{% block body %}
+{% block title %}: {% if category == "country" %}{{ category|title }}{% else %}{{ category|upper }} Product{% endif %} Ranking ({{ year }}){% endblock %}
 
+{% block body %}
 <!-- the left pane -->
 <div class="content">
   
