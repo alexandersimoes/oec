@@ -2,6 +2,11 @@ body.explore #sidebar {
   margin-top: 20px;
 }
 
+body.explore .content .col3 {
+  padding: 10px 0px;
+  width: 800px;
+}
+
 
 
 
