@@ -10,6 +10,34 @@ body {
   float: left;
 }
 
+/***********/
+/* Loading */
+/***********/
+div#loading {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+div#loading > h2 {
+  display: block;
+  letter-spacing: 1px;
+  margin-top: -16px;
+  opacity: 0.25;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  width: 100%;
+  -webkit-animation: pulse 1s infinite;
+}
+
+@-webkit-keyframes pulse
+{
+  0%  { opacity: 0.25; }
+  50% { opacity: 1; }
+  100%{ opacity: 0.25; }
+}
+
 /*******/
 /* Viz */
 /*******/
@@ -86,18 +114,24 @@ body {
 #app #ui {
 /*  border: red 1px solid;*/
 /*  display: none;*/
-  height: 40px;
+/*  height: 40px;*/
   text-align: center;
   visibility: hidden;
 }
 #app #timeline,
 #app #depth,
-#app #color {
+#app #color,
+#app #more_years {
   display: inline-block;
 }
 #app #timeline button {
   font-size: 15px;
   margin: 4px auto;
+}
+
+#more_years {
+  height: 40px;
+  text-align: center;
 }
 
 /************/
@@ -135,31 +169,11 @@ body {
 #controls .dropdown_container {
   clear: both;
 }
-#controls .dropdown_container select {
-  margin: 0px;
-  width: 163px;
-}
-#controls .dropdown_container#year_start {
-  float: left;
-  padding-right: 5px;
-  clear: none;
-}
-#controls .dropdown_container#year_end {
-  float: left;
-  padding-left: 5px;
-  clear: none;
-}
-#controls .dropdown_container#year_start select,
-#controls .dropdown_container#year_end select {
-  width: 75px;
-}
-#controls .chzn-container {
-  cursor: pointer;
-  margin: 0 0 5px 0;
-}
 #controls button {
+  font-size: 12px;
   margin: 10px;
-  width: 165px;
+  padding: 5px;
+  width: 180px;
 }
 #controls hr {
   background: #cccccc;
@@ -196,11 +210,4 @@ body {
 }
 #controls #short{
   display: none;
-}
-
-
-
-#more_years {
-  height: 40px;
-  text-align: center;
 }
