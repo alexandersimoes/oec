@@ -72,8 +72,10 @@ table tbody tr td {
   border-bottom: 1px solid #ddd;
 }
 table tbody tr td span {
+  color: white;
   display: block;
   padding: 2px;
+  text-align: center;
   width: 30px;
 }
 .arrow_up {
