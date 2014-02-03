@@ -2,9 +2,9 @@
 from flask import g, url_for
 from flask.ext.babel import gettext as _
 from datetime import datetime
-from sqlalchemy import desc
-from oec import db, available_years
-from oec.utils import AutoSerialize
+from sqlalchemy import desc, not_, func
+from oec import db, available_years, excluded_countries
+from oec.utils import AutoSerialize, compile_query
 from oec.db_attr.models import Country, Hs, Sitc
 from oec.db_hs import models as hs_models
 from oec.db_sitc import models as sitc_models
@@ -351,13 +351,13 @@ class Build(db.Model, AutoSerialize):
         if isinstance(self.origin, Country):
             query = query.filter_by(origin_id=self.origin.id)
             sum_query = sum_query.filter_by(origin_id=self.origin.id)
-        if isinstance(self.dest, Country):
+        elif isinstance(self.dest, Country):
             query = query.filter_by(dest_id=self.dest.id)
             sum_query = sum_query.filter_by(dest_id=self.dest.id)
-        if isinstance(self.product, Sitc):
+        elif isinstance(self.product, Sitc):
             query = query.filter_by(sitc_id=self.product.id)
             sum_query = sum_query.filter_by(sitc_id=self.product.id)
-        if isinstance(self.product, Hs):
+        elif isinstance(self.product, Hs):
             query = query.filter_by(hs_id=self.product.id)
             sum_query = sum_query.filter_by(hs_id=self.product.id)
         
@@ -418,13 +418,13 @@ class Build(db.Model, AutoSerialize):
                 "id": "start_year",
                 "name": _("Start Year"),
                 "current": years[0],
-                "data": available_years[self.classification]
+                "data": available_years[self.classification][::-1]
             }
             end_year = {
                 "id": "end_year",
                 "name": _("End Year"),
                 "current": years[-1],
-                "data": available_years[self.classification]
+                "data": available_years[self.classification][::-1]
             }
             interval = {
                 "id": "interval",
@@ -438,13 +438,16 @@ class Build(db.Model, AutoSerialize):
                 "id": "year",
                 "name": _("Year"),
                 "current": int(self.year),
-                "data": available_years[self.classification]
+                "data": available_years[self.classification][::-1]
             }
             ui.append(year)
         
         if isinstance(self.origin, Country):
-            country_list = Country.query.filter(Country.id_3char != None)
+            country_list = Country.query \
+                            .filter(not_(Country.id.in_(excluded_countries))) \
+                            .filter(Country.id_3char != None)
             country_list = [c.serialize() for c in country_list]
+            country_list = sorted(country_list, key=lambda k: k['name']) 
             country = {
                 "id": "origin",
                 "name": _("Origin"),
@@ -454,8 +457,11 @@ class Build(db.Model, AutoSerialize):
             ui.append(country)
         
         if isinstance(self.dest, Country):
-            country_list = Country.query.filter(Country.id_3char != None)
+            country_list = Country.query \
+                            .filter(not_(Country.id.in_(excluded_countries))) \
+                            .filter(Country.id_3char != None)
             country_list = [c.serialize() for c in country_list]
+            country_list = sorted(country_list, key=lambda k: k['name']) 
             country = {
                 "id": "destination",
                 "name": _("Destination"),
@@ -466,10 +472,13 @@ class Build(db.Model, AutoSerialize):
         
         if isinstance(self.product, (Sitc, Hs)):
             if self.classification == "sitc":
-                product_list = Sitc.query.all()
+                product_list = Sitc.query \
+                                .filter(func.char_length(Sitc.id)==6).all()
             else:
-                product_list = Hs.query.all()
+                product_list = Hs.query \
+                                .filter(func.char_length(Hs.id)==6).all()
             product_list = [p.serialize() for p in product_list]
+            product_list = sorted(product_list, key=lambda k: k['name']) 
             product = {
                 "id": "product",
                 "name": _("Product"),
