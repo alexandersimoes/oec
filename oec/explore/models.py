@@ -351,19 +351,31 @@ class Build(db.Model, AutoSerialize):
         if isinstance(self.origin, Country):
             query = query.filter_by(origin_id=self.origin.id)
             sum_query = sum_query.filter_by(origin_id=self.origin.id)
-        elif isinstance(self.dest, Country):
+        if isinstance(self.dest, Country):
             query = query.filter_by(dest_id=self.dest.id)
             sum_query = sum_query.filter_by(dest_id=self.dest.id)
-        elif isinstance(self.product, Sitc):
+        if isinstance(self.product, Sitc) and self.app.type != "rings":
             query = query.filter_by(sitc_id=self.product.id)
             sum_query = sum_query.filter_by(sitc_id=self.product.id)
-        elif isinstance(self.product, Hs):
+        if isinstance(self.product, Hs) and self.app.type != "rings":
             query = query.filter_by(hs_id=self.product.id)
             sum_query = sum_query.filter_by(hs_id=self.product.id)
         
         sum = sum_query.first()[0]
         
         show_attr = {self.origin:"origin", self.dest:"dest", self.product:"product"}
+
+        if show_attr.get("show", "product") == "origin":
+            attr_name = _("Origin Country")
+            attr_id_name = _("ID")
+        elif show_attr.get("show", "product") == "dest":
+            attr_name = _("Destination Country")
+            attr_id_name = _("ID")
+        elif show_attr.get("show", "product") == "product":
+            attr_name = _("Product Name")
+            attr_id_name = "SITC" if self.classification == "sitc" else "HS"
+
+        header = ["Rank", attr_id_name, attr_name, self.trade_flow.title()+" Value", "Share"]
         
         stats = []
         for s in query.limit(entities).all():
@@ -386,7 +398,7 @@ class Build(db.Model, AutoSerialize):
             }
             stats.append(stat)
         
-        return {"total":sum, "entries":stats}
+        return {"total":sum, "entries":stats, "header":header}
     
     def get_ui(self):
         trade_flow = {

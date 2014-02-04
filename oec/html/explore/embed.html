@@ -209,7 +209,7 @@ function format_data(error, raw_data, raw_attrs, raw_other){
   // set key 'nest' to their id
   raw_attrs.data.forEach(function(d){
     attrs[d.id] = d
-    if(attr_id == "dest_id" || attr_id == "dest_id"){
+    if(attr_id == "origin_id" || attr_id == "dest_id"){
       attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
     }
     else if(attr_id == "hs_id"){

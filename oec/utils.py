@@ -185,6 +185,25 @@ class RedisSessionInterface(SessionInterface):
                             expires=cookie_exp, httponly=True,
                             domain=domain)
 
+''' Helper function for seeing what SQLAlchemy is actually running on the DB
+    http://stackoverflow.com/questions/4617291/how-do-i-get-a-raw-compiled-sql-query-from-a-sqlalchemy-expression '''
+def compile_query(query):
+    from sqlalchemy.sql import compiler
+    from MySQLdb.converters import conversions, escape
+
+    dialect = query.session.bind.dialect
+    statement = query.statement
+    comp = compiler.SQLCompiler(dialect, statement)
+    comp.compile()
+    enc = dialect.encoding
+    params = []
+    for k in comp.positiontup:
+        v = comp.params[k]
+        if isinstance(v, unicode):
+            v = v.encode(enc)
+        params.append( escape(v, conversions) )
+    return (comp.string.encode(enc) % tuple(params)).decode(enc)
+
 def make_query(data_table, url_args, lang, **kwargs):
     from oec.db_attr.models import Country, Hs, Sitc
     query = data_table.query
@@ -230,7 +249,8 @@ def make_query(data_table, url_args, lang, **kwargs):
             
             else:
                 query = query.filter(getattr(data_table, filter) == kwargs[filter])
-    
+
+    # raise Exception(compile_query(query))
     ret["data"] = [row.serialize() for row in query.all()]
     
     '''gzip and jsonify result'''
@@ -239,25 +259,6 @@ def make_query(data_table, url_args, lang, **kwargs):
     cached_query(cache_id, ret)
     
     return ret
-
-''' Helper function for seeing what SQLAlchemy is actually running on the DB
-    http://stackoverflow.com/questions/4617291/how-do-i-get-a-raw-compiled-sql-query-from-a-sqlalchemy-expression '''
-def compile_query(query):
-    from sqlalchemy.sql import compiler
-    from MySQLdb.converters import conversions, escape
-
-    dialect = query.session.bind.dialect
-    statement = query.statement
-    comp = compiler.SQLCompiler(dialect, statement)
-    comp.compile()
-    enc = dialect.encoding
-    params = []
-    for k in comp.positiontup:
-        v = comp.params[k]
-        if isinstance(v, unicode):
-            v = v.encode(enc)
-        params.append( escape(v, conversions) )
-    return (comp.string.encode(enc) % tuple(params)).decode(enc)
 
 def make_cache_key(*args, **kwargs):
     path = request.path

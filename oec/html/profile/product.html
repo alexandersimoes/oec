@@ -79,8 +79,9 @@
     .interpolate(d3.interpolateRgb)
     .range(["#00cc00", "#cc0000"])
 
-  d3.select(".pci_rank span").style("background", function(d, i){
-    return color(parseInt(this.innerHTML));
-  })
+  d3.select("span.rank")
+    .style("background-color", function(d, i){
+      return color(parseInt(this.innerHTML));
+    })
 </script>
 {% endblock %}

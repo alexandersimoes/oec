@@ -68,14 +68,16 @@
             {{ build.app.get_name() }}
           </a>
           <ul class="accordion">
-        {% set pre_cat = None %}
+        {% set pre_cat = "init" %}
           
       {% endif %}
     
-      {% if pre_cat != build.get_category() and build.get_category() != None %}
-        {% if pre_cat != None %}</ul>{% endif %}
+      {% if pre_cat != build.get_category() and build.get_category() != "init" %}
+        {% if pre_cat != "init" %}</ul>{% endif %}
         <ul>
+        {% if build.get_category() != None %}  
         <h3>{{ build.get_category() }}</h3>
+        {% endif %}
       {% endif %}
     
       {% set pre_cat = build.get_category() %}
@@ -97,7 +99,13 @@
       {% if stats.entries %}
       <h2 id="total">{{ _('Total') }}: {{ stats.total|format_currency }}</h2>
       <table>
-        <thead><tr></tr></thead>
+        <thead>
+          <tr>
+            {% for h in stats.header %}
+            <td>{{ h }}</td>
+            {% endfor %}
+          </tr>
+        </thead>
         <tbody>
         {% for entry in stats.entries %}
           <tr>
