@@ -165,7 +165,7 @@ class Build(db.Model, AutoSerialize):
             elif origin == "all" or origin == "show":
                 self.origin = self.get_default("origin", product, self.trade_flow, classification, self.year)
             else:
-                self.origin = Country.query.filter_by(id_3char=origin).first()
+                self.origin = Country.query.filter_by(id_3char=origin).first_or_404()
                 if not self.origin:
                     self.origin = self.get_default("origin", product, self.trade_flow, classification, self.year)
         
@@ -175,7 +175,7 @@ class Build(db.Model, AutoSerialize):
             elif dest == "all" or dest == "show":
                 self.dest = self.get_default("dest", self.origin, self.trade_flow, classification, self.year)
             else:
-                self.dest = Country.query.filter_by(id_3char=dest).first()
+                self.dest = Country.query.filter_by(id_3char=dest).first_or_404()
                 if not self.dest:
                     self.dest = self.get_default("dest", self.origin, self.trade_flow, classification, self.year)
         
@@ -188,7 +188,7 @@ class Build(db.Model, AutoSerialize):
             else:
                 self.product = tbl.query.filter(getattr(tbl, classification)==product).first()
                 if not self.product:
-                    self.product = tbl.query.filter_by(id=self.defaults["hs"]).first()
+                    self.product = tbl.query.filter_by(id=self.defaults["hs"]).first_or_404()
         # raise Exception(self.origin)
         if classification:
             self.classification = classification

@@ -44,7 +44,7 @@ def profile_country(attr_id="usa"):
     
     sanitize(attr_id)
     
-    attr = getattr(attr_models, "Country").query.filter_by(id_3char=attr_id).first()
+    attr = getattr(attr_models, "Country").query.filter_by(id_3char=attr_id).first_or_404()
     
     tree_map = App.query.filter_by(type="tree_map").first()
     
@@ -91,9 +91,9 @@ def profile_product(attr_type, attr_id="usa"):
     g.page_type = mod.name
     
     if attr_type == "hs":
-        attr = getattr(attr_models, attr_type.capitalize()).query.filter_by(hs=attr_id).first()
+        attr = getattr(attr_models, attr_type.capitalize()).query.filter_by(hs=attr_id).first_or_404()
     else:
-        attr = getattr(attr_models, attr_type.capitalize()).query.filter_by(sitc=attr_id).first()
+        attr = getattr(attr_models, attr_type.capitalize()).query.filter_by(sitc=attr_id).first_or_404()
     
     tree_map = App.query.filter_by(type="tree_map").first()    
     
