@@ -42,6 +42,17 @@ div#fullscreen {
   z-index: -1;
 }
 
+/*******************************************************************/
+/* Used for SEO content that we want crawlers to see but not users */
+/*******************************************************************/
+.visually_hidden { 
+  position: absolute; 
+  overflow: hidden; 
+  clip: rect(0 0 0 0); 
+  height: 1px; width: 1px; 
+  margin: -1px; padding: 0; border: 0; 
+}
+
 /***************************/
 /* Load Retina Backgrounds */
 /***************************/

@@ -5,6 +5,9 @@
 <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.embed.css" />
 {% endblock %}
 
+{% block description %}{{ _('An emedded visualization.') }}{% endblock %}
+{% block title %}: {{ current_build.get_name() }}{% endblock %}
+
 {% block content %}
 
 <div id="loading"><h2>{{ _('Loading') }}...</h2></div>

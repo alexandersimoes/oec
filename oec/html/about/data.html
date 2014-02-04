@@ -1,6 +1,7 @@
 {% extends "templates/about.html" %}
 
 {% block about_title %}:: Data ({{ data_type|upper }}){% endblock %}
+{% block description %}{{ _('HS, SITC, and Country classification with their corresponding IDs and values.') }}{% endblock %}
 
 {% block about_content %}
   <table class="table table-bordered table-condensed table-striped">

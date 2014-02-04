@@ -1,6 +1,7 @@
 {% extends "templates/about.html" %}
 
 {% block about_title %}:: Updates / Blog{% endblock %}
+{% block description %}{{ _('A Development blog of updates to the site.') }}{% endblock %}
 
 {% block about_content %}
   {% for update in updates %}

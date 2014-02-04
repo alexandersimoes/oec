@@ -1,12 +1,18 @@
 {% extends "templates/site.html" %}
 
 {% block head %}
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.explore.css" />
-
-<link rel="stylesheet" href="/static/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.explore.css" />
+    <link rel="stylesheet" href="/static/js/libs/jquery-ui/jquery-ui.css" type="text/css" media="all" />
+    {% if current_build.get_year()|int > g.available_years[current_build.classification][0]  %}
+    <link rel="prev" href="/explore/{{ current_build.url(year=current_build.get_year()|int-1) }}" />
+    {% endif %}
+    {% if current_build.get_year()|int < g.available_years[current_build.classification][-1]  %}
+    <link rel="next" href="/explore/{{ current_build.url(year=current_build.get_year()|int+1) }}" />
+    {% endif %}
 {% endblock %}
 
-{% block title %}: {{ current_build.get_name() }}{% endblock %}
+{% block title %}: {{ current_build.app.name }} of {{ current_build.get_name() }} ({{ current_build.get_year() }}){% endblock %}
+{% block description %}{{ current_build.get_question() }} {{ _('Data visualization of economic trade') }}.{% endblock %}
 
 {% block body %}
 <!-- <div class="app_title" id="icons">
@@ -26,7 +32,15 @@
   {% endif %}
 </div> -->
 
-<h2>{{ current_build.get_name() }}</h2>
+<div class="title">
+  {% if current_build.get_year()|int > g.available_years[current_build.classification][0]  %}
+  <a class="prev" href="/explore/{{ current_build.url(year=current_build.get_year()|int-1) }}">« previous year</a>
+  {% endif %}
+  <h2>{{ current_build.get_name() }} ({{ current_build.get_year() }})</h2>
+  {% if current_build.get_year()|int < g.available_years[current_build.classification][-1]  %}
+  <a class="next" href="/explore/{{ current_build.url(year=current_build.get_year()|int+1) }}">next year »</a>
+  {% endif %}
+</div>
 
 <!-- the left pane -->
 <div class="content">
@@ -78,7 +92,7 @@
   </div><div class="col3">
   
     <!-- table of data from visualization -->
-    <div id="text_data">
+    <div id="text_data" class="visually_hidden">
       {% set stats = current_build.top_stats(20) %}
       {% if stats.entries %}
       <h2 id="total">{{ _('Total') }}: {{ stats.total|format_currency }}</h2>
@@ -169,7 +183,7 @@
   accordion("{{ current_build.app.type }}")
   
   // hide text on load
-  d3.select("#text_data").style("display", "none");
+  // d3.select("#text_data").style("display", "none");
 
 </script>
 {% endblock %}

@@ -1,14 +1,15 @@
 {% extends "templates/site.html" %}
 
 {% block head %}
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.profile.css" />
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.table.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.profile.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.table.css" />
 {% endblock %}
 
-{% block title %}: {{ attr.get_name() }} ({{ attr.get_display_id() }}) Profile{% endblock %}
+{% block title %}: {{ _('%(prod)s (%(prod_abbrv)s) Profile of Export Destinations and Import Origins', prod=attr.get_name(), prod_abbrv=attr.get_display_id()) }}{% endblock %}
+{% block description %}{{ _('List of major leading origin and destination countries with economic indicator statistics of %(prod)s. Principle trade partners that export %(prod)s. Countries that import %(prod)s.', prod=attr.get_name()) }}{% endblock %}
 
 {% block body %}
-<h2>Learn More About Trade of {{ attr.get_name() }}</h2>
+<h2>{{ _('Learn More About Trade of %(prod)s', prod=attr.get_name()) }}</h2>
 <div class="content">
 
   <div class="col1_5">
@@ -16,12 +17,14 @@
     {% set top_countries = attr.get_top(10) %}
     {% if attr.get_yp().pci_rank %}
       <p class="eci_value">
-        {{ attr.get_name() }} is <a href="/rankings/hs/">ranked</a> <span class="rank">{{ attr.get_yp().pci_rank }}</span> with an Product Complexity Index (PCI) of {{ attr.get_yp().pci }}.
+        {% autoescape false %}
+        {{ _('%(prod)s is %(ranked)s %(rank_val)s with a Product Complexity Index (PCI) of %(pci)s', prod=attr.get_name(), ranked='<a href="/rankings/%s/">%s</a>' % (classification, _('ranked')), rank_val='<span class="rank">%s</span>' % (attr.get_yp().pci_rank), pci=attr.get_yp().pci) }}
+        {% endautoescape %}
       </p>
     {% endif %}
     {% if top_countries %}
       <p class="eci_value">
-        {{ attr.get_name() }} is the top export of {% for yo in top_countries %} {% if loop.last and loop.length > 1 %}and {% endif %}<a href="{{ yo.country.get_profile_url() }}">{{ yo.country.get_name() }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.
+        {{ _('%(prod)s is the top export of', prod=attr.get_name()) }}{% for yo in top_countries %} {% if loop.last and loop.length > 1 %}and {% endif %}<a href="{{ yo.country.get_profile_url() }}">{{ yo.country.get_name() }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.
       </p>
     {% endif %}
   </div><div class="col2">
@@ -29,7 +32,7 @@
       {% for b in builds %}
       {% set stats = b.top_stats(5) %}
       <tr>
-        <th>Top 5 {{ b.get_name() }}</th>
+        <th>{{ _('Top 5') }} {{ b.get_name() }}</th>
         <td>
           {% for entry in stats.entries %}
           {% if loop.last %}and {% endif %}<a href="{{ entry.attr.get_profile_url() }}">{{ entry.attr.get_name() }}</a> ({{ entry.share|format_percent }}){% if not loop.last %}, {% endif %}

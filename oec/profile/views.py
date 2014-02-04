@@ -86,7 +86,7 @@ def profile_country(attr_id="usa"):
 
 @mod.route('/<attr_type>/')
 @mod.route('/<attr_type>/<attr_id>/')
-@view_cache.cached(timeout=None, key_prefix=make_cache_key)
+# @view_cache.cached(timeout=None, key_prefix=make_cache_key)
 def profile_product(attr_type, attr_id="usa"):
     g.page_type = mod.name
     
@@ -119,4 +119,5 @@ def profile_product(attr_type, attr_id="usa"):
     
     return render_template("profile/product.html", 
                                 builds=builds,
+                                classification=attr_type,
                                 attr=attr)

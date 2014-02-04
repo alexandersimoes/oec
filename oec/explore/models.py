@@ -195,7 +195,7 @@ class Build(db.Model, AutoSerialize):
         
     '''Returns the URL for the specific build.'''
     def url(self, year=None):
-        year = self.year or year
+        year = year or self.year
         if not year:
             year = available_years[self.classification][-1]
         if "." in str(year) and self.app.type != "stacked":

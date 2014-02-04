@@ -57,7 +57,7 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
         flash(msg+"<script>redirect('"+redirect_url+"', 10)</script>")
 
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
-@view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
+# @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
 def explore(app_name, classification, trade_flow, origin, dest, \
                 product, year="2011"):
     g.page_type = mod.name

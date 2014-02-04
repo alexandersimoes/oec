@@ -21,27 +21,27 @@
     
     <ul>
       <li{% if category == "country" %} class="active"{% endif %}>
-        <a href="/rankings/country/">Country Rankings</a>
+        <a href="/rankings/country/">{{ _('Country Rankings') }}</a>
       </li>
       <li{% if category == "hs" %} class="active"{% endif %}>
-        <a href="/rankings/hs/">HS Product Rankings</a>
+        <a href="/rankings/hs/">{{ _('HS Product Rankings') }}</a>
       </li>
       <li{% if category == "sitc" %} class="active"{% endif %}>
-        <a href="/rankings/sitc/">SITC Product Rankings</a>
+        <a href="/rankings/sitc/">{{ _('SITC Product Rankings') }}</a>
       </li>
     </ul>
     
-    <h3>Download</h3>
+    <h3>{{ _('Download') }}</h3>
     <p>
-      <a href="/rankings/{{ category }}/year/download/">&raquo; Download year data</a><br />
-      <a href="/rankings/{{ category }}/download/">&raquo; Download all years data</a>
+      <a href="/rankings/{{ category }}/year/download/">&raquo; {{ _("Download this year's data") }}</a><br />
+      <a href="/rankings/{{ category }}/download/">&raquo; {{ _('Download all years data') }}</a>
     </p>
   
   </div><div class="col3">
   
     <div class="change_year">
         {% if year > g.available_years[category][0]  %}
-        <a class="prev" href="/rankings/{{ category }}/{{ year-1 }}/">&laquo; Previous Year</a>
+        <a class="prev" href="/rankings/{{ category }}/{{ year-1 }}/">&laquo; {{ _('Previous') }} Year</a>
         {% endif %}
         <div class="dropdown">
           <select id="change_year">
@@ -51,7 +51,7 @@
           </select>
         </div>
         {% if year < g.available_years[category][-1]  %}
-        <a class="next" href="/rankings/{{ category }}/{{ year+1 }}/">Next Year &raquo;</a>
+        <a class="next" href="/rankings/{{ category }}/{{ year+1 }}/">{{ _('Next Year') }} &raquo;</a>
         {% endif %}
       </div>
   
