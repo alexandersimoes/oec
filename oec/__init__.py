@@ -46,7 +46,7 @@ excluded_countries = ["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", \
                         "nabes", "astwn", "nacuw", "navir", "eusjm", "namaf", \
                         "afreu", "afssd", "afmyt", "eufro", "eubel", "eulux", \
                         "afswz", "afbwa", "aflso", "afnam", "napri", "namtq", \
-                        "euimn", "eulie"]
+                        "euimn", "eulie", "euddr", "eufdr"]
 
 # babel configuration for lang support
 babel = Babel(app)

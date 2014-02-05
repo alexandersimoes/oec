@@ -67,7 +67,7 @@
   
   <div class="control_container">
     <h3>{{ _('Embed') }}</h3>
-    <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://atlas.media.mit.edu/explore/embed/{{ current_build.url() }}&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
+    <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://atlas.media.mit.edu/explore/embed/{{ current_build.url() }}?controls=false&amp;lang={{ g.locale }}&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
   </div>
   
   <div class="control_container" id="share">
@@ -162,9 +162,17 @@ var viz = d3plus.viz()
     trade_flow = "{{ current_build.trade_flow }}";
     viz_height = window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
+    in_the_wild = window.parent.location.origin.indexOf("atlas.media.mit.edu") < 0 &&
+                  window.parent.location.origin.indexOf("oec.media.mit.edu") < 0 &&
+                  window.parent.location.origin.indexOf("localhost") < 0,
     q = queue()
           .defer(d3.json, "{{ current_build.data_url() }}")
           .defer(d3.json, "{{ current_build.attr_url() }}");
+
+if (in_the_wild) {
+  viz.footer("<a href='"+window.location.origin+"/explore/{{ current_build.url() }}'>Brought to you by: The Observatory of Economic Complexity</a>")
+  viz.title("{{ current_build.get_name() }}")
+}
 
 if(vars.controls == "false"){
   viz_width = window.innerWidth;
@@ -544,7 +552,7 @@ d3.selectAll("button#build").on("click", function(){
   }
   
   var curr_window = window
-  if(self!=top){
+  if(self!=top && !in_the_wild){
     curr_window = window.parent
   }
   
