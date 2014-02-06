@@ -57,7 +57,7 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
         flash(msg+"<script>redirect('"+redirect_url+"', 10)</script>")
 
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
-# @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
+@view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
 def explore(app_name, classification, trade_flow, origin, dest, \
                 product, year="2011"):
     g.page_type = mod.name
@@ -86,13 +86,6 @@ def explore(app_name, classification, trade_flow, origin, dest, \
         kwargs["sitc_id"] = product
     else:
         kwargs["hs_id"] = product
-    
-    if session.pop('new_lang', None) and g.locale != 'en':
-        flash_txt = '''We've noticed you've changed the language, if you see 
-        some translations that look odd and you think you could do better feel 
-        free to help us out by <a target="_blank" href="{0}">adding your 
-        suggestions here</a>.'''.format(current_build.googledoc_url())
-        flash(flash_txt)
     
     return render_template("explore/index.html",
         current_build = current_build,

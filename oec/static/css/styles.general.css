@@ -202,6 +202,15 @@ p {
   margin-bottom: 20px;
 }
 
+/***************/
+/* List Styles */
+/***************/
+ul, ol {
+  list-style: initial;
+  margin: initial;
+  padding: 0 0 0 40px;
+}
+
 /***********************/
 /* Sidebar Menu Styles */
 /***********************/

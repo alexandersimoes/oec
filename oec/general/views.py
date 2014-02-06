@@ -7,7 +7,7 @@ from textblob import TextBlob
 from fuzzywuzzy import process
 from markdown import markdown
 from flask import Blueprint, render_template, g, request, current_app, \
-                    session, redirect, url_for, flash, abort, jsonify
+                    session, redirect, url_for, flash, abort, jsonify, get_flashed_messages
 from flask.ext.babel import gettext
 
 import oec
@@ -74,7 +74,11 @@ def set_lang(lang):
     g.locale = get_locale(lang)
     if lang != "en":
         session['new_lang'] = True
-        # flash("We've noticed you've changed the language, if you see some translations that look odd and you think you could do better feel free to help us out **google spreadsheet link**")
+        flash_txt = '''We've noticed you've changed the language, if you see 
+        some translations that look odd and you think you could do better feel 
+        free to help us out by <a target="_blank" href="/about/translations/#{0}">
+        adding your suggestions here</a>.'''.format(lang)
+        flash(flash_txt, 'new_lang')
     return redirect(request.args.get('next') or \
                request.referrer or \
                url_for('general.home'))
@@ -382,6 +386,12 @@ def about_faqs():
     g.page_type = "about"
     g.sub_title = "faqs"
     return render_template("about/faqs.html")
+
+@mod.route('about/translations/')
+def about_translations():
+    g.page_type = "about"
+    g.sub_title = "translations"
+    return render_template("about/translations.html")
 
 @mod.route('about/updates/')
 def about_updates():

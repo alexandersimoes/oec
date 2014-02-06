@@ -3,7 +3,8 @@ from re import sub
 from itertools import groupby
 from werkzeug.datastructures import CallbackDict
 from jinja2 import Markup
-from flask import abort, current_app, make_response, Flask, jsonify, request, Response, session, g
+from flask import abort, current_app, make_response, Flask, jsonify, request, \
+                    Response, session, g, get_flashed_messages
 from functools import update_wrapper
 from datetime import datetime, date, timedelta
 from math import ceil
@@ -263,4 +264,10 @@ def make_query(data_table, url_args, lang, **kwargs):
 def make_cache_key(*args, **kwargs):
     path = request.path
     lang = g.locale
-    return (path + lang).encode('utf-8')
+    cache_key = (path + lang).encode('utf-8')
+    
+    if get_flashed_messages():
+        msgs = "|".join([msg[0] for msg in get_flashed_messages(with_categories=True)])
+        cache_key += "/"+msgs
+    
+    return cache_key
