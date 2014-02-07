@@ -10,10 +10,16 @@
 
 {% block body %}
 <h2>{{ _('Learn More About Trade of %(prod)s', prod=attr.get_name()) }}</h2>
+
 <div class="content">
 
   <div class="col1_5">
-    <p class="country_name" style="background-color:{{ attr.color }}"><img src="{{ attr.get_icon() }}" alt="{{ attr.get_name() }} icon">{{ attr.get_name() }}</p>
+    <p class="country_name">
+      <span class="icon" style="background-color:{{ attr.color }}">
+        <img src="{{ attr.get_icon() }}" alt="{{ attr.get_name() }} icon" />
+      </span>
+      {{ attr.get_name() }}
+    </p>
     {% set top_countries = attr.get_top(10) %}
     {% if attr.get_yp().pci_rank %}
       <p class="eci_value">
@@ -43,9 +49,9 @@
     </table>
   </div>
       
-  <br>
+  <br />
     
-    {% for b in builds %}
+  {% for b in builds %}
     {% set stats = b.top_stats(20) %}
     <div class="build">
       <h3>{{ b.get_question() }}</h3>
@@ -63,13 +69,12 @@
         {% endfor %}
         </table>
       </div>
-      <a class="button" href="/explore/{{ b.url() }}">View as Visualization »</a>
+      <a class="button" href="/explore/{{ b.url() }}">{{ _('View as Visualization') }} »</a>
     </div>
-    {% endfor %}
+  {% endfor %}
     
 </div> 
 {% endblock %}
-
 
 {% block js %}
 <script>

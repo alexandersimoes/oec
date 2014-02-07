@@ -14,7 +14,12 @@
 <div class="content">
     
   <div class="col1_5">
-    <p class="country_name"><img src="{{ attr.get_icon() }}" alt="{{ attr.get_name() }} icon">{{ attr.get_name() }}</p>
+    <p class="country_name">
+      <span class="icon">
+        <img src="{{ attr.get_icon() }}" alt="{{ attr.get_name() }} icon" />
+      </span>
+      {{ attr.get_name() }}
+    </p>
     {% set top_prods = attr.get_top(10) %}
     {% if attr.get_attr_yo().eci_rank %}
       <p class="eci_value">
@@ -68,10 +73,8 @@
     </div>
   {% endfor %}
 
-
 </div> 
 {% endblock %}
-
 
 {% block js %}
 <script>

@@ -15,17 +15,24 @@ p.country_name {
   font-weight: lighter;
   line-height: 30px;
   margin: 10px;
+  min-height: 40px;
   padding-left: 60px;
   padding-top: 10px;
   position: relative;
 }
 
-p.country_name img {
+span.icon {
   left: 0px;
-  margin: 0px 10px 0 0;
+  display: block;
+  height: 50px;
+  margin: 0px;
   position: absolute;
   top: 0px;
+  width: 50px;
   vertical-align: top;
+}
+
+span.icon img {
   width: 50px;
 }
 
