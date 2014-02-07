@@ -33,15 +33,15 @@
     
     <h3>{{ _('Download') }}</h3>
     <p>
-      <a href="/rankings/{{ category }}/year/download/">&raquo; {{ _("Download this year's data") }}</a><br />
-      <a href="/rankings/{{ category }}/download/">&raquo; {{ _('Download all years data') }}</a>
+      <a href="/rankings/{{ category }}/{{ year }}/?download=true">&raquo; {{ _("Download this year's data") }}</a><br />
+      <!-- <a href="/rankings/{{ category }}/?download=true">&raquo; {{ _('Download all years data') }}</a> -->
     </p>
   
   </div><div class="col3">
   
     <div class="change_year">
         {% if year > g.available_years[category][0]  %}
-        <a class="prev" href="/rankings/{{ category }}/{{ year-1 }}/">&laquo; {{ _('Previous') }} Year</a>
+        <a class="prev" href="/rankings/{{ category }}/{{ year-1 }}/">&laquo; {{ _('Previous Year') }}</a>
         {% endif %}
         <div class="dropdown">
           <select id="change_year">
@@ -71,15 +71,15 @@
           {% for r in rankings %}
           <tr>
             {% if category == "country" %}
-            <td><span>{{ r["eci_rank"] }}</span></td>
-            <td>{{ r.country.id_3char|upper }}</td>
-            <td><a href="{{ r.country.get_profile_url() }}">{{ r.country.get_name() }}</a></td>
-            <td>{{ r.eci }}</td>
+            <td><span>{{ r[2]["eci_rank"] }}</span></td>
+            <td>{{ r[0]["id_3char"]|upper }}</td>
+            <td><a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
+            <td>{{ r[2]["eci"] }}</td>
             {% else %}
-            <td><span>{{ r["pci_rank"] }}</span></td>
-            <td>{{ r.product.get_display_id() }}</td>
-            <td><a href="{{ r.product.get_profile_url() }}">{{ r.product.get_name() }}</a></td>
-            <td>{{ r.pci }}</td>
+            <td><span>{{ r[2]["pci_rank"] }}</span></td>
+            <td>{{ r[0].get_display_id() }}</td>
+            <td><a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
+            <td>{{ r[2]["pci"] }}</td>
             {% endif %}
           </tr>
           {% endfor %}

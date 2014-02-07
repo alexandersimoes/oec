@@ -99,7 +99,7 @@ class Hs(db.Model, AutoSerialize):
     hs = db.Column(db.String(6))
     color = db.Column(db.String(7))
     
-    name = db.relationship("Hs_name", backref="hs", lazy="joined")
+    name = db.relationship("Hs_name", backref="hs", lazy="dynamic")
     
     yodp_product = db.relationship("db_hs.models.Yodp", backref = 'product', lazy = 'dynamic')
     yop_product = db.relationship("db_hs.models.Yop", backref = 'product', lazy = 'dynamic')
@@ -109,9 +109,9 @@ class Hs(db.Model, AutoSerialize):
     
     def get_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
-        _name = filter(lambda x: x.lang == lang, self.name)
-        if len(_name):
-            return _name[0].name
+        name = self.name.filter_by(lang=lang).first()
+        if name:
+            return name.name
         return ""
     
     def get_display_id(self):

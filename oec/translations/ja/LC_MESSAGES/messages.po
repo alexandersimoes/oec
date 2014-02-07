@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-21 12:25-0500\n"
+"POT-Creation-Date: 2014-02-06 12:43-0500\n"
 "PO-Revision-Date: 2013-12-27 15:28-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ja <LL@li.org>\n"
@@ -18,96 +18,341 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/explore/models.py:385
+#: oec/explore/models.py:369
+msgid "Origin Country"
+msgstr "原産国"
+
+#: oec/explore/models.py:370 oec/explore/models.py:373
+#: oec/html/explore/embed.html:146
+msgid "ID"
+msgstr "ID"
+
+#: oec/explore/models.py:372
+msgid "Destination Country"
+msgstr "目的国"
+
+#: oec/explore/models.py:375
+msgid "Product Name"
+msgstr "製品名"
+
+#: oec/explore/models.py:406
 msgid "Trade Flow"
 msgstr "貿易の流れ"
 
-#: oec/explore/models.py:387
+#: oec/explore/models.py:409
 msgid "Export"
 msgstr "輸出"
 
-#: oec/explore/models.py:387
+#: oec/explore/models.py:410
 msgid "Import"
 msgstr "インポート"
 
-#: oec/explore/models.py:387
+#: oec/explore/models.py:411
 msgid "Net Export"
 msgstr "純輸出"
 
-#: oec/explore/models.py:387
+#: oec/explore/models.py:412
 msgid "Net Import"
 msgstr "純輸入"
 
-#: oec/explore/models.py:390
+#: oec/explore/models.py:417
 msgid "Classification"
 msgstr "分類"
 
-#: oec/explore/models.py:403
+#: oec/explore/models.py:431
 msgid "Start Year"
 msgstr "開始年"
 
-#: oec/explore/models.py:408
+#: oec/explore/models.py:437
 msgid "End Year"
 msgstr "終了年"
 
-#: oec/explore/models.py:413
+#: oec/explore/models.py:443
 msgid "Interval"
 msgstr "インターバル"
 
-#: oec/explore/models.py:420
+#: oec/explore/models.py:451
 msgid "Year"
 msgstr "年"
 
-#: oec/explore/models.py:430
+#: oec/explore/models.py:465
 msgid "Origin"
 msgstr "起源"
 
-#: oec/explore/models.py:440
+#: oec/explore/models.py:479
 msgid "Destination"
 msgstr "先"
 
-#: oec/explore/models.py:453
+#: oec/explore/models.py:496 oec/rankings/views.py:30 oec/rankings/views.py:35
 msgid "Product"
 msgstr "製品"
 
-#: oec/html/home.html:23
+#: oec/html/home.html:25
 msgid ""
 "The Observatory of Economic Complexity makes international trade data and"
 " economic complexity indicators available through millions of interactive"
 " visualizations."
 msgstr "経済の複雑の天文台は、インタラクティブな可視化の何百万人を通じた国際貿易データおよび経済の複雑さの指標を利用できるようになります。"
 
-#: oec/html/explore/embed.html:10 oec/html/explore/index.html:78
+#: oec/html/about/api_data.html:7
+msgid ""
+"Application programming interface (API) for querying the raw data used "
+"throughout The Observatory of Economic Complexity."
+msgstr "経済の複雑の観測所全体で使用される生データを照会するためのアプリケーション·プログラミング·インターフェース（API）。"
+
+#: oec/html/about/api_embed.html:8
+msgid ""
+"Application programming interface (API) for emedding an iframe of the "
+"visualizations used througout The Observatory of Economic Complexity on "
+"your own website."
+msgstr "あなた自身のウェブサイト上の経済の複雑の天文台througout使用ビジュアライゼーションのiframeにemeddingためのアプリケーション·プログラミング·インターフェース（API）。"
+
+#: oec/html/about/data.html:4
+msgid ""
+"HS, SITC, and Country classification with their corresponding IDs and "
+"values."
+msgstr "それに対応するIDと値を使用して、HS、SITC、カントリー分類。"
+
+#: oec/html/about/team.html:4
+msgid ""
+"Photos and descriptions of the team members involved in the creation of "
+"The Observatory."
+msgstr "天文台の創設に関与し、チームメンバーの写真と説明。"
+
+#: oec/html/about/updates.html:4
+msgid "A Development blog of updates to the site."
+msgstr "サイトの更新の開発ブログ"
+
+#: oec/html/atlas/index.html:4
+msgid ""
+"A book of complexity economics attempting to explain why some countries "
+"grow and others do not. The book uses many of the visualizations seen "
+"throughout this site."
+msgstr "いくつかの国が成長し、他の人がいない理由を説明しようとする複雑さの経済学の本。本はこのサイトを通じて見られる視覚化の多くを使用しています。"
+
+#: oec/html/explore/embed.html:8
+msgid "An emedded visualization."
+msgstr "emedded可視化。"
+
+#: oec/html/explore/embed.html:13
 msgid "Loading"
 msgstr "荷重"
 
-#: oec/html/explore/embed.html:13
+#: oec/html/explore/embed.html:19 oec/html/explore/embed.html:24
+msgid "Category"
+msgstr "カテゴリ"
+
+#: oec/html/explore/embed.html:20
+msgid "Full"
+msgstr "フル"
+
+#: oec/html/explore/embed.html:25
+msgid "Annual Growth Rate (1 year)"
+msgstr "年間成長率（1年）"
+
+#: oec/html/explore/embed.html:26
+msgid "Annual Growth Rate (5 year)"
+msgstr "年間成長率（5年）"
+
+#: oec/html/explore/embed.html:27
+msgid "Growth Value (1 year)"
+msgstr "成長値（1年）"
+
+#: oec/html/explore/embed.html:28
+msgid "Growth Value (5 year)"
+msgstr "成長値（5年）"
+
+#: oec/html/explore/embed.html:31
 msgid "Click to view more years"
 msgstr "より多くの年を見るためにクリック"
 
-#: oec/html/explore/embed.html:35
+#: oec/html/explore/embed.html:54
 msgid "Build Visualization"
 msgstr "可視化を構築"
 
-#: oec/html/explore/embed.html:38
+#: oec/html/explore/embed.html:57 oec/html/rankings/index.html:34
 msgid "Download"
 msgstr "ダウンロード"
 
-#: oec/html/explore/embed.html:46
+#: oec/html/explore/embed.html:65
 msgid "View as text"
 msgstr "テキストとして表示"
 
-#: oec/html/explore/embed.html:50
+#: oec/html/explore/embed.html:69
 msgid "Embed"
 msgstr "埋め込む"
 
-#: oec/html/explore/embed.html:55
+#: oec/html/explore/embed.html:74
 msgid "Share"
 msgstr "シェア"
 
-#: oec/html/explore/embed.html:71
+#: oec/html/explore/embed.html:90
 msgid "Short URL"
 msgstr "ショートURL"
+
+#: oec/html/explore/embed.html:147
+msgid "Export value"
+msgstr "輸出額"
+
+#: oec/html/explore/embed.html:148
+msgid "Import value"
+msgstr "輸入価額"
+
+#: oec/html/explore/embed.html:151
+msgid "value"
+msgstr "値"
+
+#: oec/html/explore/embed.html:152
+msgid "percentage"
+msgstr "割合"
+
+#: oec/html/explore/embed.html:173
+msgid "Brought to you by"
+msgstr "お届けしました"
+
+#: oec/html/explore/index.html:15
+msgid "Data visualization of economic trade"
+msgstr "経済貿易のデータの可視化"
+
+#: oec/html/explore/index.html:21 oec/html/explore/index.html:29
+#, python-format
+msgid "Flag of %(country)s"
+msgstr "の旗 %(country)s"
+
+#: oec/html/explore/index.html:37 oec/html/rankings/index.html:44
+msgid "Previous Year"
+msgstr "前の年"
+
+#: oec/html/explore/index.html:41 oec/html/rankings/index.html:54
+msgid "Next Year"
+msgstr "来年"
+
+#: oec/html/explore/index.html:98
+msgid "Total"
+msgstr "合計"
+
+#: oec/html/profile/country.html:8
+#, python-format
+msgid ""
+"%(country)s (%(country_abbrv)s) Profile of Exports, Imports and Trade "
+"Partners"
+msgstr "%(country)s (%(country_abbrv)s) 輸出、輸入、貿易パートナーのプロフィール"
+
+#: oec/html/profile/country.html:9
+#, python-format
+msgid ""
+"List of major leading exports, imports and complexity economic indicator "
+"statistics of %(country)s."
+msgstr "主要な大手の輸出、輸入との複雑な経済指標の統計のリスト %(country)s."
+
+#: oec/html/profile/country.html:9
+#, python-format
+msgid "Economy of %(country)s."
+msgstr "経済産業 %(country)s."
+
+#: oec/html/profile/country.html:9
+#, python-format
+msgid "Principle trade partners of %(country)s."
+msgstr "原則貿易パートナー %(country)s."
+
+#: oec/html/profile/country.html:9
+#, python-format
+msgid "Goods and resources of %(country)s."
+msgstr "商品や資源の %(country)s."
+
+#: oec/html/profile/country.html:12
+#, python-format
+msgid "Learn More About Trade in %(country)s"
+msgstr "貿易についてはこちらを参照してください %(country)s."
+
+#: oec/html/profile/country.html:22
+#, python-format
+msgid ""
+"%(country)s %(ranked)s %(rank_val)s with an Economic Complexity Index "
+"(ECI) of %(eci)s"
+msgstr "%(country)s %(ranked)s %(rank_val)s 経済の複雑指数（ECI）と %(eci)s"
+
+#: oec/html/profile/country.html:22 oec/html/profile/product.html:21
+msgid "is ranked"
+msgstr "ランクされています"
+
+#: oec/html/profile/country.html:28
+#, python-format
+msgid "%(country)s is the top exporter of"
+msgstr "%(country)s 上部の輸出国である"
+
+#: oec/html/profile/country.html:28 oec/html/profile/product.html:27
+msgid "and"
+msgstr "と"
+
+#: oec/html/profile/country.html:36 oec/html/profile/product.html:35
+msgid "Top 5"
+msgstr "トップ5"
+
+#: oec/html/profile/country.html:67
+msgid "View as Visualization"
+msgstr "可視化として見る"
+
+#: oec/html/profile/product.html:8
+#, python-format
+msgid ""
+"%(prod)s (%(prod_abbrv)s) Profile of Export Destinations and Import "
+"Origins"
+msgstr "%(prod)s (%(prod_abbrv)s) 輸出先と輸入起源のプロフィール"
+
+#: oec/html/profile/product.html:9
+#, python-format
+msgid ""
+"List of major leading origin and destination countries with economic "
+"indicator statistics of %(prod)s."
+msgstr "の経済指標の統計の主な大手出発地と目的地の国々のリスト %(prod)s."
+
+#: oec/html/profile/product.html:9
+#, python-format
+msgid "Principle trade partners that export %(prod)s."
+msgstr "原則貿易パートナーその輸出 %(prod)s."
+
+#: oec/html/profile/product.html:9
+#, python-format
+msgid "Countries that import %(prod)s."
+msgstr "インポート国 %(prod)s."
+
+#: oec/html/profile/product.html:12
+#, python-format
+msgid "Learn More About Trade of %(prod)s"
+msgstr "貿易についてはこちらを参照してください %(prod)s"
+
+#: oec/html/profile/product.html:21
+#, python-format
+msgid ""
+"%(prod)s %(ranked)s %(rank_val)s with a Product Complexity Index (PCI) of"
+" %(pci)s"
+msgstr "%(prod)s %(ranked)s %(rank_val)s 製品の複雑指数（PCI）と %(pci)s"
+
+#: oec/html/profile/product.html:27
+#, python-format
+msgid "%(prod)s is the top export of"
+msgstr "%(prod)s 上部の輸出である"
+
+#: oec/html/rankings/index.html:24
+msgid "Country Rankings"
+msgstr "国ランキング"
+
+#: oec/html/rankings/index.html:27
+msgid "HS Product Rankings"
+msgstr "HS製品ランキング"
+
+#: oec/html/rankings/index.html:30
+msgid "SITC Product Rankings"
+msgstr "SITC製品ランキング"
+
+#: oec/html/rankings/index.html:36
+msgid "Download this year's data"
+msgstr "今年のデータをダウンロード"
+
+#: oec/html/rankings/index.html:37
+msgid "Download all years data"
+msgstr "すべての年のデータをダウンロード"
 
 #: oec/html/templates/site.html:18
 msgid "Explore"
@@ -122,22 +367,23 @@ msgid "Atlas"
 msgstr ""
 
 #: oec/html/templates/site.html:21
-msgid "Blog"
-msgstr ""
+msgid "Rankings"
+msgstr "ランキング"
 
 #: oec/html/templates/site.html:22
 msgid "About"
 msgstr "約"
 
+#: oec/rankings/views.py:30 oec/rankings/views.py:35 oec/rankings/views.py:40
+msgid "Rank"
+msgstr "ランク"
+
+#: oec/rankings/views.py:40
+msgid "Country"
+msgstr "国"
+
 #~ msgid "Book"
 #~ msgstr "本"
 
-#~ msgid "Rankings"
-#~ msgstr "ランキング"
-
-#~ msgid "API"
-#~ msgstr "API"
-
 #~ msgid "Language"
 #~ msgstr "言語"
-

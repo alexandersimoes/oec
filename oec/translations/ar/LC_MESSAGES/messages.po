@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-21 12:25-0500\n"
+"POT-Creation-Date: 2014-02-06 12:43-0500\n"
 "PO-Revision-Date: 2013-12-27 14:47-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ar <LL@li.org>\n"
@@ -19,59 +19,76 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/explore/models.py:385
+#: oec/explore/models.py:369
+msgid "Origin Country"
+msgstr "بلد المنشأ"
+
+#: oec/explore/models.py:370 oec/explore/models.py:373
+#: oec/html/explore/embed.html:146
+msgid "ID"
+msgstr "ID"
+
+#: oec/explore/models.py:372
+msgid "Destination Country"
+msgstr "بلد المقصد"
+
+#: oec/explore/models.py:375
+msgid "Product Name"
+msgstr "اسم المنتج"
+
+#: oec/explore/models.py:406
 msgid "Trade Flow"
 msgstr "تدفق التجارة"
 
-#: oec/explore/models.py:387
+#: oec/explore/models.py:409
 msgid "Export"
 msgstr "تصدير"
 
-#: oec/explore/models.py:387
+#: oec/explore/models.py:410
 msgid "Import"
 msgstr "استيراد"
 
-#: oec/explore/models.py:387
+#: oec/explore/models.py:411
 msgid "Net Export"
 msgstr "صافي التصدير"
 
-#: oec/explore/models.py:387
+#: oec/explore/models.py:412
 msgid "Net Import"
 msgstr "صافي استيراد"
 
-#: oec/explore/models.py:390
+#: oec/explore/models.py:417
 msgid "Classification"
 msgstr "تصنيف"
 
-#: oec/explore/models.py:403
+#: oec/explore/models.py:431
 msgid "Start Year"
 msgstr "تبدأ السنة"
 
-#: oec/explore/models.py:408
+#: oec/explore/models.py:437
 msgid "End Year"
 msgstr "في نهاية السنة"
 
-#: oec/explore/models.py:413
+#: oec/explore/models.py:443
 msgid "Interval"
 msgstr "فاصل"
 
-#: oec/explore/models.py:420
+#: oec/explore/models.py:451
 msgid "Year"
 msgstr "عام"
 
-#: oec/explore/models.py:430
+#: oec/explore/models.py:465
 msgid "Origin"
 msgstr "الأصل"
 
-#: oec/explore/models.py:440
+#: oec/explore/models.py:479
 msgid "Destination"
 msgstr "غاية"
 
-#: oec/explore/models.py:453
+#: oec/explore/models.py:496 oec/rankings/views.py:30 oec/rankings/views.py:35
 msgid "Product"
 msgstr "نتاج"
 
-#: oec/html/home.html:23
+#: oec/html/home.html:25
 msgid ""
 "The Observatory of Economic Complexity makes international trade data and"
 " economic complexity indicators available through millions of interactive"
@@ -80,37 +97,279 @@ msgstr ""
 "المرصد الاقتصادي يجعل من التعقيد بيانات التجارة الدولية والمؤشرات "
 "الاقتصادية المتاحة من خلال تعقيد الملايين من تصورات تفاعلية."
 
-#: oec/html/explore/embed.html:10 oec/html/explore/index.html:78
+#: oec/html/about/api_data.html:7
+msgid ""
+"Application programming interface (API) for querying the raw data used "
+"throughout The Observatory of Economic Complexity."
+msgstr ""
+"واجهة برمجة التطبيقات (API) للاستعلام عن البيانات الخام المستخدمة في جميع"
+" أنحاء المرصد التعقيد الاقتصادي."
+
+#: oec/html/about/api_embed.html:8
+msgid ""
+"Application programming interface (API) for emedding an iframe of the "
+"visualizations used througout The Observatory of Economic Complexity on "
+"your own website."
+msgstr ""
+"واجهة برمجة التطبيقات (API) لemedding هذا IFRAME من تصورات تستخدم ثروجوت "
+"المرصد الاقتصادي التعقيد على موقع الويب الخاص بك."
+
+#: oec/html/about/data.html:4
+msgid ""
+"HS, SITC, and Country classification with their corresponding IDs and "
+"values."
+msgstr "التصنيف HS، التصنيف الموحد، والبلد مع هوياتهم المقابلة والقيم."
+
+#: oec/html/about/team.html:4
+msgid ""
+"Photos and descriptions of the team members involved in the creation of "
+"The Observatory."
+msgstr "صور وأوصاف من أعضاء الفريق المشاركين في إنشاء المرصد."
+
+#: oec/html/about/updates.html:4
+msgid "A Development blog of updates to the site."
+msgstr "ألف بلوق تطوير التحديثات إلى الموقع"
+
+#: oec/html/atlas/index.html:4
+msgid ""
+"A book of complexity economics attempting to explain why some countries "
+"grow and others do not. The book uses many of the visualizations seen "
+"throughout this site."
+msgstr ""
+"كتاب الاقتصاد تعقيد محاولة لشرح السبب في أن بعض الدول تنمو والبعض الآخر "
+"لا. الكتاب يستخدم العديد من تصورات ينظر في جميع أنحاء هذا الموقع."
+
+#: oec/html/explore/embed.html:8
+msgid "An emedded visualization."
+msgstr "تصورا متكاملا emedded."
+
+#: oec/html/explore/embed.html:13
 msgid "Loading"
 msgstr "تحميل"
 
-#: oec/html/explore/embed.html:13
+#: oec/html/explore/embed.html:19 oec/html/explore/embed.html:24
+msgid "Category"
+msgstr "فئة"
+
+#: oec/html/explore/embed.html:20
+msgid "Full"
+msgstr "كامل"
+
+#: oec/html/explore/embed.html:25
+msgid "Annual Growth Rate (1 year)"
+msgstr "معدل النمو السنوي (1 سنة)"
+
+#: oec/html/explore/embed.html:26
+msgid "Annual Growth Rate (5 year)"
+msgstr "معدل النمو السنوي (5 سنوات)"
+
+#: oec/html/explore/embed.html:27
+msgid "Growth Value (1 year)"
+msgstr "القيمة النمو (1 سنة)"
+
+#: oec/html/explore/embed.html:28
+msgid "Growth Value (5 year)"
+msgstr "القيمة النمو (5 سنوات)"
+
+#: oec/html/explore/embed.html:31
 msgid "Click to view more years"
 msgstr "انقر لعرض مزيد من السنوات"
 
-#: oec/html/explore/embed.html:35
+#: oec/html/explore/embed.html:54
 msgid "Build Visualization"
 msgstr "بناء التصور"
 
-#: oec/html/explore/embed.html:38
+#: oec/html/explore/embed.html:57 oec/html/rankings/index.html:34
 msgid "Download"
 msgstr "تحميل"
 
-#: oec/html/explore/embed.html:46
+#: oec/html/explore/embed.html:65
 msgid "View as text"
 msgstr "عرض كنص"
 
-#: oec/html/explore/embed.html:50
+#: oec/html/explore/embed.html:69
 msgid "Embed"
 msgstr "تضمين"
 
-#: oec/html/explore/embed.html:55
+#: oec/html/explore/embed.html:74
 msgid "Share"
 msgstr "حصة"
 
-#: oec/html/explore/embed.html:71
+#: oec/html/explore/embed.html:90
 msgid "Short URL"
 msgstr "URL قصيرة"
+
+#: oec/html/explore/embed.html:147
+msgid "Export value"
+msgstr "قيمة الصادرات"
+
+#: oec/html/explore/embed.html:148
+msgid "Import value"
+msgstr "قيمة الواردات"
+
+#: oec/html/explore/embed.html:151
+msgid "value"
+msgstr "قيمة"
+
+#: oec/html/explore/embed.html:152
+msgid "percentage"
+msgstr "نسبة مئوية"
+
+#: oec/html/explore/embed.html:173
+msgid "Brought to you by"
+msgstr "يقدمها لك"
+
+#: oec/html/explore/index.html:15
+msgid "Data visualization of economic trade"
+msgstr "التصور بيانات التجارة الاقتصادية"
+
+#: oec/html/explore/index.html:21 oec/html/explore/index.html:29
+#, python-format
+msgid "Flag of %(country)s"
+msgstr "علم %(country)s"
+
+#: oec/html/explore/index.html:37 oec/html/rankings/index.html:44
+msgid "Previous Year"
+msgstr "السنة السابقة"
+
+#: oec/html/explore/index.html:41 oec/html/rankings/index.html:54
+msgid "Next Year"
+msgstr "العام المقبل"
+
+#: oec/html/explore/index.html:98
+msgid "Total"
+msgstr "مجموع"
+
+#: oec/html/profile/country.html:8
+#, python-format
+msgid ""
+"%(country)s (%(country_abbrv)s) Profile of Exports, Imports and Trade "
+"Partners"
+msgstr ""
+"%(country)s (%(country_abbrv)s) الملف الشخصى الصادرات والواردات والتجارة "
+"الشركاء"
+
+#: oec/html/profile/country.html:9
+#, python-format
+msgid ""
+"List of major leading exports, imports and complexity economic indicator "
+"statistics of %(country)s."
+msgstr ""
+"قائمة الصادرات الرئيسية الرائدة والواردات وإحصاءات مؤشر اقتصادي تعقيد "
+"%(country)s."
+
+#: oec/html/profile/country.html:9
+#, python-format
+msgid "Economy of %(country)s."
+msgstr "اقتصاد %(country)s."
+
+#: oec/html/profile/country.html:9
+#, python-format
+msgid "Principle trade partners of %(country)s."
+msgstr "الشركاء التجاريين مبدأ %(country)s."
+
+#: oec/html/profile/country.html:9
+#, python-format
+msgid "Goods and resources of %(country)s."
+msgstr "السلع والموارد من %(country)s."
+
+#: oec/html/profile/country.html:12
+#, python-format
+msgid "Learn More About Trade in %(country)s"
+msgstr "تعلم المزيد عن التجارة في %(country)s."
+
+#: oec/html/profile/country.html:22
+#, python-format
+msgid ""
+"%(country)s %(ranked)s %(rank_val)s with an Economic Complexity Index "
+"(ECI) of %(eci)s"
+msgstr ""
+"%(country)s %(ranked)s %(rank_val)s مع مؤشر التعقيد الاقتصادي (ECI) من "
+"%(eci)s"
+
+#: oec/html/profile/country.html:22 oec/html/profile/product.html:21
+msgid "is ranked"
+msgstr "يأتي في المرتبة"
+
+#: oec/html/profile/country.html:28
+#, python-format
+msgid "%(country)s is the top exporter of"
+msgstr "%(country)s هي المصدر الأعلى لل"
+
+#: oec/html/profile/country.html:28 oec/html/profile/product.html:27
+msgid "and"
+msgstr "و"
+
+#: oec/html/profile/country.html:36 oec/html/profile/product.html:35
+msgid "Top 5"
+msgstr "أعلى 5"
+
+#: oec/html/profile/country.html:67
+msgid "View as Visualization"
+msgstr "كما عرض التصور"
+
+#: oec/html/profile/product.html:8
+#, python-format
+msgid ""
+"%(prod)s (%(prod_abbrv)s) Profile of Export Destinations and Import "
+"Origins"
+msgstr "%(prod)s (%(prod_abbrv)s) الملف الشخصى وجهات التصدير والاستيراد أصول"
+
+#: oec/html/profile/product.html:9
+#, python-format
+msgid ""
+"List of major leading origin and destination countries with economic "
+"indicator statistics of %(prod)s."
+msgstr ""
+"قائمة البلدان الأصلية وبلدان المقصد الرائدة الرئيسية مع إحصاءات المؤشر "
+"الاقتصادي لل %(prod)s."
+
+#: oec/html/profile/product.html:9
+#, python-format
+msgid "Principle trade partners that export %(prod)s."
+msgstr "الشركاء التجاريين مبدأ أن تصدير %(prod)s."
+
+#: oec/html/profile/product.html:9
+#, python-format
+msgid "Countries that import %(prod)s."
+msgstr "الشركاء التجاريين مبدأ أن تصدير %(prod)s."
+
+#: oec/html/profile/product.html:12
+#, python-format
+msgid "Learn More About Trade of %(prod)s"
+msgstr "تعلم المزيد عن التجارة %(prod)s."
+
+#: oec/html/profile/product.html:21
+#, python-format
+msgid ""
+"%(prod)s %(ranked)s %(rank_val)s with a Product Complexity Index (PCI) of"
+" %(pci)s"
+msgstr "%(prod)s %(ranked)s %(rank_val)s مع مؤشر التعقيد المنتج (PCI) من %(pci)s"
+
+#: oec/html/profile/product.html:27
+#, python-format
+msgid "%(prod)s is the top export of"
+msgstr "%(prod)s هو تصدير أعلى"
+
+#: oec/html/rankings/index.html:24
+msgid "Country Rankings"
+msgstr "تصنيفات البلاد"
+
+#: oec/html/rankings/index.html:27
+msgid "HS Product Rankings"
+msgstr "HS تصنيفات المنتج"
+
+#: oec/html/rankings/index.html:30
+msgid "SITC Product Rankings"
+msgstr "التصنيف الموحد تصنيفات المنتج"
+
+#: oec/html/rankings/index.html:36
+msgid "Download this year's data"
+msgstr "تحميل البيانات هذا العام"
+
+#: oec/html/rankings/index.html:37
+msgid "Download all years data"
+msgstr "تحميل جميع البيانات سنوات"
 
 #: oec/html/templates/site.html:18
 msgid "Explore"
@@ -125,18 +384,23 @@ msgid "Atlas"
 msgstr ""
 
 #: oec/html/templates/site.html:21
-msgid "Blog"
-msgstr ""
+msgid "Rankings"
+msgstr "تصنيفات"
 
 #: oec/html/templates/site.html:22
 msgid "About"
 msgstr "حول"
 
+#: oec/rankings/views.py:30 oec/rankings/views.py:35 oec/rankings/views.py:40
+msgid "Rank"
+msgstr "مرتبة"
+
+#: oec/rankings/views.py:40
+msgid "Country"
+msgstr "بلد"
+
 #~ msgid "Book"
 #~ msgstr "كتاب"
-
-#~ msgid "Rankings"
-#~ msgstr "تصنيفات"
 
 #~ msgid "API"
 #~ msgstr "API"
@@ -144,3 +408,14 @@ msgstr "حول"
 #~ msgid "Language"
 #~ msgstr "لغة"
 
+#~ msgid "Blog"
+#~ msgstr ""
+
+#~ msgid ""
+#~ msgstr ""
+
+#~ msgid "ranked"
+#~ msgstr ""
+
+#~ msgid "App Selection"
+#~ msgstr "علم %(country)s"

@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block title %}: {{ _('%(prod)s (%(prod_abbrv)s) Profile of Export Destinations and Import Origins', prod=attr.get_name(), prod_abbrv=attr.get_display_id()) }}{% endblock %}
-{% block description %}{{ _('List of major leading origin and destination countries with economic indicator statistics of %(prod)s. Principle trade partners that export %(prod)s. Countries that import %(prod)s.', prod=attr.get_name()) }}{% endblock %}
+{% block description %}{{ _('List of major leading origin and destination countries with economic indicator statistics of %(prod)s.', prod=attr.get_name()) }} {{ _('Principle trade partners that export %(prod)s.', prod=attr.get_name()) }} {{ _('Countries that import %(prod)s.', prod=attr.get_name()) }}{% endblock %}
 
 {% block body %}
 <h2>{{ _('Learn More About Trade of %(prod)s', prod=attr.get_name()) }}</h2>
@@ -18,13 +18,13 @@
     {% if attr.get_yp().pci_rank %}
       <p class="eci_value">
         {% autoescape false %}
-        {{ _('%(prod)s is %(ranked)s %(rank_val)s with a Product Complexity Index (PCI) of %(pci)s', prod=attr.get_name(), ranked='<a href="/rankings/%s/">%s</a>' % (classification, _('ranked')), rank_val='<span class="rank">%s</span>' % (attr.get_yp().pci_rank), pci=attr.get_yp().pci) }}
+        {{ _('%(prod)s %(ranked)s %(rank_val)s with a Product Complexity Index (PCI) of %(pci)s', prod=attr.get_name(), ranked='<a href="/rankings/%s/">%s</a>' % (classification, _('is ranked')), rank_val='<span class="rank">%s</span>' % (attr.get_yp().pci_rank), pci=attr.get_yp().pci) }}
         {% endautoescape %}
       </p>
     {% endif %}
     {% if top_countries %}
       <p class="eci_value">
-        {{ _('%(prod)s is the top export of', prod=attr.get_name()) }}{% for yo in top_countries %} {% if loop.last and loop.length > 1 %}and {% endif %}<a href="{{ yo.country.get_profile_url() }}">{{ yo.country.get_name() }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.
+        {{ _('%(prod)s is the top export of', prod=attr.get_name()) }}{% for yo in top_countries %} {% if loop.last and loop.length > 1 %}{{ _('and') }} {% endif %}<a href="{{ yo.country.get_profile_url() }}">{{ yo.country.get_name() }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.
       </p>
     {% endif %}
   </div><div class="col2">

@@ -28,6 +28,11 @@ header a#logo {
 /********************/
 /* Nav Link Styling */
 /********************/
+header nav ul {
+  margin: 0;
+  padding: 0;
+}
+
 header nav ul li {
   display: inline-block;
   margin: 6px 0px;

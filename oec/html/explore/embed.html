@@ -16,16 +16,16 @@
   <div id="viz"></div>
   <div id="ui">
     <div id="depth">
-      <input type="radio" name="nesting" value="0">Category
-      <input type="radio" name="nesting" value="1" checked="checked">Full
+      <input type="radio" name="nesting" value="0">{{ _('Category') }}
+      <input type="radio" name="nesting" value="1" checked="checked">{{ _('Full') }}
     </div>
     <div id="color">
       <select>
-        <option value="color">Category</option>
-        <option value="val_growth_pct">Annual Growth Rate (1 year)</option>
-        <option value="val_growth_pct_5">Annual Growth Rate (5 year)</option>
-        <option value="val_growth_val">Growth Value (1 year)</option>
-        <option value="val_growth_val_5">Growth Value (5 year)</option>
+        <option value="color">{{ _('Category') }}</option>
+        <option value="val_growth_pct">{{ _('Annual Growth Rate (1 year)') }}</option>
+        <option value="val_growth_pct_5">{{ _('Annual Growth Rate (5 year)') }}</option>
+        <option value="val_growth_val">{{ _('Growth Value (1 year)') }}</option>
+        <option value="val_growth_val_5">{{ _('Growth Value (5 year)') }}</option>
       </select>
     </div>
     <div id="more_years"><button>{{ _('Click to view more years') }} &raquo;</button></div>
@@ -143,13 +143,13 @@ var viz = d3plus.viz()
                 if(key == "display_id"){ return text.toUpperCase(); }
               }
               if(text){
-                if(text == "display_id"){ return "ID"; }
-                if(text == "export_val"){ return "Export value"; }
-                if(text == "import_val"){ return "Import value"; }
+                if(text == "display_id"){ return "{{ _('ID') }}"; }
+                if(text == "export_val"){ return "{{ _('Export value') }}"; }
+                if(text == "import_val"){ return "{{ _('Import value') }}"; }
                 if(text.indexOf("growth") > -1){ 
                   text = text.replace(/_/g," ");
-                  text = text.replace(/val/g,"value");
-                  text = text.replace(/pct/g,"percentage");
+                  text = text.replace(/val/g,"{{ _('value') }}");
+                  text = text.replace(/pct/g,"{{ _('percentage') }}");
                   return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
                 }
                 return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
@@ -170,7 +170,7 @@ var viz = d3plus.viz()
           .defer(d3.json, "{{ current_build.attr_url() }}");
 
 if (in_the_wild) {
-  viz.footer("<a href='"+window.location.origin+"/explore/{{ current_build.url() }}'>Brought to you by: The Observatory of Economic Complexity</a>")
+  viz.footer("<a href='"+window.location.origin+"/explore/{{ current_build.url() }}'>{{ _('Brought to you by') }}: The Observatory of Economic Complexity</a>")
   viz.title("{{ current_build.get_name() }}")
 }
 

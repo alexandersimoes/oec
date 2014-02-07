@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block title %}: {{ _('%(country)s (%(country_abbrv)s) Profile of Exports, Imports and Trade Partners', country=attr.get_name(), country_abbrv=attr.get_display_id()|upper) }}{% endblock %}
-{% block description %}{{ _('List of major leading exports, imports and complexity economic indicator statistics of %(country)s. Economy of %(country)s. Principle trade partners of %(country)s. Goods and resources of %(country)s.', country=attr.get_name()) }}{% endblock %}
+{% block description %}{{ _('List of major leading exports, imports and complexity economic indicator statistics of %(country)s.', country=attr.get_name()) }} {{ _('Economy of %(country)s.', country=attr.get_name()) }} {{ _('Principle trade partners of %(country)s.', country=attr.get_name()) }} {{ _('Goods and resources of %(country)s.', country=attr.get_name()) }}{% endblock %}
 
 {% block body %}
 <h2>{{ _('Learn More About Trade in %(country)s', country=attr.get_name()) }}</h2>
@@ -19,13 +19,13 @@
     {% if attr.get_attr_yo().eci_rank %}
       <p class="eci_value">
         {% autoescape false %}
-        {{ _('%(country)s is %(ranked)s %(rank_val)s with an Economic Complexity Index (ECI) of %(eci)s', country=attr.get_name(), ranked='<a href="/rankings/country/">%s</a>' % (_('ranked')), rank_val='<span class="rank">%s</span>' % (attr.get_attr_yo().eci_rank), eci=attr.get_attr_yo().eci) }}
+        {{ _('%(country)s %(ranked)s %(rank_val)s with an Economic Complexity Index (ECI) of %(eci)s', country=attr.get_name(), ranked='<a href="/rankings/country/">%s</a>' % (_('is ranked')), rank_val='<span class="rank">%s</span>' % (attr.get_attr_yo().eci_rank), eci=attr.get_attr_yo().eci) }}
         {% endautoescape %}
       </p>
     {% endif %}
     {% if top_prods %}
       <p class="eci_value">
-        {{ _('%(country)s is the top exporter of', country=attr.get_name()) }}{% for yp in top_prods %} {% if loop.last and loop.length > 1 %}and {% endif %}<a href="{{ yp.product.get_profile_url() }}">{{ yp.product.get_name() }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.
+        {{ _('%(country)s is the top exporter of', country=attr.get_name()) }}{% for yp in top_prods %} {% if loop.last and loop.length > 1 %}{{ _('and') }} {% endif %}<a href="{{ yp.product.get_profile_url() }}">{{ yp.product.get_name() }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.
       </p>
     {% endif %}
   </div><div class="col2">
