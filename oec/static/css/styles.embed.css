@@ -123,6 +123,7 @@ div#loading > h2 {
 #app #color,
 #app #more_years {
   display: inline-block;
+  vertical-align: top;
 }
 #app #timeline button {
   font-size: 15px;
