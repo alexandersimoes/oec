@@ -13,7 +13,7 @@ class Country(db.Model, AutoSerialize):
     color = db.Column(db.String(7))
     comtrade_name = db.Column(db.String(255))
     
-    name = db.relationship("Country_name", backref="country", lazy="joined")
+    name = db.relationship("Country_name", backref="country", lazy="dynamic")
     
     # attr_yo_origin = db.relationship("db_attr.models.Yo", backref = 'origin', lazy = 'dynamic')
     attr_yo = db.relationship("db_attr.models.Yo", backref = 'country', lazy = 'dynamic')
@@ -35,9 +35,9 @@ class Country(db.Model, AutoSerialize):
     
     def get_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
-        _name = filter(lambda x: x.lang == lang, self.name)
-        if len(_name):
-            return _name[0].name
+        name = self.name.filter_by(lang=lang).first()
+        if name:
+            return name.name
         return ""
     
     def get_display_id(self):
@@ -81,7 +81,7 @@ class Country_name(db.Model, AutoSerialize):
 
     __tablename__ = 'attr_country_name'
     
-    country_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
+    origin_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
     lang = db.Column(db.String(5), primary_key=True)
     name = db.Column(db.String(255))
     gender = db.Column(db.String(1))
@@ -89,7 +89,7 @@ class Country_name(db.Model, AutoSerialize):
     article = db.Column(db.Boolean())
     
     def __repr__(self):
-        return '<Country Name %r:%r>' % (self.country_id, self.lang)
+        return '<Country Name %r:%r>' % (self.origin_id, self.lang)
 
 class Hs(db.Model, AutoSerialize):
 
@@ -172,7 +172,7 @@ class Sitc(db.Model, AutoSerialize):
     sitc = db.Column(db.String(6))
     color = db.Column(db.String(7))
     
-    name = db.relationship("Sitc_name", backref="sitc", lazy="joined")
+    name = db.relationship("Sitc_name", backref="sitc", lazy="dynamic")
     
     yodp_product = db.relationship("db_sitc.models.Yodp", backref = 'product', lazy = 'dynamic')
     yop_product = db.relationship("db_sitc.models.Yop", backref = 'product', lazy = 'dynamic')
@@ -182,9 +182,9 @@ class Sitc(db.Model, AutoSerialize):
     
     def get_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
-        _name = filter(lambda x: x.lang == lang, self.name)
-        if len(_name):
-            return _name[0].name
+        name = self.name.filter_by(lang=lang).first()
+        if name:
+            return name.name
         return ""
     
     def get_display_id(self):

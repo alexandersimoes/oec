@@ -21,7 +21,7 @@ def rankings_redirect():
 
 @mod.route('/<category>/')
 @mod.route('/<category>/<int:year>/')
-# @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
+@view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
 def rankings(category=None,year=None):    
     g.page_type = mod.name
     
@@ -43,51 +43,42 @@ def rankings(category=None,year=None):
         return redirect(url_for('.rankings', category=category, year=available_years[category][-1]))
     
     if category == "sitc":
+        Attr, Attr_name, Attr_data, attr_id, index, rank = [Sitc, Sitc_name, Yp_sitc, "sitc_id", "pci", "pci_rank"]
         cols = [gettext("Rank"), "SITC", gettext("Product"), "PCI Value"]
-        rankings = db.session.query(Sitc, Sitc_name, Yp_sitc) \
-                    .filter(Sitc_name.sitc_id == Sitc.id) \
-                    .filter(Yp_sitc.sitc_id == Sitc.id) \
-                    .filter(Sitc_name.lang == g.locale) \
-                    .filter(Yp_sitc.pci != None) \
-                    .order_by(Yp_sitc.pci_rank)
-        if not download_all:
-            rankings = rankings.filter(Yp_sitc.year == year)
-        rankings = rankings.all()
-        if download:
-            writer.writerow([unicode(c).encode("utf-8") for c in cols])
-            for r in rankings:
-                writer.writerow([r[2].pci_rank, r[0].get_display_id(), unicode(r[1].name).encode("utf-8"), r[2].pci])
     
     elif category == "hs":
+        Attr, Attr_name, Attr_data, attr_id, index, rank = [Hs, Hs_name, Yp_hs, "hs_id", "pci", "pci_rank"]
         cols = [gettext("Rank"), "HS", gettext("Product"), "PCI Value"]
-        rankings = db.session.query(Hs, Hs_name, Yp_hs) \
-                    .filter(Hs_name.hs_id == Hs.id) \
-                    .filter(Yp_hs.hs_id == Hs.id) \
-                    .filter(Yp_hs.year == year) \
-                    .filter(Hs_name.lang == g.locale) \
-                    .filter(Yp_hs.pci != None) \
-                    .order_by(Yp_hs.pci_rank).all()
-        if download:
-            writer.writerow([unicode(c).encode("utf-8") for c in cols])
-            for r in rankings:
-                writer.writerow([r[2].pci_rank, r[0].get_display_id(), unicode(r[1].name).encode("utf-8"), r[2].pci])
     
     elif category == "country":
+        Attr, Attr_name, Attr_data, attr_id, index, rank = [Country, Country_name, Yo, "origin_id", "eci", "eci_rank"]
         cols = [gettext("Rank"), "Abbrv", gettext("Country"), "ECI Value"]
-        rankings = db.session.query(Country, Country_name, Yo) \
-                    .filter(Country_name.country_id == Country.id) \
-                    .filter(Yo.origin_id == Country.id) \
-                    .filter(Yo.year == year) \
-                    .filter(Country_name.lang == g.locale) \
-                    .filter(Yo.eci != None) \
-                    .order_by(Yo.eci_rank).all()
-        if download:
-            writer.writerow([unicode(c).encode("utf-8") for c in cols])
-            for r in rankings:
-                writer.writerow([r[2].eci_rank, r[0].get_display_id(), unicode(r[1].name).encode("utf-8"), r[2].eci])
     
-    if download:    
-        content_disposition = "attachment;filename={0}_{1}_ranking.csv".format(category, year)
+    rankings = db.session.query(Attr, Attr_name, Attr_data) \
+                .filter(getattr(Attr_name, attr_id) == Attr.id) \
+                .filter(getattr(Attr_data, attr_id) == Attr.id) \
+                .filter(Attr_name.lang == g.locale) \
+                .filter(getattr(Attr_data, index) != None)
+    
+    if download_all:
+        title = "{0}_all_ranking_{1}".format(category, g.locale)
+        rankings = rankings.order_by(Attr_data.year).order_by(getattr(Attr_data, rank))
+    else:
+        title = "{0}_{1}_ranking_{2}".format(category, year, g.locale)
+        rankings = rankings.filter(Attr_data.year == year).order_by(getattr(Attr_data, rank))
+    
+    rankings = rankings.all()
+    
+    if download:
+        cols = [gettext("Year")] + cols
+        writer.writerow([unicode(c).encode("utf-8") for c in cols])
+        for r in rankings:
+            writer.writerow([r[2].year, \
+                                getattr(r[2], rank), \
+                                r[0].get_display_id(), \
+                                unicode(r[1].name).encode("utf-8"), \
+                                getattr(r[2], index)])
+        content_disposition = "attachment;filename={0}.csv".format(title)
         content_disposition = content_disposition.replace(",", "_")
         return Response(s.getvalue(), 
                             mimetype="text/csv;charset=UTF-8", 
