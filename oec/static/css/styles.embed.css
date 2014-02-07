@@ -178,6 +178,12 @@ div#loading > h2 {
   padding: 5px;
   width: 180px;
 }
+#controls button#build {
+  border: solid 3px #0085BF;
+  background: white;
+  color: #0085BF;
+  font-weight: bold;
+}
 #controls hr {
   background: #cccccc;
   clear: both;
