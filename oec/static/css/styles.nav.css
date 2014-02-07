@@ -68,7 +68,8 @@ header #d3plus_button_language_selector {
 
 header #search {
   height: 15px;
-  width: 135px;
+  margin-left: 5px;
+  width: 125px;
 }
 
 /******************/
