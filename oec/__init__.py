@@ -43,7 +43,7 @@ available_years = {"sitc": range(1962, 2011), "hs": range(1995, 2012), \
 
 # Global for excluded countries
 excluded_countries = ["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", \
-                        "nabes", "astwn", "nacuw", "navir", "eusjm", "namaf", \
+                        "nabes", "nacuw", "navir", "eusjm", "namaf", \
                         "afreu", "afssd", "afmyt", "eufro", "eubel", "eulux", \
                         "afswz", "afbwa", "aflso", "afnam", "napri", "namtq", \
                         "euimn", "eulie", "euddr", "eufdr"]
