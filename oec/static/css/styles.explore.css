@@ -3,7 +3,7 @@ body.explore #sidebar {
 }
 
 body.explore .content .col3 {
-  padding: 10px 0px;
+  padding: 10px 0px 0px 0px;
   width: 800px;
 }
 
@@ -16,17 +16,25 @@ body.explore .content .col3 {
 
 .title a.prev,
 .title a.next {
-  bottom: 0;
+  bottom: 13px;
+  color: #666;
   display: inline-block;
+  letter-spacing: 1px;
   padding: 3px;
   position: absolute;
 }
 .title h2 {
-  margin: 0 150px;
+  margin: 0px 150px 10px;
 }
+
+.title a.prev {
+  text-align: left;
+  left: 5px;
+}
+
 .title a.next {
   text-align: right;
-  right: 0;
+  right: 5px;
 }
 
 /* change product classification */
