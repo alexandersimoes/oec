@@ -138,11 +138,12 @@ div#loading > h2 {
 /* Controls */
 /************/
 #controls {
-  display: none;
+  display: block;
   font-size:90%;
   right: 0px;
   margin: 20px 0 0 0;
   position: absolute;
+  visibility: hidden;
   width: 200px;
 }
 #controls #show_hide {

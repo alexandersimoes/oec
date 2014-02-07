@@ -243,7 +243,7 @@ function format_data(error, raw_data, raw_attrs, raw_other){
 /* to be executed after app has been drawn for first time */
 function finish(data, attrs){
   d3.select("#controls")
-    .style("display", "inline-block")
+    .style("visibility", "visible")
     
   d3.select("#loading")
     .style("display", "none")
