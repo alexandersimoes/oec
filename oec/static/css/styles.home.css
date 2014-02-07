@@ -57,3 +57,92 @@ only screen and (                min-resolution: 2dppx) {
   font-size: 14px;
   margin: 5px !important;
 }
+
+/***************/
+/* Other Sites */
+/***************/
+body.home .content {
+  margin: 120px auto 50px;
+}
+
+body.home .content h3 {
+  margin: 10px;
+}
+
+body.home .content .col2 {
+  margin-left: 50px;
+}
+
+body.home .content .col2,
+body.home .content .col1 {
+  padding-bottom: 0px;
+}
+
+div.project {
+  color: #888;
+  display: inline-block;
+  margin-bottom: 10px;
+  min-height: 100px;
+  padding-left: 120px;
+  padding-top: 20px;
+  position: relative;
+  -webkit-transition: color .1s;
+          transition: color .1s;
+  vertical-align: top;
+  width: 150px;
+}
+
+div.project:before {
+  background-position: center;
+  background-size: 100%;
+  content: "";
+  display: block;
+  height: 100px;
+  left: 10px;
+  position: absolute;
+  top: 0px;
+  -webkit-transition: background-image .1s;
+          transition: background-image .1s;
+  width: 100px;
+  vertical-align: top;
+}
+
+div.project:hover {
+  color: #333;
+  cursor: pointer;
+}
+
+div#pantheon:before {
+  background-image: url("/static/img/home/sites/pantheon_bw.png");
+}
+div#pantheon:hover:before {
+  background-image: url("/static/img/home/sites/pantheon_color.png");
+}
+
+div#placepulse:before {
+  background-image: url("/static/img/home/sites/placepulse_bw.png");
+}
+div#placepulse:hover:before {
+  background-image: url("/static/img/home/sites/placepulse_color.png");
+}
+
+div#immersion:before {
+  background-image: url("/static/img/home/sites/immersion_bw.png");
+}
+div#immersion:hover:before {
+  background-image: url("/static/img/home/sites/immersion_color.png");
+}
+
+div#participie:before {
+  background-image: url("/static/img/home/sites/participie_bw.png");
+}
+div#participie:hover:before {
+  background-image: url("/static/img/home/sites/participie_color.png");
+}
+
+div#dataviva:before {
+  background-image: url("/static/img/home/sites/dataviva_bw.png");
+}
+div#dataviva:hover:before {
+  background-image: url("/static/img/home/sites/dataviva_color.png");
+}
