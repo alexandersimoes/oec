@@ -16,8 +16,8 @@
   <div id="viz"></div>
   <div id="ui">
     <div id="depth">
-      <input type="radio" name="nesting" value="0">{{ _('Category') }}
-      <input type="radio" name="nesting" value="1" checked="checked">{{ _('Full') }}
+      <input type="radio" name="nesting" value="0" id="nesting0"><label for="nesting0">{{ _('Category') }}</label>
+      <input type="radio" name="nesting" value="1" id="nesting1" checked="checked"><label for="nesting1">{{ _('Full') }}</label>
     </div>
     <div id="color">
       <select>
@@ -115,16 +115,66 @@
 <script>
 
 d3.selectAll(".dropdown_container")
-  .each(function(){
-    d3plus.ui()
-      .type("drop")
+  .each(function(d,i){
+    
+    var ui = d3plus.ui()
       .data(d3.select(this).select("select"))
       .width(180)
       .padding(5)
       .font(12)
       .color("#0085BF")
-      .draw()
+      .font({
+        "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+        "size": 12,
+        "weight": "lighter",
+        "spacing": 1,
+        "align": "left"
+      })
+    
+    if (this.id == "year") {
+      ui.search(false)
+    }
+    
+    if (this.id == "classification") {
+      ui.type("radio")
+    }
+    else {
+      ui.type("drop")
+    }
+    
+    ui.draw()
+    
   })
+  
+d3plus.ui()
+  .type("radio")
+  .data("[name=nesting]")
+  .color("#0085BF")
+  .margin(5)
+  .font({
+    "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+    "size": 12,
+    "weight": "lighter",
+    "spacing": 1,
+    "align": "left"
+  })
+  .callback(change_depth)
+  .draw()
+  
+d3plus.ui()
+  .type("drop")
+  .data("div#color select")
+  .color("#0085BF")
+  .margin(5)
+  .font({
+    "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+    "size": 12,
+    "weight": "lighter",
+    "spacing": 1,
+    "align": "left"
+  })
+  .callback(change_color)
+  .draw()
 
 /* init vars */
 var viz = d3plus.viz()
@@ -677,13 +727,11 @@ d3.selectAll("#download a").on("click", function(){
   d3.event.preventDefault();
 })
 
-d3.selectAll("#depth input").on("change", function(d){
-  var new_depth = d3.select(this).property("value");
-  viz.depth(new_depth).draw();
-})
+function change_depth(d){
+  viz.depth(d).draw();
+}
 
-d3.selectAll("#color select").on("change", function(d){
-  var new_color = d3.select(this[this.selectedIndex]).property("value");
+function change_color(new_color){
   var new_tooltip = viz.tooltip()["value"]
   new_tooltip["Values"] = [trade_flow+"_val"]
   if(new_color != "color"){
@@ -691,7 +739,7 @@ d3.selectAll("#color select").on("change", function(d){
     new_tooltip["Values"] = [trade_flow+"_val", trade_flow+"_val_growth_pct", trade_flow+"_val_growth_pct_5", trade_flow+"_val_growth_val", trade_flow+"_growth_val_5"]
   }
   viz.color(new_color).tooltip(new_tooltip).draw()
-})
+}
 
 /////////////////////////////
 // Initialize page --
