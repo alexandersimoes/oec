@@ -118,6 +118,7 @@ div#loading > h2 {
   text-align: center;
   visibility: hidden;
 }
+#app #layout,
 #app #timeline,
 #app #depth,
 #app #color,

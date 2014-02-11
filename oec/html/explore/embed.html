@@ -15,6 +15,12 @@
   <div id="text"></div>
   <div id="viz"></div>
   <div id="ui">
+    {% if current_build.app.type == "stacked" %}
+    <div id="layout">
+      <input type="radio" name="layout" value="linear" id="layout_value" checked="checked"><label for="layout_value">{{ _('Value') }}</label>
+      <input type="radio" name="layout" value="share" id="layout_share" ><label for="layout_share">{{ _('Share') }}</label>
+    </div>
+    {% endif %}
     {% if current_build.app.type == "tree_map" or current_build.app.type == "stacked" %}
     <div id="depth">
       <input type="radio" name="nesting" value="0" id="nesting0" {% if current_build.app.type =="stacked" %}checked="checked"{% endif %}><label for="nesting0">{{ _('Category') }}</label>
@@ -152,6 +158,22 @@ d3.selectAll(".dropdown_container")
     
   })
 
+{% if current_build.app.type == "stacked" %}
+d3plus.ui()
+  .type("radio")
+  .data("[name=layout]")
+  .color("#0085BF")
+  .margin(5)
+  .font({
+    "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+    "size": 12,
+    "weight": "lighter",
+    "spacing": 1,
+    "align": "left"
+  })
+  .callback(change_layout)
+  .draw()
+{% endif %}
 {% if current_build.app.type == "tree_map" or current_build.app.type == "stacked" %}
 d3plus.ui()
   .type("radio")
@@ -742,6 +764,9 @@ d3.selectAll("#download a").on("click", function(){
 
 function change_depth(d){
   viz.depth(d).draw();
+}
+function change_layout(d){
+  viz.y({"scale": d}).draw();
 }
 
 function change_color(new_color){
