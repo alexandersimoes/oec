@@ -133,8 +133,11 @@ d3.selectAll(".dropdown_container")
         "align": "left"
       })
     
-    if (this.id == "year") {
+    if (this.id.indexOf("year") >= 0) {
       ui.search(false)
+      if(this.id.indexOf("start") >=0 || this.id.indexOf("end") >=0){
+        ui.width(75)
+      }
     }
     
     if (this.id == "classification") {
@@ -144,6 +147,7 @@ d3.selectAll(".dropdown_container")
       ui.type("drop")
     }
     
+    // if(this.id.indexOf("year") < 0)
     ui.draw()
     
   })
