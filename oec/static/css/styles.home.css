@@ -61,30 +61,30 @@ only screen and (                min-resolution: 2dppx) {
 /***************/
 /* Other Sites */
 /***************/
-body.home .content {
-  margin: 120px auto 50px;
+body.home .related {
+  margin: 150px auto 0px;
+  text-align: center;
 }
 
-body.home .content h3 {
+body.home .related h3 {
   margin: 10px;
+  text-align: left;
 }
 
-body.home .content .col2 {
-  margin-left: 50px;
-}
-
-body.home .content .col2,
-body.home .content .col1 {
-  padding-bottom: 0px;
+body.home .related .related_type {
+  display: inline-block;
+  padding: 10px;
 }
 
 div.project {
   color: #888;
   display: inline-block;
-  margin-bottom: 10px;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: lighter;
+  margin-right: 10px;
   min-height: 100px;
-  padding-left: 120px;
-  padding-top: 20px;
+  padding-top: 110px;
   position: relative;
   -webkit-transition: color .1s;
           transition: color .1s;
@@ -98,7 +98,7 @@ div.project:before {
   content: "";
   display: block;
   height: 100px;
-  left: 10px;
+  left: 25px;
   position: absolute;
   top: 0px;
   -webkit-transition: background-image .1s;
