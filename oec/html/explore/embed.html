@@ -478,8 +478,17 @@ switch (app_type){
         .time({"key": "year", "solo": "{{ current_build.year }}" })
         .color(trade_flow+"_val")
         .coords(raw_coords)
+        .coords({
+          "padding": 0,
+          "mute": ["anata"]
+        })
         .height(viz_height)
         .width(viz_width)
+        .style({
+          "color": {
+            "heatmap": ["#cccccc","#cc0000"]
+          }
+        })
         .icon("icon")
       
       finish(raw_data.data, attrs)
