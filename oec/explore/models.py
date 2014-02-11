@@ -99,11 +99,11 @@ class Build(db.Model, AutoSerialize):
             return ""
         
         if "<origin>" in name:
-            name = name.replace("<origin>", self.origin.get_name(lang))
+            name = name.replace("<origin>", self.origin.get_name(lang, article=True))
         if "<dest>" in name:
-            name = name.replace("<dest>", self.dest.get_name(lang))
+            name = name.replace("<dest>", self.dest.get_name(lang, article=True))
         if "<product>" in name:
-            name = name.replace("<product>", self.product.get_name(lang))
+            name = name.replace("<product>", self.product.get_name(lang, article=True))
         
         return name
     
