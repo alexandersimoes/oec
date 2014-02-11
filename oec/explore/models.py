@@ -199,9 +199,9 @@ class Build(db.Model, AutoSerialize):
         if not year:
             year = available_years[self.classification][-1]
         if "." in str(year) and self.app.type != "stacked":
-            year = year.split(".")[0]
+            year = year.split(".")[1]
         if "." not in str(year) and self.app.type == "stacked":
-            year = "{0}.{1}.{2}".format(available_years[self.classification][0], available_years[self.classification][-1], 5)
+            year = "{0}.{1}".format(available_years[self.classification][0], available_years[self.classification][-1])
         origin, dest, product = [self.origin, self.dest, self.product]
         if isinstance(origin, Country):
             origin = origin.id_3char
@@ -438,13 +438,7 @@ class Build(db.Model, AutoSerialize):
                 "current": years[-1],
                 "data": available_years[self.classification][::-1]
             }
-            interval = {
-                "id": "interval",
-                "name": _("Interval"),
-                "current": years[1] - years[0],
-                "data": range(1, 10)
-            }
-            ui = ui + [start_year, end_year, interval]
+            ui = ui + [start_year, end_year]
         else:
             year = {
                 "id": "year",

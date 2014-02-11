@@ -33,11 +33,11 @@
 </div> -->
 
 <div class="title">
-  {% if current_build.get_year()|int > g.available_years[current_build.classification][0]  %}
+  {% if current_build.get_year()|int > g.available_years[current_build.classification][0] and current_build.app.type != "stacked" %}
   <a class="prev" href="/explore/{{ current_build.url(year=current_build.get_year()|int-1) }}">« {{ _('Previous Year') }}</a>
   {% endif %}
   <h2>{{ current_build.get_name() }} ({{ current_build.get_year() }})</h2>
-  {% if current_build.get_year()|int < g.available_years[current_build.classification][-1]  %}
+  {% if current_build.get_year()|int < g.available_years[current_build.classification][-1] and current_build.app.type != "stacked"  %}
   <a class="next" href="/explore/{{ current_build.url(year=current_build.get_year()|int+1) }}">{{ _('Next Year') }} »</a>
   {% endif %}
 </div>

@@ -15,10 +15,12 @@
   <div id="text"></div>
   <div id="viz"></div>
   <div id="ui">
+    {% if current_build.app.type == "tree_map" or current_build.app.type == "stacked" %}
     <div id="depth">
-      <input type="radio" name="nesting" value="0" id="nesting0"><label for="nesting0">{{ _('Category') }}</label>
-      <input type="radio" name="nesting" value="1" id="nesting1" checked="checked"><label for="nesting1">{{ _('Full') }}</label>
+      <input type="radio" name="nesting" value="0" id="nesting0" {% if current_build.app.type =="stacked" %}checked="checked"{% endif %}><label for="nesting0">{{ _('Category') }}</label>
+      <input type="radio" name="nesting" value="1" id="nesting1" {% if current_build.app.type !="stacked" %}checked="checked"{% endif %}><label for="nesting1">{{ _('Full') }}</label>
     </div>
+    {% endif %}
     <div id="color">
       <select>
         <option value="color">{{ _('Category') }}</option>
@@ -145,7 +147,8 @@ d3.selectAll(".dropdown_container")
     ui.draw()
     
   })
-  
+
+{% if current_build.app.type == "tree_map" or current_build.app.type == "stacked" %}
 d3plus.ui()
   .type("radio")
   .data("[name=nesting]")
@@ -160,6 +163,7 @@ d3plus.ui()
   })
   .callback(change_depth)
   .draw()
+{% endif %}
   
 d3plus.ui()
   .type("drop")
@@ -182,9 +186,8 @@ var viz = d3plus.viz()
             .style({"background":"transparent"})
             .number_format(function(number, key){
               if(key){
-                if(key.indexOf("pct") > -1){
-                  return d3.format(".2%")(number);
-                }
+                if(key.indexOf("pct") > -1){ return d3.format(".2%")(number); }
+                if(key == "year"){ return number; }
               }
               return d3plus.public.number_format["value"](number,key)
             })
