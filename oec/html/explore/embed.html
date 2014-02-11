@@ -205,12 +205,13 @@ var viz = d3plus.viz()
                 return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
               }
             }),
+    is_iphone = navigator.userAgent.match(/iPhone OS (_|\d)+ like Mac OS X/i).length
     attr_id = "{{ current_build.attr_type() }}_id",
     app_type = "{{ current_build.app.type }}",
     attrs = {},
     vars = {{ global_vars|safe }},
     trade_flow = "{{ current_build.trade_flow }}";
-    viz_height = window.innerHeight - d3.select("#ui").node().offsetHeight,
+    viz_height = is_iphone ? window.screen.availHeight - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
     in_the_wild = window.parent.location.origin.indexOf("atlas.media.mit.edu") < 0 &&
                   window.parent.location.origin.indexOf("oec.media.mit.edu") < 0 &&
@@ -218,6 +219,8 @@ var viz = d3plus.viz()
     q = queue()
           .defer(d3.json, "{{ current_build.data_url() }}")
           .defer(d3.json, "{{ current_build.attr_url() }}");
+
+console.log(window.screen.availHeight, document.innerHeight)
 
 if (in_the_wild) {
   viz.footer("<a href='"+window.location.origin+"/explore/{{ current_build.url() }}'>{{ _('Brought to you by') }}: The Observatory of Economic Complexity</a>")
