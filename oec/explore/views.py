@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, g, request, session, redirect, \
                     url_for, flash, jsonify, Response
 from flask.ext.babel import gettext
 
-from oec import app, db, babel, view_cache, excluded_countries
+from oec import app, db, babel, view_cache, excluded_countries, available_years
 from oec.utils import make_query, make_cache_key
 from oec.db_attr.models import Country, Sitc, Hs
 from oec.explore.models import Build, App, Short
@@ -61,6 +61,24 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
 def explore(app_name, classification, trade_flow, origin, dest, \
                 product, year="2011"):
     g.page_type = mod.name
+    
+    '''Make sure year is within bounds, if not redirect'''
+    start_year = year.split(".")[0] if "." in year else year
+    end_year = year.split(".")[1] if "." in year else year
+    new_start_year, new_end_year = start_year, end_year
+    if int(start_year) < available_years[classification][0]:
+        new_start_year = str(available_years[classification][0])
+        new_year = new_start_year
+    if int(end_year) > available_years[classification][-1]:
+        new_end_year = str(available_years[classification][-1])
+        new_year = new_end_year
+    if new_start_year != start_year or new_end_year != end_year:
+        new_year = ".".join([new_start_year, new_end_year]) if "." in year else new_year
+        return redirect(url_for('.explore', app_name=app_name, \
+                        classification=classification, trade_flow=trade_flow, \
+                        origin=origin, dest=dest, product=product, \
+                        year=new_year))
+    
     sanitize(app_name, classification, trade_flow, origin, dest, product, year)
     
     current_app = App.query.filter_by(type=app_name).first_or_404()

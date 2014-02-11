@@ -205,7 +205,7 @@ var viz = d3plus.viz()
                 return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
               }
             }),
-    is_iphone = navigator.userAgent.match(/iPhone OS (_|\d)+ like Mac OS X/i).length
+    is_iphone = Boolean(navigator.userAgent.match(/iPhone OS (_|\d)+ like Mac OS X/i))
     attr_id = "{{ current_build.attr_type() }}_id",
     app_type = "{{ current_build.app.type }}",
     attrs = {},
@@ -219,8 +219,6 @@ var viz = d3plus.viz()
     q = queue()
           .defer(d3.json, "{{ current_build.data_url() }}")
           .defer(d3.json, "{{ current_build.attr_url() }}");
-
-console.log(window.screen.availHeight, document.innerHeight)
 
 if (in_the_wild) {
   viz.footer("<a href='"+window.location.origin+"/explore/{{ current_build.url() }}'>{{ _('Brought to you by') }}: The Observatory of Economic Complexity</a>")
