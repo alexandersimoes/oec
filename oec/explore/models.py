@@ -407,9 +407,9 @@ class Build(db.Model, AutoSerialize):
             "current": self.trade_flow,
             "data": [
                 {"name":_("Export"), "display_id":"export"},
-                {"name":_("Import"), "display_id":"import"},
-                {"name":_("Net Export"), "display_id":"net_export"},
-                {"name":_("Net Import"), "display_id":"net_import"}
+                {"name":_("Import"), "display_id":"import"}
+                # {"name":_("Net Export"), "display_id":"net_export"},
+                # {"name":_("Net Import"), "display_id":"net_import"}
             ]
         }
         classification = {

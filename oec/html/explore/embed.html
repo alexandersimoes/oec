@@ -43,7 +43,7 @@
     <select id="{{ ui.id }}_selector">
       {% for option in ui.data %}
       <option value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
-      {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") %}selected="selected"{% endif %}>
+      {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") or ui.current|lower|replace(" ", "_") == option.display_id %}selected="selected"{% endif %}>
         {% if option is string or option is number %}{{ option }}
         {% else %}{{ option.name }}
         {% endif %}
@@ -546,11 +546,9 @@ d3.select("#more_years button").on("click", function(){
     })
     
     var years = "{{ current_build.year }}"
-    var year_interval = 1
     if(years.indexOf(".") > 0){
       years = years.split(".")
-      year_interval = parseInt(years[2])
-      years = d3.range(parseInt(years[0]), parseInt(years[1])+1, year_interval)
+      years = d3.range(parseInt(years[0]), parseInt(years[1])+1)
     }
     else {
       years = [parseInt(years)]
@@ -586,8 +584,6 @@ d3.selectAll("button#build").on("click", function(){
     var year = d3.select("#start_year select").node().value
     year += "."
     year += d3.select("#end_year select").node().value
-    year += "."
-    year += d3.select("#interval select").node().value
   }
   
   if(d3.select("#origin select").node()){
