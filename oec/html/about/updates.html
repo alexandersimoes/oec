@@ -4,6 +4,7 @@
 {% block description %}{{ _('A Development blog of updates to the site.') }}{% endblock %}
 
 {% block about_content %}
+<div class="col2">
   {% for update in updates %}
   <article>
     <h2 class="title">{{ update.title }}</h2>
@@ -11,4 +12,5 @@
     {{ update.body|safe }}
   </article>
   {% endfor %}
+</div>
 {% endblock %}

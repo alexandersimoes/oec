@@ -1,0 +1,32 @@
+{% extends "templates/about.html" %}
+
+{% block about_title %}:: Data Sources{% endblock %}
+
+{% block about_content %}
+<div class="col2">
+  <h3>Data Sources</h3>
+  <p>All of the trade data shown on the site is either in the 
+    <a href"http://en.wikipedia.org/wiki/Standard_International_Trade_Classification">SITC (Standard International Trade Classification)</a>
+    or <a href"http://en.wikipedia.org/wiki/Harmonized_System">HS (Harmonized System)</a> 
+    four digit level. We aggregate to the 4 digit level to reduce the visual
+    complexity of the visualization use throughout the site where screen 
+    real-estate is at such a premium.
+  </p>
+  
+  <h3>SITC</h3>
+  <p>For historical SITC classification data (<b>1962 - 2000</b>), we use data 
+    from <a href="http://cid.econ.ucdavis.edu/">The Center for International 
+    Data from Robert Feenstra</a>. For more recent data (<b>2001 - 2010</b>), 
+    we use data provided by <a href="http://comtrade.un.org/">UN COMTRADE</a>.
+  </p>
+
+  <h3>HS</h3>
+  <p>
+    For all of the HS data used throughout the site (<b>1995 - 2011</b>) we use
+    the <a href="http://www.cepii.fr/CEPII/en/bdd_modele/presentation.asp?id=1">BACI International Trade Database</a>
+    also at the 4 digit level. The original data comes from the United Nations 
+    Statistical Division (COMTRADE database) but is cleaned by the BACI team 
+    using their own <a href="http://www.cepii.fr/CEPII/fr/publications/wp/abstract.asp?NoDoc=2726">methodology of harmonization</a>.
+  </p>
+</div>
+{% endblock %}

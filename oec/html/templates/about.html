@@ -19,15 +19,19 @@
       <li{% if g.sub_title == "data" %} class="active"{% endif %}>
         <a href="/about/data/">Data</a>
         <ul>
-          <ul><h3>Classifications</h3>
-            <li{% if data_type == "sitc" %} class="active"{% endif %}>
-              <a href="/about/data/sitc/">SITC4</a>
+          <ul>
+            <li{% if data_type == "sources" %} class="active"{% endif %}>
+              <a href="/about/data/sources/">Sources</a>
             </li>
-            <li{% if data_type == "hs" %} class="active"{% endif %}>
-              <a href="/about/data/hs/">HS4</a>
-            </li>
+            <h3>Classifications</h3>
             <li{% if data_type == "country" %} class="active"{% endif %}>
               <a href="/about/data/country/">Country</a>
+            </li>
+            <li{% if data_type == "hs" %} class="active"{% endif %}>
+              <a href="/about/data/hs/">HS</a>
+            </li>
+            <li{% if data_type == "sitc" %} class="active"{% endif %}>
+              <a href="/about/data/sitc/">SITC</a>
             </li>
           </ul>
         </ul>
@@ -59,12 +63,7 @@
       </li>
     </ul>
     
-  </div><div class="col2">
-    
-    {% block about_content %}
-    {% endblock %}
-
-  </div>
+  </div>{% block about_content %}{% endblock %}
   
 </div>
 {% endblock %}

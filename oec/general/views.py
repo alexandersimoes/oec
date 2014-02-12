@@ -7,7 +7,8 @@ from textblob import TextBlob
 from fuzzywuzzy import process
 from markdown import markdown
 from flask import Blueprint, render_template, g, request, current_app, \
-                    session, redirect, url_for, flash, abort, jsonify, get_flashed_messages
+                    session, redirect, url_for, flash, abort, jsonify, \
+                    get_flashed_messages, Response
 from flask.ext.babel import gettext
 
 import oec
@@ -16,6 +17,9 @@ from oec.explore.models import App, Build, Short
 
 import time, urllib2, json, itertools
 from dateutil import parser
+
+import csv
+from cStringIO import StringIO
 
 mod = Blueprint('general', __name__, url_prefix='/')
 
@@ -351,28 +355,51 @@ def about_team():
 
 @mod.route('about/data/')
 def about_data_redirect():
-    return redirect(url_for('.about_data', data_type="sitc"))
+    return redirect(url_for('.about_data_sources'))
+
+@mod.route('about/data/sources/')
+def about_data_sources():
+    g.page_type = "about"
+    g.sub_title = "data"
+    return render_template("about/data_sources.html", data_type="sources")
 
 @mod.route('about/data/<data_type>/')
 def about_data(data_type):
     g.page_type = "about"
     g.sub_title = "data"
     lang = request.args.get('lang', g.locale)
+    download = request.args.get('download', None)
     
     if data_type == "sitc":
-        items = Sitc.query.all()
-        headers = ["Name", "SITC4 Code"]
+        items = Sitc.query.filter(Sitc.sitc != None).all()
+        headers = ["SITC", "Name"]
         title = "SITC4 product names and codes"
+        id_col = "sitc"
     elif data_type == "hs":
-        items = Hs.query.all()
-        headers = ["Name", "HS4 Code"]
+        items = Hs.query.filter(Hs.hs != None).all()
+        headers = ["HS", "Name"]
         title = "HS4 (harmonized system) product names and codes"
+        id_col = "hs"
     elif data_type == "country":
-        items = Country.query.all()
-        headers = ["Name", "Alpha 3 Abbreviation"]
+        items = Country.query.filter(Country.id_3char != None).all()
+        headers = ["Abbrv", "Name"]
         title = "Country names and abbreviations"
+        id_col = "id_3char"
     
-    return render_template("about/data.html", items=items, headers=headers, title=title, data_type=data_type)
+    if download:
+        s = StringIO()
+        writer = csv.writer(s)
+        title = "{0}_classification_list".format(data_type)
+        writer.writerow([unicode(h).encode("utf-8") for h in headers])
+        for i in items:
+            writer.writerow([getattr(i, id_col), unicode(i.get_name()).encode("utf-8")])
+        content_disposition = "attachment;filename={0}.csv".format(title)
+        return Response(s.getvalue(), 
+                            mimetype="text/csv;charset=UTF-8", 
+                            headers={"Content-Disposition": content_disposition})
+    
+    return render_template("about/data.html", items=items, headers=headers, 
+                            title=title, data_type=data_type, id_col=id_col)
 
 @mod.route('about/permissions/')
 def about_permissions():
