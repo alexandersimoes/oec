@@ -88,9 +88,8 @@ def set_lang(lang):
 # ---------------------------
 @app.errorhandler(404)
 def page_not_found(e):
-    return "404"
-    # g.page_type = "error404"
-    # return render_template('general/404.html', error = e), 404
+    g.page_type = "error"
+    return render_template('general/error.html', error = e), 404
 
 class Search():
     text = None

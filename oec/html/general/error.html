@@ -1,0 +1,13 @@
+{% extends "templates/site.html" %}
+
+{% block head %}
+  <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.error.css" />
+{% endblock %}
+
+{% block title %}: Error{% endblock %}
+
+{% block body %}
+
+  <h2>{{ error }}</h2>
+  
+{% endblock %}
