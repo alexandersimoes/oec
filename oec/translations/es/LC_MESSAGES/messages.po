@@ -108,7 +108,7 @@ msgid ""
 "Application programming interface (API) for emedding an iframe of the "
 "visualizations used througout The Observatory of Economic Complexity on "
 "your own website."
-msgstr "Interfaz de programación de aplicaciones (API) para emedding un iframe de las visualizaciones utilizadas througout El Observatorio de la Complejidad Económica en su propio sitio web."
+msgstr "Interfaz de programación de aplicaciones (API) para incrustar un iframe de las visualizaciones utilizadas a través de El Observatorio de la Complejidad Económica en su propio sitio web."
 
 #: oec/html/about/data.html:4
 msgid ""
@@ -124,18 +124,18 @@ msgstr "Fotos y descripciones de los miembros del equipo que participan en la cr
 
 #: oec/html/about/updates.html:4
 msgid "A Development blog of updates to the site."
-msgstr "Un blog de desarrollo de cambios al sitio"
+msgstr "Un blog de desarrollo respecto de las actualizaciones del sitio"
 
 #: oec/html/atlas/index.html:4
 msgid ""
 "A book of complexity economics attempting to explain why some countries "
 "grow and others do not. The book uses many of the visualizations seen "
 "throughout this site."
-msgstr "Un libro de economía de complejidad de tratar de explicar por qué algunos países crecen y otros no. El libro utiliza muchas de las visualizaciones visto a través de este sitio."
+msgstr "Un libro de complejidad económica que tratar de explicar por qué algunos países crecen y otros no. El libro utiliza muchas de las visualizaciones disponibles a través de este sitio."
 
 #: oec/html/explore/embed.html:8
 msgid "An emedded visualization."
-msgstr "Una visualización emedded."
+msgstr "Una visualización incrustada."
 
 #: oec/html/explore/embed.html:13
 msgid "Loading"
@@ -163,7 +163,7 @@ msgstr "Crecimiento valor (1 año)"
 
 #: oec/html/explore/embed.html:28
 msgid "Growth Value (5 year)"
-msgstr "Crecimiento valor (1 año)"
+msgstr "Crecimiento valor (5 años)"
 
 #: oec/html/explore/embed.html:31
 msgid "Click to view more years"
@@ -191,7 +191,7 @@ msgstr "Cuota"
 
 #: oec/html/explore/embed.html:90
 msgid "Short URL"
-msgstr "Short URL"
+msgstr "URL corto"
 
 #: oec/html/explore/embed.html:147
 msgid "Export value"
@@ -246,7 +246,7 @@ msgstr "%(country)s (%(country_abbrv)s) Perfil de Exportaciones, Importaciones y
 msgid ""
 "List of major leading exports, imports and complexity economic indicator "
 "statistics of %(country)s."
-msgstr "Lista de los principales productos de exportación principales, las importaciones y las estadísticas de indicadores económicos complejidad de %(country)s."
+msgstr "Lista de los principales productos que lideran las exportaciones, importaciones y estadísticas del indicador de complejidad económica de %(country)s."
 
 #: oec/html/profile/country.html:9
 #, python-format
@@ -294,26 +294,26 @@ msgstr "Top 5"
 
 #: oec/html/profile/country.html:67
 msgid "View as Visualization"
-msgstr "Ver como Visualization"
+msgstr "Ver como Visualización"
 
 #: oec/html/profile/product.html:8
 #, python-format
 msgid ""
 "%(prod)s (%(prod_abbrv)s) Profile of Export Destinations and Import "
 "Origins"
-msgstr "%(prod)s (%(prod_abbrv)s) Perfil de los destinos de exportación y de importación Origins"
+msgstr "%(prod)s (%(prod_abbrv)s) Perfil de los Destinos de Exportación y de los Orígenes de Importación"
 
 #: oec/html/profile/product.html:9
 #, python-format
 msgid ""
 "List of major leading origin and destination countries with economic "
 "indicator statistics of %(prod)s."
-msgstr "Lista de los principales países principales de origen y destino con las estadísticas de los indicadores económicos de %(prod)s."
+msgstr "Lista de los principales países de origen y destino con las estadísticas de los indicadores económicos de %(prod)s."
 
 #: oec/html/profile/product.html:9
 #, python-format
 msgid "Principle trade partners that export %(prod)s."
-msgstr "Socios comerciales principio de que las exportaciones %(prod)s."
+msgstr "Principales socios comerciales que exportan %(prod)s."
 
 #: oec/html/profile/product.html:9
 #, python-format
@@ -339,15 +339,15 @@ msgstr "%(prod)s es la principal exportación de"
 
 #: oec/html/rankings/index.html:24
 msgid "Country Rankings"
-msgstr "País Clasificaciones"
+msgstr "Ranking Países"
 
 #: oec/html/rankings/index.html:27
 msgid "HS Product Rankings"
-msgstr "HS Producto Rankings"
+msgstr "SA Ranking Productos"
 
 #: oec/html/rankings/index.html:30
 msgid "SITC Product Rankings"
-msgstr "SITC Producto Rankings"
+msgstr "SITC Rankings Producto"
 
 #: oec/html/rankings/index.html:36
 msgid "Download this year's data"

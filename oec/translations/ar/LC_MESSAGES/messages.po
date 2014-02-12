@@ -62,15 +62,15 @@ msgstr "تصنيف"
 
 #: oec/explore/models.py:431
 msgid "Start Year"
-msgstr "تبدأ السنة"
+msgstr "من سنة"
 
 #: oec/explore/models.py:437
 msgid "End Year"
-msgstr "في نهاية السنة"
+msgstr "إلى سنة"
 
 #: oec/explore/models.py:443
 msgid "Interval"
-msgstr "فاصل"
+msgstr "فترة"
 
 #: oec/explore/models.py:451
 msgid "Year"
@@ -82,11 +82,11 @@ msgstr "الأصل"
 
 #: oec/explore/models.py:479
 msgid "Destination"
-msgstr "غاية"
+msgstr "المقصد"
 
 #: oec/explore/models.py:496 oec/rankings/views.py:30 oec/rankings/views.py:35
 msgid "Product"
-msgstr "نتاج"
+msgstr "منتج"
 
 #: oec/html/home.html:25
 msgid ""
@@ -157,23 +157,27 @@ msgstr "كامل"
 
 #: oec/html/explore/embed.html:25
 msgid "Annual Growth Rate (1 year)"
-msgstr "معدل النمو السنوي (1 سنة)"
+msgstr ""
+" نسبة النمولإجمالي الناتج المحلي (سنة واحدة)"
 
 #: oec/html/explore/embed.html:26
 msgid "Annual Growth Rate (5 year)"
-msgstr "معدل النمو السنوي (5 سنوات)"
+msgstr ""
+" نسبة النمولإجمالي الناتج المحلي (سنة واحدة)"
 
 #: oec/html/explore/embed.html:27
 msgid "Growth Value (1 year)"
-msgstr "القيمة النمو (1 سنة)"
+msgstr ""
+" نسبة نمو الناتج المحلي الناتج المحلي (سنة واحدة)"
 
 #: oec/html/explore/embed.html:28
 msgid "Growth Value (5 year)"
-msgstr "القيمة النمو (5 سنوات)"
+msgstr ""
+" نسبة نمو الناتج المحلي الناتج المحلي (خمس سنوات)"
 
 #: oec/html/explore/embed.html:31
 msgid "Click to view more years"
-msgstr "انقر لعرض مزيد من السنوات"
+msgstr "إنقر لعرض المزيد من السنوات "
 
 #: oec/html/explore/embed.html:54
 msgid "Build Visualization"
@@ -189,7 +193,7 @@ msgstr "عرض كنص"
 
 #: oec/html/explore/embed.html:69
 msgid "Embed"
-msgstr "تضمين"
+msgstr "إستضمان"
 
 #: oec/html/explore/embed.html:74
 msgid "Share"
@@ -217,7 +221,7 @@ msgstr "نسبة مئوية"
 
 #: oec/html/explore/embed.html:173
 msgid "Brought to you by"
-msgstr "يقدمها لك"
+msgstr "مقدم من"
 
 #: oec/html/explore/index.html:15
 msgid "Data visualization of economic trade"
@@ -262,6 +266,7 @@ msgstr ""
 #, python-format
 msgid "Economy of %(country)s."
 msgstr "اقتصاد %(country)s."
+msgstr ".إقتصاد %(country)s"
 
 #: oec/html/profile/country.html:9
 #, python-format
@@ -276,7 +281,7 @@ msgstr "السلع والموارد من %(country)s."
 #: oec/html/profile/country.html:12
 #, python-format
 msgid "Learn More About Trade in %(country)s"
-msgstr "تعلم المزيد عن التجارة في %(country)s."
+msgstr "تعلم المزيد عن التجارة في %(country)s"
 
 #: oec/html/profile/country.html:22
 #, python-format
@@ -294,7 +299,7 @@ msgstr "يأتي في المرتبة"
 #: oec/html/profile/country.html:28
 #, python-format
 msgid "%(country)s is the top exporter of"
-msgstr "%(country)s هي المصدر الأعلى لل"
+msgstr "%(country)s هي المستورد الأساسي لل"
 
 #: oec/html/profile/country.html:28 oec/html/profile/product.html:27
 msgid "and"
@@ -400,7 +405,7 @@ msgid "Country"
 msgstr "بلد"
 
 #~ msgid "Book"
-#~ msgstr "كتاب"
+#~ msgstr "الكتاب"
 
 #~ msgid "API"
 #~ msgstr "API"
