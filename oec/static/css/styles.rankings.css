@@ -43,23 +43,23 @@ table thead th.sorttable_sorted_reverse a{
 }
 table tbody tr th:nth-child(1),
 table tbody tr td:nth-child(1) {
-  width: 60px;
+  width: 50px;
 }
 table tbody tr th:nth-child(2),
 table tbody tr td:nth-child(2) {
-  width: 60px;
+  width: 50px;
 }
 table tbody tr th:nth-child(3),
 table tbody tr td:nth-child(3) {
-  width: 420px;
+  width: 30px;
 }
 table tbody tr th:nth-child(4),
 table tbody tr td:nth-child(4) {
-  width: 80px;
+  width: 400px;
 }
 table tbody tr th:nth-child(5),
 table tbody tr td:nth-child(5) {
-  width: 10px;
+  width: 80px;
 }
 table tbody tr th:nth-child(6),
 table tbody tr td:nth-child(6) {
@@ -128,4 +128,10 @@ table tbody tr td span {
 }
 .q {
   float: left;
+}
+.fa-long-arrow-up {
+  color: #00cc00;
+}
+.fa-long-arrow-down {
+  color: #cc0000;
 }

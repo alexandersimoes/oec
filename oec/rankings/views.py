@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import time, urllib2, json
 
 from flask import Blueprint, render_template, g, request, current_app, \
@@ -43,16 +44,16 @@ def rankings(category=None,year=None):
         return redirect(url_for('.rankings', category=category, year=available_years[category][-1]))
     
     if category == "sitc":
-        Attr, Attr_name, Attr_data, attr_id, index, rank = [Sitc, Sitc_name, Yp_sitc, "sitc_id", "pci", "pci_rank"]
-        cols = [gettext("Rank"), "SITC", gettext("Product"), "PCI Value"]
+        Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Sitc, Sitc_name, Yp_sitc, "sitc_id", "pci", "pci_rank", "pci_rank_delta"]
+        cols = [gettext("Rank"), gettext("Rank")+u" ∆", "SITC", gettext("Product"), "PCI Value"]
     
     elif category == "hs":
-        Attr, Attr_name, Attr_data, attr_id, index, rank = [Hs, Hs_name, Yp_hs, "hs_id", "pci", "pci_rank"]
-        cols = [gettext("Rank"), "HS", gettext("Product"), "PCI Value"]
+        Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Hs, Hs_name, Yp_hs, "hs_id", "pci", "pci_rank", "pci_rank_delta"]
+        cols = [gettext("Rank"), gettext("Rank")+u" ∆", "HS", gettext("Product"), "PCI Value"]
     
     elif category == "country":
-        Attr, Attr_name, Attr_data, attr_id, index, rank = [Country, Country_name, Yo, "origin_id", "eci", "eci_rank"]
-        cols = [gettext("Rank"), "Abbrv", gettext("Country"), "ECI Value"]
+        Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Country, Country_name, Yo, "origin_id", "eci", "eci_rank", "eci_rank_delta"]
+        cols = [gettext("Rank"), gettext("Rank")+u" ∆", "Abbrv", gettext("Country"), "ECI Value"]
     
     rankings = db.session.query(Attr, Attr_name, Attr_data) \
                 .filter(getattr(Attr_name, attr_id) == Attr.id) \

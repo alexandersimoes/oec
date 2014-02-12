@@ -249,6 +249,7 @@ class Yo(db.Model, AutoSerialize):
     origin_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
     eci = db.Column(db.Float())
     eci_rank = db.Column(db.Integer)
+    eci_rank_delta = db.Column(db.Integer)
     opp_value = db.Column(db.Float())
     population = db.Column(db.Integer)
     gdp = db.Column(db.Numeric(16,2))

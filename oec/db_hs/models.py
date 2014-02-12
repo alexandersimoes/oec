@@ -38,6 +38,7 @@ class Yp(db.Model, AutoSerialize):
     import_val = db.Column(db.Numeric(16,2))
     pci = db.Column(db.Float())
     pci_rank = db.Column(db.Integer)
+    pci_rank_delta = db.Column(db.Integer)
     top_exporter = db.Column(db.String(5), db.ForeignKey(Country.id))
     
     def __repr__(self):

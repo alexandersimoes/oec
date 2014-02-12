@@ -72,11 +72,29 @@
           <tr>
             {% if category == "country" %}
             <td><span>{{ r[2]["eci_rank"] }}</span></td>
+            <td>
+              {% if r[2]["eci_rank_delta"] > 0 %}
+              <i class="fa fa-long-arrow-up fa-lg"></i> +{{ r[2]["eci_rank_delta"] }}
+              {% elif r[2]["eci_rank_delta"] < 0 and r[2]["eci_rank_delta"] %}
+              <i class="fa fa-long-arrow-down fa-lg"></i> {{ r[2]["eci_rank_delta"] }}
+              {% else %}
+              &ndash;
+              {% endif %}
+            </td>
             <td>{{ r[0]["id_3char"]|upper }}</td>
             <td><a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
             <td>{{ r[2]["eci"] }}</td>
             {% else %}
             <td><span>{{ r[2]["pci_rank"] }}</span></td>
+            <td>
+              {% if r[2]["pci_rank_delta"] > 0 %}
+              <i class="fa fa-long-arrow-up fa-lg"></i> +{{ r[2]["pci_rank_delta"] }}
+              {% elif r[2]["pci_rank_delta"] < 0 and r[2]["pci_rank_delta"] %}
+              <i class="fa fa-long-arrow-down fa-lg"></i> {{ r[2]["pci_rank_delta"] }}
+              {% else %}
+              &ndash;
+              {% endif %}
+            </td>
             <td>{{ r[0].get_display_id() }}</td>
             <td><a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
             <td>{{ r[2]["pci"] }}</td>
