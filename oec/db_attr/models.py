@@ -184,10 +184,12 @@ class Sitc(db.Model, AutoSerialize):
     
     classification = "sitc"
     
-    def get_name(self, lang=None):
+    def get_name(self, lang=None, article=None):
         lang = lang or getattr(g, "locale", "en")
         name = self.name.filter_by(lang=lang).first()
         if name:
+            if lang == "en" and name.article and article:
+                return "The {0}".format(name.name)
             return name.name
         return ""
     
