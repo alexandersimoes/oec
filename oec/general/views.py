@@ -371,17 +371,17 @@ def about_data(data_type):
     download = request.args.get('download', None)
     
     if data_type == "sitc":
-        items = Sitc.query.filter(Sitc.sitc != None).all()
+        items = Sitc.query.filter(Sitc.sitc != None).order_by(Sitc.sitc).all()
         headers = ["SITC", "Name"]
         title = "SITC4 product names and codes"
         id_col = "sitc"
     elif data_type == "hs":
-        items = Hs.query.filter(Hs.hs != None).all()
+        items = Hs.query.filter(Hs.hs != None).order_by(Hs.hs).all()
         headers = ["HS", "Name"]
         title = "HS4 (harmonized system) product names and codes"
         id_col = "hs"
     elif data_type == "country":
-        items = Country.query.filter(Country.id_3char != None).all()
+        items = Country.query.filter(Country.id_3char != None).order_by(Country.id_3char).all()
         headers = ["Abbrv", "Name"]
         title = "Country names and abbreviations"
         id_col = "id_3char"

@@ -1,7 +1,7 @@
 import time, urllib, urllib2, json
 
 from flask import Blueprint, render_template, g, request, session, redirect, \
-                    url_for, flash, jsonify, Response
+                    url_for, flash, jsonify, Response, abort
 from flask.ext.babel import gettext
 
 from oec import app, db, babel, view_cache, excluded_countries, available_years
@@ -112,6 +112,8 @@ def explore(app_name, classification, trade_flow, origin, dest, \
 @mod.route('/<app_name>/<trade_flow>/<origin>/<dest>/<product>/')
 @mod.route('/<app_name>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
 def explore_legacy(app_name, trade_flow, origin, dest, product, year='2011'):
+    if not year.isdigit():
+        abort(404)
     c = 'sitc' if int(year) < 1995 else 'hs'
     if product != "show" and product != "all":
         prod = Hs.query.filter_by(hs=product).first()

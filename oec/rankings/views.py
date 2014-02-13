@@ -22,7 +22,8 @@ def rankings_redirect():
 
 @mod.route('/<category>/')
 @mod.route('/<category>/<int:year>/')
-@view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
+# don't cache because downloading will not be possible
+# @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
 def rankings(category=None,year=None):    
     g.page_type = mod.name
     
@@ -90,5 +91,5 @@ def rankings(category=None,year=None):
                                 category=category,
                                 year=year,
                                 cols=cols,
-                                years=available_years[category],
+                                years=available_years[category][::-1],
                                 rankings=rankings)
