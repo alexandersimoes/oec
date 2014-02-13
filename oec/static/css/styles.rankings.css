@@ -19,6 +19,7 @@
   float: right;
 }
 table {
+  font-size: 16px;
   margin: 70px 0 30px 0;
   width: 100%;
 }
@@ -71,12 +72,18 @@ table tbody tr td:nth-child(1) {
 table tbody tr td {
   border-bottom: 1px solid #ddd;
 }
+table tbody tr td a {
+  vertical-align: top;
+}
 table tbody tr td span {
   color: white;
   display: block;
   padding: 2px;
   text-align: center;
   width: 30px;
+}
+table tbody tr td img.icon {
+ width: 20px; 
 }
 .arrow_up {
   width: 0;

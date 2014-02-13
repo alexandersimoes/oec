@@ -62,7 +62,7 @@
           <tr>
             <td>{{ loop.index }}</td>
             <td>{{ entry.attr.get_abbrv()|upper }}</td>
-            <td><a href="{{ entry.attr.get_profile_url() }}">{{ entry.attr.get_name() }}</a></td>
+            <td><img src="{{ entry.attr.get_icon() }}" /> <a href="{{ entry.attr.get_profile_url() }}">{{ entry.attr.get_name() }}</a></td>
             <td>{{ entry.value|format_currency }}</td>
             <td>{{ entry.share|format_percent }}</td>
           </tr>

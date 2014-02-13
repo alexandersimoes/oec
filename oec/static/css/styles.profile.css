@@ -1,5 +1,8 @@
 body.profile .content {
-  text-align: center;
+/*  text-align: center;*/
+}
+body.profile .content {
+/*  text-align: center;*/
 }
 
 .content .build {
@@ -51,6 +54,9 @@ p.eci_value {
 
 table img{
   width: 15px;
+}
+table a {
+  vertical-align: top;
 }
 div#community_treemap{
   float: left;

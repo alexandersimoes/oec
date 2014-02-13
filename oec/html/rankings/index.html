@@ -82,7 +82,7 @@
               {% endif %}
             </td>
             <td>{{ r[0]["id_3char"]|upper }}</td>
-            <td><a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
+            <td><img class="icon" src="/static/img/icons/country/country_{{ r[0].id }}.png" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
             <td>{{ r[2]["eci"] }}</td>
             {% else %}
             <td><span>{{ r[2]["pci_rank"] }}</span></td>
@@ -96,7 +96,7 @@
               {% endif %}
             </td>
             <td>{{ r[0].get_display_id() }}</td>
-            <td><a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
+            <td><img class="icon" style="background-color: {{ r[0].color }};" src="/static/img/icons/{{ r[0].classification }}/{{ r[0].classification }}_{{ r[0].id[:2] }}.png" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
             <td>{{ r[2]["pci"] }}</td>
             {% endif %}
           </tr>

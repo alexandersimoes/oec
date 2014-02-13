@@ -46,7 +46,9 @@
         <option value="val_growth_val_5">{{ _('Growth Value (5 year)') }}</option>
       </select>
     </div>
-    <div id="more_years"><button>{{ _('Click to view more years') }} &raquo;</button></div>
+    {% if current_build.app.type != "stacked" %}
+    <div id="more_years"><button>{{ _('All Years') }} &raquo;</button></div>
+    {% endif %}
   </div>
 </div>
 <div id="controls">
