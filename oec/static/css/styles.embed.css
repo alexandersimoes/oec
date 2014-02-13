@@ -232,6 +232,8 @@ div#loading > h2 {
 #controls #short{
   display: none;
 }
-.fa {
+.fa-external-link,
+.fa-file-text,
+.fa-external-link {
   color: black !important;
 }
