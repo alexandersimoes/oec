@@ -80,7 +80,8 @@
   </div>
   
   <div class="control_container" id="view_as_text">
-    <a class="text" href="#"><img src="/static/img/icons/text.png"> <span>{{ _('View as text') }}</span></a>
+    <a class="text" href="#"><i class="fa fa-file-text"></i> <span>{{ _('View as text') }}</span></a>
+    <a class="fullscreen" href="#"><i class="fa fa-external-link"></i> <span>{{ _('View fullscreen') }}</span></a>
   </div>
   
   <div class="control_container">
@@ -106,7 +107,7 @@
 
   <div class="control_container" id="short">
     <h3>{{ _('Short URL') }}</h3>
-    <input type="text" class="short_url" onfocus="this.select()" onMouseUp="return false" value="http://atlas.media.mit.edu/asdlkj43">
+    <input type="text" class="short_url" onfocus="this.select()" onMouseUp="return false" value="">
   </div>
   
   <!-- Hidden <FORM> to submit the SVG data to the server, which will convert it 
@@ -131,7 +132,6 @@
 <script src="/static/js/d3.tabulate.js"></script>
 
 <script>
-
 d3.selectAll(".dropdown_container")
   .each(function(d,i){
     
@@ -255,9 +255,14 @@ var viz = d3plus.viz()
     in_the_wild = window.parent.location.origin.indexOf("atlas.media.mit.edu") < 0 &&
                   window.parent.location.origin.indexOf("oec.media.mit.edu") < 0 &&
                   window.parent.location.origin.indexOf("localhost") < 0,
+    in_explore_page = (window.location != window.parent.location) && !in_the_wild,
     q = queue()
           .defer(d3.json, "{{ current_build.data_url() }}")
           .defer(d3.json, "{{ current_build.attr_url() }}");
+
+if(!in_explore_page){
+  d3.select("a.fullscreen").style("display", "none")
+}
 
 if (in_the_wild) {
   viz.footer("<a href='"+window.location.origin+"/explore/{{ current_build.url() }}'>{{ _('Brought to you by') }}: The Observatory of Economic Complexity</a>")
@@ -713,7 +718,16 @@ d3.select("#share #shorten").on("click", function(){
 })
 
 // View as text
-d3.selectAll("#view_as_text a").on("click", function(){
+d3.selectAll("#view_as_text a.text").on("click", function(){
+  d3.select(this).select("i").classed("fa-file-text", function(){
+    return d3.select(this).classed("fa-file-text") ? false : true;
+  })
+  d3.select(this).select("i").classed("fa-th-large", function(){
+    return d3.select(this).classed("fa-th-large") ? false : true;
+  })
+  d3.select(this).select("span").text(function(){
+    return d3.select(this).text() == "{{ _('View as text') }}" ? "{{ _('View graphic') }}" : "{{ _('View as text') }}";
+  })
   d3.select("#app #viz").style("display", function(){
     return d3.select(this).style("display") == "none" ? "block" : "none";
   })
@@ -721,6 +735,14 @@ d3.selectAll("#view_as_text a").on("click", function(){
     return d3.select(this).style("display") == "none" ? "block" : "none";
   })
   resize_viz();
+  d3.event.preventDefault();
+})
+
+// View fullscreen
+d3.selectAll("#view_as_text a.fullscreen").on("click", function(){
+  newwindow=window.open("/explore/embed/{{ current_build.url() }}", "name", "height=600, width=800");
+  if (window.focus) {newwindow.focus()}
+  return false;
   d3.event.preventDefault();
 })
 

@@ -232,3 +232,6 @@ div#loading > h2 {
 #controls #short{
   display: none;
 }
+.fa {
+  color: black !important;
+}
