@@ -23,8 +23,18 @@
     {% endif %}
     {% if current_build.app.type == "tree_map" or current_build.app.type == "stacked" %}
     <div id="depth">
-      <input type="radio" name="nesting" value="0" id="nesting0" {% if current_build.app.type =="stacked" %}checked="checked"{% endif %}><label for="nesting0">{{ _('Category') }}</label>
-      <input type="radio" name="nesting" value="1" id="nesting1" {% if current_build.app.type !="stacked" %}checked="checked"{% endif %}><label for="nesting1">{{ _('Full') }}</label>
+      <input type="radio" name="nesting" value="0" id="nesting0" {% if current_build.app.type =="stacked" and current_build.attr_type() != "origin" and current_build.attr_type() != "dest" %}checked="checked"{% endif %}>
+      <label for="nesting0">
+        {% if current_build.attr_type() == "origin" or current_build.attr_type() == "dest" %}{{ _('Continent') }}
+        {% else %}{{ _('Category') }}
+        {% endif %}
+      </label>
+      <input type="radio" name="nesting" value="1" id="nesting1" {% if current_build.app.type !="stacked" or (current_build.attr_type() == "origin" or current_build.attr_type() == "dest") %}checked="checked"{% endif %}>
+      <label for="nesting1">
+        {% if current_build.attr_type() == "origin" or current_build.attr_type() == "dest" %}{{ _('Country') }}
+        {% else %}{{ _('Full') }}
+        {% endif %}
+      </label>
     </div>
     {% endif %}
     <div id="color">
@@ -223,8 +233,8 @@ var viz = d3plus.viz()
               }
               if(text){
                 if(text == "display_id"){ return "{{ _('ID') }}"; }
-                if(text == "export_val"){ return "{{ _('Export value') }}"; }
-                if(text == "import_val"){ return "{{ _('Import value') }}"; }
+                if(text == "export_val"){ return "{{ _('Export Value') }}"; }
+                if(text == "import_val"){ return "{{ _('Import Value') }}"; }
                 if(text.indexOf("growth") > -1){ 
                   text = text.replace(/_/g," ");
                   text = text.replace(/val/g,"{{ _('value') }}");
