@@ -1035,6 +1035,8 @@ d3plus.viz = function() {
         .attr("id","d3plus")
         .attr("width",vars.width.value)
         .attr("height",vars.height.value)
+        .attr("xmlns","http://www.w3.org/2000/svg")
+        .attr("xmlns:xmlns:xlink","http://www.w3.org/1999/xlink")
 
       // Enter BG Rectangle
       vars.g.bg = vars.svg.selectAll("rect#bg").data(["bg"]);
@@ -6204,7 +6206,6 @@ d3plus.info.legend = function(vars) {
                   .attr("height",square_size)
                   
                 pattern.select("image").transition().duration(vars.style.timing.transitions)
-                  .attr("xlink:href",g.icon)
                   .attr("width",square_size)
                   .attr("height",square_size)
                 
@@ -6222,6 +6223,16 @@ d3plus.info.legend = function(vars) {
                   .attr("xlink:href",g.icon)
                   .attr("width",square_size)
                   .attr("height",square_size)
+                  .each(function(d){
+
+                    d3plus.utils.dataurl(g.icon,function(base64){
+                  
+                      pattern.select("image")
+                        .attr("xlink:href",base64)
+                    
+                    })
+                    
+                  })
                     
                 return "url(#"+short_url+")"
               }
@@ -10428,6 +10439,31 @@ d3plus.utils.connections = function(vars,links) {
 //------------------------------------------------------------------------------
 d3plus.utils.copy = function(obj) {
   return d3plus.utils.merge(obj)
+}
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// Creates a Base-64 Data URL from and Image URL
+//------------------------------------------------------------------------------
+d3plus.utils.dataurl = function(url,callback) {
+    
+  var img = new Image();
+  img.src = url;
+  img.crossOrigin = "Anonymous";
+  img.onload = function () {
+    
+    var canvas = document.createElement("canvas");
+    canvas.width = this.width;
+    canvas.height = this.height;
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(this, 0, 0);
+    
+    callback.call(this,canvas.toDataURL("image/png"))
+    
+    canvas = null
+
+  }
+  
 }
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
