@@ -39,7 +39,11 @@
     {% endif %}
     <div id="color">
       <select>
+        {% if current_build.app.type == "geo_map" %}
+        <option value="val">{{ _('Value') }}</option>
+        {% else %}
         <option value="color">{{ _('Category') }}</option>
+        {% endif %}
         <option value="val_growth_pct">{{ _('Annual Growth Rate (1 year)') }}</option>
         <option value="val_growth_pct_5">{{ _('Annual Growth Rate (5 year)') }}</option>
         <option value="val_growth_val">{{ _('Growth Value (1 year)') }}</option>
