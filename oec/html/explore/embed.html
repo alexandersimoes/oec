@@ -246,18 +246,19 @@ var viz = d3plus.viz()
                 return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
               }
             }),
-    is_iphone = Boolean(navigator.userAgent.match(/iPhone OS (_|\d)+ like Mac OS X/i))
+    is_iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false ),
     attr_id = "{{ current_build.attr_type() }}_id",
     app_type = "{{ current_build.app.type }}",
     attrs = {},
     vars = {{ global_vars|safe }},
     trade_flow = "{{ current_build.trade_flow }}";
-    viz_height = is_iphone ? window.screen.availHeight - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
     in_the_wild = window.parent.location.origin.indexOf("atlas.media.mit.edu") < 0 &&
                   window.parent.location.origin.indexOf("oec.media.mit.edu") < 0 &&
                   window.parent.location.origin.indexOf("localhost") < 0,
     in_explore_page = (window.location != window.parent.location) && !in_the_wild,
+    // viz_height = is_iOS ? window.screen.availHeight - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight,
+    viz_height = in_explore_page ? 505 : window.innerHeight - d3.select("#ui").node().offsetHeight,
     q = queue()
           .defer(d3.json, "{{ current_build.data_url() }}")
           .defer(d3.json, "{{ current_build.attr_url() }}");
