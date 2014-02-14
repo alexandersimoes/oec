@@ -40,9 +40,9 @@
     <div id="color">
       <select>
         {% if current_build.app.type == "geo_map" %}
-        <option value="val">{{ _('Value') }}</option>
+          <option value="val">{{ _('Value') }}</option>
         {% else %}
-        <option value="color">{{ _('Category') }}</option>
+          <option value="color">{{ _('Category') }}</option>
         {% endif %}
         <option value="val_growth_pct">{{ _('Annual Growth Rate (1 year)') }}</option>
         <option value="val_growth_pct_5">{{ _('Annual Growth Rate (5 year)') }}</option>
@@ -135,9 +135,17 @@
 <script src="/static/js/libs/d3plus.js"></script>
 <script src="/static/js/libs/queue.js"></script>
 <script src="/static/js/libs/topojson.js"></script>
+<script src="/static/js/libs/jfont-minified.js"></script>
 <script src="/static/js/d3.tabulate.js"></script>
 
 <script>
+
+var d3plus_font = null
+var fonts = ["HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
+fonts.forEach(function(font){
+  if (checkfont(font) && !d3plus_font) d3plus_font = font
+})
+
 d3.selectAll(".dropdown_container")
   .each(function(d,i){
     
@@ -224,51 +232,78 @@ d3plus.ui()
 
 /* init vars */
 var trade_flow = "{{ current_build.trade_flow }}",
-    viz = d3plus.viz()
-            .container("#viz")
-            .style({"background":"transparent"})
-            .number_format(function(number, key){
-              if(key){
-                if(key.indexOf("pct") > -1){ return d3.format(".2%")(number); }
-                if(key == "year"){ return number; }
-              }
-              return d3plus.public.number_format["value"](number,key)
-            })
-            .text_format(function(text, key){
-              if(key){
-                if(key == "display_id"){ return text.toUpperCase(); }
-              }
-              if(text){
-                if(text == "display_id"){ return "{{ _('ID') }}"; }
-                if(text == "export_val"){ return "{{ _('Export Value') }}"; }
-                if(text == "import_val"){ return "{{ _('Import Value') }}"; }
-                if(text.indexOf("growth") > -1){ 
-                  text = text.replace(/_/g," ");
-                  text = text.replace(/val/g,"{{ _('value') }}");
-                  text = text.replace(/pct/g,"{{ _('percentage') }}");
-                  return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
-                }
-                if(text.indexOf("Values") >= 0 && !key){
-                  return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
-                }
-                return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
-              }
-            }),
-    is_iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false ),
+    is_iphone = Boolean(navigator.userAgent.match(/iPhone OS (_|\d)+ like Mac OS X/i))
     attr_id = "{{ current_build.attr_type() }}_id",
     app_type = "{{ current_build.app.type }}",
     attrs = {},
     vars = {{ global_vars|safe }},
+    viz_height = is_iphone ? window.screen.availHeight - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
     in_the_wild = window.parent.location.origin.indexOf("atlas.media.mit.edu") < 0 &&
                   window.parent.location.origin.indexOf("oec.media.mit.edu") < 0 &&
                   window.parent.location.origin.indexOf("localhost") < 0,
     in_explore_page = (window.location != window.parent.location) && !in_the_wild,
-    // viz_height = is_iOS ? window.screen.availHeight - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight,
-    viz_height = in_explore_page ? 505 : window.innerHeight - d3.select("#ui").node().offsetHeight,
     q = queue()
           .defer(d3.json, "{{ current_build.data_url() }}")
-          .defer(d3.json, "{{ current_build.attr_url() }}");
+          .defer(d3.json, "{{ current_build.attr_url() }}"),
+    viz = d3plus.viz()
+                .container("#viz")
+                .aggs({
+                  "export_val_growth_pct": "mean",
+                  "export_val_growth_pct_5": "mean",
+                  "export_val_growth_val": "mean",
+                  "export_val_growth_val_5": "mean",
+                  "import_val_growth_pct": "mean",
+                  "import_val_growth_pct_5": "mean",
+                  "import_val_growth_val": "mean",
+                  "import_val_growth_val_5": "mean",
+                  "distance": "mean",
+                  "opp_gain": "mean",
+                  "pci": "mean",
+                  "eci": "mean",
+                  "rca": "mean"
+                })
+                .style({
+                  "background":"none",
+                  "font": {
+                    "family": d3plus_font,
+                    "weight": "normal"
+                  },
+                  "color": {
+                    "heatmap": ["#cccccc","#0085BF"]
+                  }
+                })
+                .height(viz_height)
+                .width(viz_width)
+                .icon("icon")
+                .number_format(function(number, key){
+                  if(key){
+                    if(key.indexOf("pct") > -1){ return d3.format(".2%")(number); }
+                    if(key == "year"){ return number; }
+                  }
+                  return d3plus.public.number_format["value"](number,key)
+                })
+                .text_format(function(text, key){
+                  if(key){
+                    if(key == "display_id"){ return text.toUpperCase(); }
+                  }
+                  if(text){
+                    if(text == "display_id"){ return "{{ _('ID') }}"; }
+                    if(text == "export_val"){ return "{{ _('Export Value') }}"; }
+                    if(text == "import_val"){ return "{{ _('Import Value') }}"; }
+                    if(text.indexOf("growth") > -1){ 
+                      text = text.replace(/_/g," ");
+                      text = text.replace(/val/g,"{{ _('value') }}");
+                      text = text.replace(/pct/g,"{{ _('percentage') }}");
+                      return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+                    }
+                    if(text.indexOf("Values") >= 0 && !key){
+                      return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
+                    }
+                    return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+                  }
+                })
+    
 
 if(!in_explore_page){
   d3.select("a.fullscreen").style("display", "none")
@@ -393,9 +428,6 @@ switch (app_type){
         .text({"nest":"name","id":"name"})
         // .title("Tree Map...")
         .title({"total": {"prefix":"Total: "}})
-        .height(viz_height)
-        .width(viz_width)
-        .icon("icon")
       
       finish(raw_data.data, attrs)
     }
@@ -422,8 +454,6 @@ switch (app_type){
         .y(trade_flow+"_val")
         .order("nest")
         .text({"nest":"name","id":"name"})
-        .height(viz_height)
-        .width(viz_width)
         
       finish(raw_data.data, attrs)
     }
@@ -454,8 +484,6 @@ switch (app_type){
           },
           "spotlight":true
         })
-        .height(viz_height)
-        .width(viz_width)
       
       finish(raw_data.data, attrs)
     }
@@ -490,8 +518,6 @@ switch (app_type){
             },
             "spotlight":true
           })
-          .height(viz_height)
-          .width(viz_width)
           .focus(focus)
       }
       else {
@@ -535,14 +561,6 @@ switch (app_type){
           "padding": 0,
           "mute": ["anata"]
         })
-        .height(viz_height)
-        .width(viz_width)
-        .style({
-          "color": {
-            "heatmap": ["#cccccc","#0085BF"]
-          }
-        })
-        .icon("icon")
       
       finish(raw_data.data, attrs)
     }
