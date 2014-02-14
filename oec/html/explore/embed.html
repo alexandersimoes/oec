@@ -337,6 +337,7 @@ function resize_viz(obj){
     if(vars.controls == "true"){
        new_width = window.innerWidth - parseInt(d3.select("#controls").style("width"))
     }
+    
     var new_height = window.innerHeight - d3.select("#ui").node().offsetHeight;
     if (obj){
       new_width = obj.width || new_width;
@@ -384,6 +385,9 @@ function format_data(error, raw_data, raw_attrs, raw_other){
 
 /* to be executed after app has been drawn for first time */
 function finish(data, attrs){
+  
+  resize_viz()
+  
   d3.select("#controls")
     .style("visibility", "visible")
     
