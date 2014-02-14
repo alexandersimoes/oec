@@ -219,7 +219,8 @@ d3plus.ui()
   .draw()
 
 /* init vars */
-var viz = d3plus.viz()
+var trade_flow = "{{ current_build.trade_flow }}",
+    viz = d3plus.viz()
             .container("#viz")
             .style({"background":"transparent"})
             .number_format(function(number, key){
@@ -243,6 +244,9 @@ var viz = d3plus.viz()
                   text = text.replace(/pct/g,"{{ _('percentage') }}");
                   return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
                 }
+                if(text.indexOf("Values") >= 0 && !key){
+                  return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
+                }
                 return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
               }
             }),
@@ -251,7 +255,6 @@ var viz = d3plus.viz()
     app_type = "{{ current_build.app.type }}",
     attrs = {},
     vars = {{ global_vars|safe }},
-    trade_flow = "{{ current_build.trade_flow }}";
     viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
     in_the_wild = window.parent.location.origin.indexOf("atlas.media.mit.edu") < 0 &&
                   window.parent.location.origin.indexOf("oec.media.mit.edu") < 0 &&
