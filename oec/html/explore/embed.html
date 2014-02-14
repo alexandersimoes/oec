@@ -277,12 +277,14 @@ if(vars.controls == "false"){
 }
 
 if(attr_id == "origin_id" || attr_id == "dest_id"){
-  viz = viz.tooltip({"Country":["name", "display_id"], "Values":[trade_flow+"_val"]} )
+  viz
+    .icon({"style":{"nest":"knockout","id":"default"}})
+    .tooltip({"Country":["name", "display_id"], "Values":[trade_flow+"_val"]} )
 }
 if(attr_id == "hs_id" || attr_id == "sitc_id" ){
-  viz = viz
-          .style({"icon":"knockout"})
-          .tooltip({"Product":["name", "display_id"], "Values":[trade_flow+"_val"]} )
+  viz
+    .icon({"style":"knockout"})
+    .tooltip({"Product":["name", "display_id"], "Values":[trade_flow+"_val"]} )
 }
 
 function resize_viz(obj){
@@ -529,7 +531,7 @@ switch (app_type){
         .width(viz_width)
         .style({
           "color": {
-            "heatmap": ["#cccccc","#cc0000"]
+            "heatmap": ["#cccccc","#0085BF"]
           }
         })
         .icon("icon")
