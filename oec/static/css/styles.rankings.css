@@ -19,15 +19,15 @@
   float: right;
 }
 table {
-  font-size: 16px;
+  font-size: 14px;
   margin: 70px 0 30px 0;
   width: 100%;
 }
 table thead th{
   border-bottom: 1px solid #999;
-  cursor: pointer;
+  font-size: 16px;
+  font-weight: normal;
   text-align: left;
-/*  padding: 0 12px 0 0;*/
 }
 table thead th a{
   font-weight: normal;
