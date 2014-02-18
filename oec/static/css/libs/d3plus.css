@@ -1,40 +1,6 @@
-svg {
-  position: absolute;
-  z-index: 10;
-}
-
-div#d3plus_loader {
-  height: 100%;
-  left: 0px;
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  width: 100%;
-  z-index: 9999;
-}
-
-div#d3plus_loader_text {
-  color: #888;
-  font-size: 30px;
-  margin-top: -15px;
-  position: absolute;
-  text-align: center;
-  top: 50%;
-  width: 100%;
-}
-
-.d3plus_noscrollbar::-webkit-scrollbar {
-  display: none;
-}
-
 /********************
  * Tooltip Styling
  ********************/
-
-div.d3plus_tooltip {
-  font-size: 12px;
-  position: absolute;
-}
 
 div.d3plus_tooltip_container {
   padding: 6px;
@@ -47,44 +13,14 @@ div.d3plus_tooltip_arrow {
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
-div.d3plus_tooltip_curtain {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  opacity: 0.8;
-  z-index: 499;
-}
-
 div.d3plus_tooltip_body {
-  display: inline-block;
   padding-right: 6px;
-  z-index: 1;
-}
-
-div.d3plus_tooltip_header {
-  position: relative;
-  z-index: 1;
-}
-
-div.d3plus_tooltip_header > div {
-  display: inline-block;
-  z-index: 1;
-}
-
-div.d3plus_tooltip_small {
-  z-index: 2000;
-}
-
-div.d3plus_tooltip_large {
-  z-index: 500;
 }
 
 div.d3plus_tooltip_small div.d3plus_tooltip_title {
   font-size: 16px;
   line-height: 17px;
-  padding: 3px 6px;
+  padding: 3px;
 }
 
 div.d3plus_tooltip_large div.d3plus_tooltip_title {
@@ -94,36 +30,16 @@ div.d3plus_tooltip_large div.d3plus_tooltip_title {
 }
 
 div.d3plus_tooltip_icon {
-  background-position: 50%;
-  background-size: 100%;
   margin: 0px 3px 3px 0px;
-  z-index: 1;
-}
-
-div.d3plus_tooltip_small div.d3plus_tooltip_icon {
-  height: 22px;
-  width: 22px;
-}
-
-div.d3plus_tooltip_large div.d3plus_tooltip_icon {
-  height: 50px;
-  width: 50px;
-}
-
-div.d3plus_tooltip_title {
-  vertical-align: top;
 }
 
 div.d3plus_tooltip_close {
-  background-color: #fff;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-  color: white;
   font-size: 20px;
   height: 18px;
   line-height: 14px;
-  position: absolute;
   right: 16px;
   text-align: center;
   top: -10px;
@@ -143,7 +59,6 @@ div.d3plus_tooltip_arrow {
   height: 10px;
   left: 50%;
   margin-left: -5px;
-  position: absolute;
   width: 10px;
   -webkit-transform: rotate(45deg); 
      -moz-transform: rotate(45deg); 
