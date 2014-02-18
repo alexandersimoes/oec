@@ -15,6 +15,7 @@ blockquote {
   font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", Helvetica, Arial, sans-serif;
   font-size: 20px;
   font-weight: lighter;
+  letter-spacing: 1px;
   margin: 80px 40px;
 }
 blockquote p {

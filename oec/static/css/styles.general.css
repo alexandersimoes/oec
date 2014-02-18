@@ -215,25 +215,24 @@ ul, ol {
 /***********************/
 /* Sidebar Menu Styles */
 /***********************/
-#sidebar ul {
+ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-#sidebar > ul > li {
+#siderbar > ul > li {
   border-bottom: 1px solid #aaaaaa;
 }
 
-#sidebar > ul > li:last-child {
+ul > li:last-child {
   border-bottom: 0px;
 }
 
-#sidebar > ul > li > a {
+ul > li > a {
   color: #888888;
   display: block;
   font-size: 12px;
-  height: 15px;
   letter-spacing: 1px;
   padding: 10px;
   text-decoration: none;
@@ -241,35 +240,39 @@ ul, ol {
           transition: background-color 0.3s, color 0.3s;
 }
 
-#sidebar > ul > li > a:hover {
+#sidebar ul > li > a {
+  height: 15px;
+}
+
+ul > li > a:hover {
   color: #444444;
 }
 
-#sidebar > ul > li.active > a {
+ul > li.active > a {
   background-color: #0085BF;
   color: #eeeeee;
 }
 
-#sidebar > ul > li > ul {
+ul > li > ul {
   height: 0px;
   margin: 0px;
   overflow: hidden;
   padding: 0px;
 }
 
-body.about #sidebar > ul > li.active > ul {
+body.about ul > li.active > ul {
   height: auto;
 }
 
-#sidebar > ul > li > ul > ul {
+ul > li > ul > ul {
   margin: 10px;
 }
 
-#sidebar > ul > li > ul > ul > h3 {
+ul > li > ul > ul > h3 {
   margin: 5px 0px;
 }
 
-#sidebar > ul > li > ul > ul > li > a {
+ul > li > ul > ul > li > a {
   color: #444;
   display: block;
   padding: 2px 5px;
@@ -277,11 +280,11 @@ body.about #sidebar > ul > li.active > ul {
   width: 100%;
 }
 
-#sidebar > ul > li > ul > ul > li.active > a {
+ul > li > ul > ul > li.active > a {
   background-color: #ddd;
 }
 
-#sidebar > ul > li > ul > ul > li.active > a:after {
+ul > li > ul > ul > li.active > a:after {
   color: rgba(0,0,0,0.5);
   content: "\f054";
   display: block;
@@ -295,12 +298,12 @@ body.about #sidebar > ul > li.active > ul {
   top: 5px;
 }
 
-#sidebar li.icon > a{
+li.icon > a{
   padding-left: 30px;
   position: relative;
 }
 
-#sidebar li.icon > a:before {
+li.icon > a:before {
   background-position: 50%;
   background-size: 100%;
   content: "";
@@ -322,81 +325,92 @@ body.about #sidebar > ul > li.active > ul {
   width: 13px;
 }
 
-#sidebar li.icon > a:before {
+li.icon > a:before {
   color: black;
   opacity: 0.5;
 }
 
-#sidebar li.icon.active > a:before {
+li.icon.active > a:before {
   color: white;
   opacity: 1;
 }
 
-#sidebar li#team > a:before {
+li.pdf.icon > a:before {
+  content: "\f0f6";
+  font-size: 24px;
+  height: 26px;
+  left: 0px;
+  padding: 0px;
+  top: 50%;
+  margin-top: -7px;
+  width: 26px;
+}
+
+li#team.icon > a:before {
   content: "\f0c0";
 }
 
-#sidebar li#data > a:before {
+li#data.icon > a:before {
   content: "\f00b";
 }
 
-#sidebar li#api > a:before {
+li#api.icon > a:before {
   content: "\f121";
 }
 
-#sidebar li#permissions > a:before {
+li#permissions.icon > a:before {
   content: "\f13e";
 }
 
-#sidebar li#updates > a:before {
+li#updates.icon > a:before {
   content: "\f09b";
 }
 
-#sidebar li#translations > a:before {
+li#translations.icon > a:before {
   content: "\f024";
 }
 
-#sidebar li#faqs > a:before {
+li#faqs.icon > a:before {
   content: "\f128";
 }
 
-#sidebar li#tree_map.icon > a:before {
+li#tree_map.icon > a:before {
   background-image: url("/static/img/icons/app/app_tree_map_black.png");
 }
 
-#sidebar li#tree_map.icon.active > a:before {
+li#tree_map.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_tree_map.png");
 }
 
-#sidebar li#stacked.icon > a:before {
+li#stacked.icon > a:before {
   background-image: url("/static/img/icons/app/app_stacked_black.png");
 }
 
-#sidebar li#stacked.icon.active > a:before {
+li#stacked.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_stacked.png");
 }
 
-#sidebar li#network.icon > a:before {
+li#network.icon > a:before {
   background-image: url("/static/img/icons/app/app_network_black.png");
 }
 
-#sidebar li#network.icon.active > a:before {
+li#network.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_network.png");
 }
 
-#sidebar li#rings.icon > a:before {
+li#rings.icon > a:before {
   background-image: url("/static/img/icons/app/app_rings_black.png");
 }
 
-#sidebar li#rings.icon.active > a:before {
+li#rings.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_rings.png");
 }
 
-#sidebar li#geo_map.icon > a:before {
+li#geo_map.icon > a:before {
   background-image: url("/static/img/icons/app/app_geo_map_black.png");
 }
 
-#sidebar li#geo_map.icon.active > a:before {
+li#geo_map.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_geo_map.png");
 }
 
@@ -562,19 +576,4 @@ dl dd {
   margin: 35px 0;
   padding:0;
   text-align:center;
-}
-
-dl.file_list dd {
-  overflow: hidden;
-}
-dl.file_list img {
-  float: left;
-  margin: 0 5px 0 0;
-  width: 30px;
-  vertical-align: top;
-}
-dl.file_list p {
-  margin: 0 5px 0 0;
-  width: 250px;
-  vertical-align: top;
 }
