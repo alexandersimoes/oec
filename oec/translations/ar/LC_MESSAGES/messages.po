@@ -6,11 +6,11 @@
 # fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
+"Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-02-06 12:43-0500\n"
+"POT-Creation-Date: 2014-02-18 11:41-0500\n"
 "PO-Revision-Date: 2013-12-27 14:47-0500\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Francine Loza <floza@mit.edu>\n"
 "Language-Team: ar <LL@li.org>\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n>=3 "
 "&& n<=10 ? 3 : n>=11 && n<=99 ? 4 : 5)\n"
@@ -24,7 +24,7 @@ msgid "Origin Country"
 msgstr "بلد المنشأ"
 
 #: oec/explore/models.py:370 oec/explore/models.py:373
-#: oec/html/explore/embed.html:146
+#: oec/html/explore/embed.html:291
 msgid "ID"
 msgstr "ID"
 
@@ -48,14 +48,6 @@ msgstr "تصدير"
 msgid "Import"
 msgstr "استيراد"
 
-#: oec/explore/models.py:411
-msgid "Net Export"
-msgstr "صافي التصدير"
-
-#: oec/explore/models.py:412
-msgid "Net Import"
-msgstr "صافي استيراد"
-
 #: oec/explore/models.py:417
 msgid "Classification"
 msgstr "تصنيف"
@@ -68,23 +60,19 @@ msgstr "من سنة"
 msgid "End Year"
 msgstr "إلى سنة"
 
-#: oec/explore/models.py:443
-msgid "Interval"
-msgstr "فترة"
-
-#: oec/explore/models.py:451
+#: oec/explore/models.py:445 oec/rankings/views.py:75
 msgid "Year"
 msgstr "عام"
 
-#: oec/explore/models.py:465
+#: oec/explore/models.py:459
 msgid "Origin"
 msgstr "الأصل"
 
-#: oec/explore/models.py:479
+#: oec/explore/models.py:473
 msgid "Destination"
 msgstr "المقصد"
 
-#: oec/explore/models.py:496 oec/rankings/views.py:30 oec/rankings/views.py:35
+#: oec/explore/models.py:490 oec/rankings/views.py:49 oec/rankings/views.py:53
 msgid "Product"
 msgstr "منتج"
 
@@ -143,85 +131,101 @@ msgstr ""
 msgid "An emedded visualization."
 msgstr "تصورا متكاملا emedded."
 
-#: oec/html/explore/embed.html:13
+#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:613
 msgid "Loading"
 msgstr "تحميل"
 
-#: oec/html/explore/embed.html:19 oec/html/explore/embed.html:24
-msgid "Category"
-msgstr "فئة"
+#: oec/html/explore/embed.html:20 oec/html/explore/embed.html:43
+msgid "Value"
+msgstr "قيمة"
 
-#: oec/html/explore/embed.html:20
-msgid "Full"
-msgstr "كامل"
-
-#: oec/html/explore/embed.html:25
-msgid "Annual Growth Rate (1 year)"
-msgstr ""
-" نسبة النمولإجمالي الناتج المحلي (سنة واحدة)"
-
-#: oec/html/explore/embed.html:26
-msgid "Annual Growth Rate (5 year)"
-msgstr ""
-" نسبة النمولإجمالي الناتج المحلي (سنة واحدة)"
-
-#: oec/html/explore/embed.html:27
-msgid "Growth Value (1 year)"
-msgstr ""
-" نسبة نمو الناتج المحلي الناتج المحلي (سنة واحدة)"
-
-#: oec/html/explore/embed.html:28
-msgid "Growth Value (5 year)"
-msgstr ""
-" نسبة نمو الناتج المحلي الناتج المحلي (خمس سنوات)"
-
-#: oec/html/explore/embed.html:31
-msgid "Click to view more years"
-msgstr "إنقر لعرض المزيد من السنوات "
-
-#: oec/html/explore/embed.html:54
-msgid "Build Visualization"
-msgstr "بناء التصور"
-
-#: oec/html/explore/embed.html:57 oec/html/rankings/index.html:34
-msgid "Download"
-msgstr "تحميل"
-
-#: oec/html/explore/embed.html:65
-msgid "View as text"
-msgstr "عرض كنص"
-
-#: oec/html/explore/embed.html:69
-msgid "Embed"
-msgstr "إستضمان"
-
-#: oec/html/explore/embed.html:74
+#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:99
 msgid "Share"
 msgstr "حصة"
 
+#: oec/html/explore/embed.html:28
+msgid "Continent"
+msgstr "قارة"
+
+#: oec/html/explore/embed.html:29 oec/html/explore/embed.html:45
+msgid "Category"
+msgstr "فئة"
+
+#: oec/html/explore/embed.html:34 oec/rankings/views.py:57
+msgid "Country"
+msgstr "بلد"
+
+#: oec/html/explore/embed.html:35
+msgid "Full"
+msgstr "كامل"
+
+#: oec/html/explore/embed.html:47
+msgid "Annual Growth Rate (1 year)"
+msgstr " نسبة النمولإجمالي الناتج المحلي (سنة واحدة)"
+
+#: oec/html/explore/embed.html:48
+msgid "Annual Growth Rate (5 year)"
+msgstr " نسبة النمولإجمالي الناتج المحلي (سنة واحدة)"
+
+#: oec/html/explore/embed.html:49
+msgid "Growth Value (1 year)"
+msgstr " نسبة نمو الناتج المحلي الناتج المحلي (سنة واحدة)"
+
+#: oec/html/explore/embed.html:50
+msgid "Growth Value (5 year)"
+msgstr " نسبة نمو الناتج المحلي الناتج المحلي (خمس سنوات)"
+
+#: oec/html/explore/embed.html:54
+msgid "All Years"
+msgstr "إنقر لعرض المزيد من السنوات "
+
+#: oec/html/explore/embed.html:78
+msgid "Build Visualization"
+msgstr "بناء التصور"
+
+#: oec/html/explore/embed.html:81 oec/html/rankings/index.html:34
+msgid "Download"
+msgstr "تحميل"
+
+#: oec/html/explore/embed.html:89 oec/html/explore/embed.html:763
+msgid "View as text"
+msgstr "عرض كنص"
+
 #: oec/html/explore/embed.html:90
+msgid "View fullscreen"
+msgstr "عرض ملء الشاشة"
+
+#: oec/html/explore/embed.html:94
+msgid "Embed"
+msgstr "إستضمان"
+
+#: oec/html/explore/embed.html:115
 msgid "Short URL"
 msgstr "URL قصيرة"
 
-#: oec/html/explore/embed.html:147
-msgid "Export value"
+#: oec/html/explore/embed.html:292
+msgid "Export Value"
 msgstr "قيمة الصادرات"
 
-#: oec/html/explore/embed.html:148
-msgid "Import value"
+#: oec/html/explore/embed.html:293
+msgid "Import Value"
 msgstr "قيمة الواردات"
 
-#: oec/html/explore/embed.html:151
+#: oec/html/explore/embed.html:296
 msgid "value"
 msgstr "قيمة"
 
-#: oec/html/explore/embed.html:152
+#: oec/html/explore/embed.html:297
 msgid "percentage"
 msgstr "نسبة مئوية"
 
-#: oec/html/explore/embed.html:173
+#: oec/html/explore/embed.html:313
 msgid "Brought to you by"
 msgstr "مقدم من"
+
+#: oec/html/explore/embed.html:763
+msgid "View graphic"
+msgstr "عرض الرسم"
 
 #: oec/html/explore/index.html:15
 msgid "Data visualization of economic trade"
@@ -265,7 +269,6 @@ msgstr ""
 #: oec/html/profile/country.html:9
 #, python-format
 msgid "Economy of %(country)s."
-msgstr "اقتصاد %(country)s."
 msgstr ".إقتصاد %(country)s"
 
 #: oec/html/profile/country.html:9
@@ -283,7 +286,7 @@ msgstr "السلع والموارد من %(country)s."
 msgid "Learn More About Trade in %(country)s"
 msgstr "تعلم المزيد عن التجارة في %(country)s"
 
-#: oec/html/profile/country.html:22
+#: oec/html/profile/country.html:27
 #, python-format
 msgid ""
 "%(country)s %(ranked)s %(rank_val)s with an Economic Complexity Index "
@@ -292,24 +295,24 @@ msgstr ""
 "%(country)s %(ranked)s %(rank_val)s مع مؤشر التعقيد الاقتصادي (ECI) من "
 "%(eci)s"
 
-#: oec/html/profile/country.html:22 oec/html/profile/product.html:21
+#: oec/html/profile/country.html:27 oec/html/profile/product.html:27
 msgid "is ranked"
 msgstr "يأتي في المرتبة"
 
-#: oec/html/profile/country.html:28
+#: oec/html/profile/country.html:33
 #, python-format
 msgid "%(country)s is the top exporter of"
 msgstr "%(country)s هي المستورد الأساسي لل"
 
-#: oec/html/profile/country.html:28 oec/html/profile/product.html:27
+#: oec/html/profile/country.html:33 oec/html/profile/product.html:33
 msgid "and"
 msgstr "و"
 
-#: oec/html/profile/country.html:36 oec/html/profile/product.html:35
+#: oec/html/profile/country.html:41 oec/html/profile/product.html:41
 msgid "Top 5"
 msgstr "أعلى 5"
 
-#: oec/html/profile/country.html:67
+#: oec/html/profile/country.html:72 oec/html/profile/product.html:72
 msgid "View as Visualization"
 msgstr "كما عرض التصور"
 
@@ -344,14 +347,14 @@ msgstr "الشركاء التجاريين مبدأ أن تصدير %(prod)s."
 msgid "Learn More About Trade of %(prod)s"
 msgstr "تعلم المزيد عن التجارة %(prod)s."
 
-#: oec/html/profile/product.html:21
+#: oec/html/profile/product.html:27
 #, python-format
 msgid ""
 "%(prod)s %(ranked)s %(rank_val)s with a Product Complexity Index (PCI) of"
 " %(pci)s"
 msgstr "%(prod)s %(ranked)s %(rank_val)s مع مؤشر التعقيد المنتج (PCI) من %(pci)s"
 
-#: oec/html/profile/product.html:27
+#: oec/html/profile/product.html:33
 #, python-format
 msgid "%(prod)s is the top export of"
 msgstr "%(prod)s هو تصدير أعلى"
@@ -396,13 +399,9 @@ msgstr "تصنيفات"
 msgid "About"
 msgstr "حول"
 
-#: oec/rankings/views.py:30 oec/rankings/views.py:35 oec/rankings/views.py:40
+#: oec/rankings/views.py:49 oec/rankings/views.py:53 oec/rankings/views.py:57
 msgid "Rank"
 msgstr "مرتبة"
-
-#: oec/rankings/views.py:40
-msgid "Country"
-msgstr "بلد"
 
 #~ msgid "Book"
 #~ msgstr "الكتاب"
@@ -424,3 +423,16 @@ msgstr "بلد"
 
 #~ msgid "App Selection"
 #~ msgstr "علم %(country)s"
+
+#~ msgid "Net Export"
+#~ msgstr "صافي التصدير"
+
+#~ msgid "Net Import"
+#~ msgstr "صافي استيراد"
+
+#~ msgid "Interval"
+#~ msgstr "فترة"
+
+#~ msgid "Click to view more years"
+#~ msgstr "إنقر لعرض المزيد من السنوات "
+
