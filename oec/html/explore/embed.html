@@ -75,7 +75,7 @@
   </div>
   {% endfor %}
   
-  <button id="build">{{ _('Build Visualization') }} »</button>
+  <button id="build">{{ _('Build Visualization') }}</button>
   
   <div class="control_container" id="download">
     <h3>{{ _('Download') }}</h3>
@@ -146,6 +146,23 @@ fonts.forEach(function(font){
   if (checkfont(font) && !d3plus_font) d3plus_font = font
 })
 
+function activate_build_button() {
+  if (d3.select("button#build").classed("active") == false) {
+    
+    var h = d3.select("button#build")
+      .classed("active",true)
+      .style("height","auto")
+      .node().offsetHeight+12
+      
+    d3.select("button#build")
+      .style("height","0px")
+      .style("visibility","visible")
+      .transition().duration(600)
+        .style("height",h+"px")
+        .style("padding","6px 20px")
+  }
+}
+
 d3.selectAll(".dropdown_container")
   .each(function(d,i){
     
@@ -162,6 +179,7 @@ d3.selectAll(".dropdown_container")
         "spacing": 1,
         "align": "left"
       })
+      .callback(activate_build_button)
     
     if (this.id.indexOf("year") >= 0) {
       ui.search(false)
@@ -177,7 +195,6 @@ d3.selectAll(".dropdown_container")
       ui.type("drop")
     }
     
-    // if(this.id.indexOf("year") < 0)
     ui.draw()
     
   })

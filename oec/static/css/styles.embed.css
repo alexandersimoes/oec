@@ -191,11 +191,44 @@ div#loading > h2 {
   width: 180px;
 }
 #controls button#build {
-  border: solid 3px #0085BF;
-  background: white;
-  color: #0085BF;
-  font-weight: bold;
+  background-color: #0085BF;
+  color: white;
+  font-family: HelveticaNeue-Light, 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: lighter;
+  height: 0px;
+  padding: 0px 20px;
+  position: relative;
+  text-align: left;
+  visibility: hidden;
+  -webkit-animation: 2s blink infinite;
 }
+
+#controls button#build.active {
+  box-shadow: rgba(0,0,0,0.25) 0px 2.5px 5px;
+}
+
+#controls button#build:after {
+  color: white;
+  content: "\f053";
+  display: block;
+  font-family: FontAwesome;
+  font-size: 12px;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: normal;
+  position: absolute;
+  left: 6px;
+  top: 9px;
+}
+
+@-webkit-keyframes blink
+{
+  0%  { background-color: #0085BF; }
+  50% { background-color: #00a9f2; }
+  100%{ background-color: #0085BF; }
+}
+
 #controls hr {
   background: #cccccc;
   clear: both;
