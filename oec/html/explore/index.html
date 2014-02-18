@@ -61,7 +61,7 @@
       {% if pre_app != build.app.type %}
     
         {% set pre_app = build.app.type %}
-        <li id="{{ build.app.type }}" {% if current_build.app.type == pre_app %} class="active"{% endif %}>
+        <li id="{{ build.app.type }}"  class="icon{% if current_build.app.type == pre_app %} active{% endif %}">
           <a class="accordion" href="#{{ build.app.get_name()|lower }}" title="{{ build.app.get_name()|lower }}">
             {{ build.app.get_name() }}
           </a>
@@ -153,10 +153,10 @@
     d3.selectAll("#sidebar > ul > li")
       .attr("class",function(){
         if (this.id == app && new_height) {
-          return "active"
+          return "icon active"
         }
         else {
-          return ""
+          return "icon"
         }
       })
       

@@ -295,81 +295,109 @@ body.about #sidebar > ul > li.active > ul {
   top: 5px;
 }
 
-#sidebar li#tree_map > a,
-#sidebar li#stacked > a,
-#sidebar li#network > a,
-#sidebar li#rings > a,
-#sidebar li#geo_map > a {
+#sidebar li.icon > a{
   padding-left: 30px;
   position: relative;
 }
 
-#sidebar li#tree_map > a:before,
-#sidebar li#stacked > a:before,
-#sidebar li#network > a:before,
-#sidebar li#rings > a:before,
-#sidebar li#geo_map > a:before {
+#sidebar li.icon > a:before {
   background-position: 50%;
   background-size: 100%;
   content: "";
   display: block;
-  height: 22px;
+  font-family: FontAwesome;
+  font-size: 12px;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: normal;
+  height: 13px;
   left: 4px;
+  line-height: 13px;
+  padding: 5px;
   position: absolute;
-  top: 7px;
-  -webkit-transition: backgorund-image 0.3s, opacity 0.3s;
-          transition: backgorund-image 0.3s, opacity 0.3s;
-  width: 23px;
+  text-align: center;
+  top: 6px;
+  -webkit-transition: backgorund-image 0.3s, opacity 0.3s, color 0.3s;
+          transition: backgorund-image 0.3s, opacity 0.3s, color 0.3s;
+  width: 13px;
 }
 
-#sidebar li#tree_map > a:before {
+#sidebar li.icon > a:before {
+  color: black;
+  opacity: 0.5;
+}
+
+#sidebar li.icon.active > a:before {
+  color: white;
+  opacity: 1;
+}
+
+#sidebar li#team > a:before {
+  content: "\f0c0";
+}
+
+#sidebar li#data > a:before {
+  content: "\f00b";
+}
+
+#sidebar li#api > a:before {
+  content: "\f121";
+}
+
+#sidebar li#permissions > a:before {
+  content: "\f13e";
+}
+
+#sidebar li#updates > a:before {
+  content: "\f09b";
+}
+
+#sidebar li#translations > a:before {
+  content: "\f024";
+}
+
+#sidebar li#faqs > a:before {
+  content: "\f128";
+}
+
+#sidebar li#tree_map.icon > a:before {
   background-image: url("/static/img/icons/app/app_tree_map_black.png");
-  opacity: 0.5;
 }
 
-#sidebar li#tree_map.active > a:before {
+#sidebar li#tree_map.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_tree_map.png");
-  opacity: 1;
 }
 
-#sidebar li#stacked > a:before {
+#sidebar li#stacked.icon > a:before {
   background-image: url("/static/img/icons/app/app_stacked_black.png");
-  opacity: 0.5;
 }
 
-#sidebar li#stacked.active > a:before {
+#sidebar li#stacked.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_stacked.png");
-  opacity: 1;
 }
 
-#sidebar li#network > a:before {
+#sidebar li#network.icon > a:before {
   background-image: url("/static/img/icons/app/app_network_black.png");
-  opacity: 0.5;
 }
 
-#sidebar li#network.active > a:before {
+#sidebar li#network.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_network.png");
-  opacity: 1;
 }
 
-#sidebar li#rings > a:before {
+#sidebar li#rings.icon > a:before {
   background-image: url("/static/img/icons/app/app_rings_black.png");
-  opacity: 0.5;
 }
 
-#sidebar li#rings.active > a:before {
+#sidebar li#rings.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_rings.png");
-  opacity: 1;
 }
 
-#sidebar li#geo_map > a:before {
+#sidebar li#geo_map.icon > a:before {
   background-image: url("/static/img/icons/app/app_geo_map_black.png");
-  opacity: 0.5;
 }
 
-#sidebar li#geo_map.active > a:before {
+#sidebar li#geo_map.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_geo_map.png");
-  opacity: 1;
 }
 
 /******************/
