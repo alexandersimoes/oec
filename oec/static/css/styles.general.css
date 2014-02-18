@@ -278,21 +278,21 @@ body.about #sidebar > ul > li.active > ul {
 }
 
 #sidebar > ul > li > ul > ul > li.active > a {
-  background-color: #eee;
+  background-color: #ddd;
 }
 
 #sidebar > ul > li > ul > ul > li.active > a:after {
-  color: #444;
-  content: "\f101";
+  color: rgba(0,0,0,0.5);
+  content: "\f054";
   display: block;
   font-family: FontAwesome;
-  font-size: 14px;
+  font-size: 10px;
   -webkit-font-smoothing: antialiased;
   font-style: normal;
   font-weight: normal;
   position: absolute;
   right: 5px;
-  top: 2px;
+  top: 5px;
 }
 
 /******************/
