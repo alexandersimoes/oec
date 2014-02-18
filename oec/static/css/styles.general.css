@@ -215,24 +215,25 @@ ul, ol {
 /***********************/
 /* Sidebar Menu Styles */
 /***********************/
-ul {
+#sidebar ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-#siderbar > ul > li {
+#sidebar > ul > li {
   border-bottom: 1px solid #aaaaaa;
 }
 
-ul > li:last-child {
+#sidebar > ul > li:last-child {
   border-bottom: 0px;
 }
 
-ul > li > a {
+#sidebar > ul > li > a {
   color: #888888;
   display: block;
   font-size: 12px;
+  height: 15px;
   letter-spacing: 1px;
   padding: 10px;
   text-decoration: none;
@@ -240,39 +241,35 @@ ul > li > a {
           transition: background-color 0.3s, color 0.3s;
 }
 
-#sidebar ul > li > a {
-  height: 15px;
-}
-
-ul > li > a:hover {
+#sidebar > ul > li > a:hover {
   color: #444444;
 }
 
-ul > li.active > a {
+#sidebar > ul > li.active > a {
   background-color: #0085BF;
   color: #eeeeee;
 }
 
-ul > li > ul {
+#sidebar > ul > li > ul {
   height: 0px;
   margin: 0px;
   overflow: hidden;
   padding: 0px;
 }
 
-body.about ul > li.active > ul {
+body.about #sidebar > ul > li.active > ul {
   height: auto;
 }
 
-ul > li > ul > ul {
+#sidebar > ul > li > ul > ul {
   margin: 10px;
 }
 
-ul > li > ul > ul > h3 {
+#sidebar > ul > li > ul > ul > h3 {
   margin: 5px 0px;
 }
 
-ul > li > ul > ul > li > a {
+#sidebar > ul > li > ul > ul > li > a {
   color: #444;
   display: block;
   padding: 2px 5px;
@@ -280,11 +277,11 @@ ul > li > ul > ul > li > a {
   width: 100%;
 }
 
-ul > li > ul > ul > li.active > a {
+#sidebar > ul > li > ul > ul > li.active > a {
   background-color: #ddd;
 }
 
-ul > li > ul > ul > li.active > a:after {
+#sidebar > ul > li > ul > ul > li.active > a:after {
   color: rgba(0,0,0,0.5);
   content: "\f054";
   display: block;
@@ -298,7 +295,7 @@ ul > li > ul > ul > li.active > a:after {
   top: 5px;
 }
 
-li.icon > a{
+#sidebar li.icon > a{
   padding-left: 30px;
   position: relative;
 }
@@ -333,6 +330,10 @@ li.icon > a:before {
 li.icon.active > a:before {
   color: white;
   opacity: 1;
+}
+
+li.pdf.icon > a {
+  height: auto !important;
 }
 
 li.pdf.icon > a:before {

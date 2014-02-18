@@ -96,7 +96,36 @@ div.data_sources h4 {
 /***********/
 /* Updates */
 /***********/
+#updates h2 {
+  margin: 10px 0px;
+  width: 100%;
+}
+
 #updates article {
+  border-bottom: solid 1px #ccc;
+  margin: 10px 0px;
+  padding-bottom: 20px;
+}
+
+#updates article:last-child {
+  border-bottom: none
+}
+
+#updates article .date {
+  margin: -10px 0px 10px;
+  text-align: center;
+}
+
+#updates ul {
+  list-style-type: circle;
+  margin-top: 10px;
+  padding-left: 25px;
+}
+
+#updates li {
+  margin: 4px 0px;
+}
+/*#updates article {
   line-height: 1.5em;
   border-bottom: solid 1px;
   padding: 25px 0;
@@ -126,4 +155,4 @@ div.data_sources h4 {
 }
 #updates article ul {
   padding: 0 0 0 20px;
-}
+}*/
