@@ -321,7 +321,6 @@ var trade_flow = "{{ current_build.trade_flow }}",
                   }
                 })
     
-
 if(!in_explore_page){
   d3.select("a.fullscreen").style("display", "none")
 }
@@ -355,7 +354,7 @@ function resize_viz(obj){
        new_width = window.innerWidth - parseInt(d3.select("#controls").style("width"))
     }
     
-    var new_height = window.innerHeight - d3.select("#ui").node().offsetHeight;
+    var new_height = in_explore_page ? 505 : window.innerHeight - d3.select("#ui").node().offsetHeight;
     if (obj){
       new_width = obj.width || new_width;
       new_height = obj.height || new_height;

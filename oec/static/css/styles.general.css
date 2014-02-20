@@ -1,5 +1,5 @@
 html {
-  height: 100%;
+/*  height: 100%;*/
   margin: 0 auto;
   padding: 0;
 }
@@ -14,11 +14,11 @@ body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", Helvetica, Arial, sans-serif;
   font-weight: lighter;
   font-size: 12px;
-  height: 100%;
+/*  height: 100%;*/
   margin: 0 auto;
   padding: 0;
   position: relative;
-  width: 100%;
+/*  width: 100%;*/
 }
 
 /******************/
