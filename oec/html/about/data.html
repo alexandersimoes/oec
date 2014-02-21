@@ -23,7 +23,7 @@
       <tr>
         <td>{{ loop.index }}</td>
         <td>{{ item[id_col]|upper }}</td>
-        <td><a href="{{ item.get_profile_url() }}">{{ item.get_name() }}</a></td>
+        <td><img class="icon" {% if item.classification %}style="background-color: {{ item.color }}"{% endif %} src="{{ item.get_icon() }}" /> <a href="{{ item.get_profile_url() }}">{{ item.get_name() }}</a></td>
       </tr>
       {% endfor %}
   

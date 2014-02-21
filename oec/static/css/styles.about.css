@@ -125,6 +125,7 @@ div.data_sources h4 {
 #updates li {
   margin: 4px 0px;
 }
+
 /*#updates article {
   line-height: 1.5em;
   border-bottom: solid 1px;
@@ -156,3 +157,16 @@ div.data_sources h4 {
 #updates article ul {
   padding: 0 0 0 20px;
 }*/
+
+/************************/
+/* Data Classifications */
+/************************/
+table {
+  font-size: 14px;
+}
+table tbody tr td img.icon {
+ width: 20px; 
+}
+table tbody tr td a {
+  vertical-align: top;
+}
