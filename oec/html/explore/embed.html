@@ -255,7 +255,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
     app_type = "{{ current_build.app.type }}",
     attrs = {},
     vars = {{ global_vars|safe }},
-    in_explore_page = (window.location != window.parent.location) && !in_the_wild,
+    in_explore_page = (window.location != window.parent.location) && !in_the_wild && window.parent.location.pathname.indexOf("explore") >= 0,
     viz_height = in_explore_page ? 505 : window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
     in_the_wild = window.parent.location.origin.indexOf("atlas.media.mit.edu") < 0 &&
@@ -320,8 +320,8 @@ var trade_flow = "{{ current_build.trade_flow }}",
                     }
                     return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
                   }
-                })
-    
+                });
+                console.log(in_explore_page)
 if(!in_explore_page){
   d3.select("a.fullscreen").style("display", "none")
 }
