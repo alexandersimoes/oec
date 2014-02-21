@@ -123,7 +123,7 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, \
         new_year = ".".join([new_start_year, new_end_year]) if "." in year else new_year
         return redirect(url_for('.explore', app_name=app_name, \
                         classification=classification, trade_flow=trade_flow, \
-                        origin=origin, dest=dest, product=product, \
+                        origin_id=origin_id, dest_id=dest_id, prod_id=prod_id, \
                         year=new_year))
     
     sanitize(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)

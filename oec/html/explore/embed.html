@@ -64,7 +64,8 @@
     <h3>{{ ui.name }}</h3>
     <select id="{{ ui.id }}_selector">
       {% for option in ui.data %}
-      <option value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
+      <option {% if option.conversion %}data-conversion="{{ option.conversion }}"{% endif %} 
+      value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
       {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") or ui.current|lower|replace(" ", "_") == option.display_id %}selected="selected"{% endif %}>
         {% if option is string or option is number %}{{ option }}
         {% else %}{{ option.name }}
@@ -666,7 +667,11 @@ d3.select("#more_years button").on("click", function(){
 
 d3.selectAll("button#build").on("click", function(){
   
-  var tf = d3.select("#trade_flow select").node().value.toLowerCase()
+  var classification = "{{ current_build.classification }}",
+      tf = d3.select("#trade_flow select").node().value.toLowerCase(),
+      origin = "{{ current_build.origin.id_3char }}" || "{{ current_build.origin }}",
+      dest = "{{ current_build.dest.id_3char }}" || "{{ current_build.dest }}",
+      prod = "{{ current_build.product.hs }}" || "{{ current_build.product.sitc }}" || "{{ current_build.product }}";
   
   if (d3.select("#year select").node()){
     var year = d3.select("#year select").node().value
@@ -678,27 +683,29 @@ d3.selectAll("button#build").on("click", function(){
   }
   
   if(d3.select("#origin select").node()){
-    var origin = d3.select("#origin select").node().value
-  } else {
-    var origin = "{{ current_build.origin.id_3char }}" || "{{ current_build.origin }}"
+    origin = d3.select("#origin select").node().value
   }
   
   if(d3.select("#destination select").node()){
-    var dest = d3.select("#destination select").node().value
-  } else {
-    var dest = "{{ current_build.dest.id_3char }}" || "{{ current_build.dest }}"
-  }
-  
-  if(d3.select("#product select").node()){
-    var prod = d3.select("#product select").node().value
-  } else {
-    var prod = "{{ current_build.product.hs }}" || "{{ current_build.product.sitc }}" || "{{ current_build.product }}"
+    dest = d3.select("#destination select").node().value
   }
   
   if(d3.select("#classification select").node()){
-    var classification = d3.select("#classification select").node().value.toLowerCase()
-  } else {
-    var classification = "{{ current_build.classification }}"
+    classification = d3.select("#classification select").node().value.toLowerCase()
+  }
+  
+  if(d3.select("#product select").node()){
+    var orig_classification = "{{ current_build.classification }}";
+    if(orig_classification != classification){
+      var selected = d3.select("#product select").node().selectedIndex
+      selected = d3.select("#product select").node()[selected]
+      prod = d3.select(selected).attr("data-conversion")
+      if(!prod && classification == "sitc") { prod = "4232" }
+      if(!prod && classification == "hs") { prod = "1507" }
+    }
+    else {
+      prod = d3.select("#product select").node().value
+    }
   }
   
   var curr_window = window
@@ -719,6 +726,7 @@ d3.selectAll("button#build").on("click", function(){
   new_url += year + "/"
   
   curr_window.location = new_url
+  // console.log(new_url)
   
   d3.event.preventDefault();
 })

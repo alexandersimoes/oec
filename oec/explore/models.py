@@ -207,52 +207,6 @@ class Build(db.Model, AutoSerialize):
             return "sitc"
         return "hs"
     
-    def googledoc_url(self, lang=None):
-        lang = lang or getattr(g, "locale", "en")
-        attr_type = self.attr_type
-        urls = {
-            "hs": {
-                "base": "https://docs.google.com/spreadsheets/d/1mPG5zgQmeh3vRsGQrIOq8hPONXNRGW1OC449ExAqMVs/edit#gid=",
-                "ar": "1588586677",
-                "de": "530064643",
-                "el": "983179787",
-                "es": "1944583101",
-                "fr": "1905672748",
-                "he": "2128588905",
-                "hi": "743517428",
-                "it": "88825508",
-                "ja": "232303061",
-                "ko": "1935639514",
-                "nl": "1662472861",
-                "pt": "622515059",
-                "ru": "857066651",
-                "tr": "207686126",
-                "zh_cn": "1365752192"
-            },
-            "sitc": {
-                "base": "https://docs.google.com/spreadsheets/d/1blDK7Vw9hv1UqxaYs5gqveCCLi0Tq8mKABzl8DP0g6Q/edit#gid=",
-                "ar": "82159825",
-                "de": "1586143831",
-                "el": "1486300701",
-                "es": "1166478575",
-                "fr": "564122962",
-                "he": "126221055",
-                "hi": "1150209283",
-                "it": "233912049",
-                "ja": "1722573768",
-                "ko": "2145648743",
-                "nl": "1901813015",
-                "pt": "596935311",
-                "ru": "842832137",
-                "tr": "859190494",
-                "zh_cn": "826330770"
-            }
-        }
-        if attr_type() in urls:
-            return urls[attr_type()]["base"] + urls[attr_type()][lang]
-        else:
-            return "https://docs.google.com/spreadsheets/d/1Ue5cRW2rWlsZrnISWEgzuUsouIt6C0YI9t_tAPewMio/"
-    
     def attr_url(self):
         if self.origin == "show" or self.dest == "show":
             return url_for('attr.attrs', attr='country')
