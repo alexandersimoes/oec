@@ -149,6 +149,7 @@ div#loading > h2 {
 }
 #controls #show_hide {
   cursor: pointer;
+  font-size: 16px;
   left: -22px;
   position: absolute;
   top: -23px;

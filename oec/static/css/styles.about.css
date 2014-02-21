@@ -170,3 +170,10 @@ table tbody tr td img.icon {
 table tbody tr td a {
   vertical-align: top;
 }
+
+ol {
+  list-style-type: decimal;
+}
+ol li {
+  margin: 10px 0;
+}

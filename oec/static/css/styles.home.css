@@ -75,6 +75,10 @@ body.home .related .related_type {
   display: inline-block;
   padding: 10px;
 }
+body.home .related .related_type:first-child {
+/*  border-right: solid 2px #0085BF;*/
+  margin: 0 60px 0 0;
+}
 
 div.project {
   color: #888;
