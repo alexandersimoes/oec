@@ -42,6 +42,10 @@ def explore_redirect(app_name='tree_map'):
 
 def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
     msg = None
+    if origin == "twn" and dest != "all":
+        c = Country.query.filter_by(id_3char=origin).first()
+        origin = "chn"
+        msg = "Bilateral trade not available for {0}. ".format(c.get_name())
     if classification == "hs":
         if origin in ["nam", "lso", "bwa", "swz"]:
             c = Country.query.filter_by(id_3char=origin).first()
@@ -55,7 +59,7 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
     if msg:
         redirect_url = url_for('.explore', app_name=app_name, \
                     classification=classification, trade_flow=trade_flow, \
-                    origin=origin, dest=dest, product=product, year=year)
+                    origin_id=origin, dest_id=dest, prod_id=product, year=year)
         flash(msg+"<script>redirect('"+redirect_url+"', 10)</script>")
 
 def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trade_flow):
@@ -90,7 +94,10 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
             dest = getattr(data_tbls, "Yo").query.filter_by(year=year) \
                             .filter_by(country=origin).first()
             dest = defaults["dest"] if not dest else getattr(dest, direction)
-            dest = Country.query.get(dest)
+            if not dest:
+                dest = Country.query.get("nausa")
+            else:
+                dest = Country.query.get(dest)
     
     if not product:
         # find the largest exporter or importer of given product
@@ -104,7 +111,7 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
 
 
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year>/')
-@view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
+# @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
 def explore(app_name, classification, trade_flow, origin_id, dest_id, \
                 prod_id, year="2011"):
     g.page_type = mod.name
