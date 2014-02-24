@@ -25,7 +25,7 @@ msgstr "원산지"
 #: oec/explore/models.py:370 oec/explore/models.py:373
 #: oec/html/explore/embed.html:291
 msgid "ID"
-msgstr "신분증"
+msgstr "ID"
 
 #: oec/explore/models.py:372
 msgid "Destination Country"
@@ -33,7 +33,7 @@ msgstr "대상 국가"
 
 #: oec/explore/models.py:375
 msgid "Product Name"
-msgstr "제품 이름"
+msgstr "제품명"
 
 #: oec/explore/models.py:406
 msgid "Trade Flow"
@@ -53,19 +53,19 @@ msgstr "분류"
 
 #: oec/explore/models.py:431
 msgid "Start Year"
-msgstr "해보기 시작"
+msgstr "시작년도"
 
 #: oec/explore/models.py:437
 msgid "End Year"
-msgstr "최종 수정"
+msgstr "종료연도"
 
 #: oec/explore/models.py:445 oec/rankings/views.py:75
 msgid "Year"
-msgstr "년"
+msgstr "연표"
 
 #: oec/explore/models.py:459
 msgid "Origin"
-msgstr "유래"
+msgstr "원산지"
 
 #: oec/explore/models.py:473
 msgid "Destination"
@@ -73,29 +73,27 @@ msgstr "목적지"
 
 #: oec/explore/models.py:490 oec/rankings/views.py:49 oec/rankings/views.py:53
 msgid "Product"
-msgstr "생성물"
+msgstr "제품"
 
 #: oec/html/home.html:25
 msgid ""
 "The Observatory of Economic Complexity makes international trade data and"
 " economic complexity indicators available through millions of interactive"
 " visualizations."
-msgstr "경제 복잡성의 전망대는 국제 무역 데이터 및 대화 형 시각화의 수백만을 통해 사용할 수 경제의 복잡성 지표를 만든다."
+msgstr "경제적 복잡성 관측소(The Observatory of Economic Complexity)는 국제 무역 데이터와 경제적 복잡성에 대한 지표를 수백만의 쌍방향 시각자료를 통해 정리 및 보관하고 있습니다."
 
 #: oec/html/about/api_data.html:7
 msgid ""
 "Application programming interface (API) for querying the raw data used "
 "throughout The Observatory of Economic Complexity."
-msgstr "경제 복잡성의 관측소 걸쳐 사용 원시 데이터를 쿼리하는 애플리케이션 프로그래밍 인터페이스 (API)."
+msgstr "경제 복잡성 관측소를 통해 사용된 미가공 데이터를 쿼리하는 애플리케이션 프로그래밍 인터페이스 (API)."
 
 #: oec/html/about/api_embed.html:8
 msgid ""
 "Application programming interface (API) for emedding an iframe of the "
 "visualizations used througout The Observatory of Economic Complexity on "
 "your own website."
-msgstr ""
-"자신의 웹 사이트에 대한 경제 복잡성의 전망대 througout 사용되는 시각화의 iframe에 emedding에 대한 응용 "
-"프로그램 프로그래밍 인터페이스 (API)."
+msgstr "경제 복잡성 관측소를 통해 사용된 시각화 자료의 iframe을 고객의 웹사이트에 삽입하기 위한 응용 프로그램 프로그래밍 인터페이스 (API)."
 
 #: oec/html/about/data.html:4
 msgid ""
@@ -107,20 +105,18 @@ msgstr "해당 ID와 값 HS, SITC, 및 국가 분류."
 msgid ""
 "Photos and descriptions of the team members involved in the creation of "
 "The Observatory."
-msgstr "사진 및 천문대의 생성에 관여 팀 구성원의 설명."
+msgstr "관측소 설립에 참여한 구성원들의 사진 및 소개"
 
 #: oec/html/about/updates.html:4
 msgid "A Development blog of updates to the site."
-msgstr "사이트에 업데이트의 개발 블로그"
+msgstr "본 웹사이트 업데이트 기록 블로그"
 
 #: oec/html/atlas/index.html:4
 msgid ""
 "A book of complexity economics attempting to explain why some countries "
 "grow and others do not. The book uses many of the visualizations seen "
 "throughout this site."
-msgstr ""
-"일부 국가가 성장하고 다른 사람이하지 않는 이유를 설명하기 복잡 경제의 책. 이 책은이 사이트를 통해 볼 수있는 시각화를 많이 "
-"사용합니다."
+msgstr "왜 일부는 국가는 성장하고 다른 국가는 성장하지 못하는지 설명하기 위한 복잡 경제 서적. 이 책은 본 사이트를 통해 볼 수있는 시각화 자료를 많이 사용하고 있습니다."
 
 #: oec/html/explore/embed.html:8
 msgid "An emedded visualization."
@@ -128,7 +124,7 @@ msgstr "emedded 시각화."
 
 #: oec/html/explore/embed.html:13 oec/html/explore/embed.html:613
 msgid "Loading"
-msgstr "로딩"
+msgstr "화물"
 
 #: oec/html/explore/embed.html:20 oec/html/explore/embed.html:43
 msgid "Value"
@@ -136,7 +132,7 @@ msgstr "값"
 
 #: oec/html/explore/embed.html:21 oec/html/explore/embed.html:99
 msgid "Share"
-msgstr "주"
+msgstr "공유하기"
 
 #: oec/html/explore/embed.html:28
 msgid "Continent"
@@ -172,7 +168,7 @@ msgstr "성장 가치 (5 년)"
 
 #: oec/html/explore/embed.html:54
 msgid "All Years"
-msgstr "모든 년"
+msgstr "모든 년도"
 
 #: oec/html/explore/embed.html:78
 msgid "Build Visualization"
@@ -188,11 +184,11 @@ msgstr "텍스트로보기"
 
 #: oec/html/explore/embed.html:90
 msgid "View fullscreen"
-msgstr "보기 전체 화면"
+msgstr "전체화면으로 보기"
 
 #: oec/html/explore/embed.html:94
 msgid "Embed"
-msgstr "퍼가기"
+msgstr "퍼가기 (링크)"
 
 #: oec/html/explore/embed.html:115
 msgid "Short URL"
@@ -216,11 +212,11 @@ msgstr "백분율"
 
 #: oec/html/explore/embed.html:313
 msgid "Brought to you by"
-msgstr "에 의해 당신에게 가져"
+msgstr "수송 담당"
 
 #: oec/html/explore/embed.html:763
 msgid "View graphic"
-msgstr "보기 그래픽"
+msgstr "그림으로 보기"
 
 #: oec/html/explore/index.html:15
 msgid "Data visualization of economic trade"
@@ -233,7 +229,7 @@ msgstr "의 국기 %(country)s"
 
 #: oec/html/explore/index.html:37 oec/html/rankings/index.html:44
 msgid "Previous Year"
-msgstr "이전 년"
+msgstr "이전 연도"
 
 #: oec/html/explore/index.html:41 oec/html/rankings/index.html:54
 msgid "Next Year"
@@ -310,7 +306,7 @@ msgstr "시각화로보기"
 msgid ""
 "%(prod)s (%(prod_abbrv)s) Profile of Export Destinations and Import "
 "Origins"
-msgstr "%(prod)s (%(prod_abbrv)s) 수출 여행지 가져 오기 기원의 프로필"
+msgstr "%(prod)s (%(prod_abbrv)s) 수출목적지와 수입원산지 프로필"
 
 #: oec/html/profile/product.html:9
 #, python-format
@@ -322,12 +318,12 @@ msgstr "의 경제 지표 통계와 주요 선도 출발지와 목적지 국가�
 #: oec/html/profile/product.html:9
 #, python-format
 msgid "Principle trade partners that export %(prod)s."
-msgstr "원리 무역 파트너가 수출 %(prod)s."
+msgstr "수출 %(prod)s 하는 원리 무역 파트너"
 
 #: oec/html/profile/product.html:9
 #, python-format
 msgid "Countries that import %(prod)s."
-msgstr "국가가 수입 %(prod)s."
+msgstr "수입 %(prod)s 하는 국가"
 
 #: oec/html/profile/product.html:12
 #, python-format
@@ -368,7 +364,7 @@ msgstr "모든 년 자료를 다운로드"
 
 #: oec/html/templates/site.html:18
 msgid "Explore"
-msgstr "탐구"
+msgstr "탐구(알아보기)"
 
 #: oec/html/templates/site.html:19
 msgid "Profiles"
@@ -384,11 +380,11 @@ msgstr "순위"
 
 #: oec/html/templates/site.html:22
 msgid "About"
-msgstr "약"
+msgstr "자세한 정보"
 
 #: oec/rankings/views.py:49 oec/rankings/views.py:53 oec/rankings/views.py:57
 msgid "Rank"
-msgstr "계급"
+msgstr "순위"
 
 #~ msgid "Book"
 #~ msgstr "책"
