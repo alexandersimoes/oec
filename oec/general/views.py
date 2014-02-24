@@ -20,10 +20,12 @@ from dateutil import parser
 
 import csv
 from cStringIO import StringIO
+from random import choice
+
 
 mod = Blueprint('general', __name__, url_prefix='/')
 
-from oec import app, db, babel, excluded_countries, available_years
+from oec import app, db, babel, random_countries, available_years
 
 ###############################
 # General functions for ALL views
@@ -317,9 +319,7 @@ def home():
     '''
     
     '''get ramdom country'''
-    c = Country.query.filter(Country.id_2char != None) \
-                        .filter(not_(Country.id.in_(excluded_countries))) \
-                        .order_by(func.random()).limit(1).first()
+    c = Country.query.get(choice(random_countries))
     current_app = App.query.filter_by(type="tree_map").first_or_404()
     default_build = Build.query.filter_by(app=current_app, name_id=1).first_or_404()
     default_build.set_options(origin=c, dest="all", product="show", classification="hs")

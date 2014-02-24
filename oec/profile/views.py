@@ -4,21 +4,21 @@ from flask import Blueprint, render_template, g, request, current_app, \
                     session, redirect, url_for, flash, abort
 from flask.ext.babel import gettext
 
-from oec import app, db, babel, view_cache, excluded_countries, available_years
+from oec import app, db, babel, view_cache, random_countries, available_years
 from oec.utils import make_query, make_cache_key
 from oec.db_attr import models as attr_models
 from oec.explore.models import Build, App
 from sqlalchemy.sql.expression import func
 from sqlalchemy import not_
+from random import choice
 
 mod = Blueprint('profile', __name__, url_prefix='/profile')
 
 @mod.route('/country/')
 def profile_country_redirect():
     Country = getattr(attr_models, "Country")
-    c = Country.query.filter(Country.id_2char != None) \
-                        .filter(not_(Country.id.in_(excluded_countries))) \
-                        .order_by(func.random()).limit(1).first()
+    '''fetch random country'''
+    c = Country.query.get(choice(random_countries))
     
     return redirect(url_for(".profile_country", attr_id=c.id_3char))
 
@@ -42,6 +42,10 @@ def sanitize(id_3char):
 # @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
 def profile_country(attr_id="usa"):
     g.page_type = mod.name
+    
+    is_iOS = False
+    if any(x in request.headers.get('User-Agent') for x in ["iPad","iPhone","iPod"]):
+        is_iOS = True
     
     sanitize(attr_id)
     
@@ -82,6 +86,7 @@ def profile_country(attr_id="usa"):
                         year=available_years["country"][-1])
     
     return render_template("profile/country.html", 
+                                is_iOS=is_iOS,
                                 builds=builds,
                                 attr=attr)
 
@@ -90,6 +95,10 @@ def profile_country(attr_id="usa"):
 @view_cache.cached(timeout=None, key_prefix=make_cache_key)
 def profile_product(attr_type, attr_id="usa"):
     g.page_type = mod.name
+    
+    is_iOS = False
+    if any(x in request.headers.get('User-Agent') for x in ["iPad","iPhone","iPod"]):
+        is_iOS = True
     
     if attr_type == "hs":
         attr = getattr(attr_models, attr_type.capitalize()).query.filter_by(hs=attr_id).first_or_404()
@@ -119,6 +128,7 @@ def profile_product(attr_type, attr_id="usa"):
                         year=available_years[attr_type][-1])
     
     return render_template("profile/product.html", 
+                                is_iOS=is_iOS,
                                 builds=builds,
                                 classification=attr_type,
                                 attr=attr)

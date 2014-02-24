@@ -43,10 +43,18 @@ available_years = {"sitc": range(1962, 2011), "hs": range(1995, 2012), \
 
 # Global for excluded countries
 excluded_countries = ["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", \
-                        "nabes", "nacuw", "navir", "eusjm", "namaf", "naant" \
-                        "afreu", "afssd", "afmyt", "eufro", "eubel", "eulux", \
-                        "afswz", "afbwa", "aflso", "afnam", "napri", "namtq", \
-                        "euimn", "eulie", "euddr", "eufdr"]
+    "nabes", "nacuw", "navir", "eusjm", "namaf", "naant", "afreu", "afssd", \
+    "afmyt", "eufro", "eubel", "eulux", "afswz", "afbwa", "aflso", "afnam", \
+    "napri", "namtq", "euimn", "eulie", "euddr", "eufdr"]
+random_countries = ["afago","afdza","afegy","afmar","afnga","afzaf","asare", \
+    "asaze","asbgd","aschn","ashkg","asidn","asind","asirn","asirq","asisr", \
+    "asjpn","askaz","askor","askwt","asmys","asomn","aspak","asphl","asqat", \
+    "asrus","assau","assgp","astha","astur","astwn","asvnm","asxxb","euaut", \
+    "eubgr","eublr","eublx","euche","eucze","eudeu","eudnk","euesp","eufin", \
+    "eufra","eugbr","eugrc","euhun","euirl","euita","eultu","eunld","eunor", \
+    "eupol","euprt","eurou","eusvk","eusvn","euswe","euukr","nacan","nacri", \
+    "namex","nausa","ocaus","ocnzl","saarg","sabra","sachl","sacol","saecu", \
+    "saper","saven"]
 
 # babel configuration for lang support
 babel = Babel(app)

@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, g, request, session, redirect, \
                     url_for, flash, jsonify, Response, abort
 from flask.ext.babel import gettext
 
-from oec import app, db, babel, view_cache, excluded_countries, available_years
+from oec import app, db, babel, view_cache, random_countries, available_years
 from oec.utils import make_query, make_cache_key
 from oec.db_attr.models import Country, Sitc, Hs
 from oec.explore.models import Build, App, Short
@@ -12,17 +12,17 @@ from oec.db_hs import models as hs_tbls
 from oec.db_sitc import models as sitc_tbls
 from sqlalchemy.sql.expression import func
 from sqlalchemy import not_
+from random import choice
 
 mod = Blueprint('explore', __name__, url_prefix='/explore')
 
 @mod.route('/')
 @mod.route('/<app_name>/')
 def explore_redirect(app_name='tree_map'):
+    '''fetch random country'''
+    c = Country.query.get(choice(random_countries))
+    
     if app_name in ["tree_map", "stacked", "network"]:
-        '''fetch random country'''
-        c = Country.query.filter(Country.id_2char != None) \
-                            .filter(not_(Country.id.in_(excluded_countries))) \
-                            .order_by(func.random()).limit(1).first()
         redirect_url = url_for('.explore', app_name=app_name, \
                         classification="hs", trade_flow="export", \
                         origin_id=c.id_3char, dest_id="all", prod_id="show", year="2011")
@@ -32,9 +32,7 @@ def explore_redirect(app_name='tree_map'):
                             .order_by(func.random()).limit(1).first()
         origin = "show"
         if app_name == "rings":
-            origin = Country.query.filter(Country.id_2char != None) \
-                        .filter(not_(Country.id.in_(excluded_countries))) \
-                        .order_by(func.random()).limit(1).first().id_3char
+            origin = c.id_3char
         redirect_url = url_for('.explore', app_name=app_name, \
                         classification="hs", trade_flow="export", \
                         origin_id=origin, dest_id="all", prod_id=p.hs, year="2011")
