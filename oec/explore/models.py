@@ -315,52 +315,7 @@ class Build(db.Model, AutoSerialize):
         return {"total":sum, "entries":stats, "header":header}
     
     def get_ui(self):
-        trade_flow = {
-            "id": "trade_flow",
-            "name": _("Trade Flow"),
-            "current": self.trade_flow,
-            "data": [
-                {"name":_("Export"), "display_id":"export"},
-                {"name":_("Import"), "display_id":"import"}
-                # {"name":_("Net Export"), "display_id":"net_export"},
-                # {"name":_("Net Import"), "display_id":"net_import"}
-            ]
-        }
-        classification = {
-            "id": "classification",
-            "name": _("Classification"),
-            "current": self.classification,
-            "data": ["HS", "SITC"]
-        }
-        ui = [trade_flow]
-        
-        if "." in self.year:
-            year_parts = [int(y) for y in self.year.split(".")]
-            if len(year_parts) == 2:
-                years = range(year_parts[0], year_parts[1]+1)
-            else:
-                years = range(year_parts[0], year_parts[1]+1, year_parts[2])
-            start_year = {
-                "id": "start_year",
-                "name": _("Start Year"),
-                "current": years[0],
-                "data": available_years[self.classification][::-1]
-            }
-            end_year = {
-                "id": "end_year",
-                "name": _("End Year"),
-                "current": years[-1],
-                "data": available_years[self.classification][::-1]
-            }
-            ui = ui + [start_year, end_year]
-        else:
-            year = {
-                "id": "year",
-                "name": _("Year"),
-                "current": int(self.year),
-                "data": available_years[self.classification][::-1]
-            }
-            ui.append(year)
+        ui = []
         
         if isinstance(self.origin, Country):
             country_list = Country.query \
@@ -406,6 +361,53 @@ class Build(db.Model, AutoSerialize):
                 "data": product_list
             }
             ui.append(product)
+        
+        trade_flow = {
+            "id": "trade_flow",
+            "name": _("Trade Flow"),
+            "current": self.trade_flow,
+            "data": [
+                {"name":_("Export"), "display_id":"export"},
+                {"name":_("Import"), "display_id":"import"}
+                # {"name":_("Net Export"), "display_id":"net_export"},
+                # {"name":_("Net Import"), "display_id":"net_import"}
+            ]
+        }
+        classification = {
+            "id": "classification",
+            "name": _("Classification"),
+            "current": self.classification,
+            "data": ["HS", "SITC"]
+        }
+        ui.append(trade_flow)
+        
+        if "." in self.year:
+            year_parts = [int(y) for y in self.year.split(".")]
+            if len(year_parts) == 2:
+                years = range(year_parts[0], year_parts[1]+1)
+            else:
+                years = range(year_parts[0], year_parts[1]+1, year_parts[2])
+            start_year = {
+                "id": "start_year",
+                "name": _("Start Year"),
+                "current": years[0],
+                "data": available_years[self.classification][::-1]
+            }
+            end_year = {
+                "id": "end_year",
+                "name": _("End Year"),
+                "current": years[-1],
+                "data": available_years[self.classification][::-1]
+            }
+            ui = ui + [start_year, end_year]
+        else:
+            year = {
+                "id": "year",
+                "name": _("Year"),
+                "current": int(self.year),
+                "data": available_years[self.classification][::-1]
+            }
+            ui.append(year)
         
         ui.append(classification)
         
