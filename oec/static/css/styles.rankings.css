@@ -64,7 +64,7 @@ table tbody tr td:nth-child(1) {
 table thead tr th:nth-child(2),
 table tbody tr td:nth-child(2) {
   text-align: left;
-  width: 40px;
+  width: 50px;
 }
 table thead tr th:nth-child(3),
 table tbody tr td:nth-child(3) {
