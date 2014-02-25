@@ -1,76 +1,91 @@
+
+/* Title formatting */
+.title {
+  overflow: hidden;
+  position: relative;
+}
+
+.title a.prev,
+.title a.next {
+  bottom: 12px;
+  color: #666;
+  display: inline-block;
+  letter-spacing: 1px;
+  padding: 3px;
+  position: absolute;
+}
+.title h2 {
+  margin: 0px 150px 10px;
+}
+
+.title a.prev {
+  text-align: left;
+  left: 5px;
+}
+
+.title a.next {
+  text-align: right;
+  right: 5px;
+}
+
+#sidebar h3 {
+  display: inline-block;
+  margin: 8px 5px 0px 0px;
+}
+
 .change_year {
-/*  overflow: hidden;*/
-  width: 100%;
+  display: inline-block;
+  margin: 10px 0px;
 }
-.change_year a.prev {
-  display: block;
-  float: left;
-  font-size: 22px;
-}
-.change_year h3 {
-  float: left;
-  font-size: 34px;
-  margin: 0 215px;
-  text-align: center;
-}
-.change_year a.next {
-  display: block;
-  font-size: 22px;
-  float: right;
-}
+
 table {
   font-size: 14px;
-  margin: 70px 0 30px 0;
   width: 100%;
 }
 table thead th{
-  border-bottom: 1px solid #999;
-  font-size: 16px;
-  font-weight: normal;
+  background-color: #f0f0f0;
+  color: #888;
+  font-weight: lighter;
   text-align: left;
 }
 table thead th a{
   font-weight: normal;
   color: #666;
 }
-table thead th.sorttable_sorted,
-table thead th.sorttable_sorted_reverse{
-/*  padding: 0;*/
+table tbody tr td {
+  padding: 10px;
 }
-table thead th.sorttable_sorted a,
-table thead th.sorttable_sorted_reverse a{
-  color: black;
-  font-weight: bold;
-}
-table tbody tr th:nth-child(1),
+table thead tr th:nth-child(1),
 table tbody tr td:nth-child(1) {
-  width: 50px;
-}
-table tbody tr th:nth-child(2),
-table tbody tr td:nth-child(2) {
-  width: 50px;
-}
-table tbody tr th:nth-child(3),
-table tbody tr td:nth-child(3) {
+  text-align: center;
+  padding: 8px;
   width: 30px;
 }
-table tbody tr th:nth-child(4),
+table thead tr th:nth-child(2),
+table tbody tr td:nth-child(2) {
+  text-align: left;
+  width: 40px;
+}
+table thead tr th:nth-child(3),
+table tbody tr td:nth-child(3) {
+  text-align: center;
+  width: 30px;
+}
+table thead tr th:nth-child(4),
 table tbody tr td:nth-child(4) {
   width: 400px;
 }
-table tbody tr th:nth-child(5),
+table tbody tr td:nth-child(4) {
+  padding-left: 30px;
+  position: relative;
+}
+table thead tr th:nth-child(5),
 table tbody tr td:nth-child(5) {
   width: 80px;
 }
-table tbody tr th:nth-child(6),
+table thead tr th:nth-child(6),
 table tbody tr td:nth-child(6) {
   width: 50px;
-}
-table tbody tr td:nth-child(1) {
-  padding: 4px;
-}
-table tbody tr td {
-  border-bottom: 1px solid #ddd;
 }
 table tbody tr td a {
   vertical-align: top;
@@ -80,65 +95,17 @@ table tbody tr td span {
   display: block;
   padding: 2px;
   text-align: center;
-  width: 30px;
 }
 table tbody tr td img.icon {
- width: 20px; 
+  height: 25px;
+  left: 0px;
+  position: absolute;
+  top: 7px;
+  width: 25px;
 }
-.arrow_up {
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid green;
-}
-.arrow_down {
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid red;
-}
-.sort_arrow_down {
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid black;
-  display: inline;
-/*  font-size: 4px;*/
-  position: relative;
-  top: 12px;
-  margin: 0 0 0 4px;
-}
-.sort_arrow_up {
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid black;
-  display: inline;
-/*  font-size: 4px;*/
-  position: relative;
-  bottom: 12px;
-  margin: 0 0 0 4px;
-}
-
-.dropdown {
-  display: inline;
-  float: left;
-  margin: 0 200px;
-  text-align: center;
-}
-.dropdown dt{
-  display: inline;
-}
-.q {
-  float: left;
-}
-.fa-long-arrow-up {
+.fa-arrow-up {
   color: #00cc00;
 }
-.fa-long-arrow-down {
+.fa-arrow-down {
   color: #cc0000;
 }

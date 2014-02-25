@@ -100,10 +100,10 @@ div#loading > h2 {
   min-width: 35px;
 }
 #app #text table tbody tr:nth-child(even) {
-  background: white;
+  background: transparent;
 }
 #app #text table tbody tr:nth-child(odd) {
-  background: #F4F5F7;
+  background: #f7f7f7;
 }
 
 /******/

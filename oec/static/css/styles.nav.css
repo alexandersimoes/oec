@@ -62,6 +62,10 @@ header nav a.current {
   color: #0085BF;
 }
 
+header select {
+  width: 10px;
+}
+
 header #d3plus_button_language_selector {
   text-transform: uppercase;
 }

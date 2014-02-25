@@ -14,7 +14,23 @@
 {% block title %}: {% if category == "country" %}{{ category|title }}{% else %}{{ category|upper }} Product{% endif %} Ranking ({{ year }}){% endblock %}
 
 {% block body %}
-<!-- the left pane -->
+
+<div class="title">
+  {% if year > g.available_years[category][0]  %}
+  <a class="prev" href="/rankings/{{ category }}/{{ year-1 }}/">&laquo; {{ _('Previous Year') }}</a>
+  {% endif %}
+  {% if category == "country" %}
+    <h2>{{ _('Country Rankings') }} ({{ year }})</h2>
+  {% elif category == "hs" %}
+    <h2>{{ _('HS Product Rankings') }} ({{ year }})</h2>
+  {% elif category == "sitc" %}
+    <h2>{{ _('SITC Product Rankings') }} ({{ year }})</h2>
+  {% endif %}
+  {% if year < g.available_years[category][-1]  %}
+  <a class="next" href="/rankings/{{ category }}/{{ year+1 }}/">{{ _('Next Year') }} &raquo;</a>
+  {% endif %}
+</div>
+
 <div class="content">
   
   <div id="sidebar" class="col1">
@@ -30,30 +46,26 @@
         <a href="/rankings/sitc/">{{ _('SITC Product Rankings') }}</a>
       </li>
     </ul>
+
+    <div class="change_year">
+      <h3>{{ _('Change Year') }}</h3>
+      <select id="change_year">
+        {% for y in years %}
+        <option value="{{ y }}" {% if y == year %}selected="selected"{% endif %}>{{ y }}</option>
+        {% endfor %}
+      </select>
+    </div>
     
-    <h3>{{ _('Download') }}</h3>
-    <p>
-      <a href="/rankings/{{ category }}/{{ year }}/?download=true">&raquo; {{ _("Download this year's data") }}</a><br />
-      <a href="/rankings/{{ category }}/?download=true">&raquo; {{ _('Download all years data') }}</a>
-    </p>
+    <ul><h3>{{ _('Download') }}</h3>
+      <li class="icon download">
+        <a href="/rankings/{{ category }}/{{ year }}/?download=true">{{ _("Current Year") }}</a>
+      </li>
+      <li class="icon download">
+        <a href="/rankings/{{ category }}/?download=true">{{ _('All Years') }}</a>
+      </li>
+    </ul>
   
   </div><div class="col3">
-  
-    <div class="change_year">
-        {% if year > g.available_years[category][0]  %}
-        <a class="prev" href="/rankings/{{ category }}/{{ year-1 }}/">&laquo; {{ _('Previous Year') }}</a>
-        {% endif %}
-        <div class="dropdown">
-          <select id="change_year">
-            {% for y in years %}
-            <option value="{{ y }}" {% if y == year %}selected="selected"{% endif %}>{{ y }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        {% if year < g.available_years[category][-1]  %}
-        <a class="next" href="/rankings/{{ category }}/{{ year+1 }}/">{{ _('Next Year') }} &raquo;</a>
-        {% endif %}
-      </div>
   
       <table class="sortable">
         <thead>
@@ -74,11 +86,9 @@
             <td><span>{{ r[2]["eci_rank"] }}</span></td>
             <td>
               {% if r[2]["eci_rank_delta"] > 0 %}
-              <i class="fa fa-long-arrow-up fa-lg"></i> +{{ r[2]["eci_rank_delta"] }}
+                <i class="fa fa-arrow-up fa-lg"></i> {{ r[2]["eci_rank_delta"] }}
               {% elif r[2]["eci_rank_delta"] < 0 and r[2]["eci_rank_delta"] %}
-              <i class="fa fa-long-arrow-down fa-lg"></i> {{ r[2]["eci_rank_delta"] }}
-              {% else %}
-              &ndash;
+                <i class="fa fa-arrow-down fa-lg"></i> {{ r[2]["eci_rank_delta"]|abs }}
               {% endif %}
             </td>
             <td>{{ r[0]["id_3char"]|upper }}</td>
@@ -88,11 +98,9 @@
             <td><span>{{ r[2]["pci_rank"] }}</span></td>
             <td>
               {% if r[2]["pci_rank_delta"] > 0 %}
-              <i class="fa fa-long-arrow-up fa-lg"></i> +{{ r[2]["pci_rank_delta"] }}
+                <i class="fa fa-arrow-up fa-lg"></i> {{ r[2]["pci_rank_delta"] }}
               {% elif r[2]["pci_rank_delta"] < 0 and r[2]["pci_rank_delta"] %}
-              <i class="fa fa-long-arrow-down fa-lg"></i> {{ r[2]["pci_rank_delta"] }}
-              {% else %}
-              &ndash;
+                <i class="fa fa-arrow-down fa-lg"></i> {{ r[2]["pci_rank_delta"]|abs }}
               {% endif %}
             </td>
             <td>{{ r[0].get_display_id() }}</td>
@@ -131,16 +139,10 @@
     d3plus.ui()
       .type("drop")
       .data("#change_year")
-      .color("#0085BF")
+      // .color("#0085BF")
       .margin(0)
       .padding(6)
       .search(false)
-      .font({
-        "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
-        "size": 18,
-        "weight": "lighter",
-        "spacing": 1
-      })
       .callback(change_year)
       .draw()
   
