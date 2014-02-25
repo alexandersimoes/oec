@@ -122,6 +122,10 @@ div#loading > h2 {
   vertical-align: top;
 }
 
+#app #more_years i {
+  margin-right: 5px;
+}
+
 /************/
 /* Controls */
 /************/
@@ -235,10 +239,6 @@ div#loading > h2 {
 #controls .control_container a.icon:hover {
   background-color: rgb(236, 236, 236);
   text-decoration: none;
-}
-
-#controls #view_as_text {
-  text-align: center;
 }
 
 #controls #view_as_text a {
