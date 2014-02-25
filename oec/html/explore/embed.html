@@ -51,7 +51,7 @@
       </select>
     </div>
     {% if current_build.app.type != "stacked" %}
-    <div id="more_years"><button>{{ _('All Years') }} <i class="fa fa-arrow-circle-down"></i></button></div>
+    <div id="more_years"><button><i class="fa fa-plus"></i>{{ _('All Years') }}</button></div>
     {% endif %}
   </div>
 </div>
@@ -312,7 +312,11 @@ var trade_flow = "{{ current_build.trade_flow }}",
                 if(key.indexOf("pct") > -1){ return d3.format(".2%")(number); }
                 if(key == "year"){ return number; }
               }
-              return d3plus.public.number_format["value"](number,key)
+              var ret = d3plus.public.number_format["value"](number,key)
+              if (key && ["export_val","import_val"].indexOf(key) >= 0) {
+                ret = "$"+ret
+              }
+              return ret
             })
             .text_format(function(text, key){
               if(key){
@@ -353,12 +357,12 @@ if(vars.controls == "false"){
 if(attr_id == "origin_id" || attr_id == "dest_id"){
   viz
     .icon({"style":{"nest":"knockout","id":"default"}})
-    .tooltip({"Country":["name", "display_id"], "Values":[trade_flow+"_val"]} )
+    .tooltip(["display_id",trade_flow+"_val"])
 }
 if(attr_id == "hs_id" || attr_id == "sitc_id" ){
   viz
     .icon({"style":"knockout"})
-    .tooltip({"Product":["name", "display_id"], "Values":[trade_flow+"_val"]} )
+    .tooltip(["display_id",trade_flow+"_val"])
 }
 
 function resize_viz(obj){
@@ -418,8 +422,6 @@ function format_data(error, raw_data, raw_attrs, raw_other){
 /* to be executed after app has been drawn for first time */
 function finish(data, attrs){
   
-  resize_viz()
-  
   d3.select("#controls")
     .style("visibility", "visible")
     
@@ -428,9 +430,11 @@ function finish(data, attrs){
     
   d3.select("#viz")
     .style("display", "block")
-    .call(viz)
   
-  d3.select("#ui").style("visibility", "visible")
+  d3.select("#ui")
+    .style("visibility", "visible")
+  
+  resize_viz()
   
   update_text_table(data, attrs)
 }
@@ -456,7 +460,6 @@ switch (app_type){
         .size(trade_flow+"_val")
         .id(["nest", "id"])
         .time({"key": "year", "solo": "{{ current_build.year }}" })
-        // .time({"key": "year"})
         .depth(1)
         .shape("square")
         .style({"labels": {"align": "start"}})
