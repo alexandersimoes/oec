@@ -1,8 +1,5 @@
 body.profile .content {
-/*  text-align: center;*/
-}
-body.profile .content {
-/*  text-align: center;*/
+  text-align: center;
 }
 
 .content .build {
@@ -10,6 +7,10 @@ body.profile .content {
   margin: 10px 10px 30px 10px;
   min-height: 200px;
   width: 460px;
+}
+
+.content .build .list {
+  text-align: left;
 }
 
 p.country_name {
@@ -45,7 +46,15 @@ p.eci_value {
   margin: 10px;
 }
 
+div.build a.button {
+  display: block;
+  margin: 0px;
+}
 
+div.build a.button > i {
+  float: right;
+  margin-top: 1px;
+}
 
 
 

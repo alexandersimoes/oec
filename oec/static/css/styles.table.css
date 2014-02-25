@@ -48,8 +48,8 @@ table.condensed th,
 table.condensed td {
   padding: 5px;
 }
-table.striped tbody tr:nth-child(odd)>td,
-table.striped tbody tr:nth-child(odd)>th {
+table.striped tbody tr:nth-child(even)>td,
+table.striped tbody tr:nth-child(even)>th {
   background-color: #f7f7f7;
 }
 table.hover tbody tr:hover>td,
