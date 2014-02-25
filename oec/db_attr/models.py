@@ -70,6 +70,7 @@ class Country(db.Model, AutoSerialize):
     def serialize(self):
         auto_serialized = super(Country, self).serialize()
         auto_serialized["name"] = self.get_name()
+        auto_serialized["icon"] = self.get_icon()
         try:
             auto_serialized["display_id"] = auto_serialized.pop("id_3char")
         except KeyError:
@@ -144,6 +145,7 @@ class Hs(db.Model, AutoSerialize):
     def serialize(self):
         auto_serialized = super(Hs, self).serialize()
         auto_serialized["name"] = self.get_name()
+        auto_serialized["icon"] = self.get_icon()
         try:
             auto_serialized["display_id"] = auto_serialized.pop("hs")
         except KeyError:
@@ -220,6 +222,7 @@ class Sitc(db.Model, AutoSerialize):
     def serialize(self):
         auto_serialized = super(Sitc, self).serialize()
         auto_serialized["name"] = self.get_name()
+        auto_serialized["icon"] = self.get_icon()
         try:
             auto_serialized["display_id"] = auto_serialized.pop("sitc")
         except KeyError:
