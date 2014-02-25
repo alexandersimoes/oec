@@ -148,6 +148,10 @@
 
 <script>
 
+d3.select("#loading")
+  .style("height",window.innerHeight+"px")
+  .style("opacity",1)
+
 var d3plus_font = null
 var fonts = ["HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
 fonts.forEach(function(font){

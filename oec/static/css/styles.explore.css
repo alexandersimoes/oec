@@ -85,16 +85,6 @@ body.explore .content .col3 {
   text-decoration: none;
 }
 
-.explore #loader {
-  clear: both;
-  display: none;
-  height: 0;
-  width: 620px;
-  text-align: center;
-  position: relative;
-  top: 150px;
-  z-index: 99999;
-}
 .explore #no_data {
   display: none;
   left: 250px;

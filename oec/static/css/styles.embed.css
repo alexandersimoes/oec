@@ -14,7 +14,8 @@ body {
 /* Loading */
 /***********/
 div#loading {
-  margin: 250px 0 0 0;
+  opacity: 0;
+  width: 100%;
 }
 
 div#loading > h2 {
