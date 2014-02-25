@@ -11,7 +11,7 @@ body {
   background-position: top center;
   background-size: 100px;
   color: #444444;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: lighter;
   font-size: 12px;
 /*  height: 100%;*/
@@ -286,12 +286,16 @@ body.about #sidebar > ul > li.active > ul {
 /******************/
 button, a.button {
   background-color: #0085BF;
-  border: 0px;
+  border: 1px solid #0085BF;
   color: #f7f7f7;
   cursor: pointer;
   display: inline-block;
+  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: lighter;
   margin: 5px;
-  padding: 7px 10px;
+  padding: 4px 6px;
+  text-align: center;
   -webkit-transition: background-color .1s;
           transition: background-color .1s;
 }

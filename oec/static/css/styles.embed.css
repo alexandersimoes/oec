@@ -110,28 +110,15 @@ div#loading > h2 {
 /* UI */
 /******/
 #app #ui {
-/*  border: red 1px solid;*/
-/*  display: none;*/
-/*  height: 40px;*/
   text-align: center;
   visibility: hidden;
 }
 #app #layout,
-#app #timeline,
 #app #depth,
 #app #color,
 #app #more_years {
   display: inline-block;
   vertical-align: top;
-}
-#app #timeline button {
-  font-size: 15px;
-  margin: 4px auto;
-}
-
-#more_years {
-  height: 40px;
-  text-align: center;
 }
 
 /************/
