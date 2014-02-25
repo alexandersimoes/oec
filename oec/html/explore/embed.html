@@ -57,7 +57,14 @@
 </div>
 <div id="controls">
   
-  <div id="show_hide"><i title="show/hide column" class="fa fa-angle-double-right"></i></div>
+  <div id="show_hide">
+    <i title="show/hide column" class="fa fa-angle-double-right"></i>
+  </div>
+  
+  <div class="control_container" id="view_as_text">
+    <a class="icon text" href="#">{{ _('View as Text') }}</a>
+    <a class="icon fullscreen" href="#">{{ _('Fullscreen') }}</a>
+  </div>
   
   {% for ui in current_build.get_ui() %}
   <div class="dropdown_container" id="{{ ui.id }}">
@@ -80,15 +87,10 @@
   
   <div class="control_container" id="download">
     <h3>{{ _('Download') }}</h3>
-    <a class="pdf" href="#"><img src="/static/img/icons/download.png"> PDF</a>
-    <a class="svg" href="#"><img src="/static/img/icons/download.png"> SVG</a>
-    <a class="png" href="#"><img src="/static/img/icons/download.png"> PNG</a>
-    <a class="csv" href="#"><img src="/static/img/icons/download.png"> CSV</a>
-  </div>
-  
-  <div class="control_container" id="view_as_text">
-    <a class="text" href="#"><i class="fa fa-file-text"></i> <span>{{ _('View as text') }}</span></a>
-    <a class="fullscreen" href="#"><i class="fa fa-external-link"></i> <span>{{ _('View fullscreen') }}</span></a>
+    <a class="icon pdf" href="#">PDF</a>
+    <a class="icon svg" href="#">SVG</a>
+    <a class="icon png" href="#">PNG</a>
+    <a class="icon csv" href="#">CSV</a>
   </div>
   
   <div class="control_container">
@@ -172,7 +174,7 @@ d3.selectAll(".dropdown_container")
       .width(180)
       .padding(5)
       .font(12)
-      .color("#0085BF")
+      // .color("#0085BF")
       .font({
         "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
         "size": 12,
@@ -204,7 +206,7 @@ d3.selectAll(".dropdown_container")
 d3plus.ui()
   .type("radio")
   .data("[name=layout]")
-  .color("#0085BF")
+  // .color("#0085BF")
   .margin(5)
   .font({
     "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
@@ -220,7 +222,7 @@ d3plus.ui()
 d3plus.ui()
   .type("radio")
   .data("[name=nesting]")
-  .color("#0085BF")
+  // .color("#0085BF")
   .margin(5)
   .font({
     "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
@@ -236,7 +238,7 @@ d3plus.ui()
 d3plus.ui()
   .type("drop")
   .data("div#color select")
-  .color("#0085BF")
+  // .color("#0085BF")
   .margin(5)
   .font({
     "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
@@ -266,62 +268,63 @@ var trade_flow = "{{ current_build.trade_flow }}",
           .defer(d3.json, "{{ current_build.data_url() }}")
           .defer(d3.json, "{{ current_build.attr_url() }}"),
     viz = d3plus.viz()
-                .container("#viz")
-                .aggs({
-                  "export_val_growth_pct": "mean",
-                  "export_val_growth_pct_5": "mean",
-                  "export_val_growth_val": "mean",
-                  "export_val_growth_val_5": "mean",
-                  "import_val_growth_pct": "mean",
-                  "import_val_growth_pct_5": "mean",
-                  "import_val_growth_val": "mean",
-                  "import_val_growth_val_5": "mean",
-                  "distance": "mean",
-                  "opp_gain": "mean",
-                  "pci": "mean",
-                  "eci": "mean",
-                  "rca": "mean"
-                })
-                .style({
-                  "background":"none",
-                  "font": {
-                    "family": d3plus_font,
-                    "weight": "normal"
-                  },
-                  "color": {
-                    "heatmap": ["#cccccc","#0085BF"]
-                  }
-                })
-                .height(viz_height)
-                .width(viz_width)
-                .icon("icon")
-                .number_format(function(number, key){
-                  if(key){
-                    if(key.indexOf("pct") > -1){ return d3.format(".2%")(number); }
-                    if(key == "year"){ return number; }
-                  }
-                  return d3plus.public.number_format["value"](number,key)
-                })
-                .text_format(function(text, key){
-                  if(key){
-                    if(key == "display_id"){ return text.toUpperCase(); }
-                  }
-                  if(text){
-                    if(text == "display_id"){ return "{{ _('ID') }}"; }
-                    if(text == "export_val"){ return "{{ _('Export Value') }}"; }
-                    if(text == "import_val"){ return "{{ _('Import Value') }}"; }
-                    if(text.indexOf("growth") > -1){ 
-                      text = text.replace(/_/g," ");
-                      text = text.replace(/val/g,"{{ _('value') }}");
-                      text = text.replace(/pct/g,"{{ _('percentage') }}");
-                      return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
-                    }
-                    if(text.indexOf("Values") >= 0 && !key){
-                      return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
-                    }
-                    return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
-                  }
-                });
+            .container("#viz")
+            .aggs({
+              "export_val_growth_pct": "mean",
+              "export_val_growth_pct_5": "mean",
+              "export_val_growth_val": "mean",
+              "export_val_growth_val_5": "mean",
+              "import_val_growth_pct": "mean",
+              "import_val_growth_pct_5": "mean",
+              "import_val_growth_val": "mean",
+              "import_val_growth_val_5": "mean",
+              "distance": "mean",
+              "opp_gain": "mean",
+              "pci": "mean",
+              "eci": "mean",
+              "rca": "mean"
+            })
+            .style({
+              "background":"none",
+              "font": {
+                "family": d3plus_font,
+                "weight": "normal"
+              },
+              "color": {
+                "heatmap": ["#cccccc","#0085BF"]
+              }
+            })
+            .height(viz_height)
+            .width(viz_width)
+            .icon("icon")
+            .style({"title": {"height": 24}})
+            .number_format(function(number, key){
+              if(key){
+                if(key.indexOf("pct") > -1){ return d3.format(".2%")(number); }
+                if(key == "year"){ return number; }
+              }
+              return d3plus.public.number_format["value"](number,key)
+            })
+            .text_format(function(text, key){
+              if(key){
+                if(key == "display_id"){ return text.toUpperCase(); }
+              }
+              if(text){
+                if(text == "display_id"){ return "{{ _('ID') }}"; }
+                if(text == "export_val"){ return "{{ _('Export Value') }}"; }
+                if(text == "import_val"){ return "{{ _('Import Value') }}"; }
+                if(text.indexOf("growth") > -1){ 
+                  text = text.replace(/_/g," ");
+                  text = text.replace(/val/g,"{{ _('value') }}");
+                  text = text.replace(/pct/g,"{{ _('percentage') }}");
+                  return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+                }
+                if(text.indexOf("Values") >= 0 && !key){
+                  return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
+                }
+                return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+              }
+            });
 
 // console.log(document.documentElement.clientHeight, window.innerHeight, window.screen.height)
 if(!in_explore_page){
@@ -780,23 +783,28 @@ d3.select("#share #shorten").on("click", function(){
 
 // View as text
 d3.selectAll("#view_as_text a.text").on("click", function(){
-  d3.select(this).select("i").classed("fa-file-text", function(){
-    return d3.select(this).classed("fa-file-text") ? false : true;
-  })
-  d3.select(this).select("i").classed("fa-th-large", function(){
-    return d3.select(this).classed("fa-th-large") ? false : true;
-  })
-  d3.select(this).select("span").text(function(){
-    return d3.select(this).text() == "{{ _('View as text') }}" ? "{{ _('View graphic') }}" : "{{ _('View as text') }}";
-  })
+  
+  if (d3.select("#app #text").style("display") == "none") {
+    d3.select(this)
+      .attr("class","icon app")
+      .text("{{ _('View as App') }}")
+  }
+  else {
+    d3.select(this)
+      .attr("class","icon text")
+      .text("{{ _('View as Text') }}")
+  }
+  
   d3.select("#app #viz").style("display", function(){
     return d3.select(this).style("display") == "none" ? "block" : "none";
   })
   d3.select("#app #text").style("display", function(){
     return d3.select(this).style("display") == "none" ? "block" : "none";
   })
+  
   resize_viz();
   d3.event.preventDefault();
+  
 })
 
 // View fullscreen

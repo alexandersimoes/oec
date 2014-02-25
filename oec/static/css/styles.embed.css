@@ -141,7 +141,7 @@ div#loading > h2 {
   display: block;
   font-size:90%;
   right: 0px;
-  margin: 20px 0 0 0;
+  margin: 0px;
   position: absolute;
   top: 0px;
   visibility: hidden;
@@ -152,10 +152,10 @@ div#loading > h2 {
   font-size: 16px;
   left: -22px;
   position: absolute;
-  top: -23px;
+  top: -4px;
   z-index: 999;
 }
-#controls #show_hide i{
+#controls #show_hide i {
   -webkit-transition: 0.5s ease;
   -moz-transition: 0.5s ease;
   -o-transition: 0.5s ease;
@@ -192,7 +192,7 @@ div#loading > h2 {
 #controls button#build {
   background-color: #0085BF;
   color: white;
-  font-family: HelveticaNeue-Light, 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12px;
   font-weight: lighter;
   height: 0px;
@@ -228,38 +228,65 @@ div#loading > h2 {
   100%{ background-color: #0085BF; }
 }
 
-#controls hr {
-  background: #cccccc;
-  clear: both;
-  margin: 12px 0;
-  height: 0.5px;
-}
-#controls .control_container {
-  margin: 10px 0;
-}
-#controls .control_container a {
-  margin: 0 5px 0 0;
+#controls .control_container h3 {
+  margin: 0px 0px 8px 0px;
 }
 
-#controls .control_container h3 {
-  font-size: 14px;
-  margin: 0;
+#controls .control_container a.icon {
+  background-color: white;
+  border: 1px solid rgb(236, 236, 236);
+  margin: 0px -4px 0px 0px;
+  padding: 3px 3px 3px 18px;
 }
-#controls .control_container img {
-  width: 10px;
+
+#controls .control_container a.icon:before {
+  left: 3px;
+  top: 3px;
 }
+
+#controls .control_container a.icon:hover {
+  background-color: rgb(236, 236, 236);
+  text-decoration: none;
+}
+
+#controls #view_as_text {
+  text-align: center;
+}
+
+#controls #view_as_text a {
+  border: 0;
+  background-color: transparent;
+  padding: 5px 5px 5px 20px;
+}
+
+#controls #view_as_text a:before {
+  top: 5px;
+}
+
 #controls input {
-  border: solid 1px #ccc;
-  font-family: monospace;
+  border: solid 1px rgb(236, 236, 236);
+  color: #888;
+  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12px;
-/*  height: 75px;*/
+  font-weight: lighter;
+  letter-spacing: 1px;
+  margin: 0px;
   overflow: hidden;
-  width: 160px;
+  padding: 3px;
+  width: 170px;
+}
+#controls input:focus {
+  color: #444;
+  outline: 0;
+}
+#controls #share a {
+  display: inline-block;
+  text-align: center;
+  width: 40px;
 }
 #controls #share i {
   display: inline-block;
   font-size: 20px;
-  margin: 0 10px 0 0;
 }
 #controls #short{
   display: none;
