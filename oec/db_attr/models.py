@@ -120,6 +120,13 @@ class Hs(db.Model, AutoSerialize):
             return name.name
         return ""
     
+    def get_keywords(self, lang=None):
+        lang = lang or getattr(g, "locale", "en")
+        name = self.name.filter_by(lang=lang).first()
+        if name:
+            return name.keywords
+        return ""
+    
     def get_display_id(self):
         return self.hs
     
@@ -145,6 +152,7 @@ class Hs(db.Model, AutoSerialize):
     def serialize(self):
         auto_serialized = super(Hs, self).serialize()
         auto_serialized["name"] = self.get_name()
+        auto_serialized["keywords"] = self.get_keywords()
         auto_serialized["icon"] = self.get_icon()
         try:
             auto_serialized["display_id"] = auto_serialized.pop("hs")
@@ -197,6 +205,13 @@ class Sitc(db.Model, AutoSerialize):
             return name.name
         return ""
     
+    def get_keywords(self, lang=None):
+        lang = lang or getattr(g, "locale", "en")
+        name = self.name.filter_by(lang=lang).first()
+        if name:
+            return name.keywords
+        return ""
+    
     def get_display_id(self):
         return self.sitc
     
@@ -222,6 +237,7 @@ class Sitc(db.Model, AutoSerialize):
     def serialize(self):
         auto_serialized = super(Sitc, self).serialize()
         auto_serialized["name"] = self.get_name()
+        auto_serialized["keywords"] = self.get_keywords()
         auto_serialized["icon"] = self.get_icon()
         try:
             auto_serialized["display_id"] = auto_serialized.pop("sitc")

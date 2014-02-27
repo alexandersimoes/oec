@@ -75,6 +75,7 @@
       {% if option.icon %}data-image="{{ option.icon }}"{% endif %} 
       {% if option.color %}data-color="{{ option.color }}"{% endif %} 
       {% if ui.id == "product" %}data-style="knockout"{% endif %} 
+      {% if option.keywords %}data-keywords="{{ option.keywords }}"{% endif %} 
       value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
       {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") or ui.current|lower|replace(" ", "_") == option.display_id %}selected="selected"{% endif %}>
         {% if option is string or option is number %}
