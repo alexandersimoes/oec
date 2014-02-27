@@ -4701,6 +4701,9 @@ d3plus.data.color = function(vars) {
     if (vars.dev.value) d3plus.console.groupEnd()
     
   }
+  else {
+    vars.color_scale = null
+  }
   
 }
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -5502,17 +5505,17 @@ d3plus.forms.data = function(vars) {
 
   function get_attributes(obj,elem) {
     
-    var attributes = ["value","image","style","color"]
+    var attributes = ["value","alt","keywords","image","style","color"]
     
     var data = elem.dataset
-
+    
     attributes.forEach(function(a){
 
       if (data && typeof data[a] !== "undefined") {
         obj[a] = data[a]
       }
-      else if (typeof elem[a] !== "undefined") {
-        obj[a] = elem[a]
+      else if (elem.getAttribute(a) !== null) {
+        obj[a] = elem.getAttribute(a)
       }
       
     })
@@ -5939,11 +5942,37 @@ d3plus.forms.drop = function(vars,styles,timing) {
    text = "text"
   }
   
-  var data = vars.data.filter(function(d){
-    var text = d3plus.utils.strip(d.text.toLowerCase()),
-        search = d3plus.utils.strip(vars.filter.toLowerCase())
-    return text.indexOf(search) >= 0
-  })
+  var search_text = d3plus.utils.strip(vars.filter.toLowerCase()).split("_"),
+      tests = ["value","text","alt","keywords"],
+      search_text = search_text.filter(function(t){ return t != ""; })
+  
+  if (vars.filter == "") {
+    var data = vars.data
+  }
+  else {
+
+    var data = vars.data.filter(function(d){
+    
+      var match = false
+        
+      for (key in tests) {
+        if (tests[key] in d) {
+          var text = d3plus.utils.strip(d[tests[key]].toLowerCase()).split("_")
+        
+          for (t in text) {
+            for (s in search_text) {
+              if (text[t].indexOf(search_text[s]) == 0) {
+                match = true
+                break
+              }
+            }
+          }
+        }
+      }
+      return match
+    })
+    
+  }
   
   if (data.length == 0) {
     data = [
@@ -6077,12 +6106,22 @@ d3plus.forms.drop = function(vars,styles,timing) {
         list_top = list.property("scrollTop")
         
     if (hidden) selector.style("display","none")
-    var scroll = list_top
-    if (button_top < list_top) {
+    if (hidden) {
+      
       var scroll = button_top
+      
     }
-    else if (button_top+button_height > list_top+max-search_height) {
-      var scroll = button_top - (max-button_height-search_height)
+    else {
+      
+      var scroll = list_top
+
+      if (button_top < list_top) {
+        var scroll = button_top
+      }
+      else if (button_top+button_height > list_top+max-search_height) {
+        var scroll = button_top - (max-button_height-search_height)
+      }
+      
     }
     
   }
@@ -6162,6 +6201,7 @@ d3plus.forms.radio = function(vars,styles,timing) {
   button_style.border = "none"
   button_style.width = false
   button_style.margin = 0
+  button_style.stroke = 0
   
   var text = d3plus.forms.value(vars.text,["button"])
   if (!text) {
@@ -11369,12 +11409,21 @@ d3plus.utils.wordwrap = function(params) {
       font_min = params.font_min ? params.font_min : 9,
       text_array = params.text.slice(0),
       split = ["-","/",";",":","%","&"],
-      regex = new RegExp("[^\\s\\"+split.join("\\")+"]+\\"+split.join("?\\")+"?","g")
+      regex = new RegExp("[^\\s\\"+split.join("\\")+"]+\\"+split.join("?\\")+"?","g"),
+      current_text = ""
       
-  if (text_array instanceof Array) wrap(String(text_array.shift()).match(regex))
-  else wrap(String(text_array).match(regex))
+  if (text_array instanceof Array) {
+    current_text = String(text_array.shift())
+  }
+  else {
+    current_text = String(text_array)
+  }
   
-  function wrap(words) {
+  wrap()
+  
+  function wrap() {
+    
+    var words = current_text.match(regex)
     
     if (resize) {
       
@@ -11398,7 +11447,10 @@ d3plus.utils.wordwrap = function(params) {
       if (size < font_min) {
         d3.select(parent).selectAll("tspan").remove();
         if (typeof text_array == "string" || text_array.length == 0) return;
-        else wrap(String(text_array.shift()).match(regex))
+        else {
+          current_text = String(text_array.shift())
+          wrap()
+        }
         return;
       }
 
@@ -11438,8 +11490,9 @@ d3plus.utils.wordwrap = function(params) {
         
         var current = tspan.text(),
             last_char = current.slice(-1),
-            joiner = split.indexOf(last_char) >= 0 ? "" : " "
-        
+            next_char = current_text.charAt(current_text.indexOf(current)+current.length)
+            joiner = next_char == " " ? " " : ""
+            
         tspan.text(current+joiner+words[i])
       
         if (tspan.node().getComputedTextLength() > width) {
