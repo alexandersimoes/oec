@@ -70,21 +70,31 @@
   <div class="dropdown_container" id="{{ ui.id }}">
     <h3>{{ ui.name }}</h3>
     <select id="{{ ui.id }}_selector">
-      {% for option in ui.data %}
-      <option {% if option.conversion %}data-conversion="{{ option.conversion }}"{% endif %} 
-      {% if option.icon %}data-image="{{ option.icon }}"{% endif %} 
-      {% if option.color %}data-color="{{ option.color }}"{% endif %} 
+      {% if ui.data %}
+        {% for option in ui.data %}
+        <option {% if option.conversion %}data-conversion="{{ option.conversion }}"{% endif %} 
+        {% if option.icon %}data-image="{{ option.icon }}"{% endif %} 
+        {% if option.color %}data-color="{{ option.color }}"{% endif %} 
+        {% if ui.id == "product" %}data-style="knockout"{% endif %} 
+        {% if option.keywords %}data-keywords="{{ option.keywords }}"{% endif %} 
+        value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
+        {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") or ui.current|lower|replace(" ", "_") == option.display_id %}selected="selected"{% endif %}>
+          {% if option is string or option is number %}
+            {{ option }}
+          {% else %}
+            {{ option.name }}
+          {% endif %}
+        </option>
+        {% endfor %}
+      {% else %}
+      <option {% if ui.current.conversion %}data-conversion="{{ ui.current.conversion }}"{% endif %} 
+      {% if ui.current.icon %}data-image="{{ ui.current.icon }}"{% endif %} 
+      {% if ui.current.color %}data-color="{{ ui.current.color }}"{% endif %} 
       {% if ui.id == "product" %}data-style="knockout"{% endif %} 
-      {% if option.keywords %}data-keywords="{{ option.keywords }}"{% endif %} 
-      value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
-      {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") or ui.current|lower|replace(" ", "_") == option.display_id %}selected="selected"{% endif %}>
-        {% if option is string or option is number %}
-          {{ option }}
-        {% else %}
-          {{ option.name }}
-        {% endif %}
-      </option>
-      {% endfor %}
+      {% if ui.current.keywords %}data-keywords="{{ ui.current.keywords }}"{% endif %} 
+      value="{{ ui.current.display_id }}"
+      selected="selected">{{ ui.current.name }}</option>
+      {% endif %}
     </select>
   </div>
   {% endfor %}
@@ -271,9 +281,9 @@ var trade_flow = "{{ current_build.trade_flow }}",
     // viz_height = in_explore_page ? 505 : window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_height = is_iOS ? window.screen.height - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
-    in_the_wild = window.parent.location.origin.indexOf("atlas.media.mit.edu") < 0 &&
-                  window.parent.location.origin.indexOf("oec.media.mit.edu") < 0 &&
-                  window.parent.location.origin.indexOf("localhost") < 0,
+    in_the_wild = (window.parent.location.origin && window.parent.location.origin.indexOf("atlas.media.mit.edu") < 0) &&
+                  (window.parent.location.origin && window.parent.location.origin.indexOf("oec.media.mit.edu") < 0) &&
+                  (window.parent.location.origin && window.parent.location.origin.indexOf("localhost") < 0),
     q = queue()
           .defer(d3.json, "{{ current_build.data_url() }}")
           .defer(d3.json, "{{ current_build.attr_url() }}"),

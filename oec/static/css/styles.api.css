@@ -62,7 +62,7 @@ section {
 section h3 {
   margin: 20px 0 5px 0;
 }
-input {
+.content input {
   width: 300px;
 }
 

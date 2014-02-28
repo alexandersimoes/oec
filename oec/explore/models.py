@@ -318,47 +318,47 @@ class Build(db.Model, AutoSerialize):
         ui = []
         
         if isinstance(self.origin, Country):
-            country_list = Country.query \
-                            .filter(not_(Country.id.in_(excluded_countries))) \
-                            .filter(Country.id_3char != None)
-            country_list = [c.serialize() for c in country_list]
-            country_list = sorted(country_list, key=lambda k: k['name']) 
+            # country_list = Country.query \
+            #                 .filter(not_(Country.id.in_(excluded_countries))) \
+            #                 .filter(Country.id_3char != None)
+            # country_list = [c.serialize() for c in country_list]
+            # country_list = sorted(country_list, key=lambda k: k['name']) 
             country = {
                 "id": "origin",
                 "name": _("Origin"),
                 "current": self.origin.serialize(),
-                "data": country_list
+                # "data": country_list
             }
             ui.append(country)
         
         if isinstance(self.dest, Country):
-            country_list = Country.query \
-                            .filter(not_(Country.id.in_(excluded_countries))) \
-                            .filter(Country.id_3char != None)
-            country_list = [c.serialize() for c in country_list]
-            country_list = sorted(country_list, key=lambda k: k['name']) 
+            # country_list = Country.query \
+            #                 .filter(not_(Country.id.in_(excluded_countries))) \
+            #                 .filter(Country.id_3char != None)
+            # country_list = [c.serialize() for c in country_list]
+            # country_list = sorted(country_list, key=lambda k: k['name']) 
             country = {
                 "id": "destination",
                 "name": _("Destination"),
                 "current": self.dest.serialize(),
-                "data": country_list
+                # "data": country_list
             }
             ui.append(country)
         
         if isinstance(self.product, (Sitc, Hs)):
-            if self.classification == "sitc":
-                product_list = Sitc.query \
-                                .filter(func.char_length(Sitc.id)==6).all()
-            else:
-                product_list = Hs.query \
-                                .filter(func.char_length(Hs.id)==6).all()
-            product_list = [p.serialize() for p in product_list]
-            product_list = sorted(product_list, key=lambda k: k['name']) 
+            # if self.classification == "sitc":
+            #     product_list = Sitc.query \
+            #                     .filter(func.char_length(Sitc.id)==6).all()
+            # else:
+            #     product_list = Hs.query \
+            #                     .filter(func.char_length(Hs.id)==6).all()
+            # product_list = [p.serialize() for p in product_list]
+            # product_list = sorted(product_list, key=lambda k: k['name']) 
             product = {
                 "id": "product",
                 "name": _("Product"),
                 "current": self.product.serialize(),
-                "data": product_list
+                # "data": product_list
             }
             ui.append(product)
         
