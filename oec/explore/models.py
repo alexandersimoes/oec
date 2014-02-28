@@ -327,6 +327,7 @@ class Build(db.Model, AutoSerialize):
                 "id": "origin",
                 "name": _("Origin"),
                 "current": self.origin.serialize(),
+                "url": url_for('attr.attrs', attr='country')
                 # "data": country_list
             }
             ui.append(country)
@@ -341,7 +342,8 @@ class Build(db.Model, AutoSerialize):
                 "id": "destination",
                 "name": _("Destination"),
                 "current": self.dest.serialize(),
-                # "data": country_list
+                # "data": country_list,
+                "url": url_for('attr.attrs', attr='country')
             }
             ui.append(country)
         
@@ -358,7 +360,8 @@ class Build(db.Model, AutoSerialize):
                 "id": "product",
                 "name": _("Product"),
                 "current": self.product.serialize(),
-                # "data": product_list
+                # "data": product_list,
+                "url": url_for('attr.attrs', attr=self.classification)
             }
             ui.append(product)
         
