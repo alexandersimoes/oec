@@ -67,7 +67,7 @@
   </div>
   
   {% for ui in current_build.get_ui() %}
-  <div class="dropdown_container" id="{{ ui.id }}">
+  <div class="dropdown_container" id="{{ ui.id }}"{% if ui.url %} data-url="{{ui.url}}"{% endif %}>
     <h3>{{ ui.name }}</h3>
     <select id="{{ ui.id }}_selector">
       {% if ui.data %}
@@ -185,42 +185,6 @@ function activate_build_button() {
         .style("padding","6px 20px")
   }
 }
-
-d3.selectAll(".dropdown_container")
-  .each(function(d,i){
-    
-    var ui = d3plus.ui()
-      .data(d3.select(this).select("select"))
-      .width(180)
-      .padding(5)
-      .font(12)
-      // .color("#0085BF")
-      .font({
-        "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
-        "size": 12,
-        "weight": "lighter",
-        "spacing": 1,
-        "align": "left"
-      })
-      .callback(activate_build_button)
-    
-    if (this.id.indexOf("year") >= 0) {
-      ui.search(false)
-      if(this.id.indexOf("start") >=0 || this.id.indexOf("end") >=0){
-        ui.width(75)
-      }
-    }
-    
-    if (this.id == "classification") {
-      ui.type("radio")
-    }
-    else {
-      ui.type("drop")
-    }
-    
-    ui.draw()
-    
-  })
 
 {% if current_build.app.type == "stacked" %}
 d3plus.ui()
@@ -432,6 +396,91 @@ function format_data(error, raw_data, raw_attrs, raw_other){
 
 /* to be executed after app has been drawn for first time */
 function finish(data, attrs){
+  
+  d3.selectAll(".dropdown_container")
+    .each(function(d,i){
+
+      var ui = d3plus.ui()
+        .width(180)
+        .padding(5)
+        .font({
+          "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+          "size": 12,
+          "weight": "lighter",
+          "spacing": 1,
+          "align": "left"
+        })
+        .callback(activate_build_button)
+    
+      if (this.id.indexOf("year") >= 0) {
+        ui.search(false)
+        if(this.id.indexOf("start") >=0 || this.id.indexOf("end") >=0){
+          ui.width(75)
+        }
+      }
+    
+      if (this.id == "classification") {
+        ui.type("radio")
+      }
+      else {
+        ui.type("drop")
+      }
+
+
+      var country_match = ["origin","dest"].indexOf(this.id) >= 0 && ["origin_id","dest_id"].indexOf(this.id) >= 0,
+          product_match = this.id == "product" && ["hs_id","sitc_id"].indexOf(attr_id) >= 0,
+          icon_style = product_match ? "knockout" : "default"
+          
+      if (country_match || product_match) {
+        
+        var d = d3.values(attrs).filter(function(a){
+          a.icon_style = icon_style
+          return a.id.length != 2
+        })
+        
+        ui.element(d3.select(this).select("select"))
+          .data({
+            "data": d,
+            "map": {
+              "value": "display_id",
+              "style": "icon_style",
+              "image": "icon",
+              "text": "name",
+              "alt": "keywords",
+              "color": "color"
+            }
+          })
+      }
+      else if (["origin","dest","product"].indexOf(this.id) >= 0) {
+        
+        ui.element(d3.select(this).select("select"))
+          .data({
+            "callback": function(array) {
+              return array.filter(function(a){
+                a.icon_style = icon_style
+                return a.id.length != 2
+              })
+            },
+            "fetch": this.getAttribute("data-url"),
+            "key": "data",
+            "map": {
+              "value": "display_id",
+              "style": "icon_style",
+              "image": "icon",
+              "text": "name",
+              "alt": "keywords",
+              "color": "color"
+            }
+          })
+        
+      }
+      else {
+        ui.data(d3.select(this).select("select"))
+      }
+    
+      ui.draw()
+    
+    })
   
   d3.select("#controls")
     .style("visibility", "visible")
