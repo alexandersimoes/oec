@@ -427,7 +427,7 @@ function finish(data, attrs){
       }
 
 
-      var country_match = ["origin","dest"].indexOf(this.id) >= 0 && ["origin_id","dest_id"].indexOf(this.id) >= 0,
+      var country_match = ["origin","dest"].indexOf(this.id) >= 0 && ["origin_id","dest_id"].indexOf(attr_id) >= 0,
           product_match = this.id == "product" && ["hs_id","sitc_id"].indexOf(attr_id) >= 0,
           icon_style = product_match ? "knockout" : "default"
           
