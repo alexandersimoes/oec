@@ -229,11 +229,11 @@ class Sitc(db.Model, AutoSerialize):
         return Yp.query.filter_by(year=year, top_exporter=self.id)\
                 .order_by(Yp.export_val.desc()).limit(limit).all()
 
-    def get_yp(self, year=2011):
+    def get_yp(self, year=2010):
         yp = filter(lambda yp: yp.year == year, self.yp_product)
         if len(yp): return yp[0]
         return None
-
+    
     def serialize(self):
         auto_serialized = super(Sitc, self).serialize()
         auto_serialized["name"] = self.get_name()

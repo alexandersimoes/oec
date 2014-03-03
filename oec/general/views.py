@@ -475,6 +475,20 @@ def embed_legacy(app_name, trade_flow, origin, dest, product, year='2011'):
                 classification=c, trade_flow=trade_flow, origin=origin, \
                 dest=dest, product=product, year=year))
 
+@mod.route('country/<country_id>/')
+def profile_country_legacy(country_id):
+    return redirect(url_for('profile.profile_country', attr_id=country_id))
+
+@mod.route('hs4/<hs_id>/')
+def profile_hs_legacy(hs_id):
+    return redirect(url_for('profile.profile_product', attr_type="hs", \
+                attr_id=hs_id))
+
+@mod.route('sitc4/<sitc_id>/')
+def profile_sitc_legacy(sitc_id):
+    return redirect(url_for('profile.profile_product', attr_type="sitc", \
+                attr_id=sitc_id))
+
 ###############################
 # Handle shortened URLs
 # ---------------------------
