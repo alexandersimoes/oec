@@ -598,31 +598,24 @@ switch (app_type){
       raw_network = arguments[3];
       var focus = "{{ current_build.product.id }}";
       
-      // make sure focused product is in network
-      var found = raw_network.nodes.filter(function(d){ return d.id == focus; });
-      if(found.length){
-        viz
-          .data(raw_data.data)
-          .attrs(attrs)
-          .type("rings")
-          .id("id")
-          .color("color")
-          .time("year")
-          .text("name")
-          .nodes(raw_network.nodes)
-          .links(raw_network.edges)
-          .active({
-            "key": function(d){
-              return d.export_rca >= 1;
-            },
-            "spotlight":true
-          })
-          .focus(focus)
-      }
-      else {
-        d3.select("#loading")
-          .html("<h1>No connections for this product... please try a different selection.</h1>")
-      }
+      viz
+        .data(raw_data.data)
+        .attrs(attrs)
+        .type("rings")
+        .id("id")
+        .color("color")
+        .time("year")
+        .text("name")
+        .nodes(raw_network.nodes)
+        .links(raw_network.edges)
+        .active({
+          "key": function(d){
+            return d.export_rca >= 1;
+          },
+          "spotlight":true
+        })
+        .focus(focus)
+          
       finish(raw_data.data, attrs)
     }
     break;
