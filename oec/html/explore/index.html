@@ -11,7 +11,7 @@
     {% endif %}
 {% endblock %}
 
-{% block title %}: {{ current_build.app.name }} of {{ current_build.get_name() }} ({{ current_build.get_year() }}){% endblock %}
+{% block title %}: {{ current_build.get_name() }} ({{ current_build.get_year() }}){% endblock %}
 {% block description %}{{ current_build.get_question() }} {{ _('Data visualization of economic trade') }}.{% endblock %}
 
 {% block body %}
