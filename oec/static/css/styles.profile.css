@@ -46,6 +46,10 @@ p.eci_value {
   margin: 10px;
 }
 
+p.keywords {
+  margin: 10px;
+}
+
 div.build a.button {
   display: block;
   margin: 0px;
