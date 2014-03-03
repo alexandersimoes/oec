@@ -1,14 +1,14 @@
-# Hindi translations for PROJECT.
+# Hindi translations for .
 # Copyright (C) 2013 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
+# This file is distributed under the same license as the  project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
 #
 # fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
+"Project-Id-Version:  1.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-02-18 11:41-0500\n"
+"POT-Creation-Date: 2014-03-03 17:53-0500\n"
 "PO-Revision-Date: 2013-12-27 15:28-0500\n"
 "Last-Translator: sudha Kumari Kumari <kumars04@mit.edu>\n"
 "Language-Team: hi <LL@li.org>\n"
@@ -18,82 +18,89 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/explore/models.py:369
+#: oec/explore/models.py:283
 msgid "Origin Country"
 msgstr "मूल देश"
 
-#: oec/explore/models.py:370 oec/explore/models.py:373
-#: oec/html/explore/embed.html:291
+#: oec/explore/models.py:284 oec/explore/models.py:287
+#: oec/html/explore/embed.html:300
 msgid "ID"
 msgstr "आईडी"
 
-#: oec/explore/models.py:372
+#: oec/explore/models.py:286
 msgid "Destination Country"
 msgstr "गंतव्य देश"
 
-#: oec/explore/models.py:375
+#: oec/explore/models.py:289
 msgid "Product Name"
 msgstr "उत्पाद का नाम"
 
-#: oec/explore/models.py:406
-msgid "Trade Flow"
-msgstr "व्यापार प्रवाह"
-
-#: oec/explore/models.py:409
-msgid "Export"
-msgstr "निर्यात"
-
-#: oec/explore/models.py:410
-msgid "Import"
-msgstr "आयात"
-
-#: oec/explore/models.py:417
-msgid "Classification"
-msgstr "श्रेणीकरण"
-
-#: oec/explore/models.py:431
-msgid "Start Year"
-msgstr "प्रारम्भिक वर्ष"
-
-#: oec/explore/models.py:437
-msgid "End Year"
-msgstr "समाप्ति वर्ष"
-
-#: oec/explore/models.py:445 oec/rankings/views.py:75
-msgid "Year"
-msgstr "वर्ष"
-
-#: oec/explore/models.py:459
+#: oec/explore/models.py:328
 msgid "Origin"
 msgstr "मूल"
 
-#: oec/explore/models.py:473
+#: oec/explore/models.py:343
 msgid "Destination"
 msgstr "गंतव्य"
 
-#: oec/explore/models.py:490 oec/rankings/views.py:49 oec/rankings/views.py:53
+#: oec/explore/models.py:361 oec/rankings/views.py:49 oec/rankings/views.py:53
 msgid "Product"
 msgstr "उत्पाद"
+
+#: oec/explore/models.py:370
+msgid "Trade Flow"
+msgstr "व्यापार प्रवाह"
+
+#: oec/explore/models.py:373
+msgid "Export"
+msgstr "निर्यात"
+
+#: oec/explore/models.py:374
+msgid "Import"
+msgstr "आयात"
+
+#: oec/explore/models.py:381
+msgid "Classification"
+msgstr "श्रेणीकरण"
+
+#: oec/explore/models.py:395
+msgid "Start Year"
+msgstr "प्रारम्भिक वर्ष"
+
+#: oec/explore/models.py:401
+msgid "End Year"
+msgstr "समाप्ति वर्ष"
+
+#: oec/explore/models.py:409 oec/rankings/views.py:75
+msgid "Year"
+msgstr "वर्ष"
 
 #: oec/html/home.html:25
 msgid ""
 "The Observatory of Economic Complexity makes international trade data and"
 " economic complexity indicators available through millions of interactive"
 " visualizations."
-msgstr "आर्थिक जटिलता की ऑब्जर्वेटरी लाखों इंटरैक्टिव विज़ुअलाइज़ेशन के माध्यम से अंतर्राष्ट्रीय व्यापार डेटा और आर्थिक जटिलता के सूचक उपलब्ध कराती है."
+msgstr ""
+"आर्थिक जटिलता की ऑब्जर्वेटरी लाखों इंटरैक्टिव विज़ुअलाइज़ेशन के माध्यम से"
+" अंतर्राष्ट्रीय व्यापार डेटा और आर्थिक जटिलता के सूचक उपलब्ध कराती है."
 
 #: oec/html/about/api_data.html:7
 msgid ""
 "Application programming interface (API) for querying the raw data used "
 "throughout The Observatory of Economic Complexity."
-msgstr "आर्थिक जटिलता की ऑब्जर्वेटरी में हर जगह इस्तेमाल किये गये कच्चे आँकड़ें जानने के लिए एप्लीकेशन प्रोग्रामिंग इंटरफेस (एपीआई)."
+msgstr ""
+"आर्थिक जटिलता की ऑब्जर्वेटरी में हर जगह इस्तेमाल किये गये कच्चे आँकड़ें "
+"जानने के लिए एप्लीकेशन प्रोग्रामिंग इंटरफेस (एपीआई)."
 
 #: oec/html/about/api_embed.html:8
 msgid ""
 "Application programming interface (API) for emedding an iframe of the "
 "visualizations used througout The Observatory of Economic Complexity on "
 "your own website."
-msgstr "अपनी खुद की वेबसाइट पर आर्थिक जटिलता की ऑब्जर्वेटरी में इस्तेमाल किये गये विज़ुअलाइज़ेशन के एक iframe की emedding के लिए एप्लीकेशन प्रोग्रामिंग इंटरफेस (एपीआई)."
+msgstr ""
+"अपनी खुद की वेबसाइट पर आर्थिक जटिलता की ऑब्जर्वेटरी में इस्तेमाल किये गये"
+" विज़ुअलाइज़ेशन के एक iframe की emedding के लिए एप्लीकेशन प्रोग्रामिंग "
+"इंटरफेस (एपीआई)."
 
 #: oec/html/about/data.html:4
 msgid ""
@@ -116,22 +123,23 @@ msgid ""
 "A book of complexity economics attempting to explain why some countries "
 "grow and others do not. The book uses many of the visualizations seen "
 "throughout this site."
-msgstr "आर्थिक जटिलता कैसे आर्थिक विकास की व्याख्या करती है. यह पुस्तक इस साइट भर में देखे गये कईं विज़ुअलाइज़ेशन का उपयोग करती है."
+msgstr ""
+"आर्थिक जटिलता कैसे आर्थिक विकास की व्याख्या करती है. यह पुस्तक इस साइट भर"
+" में देखे गये कईं विज़ुअलाइज़ेशन का उपयोग करती है."
 
 #: oec/html/explore/embed.html:8
 msgid "An emedded visualization."
 msgstr "एक एम्बेडेड विज़ुअलाइज़ेशन."
 
-#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:613
+#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:699
 msgid "Loading"
 msgstr "लदाई"
 
 #: oec/html/explore/embed.html:20 oec/html/explore/embed.html:43
-#, fuzzy
 msgid "Value"
 msgstr "मूल्य"
 
-#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:99
+#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:118
 msgid "Share"
 msgstr "हिस्सा"
 
@@ -167,59 +175,57 @@ msgstr "वृद्धिमूल्य (1 वर्ष)"
 msgid "Growth Value (5 year)"
 msgstr "वृद्धिमूल्य (5 वर्ष)"
 
-#: oec/html/explore/embed.html:54
+#: oec/html/explore/embed.html:54 oec/html/rankings/index.html:64
 msgid "All Years"
 msgstr ""
 
-#: oec/html/explore/embed.html:78
+#: oec/html/explore/embed.html:65 oec/html/explore/embed.html:858
+msgid "View as Text"
+msgstr "टेक्स्ट के रूप में देखें"
+
+#: oec/html/explore/embed.html:66
+msgid "Fullscreen"
+msgstr "फुलस्क्रीन"
+
+#: oec/html/explore/embed.html:102
 msgid "Build Visualization"
 msgstr "विज़ुअलाइज़ेशन बनाएँ"
 
-#: oec/html/explore/embed.html:81 oec/html/rankings/index.html:34
+#: oec/html/explore/embed.html:105 oec/html/rankings/index.html:59
 msgid "Download"
 msgstr "डाउनलोड"
 
-#: oec/html/explore/embed.html:89 oec/html/explore/embed.html:763
-msgid "View as text"
-msgstr "टेक्स्ट के रूप में देखें"
-
-#: oec/html/explore/embed.html:90
-msgid "View fullscreen"
-msgstr "देखें पूर्ण स्क्रीन"
-
-#: oec/html/explore/embed.html:94
+#: oec/html/explore/embed.html:113
 msgid "Embed"
 msgstr "लागू करें"
 
-#: oec/html/explore/embed.html:115
+#: oec/html/explore/embed.html:134
 msgid "Short URL"
 msgstr "यूआरएल संक्षेप में"
 
-#: oec/html/explore/embed.html:292
-#, fuzzy
+#: oec/html/explore/embed.html:301
 msgid "Export Value"
 msgstr "ग्रोथ वैल्यू (5 वर्ष)"
 
-#: oec/html/explore/embed.html:293
-#, fuzzy
+#: oec/html/explore/embed.html:302
 msgid "Import Value"
 msgstr "आयात मूल्य"
 
-#: oec/html/explore/embed.html:296
+#: oec/html/explore/embed.html:305
 msgid "value"
 msgstr "मूल्य"
 
-#: oec/html/explore/embed.html:297
+#: oec/html/explore/embed.html:306
 msgid "percentage"
 msgstr "प्रतिशतता"
 
-#: oec/html/explore/embed.html:313
+#: oec/html/explore/embed.html:323
 msgid "Brought to you by"
 msgstr "यूआरएल संक्षेप में"
 
-#: oec/html/explore/embed.html:763
-msgid "View graphic"
-msgstr ""
+#: oec/html/explore/embed.html:853
+msgid "View as App"
+msgstr "अनुप्रयोग के रूप में देखें"
 
 #: oec/html/explore/index.html:15
 msgid "Data visualization of economic trade"
@@ -230,11 +236,11 @@ msgstr "आर्थिक व्यापार का डेटा विज�
 msgid "Flag of %(country)s"
 msgstr "का ध्वज %(country)s"
 
-#: oec/html/explore/index.html:37 oec/html/rankings/index.html:44
+#: oec/html/explore/index.html:37 oec/html/rankings/index.html:20
 msgid "Previous Year"
 msgstr "पिछले वर्ष"
 
-#: oec/html/explore/index.html:41 oec/html/rankings/index.html:54
+#: oec/html/explore/index.html:41 oec/html/rankings/index.html:30
 msgid "Next Year"
 msgstr "अगले वर्ष"
 
@@ -248,14 +254,17 @@ msgid ""
 "%(country)s (%(country_abbrv)s) Profile of Exports, Imports and Trade "
 "Partners"
 msgstr ""
-"%(country)s (%(country_abbrv)s) निर्यात, आयात और व्यापार में भागीदारों की प्रोफ़ाइल"
+"%(country)s (%(country_abbrv)s) निर्यात, आयात और व्यापार में भागीदारों की"
+" प्रोफ़ाइल"
 
 #: oec/html/profile/country.html:9
 #, python-format
 msgid ""
 "List of major leading exports, imports and complexity economic indicator "
 "statistics of %(country)s."
-msgstr "%(country)s के प्रमुख निर्यात, आयात और आर्थिक जटिलता के संकेतक आँकड़ों की सूची"
+msgstr ""
+"%(country)s के प्रमुख निर्यात, आयात और आर्थिक जटिलता के संकेतक आँकड़ों की"
+" सूची"
 
 #: oec/html/profile/country.html:9
 #, python-format
@@ -297,20 +306,23 @@ msgstr "शीर्ष निर्यातक %(country)s है"
 msgid "and"
 msgstr "और"
 
-#: oec/html/profile/country.html:41 oec/html/profile/product.html:41
+#: oec/html/profile/country.html:41 oec/html/profile/product.html:46
 msgid "Top 5"
 msgstr "शीर्ष 5"
 
-#: oec/html/profile/country.html:72 oec/html/profile/product.html:72
-msgid "View as Visualization"
-msgstr "विज़ुअलाइज़ेशन के रूप में देखें"
+#: oec/html/profile/country.html:74 oec/html/profile/product.html:79
+#: oec/html/templates/site.html:18
+msgid "Explore"
+msgstr "छान-बीन"
 
 #: oec/html/profile/product.html:8
 #, python-format
 msgid ""
 "%(prod)s (%(prod_abbrv)s) Profile of Export Destinations and Import "
 "Origins"
-msgstr "%(prod)s (%(prod_abbrv)s) के निर्यात के गंतव्य और आयात के स्रोत की प्रोफ़ाइल"
+msgstr ""
+"%(prod)s (%(prod_abbrv)s) के निर्यात के गंतव्य और आयात के स्रोत की "
+"प्रोफ़ाइल"
 
 #: oec/html/profile/product.html:9
 #, python-format
@@ -337,38 +349,36 @@ msgstr "%(prod)s के व्यापार के बारे में औ�
 #: oec/html/profile/product.html:27
 #, python-format
 msgid ""
-"%(prod)s %(ranked)s %(rank_val)s with a Product Complexity Index (PCI) of"
-" %(pci)s"
-msgstr "%(prod)s %(ranked)s %(rank_val)s उत्पाद की जटिलता सूचकांक (पीसीआई) %(pci)s के साथ "
+"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
+"with a Product Complexity Index (PCI) of %(pci)s"
+msgstr ""
+"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s उत्पाद की जटिलता सूचकांक (पीसीआई) "
+"%(pci)s के साथ "
 
 #: oec/html/profile/product.html:33
 #, python-format
 msgid "%(prod)s is the top export of"
 msgstr "का सर्वोच्च निर्यात %(prod)s है "
 
-#: oec/html/rankings/index.html:24
+#: oec/html/rankings/index.html:23 oec/html/rankings/index.html:40
 msgid "Country Rankings"
 msgstr "देशों की रैंकिंग"
 
-#: oec/html/rankings/index.html:27
+#: oec/html/rankings/index.html:25 oec/html/rankings/index.html:43
 msgid "HS Product Rankings"
 msgstr "एचएस उत्पादो की रैंकिंग"
 
-#: oec/html/rankings/index.html:30
+#: oec/html/rankings/index.html:27 oec/html/rankings/index.html:46
 msgid "SITC Product Rankings"
 msgstr "SITC उत्पादों की रैंकिंग"
 
-#: oec/html/rankings/index.html:36
-msgid "Download this year's data"
-msgstr "इस साल के डेटा डाउनलोड करें"
+#: oec/html/rankings/index.html:51
+msgid "Change Year"
+msgstr ""
 
-#: oec/html/rankings/index.html:37
-msgid "Download all years data"
-msgstr "सभी वर्षों के डेटा डाउनलोड करें"
-
-#: oec/html/templates/site.html:18
-msgid "Explore"
-msgstr "छान-बीन"
+#: oec/html/rankings/index.html:61
+msgid "Current Year"
+msgstr ""
 
 #: oec/html/templates/site.html:19
 msgid "Profiles"
@@ -407,4 +417,16 @@ msgstr "रैंक"
 
 #~ msgid "Click to view more years"
 #~ msgstr "और ज़्यादा देखने के लिए क्लिक करें"
+
+#~ msgid "View graphic"
+#~ msgstr ""
+
+#~ msgid "View as Visualization"
+#~ msgstr "विज़ुअलाइज़ेशन के रूप में देखें"
+
+#~ msgid "Download this year's data"
+#~ msgstr "इस साल के डेटा डाउनलोड करें"
+
+#~ msgid "Download all years data"
+#~ msgstr "सभी वर्षों के डेटा डाउनलोड करें"
 

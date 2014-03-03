@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-02-18 11:41-0500\n"
+"POT-Creation-Date: 2014-03-03 17:53-0500\n"
 "PO-Revision-Date: 2013-12-27 15:29-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: tr <LL@li.org>\n"
@@ -18,62 +18,62 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/explore/models.py:369
+#: oec/explore/models.py:283
 msgid "Origin Country"
 msgstr "Menşei Ülke"
 
-#: oec/explore/models.py:370 oec/explore/models.py:373
-#: oec/html/explore/embed.html:291
+#: oec/explore/models.py:284 oec/explore/models.py:287
+#: oec/html/explore/embed.html:300
 msgid "ID"
 msgstr "Kimlik"
 
-#: oec/explore/models.py:372
+#: oec/explore/models.py:286
 msgid "Destination Country"
 msgstr "Hedef Ülke"
 
-#: oec/explore/models.py:375
+#: oec/explore/models.py:289
 msgid "Product Name"
 msgstr "Ürün Adı"
 
-#: oec/explore/models.py:406
-msgid "Trade Flow"
-msgstr "Ticaret Akışı"
-
-#: oec/explore/models.py:409
-msgid "Export"
-msgstr "Ihracat"
-
-#: oec/explore/models.py:410
-msgid "Import"
-msgstr "Ithalat"
-
-#: oec/explore/models.py:417
-msgid "Classification"
-msgstr "Sınıflandırma"
-
-#: oec/explore/models.py:431
-msgid "Start Year"
-msgstr "Başlangıç Yılı"
-
-#: oec/explore/models.py:437
-msgid "End Year"
-msgstr "Bitiş Yılı"
-
-#: oec/explore/models.py:445 oec/rankings/views.py:75
-msgid "Year"
-msgstr "Yıl"
-
-#: oec/explore/models.py:459
+#: oec/explore/models.py:328
 msgid "Origin"
 msgstr "Menşei"
 
-#: oec/explore/models.py:473
+#: oec/explore/models.py:343
 msgid "Destination"
 msgstr "Varış Yeri"
 
-#: oec/explore/models.py:490 oec/rankings/views.py:49 oec/rankings/views.py:53
+#: oec/explore/models.py:361 oec/rankings/views.py:49 oec/rankings/views.py:53
 msgid "Product"
 msgstr "Ürün"
+
+#: oec/explore/models.py:370
+msgid "Trade Flow"
+msgstr "Ticaret Akışı"
+
+#: oec/explore/models.py:373
+msgid "Export"
+msgstr "Ihracat"
+
+#: oec/explore/models.py:374
+msgid "Import"
+msgstr "Ithalat"
+
+#: oec/explore/models.py:381
+msgid "Classification"
+msgstr "Sınıflandırma"
+
+#: oec/explore/models.py:395
+msgid "Start Year"
+msgstr "Başlangıç Yılı"
+
+#: oec/explore/models.py:401
+msgid "End Year"
+msgstr "Bitiş Yılı"
+
+#: oec/explore/models.py:409 oec/rankings/views.py:75
+msgid "Year"
+msgstr "Yıl"
 
 #: oec/html/home.html:25
 msgid ""
@@ -134,16 +134,15 @@ msgstr ""
 msgid "An emedded visualization."
 msgstr "Bir emedded görselleştirme."
 
-#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:613
+#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:699
 msgid "Loading"
 msgstr "Yükleme"
 
 #: oec/html/explore/embed.html:20 oec/html/explore/embed.html:43
-#, fuzzy
 msgid "Value"
 msgstr "Değer"
 
-#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:99
+#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:118
 msgid "Share"
 msgstr "Paylaş"
 
@@ -179,57 +178,57 @@ msgstr "Büyüme Değer (1 yıl)"
 msgid "Growth Value (5 year)"
 msgstr "Büyüme Değer (5 yıl)"
 
-#: oec/html/explore/embed.html:54
+#: oec/html/explore/embed.html:54 oec/html/rankings/index.html:64
 msgid "All Years"
 msgstr "Tüm yıllar"
 
-#: oec/html/explore/embed.html:78
+#: oec/html/explore/embed.html:65 oec/html/explore/embed.html:858
+msgid "View as Text"
+msgstr "Metin olarak görüntüle"
+
+#: oec/html/explore/embed.html:66
+msgid "Fullscreen"
+msgstr "Tam"
+
+#: oec/html/explore/embed.html:102
 msgid "Build Visualization"
 msgstr "Görselleştir"
 
-#: oec/html/explore/embed.html:81 oec/html/rankings/index.html:34
+#: oec/html/explore/embed.html:105 oec/html/rankings/index.html:59
 msgid "Download"
 msgstr "İndir"
 
-#: oec/html/explore/embed.html:89 oec/html/explore/embed.html:763
-msgid "View as text"
-msgstr "Metin olarak görüntüle"
-
-#: oec/html/explore/embed.html:90
-msgid "View fullscreen"
-msgstr "Profili tam ekran"
-
-#: oec/html/explore/embed.html:94
+#: oec/html/explore/embed.html:113
 msgid "Embed"
 msgstr "Yerleştir"
 
-#: oec/html/explore/embed.html:115
+#: oec/html/explore/embed.html:134
 msgid "Short URL"
 msgstr "Kısa URL"
 
-#: oec/html/explore/embed.html:292
+#: oec/html/explore/embed.html:301
 msgid "Export Value"
 msgstr "Ihracat değeri"
 
-#: oec/html/explore/embed.html:293
+#: oec/html/explore/embed.html:302
 msgid "Import Value"
 msgstr "Ithalat değeri"
 
-#: oec/html/explore/embed.html:296
+#: oec/html/explore/embed.html:305
 msgid "value"
 msgstr "değer"
 
-#: oec/html/explore/embed.html:297
+#: oec/html/explore/embed.html:306
 msgid "percentage"
 msgstr "yüzde"
 
-#: oec/html/explore/embed.html:313
+#: oec/html/explore/embed.html:323
 msgid "Brought to you by"
 msgstr "Tarafından getirildi"
 
-#: oec/html/explore/embed.html:763
-msgid "View graphic"
-msgstr "Görünüm grafik"
+#: oec/html/explore/embed.html:853
+msgid "View as App"
+msgstr "App olarak görüntüle"
 
 #: oec/html/explore/index.html:15
 msgid "Data visualization of economic trade"
@@ -240,11 +239,11 @@ msgstr "Ekonomik ticaret veri görselleştirme"
 msgid "Flag of %(country)s"
 msgstr "Bayrağı %(country)s"
 
-#: oec/html/explore/index.html:37 oec/html/rankings/index.html:44
+#: oec/html/explore/index.html:37 oec/html/rankings/index.html:20
 msgid "Previous Year"
 msgstr "Önceki Yıl"
 
-#: oec/html/explore/index.html:41 oec/html/rankings/index.html:54
+#: oec/html/explore/index.html:41 oec/html/rankings/index.html:30
 msgid "Next Year"
 msgstr "Gelecek Yıl"
 
@@ -312,13 +311,14 @@ msgstr "%(country)s Üst ihracatçısı olan"
 msgid "and"
 msgstr "ve"
 
-#: oec/html/profile/country.html:41 oec/html/profile/product.html:41
+#: oec/html/profile/country.html:41 oec/html/profile/product.html:46
 msgid "Top 5"
 msgstr "Top 5"
 
-#: oec/html/profile/country.html:72 oec/html/profile/product.html:72
-msgid "View as Visualization"
-msgstr "Görselleştirme olarak görüntüle"
+#: oec/html/profile/country.html:74 oec/html/profile/product.html:79
+#: oec/html/templates/site.html:18
+msgid "Explore"
+msgstr "Keşfet"
 
 #: oec/html/profile/product.html:8
 #, python-format
@@ -354,10 +354,10 @@ msgstr "Ticaret Hakkında Daha Fazla Bilgi %(prod)s"
 #: oec/html/profile/product.html:27
 #, python-format
 msgid ""
-"%(prod)s %(ranked)s %(rank_val)s with a Product Complexity Index (PCI) of"
-" %(pci)s"
+"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
+"with a Product Complexity Index (PCI) of %(pci)s"
 msgstr ""
-"%(prod)s %(ranked)s %(rank_val)s Ürün Karmaşıklık İndeksi (PCI) ve ile "
+"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s Ürün Karmaşıklık İndeksi (PCI) ve ile "
 "%(pci)s"
 
 #: oec/html/profile/product.html:33
@@ -365,29 +365,25 @@ msgstr ""
 msgid "%(prod)s is the top export of"
 msgstr "%(prod)s üst ihracat"
 
-#: oec/html/rankings/index.html:24
+#: oec/html/rankings/index.html:23 oec/html/rankings/index.html:40
 msgid "Country Rankings"
 msgstr "Ülke Sıralaması"
 
-#: oec/html/rankings/index.html:27
+#: oec/html/rankings/index.html:25 oec/html/rankings/index.html:43
 msgid "HS Product Rankings"
 msgstr "HS Ürün Sıralaması"
 
-#: oec/html/rankings/index.html:30
+#: oec/html/rankings/index.html:27 oec/html/rankings/index.html:46
 msgid "SITC Product Rankings"
 msgstr "SITC Ürün Sıralaması"
 
-#: oec/html/rankings/index.html:36
-msgid "Download this year's data"
-msgstr "Bu yılki verileri indirin"
+#: oec/html/rankings/index.html:51
+msgid "Change Year"
+msgstr ""
 
-#: oec/html/rankings/index.html:37
-msgid "Download all years data"
-msgstr "Tüm yaş verileri indirmek"
-
-#: oec/html/templates/site.html:18
-msgid "Explore"
-msgstr "Keşfet"
+#: oec/html/rankings/index.html:61
+msgid "Current Year"
+msgstr ""
 
 #: oec/html/templates/site.html:19
 msgid "Profiles"
@@ -429,4 +425,16 @@ msgstr "Rütbe"
 
 #~ msgid "Click to view more years"
 #~ msgstr "Diğer yıllara göz atmak için tıklayınız"
+
+#~ msgid "View graphic"
+#~ msgstr "Görünüm grafik"
+
+#~ msgid "View as Visualization"
+#~ msgstr "Görselleştirme olarak görüntüle"
+
+#~ msgid "Download this year's data"
+#~ msgstr "Bu yılki verileri indirin"
+
+#~ msgid "Download all years data"
+#~ msgstr "Tüm yaş verileri indirmek"
 

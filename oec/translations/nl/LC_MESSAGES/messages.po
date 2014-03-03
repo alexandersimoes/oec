@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-02-18 11:41-0500\n"
+"POT-Creation-Date: 2014-03-03 17:53-0500\n"
 "PO-Revision-Date: 2013-12-27 15:28-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: nl <LL@li.org>\n"
@@ -18,62 +18,62 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/explore/models.py:369
+#: oec/explore/models.py:283
 msgid "Origin Country"
 msgstr "Herkomst Land"
 
-#: oec/explore/models.py:370 oec/explore/models.py:373
-#: oec/html/explore/embed.html:291
+#: oec/explore/models.py:284 oec/explore/models.py:287
+#: oec/html/explore/embed.html:300
 msgid "ID"
 msgstr "ID"
 
-#: oec/explore/models.py:372
+#: oec/explore/models.py:286
 msgid "Destination Country"
 msgstr "Bestemming Land"
 
-#: oec/explore/models.py:375
+#: oec/explore/models.py:289
 msgid "Product Name"
 msgstr "Naam van het product"
 
-#: oec/explore/models.py:406
-msgid "Trade Flow"
-msgstr "Trade Flow"
-
-#: oec/explore/models.py:409
-msgid "Export"
-msgstr "Export"
-
-#: oec/explore/models.py:410
-msgid "Import"
-msgstr "Import"
-
-#: oec/explore/models.py:417
-msgid "Classification"
-msgstr "Classificatie"
-
-#: oec/explore/models.py:431
-msgid "Start Year"
-msgstr "Start Jaar"
-
-#: oec/explore/models.py:437
-msgid "End Year"
-msgstr "Einde Jaar"
-
-#: oec/explore/models.py:445 oec/rankings/views.py:75
-msgid "Year"
-msgstr "Jaar"
-
-#: oec/explore/models.py:459
+#: oec/explore/models.py:328
 msgid "Origin"
 msgstr "Oorsprong"
 
-#: oec/explore/models.py:473
+#: oec/explore/models.py:343
 msgid "Destination"
 msgstr "Bestemming"
 
-#: oec/explore/models.py:490 oec/rankings/views.py:49 oec/rankings/views.py:53
+#: oec/explore/models.py:361 oec/rankings/views.py:49 oec/rankings/views.py:53
 msgid "Product"
 msgstr "Product"
+
+#: oec/explore/models.py:370
+msgid "Trade Flow"
+msgstr "Trade Flow"
+
+#: oec/explore/models.py:373
+msgid "Export"
+msgstr "Export"
+
+#: oec/explore/models.py:374
+msgid "Import"
+msgstr "Import"
+
+#: oec/explore/models.py:381
+msgid "Classification"
+msgstr "Classificatie"
+
+#: oec/explore/models.py:395
+msgid "Start Year"
+msgstr "Start Jaar"
+
+#: oec/explore/models.py:401
+msgid "End Year"
+msgstr "Einde Jaar"
+
+#: oec/explore/models.py:409 oec/rankings/views.py:75
+msgid "Year"
+msgstr "Jaar"
 
 #: oec/html/home.html:25
 msgid ""
@@ -135,7 +135,7 @@ msgstr ""
 msgid "An emedded visualization."
 msgstr "Een emedded visualisatie."
 
-#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:613
+#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:699
 msgid "Loading"
 msgstr "Het laden"
 
@@ -143,7 +143,7 @@ msgstr "Het laden"
 msgid "Value"
 msgstr "Waarde"
 
-#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:99
+#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:118
 msgid "Share"
 msgstr "Aandeel"
 
@@ -179,57 +179,57 @@ msgstr "Groei Value (1 jaar)"
 msgid "Growth Value (5 year)"
 msgstr "Groei Waarde (5 jaar)"
 
-#: oec/html/explore/embed.html:54
+#: oec/html/explore/embed.html:54 oec/html/rankings/index.html:64
 msgid "All Years"
 msgstr "Alle jaren"
 
-#: oec/html/explore/embed.html:78
+#: oec/html/explore/embed.html:65 oec/html/explore/embed.html:858
+msgid "View as Text"
+msgstr "Bekijk als tekst"
+
+#: oec/html/explore/embed.html:66
+msgid "Fullscreen"
+msgstr "Fullscreen"
+
+#: oec/html/explore/embed.html:102
 msgid "Build Visualization"
 msgstr "Bouwen Visualisatie"
 
-#: oec/html/explore/embed.html:81 oec/html/rankings/index.html:34
+#: oec/html/explore/embed.html:105 oec/html/rankings/index.html:59
 msgid "Download"
 msgstr "Download"
 
-#: oec/html/explore/embed.html:89 oec/html/explore/embed.html:763
-msgid "View as text"
-msgstr "Bekijk als tekst"
-
-#: oec/html/explore/embed.html:90
-msgid "View fullscreen"
-msgstr "Bekijk fullscreen"
-
-#: oec/html/explore/embed.html:94
+#: oec/html/explore/embed.html:113
 msgid "Embed"
 msgstr "Embed"
 
-#: oec/html/explore/embed.html:115
+#: oec/html/explore/embed.html:134
 msgid "Short URL"
 msgstr "Short URL"
 
-#: oec/html/explore/embed.html:292
+#: oec/html/explore/embed.html:301
 msgid "Export Value"
 msgstr "Exportwaarde"
 
-#: oec/html/explore/embed.html:293
+#: oec/html/explore/embed.html:302
 msgid "Import Value"
 msgstr "Invoerwaarde"
 
-#: oec/html/explore/embed.html:296
+#: oec/html/explore/embed.html:305
 msgid "value"
 msgstr "waarde"
 
-#: oec/html/explore/embed.html:297
+#: oec/html/explore/embed.html:306
 msgid "percentage"
 msgstr "percentage"
 
-#: oec/html/explore/embed.html:313
+#: oec/html/explore/embed.html:323
 msgid "Brought to you by"
 msgstr "Gebracht aan u door"
 
-#: oec/html/explore/embed.html:763
-msgid "View graphic"
-msgstr "Weergavestatistieken"
+#: oec/html/explore/embed.html:853
+msgid "View as App"
+msgstr "Tonen als App"
 
 #: oec/html/explore/index.html:15
 msgid "Data visualization of economic trade"
@@ -240,11 +240,11 @@ msgstr "Data visualisatie van de economische handel"
 msgid "Flag of %(country)s"
 msgstr "Vlag van %(country)s"
 
-#: oec/html/explore/index.html:37 oec/html/rankings/index.html:44
+#: oec/html/explore/index.html:37 oec/html/rankings/index.html:20
 msgid "Previous Year"
 msgstr "Vorig jaar"
 
-#: oec/html/explore/index.html:41 oec/html/rankings/index.html:54
+#: oec/html/explore/index.html:41 oec/html/rankings/index.html:30
 msgid "Next Year"
 msgstr "Volgend jaar"
 
@@ -312,13 +312,14 @@ msgstr "%(country)s is de top exporteur van"
 msgid "and"
 msgstr "en"
 
-#: oec/html/profile/country.html:41 oec/html/profile/product.html:41
+#: oec/html/profile/country.html:41 oec/html/profile/product.html:46
 msgid "Top 5"
 msgstr "Top 5"
 
-#: oec/html/profile/country.html:72 oec/html/profile/product.html:72
-msgid "View as Visualization"
-msgstr "Bekijken als Visualisatie"
+#: oec/html/profile/country.html:74 oec/html/profile/product.html:79
+#: oec/html/templates/site.html:18
+msgid "Explore"
+msgstr "Onderzoeken"
 
 #: oec/html/profile/product.html:8
 #, python-format
@@ -356,10 +357,10 @@ msgstr "Meer informatie over Handel van %(prod)s"
 #: oec/html/profile/product.html:27
 #, python-format
 msgid ""
-"%(prod)s %(ranked)s %(rank_val)s with a Product Complexity Index (PCI) of"
-" %(pci)s"
+"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
+"with a Product Complexity Index (PCI) of %(pci)s"
 msgstr ""
-"%(prod)s %(ranked)s %(rank_val)s met een productspecialist Complexity "
+"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s met een productspecialist Complexity "
 "Index (PCI) van %(pci)s"
 
 #: oec/html/profile/product.html:33
@@ -367,29 +368,25 @@ msgstr ""
 msgid "%(prod)s is the top export of"
 msgstr "%(prod)s is de top export van"
 
-#: oec/html/rankings/index.html:24
+#: oec/html/rankings/index.html:23 oec/html/rankings/index.html:40
 msgid "Country Rankings"
 msgstr "Land Rankings"
 
-#: oec/html/rankings/index.html:27
+#: oec/html/rankings/index.html:25 oec/html/rankings/index.html:43
 msgid "HS Product Rankings"
 msgstr "HS product Rankings"
 
-#: oec/html/rankings/index.html:30
+#: oec/html/rankings/index.html:27 oec/html/rankings/index.html:46
 msgid "SITC Product Rankings"
 msgstr "SITC Product Rankings"
 
-#: oec/html/rankings/index.html:36
-msgid "Download this year's data"
-msgstr "Download de gegevens van dit jaar"
+#: oec/html/rankings/index.html:51
+msgid "Change Year"
+msgstr ""
 
-#: oec/html/rankings/index.html:37
-msgid "Download all years data"
-msgstr "Download alle jaren gegevens"
-
-#: oec/html/templates/site.html:18
-msgid "Explore"
-msgstr "Onderzoeken"
+#: oec/html/rankings/index.html:61
+msgid "Current Year"
+msgstr ""
 
 #: oec/html/templates/site.html:19
 msgid "Profiles"
@@ -428,4 +425,16 @@ msgstr "Rang"
 
 #~ msgid "Click to view more years"
 #~ msgstr "Klik hier voor meer jaren bekijken"
+
+#~ msgid "View graphic"
+#~ msgstr "Weergavestatistieken"
+
+#~ msgid "View as Visualization"
+#~ msgstr "Bekijken als Visualisatie"
+
+#~ msgid "Download this year's data"
+#~ msgstr "Download de gegevens van dit jaar"
+
+#~ msgid "Download all years data"
+#~ msgstr "Download alle jaren gegevens"
 
