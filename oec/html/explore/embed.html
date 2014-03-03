@@ -317,11 +317,11 @@ var trade_flow = "{{ current_build.trade_flow }}",
 // console.log(document.documentElement.clientHeight, window.innerHeight, window.screen.height)
 if(!in_explore_page){
   d3.select("a.fullscreen").style("display", "none")
+  viz.title("{{ current_build.get_name() }}")
 }
 
 if (in_the_wild) {
   viz.footer("<a href='"+window.location.origin+"/explore/{{ current_build.url() }}'>{{ _('Brought to you by') }}: The Observatory of Economic Complexity</a>")
-  viz.title("{{ current_build.get_name() }}")
 }
 
 if(vars.controls == "false"){
@@ -380,10 +380,6 @@ function format_data(error, raw_data, raw_attrs, raw_other){
     else if(attr_id == "sitc_id"){
       attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
     }
-    if(attrs[d.id]["display_id"]){
-      attrs[d.id]["display_id"] = attrs[d.id]["display_id"].toUpperCase()
-    }
-    // console.log(attrs[d.id])
   })
 
   // go through raw data and set each items nest and id vars properly
