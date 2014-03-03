@@ -116,6 +116,13 @@ div.project:hover {
   cursor: pointer;
 }
 
+span.soon {
+  display: block;
+  font-family: "HelveticaNeue-Bold", "Helvetica Neue Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+}
+
 div#pantheon:before {
   background-image: url("/static/img/home/sites/pantheon_bw.png");
 }
