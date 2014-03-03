@@ -241,13 +241,13 @@ var trade_flow = "{{ current_build.trade_flow }}",
     app_type = "{{ current_build.app.type }}",
     attrs = {},
     vars = {{ global_vars|safe }},
-    in_explore_page = (window.location != window.parent.location) && !in_the_wild && window.parent.location.pathname.indexOf("explore") >= 0,
-    // viz_height = in_explore_page ? 505 : window.innerHeight - d3.select("#ui").node().offsetHeight,
-    viz_height = is_iOS ? window.screen.height - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight,
-    viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
     in_the_wild = (window.parent.location.origin && window.parent.location.origin.indexOf("atlas.media.mit.edu") < 0) &&
                   (window.parent.location.origin && window.parent.location.origin.indexOf("oec.media.mit.edu") < 0) &&
                   (window.parent.location.origin && window.parent.location.origin.indexOf("localhost") < 0),
+    in_explore_page = (window.location != window.parent.location) && !in_the_wild && (window.parent.location.pathname.indexOf("explore") >= 0 || window.parent.location.pathname.indexOf("profile") >= 0),
+    // viz_height = in_explore_page ? 505 : window.innerHeight - d3.select("#ui").node().offsetHeight,
+    viz_height = is_iOS ? window.screen.height - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight,
+    viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
     q = queue()
           .defer(d3.json, "{{ current_build.data_url() }}")
           .defer(d3.json, "{{ current_build.attr_url() }}"),
