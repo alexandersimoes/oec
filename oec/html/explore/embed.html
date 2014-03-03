@@ -281,7 +281,6 @@ var trade_flow = "{{ current_build.trade_flow }}",
             .height(viz_height)
             .width(viz_width)
             .icon("icon")
-            .style({"title": {"height": 24}})
             .number_format(function(number, key){
               if(key){
                 if(key.indexOf("pct") > -1){ return d3.format(".2%")(number); }
@@ -327,6 +326,9 @@ if (in_the_wild) {
 if(vars.controls == "false"){
   viz_width = window.innerWidth;
   d3.select("#controls").remove();
+}
+else {
+  viz.style({"title": {"height": 24}})
 }
 
 if(attr_id == "origin_id" || attr_id == "dest_id"){
