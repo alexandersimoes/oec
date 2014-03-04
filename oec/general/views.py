@@ -44,6 +44,9 @@ def before_request():
     else:
         session['first_time'] = True
     
+    if session['first_time']:
+        flash("Welcome! You may have noticed our recent redesign, please <a href='https://docs.google.com/forms/d/1NHkCGQR2u796RMZgo1bYUBbNPnpm1cWAX0kp6nnfwqE/viewform' target='_blank'>let us know what you think</a>.", "first_time")
+    
     lang = request.args.get('lang', None)
     if lang:
         g.locale = get_locale(lang)
