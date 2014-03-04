@@ -82,3 +82,5 @@ try:
     REDIS.client_list()
 except ConnectionError:
     REDIS, REDIS_CACHE = [None]*2
+    
+FACEBOOK_ID = get_env_variable("OEC_FACEBOOK_ID",0)
