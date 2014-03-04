@@ -159,6 +159,20 @@
 
 <script>
 
+var same_origin = false,
+  in_the_wild = false,
+  in_explore_page = false;
+
+try {
+  same_origin = window.parent.location.host == window.location.host;
+  in_the_wild = (window.parent.location.origin && window.parent.location.origin.indexOf("atlas.media.mit.edu") < 0) &&
+                (window.parent.location.origin && window.parent.location.origin.indexOf("oec.media.mit.edu") < 0) &&
+                (window.parent.location.origin && window.parent.location.origin.indexOf("localhost") < 0);
+  in_explore_page = (window.location != window.parent.location) && !in_the_wild && (window.parent.location.pathname.indexOf("explore") >= 0 || window.parent.location.pathname.indexOf("profile") >= 0);
+}
+catch (e) {}
+console.log("Same Origin:", same_origin)
+
 d3.select("#loading")
   .style("height",window.innerHeight+"px")
   .style("opacity",1)
@@ -241,10 +255,6 @@ var trade_flow = "{{ current_build.trade_flow }}",
     app_type = "{{ current_build.app.type }}",
     attrs = {},
     vars = {{ global_vars|safe }},
-    in_the_wild = (window.parent.location.origin && window.parent.location.origin.indexOf("atlas.media.mit.edu") < 0) &&
-                  (window.parent.location.origin && window.parent.location.origin.indexOf("oec.media.mit.edu") < 0) &&
-                  (window.parent.location.origin && window.parent.location.origin.indexOf("localhost") < 0),
-    in_explore_page = (window.location != window.parent.location) && !in_the_wild && (window.parent.location.pathname.indexOf("explore") >= 0 || window.parent.location.pathname.indexOf("profile") >= 0),
     // viz_height = in_explore_page ? 505 : window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_height = is_iOS ? window.screen.height - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
@@ -722,9 +732,11 @@ d3.select("#more_years button").on("click", function(){
     // var years = d3.range(start, end, year_interval)
     viz.time({"solo": years}).draw()
     
-    if(parent.update_text_table){
-      var data_for_table = raw_data.data.filter(function(d){ return years.indexOf(d.year) >= 0 })
-      update_text_table(data_for_table, attrs)
+    if(same_origin){
+      if(parent.update_text_table){
+        var data_for_table = raw_data.data.filter(function(d){ return years.indexOf(d.year) >= 0 })
+        update_text_table(data_for_table, attrs)
+      }
     }
     
     resize_viz()
@@ -778,8 +790,10 @@ d3.selectAll("button#build").on("click", function(){
   }
   
   var curr_window = window
-  if(self!=top && !in_the_wild){
-    curr_window = window.parent
+  if(same_origin){
+    if(self!=top && !in_the_wild){
+      curr_window = window.parent
+    }
   }
   
   var new_url =  "/explore/"
@@ -825,8 +839,10 @@ d3.select("#show_hide").on(d3plus.evt.click, function(){
 d3.select("#share #shorten").on("click", function(){
   
   var url = encodeURIComponent(window.location.pathname + "?lang={{ g.locale }}")
-  if(window.location != window.parent.location){
-    var url = encodeURIComponent(window.parent.location.pathname + "?lang={{ g.locale }}")
+  if(same_origin){
+    if(window.location != window.parent.location){
+      var url = encodeURIComponent(window.parent.location.pathname + "?lang={{ g.locale }}")
+    }
   }
   
   d3.json("/explore/shorten/")
