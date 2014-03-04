@@ -50,14 +50,14 @@ Adding the Observatory to computer via virtualenv
         mysql -u username -p -h localhost DB_NAME < observatory_xxxx-xx-xx.sql
 7. Be sure to create the following local environment variables
 
-        OEC_SECRET_KEY=some_s3cret_k3y
-        OEC_DB_USER=my_db_username
-        OEC_DB_PW=my_db_password
-        OEC_DB_HOST=localhost
-        OEC_DB_NAME=oec
-        * OEC_REDIS_HOST=localhost
-        * OEC_REDIS_PORT=6379
-        * OEC_REDIS_PW=redis_password
+        export OEC_SECRET_KEY=some_s3cret_k3y
+        export OEC_DB_USER=my_db_username
+        export OEC_DB_PW=my_db_password
+        export OEC_DB_HOST=localhost
+        export OEC_DB_NAME=oec
+        * export OEC_REDIS_HOST=localhost
+        * export OEC_REDIS_PORT=6379
+        * export OEC_REDIS_PW=redis_password
         
         * only necessary if using redis for caching
 8. Updating translations (if something is changed)
