@@ -103,10 +103,10 @@
 
   <div class="control_container" id="download">
     <h3>{{ _('Download') }}</h3>
-    <a class="icon pdf" href="#">PDF</a>
-    <a class="icon svg" href="#">SVG</a>
-    <a class="icon png" href="#">PNG</a>
-    <a class="icon csv" href="#">CSV</a>
+    <a class="icon pdf" data-format="pdf" href="#">PDF</a>
+    <a class="icon svg" data-format="svg" href="#">SVG</a>
+    <a class="icon png" data-format="png" href="#">PNG</a>
+    <a class="icon csv" data-format="csv" href="#">CSV</a>
   </div>
 
   <div class="control_container">
@@ -903,7 +903,7 @@ d3.selectAll("#download a").on("click", function(){
   d3.select("input[name='title']").attr("value", title.join("_"));
 
   // Determine which link the user requested (svg, csv etc.)
-  var format = d3.select(this).attr("class");
+  var format = d3.select(this).attr("data-format");
   d3.select("input[name='format']").attr("value", format);
 
   // If the user wants text, we need to put the table into an array
