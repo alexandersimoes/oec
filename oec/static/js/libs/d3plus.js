@@ -5724,7 +5724,7 @@ d3plus.forms.data = function(vars) {
 // Creates Dropdown Menu
 //------------------------------------------------------------------------------
 d3plus.forms.drop = function(vars,styles,timing) {
-  
+
   if (vars.element) {
     vars.element.on("focus."+vars.id,function(){
       vars.ui.hover(true).draw()
@@ -5746,15 +5746,15 @@ d3plus.forms.drop = function(vars,styles,timing) {
       }
     })
   }
-  
+
   d3.select(document).on("keydown."+vars.id,function(){
-    
+
     if (vars.enabled || vars.hover === true) {
-  
+
       var key = d3.event.keyCode,
           options = list.select("div").selectAll("div.d3plus_node"),
           index = 0
-          
+
       if (typeof vars.hover == "boolean") {
         options.each(function(d,i){
           if (d.value == vars.focus) {
@@ -5769,7 +5769,7 @@ d3plus.forms.drop = function(vars,styles,timing) {
           }
         })
       }
-      
+
       // Tab
       if ([9].indexOf(key) >= 0 && (!vars.search || (vars.search && !d3.event.shiftKey))) {
         vars.ui.disable()
@@ -5784,21 +5784,21 @@ d3plus.forms.drop = function(vars,styles,timing) {
             index += 1
           }
         }
-        
+
         if (typeof vars.hover != "boolean") {
           var hover = options.data()[index].value
         }
         else {
           var hover = vars.focus
         }
-        
+
         if (vars.enabled) {
           vars.ui.hover(hover).draw(60)
         }
         else {
           vars.ui.hover(hover).enable()
         }
-        
+
       }
       // Up Arrow
       else if ([38].indexOf(key) >= 0) {
@@ -5810,21 +5810,21 @@ d3plus.forms.drop = function(vars,styles,timing) {
             index -= 1
           }
         }
-        
+
         if (typeof vars.hover != "boolean") {
           var hover = options.data()[index].value
         }
         else {
           var hover = vars.focus
         }
-        
+
         if (vars.enabled) {
           vars.ui.hover(hover).draw(60)
         }
         else {
           vars.ui.hover(hover).enable()
         }
-        
+
       }
       // Enter/Return
       else if ([13].indexOf(key) >= 0) {
@@ -5844,33 +5844,35 @@ d3plus.forms.drop = function(vars,styles,timing) {
           vars.ui.hover(false).draw()
         }
       }
-      
+
     }
-    
+
   })
-  
+
   function parent_click(elem) {
-    
+
     d3.select(elem).on("click."+vars.id,function(){
-    
+
       var element = d3.event.target || d3.event.toElement
       element = element.id
       var child = "_"+vars.id
-    
+
       if (element.indexOf(child) < 0 && vars.enabled) {
         vars.ui.disable()
       }
-    
+
     })
-    
+
     if (elem.self !== window.top) {
-      parent_click(elem.parent)
+      if (window.parent.location.host == window.location.host) {
+        parent_click(elem.parent)
+      }
     }
-    
+
   }
-  
+
   parent_click(window)
-  
+
   if (styles.icon) {
 
     if (styles.icon.indexOf("fa-") == 0) {
@@ -5885,19 +5887,19 @@ d3plus.forms.drop = function(vars,styles,timing) {
         "content": styles.icon
       }
     }
-    
+
   }
   else {
     var icon = false
   }
-  
+
   var drop_width = d3plus.forms.value(styles.width,["drop","button"])
   if (!drop_width || typeof drop_width != "number") {
-    
+
     if (vars.dev) d3plus.console.time("calculating width")
-      
+
     var data = d3plus.utils.copy(styles)
-    
+
     if (!icon) {
 
       if (d3plus.fontawesome) {
@@ -5912,22 +5914,22 @@ d3plus.forms.drop = function(vars,styles,timing) {
           "content": "&#x2713;"
         }
       }
-      
+
     }
     else {
       data.icon = icon
     }
-    
+
     data.display = "inline-block"
     data.border = "none"
     data.width = false
     data.margin = 0
-    
+
     var text = d3plus.forms.value(vars.text,["drop","button"])
     if (!text) {
      text = "text"
     }
-    
+
     var button = d3plus.ui(data)
       .type("button")
       .text(text)
@@ -5936,30 +5938,30 @@ d3plus.forms.drop = function(vars,styles,timing) {
       .id(vars.id)
       .timing(0)
       .draw()
-      
+
     var w = button.width()
     drop_width = d3.max(w)
     button.remove()
-    
+
     if (vars.dev) d3plus.console.timeEnd("calculating width")
-    
+
   }
-  
+
   if (typeof styles.width != "object") {
     styles.width = {}
   }
-  
+
   styles.width.drop = drop_width
-  
+
   var button_width = d3plus.forms.value(styles.width,["button","drop"])
   if (!button_width || typeof button_width != "number") {
     button_width = drop_width
   }
-  
+
   styles.width.button = button_width
-  
+
   if (vars.dev) d3plus.console.time("creating main button")
-  
+
   var style = d3plus.utils.copy(styles)
   style.icon = icon
   style.width = button_width
@@ -5978,7 +5980,7 @@ d3plus.forms.drop = function(vars,styles,timing) {
   var test_data = d3plus.utils.copy(data)
   test_data.text = "Test"
   var hover = vars.hover === true ? vars.focus : false
-  
+
   if (vars.dev) d3plus.console.group("main button")
   var button = d3plus.ui(style)
     // .dev(vars.dev)
@@ -5993,21 +5995,21 @@ d3plus.forms.drop = function(vars,styles,timing) {
     .highlight(vars.focus)
     .enable()
     .draw()
-    
+
   var line_height = button.height()
-    
+
   button.data([data]).height(line_height).draw()
-  
+
   if (vars.dev) d3plus.console.groupEnd()
-  
+
   if (vars.dev) d3plus.console.timeEnd("creating main button")
-  
-  
+
+
   if (vars.dev) d3plus.console.time("creating dropdown")
-  
+
   var selector = vars.container.selectAll("div.d3plus_drop_selector")
     .data(["selector"])
-    
+
   selector.enter().append("div")
     .attr("class","d3plus_drop_selector")
     .style("position","absolute")
@@ -6015,24 +6017,24 @@ d3plus.forms.drop = function(vars,styles,timing) {
     .style("padding",styles.stroke+"px")
     .style("z-index","-1")
     .style("overflow","hidden")
-    
+
   if (vars.dev) d3plus.console.timeEnd("creating dropdown")
   if (vars.dev && vars.search) d3plus.console.time("creating search")
-    
+
   var search_data = vars.search ? ["search"] : []
-    
+
   var search = selector.selectAll("div.d3plus_drop_search")
     .data(search_data)
-    
+
   var search_width = styles.width.drop
   search_width -= styles.padding*4
   search_width -= styles.stroke*2
-  
+
   search.transition().duration(timing)
     .style("padding",styles.padding+"px")
     .style("display","block")
     .style("background-color",styles.secondary)
-    
+
   function search_style(elem) {
     elem
       .style("padding",styles.padding+"px")
@@ -6048,10 +6050,10 @@ d3plus.forms.drop = function(vars,styles,timing) {
       .style("-webkit-border-radius","0")
       .style("border-radius","0")
   }
-    
+
   search.select("input").transition().duration(timing)
     .call(search_style)
-    
+
   search.enter().insert("div","#d3plus_drop_list_"+vars.id)
     .attr("class","d3plus_drop_search")
     .attr("id","d3plus_drop_search_"+vars.id)
@@ -6062,28 +6064,28 @@ d3plus.forms.drop = function(vars,styles,timing) {
       .attr("id","d3plus_drop_input_"+vars.id)
       .style("-webkit-appearance","none")
       .call(search_style)
-    
+
   search.select("input").on("keyup."+vars.id,function(d){
     if (vars.filter != this.value) {
       vars.filter = this.value
       vars.ui.draw()
     }
   })
-    
+
   search.exit().remove()
-  
+
   if (vars.dev && vars.search) d3plus.console.timeEnd("creating search")
   if (vars.dev) d3plus.console.time("populating list")
-  
+
   var list = selector.selectAll("div.d3plus_drop_list")
     .data(["list"])
-    
+
   list.enter().append("div")
     .attr("class","d3plus_drop_list")
     .attr("id","d3plus_drop_list_"+vars.id)
     .style("overflow-y","auto")
     .style("overflow-x","hidden")
-    
+
   if (vars.loading) {
     var data = [
       {
@@ -6096,20 +6098,20 @@ d3plus.forms.drop = function(vars,styles,timing) {
     var search_text = d3plus.utils.strip(vars.filter.toLowerCase()).split("_"),
         tests = ["value","text","alt","keywords"],
         search_text = search_text.filter(function(t){ return t != ""; })
-  
+
     if (vars.filter == "") {
       var data = vars.data.array
     }
     else {
 
       var data = vars.data.array.filter(function(d){
-    
+
         var match = false
-        
+
         for (key in tests) {
           if (tests[key] in d && d[tests[key]]) {
             var text = d3plus.utils.strip(d[tests[key]].toLowerCase()).split("_")
-        
+
             for (t in text) {
               for (s in search_text) {
                 if (text[t].indexOf(search_text[s]) == 0) {
@@ -6122,9 +6124,9 @@ d3plus.forms.drop = function(vars,styles,timing) {
         }
         return match
       })
-    
+
     }
-  
+
     if (data.length == 0) {
       data = [
         {
@@ -6132,15 +6134,15 @@ d3plus.forms.drop = function(vars,styles,timing) {
         }
       ]
     }
-    
+
   }
-  
+
   if (vars.dev) d3plus.console.timeEnd("populating list")
-  
+
   var position = vars.container.node().getBoundingClientRect()
 
   var max = window.innerHeight-position.top
-  
+
   max -= button.height()
   max -= 10
   if (max < button.height()*2) {
@@ -6151,11 +6153,11 @@ d3plus.forms.drop = function(vars,styles,timing) {
   if (max > vars["max-height"]) {
     max = vars["max-height"]
   }
-  
+
   if (vars.enabled) {
-    
+
     if (vars.dev) d3plus.console.time("updating list items")
-  
+
     if (vars.dev) d3plus.console.group("list buttons")
 
     var style = d3plus.utils.copy(styles)
@@ -6168,7 +6170,7 @@ d3plus.forms.drop = function(vars,styles,timing) {
     if (!text) {
      text = "text"
     }
-  
+
     var buttons = d3plus.ui(style)
       // .dev(vars.dev)
       .type("button")
@@ -6183,29 +6185,29 @@ d3plus.forms.drop = function(vars,styles,timing) {
       .selected(vars.focus)
       .hover(vars.hover)
       .draw()
-  
+
     if (vars.dev) d3plus.console.groupEnd()
-    
+
     if (vars.dev) d3plus.console.timeEnd("updating list items")
     if (vars.dev) d3plus.console.time("calculating height")
-  
+
     var hidden = false
     if (selector.style("display") == "none") {
       var hidden = true
     }
-  
+
     if (hidden) selector.style("display","block")
-  
+
     var search_height = vars.search ? search[0][0].offsetHeight : 0
-    
+
     var old_height = selector.style("height"),
         old_scroll = selector.property("scrollTop"),
         list_height = list.style("max-height"),
         list_scroll = list.property("scrollTop")
-      
+
     selector.style("height","auto")
     list.style("max-height","200000px")
-  
+
     var height = parseFloat(selector.style("height"),10)
 
     list
@@ -6214,22 +6216,22 @@ d3plus.forms.drop = function(vars,styles,timing) {
     selector
       .style("height",old_height)
       .property("scrollTop",old_scroll)
-  
+
     if (height > max) {
       height = max
       scrolling = true
     }
-    
+
     if (hidden) selector.style("display","none")
-  
+
     if (vars.dev) d3plus.console.timeEnd("calculating height")
     if (vars.dev) d3plus.console.time("calculating scroll position")
-  
+
     if (scrolling) {
 
       style.width -= d3plus.scrollbar()
       buttons.width(style.width).draw()
-      
+
       var index = 0
       var options = list.select("div").selectAll("div.d3plus_node")
       if (typeof vars.hover == "boolean") {
@@ -6246,7 +6248,7 @@ d3plus.forms.drop = function(vars,styles,timing) {
           }
         })
       }
-    
+
       var hidden = false
       if (selector.style("display") == "none") {
         hidden = true
@@ -6256,15 +6258,15 @@ d3plus.forms.drop = function(vars,styles,timing) {
       var button_top = option.offsetTop,
           button_height = option.offsetHeight,
           list_top = list.property("scrollTop")
-        
+
       if (hidden) selector.style("display","none")
       if (hidden || vars.data.changed) {
-      
+
         var scroll = button_top
-      
+
       }
       else {
-      
+
         var scroll = list_top
 
         if (button_top < list_top) {
@@ -6273,21 +6275,21 @@ d3plus.forms.drop = function(vars,styles,timing) {
         else if (button_top+button_height > list_top+max-search_height) {
           var scroll = button_top - (max-button_height-search_height)
         }
-      
+
       }
-    
+
     }
     else {
       var scroll = 0
     }
-  
+
     if (vars.dev) d3plus.console.timeEnd("calculating scroll position")
-    
+
   }
   else {
     var scroll = list.property("scrollTop"), height = 0
   }
-  
+
   if (vars.dev) d3plus.console.time("rotating arrow")
 
   var offset = icon.content == "&#x27A4;" ? 90 : 0
@@ -6297,7 +6299,7 @@ d3plus.forms.drop = function(vars,styles,timing) {
   else {
     var rotate = "rotate("+offset+"deg)"
   }
-  
+
   button.select("div#d3plus_button_element_"+vars.id+"_icon")
     .data(["icon"])
     .style("transition",(timing/1000)+"s")
@@ -6308,11 +6310,11 @@ d3plus.forms.drop = function(vars,styles,timing) {
     .style("opacity",function(){
       return vars.enabled ? 0.5 : 1
     })
-  
+
   if (vars.dev) d3plus.console.timeEnd("rotating arrow")
-  
+
   if (vars.dev) d3plus.console.time("drawing list")
-  
+
   selector.transition().duration(timing)
     .each("start",function(){
       d3.select(this)
@@ -6347,7 +6349,7 @@ d3plus.forms.drop = function(vars,styles,timing) {
     })
     .style("opacity",vars.enabled ? 1 : 0)
     .each("end",function(){
-      
+
       d3.select(this).transition().duration(timing)
         .style("top",function(){
           return vars.flipped ? "auto" : button.height()+"px"
@@ -6356,26 +6358,26 @@ d3plus.forms.drop = function(vars,styles,timing) {
           return vars.flipped ? button.height()+"px" : "auto"
         })
         .style("display",!vars.enabled ? "none" : null)
-        
+
       if (vars.search && vars.enabled) {
         selector.select("div.d3plus_drop_search input").node().focus()
       }
-        
+
     })
-  
+
   function scrollTopTween(scrollTop) {
       return function() {
           var i = d3.interpolateNumber(this.scrollTop, scrollTop);
           return function(t) { this.scrollTop = i(t); };
       };
   }
-    
+
   list.transition().duration(timing)
     .style("max-height",(max-search_height)+"px")
     .tween("scroll",scrollTopTween(scroll))
-    
+
   if (vars.dev) d3plus.console.timeEnd("drawing list")
-  
+
 }
 d3plus.forms.element = function(vars) {
 
@@ -6497,11 +6499,12 @@ d3plus.forms.json = function(vars) {
 // Creates a set of Radio Buttons
 //------------------------------------------------------------------------------
 d3plus.forms.radio = function(vars,styles,timing) {
-  
+
   vars.container.transition().duration(timing)
     .style("background-color",styles.secondary)
     .style("padding",styles.stroke+"px")
-    
+    .style("margin",styles.margin+"px")
+
   var button_style = d3plus.utils.copy(styles)
   button_style.icon = false
   button_style.display = "inline-block"
@@ -6509,12 +6512,12 @@ d3plus.forms.radio = function(vars,styles,timing) {
   button_style.width = false
   button_style.margin = 0
   button_style.stroke = 0
-  
+
   var text = d3plus.forms.value(vars.text,["button"])
   if (!text) {
    text = "text"
   }
-  
+
   var button = d3plus.ui(button_style)
     .type("button")
     .text(text)
@@ -6525,7 +6528,7 @@ d3plus.forms.radio = function(vars,styles,timing) {
     .highlight(vars.focus)
     .enable()
     .draw()
-  
+
 }
 d3plus.forms.value = function(obj,arr) {
   
