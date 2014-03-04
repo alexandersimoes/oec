@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-02-18 11:41-0500\n"
+"POT-Creation-Date: 2014-03-03 17:53-0500\n"
 "PO-Revision-Date: 2013-12-27 15:28-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ja <LL@li.org>\n"
@@ -18,62 +18,62 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/explore/models.py:369
+#: oec/explore/models.py:283
 msgid "Origin Country"
 msgstr "原産国"
 
-#: oec/explore/models.py:370 oec/explore/models.py:373
-#: oec/html/explore/embed.html:291
+#: oec/explore/models.py:284 oec/explore/models.py:287
+#: oec/html/explore/embed.html:300
 msgid "ID"
 msgstr "ID"
 
-#: oec/explore/models.py:372
+#: oec/explore/models.py:286
 msgid "Destination Country"
 msgstr "目的国"
 
-#: oec/explore/models.py:375
+#: oec/explore/models.py:289
 msgid "Product Name"
 msgstr "製品名"
 
-#: oec/explore/models.py:406
-msgid "Trade Flow"
-msgstr "貿易の流れ"
-
-#: oec/explore/models.py:409
-msgid "Export"
-msgstr "輸出"
-
-#: oec/explore/models.py:410
-msgid "Import"
-msgstr "インポート"
-
-#: oec/explore/models.py:417
-msgid "Classification"
-msgstr "分類"
-
-#: oec/explore/models.py:431
-msgid "Start Year"
-msgstr "開始年"
-
-#: oec/explore/models.py:437
-msgid "End Year"
-msgstr "終了年"
-
-#: oec/explore/models.py:445 oec/rankings/views.py:75
-msgid "Year"
-msgstr "年"
-
-#: oec/explore/models.py:459
+#: oec/explore/models.py:328
 msgid "Origin"
 msgstr "起源"
 
-#: oec/explore/models.py:473
+#: oec/explore/models.py:343
 msgid "Destination"
 msgstr "先"
 
-#: oec/explore/models.py:490 oec/rankings/views.py:49 oec/rankings/views.py:53
+#: oec/explore/models.py:361 oec/rankings/views.py:49 oec/rankings/views.py:53
 msgid "Product"
 msgstr "製品"
+
+#: oec/explore/models.py:370
+msgid "Trade Flow"
+msgstr "貿易の流れ"
+
+#: oec/explore/models.py:373
+msgid "Export"
+msgstr "輸出"
+
+#: oec/explore/models.py:374
+msgid "Import"
+msgstr "インポート"
+
+#: oec/explore/models.py:381
+msgid "Classification"
+msgstr "分類"
+
+#: oec/explore/models.py:395
+msgid "Start Year"
+msgstr "開始年"
+
+#: oec/explore/models.py:401
+msgid "End Year"
+msgstr "終了年"
+
+#: oec/explore/models.py:409 oec/rankings/views.py:75
+msgid "Year"
+msgstr "年"
 
 #: oec/html/home.html:25
 msgid ""
@@ -122,16 +122,15 @@ msgstr "いくつかの国が成長し、他の人がいない理由を説明し
 msgid "An emedded visualization."
 msgstr "emedded可視化。"
 
-#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:613
+#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:699
 msgid "Loading"
 msgstr "荷重"
 
 #: oec/html/explore/embed.html:20 oec/html/explore/embed.html:43
-#, fuzzy
 msgid "Value"
 msgstr "値"
 
-#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:99
+#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:118
 msgid "Share"
 msgstr "シェア"
 
@@ -167,59 +166,57 @@ msgstr "成長値（1年）"
 msgid "Growth Value (5 year)"
 msgstr "成長値（5年）"
 
-#: oec/html/explore/embed.html:54
+#: oec/html/explore/embed.html:54 oec/html/rankings/index.html:64
 msgid "All Years"
 msgstr ""
 
-#: oec/html/explore/embed.html:78
+#: oec/html/explore/embed.html:65 oec/html/explore/embed.html:858
+msgid "View as Text"
+msgstr "テキストとして表示"
+
+#: oec/html/explore/embed.html:66
+msgid "Fullscreen"
+msgstr "フルスクリーン"
+
+#: oec/html/explore/embed.html:102
 msgid "Build Visualization"
 msgstr "可視化を構築"
 
-#: oec/html/explore/embed.html:81 oec/html/rankings/index.html:34
+#: oec/html/explore/embed.html:105 oec/html/rankings/index.html:59
 msgid "Download"
 msgstr "ダウンロード"
 
-#: oec/html/explore/embed.html:89 oec/html/explore/embed.html:763
-msgid "View as text"
-msgstr "テキストとして表示"
-
-#: oec/html/explore/embed.html:90
-msgid "View fullscreen"
-msgstr ""
-
-#: oec/html/explore/embed.html:94
+#: oec/html/explore/embed.html:113
 msgid "Embed"
 msgstr "埋め込む"
 
-#: oec/html/explore/embed.html:115
+#: oec/html/explore/embed.html:134
 msgid "Short URL"
 msgstr "ショートURL"
 
-#: oec/html/explore/embed.html:292
-#, fuzzy
+#: oec/html/explore/embed.html:301
 msgid "Export Value"
 msgstr "輸出額"
 
-#: oec/html/explore/embed.html:293
-#, fuzzy
+#: oec/html/explore/embed.html:302
 msgid "Import Value"
 msgstr "輸入価額"
 
-#: oec/html/explore/embed.html:296
+#: oec/html/explore/embed.html:305
 msgid "value"
 msgstr "値"
 
-#: oec/html/explore/embed.html:297
+#: oec/html/explore/embed.html:306
 msgid "percentage"
 msgstr "割合"
 
-#: oec/html/explore/embed.html:313
+#: oec/html/explore/embed.html:323
 msgid "Brought to you by"
 msgstr "お届けしました"
 
-#: oec/html/explore/embed.html:763
-msgid "View graphic"
-msgstr ""
+#: oec/html/explore/embed.html:853
+msgid "View as App"
+msgstr "アプリとして見る"
 
 #: oec/html/explore/index.html:15
 msgid "Data visualization of economic trade"
@@ -230,11 +227,11 @@ msgstr "経済貿易のデータの可視化"
 msgid "Flag of %(country)s"
 msgstr "の旗 %(country)s"
 
-#: oec/html/explore/index.html:37 oec/html/rankings/index.html:44
+#: oec/html/explore/index.html:37 oec/html/rankings/index.html:20
 msgid "Previous Year"
 msgstr "前の年"
 
-#: oec/html/explore/index.html:41 oec/html/rankings/index.html:54
+#: oec/html/explore/index.html:41 oec/html/rankings/index.html:30
 msgid "Next Year"
 msgstr "来年"
 
@@ -296,13 +293,14 @@ msgstr "%(country)s 上部の輸出国である"
 msgid "and"
 msgstr "と"
 
-#: oec/html/profile/country.html:41 oec/html/profile/product.html:41
+#: oec/html/profile/country.html:41 oec/html/profile/product.html:46
 msgid "Top 5"
 msgstr "トップ5"
 
-#: oec/html/profile/country.html:72 oec/html/profile/product.html:72
-msgid "View as Visualization"
-msgstr "可視化として見る"
+#: oec/html/profile/country.html:74 oec/html/profile/product.html:79
+#: oec/html/templates/site.html:18
+msgid "Explore"
+msgstr "探る"
 
 #: oec/html/profile/product.html:8
 #, python-format
@@ -336,38 +334,34 @@ msgstr "貿易についてはこちらを参照してください %(prod)s"
 #: oec/html/profile/product.html:27
 #, python-format
 msgid ""
-"%(prod)s %(ranked)s %(rank_val)s with a Product Complexity Index (PCI) of"
-" %(pci)s"
-msgstr "%(prod)s %(ranked)s %(rank_val)s 製品の複雑指数（PCI）と %(pci)s"
+"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
+"with a Product Complexity Index (PCI) of %(pci)s"
+msgstr "%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s 製品の複雑指数（PCI）と %(pci)s"
 
 #: oec/html/profile/product.html:33
 #, python-format
 msgid "%(prod)s is the top export of"
 msgstr "%(prod)s 上部の輸出である"
 
-#: oec/html/rankings/index.html:24
+#: oec/html/rankings/index.html:23 oec/html/rankings/index.html:40
 msgid "Country Rankings"
 msgstr "国ランキング"
 
-#: oec/html/rankings/index.html:27
+#: oec/html/rankings/index.html:25 oec/html/rankings/index.html:43
 msgid "HS Product Rankings"
 msgstr "HS製品ランキング"
 
-#: oec/html/rankings/index.html:30
+#: oec/html/rankings/index.html:27 oec/html/rankings/index.html:46
 msgid "SITC Product Rankings"
 msgstr "SITC製品ランキング"
 
-#: oec/html/rankings/index.html:36
-msgid "Download this year's data"
-msgstr "今年のデータをダウンロード"
+#: oec/html/rankings/index.html:51
+msgid "Change Year"
+msgstr ""
 
-#: oec/html/rankings/index.html:37
-msgid "Download all years data"
-msgstr "すべての年のデータをダウンロード"
-
-#: oec/html/templates/site.html:18
-msgid "Explore"
-msgstr "探る"
+#: oec/html/rankings/index.html:61
+msgid "Current Year"
+msgstr ""
 
 #: oec/html/templates/site.html:19
 msgid "Profiles"
@@ -406,4 +400,19 @@ msgstr "ランク"
 
 #~ msgid "Click to view more years"
 #~ msgstr "より多くの年を見るためにクリック"
+
+#~ msgid "View fullscreen"
+#~ msgstr ""
+
+#~ msgid "View graphic"
+#~ msgstr ""
+
+#~ msgid "View as Visualization"
+#~ msgstr "可視化として見る"
+
+#~ msgid "Download this year's data"
+#~ msgstr "今年のデータをダウンロード"
+
+#~ msgid "Download all years data"
+#~ msgstr "すべての年のデータをダウンロード"
 

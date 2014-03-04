@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-02-18 11:41-0500\n"
+"POT-Creation-Date: 2014-03-03 17:53-0500\n"
 "PO-Revision-Date: 2013-12-27 15:28-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ru <LL@li.org>\n"
@@ -19,62 +19,62 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/explore/models.py:369
+#: oec/explore/models.py:283
 msgid "Origin Country"
 msgstr "Происхождение Страна"
 
-#: oec/explore/models.py:370 oec/explore/models.py:373
-#: oec/html/explore/embed.html:291
+#: oec/explore/models.py:284 oec/explore/models.py:287
+#: oec/html/explore/embed.html:300
 msgid "ID"
 msgstr "ID"
 
-#: oec/explore/models.py:372
+#: oec/explore/models.py:286
 msgid "Destination Country"
 msgstr "Страна назначения"
 
-#: oec/explore/models.py:375
+#: oec/explore/models.py:289
 msgid "Product Name"
 msgstr "Наименование"
 
-#: oec/explore/models.py:406
-msgid "Trade Flow"
-msgstr "О торговых потоках"
-
-#: oec/explore/models.py:409
-msgid "Export"
-msgstr "Экспорт"
-
-#: oec/explore/models.py:410
-msgid "Import"
-msgstr "Импорт"
-
-#: oec/explore/models.py:417
-msgid "Classification"
-msgstr "Классификация"
-
-#: oec/explore/models.py:431
-msgid "Start Year"
-msgstr "Год начала"
-
-#: oec/explore/models.py:437
-msgid "End Year"
-msgstr "Конец Год"
-
-#: oec/explore/models.py:445 oec/rankings/views.py:75
-msgid "Year"
-msgstr "Год"
-
-#: oec/explore/models.py:459
+#: oec/explore/models.py:328
 msgid "Origin"
 msgstr "Происхождение"
 
-#: oec/explore/models.py:473
+#: oec/explore/models.py:343
 msgid "Destination"
 msgstr "Назначение"
 
-#: oec/explore/models.py:490 oec/rankings/views.py:49 oec/rankings/views.py:53
+#: oec/explore/models.py:361 oec/rankings/views.py:49 oec/rankings/views.py:53
 msgid "Product"
 msgstr "Продукт"
+
+#: oec/explore/models.py:370
+msgid "Trade Flow"
+msgstr "О торговых потоках"
+
+#: oec/explore/models.py:373
+msgid "Export"
+msgstr "Экспорт"
+
+#: oec/explore/models.py:374
+msgid "Import"
+msgstr "Импорт"
+
+#: oec/explore/models.py:381
+msgid "Classification"
+msgstr "Классификация"
+
+#: oec/explore/models.py:395
+msgid "Start Year"
+msgstr "Год начала"
+
+#: oec/explore/models.py:401
+msgid "End Year"
+msgstr "Конец Год"
+
+#: oec/explore/models.py:409 oec/rankings/views.py:75
+msgid "Year"
+msgstr "Год"
 
 #: oec/html/home.html:25
 msgid ""
@@ -136,7 +136,7 @@ msgstr ""
 msgid "An emedded visualization."
 msgstr "Emedded визуализации."
 
-#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:613
+#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:699
 msgid "Loading"
 msgstr "Загрузка"
 
@@ -144,7 +144,7 @@ msgstr "Загрузка"
 msgid "Value"
 msgstr "Значение"
 
-#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:99
+#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:118
 msgid "Share"
 msgstr "Доля"
 
@@ -180,57 +180,57 @@ msgstr "Стоимость Рост (1 год)"
 msgid "Growth Value (5 year)"
 msgstr "Стоимость Рост (5 лет)"
 
-#: oec/html/explore/embed.html:54
+#: oec/html/explore/embed.html:54 oec/html/rankings/index.html:64
 msgid "All Years"
 msgstr "Все годы"
 
-#: oec/html/explore/embed.html:78
+#: oec/html/explore/embed.html:65 oec/html/explore/embed.html:858
+msgid "View as Text"
+msgstr "Просмотр в виде текста"
+
+#: oec/html/explore/embed.html:66
+msgid "Fullscreen"
+msgstr "Полноэкранный"
+
+#: oec/html/explore/embed.html:102
 msgid "Build Visualization"
 msgstr "Построить Визуализация"
 
-#: oec/html/explore/embed.html:81 oec/html/rankings/index.html:34
+#: oec/html/explore/embed.html:105 oec/html/rankings/index.html:59
 msgid "Download"
 msgstr "Скачать"
 
-#: oec/html/explore/embed.html:89 oec/html/explore/embed.html:763
-msgid "View as text"
-msgstr "Просмотр в виде текста"
-
-#: oec/html/explore/embed.html:90
-msgid "View fullscreen"
-msgstr "Посмотреть весь экран"
-
-#: oec/html/explore/embed.html:94
+#: oec/html/explore/embed.html:113
 msgid "Embed"
 msgstr "Вставлять"
 
-#: oec/html/explore/embed.html:115
+#: oec/html/explore/embed.html:134
 msgid "Short URL"
 msgstr "Короткий URL"
 
-#: oec/html/explore/embed.html:292
+#: oec/html/explore/embed.html:301
 msgid "Export Value"
 msgstr "Стоимость экспорта"
 
-#: oec/html/explore/embed.html:293
+#: oec/html/explore/embed.html:302
 msgid "Import Value"
 msgstr "Цена импорта"
 
-#: oec/html/explore/embed.html:296
+#: oec/html/explore/embed.html:305
 msgid "value"
 msgstr "значение"
 
-#: oec/html/explore/embed.html:297
+#: oec/html/explore/embed.html:306
 msgid "percentage"
 msgstr "процент"
 
-#: oec/html/explore/embed.html:313
+#: oec/html/explore/embed.html:323
 msgid "Brought to you by"
 msgstr "Привлечены к вам"
 
-#: oec/html/explore/embed.html:763
-msgid "View graphic"
-msgstr "Посмотреть графический"
+#: oec/html/explore/embed.html:853
+msgid "View as App"
+msgstr "Посмотреть, как App"
 
 #: oec/html/explore/index.html:15
 msgid "Data visualization of economic trade"
@@ -241,11 +241,11 @@ msgstr "Визуализация данных экономической тор�
 msgid "Flag of %(country)s"
 msgstr "Флаг %(country)s"
 
-#: oec/html/explore/index.html:37 oec/html/rankings/index.html:44
+#: oec/html/explore/index.html:37 oec/html/rankings/index.html:20
 msgid "Previous Year"
 msgstr "Предыдущий год"
 
-#: oec/html/explore/index.html:41 oec/html/rankings/index.html:54
+#: oec/html/explore/index.html:41 oec/html/rankings/index.html:30
 msgid "Next Year"
 msgstr "В будущем году"
 
@@ -313,13 +313,14 @@ msgstr "%(country)s является верхней экспортером"
 msgid "and"
 msgstr "и"
 
-#: oec/html/profile/country.html:41 oec/html/profile/product.html:41
+#: oec/html/profile/country.html:41 oec/html/profile/product.html:46
 msgid "Top 5"
 msgstr "Топ 5"
 
-#: oec/html/profile/country.html:72 oec/html/profile/product.html:72
-msgid "View as Visualization"
-msgstr "Просмотреть как визуализация"
+#: oec/html/profile/country.html:74 oec/html/profile/product.html:79
+#: oec/html/templates/site.html:18
+msgid "Explore"
+msgstr "Исследовать"
 
 #: oec/html/profile/product.html:8
 #, python-format
@@ -355,10 +356,10 @@ msgstr "Узнайте больше о торговле %(prod)s"
 #: oec/html/profile/product.html:27
 #, python-format
 msgid ""
-"%(prod)s %(ranked)s %(rank_val)s with a Product Complexity Index (PCI) of"
-" %(pci)s"
+"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
+"with a Product Complexity Index (PCI) of %(pci)s"
 msgstr ""
-"%(prod)s %(ranked)s %(rank_val)s с Индекс товаров Сложность (PCI), из "
+"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s с Индекс товаров Сложность (PCI), из "
 "%(pci)s"
 
 #: oec/html/profile/product.html:33
@@ -366,29 +367,25 @@ msgstr ""
 msgid "%(prod)s is the top export of"
 msgstr "%(prod)s является верхней экспорт"
 
-#: oec/html/rankings/index.html:24
+#: oec/html/rankings/index.html:23 oec/html/rankings/index.html:40
 msgid "Country Rankings"
 msgstr "Рейтинг Стран"
 
-#: oec/html/rankings/index.html:27
+#: oec/html/rankings/index.html:25 oec/html/rankings/index.html:43
 msgid "HS Product Rankings"
 msgstr "HS рейтинг товаров"
 
-#: oec/html/rankings/index.html:30
+#: oec/html/rankings/index.html:27 oec/html/rankings/index.html:46
 msgid "SITC Product Rankings"
 msgstr "SITC рейтинг товаров"
 
-#: oec/html/rankings/index.html:36
-msgid "Download this year's data"
-msgstr "Скачать данные в этом году"
+#: oec/html/rankings/index.html:51
+msgid "Change Year"
+msgstr ""
 
-#: oec/html/rankings/index.html:37
-msgid "Download all years data"
-msgstr "Скачать все годы данные"
-
-#: oec/html/templates/site.html:18
-msgid "Explore"
-msgstr "Исследовать"
+#: oec/html/rankings/index.html:61
+msgid "Current Year"
+msgstr ""
 
 #: oec/html/templates/site.html:19
 msgid "Profiles"
@@ -424,4 +421,16 @@ msgstr "Разряд"
 
 #~ msgid "Click to view more years"
 #~ msgstr "Нажмите, чтобы посмотреть более лет"
+
+#~ msgid "View graphic"
+#~ msgstr "Посмотреть графический"
+
+#~ msgid "View as Visualization"
+#~ msgstr "Просмотреть как визуализация"
+
+#~ msgid "Download this year's data"
+#~ msgstr "Скачать данные в этом году"
+
+#~ msgid "Download all years data"
+#~ msgstr "Скачать все годы данные"
 
