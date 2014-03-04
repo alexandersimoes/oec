@@ -32,25 +32,25 @@ from oec import app, db, babel, random_countries, available_years
 # ---------------------------
 @app.before_request
 def before_request():
-    
+
     g.page_type = mod.name
     g.supported_langs = current_app.config.get('LANGUAGES')
     g.available_years = available_years
-    
+
     # Save variable in session so we can determine if this is the user's
     # first time on the site
     if 'first_time' in session:
         session['first_time'] = False
     else:
         session['first_time'] = True
-    
+
     if session['first_time']:
         flash("Welcome! You may have noticed our recent redesign, please <a href='https://docs.google.com/forms/d/1NHkCGQR2u796RMZgo1bYUBbNPnpm1cWAX0kp6nnfwqE/viewform' target='_blank'>let us know what you think</a>.", "first_time")
-    
+
     lang = request.args.get('lang', None)
     if lang:
         g.locale = get_locale(lang)
-    
+
     if request.endpoint != 'static':
         g.locale = get_locale()
 
@@ -58,7 +58,7 @@ def before_request():
 def get_locale(lang=None):
     supported_langs = current_app.config['LANGUAGES'].keys()
     new_lang = request.accept_languages.best_match(supported_langs, "en")
-    
+
     if lang:
         if lang in supported_langs:
             new_lang = lang
@@ -72,19 +72,19 @@ def get_locale(lang=None):
             new_lang = session['locale']
         else:
             session['locale'] = new_lang
-    
+
     return new_lang
 
 ###############################
-# Set language views 
+# Set language views
 # ---------------------------
 @mod.route('set_lang/<lang>/')
 def set_lang(lang):
     g.locale = get_locale(lang)
     if lang != "en":
         session['new_lang'] = True
-        flash_txt = '''We've noticed you've changed the language, if you see 
-        some translations that look odd and you think you could do better feel 
+        flash_txt = '''We've noticed you've changed the language, if you see
+        some translations that look odd and you think you could do better feel
         free to help us out by <a target="_blank" href="/about/translations/#{0}">
         adding your suggestions here</a>.'''.format(lang)
         flash(flash_txt, 'new_lang')
@@ -102,16 +102,16 @@ def page_not_found(e):
 
 class Search():
     text = None
-    
+
     def __init__(self, text=""):
         self.text = TextBlob(text)
-    
+
     @staticmethod
     def get_attrs(words, name_tbl, attr_tbl_backref, lang):
         # raise Exception(words, name_tbl, attr_tbl_backref, lang)
         found = []
         current_position = 0
-        
+
         def look_in_db(search_term):
             exact_match = name_tbl.query \
                             .filter_by(lang=lang) \
@@ -129,27 +129,27 @@ class Search():
                             .filter(name_tbl.name.like("%"+search_term+"%")).all()
             else:
                 return []
-        
+
         while current_position < len(words):
             search_term = words[current_position]
             names = look_in_db(search_term)
             num_found = len(names)
-            
+
             if num_found == 1:
                 found.append([getattr(name, attr_tbl_backref) for name in names])
                 current_position += 1
             elif num_found > 1:
                 temp_names = names
-                
+
                 if current_position == len(words) - 1:
                     found.append([getattr(name, attr_tbl_backref) for name in names])
                     current_position += 1
-                
+
                 for new_position in range(current_position+1, len(words)):
-                    
+
                     new_search_term = " ".join(words[current_position:new_position+1])
                     new_names = look_in_db(new_search_term)
-                    
+
                     if len(new_names) == 1:
                         found.append([getattr(name, attr_tbl_backref) for name in new_names])
                         current_position = new_position
@@ -167,9 +167,9 @@ class Search():
                             found.append([getattr(name, attr_tbl_backref) for name in temp_names])
             else:
                 current_position += 1
-        
+
         return found
-    
+
     @staticmethod
     def get_trade_flow(text):
         if "net export" in text:
@@ -188,28 +188,28 @@ class Search():
         close = []
         origins, dests, products = [[None]] * 3
         app = App.query.filter_by(type="tree_map").first()
-        
+
         if len(countries):
             origins = countries[0]
         if len(countries) > 1:
             dests = countries[1]
         if len(hs_products) or len(sitc_products):
             products = sum([hs_products, sitc_products], [])
-        
+
         combos = itertools.product([trade_flow], origins, dests, products)
         combos = [c for c in combos if len(set(filter(None, c))) == len(filter(None, c))]
-        
+
         def get_default(looking_for, have, trade_flow, classification):
             if looking_for == "dest":
                 entity = oec.db_hs.models.Yod.query \
                             .filter_by(origin=have) \
                             .order_by(desc(trade_flow+"_val")).limit(1).first()
-            
+
             elif looking_for == "origin":
                 entity = getattr(oec, "db_"+classification).models.Yop.query \
                             .filter_by(product=have) \
                             .order_by(desc(trade_flow+"_val")).limit(1).first()
-            
+
             elif looking_for == "product":
                 entity = getattr(oec, "db_"+classification).models.Yop.query \
                             .filter_by(origin=have) \
@@ -217,17 +217,17 @@ class Search():
             # raise Exception(getattr(entity, looking_for))
             if entity:
                 return getattr(entity, looking_for)
-        
+
         for combo in combos[:4]:
             exact = []
             close = []
             trade_flow, origin, dest, product = combo
             classification = product.classification if product else "hs"
-            
+
             all_builds = Build.query.filter_by(app=app)
             if trade_flow:
                 all_builds = all_builds.filter_by(trade_flow=trade_flow)
-            
+
             # first test for country + product builds
             cp_builds = all_builds.filter_by(origin="<origin>", product="<product>")
             # for b in cp_builds.all()[1]:
@@ -245,7 +245,7 @@ class Search():
                 if default_origin:
                     b.set_options(origin=default_origin, dest=None, product=product, classification=classification)
                     close.append({"value": b.get_question(), "name": b.url()})
-            
+
             # test for country + country builds
             cc_builds = all_builds.filter_by(origin="<origin>", dest="<dest>")
             for b in cc_builds.all():
@@ -257,76 +257,76 @@ class Search():
                     if default_dest:
                         b.set_options(origin=origin, dest=default_dest, product=None, classification=classification)
                         close.append({"value": b.get_question(), "name": b.url()})
-            
+
             # test for country builds
             c_builds = all_builds.filter_by(origin="<origin>").filter(Build.dest!="<dest>").filter(Build.product!="<product>")
             for b in c_builds.all():
                 if origin:
                     b.set_options(origin=origin, dest=None, product=None, classification=classification)
                     exact.append({"value": b.get_question(), "name": b.url()})
-            
+
             # test for product builds
             p_builds = all_builds.filter_by(product="<product>").filter(Build.dest!="<dest>").filter(Build.origin!="<origin>")
             for b in p_builds.all():
                 if product:
                     b.set_options(origin=None, dest=None, product=product, classification=classification)
                     exact.append({"value": b.get_question(), "name": b.url()})
-            
+
             exact += exact
             close += close
-        
+
         builds = exact + close
         # raise Exception(builds)
         return builds
-    
+
     def results(self):
         lang = getattr(g, "locale", "en")
         excluded_tags = ['TO', 'DT']
         cleaned_words = [tag[0] for tag in self.text.tags if tag[1] not in excluded_tags]
-        
+
         sitc_products, hs_products, trade_flow = [[]]*3
         countries = self.get_attrs(cleaned_words, Country_name, "country", lang)
         if len(countries) < len(cleaned_words):
             sitc_products = sum(self.get_attrs(cleaned_words, Sitc_name, "sitc", lang), [])
             hs_products = sum(self.get_attrs(cleaned_words, Hs_name, "hs", lang), [])
             trade_flow = self.get_trade_flow(self.text)
-        
+
         if len(countries) + len(sitc_products) + len(hs_products) == 0:
             return []
-        
+
         builds = self.get_builds(countries, sitc_products, hs_products, trade_flow)
-        
+
         return builds
-        
-        # 
+
+        #
         # builds = self.get_builds(countries, sitc_products, hs_products, trade_flow)
         # builds_text = [b["value"] for b in builds]
-        # 
+        #
         # ordering = [result[0] for result in process.extract(self.text, builds_text, limit=20)]
         # ordered_builds = [builds[map(itemgetter('value'), builds).index(b)] for b in ordering]
         # return ordered_builds
 
 ###############################
-# General views 
+# General views
 # ---------------------------
 @mod.route('/')
 def home():
     g.page_type = "home"
     '''get user's country from IP address
     ip = request.remote_addr
-    
+
     # fetch the url
     url = "http://api.hostip.info/get_json.php?ip="+ip
     json_response = json.loads(urllib2.urlopen(url).read())
     country_code = json_response["country_code"]
     '''
-    
+
     '''get ramdom country'''
     c = Country.query.get(choice(random_countries))
     current_app = App.query.filter_by(type="tree_map").first_or_404()
     default_build = Build.query.filter_by(app=current_app, name_id=1).first_or_404()
     default_build.set_options(origin=c, dest="all", product="show", classification="hs")
-    
+
     return render_template("home.html", default_build=default_build)
 
 @mod.route('search/')
@@ -336,7 +336,7 @@ def search():
     return jsonify(results)
 
 ###############################
-# API views 
+# API views
 # ---------------------------
 @mod.route('atlas/')
 def atlas():
@@ -344,7 +344,7 @@ def atlas():
     return render_template("atlas/index.html")
 
 ###############################
-# About views 
+# About views
 # ---------------------------
 @mod.route('about/')
 def about():
@@ -372,7 +372,7 @@ def about_data(data_type):
     g.sub_title = "data"
     lang = request.args.get('lang', g.locale)
     download = request.args.get('download', None)
-    
+
     if data_type == "sitc":
         items = Sitc.query.filter(Sitc.sitc != None).order_by(Sitc.sitc).all()
         headers = ["SITC", "Name"]
@@ -388,7 +388,7 @@ def about_data(data_type):
         headers = ["Abbrv", "Name"]
         title = "Country names and abbreviations"
         id_col = "id_3char"
-    
+
     if download:
         s = StringIO()
         writer = csv.writer(s)
@@ -397,11 +397,11 @@ def about_data(data_type):
         for i in items:
             writer.writerow([getattr(i, id_col), unicode(i.get_name()).encode("utf-8")])
         content_disposition = "attachment;filename={0}.csv".format(title)
-        return Response(s.getvalue(), 
-                            mimetype="text/csv;charset=UTF-8", 
+        return Response(s.getvalue(),
+                            mimetype="text/csv;charset=UTF-8",
                             headers={"Content-Disposition": content_disposition})
-    
-    return render_template("about/data.html", items=items, headers=headers, 
+
+    return render_template("about/data.html", items=items, headers=headers,
                             title=title, data_type=data_type, id_col=id_col)
 
 @mod.route('about/permissions/')
@@ -430,8 +430,8 @@ def about_updates():
     updates = []
     for r in releases:
         u = {
-            "title": r["name"], 
-            "body": markdown(r["body"]), 
+            "title": r["name"],
+            "body": markdown(r["body"]),
             "date": {
                 "human": parser.parse(r["published_at"]).strftime("%A, %b %d %Y"),
                 "meta": r["published_at"]
@@ -442,7 +442,7 @@ def about_updates():
     return render_template("about/updates.html", updates=updates)
 
 ###############################
-# API views 
+# API views
 # ---------------------------
 @mod.route('about/api/')
 def api():
@@ -495,6 +495,13 @@ def profile_sitc_legacy(sitc_id):
 ###############################
 # Handle shortened URLs
 # ---------------------------
+@mod.route('close/')
+def close():
+  return render_template("general/close.html")
+
+###############################
+# Handle shortened URLs
+# ---------------------------
 @mod.route('<slug>/')
 def redirect_short_url(slug):
     short = Short.query.filter_by(slug = slug).first_or_404()
@@ -502,5 +509,5 @@ def redirect_short_url(slug):
     short.last_accessed = datetime.utcnow()
     db.session.add(short)
     db.session.commit()
-    
+
     return redirect(short.long_url)
