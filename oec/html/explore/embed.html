@@ -56,27 +56,27 @@
   </div>
 </div>
 <div id="controls">
-  
+
   <div id="show_hide">
     <i title="show/hide column" class="fa fa-angle-double-right"></i>
   </div>
-  
+
   <div class="control_container" id="view_as_text">
     <a class="icon text" href="#">{{ _('View as Text') }}</a>
     <a class="icon fullscreen" href="#">{{ _('Fullscreen') }}</a>
   </div>
-  
+
   {% for ui in current_build.get_ui() %}
   <div class="dropdown_container" id="{{ ui.id }}"{% if ui.url %} data-url="{{ui.url}}"{% endif %}>
     <h3>{{ ui.name }}</h3>
     <select id="{{ ui.id }}_selector">
       {% if ui.data %}
         {% for option in ui.data %}
-        <option {% if option.conversion %}data-conversion="{{ option.conversion }}"{% endif %} 
-        {% if option.icon %}data-image="{{ option.icon }}"{% endif %} 
-        {% if option.color %}data-color="{{ option.color }}"{% endif %} 
-        {% if ui.id == "product" %}data-style="knockout"{% endif %} 
-        {% if option.keywords %}data-keywords="{{ option.keywords }}"{% endif %} 
+        <option {% if option.conversion %}data-conversion="{{ option.conversion }}"{% endif %}
+        {% if option.icon %}data-image="{{ option.icon }}"{% endif %}
+        {% if option.color %}data-color="{{ option.color }}"{% endif %}
+        {% if ui.id == "product" %}data-style="knockout"{% endif %}
+        {% if option.keywords %}data-keywords="{{ option.keywords }}"{% endif %}
         value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
         {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") or ui.current|lower|replace(" ", "_") == option.display_id %}selected="selected"{% endif %}>
           {% if option is string or option is number %}
@@ -87,20 +87,20 @@
         </option>
         {% endfor %}
       {% else %}
-      <option {% if ui.current.conversion %}data-conversion="{{ ui.current.conversion }}"{% endif %} 
-      {% if ui.current.icon %}data-image="{{ ui.current.icon }}"{% endif %} 
-      {% if ui.current.color %}data-color="{{ ui.current.color }}"{% endif %} 
-      {% if ui.id == "product" %}data-style="knockout"{% endif %} 
-      {% if ui.current.keywords %}data-keywords="{{ ui.current.keywords }}"{% endif %} 
+      <option {% if ui.current.conversion %}data-conversion="{{ ui.current.conversion }}"{% endif %}
+      {% if ui.current.icon %}data-image="{{ ui.current.icon }}"{% endif %}
+      {% if ui.current.color %}data-color="{{ ui.current.color }}"{% endif %}
+      {% if ui.id == "product" %}data-style="knockout"{% endif %}
+      {% if ui.current.keywords %}data-keywords="{{ ui.current.keywords }}"{% endif %}
       value="{{ ui.current.display_id }}"
       selected="selected">{{ ui.current.name }}</option>
       {% endif %}
     </select>
   </div>
   {% endfor %}
-  
+
   <button id="build">{{ _('Build Visualization') }}</button>
-  
+
   <div class="control_container" id="download">
     <h3>{{ _('Download') }}</h3>
     <a class="icon pdf" href="#">PDF</a>
@@ -108,12 +108,12 @@
     <a class="icon png" href="#">PNG</a>
     <a class="icon csv" href="#">CSV</a>
   </div>
-  
+
   <div class="control_container">
     <h3>{{ _('Embed') }}</h3>
     <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://atlas.media.mit.edu/explore/embed/{{ current_build.url() }}?controls=false&amp;lang={{ g.locale }}&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
   </div>
-  
+
   <div class="control_container" id="share">
     <h3>{{ _('Share') }}</h3>
     <a href="http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&display=popup&app_id={{facebook_id}}&name={{ current_build.get_name() }}({{ current_build.get_year() }})&link=http://atlas.media.mit.edu/explore/{{ current_build.url() }}&redirect_uri=http://atlas.media.mit.edu/close/&picture=http://atlas.media.mit.edu/static/img/touchicon.png" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=300')" id="Facebook" title="Facebook">
@@ -134,8 +134,8 @@
     <h3>{{ _('Short URL') }}</h3>
     <input type="text" class="short_url" onfocus="this.select()" onMouseUp="return false" value="">
   </div>
-  
-  <!-- Hidden <FORM> to submit the SVG data to the server, which will convert it 
+
+  <!-- Hidden <FORM> to submit the SVG data to the server, which will convert it
          to SVG/PDF/PNG downloadable file. -->
   <form id="download" action="/explore/download/" method="post">
     <input type="hidden" name="url" value="" />
@@ -143,7 +143,7 @@
     <input type="hidden" name="format" value="svg" />
     <input type="hidden" name="content" value="" />
   </form>
-  
+
 </div>
 
 {% endblock %}
@@ -171,7 +171,6 @@ try {
   in_explore_page = (window.location != window.parent.location) && !in_the_wild && (window.parent.location.pathname.indexOf("explore") >= 0 || window.parent.location.pathname.indexOf("profile") >= 0);
 }
 catch (e) {}
-console.log("Same Origin:", same_origin)
 
 d3.select("#loading")
   .style("height",window.innerHeight+"px")
@@ -185,12 +184,12 @@ fonts.forEach(function(font){
 
 function activate_build_button() {
   if (d3.select("button#build").classed("active") == false) {
-    
+
     var h = d3.select("button#build")
       .classed("active",true)
       .style("height","auto")
       .node().offsetHeight+12
-      
+
     d3.select("button#build")
       .style("height","0px")
       .style("visibility","visible")
@@ -232,7 +231,7 @@ d3plus.ui()
   .callback(change_depth)
   .draw()
 {% endif %}
-  
+
 d3plus.ui()
   .type("drop")
   .data("div#color select")
@@ -310,7 +309,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
                 if(text == "display_id"){ return "{{ _('ID') }}"; }
                 if(text == "export_val"){ return "{{ _('Export Value') }}"; }
                 if(text == "import_val"){ return "{{ _('Import Value') }}"; }
-                if(text.indexOf("growth") > -1){ 
+                if(text.indexOf("growth") > -1){
                   text = text.replace(/_/g," ");
                   text = text.replace(/val/g,"{{ _('value') }}");
                   text = text.replace(/pct/g,"{{ _('percentage') }}");
@@ -353,13 +352,13 @@ if(attr_id == "hs_id" || attr_id == "sitc_id" ){
 }
 
 function resize_viz(obj){
-  
+
   if(viz.data().value.length){
     var new_width = window.innerWidth;
     if(vars.controls == "true"){
        new_width = window.innerWidth - parseInt(d3.select("#controls").style("width"))
     }
-    
+
     // var new_height = in_explore_page ? 505 : window.innerHeight - d3.select("#ui").node().offsetHeight;
     var new_height = is_iOS ? window.screen.height - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight
     if (obj){
@@ -374,12 +373,12 @@ function resize_viz(obj){
       .style("width", new_width+"px")
       .style("height", new_height+"px")
   }
-  
+
 }
 /* general function needed by all apps for making proper nesting and updating
     raw data with changes */
 function format_data(error, raw_data, raw_attrs, raw_other){
-  
+
   // set key 'nest' to their id
   raw_attrs.data.forEach(function(d){
     attrs[d.id] = d
@@ -399,12 +398,12 @@ function format_data(error, raw_data, raw_attrs, raw_other){
     d.nest = d[attr_id].substr(0, 2)
     d.id = d[attr_id]
   })
-  
+
 }
 
 /* to be executed after app has been drawn for first time */
 function finish(data, attrs){
-  
+
   d3.selectAll(".dropdown_container")
     .each(function(d,i){
 
@@ -419,14 +418,14 @@ function finish(data, attrs){
           "align": "left"
         })
         .callback(activate_build_button)
-    
+
       if (this.id.indexOf("year") >= 0) {
         ui.search(false)
         if(this.id.indexOf("start") >=0 || this.id.indexOf("end") >=0){
           ui.width(75)
         }
       }
-    
+
       if (this.id == "classification") {
         ui.type("radio")
       }
@@ -437,15 +436,15 @@ function finish(data, attrs){
 
       var country_match = ["origin","destination"].indexOf(this.id) >= 0 && ["origin_id","dest_id"].indexOf(attr_id) >= 0,
           product_match = this.id == "product" && ["hs_id","sitc_id"].indexOf(attr_id) >= 0,
-          icon_style = product_match ? "knockout" : "default"
+          icon_style = this.id == "product" ? "knockout" : "default"
           
       if (country_match || product_match) {
-        
+
         var d = d3.values(attrs).filter(function(a){
           a.icon_style = icon_style
           return a.id.length != 2
         })
-        
+
         ui.element(d3.select(this).select("select"))
           .data({
             "data": d,
@@ -460,7 +459,7 @@ function finish(data, attrs){
           })
       }
       else if (["origin","destination","product"].indexOf(this.id) >= 0) {
-        
+
         ui.element(d3.select(this).select("select"))
           .data({
             "callback": function(array) {
@@ -480,47 +479,47 @@ function finish(data, attrs){
               "color": "color"
             }
           })
-        
+
       }
       else {
         ui.data(d3.select(this).select("select"))
       }
-    
+
       ui.draw()
-    
+
     })
-  
+
   d3.select("#controls")
     .style("visibility", "visible")
-    
+
   d3.select("#loading")
     .style("display", "none")
-    
+
   d3.select("#viz")
     .style("display", "block")
-  
+
   d3.select("#ui")
     .style("visibility", "visible")
-  
+
   resize_viz()
-  
+
   update_text_table(data, attrs)
 }
 
-/* the ~~BIG KAHUNA~~ 
+/* the ~~BIG KAHUNA~~
     for each different type of app we need to initialize our viz slightly
     different so instead of a bunch of if/elses we just have one large switch
     statment. Any gerealized code is put in either the format_data() func or
     the finish() func. */
 switch (app_type){
-  
+
   case "tree_map":
     var format_data_orig = format_data
     var go = function(){
-      
+
       format_data_orig.apply(this, arguments);
       raw_data = arguments[1]
-      
+
       viz
         .data(raw_data.data)
         .type("tree_map")
@@ -535,19 +534,19 @@ switch (app_type){
         .text({"nest":"name","id":"name"})
         // .title("Tree Map...")
         .title({"total": {"prefix":"Total: "}})
-      
+
       finish(raw_data.data, attrs)
     }
     break;
-  
+
   case "stacked":
     var format_data_orig = format_data
     var go = function(){
-      
+
       format_data_orig.apply(this, arguments);
       raw_data = arguments[1];
       var d = attr_id == "origin_id" || attr_id == "dest_id" ? 1 : 0;
-      
+
       viz
         .data(raw_data.data)
         .type("stacked")
@@ -561,20 +560,20 @@ switch (app_type){
         .y(trade_flow+"_val")
         .order("nest")
         .text({"nest":"name","id":"name"})
-        
+
       finish(raw_data.data, attrs)
     }
     break;
-  
+
   case "network":
     q = q.defer(d3.json, "/static/json/network_{{ current_build.classification }}.json")
     var format_data_orig = format_data
     var go = function(){
-      
+
       format_data_orig.apply(this, arguments);
       raw_data = arguments[1];
       raw_network = arguments[3];
-            
+
       viz
         .data(raw_data.data)
         .attrs(attrs)
@@ -591,21 +590,21 @@ switch (app_type){
           },
           "spotlight":true
         })
-      
+
       finish(raw_data.data, attrs)
     }
     break;
-  
+
   case "rings":
     q = q.defer(d3.json, "/static/json/network_{{ current_build.classification }}.json")
     var format_data_orig = format_data
     var go = function(){
-      
+
       format_data_orig.apply(this, arguments);
       raw_data = arguments[1];
       raw_network = arguments[3];
       var focus = "{{ current_build.product.id }}";
-      
+
       viz
         .data(raw_data.data)
         .attrs(attrs)
@@ -623,21 +622,21 @@ switch (app_type){
           "spotlight":true
         })
         .focus(focus)
-          
+
       finish(raw_data.data, attrs)
     }
     break;
-  
+
   case "geo_map":
     q = q.defer(d3.json, "/static/json/country_coords.json")
     var format_data_orig = format_data
     var go = function(){
-      
+
       format_data_orig.apply(this, arguments);
       raw_data = arguments[1];
       raw_attrs = arguments[2];
       raw_coords = arguments[3];
-            
+
       raw_coords["objects"]["TM_WORLD_BORDERS-0.3"]["geometries"].forEach(function(d){
         country = raw_attrs.data.filter(function(dd){
           return dd.id.substr(2) == d.id.toLowerCase()
@@ -647,7 +646,7 @@ switch (app_type){
           d.icon = "/static/img/icons/country/country_"+d.id+".png"
         }
       })
-      
+
       viz
         .data(raw_data.data)
         .type("geo_map")
@@ -661,7 +660,7 @@ switch (app_type){
           "padding": 0,
           "mute": ["anata"]
         })
-      
+
       finish(raw_data.data, attrs)
     }
     break;
@@ -669,15 +668,15 @@ switch (app_type){
 
 function update_text_table(data, attrs){
   // d3.selectAll("#view_as_text a").on("click")()
-  
+
   var format_currency = d3.format("$,.2f"),
       format_percent = d3.format(",.2%"),
       val = trade_flow+"_val",
       attr_id = "{{ current_build.attr_type() }}_id",
       total = d3.sum(data, function(d){ return d[val] });
-  
+
   d3.selectAll("h2#total").text("Total: " + format_currency(total))
-  
+
   var columns = ["#", "id", "name", "val", "percent"];
   table_data = []
   data = data.filter(function(d){ return d[val] > 0 })
@@ -691,31 +690,31 @@ function update_text_table(data, attrs){
       "percent": format_percent(d[val]/total)
     })
   })
-  
+
   var tbl = tabulate("#app #text", table_data, columns)
   // uppercase the column headers
   tbl.selectAll("thead th")
     .text(function(column) {
       return column.charAt(0).toUpperCase() + column.substr(1);
     });
-  
+
 }
 
 /* if user requests more years, fetch raw data call for all years */
 d3.select("#more_years button").on("click", function(){
-  
+
   d3.select(this)
     .on("click",null)
     .text("{{ _('Loading') }}...")
-    
+
   d3.json("{{ current_build.data_url('all') }}", function(raw_data){
-    
+
     // go through raw data and set each items nest and id vars properly
     raw_data.data.forEach(function(d){
       d.nest = d[attr_id].substr(0, 2)
       d.id = d[attr_id]
     })
-    
+
     var years = "{{ current_build.year }}"
     if(years.indexOf(".") > 0){
       years = years.split(".")
@@ -724,36 +723,36 @@ d3.select("#more_years button").on("click", function(){
     else {
       years = [parseInt(years)]
     }
-    
+
     viz.data(raw_data.data).time({"solo": years}).draw()
     d3.select("#more_years").remove()
-    
+
     // make_more_years(d3.select("#more_years"), 1995, 2011, years, 1, function(start, end){
     // var years = d3.range(start, end, year_interval)
     viz.time({"solo": years}).draw()
-    
+
     if(same_origin){
       if(parent.update_text_table){
         var data_for_table = raw_data.data.filter(function(d){ return years.indexOf(d.year) >= 0 })
         update_text_table(data_for_table, attrs)
       }
     }
-    
+
     resize_viz()
     // })
-    
+
   })
   d3.event.preventDefault();
 })
 
 d3.selectAll("button#build").on("click", function(){
-  
+
   var classification = "{{ current_build.classification }}",
       tf = d3.select("#trade_flow select").node().value.toLowerCase(),
       origin = "{{ current_build.origin.id_3char }}" || "{{ current_build.origin }}",
       dest = "{{ current_build.dest.id_3char }}" || "{{ current_build.dest }}",
       prod = "{{ current_build.product.hs }}" || "{{ current_build.product.sitc }}" || "{{ current_build.product }}";
-  
+
   if (d3.select("#year select").node()){
     var year = d3.select("#year select").node().value
   }
@@ -762,19 +761,19 @@ d3.selectAll("button#build").on("click", function(){
     year += "."
     year += d3.select("#end_year select").node().value
   }
-  
+
   if(d3.select("#origin select").node()){
     origin = d3.select("#origin select").node().value
   }
-  
+
   if(d3.select("#destination select").node()){
     dest = d3.select("#destination select").node().value
   }
-  
+
   if(d3.select("#classification select").node()){
     classification = d3.select("#classification select").node().value.toLowerCase()
   }
-  
+
   if(d3.select("#product select").node()){
     var orig_classification = "{{ current_build.classification }}";
     if(orig_classification != classification){
@@ -788,14 +787,14 @@ d3.selectAll("button#build").on("click", function(){
       prod = d3.select("#product select").node().value
     }
   }
-  
+
   var curr_window = window
   if(same_origin){
     if(self!=top && !in_the_wild){
       curr_window = window.parent
     }
   }
-  
+
   var new_url =  "/explore/"
   if(curr_window.location.pathname.indexOf("embed") > -1){
     new_url = "/explore/embed/"
@@ -807,10 +806,10 @@ d3.selectAll("button#build").on("click", function(){
   new_url += dest + "/"
   new_url += prod + "/"
   new_url += year + "/"
-  
+
   curr_window.location = new_url
   // console.log(new_url)
-  
+
   d3.event.preventDefault();
 })
 
@@ -837,14 +836,14 @@ d3.select("#show_hide").on(d3plus.evt.click, function(){
 })
 
 d3.select("#share #shorten").on("click", function(){
-  
+
   var url = encodeURIComponent(window.location.pathname + "?lang={{ g.locale }}")
   if(same_origin){
     if(window.location != window.parent.location){
       var url = encodeURIComponent(window.parent.location.pathname + "?lang={{ g.locale }}")
     }
   }
-  
+
   d3.json("/explore/shorten/")
     .header("Content-type","application/x-www-form-urlencoded")
     .post("url="+url, function(error,data) {
@@ -856,13 +855,13 @@ d3.select("#share #shorten").on("click", function(){
         d3.select("#short input").attr("value", "http://"+location.host+"/"+data.slug)
       }
     })
-  
+
   d3.event.preventDefault();
 })
 
 // View as text
 d3.selectAll("#view_as_text a.text").on("click", function(){
-  
+
   if (d3.select("#app #text").style("display") == "none") {
     d3.select(this)
       .attr("class","icon app")
@@ -873,17 +872,17 @@ d3.selectAll("#view_as_text a.text").on("click", function(){
       .attr("class","icon text")
       .text("{{ _('View as Text') }}")
   }
-  
+
   d3.select("#app #viz").style("display", function(){
     return d3.select(this).style("display") == "none" ? "block" : "none";
   })
   d3.select("#app #text").style("display", function(){
     return d3.select(this).style("display") == "none" ? "block" : "none";
   })
-  
+
   resize_viz();
   d3.event.preventDefault();
-  
+
 })
 
 // View fullscreen
@@ -902,11 +901,11 @@ d3.selectAll("#download a").on("click", function(){
   title.splice(0, 1)
   title.splice(title.length-1, 1)
   d3.select("input[name='title']").attr("value", title.join("_"));
-  
+
   // Determine which link the user requested (svg, csv etc.)
   var format = d3.select(this).attr("class");
   d3.select("input[name='format']").attr("value", format);
-  
+
   // If the user wants text, we need to put the table into an array
   // to send to the server
   if(format == "csv"){
@@ -924,7 +923,7 @@ d3.selectAll("#download a").on("click", function(){
   }
   // Otherwise the user wants an image so get the SVG XML
   else {
-    
+
     var svg = d3.select("#viz").select("svg")
       .attr("title", title.join("_"))
       .attr("version", 1.1)
@@ -934,7 +933,7 @@ d3.selectAll("#download a").on("click", function(){
     var svg_xml = (new XMLSerializer).serializeToString(svg.node());
     d3.select("input[name='content']").attr("value", svg_xml)
   }
-  
+
   // Submitting the form will trigger the action with will bring up
   // the /export page. The view for this page takes the values from
   // POST request and prompts the user to download the file
