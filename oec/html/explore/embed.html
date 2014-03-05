@@ -308,6 +308,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
               if(text){
                 if(text == "display_id"){ return "{{ _('ID') }}"; }
                 if(text == "export_val"){ return "{{ _('Export Value') }}"; }
+                if(text == "export_rca"){ return "{{ _('Export') }} RCA"; }
                 if(text == "import_val"){ return "{{ _('Import Value') }}"; }
                 if(text.indexOf("growth") > -1){
                   text = text.replace(/_/g," ");
@@ -348,7 +349,7 @@ if(attr_id == "origin_id" || attr_id == "dest_id"){
 if(attr_id == "hs_id" || attr_id == "sitc_id" ){
   viz
     .icon({"style":"knockout"})
-    .tooltip(["display_id",trade_flow+"_val"])
+    .tooltip(["display_id",trade_flow+"_val",trade_flow+"_rca"])
 }
 
 function resize_viz(obj){
@@ -437,7 +438,7 @@ function finish(data, attrs){
       var country_match = ["origin","destination"].indexOf(this.id) >= 0 && ["origin_id","dest_id"].indexOf(attr_id) >= 0,
           product_match = this.id == "product" && ["hs_id","sitc_id"].indexOf(attr_id) >= 0,
           icon_style = this.id == "product" ? "knockout" : "default"
-          
+
       if (country_match || product_match) {
 
         var d = d3.values(attrs).filter(function(a){
