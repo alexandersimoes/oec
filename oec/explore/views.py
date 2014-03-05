@@ -23,7 +23,7 @@ mod = Blueprint('explore', __name__, url_prefix='/explore')
 def explore_redirect(app_name='tree_map'):
     '''fetch random country'''
     c = Country.query.get(choice(random_countries))
-    
+
     if app_name in ["tree_map", "stacked", "network"]:
         redirect_url = url_for('.explore', app_name=app_name, \
                         classification="hs", trade_flow="export", \
@@ -55,7 +55,7 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
             c = Country.query.filter_by(id_3char=dest).first()
             dest = "zaf"
             msg = "{0} reports their trade under South Africa in the HS classification. ".format(c.get_name())
-    
+
     if msg:
         redirect_url = url_for('.explore', app_name=app_name, \
                     classification=classification, trade_flow=trade_flow, \
@@ -66,13 +66,13 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
     prod_tbl = Hs if classification == "hs" else Sitc
     data_tbls = hs_tbls if classification == "hs" else sitc_tbls
     year = year.split(".")[1] if "." in year else year
-    
+
     origin = Country.query.filter_by(id_3char=origin_id).first()
     dest = Country.query.filter_by(id_3char=dest_id).first()
     product = prod_tbl.query.filter(getattr(prod_tbl, classification) == prod_id).first()
-    
+
     defaults = {"origin":"nausa", "dest":"aschn", "hs":"010101", "sitc":"105722"}
-    
+
     if not origin:
         # find the largest exporter or importer of given product
         direction = "top_exporter" if trade_flow == "export" else "top_importer"
@@ -80,14 +80,17 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
                         .filter_by(product=product).first()
         origin = defaults["origin"] if not origin else getattr(origin, direction)
         origin = Country.query.get(origin)
-    
+
     if not dest:
         if product:
             # find the largest exporter or importer of given product
             direction = "top_importer" if trade_flow == "export" else "top_exporter"
             dest = getattr(data_tbls, "Yp").query.filter_by(year=year) \
                             .filter_by(product=product).first()
-            dest = Country.query.get(getattr(dest, direction))
+            if not dest:
+              dest = Country.query.get("nausa")
+            else:
+              dest = Country.query.get(getattr(dest, direction))
         else:
             # find the largest exporter or importer destination of given country
             direction = "top_export_dest" if trade_flow == "export" else "top_import_dest"
@@ -98,7 +101,7 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
                 dest = Country.query.get("nausa")
             else:
                 dest = Country.query.get(dest)
-    
+
     if not product:
         # find the largest exporter or importer of given product
         direction = "top_export" if trade_flow == "export" else "top_import"
@@ -106,7 +109,7 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
                         .filter_by(country=origin).first()
         product = defaults[classification] if not product else getattr(product, direction)
         product = prod_tbl.query.get(product)
-    
+
     return (origin, dest, product)
 
 
@@ -115,7 +118,7 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
 def explore(app_name, classification, trade_flow, origin_id, dest_id, \
                 prod_id, year="2011"):
     g.page_type = mod.name
-    
+
     '''Make sure year is within bounds, if not redirect'''
     start_year = year.split(".")[0] if "." in year else year
     end_year = year.split(".")[1] if "." in year else year
@@ -132,36 +135,36 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, \
                         classification=classification, trade_flow=trade_flow, \
                         origin_id=origin_id, dest_id=dest_id, prod_id=prod_id, \
                         year=new_year))
-    
+
     sanitize(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
-    
+
     '''Every possible build for accordion links'''
     all_builds = Build.query.all()
     origin, dest, prod = get_origin_dest_prod(origin_id, dest_id, prod_id, \
                                             classification, year, trade_flow)
-    
+
     for i, build in enumerate(all_builds):
         build.set_options(origin=origin, dest=dest, product=prod, classification=classification, year=year)
-    
+
     current_app = App.query.filter_by(type=app_name).first_or_404()
     build_filters = {"origin":origin_id,"dest":dest_id,"product":prod_id}
     for bf_name, bf in build_filters.items():
         if bf != "show" and bf != "all":
             build_filters[bf_name] = "<" + bf_name + ">"
-    
-    current_build = Build.query.filter_by(app=current_app, trade_flow=trade_flow, 
-                        origin=build_filters["origin"], dest=build_filters["dest"], 
+
+    current_build = Build.query.filter_by(app=current_app, trade_flow=trade_flow,
+                        origin=build_filters["origin"], dest=build_filters["dest"],
                         product=build_filters["product"]).first_or_404()
-    
-    current_build.set_options(origin=origin, dest=dest, product=prod, 
+
+    current_build.set_options(origin=origin, dest=dest, product=prod,
                                 classification=classification, year=year)
-    
+
     kwargs = {"trade_flow":trade_flow, "origin_id":origin, "dest_id":dest, "year":year}
     if classification == "sitc":
         kwargs["sitc_id"] = prod
     else:
         kwargs["hs_id"] = prod
-    
+
     return render_template("explore/index.html",
         current_build = current_build,
         all_builds = all_builds)
@@ -193,40 +196,40 @@ def embed(app_name, classification, trade_flow, origin, dest, \
     for bf_name, bf in build_filters.items():
         if bf != "show" and bf != "all":
             build_filters[bf_name] = "<" + bf_name + ">"
-    
-    current_build = Build.query.filter_by(app=current_app, trade_flow=trade_flow, 
-                        origin=build_filters["origin"], dest=build_filters["dest"], 
+
+    current_build = Build.query.filter_by(app=current_app, trade_flow=trade_flow,
+                        origin=build_filters["origin"], dest=build_filters["dest"],
                         product=build_filters["product"]).first_or_404()
-    current_build.set_options(origin=origin, dest=dest, product=product, 
+    current_build.set_options(origin=origin, dest=dest, product=product,
                                 classification=classification, year=year)
-    
+
     '''Get URL query parameters from reqest.args object to return to the view.
     '''
     global_vars = {x[0]:x[1] for x in request.args.items()}
     if "controls" not in global_vars:
         global_vars["controls"] = "true"
-        
-    return render_template("explore/embed.html", 
+
+    return render_template("explore/embed.html",
         current_build = current_build,
         global_vars = json.dumps(global_vars),
         facebook_id = FACEBOOK_ID)
 
 @mod.route('/shorten/', methods=['GET', 'POST'])
 def shorten_url():
-    
+
     if request.method == 'POST':
-        
+
         long_url = urllib.unquote(request.form["url"].encode('utf-8')).decode("utf-8")
-        
+
         short = Short.query.filter_by(long_url = long_url).first()
         if short is None:
             slug = Short.make_unique_slug(long_url)
             short = Short(slug = slug, long_url = long_url)
             db.session.add(short)
             db.session.commit()
-            
+
         return jsonify({"slug": short.slug})
-    
+
     return jsonify({"error": "No URL given."})
 
 @mod.route('/download/', methods=['GET', 'POST'])
@@ -254,14 +257,14 @@ def download():
         zoom = "1"
         background = "#ffffff"
         p = subprocess.Popen(["rsvg-convert", "-z", zoom, "-f", format, "--background-color={0}".format(background), temp.name], stdout=subprocess.PIPE)
-        out, err = p.communicate()  
+        out, err = p.communicate()
         response_data = out
     else:
         response_data = data.encode("utf-8")
-    
+
     content_disposition = "attachment;filename=%s.%s" % (title, format)
     content_disposition = content_disposition.replace(",", "_")
 
-    return Response(response_data, 
-                        mimetype=mimetype, 
+    return Response(response_data,
+                        mimetype=mimetype,
                         headers={"Content-Disposition": content_disposition})
