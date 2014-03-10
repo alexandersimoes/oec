@@ -16,15 +16,15 @@
 
 {% block body %}
 <!-- <div class="app_title" id="icons">
-  
+
   {% if current_build.origin != "show" %}
   <img src="{{ current_build.origin.get_icon() }}" alt="{{ _('Flag of %(country)s', country=current_build.origin.get_name()) }}">
   {% elif current_build.origin == "show" and current_build.product %}
   <img style="background-color: {{ current_build.product.color }};" src="{{ current_build.product.get_icon() }}">
   {% endif %}
-  
+
   <h2 class="{{ current_build.app.type }}">{{ current_build.get_year() }}</h2>
-  
+
   {% if current_build.dest != "show" and current_build.dest != "all" %}
   <img src="{{ current_build.dest.get_icon() }}" alt="{{ _('Flag of %(country)s', country=current_build.dest.get_name()) }}">
   {% elif current_build.origin != "show" and current_build.product != "show" and current_build.product != "all" %}
@@ -44,11 +44,11 @@
 
 <!-- the left pane -->
 <div class="content">
-  
+
   <div class="col1" id="sidebar">
-  
+
     {% set pre_app = None %}
-    
+
     <ul>
     {% for build in all_builds %}
 
@@ -59,7 +59,7 @@
       {% endif %}
 
       {% if pre_app != build.app.type %}
-    
+
         {% set pre_app = build.app.type %}
         <li id="{{ build.app.type }}"  class="icon{% if current_build.app.type == pre_app %} active{% endif %}">
           <a class="accordion" href="#{{ build.app.get_name()|lower }}" title="{{ build.app.get_name()|lower }}">
@@ -67,30 +67,30 @@
           </a>
           <ul class="accordion">
         {% set pre_cat = "init" %}
-          
+
       {% endif %}
-    
+
       {% if pre_cat != build.get_category() and build.get_category() != "init" %}
         {% if pre_cat != "init" %}</ul>{% endif %}
         <ul>
-        {% if build.get_category() != None %}  
+        {% if build.get_category() != None %}
         <h3>{{ build.get_category() }}</h3>
         {% endif %}
       {% endif %}
-    
+
       {% set pre_cat = build.get_category() %}
-    
+
       <li{% if build == current_build %} class="active"{% endif %}>
         <a href="/explore/{{ build.url() }}">
           {{ build.get_short_name() }}
         </a>
       </li>
-      
+
     {% endfor %}
     </ul>
-    
+
   </div><div class="col3">
-  
+
     <!-- table of data from visualization -->
     <div id="text_data" class="visually_hidden">
       {% set stats = current_build.top_stats(20) %}
@@ -118,12 +118,12 @@
       </table>
       {% endif %}
     </div>
-  
+
     <!-- Container for the visualization -->
     <div id="zviz">
-      <iframe id="iframe_viz" src="/explore/embed/{{ current_build.url() }}" width="800px" height="545px" frameborder="0"></iframe>
+      <iframe scrolling="no" id="iframe_viz" src="/explore/embed/{{ current_build.url() }}" width="800px" height="545px" frameborder="0"></iframe>
     </div>
-  
+
   </div>
 
 </div> <!-- END #main -->
@@ -137,19 +137,19 @@
 <script>
 
   function accordion(app) {
-    
+
     var ul = d3.select("#sidebar li#"+app+" ul")
 
     var prev_display = ul.style("height")
-      
+
     if (prev_display == "0px") {
-      
+
       var new_height = ul.style("height", "auto").style("height")
-      
+
       ul.style("height", "0px")
-      
+
     }
-    
+
     d3.selectAll("#sidebar > ul > li")
       .attr("class",function(){
         if (this.id == app && new_height) {
@@ -159,7 +159,7 @@
           return "icon"
         }
       })
-      
+
     d3.selectAll("ul.accordion")
       .transition().duration(600)
       .style("height", function(){
@@ -170,15 +170,15 @@
           return "0px"
         }
       })
-    
+
   }
 
   d3.selectAll("#sidebar a.accordion").on("click", function(){
-  
+
     d3.event.preventDefault();
-    
+
     accordion(this.title.replace(" ", "_"))
-    
+
   })
 
   /////////////////////////////
@@ -187,7 +187,7 @@
 
   // Open default app selection accordion
   accordion("{{ current_build.app.type }}")
-  
+
   // hide text on load
   // d3.select("#text_data").style("display", "none");
 

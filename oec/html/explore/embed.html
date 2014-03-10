@@ -37,6 +37,12 @@
       </label>
     </div>
     {% endif %}
+    {% if current_build.app.type != "rings" and current_build.app.type != "network" %}
+    <div id="value">
+      <input type="radio" name="value" value="gross" id="value_gross" checked="checked" /><label for="value_gross">{{ _('Gross') }}</label>
+      <input type="radio" name="value" value="net" id="value_net" /><label for="value_net">{{ _('Net') }}</label>
+    </div>
+    {% endif %}
     <div id="color">
       <select>
         {% if current_build.app.type == "geo_map" %}
@@ -215,6 +221,21 @@ d3plus.ui()
   .callback(change_layout)
   .draw()
 {% endif %}
+{% if current_build.app.type != "rings" and current_build.app.type != "network" %}
+d3plus.ui()
+  .type("radio")
+  .data("[name=value]")
+  .margin(5)
+  .font({
+    "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+    "size": 12,
+    "weight": "lighter",
+    "spacing": 1,
+    "align": "left"
+  })
+  .callback(change_value)
+  .draw()
+{% endif %}
 {% if current_build.app.type == "tree_map" or current_build.app.type == "stacked" %}
 d3plus.ui()
   .type("radio")
@@ -249,13 +270,15 @@ d3plus.ui()
 
 /* init vars */
 var trade_flow = "{{ current_build.trade_flow }}",
+    opposite_trade_flow = trade_flow == "export" ? "import" : "export";
     is_iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false ),
     attr_id = "{{ current_build.attr_type() }}_id",
     app_type = "{{ current_build.app.type }}",
     attrs = {},
     vars = {{ global_vars|safe }},
     // viz_height = in_explore_page ? 505 : window.innerHeight - d3.select("#ui").node().offsetHeight,
-    viz_height = is_iOS ? window.screen.height - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight,
+    // viz_height = is_iOS ? window.screen.height - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight,
+    viz_height = window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
     q = queue()
           .defer(d3.json, "{{ current_build.data_url() }}")
@@ -309,6 +332,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
                 if(text == "display_id"){ return "{{ _('ID') }}"; }
                 if(text == "export_val"){ return "{{ _('Export Value') }}"; }
                 if(text == "export_rca"){ return "{{ _('Export') }} RCA"; }
+                if(text == "import_rca"){ return "{{ _('Import') }} RCA"; }
                 if(text == "import_val"){ return "{{ _('Import Value') }}"; }
                 if(text.indexOf("growth") > -1){
                   text = text.replace(/_/g," ");
@@ -324,6 +348,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
             });
 
 // console.log(document.documentElement.clientHeight, window.innerHeight, window.screen.height)
+// console.log(window.innerHeight, viz_height, d3.select("#ui").node().offsetHeight)
 if(!in_explore_page){
   d3.select("a.fullscreen").style("display", "none")
   viz.title("{{ current_build.get_name() }}")
@@ -361,7 +386,8 @@ function resize_viz(obj){
     }
 
     // var new_height = in_explore_page ? 505 : window.innerHeight - d3.select("#ui").node().offsetHeight;
-    var new_height = is_iOS ? window.screen.height - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight
+    // var new_height = is_iOS ? window.screen.height - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight
+    var new_height = window.innerHeight - d3.select("#ui").node().offsetHeight;
     if (obj){
       new_width = obj.width || new_width;
       new_height = obj.height || new_height;
@@ -398,6 +424,8 @@ function format_data(error, raw_data, raw_attrs, raw_other){
   raw_data.data.forEach(function(d){
     d.nest = d[attr_id].substr(0, 2)
     d.id = d[attr_id]
+    d["net_"+trade_flow+"_val"] = parseFloat(d[trade_flow+"_val"]) - parseFloat(d[opposite_trade_flow+"_val"]);
+    // console.log(d["net_"+trade_flow+"_val"])
   })
 
 }
@@ -742,7 +770,6 @@ d3.select("#more_years button").on("click", function(){
     }
 
     resize_viz()
-    // })
 
   })
   d3.event.preventDefault();
@@ -949,6 +976,14 @@ function change_depth(d){
 }
 function change_layout(d){
   viz.y({"scale": d}).draw();
+}
+function change_value(d){
+  if(d == "net"){
+      viz.size("net_"+trade_flow+"_val").draw()
+  }
+  else if(d == "gross"){
+      viz.size(trade_flow+"_val").draw()
+  }
 }
 
 function change_color(new_color){

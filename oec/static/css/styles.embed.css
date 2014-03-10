@@ -117,6 +117,7 @@ div#loading > h2 {
 #app #layout,
 #app #depth,
 #app #color,
+#app #value,
 #app #more_years {
   display: inline-block;
   vertical-align: top;
