@@ -38,6 +38,8 @@ def explore_redirect(app_name='tree_map'):
         redirect_url = url_for('.explore', app_name=app_name, \
                         classification="hs", trade_flow="export", \
                         origin_id=origin, dest_id="all", prod_id=p.hs, year="2011")
+    else:
+        abort(404)
     return redirect(redirect_url)
 
 def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
