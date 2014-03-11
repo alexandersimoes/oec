@@ -319,7 +319,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
                 if(key == "year"){ return number; }
               }
               var ret = d3plus.public.number_format["value"](number,key)
-              if (key && ["export_val","import_val"].indexOf(key) >= 0) {
+              if (key && ["export_val","import_val","net_export_val","net_import_val"].indexOf(key) >= 0) {
                 ret = "$"+ret
               }
               return ret
@@ -331,9 +331,11 @@ var trade_flow = "{{ current_build.trade_flow }}",
               if(text){
                 if(text == "display_id"){ return "{{ _('ID') }}"; }
                 if(text == "export_val"){ return "{{ _('Export Value') }}"; }
+                if(text == "net_export_val"){ return "{{ _('Net Export Value') }}"; }
+                if(text == "import_val"){ return "{{ _('Import Value') }}"; }
+                if(text == "net_import_val"){ return "{{ _('Net Import Value') }}"; }
                 if(text == "export_rca"){ return "{{ _('Export') }} RCA"; }
                 if(text == "import_rca"){ return "{{ _('Import') }} RCA"; }
-                if(text == "import_val"){ return "{{ _('Import Value') }}"; }
                 if(text.indexOf("growth") > -1){
                   text = text.replace(/_/g," ");
                   text = text.replace(/val/g,"{{ _('value') }}");
@@ -351,7 +353,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
 // console.log(window.innerHeight, viz_height, d3.select("#ui").node().offsetHeight)
 if(!in_explore_page){
   d3.select("a.fullscreen").style("display", "none")
-  viz.title("{{ current_build.get_name() }}")
+  viz.title("{{ current_build.get_name()|safe }}")
 }
 
 if (in_the_wild) {
@@ -978,12 +980,20 @@ function change_layout(d){
   viz.y({"scale": d}).draw();
 }
 function change_value(d){
+  var new_tooltip = viz.tooltip()["value"]
+
   if(d == "net"){
-      viz.size("net_"+trade_flow+"_val").draw()
+    viz.size("net_"+trade_flow+"_val")
+    var gross_index = new_tooltip.indexOf("net_"+trade_flow+"_val")
+    new_tooltip.splice(gross_index, 0, "net_"+trade_flow+"_val")
   }
   else if(d == "gross"){
-      viz.size(trade_flow+"_val").draw()
+    viz.size(trade_flow+"_val")
+    var net_index = new_tooltip.indexOf("net_"+trade_flow+"_val")
+    if (net_index > -1) { new_tooltip.splice(net_index, 1) }
   }
+
+  viz.tooltip(new_tooltip).draw()
 }
 
 function change_color(new_color){

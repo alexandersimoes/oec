@@ -33,12 +33,18 @@ class Country(db.Model, AutoSerialize):
     sitc_yod_origin = db.relationship("db_sitc.models.Yod", primaryjoin = ('db_sitc.models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     sitc_yop_origin = db.relationship("db_sitc.models.Yop", primaryjoin = ('db_sitc.models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
 
+    def get_attr_name(self, lang=None):
+        return self.name.filter_by(lang=lang).first()
+
     def get_name(self, lang=None, article=None):
         lang = lang or getattr(g, "locale", "en")
         name = self.name.filter_by(lang=lang).first()
         if name:
+            ''' English '''
             if lang == "en" and name.article and article:
                 return "The {0}".format(name.name)
+
+            ''' French '''
             if lang == "fr" and name.article and article:
                 if name.plural:
                     return u"les {0}".format(name.name)
@@ -48,6 +54,8 @@ class Country(db.Model, AutoSerialize):
                     return u"le {0}".format(name.name)
                 elif name.gender == "f":
                     return u"la {0}".format(name.name)
+
+            ''' Spanish '''
             if lang == "es" and name.article and article:
                 if name.gender == "m":
                     if name.plural:
@@ -57,6 +65,37 @@ class Country(db.Model, AutoSerialize):
                     if name.plural:
                         return u"las {0}".format(name.name)
                     return u"la {0}".format(name.name)
+
+            ''' Italian '''
+            if lang == "it" and name.article and article:
+                if name.gender == "m":
+                    if name.plural:
+                        if any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
+                            return u"gli {0}".format(name.name)
+                        if (name.name[0].lower() == "s"
+                                and any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y'])) \
+                                or name.name[0].lower() == "z":
+                            return u"gli {0}".format(name.name)
+                        return u"i {0}".format(name.name)
+                    else:
+                        if (name.name[0].lower() == "s"
+                                and any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y'])) \
+                                or name.name[0].lower() == "z":
+                            return u"lo {0}".format(name.name)
+                        if any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
+                            return u"l'{0}".format(name.name)
+                        return u"il {0}".format(name.name)
+
+                elif name.gender == "f":
+                    if name.plural:
+                        if any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
+                            return u"le {0}".format(name.name)
+                        return u"le {0}".format(name.name)
+                    else:
+                        if any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
+                            return u"l'{0}".format(name.name)
+                        return u"la {0}".format(name.name)
+
             return name.name
         return ""
 
