@@ -4391,21 +4391,24 @@ d3plus.apps.stacked.setup = function(vars) {
   vars.x.zerofill.value = true
   if (vars.dev.value) console.log("\"x\" zerofill set to \"true\"")
   vars.y.stacked.value = true
-  vars.size.key = vars.y.key
+  if ((!vars.y.key && vars.size.key) || vars.size.changed) {
+    vars.y.key = vars.size.key
+    vars.y.changed = true
+  }
   if (vars.dev.value) console.log("\"y\" stacked set to \"true\"")
   if (vars.dev.value) d3plus.console.timeEnd("setting local variables")
-  
+
 }
 
 d3plus.apps.stacked.draw = function(vars) {
-    
+
   if (typeof vars.size.threshold == "number" && vars.size.threshold > 0) {
-    
+
     var allowed = [],
         cutoff = vars.depth.value == 0 ? 0 : {},
         removed = [],
         largest = {}
-      
+
     d3.nest()
       .key(function(d){
         return d3plus.variable.value(vars,d,vars.x.key)
@@ -4432,20 +4435,20 @@ d3plus.apps.stacked.draw = function(vars) {
         return total
       })
       .entries(vars.data.app)
-      
+
     vars.data.app = vars.data.app.filter(function(d){
-    
+
       var id = d3plus.variable.value(vars,d,vars.id.key),
           val = d3plus.variable.value(vars,d,vars.y.key),
           x = d3plus.variable.value(vars,d,vars.x.key)
-    
+
       if (allowed.indexOf(id) < 0) {
         if (val/largest[x] >= vars.size.threshold) {
           allowed.push(id)
         }
-      
+
       }
-    
+
       if (allowed.indexOf(id) < 0) {
         if (vars.depth.value == 0) {
           if (val > cutoff) cutoff = val
@@ -4461,23 +4464,23 @@ d3plus.apps.stacked.draw = function(vars) {
       else {
         return true
       }
-    
+
     })
-  
+
     var levels = vars.id.nesting.slice(0,vars.depth.value)
     var nesting = levels.concat([vars.x.key])
     var merged = d3plus.data.nest(vars,removed,nesting,true).filter(function(d){
       return d3plus.variable.value(vars,d,vars.y.key) > 0
     })
-  
+
     merged.forEach(function(m){
-      
+
       var parent = vars.id.nesting[vars.depth.value-1]
-      
+
       m.d3plus = {}
-      
+
       vars.id.nesting.forEach(function(d,i){
-      
+
         if (vars.depth.value == i) {
           var prev = m[vars.id.nesting[i-1]]
           if (prev) {
@@ -4491,7 +4494,7 @@ d3plus.apps.stacked.draw = function(vars) {
           delete m[d]
         }
       })
-    
+
       if (vars.color.key) {
         if (vars.depth.value == 0) {
           m[vars.color.key] = vars.style.color.missing
@@ -4500,12 +4503,12 @@ d3plus.apps.stacked.draw = function(vars) {
           m[vars.color.key] = d3plus.variable.color(vars,m[parent],parent)
         }
       }
-    
+
       if (vars.icon.key && vars.depth.value != 0) {
         m[vars.icon.key] = d3plus.variable.value(vars,m[parent],vars.icon.key,parent)
         m.d3plus.depth = vars.id.nesting.indexOf(parent)
       }
-      
+
       if (vars.text.key) {
         if (vars.depth.value == 0) {
 
@@ -4516,7 +4519,7 @@ d3plus.apps.stacked.draw = function(vars) {
             m[vars.text.key] = vars.format("Values")
           }
           m[vars.text.key] += " < "+vars.format(cutoff)
-        
+
         }
         else {
           var name = d3plus.variable.value(vars,m,vars.text.key,parent)
@@ -4525,15 +4528,15 @@ d3plus.apps.stacked.draw = function(vars) {
         }
         m[vars.text.key] += " ("+vars.format(vars.size.threshold*100)+"%)"
       }
-    
+
     })
-  
+
     vars.data.app = vars.data.app.concat(merged)
-    
+
   }
-  
+
   return d3plus.apps.chart.draw(vars)
-  
+
 }
 d3plus.apps.tree_map = {}
 d3plus.apps.tree_map.data = "nested";
@@ -4542,7 +4545,7 @@ d3plus.apps.tree_map.tooltip = "follow"
 d3plus.apps.tree_map.shapes = ["square"];
 
 d3plus.apps.tree_map.draw = function(vars) {
-
+  
   var data = d3.layout.treemap()
     .round(false)
     .size([vars.app_width, vars.app_height])
@@ -4550,8 +4553,7 @@ d3plus.apps.tree_map.draw = function(vars) {
     .padding(1)
     .sort(function(a, b) { return a.value - b.value; })
     .value(function(d) {
-      var val = d3plus.variable.value(vars,d,vars.size.key)
-      return val > 0 ? val : 0;
+      return d3plus.variable.value(vars,d,vars.size.key);
     })
     .nodes({"name":"root", "children": vars.data.app})
     .filter(function(d) {
@@ -4583,9 +4585,9 @@ d3plus.apps.tree_map.draw = function(vars) {
 //-------------------------------------------------------------------
 
 d3plus.data.analyze = function(vars) {
-  
+
   vars.data.type = d3plus.apps[vars.type.value].data || "array"
-  
+
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Function to check key types
   //-------------------------------------------------------------------
@@ -4607,14 +4609,14 @@ d3plus.data.analyze = function(vars) {
       }
     }
   }
-  
+
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Initial setup when new data is detected
   //-------------------------------------------------------------------
   if (vars.data.changed) {
-    
+
     if (vars.dev.value) d3plus.console.group("New Data Detected")
-    
+
     vars.data.filtered = null
     vars.data.grouped = null
     vars.data[vars.data.type] = null
@@ -4627,16 +4629,16 @@ d3plus.data.analyze = function(vars) {
     vars.data.keys = {}
     get_keys(vars.data.value,true)
     if (vars.dev.value) d3plus.console.timeEnd("key analysis")
-    
+
     if (vars.dev.value) d3plus.console.groupEnd();
-    
+
   }
-  
+
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Check attr keys, if new attrs exist
   //-------------------------------------------------------------------
   if (vars.attrs.changed) {
-    
+
     if (vars.dev.value) d3plus.console.group("New Attributes Detected");
     if (vars.dev.value) d3plus.console.time("key analysis");
     if (typeof vars.attrs.value == "object") {
@@ -4660,36 +4662,36 @@ d3plus.data.analyze = function(vars) {
       vars.check.push(k)
     }
   }
-  
+
   if (!vars.data.filtered || vars.check.length || vars.active.changed || vars.temp.changed || vars.total.changed) {
     vars.data[vars.data.type] = null
     vars.data.grouped = null
     vars.data.app = null;
     d3plus.data.filter(vars)
   }
-  
+
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Restricts Filtered Data if objects have "Solo" or "Mute"
   //-------------------------------------------------------------------
   if (vars.mute.length || vars.solo.length) {
-    
+
     vars.filtered = true
-    
+
     // if "solo", only check against "solo" (disregard "mute")
     var key = vars.solo.length ? "solo" : "mute"
-    
+
     if (vars.dev.value) d3plus.console.group("Filtering Data by \""+key+"\" values")
-    
+
     vars.data[vars.data.type] = null
     vars.data.restricted = {}
-    
+
     // start restricting based on "filtered" data
     var data = "filtered"
-        
+
     vars[key].forEach(function(v){
-      
+
       if (vars.dev.value) d3plus.console.time(v)
-      
+
       function test_value(val) {
 
         if (!(vars[v][key] instanceof Array)) {
@@ -4698,7 +4700,7 @@ d3plus.data.analyze = function(vars) {
         else {
           var arr = vars[v][key]
         }
-        
+
         var match = false
         arr.forEach(function(f){
           if (typeof f == "function") {
@@ -4707,17 +4709,17 @@ d3plus.data.analyze = function(vars) {
           else if (f == val) {
             match = true
           }
-          
+
         })
-        
+
         return match
       }
-      
+
       function nest_check(d) {
-        
+
         // if the variable has nesting, check all levels
         var match = false
-        
+
         if (vars[v].nesting) {
           vars[v].nesting.forEach(function(n){
             if (!match) {
@@ -4729,27 +4731,27 @@ d3plus.data.analyze = function(vars) {
           var k = vars[v].value ? vars[v].value : vars[v].key
           match = test_value(d3plus.variable.value(vars,d,k))
         }
-        
+
         if (key == "solo") {
           return match
         }
         else if (key == "mute") {
           return !match
         }
-        
+
       }
-      
+
       for (y in vars.data[data]) {
         vars.data.restricted[y] = vars.data[data][y].filter(nest_check)
       }
-      
+
       if (v == "id") {
 
         if (vars.nodes.value) {
           if (vars.dev.value) d3plus.console.log("Filtering Nodes")
           vars.nodes.restricted = vars.nodes.value.filter(nest_check)
         }
-    
+
         if (vars.links.value) {
           if (vars.dev.value) d3plus.console.log("Filtering Connections")
           vars.links.restricted = vars.links.value.filter(function(d){
@@ -4758,20 +4760,20 @@ d3plus.data.analyze = function(vars) {
             return first_match && second_match
           })
         }
-        
+
       }
-      
+
       // continue restricting on already "restricted" data
       data = "restricted"
-      
+
       if (vars.dev.value) d3plus.console.timeEnd(v)
-      
+
     })
-    
+
     if (vars.dev.value) d3plus.console.groupEnd()
-    
+
   }
-  else if (vars.filtered || !vars.data.restricted) {
+  else if (vars.filtered || !vars.data.restricted || vars.check.length) {
     vars.data.restricted = d3plus.utils.copy(vars.data.filtered)
     vars.data.grouped = null
     vars.data.app = null
@@ -4780,37 +4782,37 @@ d3plus.data.analyze = function(vars) {
     vars.links.restricted = null
     vars.filtered = false
   }
-  
+
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Formats Data to type "group", if it does not exist.
   //----------------------------------------------------------------------------
   if (!vars.data.grouped) {
     vars.data.grouped = d3plus.data.format(vars,"grouped")
   }
-  
+
   var year = !vars.time.fixed.value ? ["all"] : null
   if ((year === null && vars.time.solo.changed) || !vars.data.pool) {
     vars.data.pool = d3plus.data.fetch(vars,"grouped",year)
   }
-  
+
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Formats Data to type specified by App, if it does not exist.
   //----------------------------------------------------------------------------
   if (!vars.data[vars.data.type]) {
     vars.data[vars.data.type] = d3plus.data.format(vars,vars.data.type)
   }
-  
+
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Fetch the correct Data for the App
   //-------------------------------------------------------------------
   if (!vars.data.app || vars.depth.changed || vars.time.solo.changed || vars.time.mute.changed || vars.type.changed || vars.solo.length || vars.mute.length) {
-    
+
     vars.data.app = d3plus.data.fetch(vars,vars.data.type)
-    
+
   }
-  
+
   vars.check = []
-  
+
 }
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // Sets color range of data, if applicable
@@ -5055,51 +5057,70 @@ d3plus.data.fetch = function(vars,format,years) {
 // Filters the data based on vars.check
 //-------------------------------------------------------------------
 d3plus.data.filter = function(vars) {
-  
-  if (vars.check.indexOf("time") >= 0 && vars.data.filtered) {
-    vars.data.filtered = {"all": vars.data.filtered.all}
+
+  if (vars.check.indexOf("time") >= 0) {
+    vars.check.splice(vars.check.indexOf("time"),1)
+    if (vars.data.filtered) {
+      vars.data.filtered = {"all": vars.data.filtered.all}
+    }
   }
-  
-  if (vars.check.length > 1 || (vars.check.length == 1 && vars.check[0] != "time")) {
-    
-    if (vars.dev.value) d3plus.console.group("Filtering Data by Required Variables");
-    var checking = vars.check.join(", ")
-    if (vars.dev.value) d3plus.console.time(checking)
-    
-    var data = "value"
-    vars.check.forEach(function(key){
-      if (key != "time") {
-        
-        if (key == "xaxis") vars.x_range = null
-        else if (key == "yaxis") vars.y_range = null
-        
-        vars.data.filtered = vars.data[data].filter(function(d){
-          var variable = vars[key].value ? vars[key].value : vars[key].key
-          var val = d3plus.variable.value(vars,d,variable)
-          return val != null
-        })
-        data = "filtered"
-        
+
+  if (!vars.filters) {
+    vars.filters = vars.check.slice(0)
+  }
+  else {
+    vars.check.forEach(function(k){
+      var variable = vars[k].value ? vars[k].value : vars[k].key
+      if (!variable && vars.filters.indexOf(k) >= 0) {
+        vars.filters.splice(vars.filters.indexOf(k),1)
       }
     })
-    vars.data.filtered = {"all": vars.data.filtered}
+  }
+
+  if (vars.check.length >= 1) {
+
+    if (vars.dev.value) d3plus.console.group("Filtering Data by Required Variables");
+    var checking = vars.filters.join(", ")
+    if (vars.dev.value) d3plus.console.time(checking)
+
+    var data = "value"
+    vars.filters.forEach(function(key){
+
+      if (key == "xaxis") vars.x_range = null
+      else if (key == "yaxis") vars.y_range = null
+
+      vars.data.filtered = vars.data[data].filter(function(d){
+        var variable = vars[key].value ? vars[key].value : vars[key].key
+        var val = d3plus.variable.value(vars,d,variable)
+        if (key == "size") {
+          return val > 0 ? true : false
+        }
+        else {
+          return val != null
+        }
+      })
+      data = "filtered"
+
+    })
     
+    vars.data.filtered = {"all": vars.data.filtered}
+
     if (vars.dev.value) d3plus.console.timeEnd(checking)
     if (vars.dev.value) d3plus.console.groupEnd();
   }
   else if (!vars.data.filtered) {
     vars.data.filtered = {"all": vars.data.value}
   }
-  
+
   if (vars.time.key && Object.keys(vars.data.filtered).length == 1) {
-    
+
     if (vars.dev.value) d3plus.console.group("Disaggregating by Year")
 
     // Find available years
     vars.data.time = d3plus.utils.uniques(vars.data.filtered.all,vars.time.key)
-    
+
     vars.data.time.sort()
-    
+
     if (vars.data.time.length) {
       if (vars.dev.value) d3plus.console.time(vars.data.time.length+" years")
       vars.data.time.forEach(function(y){
@@ -5109,11 +5130,11 @@ d3plus.data.filter = function(vars) {
       })
       if (vars.dev.value) d3plus.console.timeEnd(vars.data.time.length+" years")
     }
-    
+
     if (vars.dev.value) d3plus.console.groupEnd()
-    
+
   }
-    
+
 }
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // Formats Raw Data
