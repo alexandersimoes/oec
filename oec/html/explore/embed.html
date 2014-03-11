@@ -18,7 +18,7 @@
     {% if current_build.app.type == "stacked" %}
     <div id="layout">
       <input type="radio" name="layout" value="linear" id="layout_value" checked="checked"><label for="layout_value">{{ _('Value') }}</label>
-      <input type="radio" name="layout" value="share" id="layout_share" ><label for="layout_share">{{ _('Share') }}</label>
+      <input type="radio" name="layout" value="share" id="layout_share" ><label for="layout_share">{{ _('Percent') }}</label>
     </div>
     {% endif %}
     {% if current_build.app.type == "tree_map" or current_build.app.type == "stacked" %}
@@ -329,11 +329,12 @@ var trade_flow = "{{ current_build.trade_flow }}",
                 if(key == "display_id"){ return text.toUpperCase(); }
               }
               if(text){
+                if(text == "share"){ return "{{ _('Percent') }}"; }
                 if(text == "display_id"){ return "{{ _('ID') }}"; }
                 if(text == "export_val"){ return "{{ _('Export Value') }}"; }
-                if(text == "net_export_val"){ return "{{ _('Net Export Value') }}"; }
+                if(text == "net_export_val"){ return "{{ _('Net Export') }} {{ _('Value') }}"; }
                 if(text == "import_val"){ return "{{ _('Import Value') }}"; }
-                if(text == "net_import_val"){ return "{{ _('Net Import Value') }}"; }
+                if(text == "net_import_val"){ return "{{ _('Net Import') }} {{ _('Value') }}"; }
                 if(text == "export_rca"){ return "{{ _('Export') }} RCA"; }
                 if(text == "import_rca"){ return "{{ _('Import') }} RCA"; }
                 if(text.indexOf("growth") > -1){

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  1.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-03-03 17:53-0500\n"
+"POT-Creation-Date: 2014-03-11 18:36-0400\n"
 "PO-Revision-Date: 2013-12-27 15:28-0500\n"
 "Last-Translator: sudha Kumari Kumari <kumars04@mit.edu>\n"
 "Language-Team: hi <LL@li.org>\n"
@@ -18,60 +18,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/explore/models.py:283
+#: oec/explore/models.py:356
 msgid "Origin Country"
 msgstr "मूल देश"
 
-#: oec/explore/models.py:284 oec/explore/models.py:287
-#: oec/html/explore/embed.html:300
+#: oec/explore/models.py:357 oec/explore/models.py:360
+#: oec/html/explore/embed.html:333
 msgid "ID"
 msgstr "आईडी"
 
-#: oec/explore/models.py:286
+#: oec/explore/models.py:359
 msgid "Destination Country"
 msgstr "गंतव्य देश"
 
-#: oec/explore/models.py:289
+#: oec/explore/models.py:362
 msgid "Product Name"
 msgstr "उत्पाद का नाम"
 
-#: oec/explore/models.py:328
+#: oec/explore/models.py:401
 msgid "Origin"
 msgstr "मूल"
 
-#: oec/explore/models.py:343
+#: oec/explore/models.py:416
 msgid "Destination"
 msgstr "गंतव्य"
 
-#: oec/explore/models.py:361 oec/rankings/views.py:49 oec/rankings/views.py:53
+#: oec/explore/models.py:434 oec/rankings/views.py:49 oec/rankings/views.py:53
 msgid "Product"
 msgstr "उत्पाद"
 
-#: oec/explore/models.py:370
+#: oec/explore/models.py:443
 msgid "Trade Flow"
 msgstr "व्यापार प्रवाह"
 
-#: oec/explore/models.py:373
+#: oec/explore/models.py:446 oec/html/explore/embed.html:338
 msgid "Export"
 msgstr "निर्यात"
 
-#: oec/explore/models.py:374
+#: oec/explore/models.py:447 oec/html/explore/embed.html:339
 msgid "Import"
 msgstr "आयात"
 
-#: oec/explore/models.py:381
+#: oec/explore/models.py:454
 msgid "Classification"
 msgstr "श्रेणीकरण"
 
-#: oec/explore/models.py:395
+#: oec/explore/models.py:468
 msgid "Start Year"
 msgstr "प्रारम्भिक वर्ष"
 
-#: oec/explore/models.py:401
+#: oec/explore/models.py:474
 msgid "End Year"
 msgstr "समाप्ति वर्ष"
 
-#: oec/explore/models.py:409 oec/rankings/views.py:75
+#: oec/explore/models.py:482 oec/rankings/views.py:75
 msgid "Year"
 msgstr "वर्ष"
 
@@ -131,23 +131,25 @@ msgstr ""
 msgid "An emedded visualization."
 msgstr "एक एम्बेडेड विज़ुअलाइज़ेशन."
 
-#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:699
+#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:742
 msgid "Loading"
 msgstr "लदाई"
 
-#: oec/html/explore/embed.html:20 oec/html/explore/embed.html:43
+#: oec/html/explore/embed.html:20 oec/html/explore/embed.html:49
+#: oec/html/explore/embed.html:335 oec/html/explore/embed.html:337
 msgid "Value"
 msgstr "मूल्य"
 
-#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:118
-msgid "Share"
-msgstr "हिस्सा"
+#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:332
+#, fuzzy
+msgid "Percent"
+msgstr "प्रतिशतता"
 
 #: oec/html/explore/embed.html:28
 msgid "Continent"
 msgstr "महाद्वीप"
 
-#: oec/html/explore/embed.html:29 oec/html/explore/embed.html:45
+#: oec/html/explore/embed.html:29 oec/html/explore/embed.html:51
 msgid "Category"
 msgstr "श्रेणी"
 
@@ -159,71 +161,93 @@ msgstr "देश"
 msgid "Full"
 msgstr "पूर्ण"
 
-#: oec/html/explore/embed.html:47
+#: oec/html/explore/embed.html:42
+msgid "Gross"
+msgstr "सकल"
+
+#: oec/html/explore/embed.html:43
+msgid "Net"
+msgstr "शुद्ध"
+
+#: oec/html/explore/embed.html:53
 msgid "Annual Growth Rate (1 year)"
 msgstr "वार्षिक वृद्धि दर (1 वर्ष)"
 
-#: oec/html/explore/embed.html:48
+#: oec/html/explore/embed.html:54
 msgid "Annual Growth Rate (5 year)"
 msgstr "वार्षिक वृद्धि दर (5 वर्ष)"
 
-#: oec/html/explore/embed.html:49
+#: oec/html/explore/embed.html:55
 msgid "Growth Value (1 year)"
 msgstr "वृद्धिमूल्य (1 वर्ष)"
 
-#: oec/html/explore/embed.html:50
+#: oec/html/explore/embed.html:56
 msgid "Growth Value (5 year)"
 msgstr "वृद्धिमूल्य (5 वर्ष)"
 
-#: oec/html/explore/embed.html:54 oec/html/rankings/index.html:64
+#: oec/html/explore/embed.html:60 oec/html/rankings/index.html:64
 msgid "All Years"
-msgstr ""
+msgstr "सभी साल"
 
-#: oec/html/explore/embed.html:65 oec/html/explore/embed.html:858
+#: oec/html/explore/embed.html:71 oec/html/explore/embed.html:906
 msgid "View as Text"
 msgstr "टेक्स्ट के रूप में देखें"
 
-#: oec/html/explore/embed.html:66
+#: oec/html/explore/embed.html:72
 msgid "Fullscreen"
 msgstr "फुलस्क्रीन"
 
-#: oec/html/explore/embed.html:102
+#: oec/html/explore/embed.html:108
 msgid "Build Visualization"
 msgstr "विज़ुअलाइज़ेशन बनाएँ"
 
-#: oec/html/explore/embed.html:105 oec/html/rankings/index.html:59
+#: oec/html/explore/embed.html:111 oec/html/rankings/index.html:59
 msgid "Download"
 msgstr "डाउनलोड"
 
-#: oec/html/explore/embed.html:113
+#: oec/html/explore/embed.html:119
 msgid "Embed"
 msgstr "लागू करें"
 
-#: oec/html/explore/embed.html:134
+#: oec/html/explore/embed.html:124
+msgid "Share"
+msgstr "हिस्सा"
+
+#: oec/html/explore/embed.html:140
 msgid "Short URL"
 msgstr "यूआरएल संक्षेप में"
 
-#: oec/html/explore/embed.html:301
+#: oec/html/explore/embed.html:334
 msgid "Export Value"
 msgstr "ग्रोथ वैल्यू (5 वर्ष)"
 
-#: oec/html/explore/embed.html:302
+#: oec/html/explore/embed.html:335
+#, fuzzy
+msgid "Net Export"
+msgstr "निर्यात"
+
+#: oec/html/explore/embed.html:336
 msgid "Import Value"
 msgstr "आयात मूल्य"
 
-#: oec/html/explore/embed.html:305
+#: oec/html/explore/embed.html:337
+#, fuzzy
+msgid "Net Import"
+msgstr "आयात"
+
+#: oec/html/explore/embed.html:342
 msgid "value"
 msgstr "मूल्य"
 
-#: oec/html/explore/embed.html:306
+#: oec/html/explore/embed.html:343
 msgid "percentage"
 msgstr "प्रतिशतता"
 
-#: oec/html/explore/embed.html:323
+#: oec/html/explore/embed.html:361
 msgid "Brought to you by"
 msgstr "यूआरएल संक्षेप में"
 
-#: oec/html/explore/embed.html:853
+#: oec/html/explore/embed.html:901
 msgid "View as App"
 msgstr "अनुप्रयोग के रूप में देखें"
 
@@ -352,8 +376,8 @@ msgid ""
 "%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
 "with a Product Complexity Index (PCI) of %(pci)s"
 msgstr ""
-"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s उत्पाद की जटिलता सूचकांक (पीसीआई) "
-"%(pci)s के साथ "
+"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
+"उत्पाद की जटिलता सूचकांक (पीसीआई) %(pci)s के साथ "
 
 #: oec/html/profile/product.html:33
 #, python-format
@@ -374,11 +398,11 @@ msgstr "SITC उत्पादों की रैंकिंग"
 
 #: oec/html/rankings/index.html:51
 msgid "Change Year"
-msgstr ""
+msgstr "बदले साल"
 
 #: oec/html/rankings/index.html:61
 msgid "Current Year"
-msgstr ""
+msgstr "चालू वर्ष"
 
 #: oec/html/templates/site.html:19
 msgid "Profiles"
@@ -429,4 +453,3 @@ msgstr "रैंक"
 
 #~ msgid "Download all years data"
 #~ msgstr "सभी वर्षों के डेटा डाउनलोड करें"
-
