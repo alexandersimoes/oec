@@ -141,9 +141,8 @@ msgid "Value"
 msgstr "قيمة"
 
 #: oec/html/explore/embed.html:21 oec/html/explore/embed.html:332
-#, fuzzy
 msgid "Percent"
-msgstr "نسبة مئوية"
+msgstr "في المئة"
 
 #: oec/html/explore/embed.html:28
 msgid "Continent"
@@ -222,18 +221,16 @@ msgid "Export Value"
 msgstr "قيمة الصادرات"
 
 #: oec/html/explore/embed.html:335
-#, fuzzy
 msgid "Net Export"
-msgstr "تصدير"
+msgstr "صافي التصدير"
 
 #: oec/html/explore/embed.html:336
 msgid "Import Value"
 msgstr "قيمة الواردات"
 
 #: oec/html/explore/embed.html:337
-#, fuzzy
 msgid "Net Import"
-msgstr "استيراد"
+msgstr "صافي استيراد"
 
 #: oec/html/explore/embed.html:342
 msgid "value"

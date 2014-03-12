@@ -144,9 +144,8 @@ msgid "Value"
 msgstr "Değer"
 
 #: oec/html/explore/embed.html:21 oec/html/explore/embed.html:332
-#, fuzzy
 msgid "Percent"
-msgstr "yüzde"
+msgstr "Yüzde"
 
 #: oec/html/explore/embed.html:28
 msgid "Continent"
@@ -225,18 +224,16 @@ msgid "Export Value"
 msgstr "Ihracat değeri"
 
 #: oec/html/explore/embed.html:335
-#, fuzzy
 msgid "Net Export"
-msgstr "Ihracat"
+msgstr "Net İhracat"
 
 #: oec/html/explore/embed.html:336
 msgid "Import Value"
 msgstr "Ithalat değeri"
 
 #: oec/html/explore/embed.html:337
-#, fuzzy
 msgid "Net Import"
-msgstr "Ithalat"
+msgstr "Net İhracat"
 
 #: oec/html/explore/embed.html:342
 msgid "value"

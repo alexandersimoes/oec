@@ -147,9 +147,8 @@ msgid "Value"
 msgstr "Valor"
 
 #: oec/html/explore/embed.html:21 oec/html/explore/embed.html:332
-#, fuzzy
 msgid "Percent"
-msgstr "porcentaje"
+msgstr "Por ciento"
 
 #: oec/html/explore/embed.html:28
 msgid "Continent"
@@ -228,18 +227,16 @@ msgid "Export Value"
 msgstr "Valor de las exportaciones"
 
 #: oec/html/explore/embed.html:335
-#, fuzzy
 msgid "Net Export"
-msgstr "Exportación"
+msgstr "Exportaciones netas"
 
 #: oec/html/explore/embed.html:336
 msgid "Import Value"
 msgstr "Valor de las importaciones"
 
 #: oec/html/explore/embed.html:337
-#, fuzzy
 msgid "Net Import"
-msgstr "Importación"
+msgstr "Importación neta"
 
 #: oec/html/explore/embed.html:342
 msgid "value"

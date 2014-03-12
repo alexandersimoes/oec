@@ -141,9 +141,8 @@ msgid "Value"
 msgstr "मूल्य"
 
 #: oec/html/explore/embed.html:21 oec/html/explore/embed.html:332
-#, fuzzy
 msgid "Percent"
-msgstr "प्रतिशतता"
+msgstr "प्रतिशत"
 
 #: oec/html/explore/embed.html:28
 msgid "Continent"
@@ -219,21 +218,19 @@ msgstr "यूआरएल संक्षेप में"
 
 #: oec/html/explore/embed.html:334
 msgid "Export Value"
-msgstr "ग्रोथ वैल्यू (5 वर्ष)"
+msgstr "निर्यात मूल्य"
 
 #: oec/html/explore/embed.html:335
-#, fuzzy
 msgid "Net Export"
-msgstr "निर्यात"
+msgstr "शुद्ध निर्यात"
 
 #: oec/html/explore/embed.html:336
 msgid "Import Value"
 msgstr "आयात मूल्य"
 
 #: oec/html/explore/embed.html:337
-#, fuzzy
 msgid "Net Import"
-msgstr "आयात"
+msgstr "शुद्ध आयात"
 
 #: oec/html/explore/embed.html:342
 msgid "value"

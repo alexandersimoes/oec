@@ -148,9 +148,8 @@ msgid "Value"
 msgstr "Αξία"
 
 #: oec/html/explore/embed.html:21 oec/html/explore/embed.html:332
-#, fuzzy
 msgid "Percent"
-msgstr "ποσοστό"
+msgstr "Τοις εκατό"
 
 #: oec/html/explore/embed.html:28
 msgid "Continent"
@@ -229,18 +228,16 @@ msgid "Export Value"
 msgstr "Αξία των εξαγωγών"
 
 #: oec/html/explore/embed.html:335
-#, fuzzy
 msgid "Net Export"
-msgstr "Εξαγωγή"
+msgstr "Καθαρή Εξαγωγή"
 
 #: oec/html/explore/embed.html:336
 msgid "Import Value"
 msgstr "Αξία κατά την εισαγωγή"
 
 #: oec/html/explore/embed.html:337
-#, fuzzy
 msgid "Net Import"
-msgstr "Εισαγωγή"
+msgstr "Καθαρή Εισαγωγή"
 
 #: oec/html/explore/embed.html:342
 msgid "value"

@@ -298,7 +298,8 @@ var trade_flow = "{{ current_build.trade_flow }}",
               "opp_gain": "mean",
               "pci": "mean",
               "eci": "mean",
-              "rca": "mean"
+              "export_rca": "mean",
+              "import_rca": "mean"
             })
             .style({
               "background":"none",
@@ -337,12 +338,18 @@ var trade_flow = "{{ current_build.trade_flow }}",
                 if(text == "net_import_val"){ return "{{ _('Net Import') }} {{ _('Value') }}"; }
                 if(text == "export_rca"){ return "{{ _('Export') }} RCA"; }
                 if(text == "import_rca"){ return "{{ _('Import') }} RCA"; }
-                if(text.indexOf("growth") > -1){
-                  text = text.replace(/_/g," ");
-                  text = text.replace(/val/g,"{{ _('value') }}");
-                  text = text.replace(/pct/g,"{{ _('percentage') }}");
-                  return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
-                }
+                
+                if(text == trade_flow+"_val_growth_pct"){ return "{{ _('Annual Growth Rate (1 year)') }}"; }
+                if(text == trade_flow+"_val_growth_pct_5"){ return "{{ _('Annual Growth Rate (5 year)') }}"; }
+                if(text == trade_flow+"_val_growth_val"){ return "{{ _('Growth Value (1 year)') }}"; }
+                if(text == trade_flow+"_val_growth_val_5"){ return "{{ _('Growth Value (5 year)') }}"; }
+                
+                // if(text.indexOf("growth") > -1){
+                //   text = text.replace(/_/g," ");
+                //   text = text.replace(/val/g,"{{ _('value') }}");
+                //   text = text.replace(/pct/g,"{{ _('percentage') }}");
+                //   return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+                // }
                 if(text.indexOf("Values") >= 0 && !key){
                   return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
                 }
@@ -999,10 +1006,16 @@ function change_value(d){
 
 function change_color(new_color){
   var new_tooltip = viz.tooltip()["value"]
-  new_tooltip["Values"] = [trade_flow+"_val"]
-  if(new_color != "color"){
+  if(new_color == "color"){
+    var growth_vars = [trade_flow+"_val_growth_pct", trade_flow+"_val_growth_pct_5", trade_flow+"_val_growth_val", trade_flow+"_val_growth_val_5"]
+    growth_vars.forEach(function(gv){
+      var gv_index = new_tooltip.indexOf(gv)
+      if(gv_index > -1){ new_tooltip.splice(gv_index, 1) }
+    })
+  }
+  else{
     new_color = trade_flow+"_"+new_color;
-    new_tooltip["Values"] = [trade_flow+"_val", trade_flow+"_val_growth_pct", trade_flow+"_val_growth_pct_5", trade_flow+"_val_growth_val", trade_flow+"_growth_val_5"]
+    new_tooltip.push(new_color)
   }
   viz.color(new_color).tooltip(new_tooltip).draw()
 }

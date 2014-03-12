@@ -140,7 +140,6 @@ msgid "Value"
 msgstr "ערך"
 
 #: oec/html/explore/embed.html:21 oec/html/explore/embed.html:332
-#, fuzzy
 msgid "Percent"
 msgstr "אחוזים"
 
@@ -221,18 +220,16 @@ msgid "Export Value"
 msgstr "ערך יצוא"
 
 #: oec/html/explore/embed.html:335
-#, fuzzy
 msgid "Net Export"
-msgstr "יצוא"
+msgstr "יצוא נטו"
 
 #: oec/html/explore/embed.html:336
 msgid "Import Value"
 msgstr "ערך יבוא"
 
 #: oec/html/explore/embed.html:337
-#, fuzzy
 msgid "Net Import"
-msgstr "יבוא"
+msgstr "יבוא נטו"
 
 #: oec/html/explore/embed.html:342
 msgid "value"

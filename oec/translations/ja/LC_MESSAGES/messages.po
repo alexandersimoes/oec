@@ -132,9 +132,8 @@ msgid "Value"
 msgstr "値"
 
 #: oec/html/explore/embed.html:21 oec/html/explore/embed.html:332
-#, fuzzy
 msgid "Percent"
-msgstr "割合"
+msgstr "パーセント"
 
 #: oec/html/explore/embed.html:28
 msgid "Continent"
@@ -213,18 +212,16 @@ msgid "Export Value"
 msgstr "輸出額"
 
 #: oec/html/explore/embed.html:335
-#, fuzzy
 msgid "Net Export"
-msgstr "輸出"
+msgstr "純輸出"
 
 #: oec/html/explore/embed.html:336
 msgid "Import Value"
 msgstr "輸入価額"
 
 #: oec/html/explore/embed.html:337
-#, fuzzy
 msgid "Net Import"
-msgstr "インポート"
+msgstr "純輸入"
 
 #: oec/html/explore/embed.html:342
 msgid "value"
