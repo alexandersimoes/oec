@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-03-03 17:53-0500\n"
+"POT-Creation-Date: 2014-03-11 18:36-0400\n"
 "PO-Revision-Date: 2013-12-27 15:28-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ru <LL@li.org>\n"
@@ -19,60 +19,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/explore/models.py:283
+#: oec/explore/models.py:356
 msgid "Origin Country"
 msgstr "Происхождение Страна"
 
-#: oec/explore/models.py:284 oec/explore/models.py:287
-#: oec/html/explore/embed.html:300
+#: oec/explore/models.py:357 oec/explore/models.py:360
+#: oec/html/explore/embed.html:333
 msgid "ID"
 msgstr "ID"
 
-#: oec/explore/models.py:286
+#: oec/explore/models.py:359
 msgid "Destination Country"
 msgstr "Страна назначения"
 
-#: oec/explore/models.py:289
+#: oec/explore/models.py:362
 msgid "Product Name"
 msgstr "Наименование"
 
-#: oec/explore/models.py:328
+#: oec/explore/models.py:401
 msgid "Origin"
 msgstr "Происхождение"
 
-#: oec/explore/models.py:343
+#: oec/explore/models.py:416
 msgid "Destination"
 msgstr "Назначение"
 
-#: oec/explore/models.py:361 oec/rankings/views.py:49 oec/rankings/views.py:53
+#: oec/explore/models.py:434 oec/rankings/views.py:49 oec/rankings/views.py:53
 msgid "Product"
 msgstr "Продукт"
 
-#: oec/explore/models.py:370
+#: oec/explore/models.py:443
 msgid "Trade Flow"
 msgstr "О торговых потоках"
 
-#: oec/explore/models.py:373
+#: oec/explore/models.py:446 oec/html/explore/embed.html:338
 msgid "Export"
 msgstr "Экспорт"
 
-#: oec/explore/models.py:374
+#: oec/explore/models.py:447 oec/html/explore/embed.html:339
 msgid "Import"
 msgstr "Импорт"
 
-#: oec/explore/models.py:381
+#: oec/explore/models.py:454
 msgid "Classification"
 msgstr "Классификация"
 
-#: oec/explore/models.py:395
+#: oec/explore/models.py:468
 msgid "Start Year"
 msgstr "Год начала"
 
-#: oec/explore/models.py:401
+#: oec/explore/models.py:474
 msgid "End Year"
 msgstr "Конец Год"
 
-#: oec/explore/models.py:409 oec/rankings/views.py:75
+#: oec/explore/models.py:482 oec/rankings/views.py:75
 msgid "Year"
 msgstr "Год"
 
@@ -136,23 +136,24 @@ msgstr ""
 msgid "An emedded visualization."
 msgstr "Emedded визуализации."
 
-#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:699
+#: oec/html/explore/embed.html:13 oec/html/explore/embed.html:742
 msgid "Loading"
 msgstr "Загрузка"
 
-#: oec/html/explore/embed.html:20 oec/html/explore/embed.html:43
+#: oec/html/explore/embed.html:20 oec/html/explore/embed.html:49
+#: oec/html/explore/embed.html:335 oec/html/explore/embed.html:337
 msgid "Value"
 msgstr "Значение"
 
-#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:118
-msgid "Share"
-msgstr "Доля"
+#: oec/html/explore/embed.html:21 oec/html/explore/embed.html:332
+msgid "Percent"
+msgstr "Процент"
 
 #: oec/html/explore/embed.html:28
 msgid "Continent"
 msgstr "Континент"
 
-#: oec/html/explore/embed.html:29 oec/html/explore/embed.html:45
+#: oec/html/explore/embed.html:29 oec/html/explore/embed.html:51
 msgid "Category"
 msgstr "Категория"
 
@@ -164,71 +165,91 @@ msgstr "Страна"
 msgid "Full"
 msgstr "Полный"
 
-#: oec/html/explore/embed.html:47
+#: oec/html/explore/embed.html:42
+msgid "Gross"
+msgstr "Брутто"
+
+#: oec/html/explore/embed.html:43
+msgid "Net"
+msgstr "Сеть"
+
+#: oec/html/explore/embed.html:53
 msgid "Annual Growth Rate (1 year)"
 msgstr "Среднегодовой темп роста (1 год)"
 
-#: oec/html/explore/embed.html:48
+#: oec/html/explore/embed.html:54
 msgid "Annual Growth Rate (5 year)"
 msgstr "Среднегодовой темп роста (5 лет)"
 
-#: oec/html/explore/embed.html:49
+#: oec/html/explore/embed.html:55
 msgid "Growth Value (1 year)"
 msgstr "Стоимость Рост (1 год)"
 
-#: oec/html/explore/embed.html:50
+#: oec/html/explore/embed.html:56
 msgid "Growth Value (5 year)"
 msgstr "Стоимость Рост (5 лет)"
 
-#: oec/html/explore/embed.html:54 oec/html/rankings/index.html:64
+#: oec/html/explore/embed.html:60 oec/html/rankings/index.html:64
 msgid "All Years"
 msgstr "Все годы"
 
-#: oec/html/explore/embed.html:65 oec/html/explore/embed.html:858
+#: oec/html/explore/embed.html:71 oec/html/explore/embed.html:906
 msgid "View as Text"
 msgstr "Просмотр в виде текста"
 
-#: oec/html/explore/embed.html:66
+#: oec/html/explore/embed.html:72
 msgid "Fullscreen"
 msgstr "Полноэкранный"
 
-#: oec/html/explore/embed.html:102
+#: oec/html/explore/embed.html:108
 msgid "Build Visualization"
 msgstr "Построить Визуализация"
 
-#: oec/html/explore/embed.html:105 oec/html/rankings/index.html:59
+#: oec/html/explore/embed.html:111 oec/html/rankings/index.html:59
 msgid "Download"
 msgstr "Скачать"
 
-#: oec/html/explore/embed.html:113
+#: oec/html/explore/embed.html:119
 msgid "Embed"
 msgstr "Вставлять"
 
-#: oec/html/explore/embed.html:134
+#: oec/html/explore/embed.html:124
+msgid "Share"
+msgstr "Доля"
+
+#: oec/html/explore/embed.html:140
 msgid "Short URL"
 msgstr "Короткий URL"
 
-#: oec/html/explore/embed.html:301
+#: oec/html/explore/embed.html:334
 msgid "Export Value"
 msgstr "Стоимость экспорта"
 
-#: oec/html/explore/embed.html:302
+#: oec/html/explore/embed.html:335
+msgid "Net Export"
+msgstr "Чистый экспорт"
+
+#: oec/html/explore/embed.html:336
 msgid "Import Value"
 msgstr "Цена импорта"
 
-#: oec/html/explore/embed.html:305
+#: oec/html/explore/embed.html:337
+msgid "Net Import"
+msgstr "Чистая Импорт"
+
+#: oec/html/explore/embed.html:342
 msgid "value"
 msgstr "значение"
 
-#: oec/html/explore/embed.html:306
+#: oec/html/explore/embed.html:343
 msgid "percentage"
 msgstr "процент"
 
-#: oec/html/explore/embed.html:323
+#: oec/html/explore/embed.html:361
 msgid "Brought to you by"
 msgstr "Привлечены к вам"
 
-#: oec/html/explore/embed.html:853
+#: oec/html/explore/embed.html:901
 msgid "View as App"
 msgstr "Посмотреть, как App"
 
@@ -359,8 +380,8 @@ msgid ""
 "%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
 "with a Product Complexity Index (PCI) of %(pci)s"
 msgstr ""
-"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s с Индекс товаров Сложность (PCI), из "
-"%(pci)s"
+"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s с "
+"Индекс товаров Сложность (PCI), из %(pci)s"
 
 #: oec/html/profile/product.html:33
 #, python-format
@@ -381,11 +402,11 @@ msgstr "SITC рейтинг товаров"
 
 #: oec/html/rankings/index.html:51
 msgid "Change Year"
-msgstr ""
+msgstr "Изменить Год"
 
 #: oec/html/rankings/index.html:61
 msgid "Current Year"
-msgstr ""
+msgstr "Текущий год"
 
 #: oec/html/templates/site.html:19
 msgid "Profiles"
@@ -433,4 +454,3 @@ msgstr "Разряд"
 
 #~ msgid "Download all years data"
 #~ msgstr "Скачать все годы данные"
-
