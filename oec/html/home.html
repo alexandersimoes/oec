@@ -9,32 +9,32 @@
 {% block body %}
 
   <div id="logo_large"><h1>The Observatory of Economic Complexity</h1></div>
-  
+
   <div id="search_bar">
-    
+
     <select id="language_selector">
       {% for lang_id, lang_name in g.supported_langs.iteritems() %}
       <option value="{{ lang_id }}" {% if lang_id == g.locale %} selected="selected" {% endif %}>{{ lang_name }}</option>
       {% endfor %}
     </select>
-    
+
     <input id="search" type="text" data-provide="typeahead" autocomplete="off" autofocus="" placeholder="{{ default_build.get_name() }}" />
   </div>
-  
+
   <h2>
     {{ _('The Observatory of Economic Complexity makes international trade data and economic complexity indicators available through millions of interactive visualizations.') }}
   </h2>
-  
+
   <div class="related">
-    
+
     <div class="related_type">
       <h3>Other projects by Macro Connections<br>@ the MIT Media Lab</h3>
-      <!-- <a href="http://pantheon.media.mit.edu/" target="_blank"> -->
+      <a href="http://pantheon.media.mit.edu/" target="_blank">
         <div class="project" id="pantheon">
-          <span class="soon">Launching March 16</span>
-          Mapping global<br>cultural production
+          <span class="new">{% trans %}New!{% endtrans %}</span>
+          Mapping global cultural production
         </div>
-      <!-- </a> -->
+      </a>
       <a href="http://pulse.media.mit.edu/" target="_blank">
         <div class="project" id="placepulse">
           Mapping of urban perception
@@ -42,14 +42,9 @@
       </a>
       <a href="https://immersion.media.mit.edu/" target="_blank">
         <div class="project" id="immersion">
-          Dive visually into your<br>e-mail metadata
+          Dive visually into your e-mail metadata
         </div>
       </a>
-      <!-- <a href="http://www.participie.com/" target="_blank">
-        <div class="project" id="participie">
-          Exploring designs for augemented democracy.
-        </div>
-      </a> -->
     </div><div class="related_type">
       <h3>Other projects<br>powered by D3plus</h3>
       <a href="http://www.dataviva.info/" target="_blank">
@@ -58,7 +53,7 @@
         </div>
       </a>
     </div>
-    
+
   </div>
-  
+
 {% endblock %}

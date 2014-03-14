@@ -18,7 +18,7 @@ only screen and (   min--moz-device-pixel-ratio: 2),
 only screen and (     -o-min-device-pixel-ratio: 2/1),
 only screen and (        min-device-pixel-ratio: 2),
 only screen and (                min-resolution: 192dpi),
-only screen and (                min-resolution: 2dppx) { 
+only screen and (                min-resolution: 2dppx) {
   div#logo_large {
     background-image: url("/static/img/nav/logo_large_retina.png");
   }
@@ -86,14 +86,14 @@ div.project {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: lighter;
-  margin-right: 10px;
+  margin-right: 20px;
   min-height: 100px;
   padding-top: 110px;
   position: relative;
   -webkit-transition: color .1s;
           transition: color .1s;
   vertical-align: top;
-  width: 150px;
+  width: 140px;
 }
 
 div.project:before {
@@ -102,7 +102,7 @@ div.project:before {
   content: "";
   display: block;
   height: 100px;
-  left: 25px;
+  left: 20px;
   position: absolute;
   top: 0px;
   -webkit-transition: background-image .1s;
@@ -121,6 +121,25 @@ span.soon {
   font-family: "HelveticaNeue-Bold", "Helvetica Neue Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   font-weight: bold;
+}
+
+span.new {
+  background-color: #666;
+  color: white;
+  display: block;
+  font-family: "HelveticaNeue-Bold", "Helvetica Neue Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 5px;
+  position: absolute;
+  right: 15px;
+  -webkit-transition: background-color .1s;
+          transition: background-color .1s;
+  top: 10px;
+}
+
+div.project:hover span.new {
+  background-color: #cc0000;
 }
 
 div#pantheon:before {
