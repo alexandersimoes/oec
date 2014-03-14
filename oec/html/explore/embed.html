@@ -435,7 +435,6 @@ function format_data(error, raw_data, raw_attrs, raw_other){
     d.nest = d[attr_id].substr(0, 2)
     d.id = d[attr_id]
     d["net_"+trade_flow+"_val"] = parseFloat(d[trade_flow+"_val"]) - parseFloat(d[opposite_trade_flow+"_val"]);
-    // console.log(d["net_"+trade_flow+"_val"])
   })
 
 }
@@ -752,8 +751,9 @@ d3.select("#more_years button").on("click", function(){
 
     // go through raw data and set each items nest and id vars properly
     raw_data.data.forEach(function(d){
-      d.nest = d[attr_id].substr(0, 2)
-      d.id = d[attr_id]
+      d.nest = d[attr_id].substr(0, 2);
+      d.id = d[attr_id];
+      d["net_"+trade_flow+"_val"] = parseFloat(d[trade_flow+"_val"]) - parseFloat(d[opposite_trade_flow+"_val"]);
     })
 
     var years = "{{ current_build.year }}"
