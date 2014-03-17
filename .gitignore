@@ -2,12 +2,7 @@
 *.DS_Store
 logs/
 robots.txt
-google8f7012b9de435ae0.html
-django_files/atlas/settings_local.py
-media/img/apps/
-media/db/
+oec/static/db/
 .Python
-bin/
-include/
-lib/
-media/data/
+
+
