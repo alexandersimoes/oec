@@ -159,7 +159,7 @@ class Build(db.Model, AutoSerialize):
         name = " ".join(name_as_words)
         # if replace_term == "<dest>":
         #     raise Exception(name.replace(replace_term, unicode(item_w_article)))
-        return name.replace(replace_term, item_w_article)
+        return name.replace(replace_term, "<strong>{0}</strong>".format(item_w_article))
 
     def get_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
@@ -176,7 +176,7 @@ class Build(db.Model, AutoSerialize):
             name = self.l18n_name(name, "<dest>", self.dest, lang)
             # name = name.replace("<dest>", self.dest.get_name(lang, article=True))
         if "<product>" in name:
-            name = name.replace("<product>", self.product.get_name(lang, article=True))
+            name = name.replace("<product>", "<strong>{0}</strong>".format(self.product.get_name(lang, article=True)))
 
         return name
 

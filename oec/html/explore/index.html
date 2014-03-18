@@ -15,28 +15,12 @@
 {% block description %}{{ current_build.get_question() }} {{ _('Data visualization of economic trade') }}.{% endblock %}
 
 {% block body %}
-<!-- <div class="app_title" id="icons">
-
-  {% if current_build.origin != "show" %}
-  <img src="{{ current_build.origin.get_icon() }}" alt="{{ _('Flag of %(country)s', country=current_build.origin.get_name()) }}">
-  {% elif current_build.origin == "show" and current_build.product %}
-  <img style="background-color: {{ current_build.product.color }};" src="{{ current_build.product.get_icon() }}">
-  {% endif %}
-
-  <h2 class="{{ current_build.app.type }}">{{ current_build.get_year() }}</h2>
-
-  {% if current_build.dest != "show" and current_build.dest != "all" %}
-  <img src="{{ current_build.dest.get_icon() }}" alt="{{ _('Flag of %(country)s', country=current_build.dest.get_name()) }}">
-  {% elif current_build.origin != "show" and current_build.product != "show" and current_build.product != "all" %}
-  <img style="background-color: {{ current_build.product.color }};" src="{{ current_build.product.get_icon() }}">
-  {% endif %}
-</div> -->
 
 <div class="title">
   {% if current_build.get_year()|int > g.available_years[current_build.classification][0] and current_build.app.type != "stacked" %}
   <a class="prev" href="/explore/{{ current_build.url(year=current_build.get_year()|int-1) }}">« {{ _('Previous Year') }}</a>
   {% endif %}
-  <h2>{{ current_build.get_name() }} ({{ current_build.get_year() }})</h2>
+  <h2>{{ current_build.get_name()|safe }} ({{ current_build.get_year() }})</h2>
   {% if current_build.get_year()|int < g.available_years[current_build.classification][-1] and current_build.app.type != "stacked"  %}
   <a class="next" href="/explore/{{ current_build.url(year=current_build.get_year()|int+1) }}">{{ _('Next Year') }} »</a>
   {% endif %}

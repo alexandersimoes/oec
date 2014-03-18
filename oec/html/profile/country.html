@@ -9,7 +9,7 @@
 {% block description %}{{ _('List of major leading exports, imports and complexity economic indicator statistics of %(country)s.', country=attr.get_name()) }} {{ _('Economy of %(country)s.', country=attr.get_name()) }} {{ _('Principle trade partners of %(country)s.', country=attr.get_name()) }} {{ _('Goods and resources of %(country)s.', country=attr.get_name()) }}{% endblock %}
 
 {% block body %}
-<h2>{{ _('Learn More About Trade in %(country)s', country=attr.get_name(article=True)) }}</h2>
+<h2>{{ _('Learn More About Trade in <strong>%(country)s</strong>', country=attr.get_name(article=True)) }}</h2>
 
 <div class="content">
     
