@@ -43,7 +43,7 @@
       {% for b in builds %}
       {% set stats = b.top_stats(5) %}
       <tr>
-        <th>{{ _('Top 5') }} {{ b.get_name() }}</th>
+        <th>{{ _('Top 5') }} {{ b.get_name()|safe }}</th>
         <td>
           {% for entry in stats.entries %}
           {% if loop.last %}and {% endif %}<a href="{{ entry.attr.get_profile_url() }}">{{ entry.attr.get_name() }}</a> ({{ entry.share|format_percent }}){% if not loop.last %}, {% endif %}
@@ -59,7 +59,7 @@
   {% for b in builds %}
     {% set stats = b.top_stats(20) %}
     <div class="build">
-      <h3>{{ b.get_question() }}</h3>
+      <h3>{{ b.get_question()|safe }}</h3>
       {% if not is_iOS %}
       <iframe id="iframe_viz" src="/explore/embed/{{ b.url() }}?controls=false" width="460" height="300" frameborder="0"></iframe>
       {% endif %}
