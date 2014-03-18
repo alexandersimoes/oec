@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block description %}{{ _('An emedded visualization.') }}{% endblock %}
-{% block title %}: {{ current_build.get_name() }}{% endblock %}
+{% block title %}: {{ current_build.get_name()|striptags }}{% endblock %}
 
 {% block content %}
 
@@ -361,7 +361,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
 // console.log(window.innerHeight, viz_height, d3.select("#ui").node().offsetHeight)
 if(!in_explore_page){
   d3.select("a.fullscreen").style("display", "none")
-  viz.title("{{ current_build.get_name()|safe }}")
+  viz.title("{{ current_build.get_name()|safe|striptags }}")
 }
 
 if (in_the_wild) {
