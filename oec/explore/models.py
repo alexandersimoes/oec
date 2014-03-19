@@ -381,8 +381,10 @@ class Build(db.Model, AutoSerialize):
             stat = {
                 "attr": attr,
                 "value": val,
-                "share": (val / sum) * 100
+                "share": 0
             }
+            if(sum):
+                stat["share"] = (val / sum) * 100
             stats.append(stat)
 
         return {"total":sum, "entries":stats, "header":header}
