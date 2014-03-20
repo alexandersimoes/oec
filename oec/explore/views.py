@@ -210,7 +210,7 @@ def embed(app_name, classification, trade_flow, origin, dest, \
     global_vars = {x[0]:x[1] for x in request.args.items()}
     if "controls" not in global_vars:
         global_vars["controls"] = "true"
-
+    
     return render_template("explore/embed.html",
         current_build = current_build,
         global_vars = json.dumps(global_vars),

@@ -94,7 +94,8 @@ class Build(db.Model, AutoSerialize):
         item_w_article = item.get_name(lang, article=True)
         attr_name = item.get_attr_name(lang)
         name_as_words = name.split(" ")
-        prev_word_index = name_as_words.index(replace_term)-1
+        replace_term_word = [s for s in name_as_words if replace_term in s][0]
+        prev_word_index = name_as_words.index(replace_term_word)-1
         prev_word = name_as_words[prev_word_index]
 
         ''' French! '''

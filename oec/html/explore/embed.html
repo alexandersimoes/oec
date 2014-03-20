@@ -265,6 +265,7 @@ d3plus.ui()
     "spacing": 1,
     "align": "left"
   })
+  .width(150)
   .callback(change_color)
   .draw()
 
@@ -361,7 +362,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
 // console.log(window.innerHeight, viz_height, d3.select("#ui").node().offsetHeight)
 if(!in_explore_page){
   d3.select("a.fullscreen").style("display", "none")
-  viz.title("{{ current_build.get_name()|safe|striptags }}")
+  viz.title("{{ current_build.get_name()|striptags|safe }}")
 }
 
 if (in_the_wild) {
@@ -573,7 +574,7 @@ switch (app_type){
         .color("color")
         .text({"nest":"name","id":"name"})
         // .title("Tree Map...")
-        .title({"total": {"prefix":"Total: "}})
+        .title({"total": {"prefix":"{{ _('Total') }}: "}})
 
       finish(raw_data.data, attrs)
     }

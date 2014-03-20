@@ -192,7 +192,7 @@ msgstr "Crecimiento valor (5 años)"
 
 #: oec/html/explore/embed.html:60 oec/html/rankings/index.html:64
 msgid "All Years"
-msgstr "Haga clic para ver más años"
+msgstr "Más Años"
 
 #: oec/html/explore/embed.html:71 oec/html/explore/embed.html:906
 msgid "View as Text"

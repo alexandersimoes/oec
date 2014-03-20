@@ -329,6 +329,11 @@ def home():
 
     return render_template("home.html", default_build=default_build)
 
+@mod.route('iframe_test/')
+@mod.route('iframe_test/<lang>/')
+def iframe_test(lang="en"):
+    return render_template("iframe_test.html", lang=lang)
+
 @mod.route('search/')
 def search():
     query = request.args.get('q', '')
@@ -474,9 +479,11 @@ def embed_legacy(app_name, trade_flow, origin, dest, product, year='2011'):
             c = 'sitc'
             prod = Sitc.query.filter_by(sitc=product).first()
         product = prod.id
-    return redirect(url_for('explore.embed', app_name=app_name, \
+    lang = request.args.get('lang', 'en')
+    redirect_url = url_for('explore.embed', app_name=app_name, \
                 classification=c, trade_flow=trade_flow, origin=origin, \
-                dest=dest, product=product, year=year))
+                dest=dest, product=product, year=year)
+    return redirect(redirect_url+"?controls=false&lang="+lang)
 
 @mod.route('country/<country_id>/')
 def profile_country_legacy(country_id):
