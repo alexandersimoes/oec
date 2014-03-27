@@ -203,18 +203,21 @@ class Search():
             if looking_for == "dest":
                 entity = oec.db_hs.models.Yod.query \
                             .filter_by(origin=have) \
+                            .filter_by(year=available_years[classification][-1]) \
                             .order_by(desc(trade_flow+"_val")).limit(1).first()
 
             elif looking_for == "origin":
                 entity = getattr(oec, "db_"+classification).models.Yop.query \
                             .filter_by(product=have) \
+                            .filter_by(year=available_years[classification][-1]) \
                             .order_by(desc(trade_flow+"_val")).limit(1).first()
 
             elif looking_for == "product":
                 entity = getattr(oec, "db_"+classification).models.Yop.query \
                             .filter_by(origin=have) \
+                            .filter_by(year=available_years[classification][-1]) \
                             .order_by(desc(trade_flow+"_val")).limit(1).first()
-            # raise Exception(getattr(entity, looking_for))
+            
             if entity:
                 return getattr(entity, looking_for)
 
@@ -237,6 +240,7 @@ class Search():
                 exact.append({"value": b.get_question(), "name": b.url()})
             elif origin:
                 default_product = get_default("product", origin, b.trade_flow, classification)
+                # raise Exception(default_product)
                 if default_product:
                     b.set_options(origin=origin, dest=None, product=default_product, classification=classification)
                     close.append({"value": b.get_question(), "name": b.url()})
@@ -286,7 +290,11 @@ class Search():
 
         sitc_products, hs_products, trade_flow = [[]]*3
         countries = self.get_attrs(cleaned_words, Country_name, "country", lang)
-        if len(countries) < len(cleaned_words):
+        
+        flat_countries = [item.get_name() for sublist in countries for item in sublist]
+        country_words = [c.split() for c in flat_countries]
+        country_words = [item for sublist in country_words for item in sublist]
+        if len(country_words) < len(cleaned_words):
             sitc_products = sum(self.get_attrs(cleaned_words, Sitc_name, "sitc", lang), [])
             hs_products = sum(self.get_attrs(cleaned_words, Hs_name, "hs", lang), [])
             trade_flow = self.get_trade_flow(self.text)
@@ -297,14 +305,6 @@ class Search():
         builds = self.get_builds(countries, sitc_products, hs_products, trade_flow)
 
         return builds
-
-        #
-        # builds = self.get_builds(countries, sitc_products, hs_products, trade_flow)
-        # builds_text = [b["value"] for b in builds]
-        #
-        # ordering = [result[0] for result in process.extract(self.text, builds_text, limit=20)]
-        # ordered_builds = [builds[map(itemgetter('value'), builds).index(b)] for b in ordering]
-        # return ordered_builds
 
 ###############################
 # General views
