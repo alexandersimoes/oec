@@ -370,7 +370,8 @@ if(!in_explore_page){
 }
 
 if (in_the_wild) {
-  viz.footer("<a href='"+window.location.origin+"/explore/{{ current_build.url() }}'>{{ _('Brought to you by') }}: The Observatory of Economic Complexity</a>")
+  viz.footer("{{ _('Brought to you by') }}: The Observatory of Economic Complexity")
+  viz.footer({"link": window.location.origin+"/explore/{{ current_build.url() }}"})
 }
 
 if(vars.controls == "false"){
