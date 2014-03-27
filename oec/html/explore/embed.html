@@ -21,7 +21,7 @@
       <input type="radio" name="layout" value="share" id="layout_share" ><label for="layout_share">{{ _('Percent') }}</label>
     </div>
     {% endif %}
-    {% if current_build.app.type == "tree_map" or current_build.app.type == "stacked" %}
+    {% if current_build.app.type == "tree_map" %}
     <div id="depth">
       <input type="radio" name="nesting" value="0" id="nesting0" {% if current_build.app.type =="stacked" and current_build.attr_type() != "origin" and current_build.attr_type() != "dest" %}checked="checked"{% endif %}>
       <label for="nesting0">
@@ -206,7 +206,7 @@ function activate_build_button() {
 }
 
 {% if current_build.app.type == "stacked" %}
-d3plus.ui()
+d3plus.forms()
   .type("radio")
   .data("[name=layout]")
   // .color("#0085BF")
@@ -222,7 +222,7 @@ d3plus.ui()
   .draw()
 {% endif %}
 {% if current_build.app.type != "rings" and current_build.app.type != "network" %}
-d3plus.ui()
+d3plus.forms()
   .type("radio")
   .data("[name=value]")
   .margin(5)
@@ -236,8 +236,8 @@ d3plus.ui()
   .callback(change_value)
   .draw()
 {% endif %}
-{% if current_build.app.type == "tree_map" or current_build.app.type == "stacked" %}
-d3plus.ui()
+{% if current_build.app.type == "tree_map" %}
+d3plus.forms()
   .type("radio")
   .data("[name=nesting]")
   // .color("#0085BF")
@@ -253,7 +253,7 @@ d3plus.ui()
   .draw()
 {% endif %}
 
-d3plus.ui()
+d3plus.forms()
   .type("drop")
   .data("div#color select")
   // .color("#0085BF")
@@ -265,7 +265,6 @@ d3plus.ui()
     "spacing": 1,
     "align": "left"
   })
-  .width(150)
   .callback(change_color)
   .draw()
 
@@ -315,6 +314,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
             .height(viz_height)
             .width(viz_width)
             .icon("icon")
+            .focus({"tooltip": false})
             .number_format(function(number, key){
               if(key){
                 if(key.indexOf("pct") > -1){ return d3.format(".2%")(number); }
@@ -339,12 +339,12 @@ var trade_flow = "{{ current_build.trade_flow }}",
                 if(text == "net_import_val"){ return "{{ _('Net Import') }} {{ _('Value') }}"; }
                 if(text == "export_rca"){ return "{{ _('Export') }} RCA"; }
                 if(text == "import_rca"){ return "{{ _('Import') }} RCA"; }
-                
+
                 if(text == trade_flow+"_val_growth_pct"){ return "{{ _('Annual Growth Rate (1 year)') }}"; }
                 if(text == trade_flow+"_val_growth_pct_5"){ return "{{ _('Annual Growth Rate (5 year)') }}"; }
                 if(text == trade_flow+"_val_growth_val"){ return "{{ _('Growth Value (1 year)') }}"; }
                 if(text == trade_flow+"_val_growth_val_5"){ return "{{ _('Growth Value (5 year)') }}"; }
-                
+
                 // if(text.indexOf("growth") > -1){
                 //   text = text.replace(/_/g," ");
                 //   text = text.replace(/val/g,"{{ _('value') }}");
@@ -446,7 +446,7 @@ function finish(data, attrs){
   d3.selectAll(".dropdown_container")
     .each(function(d,i){
 
-      var ui = d3plus.ui()
+      var ui = d3plus.forms()
         .width(180)
         .padding(5)
         .font({
@@ -573,8 +573,8 @@ switch (app_type){
         .style({"labels": {"align": "start"}})
         .color("color")
         .text({"nest":"name","id":"name"})
-        // .title("Tree Map...")
         .title({"total": {"prefix":"{{ _('Total') }}: "}})
+        .zoom(false)
 
       finish(raw_data.data, attrs)
     }
@@ -624,7 +624,7 @@ switch (app_type){
         .color("color")
         .time("year")
         .nodes(raw_network.nodes)
-        .links(raw_network.edges)
+        .edges(raw_network.edges)
         .active({
           "key": function(d){
             return d.export_rca >= 1;
@@ -655,7 +655,7 @@ switch (app_type){
         .time("year")
         .text("name")
         .nodes(raw_network.nodes)
-        .links(raw_network.edges)
+        .edges(raw_network.edges)
         .active({
           "key": function(d){
             return d.export_rca >= 1;
@@ -698,6 +698,7 @@ switch (app_type){
         .color(trade_flow+"_val")
         .coords(raw_coords)
         .coords({
+          "center": [10,0],
           "padding": 0,
           "mute": ["anata"]
         })
