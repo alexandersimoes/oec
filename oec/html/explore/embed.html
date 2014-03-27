@@ -285,6 +285,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
           .defer(d3.json, "{{ current_build.attr_url() }}"),
     viz = d3plus.viz()
             .container("#viz")
+            .time({"key": "year", "solo": {{ current_build.year }} })
             .aggs({
               "export_val_growth_pct": "mean",
               "export_val_growth_pct_5": "mean",
@@ -311,6 +312,9 @@ var trade_flow = "{{ current_build.trade_flow }}",
                 "heatmap": ["#cccccc","#0085BF"]
               }
             })
+            .title({"total": {"prefix":"{{ _('Total') }}: "}})
+            .text("name")
+            .size(trade_flow+"_val")
             .height(viz_height)
             .width(viz_width)
             .icon("icon")
@@ -565,15 +569,11 @@ switch (app_type){
         .data(raw_data.data)
         .type("tree_map")
         .attrs(attrs)
-        .size(trade_flow+"_val")
         .id(["nest", "id"])
-        .time({"key": "year", "solo": "{{ current_build.year }}" })
         .depth(1)
         .shape("square")
         .style({"labels": {"align": "start"}})
         .color("color")
-        .text({"nest":"name","id":"name"})
-        .title({"total": {"prefix":"{{ _('Total') }}: "}})
         .zoom(false)
 
       finish(raw_data.data, attrs)
@@ -593,14 +593,11 @@ switch (app_type){
         .type("stacked")
         .attrs(attrs)
         .id(["nest", "id"])
-        .time({"key": "year"})
         .depth(d)
         .shape("area")
         .color("color")
         .x("year")
-        .size(trade_flow+"_val")
         .order("nest")
-        .text({"nest":"name","id":"name"})
 
       finish(raw_data.data, attrs)
     }
@@ -618,11 +615,9 @@ switch (app_type){
       viz
         .data(raw_data.data)
         .attrs(attrs)
-        .type("network")
         .id("id")
-        .text("name")
+        .type("network")
         .color("color")
-        .time("year")
         .nodes(raw_network.nodes)
         .edges(raw_network.edges)
         .active({
@@ -649,11 +644,9 @@ switch (app_type){
       viz
         .data(raw_data.data)
         .attrs(attrs)
-        .type("rings")
         .id("id")
+        .type("rings")
         .color("color")
-        .time("year")
-        .text("name")
         .nodes(raw_network.nodes)
         .edges(raw_network.edges)
         .active({
@@ -693,8 +686,6 @@ switch (app_type){
         .type("geo_map")
         .attrs(attrs)
         .id("id")
-        .text("name")
-        .time({"key": "year", "solo": "{{ current_build.year }}" })
         .color(trade_flow+"_val")
         .coords(raw_coords)
         .coords({
@@ -769,10 +760,6 @@ d3.select("#more_years button").on("click", function(){
 
     viz.data(raw_data.data).time({"solo": years}).draw()
     d3.select("#more_years").remove()
-
-    // make_more_years(d3.select("#more_years"), 1995, 2011, years, 1, function(start, end){
-    // var years = d3.range(start, end, year_interval)
-    viz.time({"solo": years}).draw()
 
     if(same_origin){
       if(parent.update_text_table){
