@@ -394,27 +394,25 @@ if(attr_id == "hs_id" || attr_id == "sitc_id" ){
 
 function resize_viz(obj){
 
-  if(viz.data().value.length){
-    var new_width = window.innerWidth;
-    if(vars.controls == "true"){
-       new_width = window.innerWidth - parseInt(d3.select("#controls").style("width"))
-    }
-
-    // var new_height = in_explore_page ? 505 : window.innerHeight - d3.select("#ui").node().offsetHeight;
-    // var new_height = is_iOS ? window.screen.height - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight
-    var new_height = window.innerHeight - d3.select("#ui").node().offsetHeight;
-    if (obj){
-      new_width = obj.width || new_width;
-      new_height = obj.height || new_height;
-    }
-    viz.width(new_width).height(new_height).draw()
-    d3.select("#app #viz")
-      .style("width", new_width+"px")
-      .style("height", new_height+"px")
-    d3.select("#app #text")
-      .style("width", new_width+"px")
-      .style("height", new_height+"px")
+  var new_width = window.innerWidth;
+  if(vars.controls == "true"){
+     new_width = window.innerWidth - parseInt(d3.select("#controls").style("width"))
   }
+
+  // var new_height = in_explore_page ? 505 : window.innerHeight - d3.select("#ui").node().offsetHeight;
+  // var new_height = is_iOS ? window.screen.height - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight
+  var new_height = window.innerHeight - d3.select("#ui").node().offsetHeight;
+  if (obj){
+    new_width = obj.width || new_width;
+    new_height = obj.height || new_height;
+  }
+  viz.width(new_width).height(new_height).draw()
+  d3.select("#app #viz")
+    .style("width", new_width+"px")
+    .style("height", new_height+"px")
+  d3.select("#app #text")
+    .style("width", new_width+"px")
+    .style("height", new_height+"px")
 
 }
 /* general function needed by all apps for making proper nesting and updating
@@ -546,6 +544,8 @@ function finish(data, attrs){
   d3.select("#ui")
     .style("visibility", "visible")
 
+  viz.data(data).attrs(attrs)
+
   resize_viz()
 
   update_text_table(data, attrs)
@@ -566,9 +566,7 @@ switch (app_type){
       raw_data = arguments[1]
 
       viz
-        .data(raw_data.data)
         .type("tree_map")
-        .attrs(attrs)
         .id(["nest", "id"])
         .depth(1)
         .shape("square")
@@ -589,9 +587,7 @@ switch (app_type){
       var d = attr_id == "origin_id" || attr_id == "dest_id" ? 1 : 0;
 
       viz
-        .data(raw_data.data)
         .type("stacked")
-        .attrs(attrs)
         .id(["nest", "id"])
         .depth(d)
         .shape("area")
@@ -613,8 +609,6 @@ switch (app_type){
       raw_network = arguments[3];
 
       viz
-        .data(raw_data.data)
-        .attrs(attrs)
         .id("id")
         .type("network")
         .color("color")
@@ -642,8 +636,6 @@ switch (app_type){
       var focus = "{{ current_build.product.id }}";
 
       viz
-        .data(raw_data.data)
-        .attrs(attrs)
         .id("id")
         .type("rings")
         .color("color")
@@ -682,9 +674,7 @@ switch (app_type){
       })
 
       viz
-        .data(raw_data.data)
         .type("geo_map")
-        .attrs(attrs)
         .id("id")
         .color(trade_flow+"_val")
         .coords(raw_coords)
@@ -758,8 +748,8 @@ d3.select("#more_years button").on("click", function(){
       years = [parseInt(years)]
     }
 
-    viz.data(raw_data.data).time({"solo": years}).draw()
     d3.select("#more_years").remove()
+    viz.data(raw_data.data).time({"solo": years})
 
     if(same_origin){
       if(parent.update_text_table){
