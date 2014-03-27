@@ -45,12 +45,12 @@ div#fullscreen {
 /*******************************************************************/
 /* Used for SEO content that we want crawlers to see but not users */
 /*******************************************************************/
-.visually_hidden { 
-  position: absolute; 
-  overflow: hidden; 
-  clip: rect(0 0 0 0); 
-  height: 1px; width: 1px; 
-  margin: -1px; padding: 0; border: 0; 
+.visually_hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px; width: 1px;
+  margin: -1px; padding: 0; border: 0;
 }
 
 /***************************/
@@ -62,16 +62,16 @@ only screen and (   min--moz-device-pixel-ratio: 2),
 only screen and (     -o-min-device-pixel-ratio: 2/1),
 only screen and (        min-device-pixel-ratio: 2),
 only screen and (                min-resolution: 192dpi),
-only screen and (                min-resolution: 2dppx) { 
+only screen and (                min-resolution: 2dppx) {
 
   body {
     background-image: url("/static/img/nav/tile_retina.png");
   }
-  
+
   div#fullscreen {
     background-image: url("/static/img/nav/map_retina.png");
   }
-  
+
 }
 
 /******************/
@@ -87,7 +87,7 @@ only screen and (                min-resolution: 2dppx) {
 /* White box for Content */
 /*************************/
 .content {
-  background-color: rgba(255,255,255,0.75);
+  background-color: white;
   border: 1px solid #0085BF;
   margin: 0px auto 20px;
   width: 1000px;
@@ -137,7 +137,7 @@ a:hover {
   text-decoration: underline;
 }
 
-a:active, a:focus { 
+a:active, a:focus {
   -moz-outline-style:none;
        outline-style: none;
 }
