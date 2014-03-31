@@ -36,7 +36,8 @@ header nav ul {
 header nav ul li {
   display: inline-block;
   margin: 6px 0px;
-  width: 110px;
+  max-width: 170px;
+  padding: 0px 10px;
 }
 
 header nav a {
@@ -72,7 +73,7 @@ header #d3plus_button_language_selector {
 
 header #search {
   height: 15px;
-  margin-left: 5px;
+  margin: 0px 5px;
   width: 125px;
 }
 
@@ -127,8 +128,8 @@ only screen and (   min--moz-device-pixel-ratio: 2),
 only screen and (     -o-min-device-pixel-ratio: 2/1),
 only screen and (        min-device-pixel-ratio: 2),
 only screen and (                min-resolution: 192dpi),
-only screen and (                min-resolution: 2dppx) { 
-  
+only screen and (                min-resolution: 2dppx) {
+
   header a#logo {
     background-image: url("/static/img/nav/logo_retina.png");
   }
@@ -136,5 +137,5 @@ only screen and (                min-resolution: 2dppx) {
   footer > div#macro_connections {
     background-image: url("/static/img/nav/macro_connections_retina.png");
   }
-  
+
 }
