@@ -107,6 +107,10 @@ div.data_sources h4 {
   padding-bottom: 20px;
 }
 
+#updates article img {
+  max-width: 580px;
+}
+
 #updates article:last-child {
   border-bottom: none
 }
