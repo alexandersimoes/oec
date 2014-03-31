@@ -122,10 +122,10 @@
 
   <div class="control_container" id="share">
     <h3>{{ _('Share') }}</h3>
-    <a href="http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&display=popup&app_id={{facebook_id}}&name={{ current_build.get_name() }}({{ current_build.get_year() }})&link=http://atlas.media.mit.edu/explore/{{ current_build.url() }}&redirect_uri=http://atlas.media.mit.edu/close/&picture=http://atlas.media.mit.edu/static/img/touchicon.png" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=300')" id="Facebook" title="Facebook">
+    <a href="http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&display=popup&app_id={{facebook_id}}&name={{ current_build.get_name()|striptags|safe }}({{ current_build.get_year() }})&link=http://atlas.media.mit.edu/explore/{{ current_build.url() }}&redirect_uri=http://atlas.media.mit.edu/close/&picture=http://atlas.media.mit.edu/static/img/touchicon.png" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=300')" id="Facebook" title="Facebook">
       <i class="fa fa-facebook"></i>
     </a>
-    <a href="https://twitter.com/share?url=http://atlas.media.mit.edu/explore/{{ current_build.url() }}&text={{ current_build.get_name() }} ({{ current_build.get_year() }})&hashtags=oec" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=300')" id="Twitter" title="Tweet">
+    <a href="https://twitter.com/share?url=http://atlas.media.mit.edu/explore/{{ current_build.url() }}{% if g.locale != 'en' %}?lang={{ g.locale }}{% endif %}&text={{ current_build.get_name()|striptags|safe }} ({{ current_build.get_year() }})&hashtags=oec" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=300')" id="Twitter" title="Tweet">
       <i class="fa fa-twitter"></i>
     </a>
     <a href="https://plus.google.com/share?url=http://atlas.media.mit.edu/explore/{{ current_build.url() }}&hl={{ g.locale }}" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Google+', 'width=640,height=300')" id="Google" title="Google+">
@@ -923,17 +923,21 @@ d3.selectAll("#view_as_text a.fullscreen").on("click", function(){
 })
 
 // Download button logic
-d3.selectAll("#download a").on("click", function(){
+d3.selectAll("#download a").on("click", function(format, save, callback){
   // Figure out the title for using as the filename
   var title = window.location.pathname.split("/")
   title.splice(0, 1)
   title.splice(0, 1)
   title.splice(title.length-1, 1)
-  d3.select("input[name='title']").attr("value", title.join("_"));
+  title = title.join("_").replace("embed", "explore")
+  d3.select("input[name='title']").attr("value", title);
 
   // Determine which link the user requested (svg, csv etc.)
-  var format = d3.select(this).attr("data-format");
+  format = format || d3.select(this).attr("data-format");
+  save = save === true ? true : false;
+  
   d3.select("input[name='format']").attr("value", format);
+  d3.select("input[name='save']").attr("value", save);
 
   // If the user wants text, we need to put the table into an array
   // to send to the server
@@ -954,7 +958,7 @@ d3.selectAll("#download a").on("click", function(){
   else {
 
     var svg = d3.select("#viz").select("svg")
-      .attr("title", title.join("_"))
+      .attr("title", title)
       .attr("version", 1.1)
       .attr("xmlns", "http://www.w3.org/2000/svg")
 
@@ -966,8 +970,19 @@ d3.selectAll("#download a").on("click", function(){
   // Submitting the form will trigger the action with will bring up
   // the /export page. The view for this page takes the values from
   // POST request and prompts the user to download the file
-  d3.select('form#download').node().submit();
-  d3.event.preventDefault();
+  if(save){
+    
+    d3.json("/explore/download/")
+        .header("Content-Type", "application/json")
+        .post(JSON.stringify({"title":title, "format":format, "save":save, "content": svg_xml}), function(error, data) {
+          if(callback) { callback() }
+        });
+    
+  }
+  else {
+    d3.select('form#download').node().submit();
+    d3.event.preventDefault();
+  }
 })
 
 function change_depth(d){
@@ -1008,6 +1023,12 @@ function change_color(new_color){
   }
   viz.color(new_color).tooltip(new_tooltip).draw()
 }
+
+d3.selectAll(".share_button#Twitter, .share_button#Facebook").on("click", function(){
+  // trigger image rasterization on server
+  d3.selectAll("#download a.png").on("click")("png", true)
+  d3.event.preventDefault();
+})
 
 /////////////////////////////
 // Initialize page --

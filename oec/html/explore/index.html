@@ -9,6 +9,21 @@
     {% if current_build.get_year()|int < g.available_years[current_build.classification][-1]  %}
     <link rel="next" href="/explore/{{ current_build.url(year=current_build.get_year()|int+1) }}" />
     {% endif %}
+    
+    <!-- Twitter "photo card" -->
+    <meta name="twitter:card" content="photo">
+    <meta name="twitter:title" content="{{ current_build.get_name()|striptags|safe }}">
+    <meta name="twitter:image:src" content="http://atlas.media.mit.edu/static/generated/{{ g.locale }}_{{ request.path.split('/')[1:-1]|join('_') }}.png">
+    <meta name="twitter:domain" content="atlas.media.mit.edu">
+    <meta name="twitter:url" content="http://atlas.media.mit.edu{{ request.path }}{% if g.locale != 'en' %}?lang={{ g.locale }}{% endif %}">
+    
+    <!-- Facebook Properties -->
+    <meta property="og:image" content="http://atlas.media.mit.edu/static/generated/{{ g.locale }}_{{ request.path.split('/')[1:-1]|join('_') }}.png" />
+    <meta property="og:title" content="{{ current_build.get_name()|striptags|safe }}">
+    <meta property="og:url" content="http://atlas.media.mit.edu{{ request.path }}{% if g.locale != 'en' %}?lang={{ g.locale }}{% endif %}">
+    <meta property="og:site_name" content="The Observatory of Economic Complexity"/>
+    <meta property="og:type" content="website" />
+    
 {% endblock %}
 
 {% block title %}: {{ current_build.get_name()|striptags }} ({{ current_build.get_year() }}){% endblock %}

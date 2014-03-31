@@ -1,10 +1,10 @@
-import time, urllib, urllib2, json
+import os, time, urllib, urllib2, json
 
 from flask import Blueprint, render_template, g, request, session, redirect, \
                     url_for, flash, jsonify, Response, abort
 from flask.ext.babel import gettext
 
-from oec import app, db, babel, view_cache, random_countries, available_years
+from oec import app, db, babel, view_cache, random_countries, available_years, oec_dir
 from oec.utils import make_query, make_cache_key
 from oec.db_attr.models import Country, Sitc, Hs
 from oec.explore.models import Build, App, Short
@@ -238,11 +238,18 @@ def shorten_url():
 def download():
     import tempfile, subprocess
 
-    data = request.form["content"]
-    format = request.form["format"]
-    title = request.form["title"]
-
+    data = request.form.get("content", None) or request.json.get("content", None)
+    format = request.form.get("format", None) or request.json.get("format", None)
+    title = request.form.get("title", None) or request.json.get("title", None)
+    title = "{0}_{1}".format(g.locale, title)
+    save = request.json.get("save", False) if request.json else None
+    
     temp = tempfile.NamedTemporaryFile()
+    if save:
+        file_path = os.path.abspath(os.path.join(oec_dir, 'static/generated', "{0}.png".format(title)))
+        if os.path.isfile(file_path):
+            return jsonify({"file_name":"{0}.png".format(title), "new":False})
+        new_file = open(file_path, 'w')
     temp.write(data.encode("utf-8"))
     temp.seek(0)
 
@@ -258,12 +265,19 @@ def download():
     if format == "png" or format == "pdf":
         zoom = "1"
         background = "#ffffff"
-        p = subprocess.Popen(["rsvg-convert", "-z", zoom, "-f", format, "--background-color={0}".format(background), temp.name], stdout=subprocess.PIPE)
-        out, err = p.communicate()
-        response_data = out
+        if save:
+            p = subprocess.Popen(["rsvg-convert", "-z", zoom, "-f", format, "-o", file_path, "--background-color={0}".format(background), temp.name])
+            out, err = p.communicate()
+        else:
+            p = subprocess.Popen(["rsvg-convert", "-z", zoom, "-f", format, "--background-color={0}".format(background), temp.name], stdout=subprocess.PIPE)
+            out, err = p.communicate()
+            response_data = out
     else:
         response_data = data.encode("utf-8")
-
+    
+    if save:
+        return jsonify({"file_name":os.path.basename(new_file.name), "new":True})
+    
     content_disposition = "attachment;filename=%s.%s" % (title, format)
     content_disposition = content_disposition.replace(",", "_")
 
