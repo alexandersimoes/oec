@@ -3,6 +3,7 @@
 logs/
 robots.txt
 oec/static/db/
+oec/static/generated/
 .Python
 
 
