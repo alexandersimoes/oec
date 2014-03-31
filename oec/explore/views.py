@@ -238,11 +238,11 @@ def shorten_url():
 def download():
     import tempfile, subprocess
 
-    data = request.form.get("content", request.json.get("content", None))
-    format = request.form.get("format", request.json.get("format", None))
-    title = request.form.get("title", request.json.get("title", None))
+    data = request.form.get("content", None) or request.json.get("content", None)
+    format = request.form.get("format", None) or request.json.get("format", None)
+    title = request.form.get("title", None) or request.json.get("title", None)
     title = "{0}_{1}".format(g.locale, title)
-    save = request.form.get("save", request.json.get("save", False))
+    save = request.json.get("save", False) if request.json else None
     
     temp = tempfile.NamedTemporaryFile()
     if save:

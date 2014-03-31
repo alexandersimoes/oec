@@ -147,7 +147,6 @@
     <input type="hidden" name="url" value="" />
     <input type="hidden" name="title" value="" />
     <input type="hidden" name="format" value="svg" />
-    <input type="hidden" name="save" value="" />
     <input type="hidden" name="content" value="" />
   </form>
 
@@ -926,6 +925,7 @@ d3.selectAll("#download a").on("click", function(format, save, callback){
 
   // Determine which link the user requested (svg, csv etc.)
   format = format || d3.select(this).attr("data-format");
+  save = save === true ? true : false;
   
   d3.select("input[name='format']").attr("value", format);
   d3.select("input[name='save']").attr("value", save);
