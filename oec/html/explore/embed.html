@@ -268,6 +268,15 @@ d3plus.forms()
   .callback(change_color)
   .draw()
 
+var years = "{{ current_build.year }}"
+if(years.indexOf(".") > 0){
+  years = years.split(".")
+  years = d3.range(parseInt(years[0]), parseInt(years[1])+1)
+}
+else {
+  years = [parseInt(years)]
+}
+
 /* init vars */
 var trade_flow = "{{ current_build.trade_flow }}",
     opposite_trade_flow = trade_flow == "export" ? "import" : "export";
@@ -285,7 +294,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
           .defer(d3.json, "{{ current_build.attr_url() }}"),
     viz = d3plus.viz()
             .container("#viz")
-            .time({"key": "year", "solo": {{ current_build.year }} })
+            .time({"key": "year", "solo": years })
             .aggs({
               "export_val_growth_pct": "mean",
               "export_val_growth_pct_5": "mean",
