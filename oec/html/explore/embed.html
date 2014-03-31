@@ -921,7 +921,8 @@ d3.selectAll("#download a").on("click", function(format, save, callback){
   title.splice(0, 1)
   title.splice(0, 1)
   title.splice(title.length-1, 1)
-  d3.select("input[name='title']").attr("value", title.join("_"));
+  title = title.join("_").replace("embed", "explore")
+  d3.select("input[name='title']").attr("value", title);
 
   // Determine which link the user requested (svg, csv etc.)
   format = format || d3.select(this).attr("data-format");
@@ -948,7 +949,7 @@ d3.selectAll("#download a").on("click", function(format, save, callback){
   else {
 
     var svg = d3.select("#viz").select("svg")
-      .attr("title", title.join("_"))
+      .attr("title", title)
       .attr("version", 1.1)
       .attr("xmlns", "http://www.w3.org/2000/svg")
 
@@ -964,23 +965,7 @@ d3.selectAll("#download a").on("click", function(format, save, callback){
     
     d3.json("/explore/download/")
         .header("Content-Type", "application/json")
-        .post(JSON.stringify({"title":title.join("_"), "format":format, "save":save, "content": svg_xml}), function(error, data) {
-          
-          d3.select("head").append("meta")
-            .attr("name", "twitter:card")
-            .attr("content", "photo")
-          
-          d3.select("head").append("meta")
-            .attr("name", "twitter:title")
-            .attr("content", "{{ current_build.get_name()|striptags|safe }}")
-          
-          d3.select("head").append("meta")
-            .attr("name", "twitter:img:src")
-            .attr("content", "http://atlas.media.mit.edu/static/generated/"+data.file_name)
-          
-          d3.select("head").append("meta")
-            .attr("name", "twitter:domain")
-            .attr("content", "atlas.media.mit.edu")
+        .post(JSON.stringify({"title":title, "format":format, "save":save, "content": svg_xml}), function(error, data) {
           
           callback()
           
