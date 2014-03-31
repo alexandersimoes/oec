@@ -160,7 +160,6 @@
 <script src="/static/js/libs/d3plus.js"></script>
 <script src="/static/js/libs/queue.js"></script>
 <script src="/static/js/libs/topojson.js"></script>
-<script src="/static/js/libs/jfont-minified.js"></script>
 <script src="/static/js/d3.tabulate.js"></script>
 
 <script>
@@ -181,12 +180,6 @@ catch (e) {}
 d3.select("#loading")
   .style("height",window.innerHeight+"px")
   .style("opacity",1)
-
-var d3plus_font = null
-var fonts = ["HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
-fonts.forEach(function(font){
-  if (checkfont(font) && !d3plus_font) d3plus_font = font
-})
 
 function activate_build_button() {
   if (d3.select("button#build").classed("active") == false) {
@@ -313,10 +306,6 @@ var trade_flow = "{{ current_build.trade_flow }}",
             })
             .style({
               "background":"none",
-              "font": {
-                "family": d3plus_font,
-                "weight": "normal"
-              },
               "color": {
                 "heatmap": ["#cccccc","#0085BF"]
               }
@@ -333,7 +322,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
                 if(key.indexOf("pct") > -1){ return d3.format(".2%")(number); }
                 if(key == "year"){ return number; }
               }
-              var ret = d3plus.public.number_format["value"](number,key)
+              var ret = d3plus.public.number_format.value(number,key)
               if (key && ["export_val","import_val","net_export_val","net_import_val"].indexOf(key) >= 0) {
                 ret = "$"+ret
               }
@@ -367,7 +356,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
                 if(text.indexOf("Values") >= 0 && !key){
                   return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
                 }
-                return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+                return d3plus.public.text_format.value(text,key);
               }
             });
 
@@ -935,7 +924,7 @@ d3.selectAll("#download a").on("click", function(format, save, callback){
   // Determine which link the user requested (svg, csv etc.)
   format = format || d3.select(this).attr("data-format");
   save = save === true ? true : false;
-  
+
   d3.select("input[name='format']").attr("value", format);
   d3.select("input[name='save']").attr("value", save);
 
@@ -971,13 +960,13 @@ d3.selectAll("#download a").on("click", function(format, save, callback){
   // the /export page. The view for this page takes the values from
   // POST request and prompts the user to download the file
   if(save){
-    
+
     d3.json("/explore/download/")
         .header("Content-Type", "application/json")
         .post(JSON.stringify({"title":title, "format":format, "save":save, "content": svg_xml}), function(error, data) {
           if(callback) { callback() }
         });
-    
+
   }
   else {
     d3.select('form#download').node().submit();
