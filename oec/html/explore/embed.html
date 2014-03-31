@@ -125,7 +125,7 @@
     <a href="http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&display=popup&app_id={{facebook_id}}&name={{ current_build.get_name() }}({{ current_build.get_year() }})&link=http://atlas.media.mit.edu/explore/{{ current_build.url() }}&redirect_uri=http://atlas.media.mit.edu/close/&picture=http://atlas.media.mit.edu/static/img/touchicon.png" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=300')" id="Facebook" title="Facebook">
       <i class="fa fa-facebook"></i>
     </a>
-    <a href="https://twitter.com/share?url=http://atlas.media.mit.edu/explore/{{ current_build.url() }}&text={{ current_build.get_name()|striptags|safe }} ({{ current_build.get_year() }})&hashtags=oec" class="share_button" target="_blank" id="Twitter" title="Tweet">
+    <a href="https://twitter.com/share?url=http://atlas.media.mit.edu/explore/{{ current_build.url() }}&text={{ current_build.get_name()|striptags|safe }} ({{ current_build.get_year() }})&hashtags=oec" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=300')" id="Twitter" title="Tweet">
       <i class="fa fa-twitter"></i>
     </a>
     <a href="https://plus.google.com/share?url=http://atlas.media.mit.edu/explore/{{ current_build.url() }}&hl={{ g.locale }}" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Google+', 'width=640,height=300')" id="Google" title="Google+">
@@ -966,9 +966,7 @@ d3.selectAll("#download a").on("click", function(format, save, callback){
     d3.json("/explore/download/")
         .header("Content-Type", "application/json")
         .post(JSON.stringify({"title":title, "format":format, "save":save, "content": svg_xml}), function(error, data) {
-          
-          callback()
-          
+          if(callback) { callback() }
         });
     
   }
@@ -1022,7 +1020,7 @@ d3.select(".share_button#Twitter").on("click", function(){
   var my_callback = function(){
     return !window.open(share_url, 'Twitter', 'width=640,height=300')
   }
-  d3.selectAll("#download a.png").on("click")("png", true, my_callback)
+  d3.selectAll("#download a.png").on("click")("png", true)
   d3.event.preventDefault();
 })
 

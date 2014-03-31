@@ -241,11 +241,14 @@ def download():
     data = request.form.get("content", request.json.get("content", None))
     format = request.form.get("format", request.json.get("format", None))
     title = request.form.get("title", request.json.get("title", None))
+    title = "{0}_{1}".format(g.locale, title)
     save = request.form.get("save", request.json.get("save", False))
     
     temp = tempfile.NamedTemporaryFile()
     if save:
         file_path = os.path.abspath(os.path.join(oec_dir, 'static/generated', "{0}.png".format(title)))
+        if os.path.isfile(file_path):
+            return jsonify({"file_name":"{0}.png".format(title), "new":False})
         new_file = open(file_path, 'w')
     temp.write(data.encode("utf-8"))
     temp.seek(0)
@@ -273,7 +276,7 @@ def download():
         response_data = data.encode("utf-8")
     
     if save:
-        return jsonify({"file_name":os.path.basename(new_file.name)})
+        return jsonify({"file_name":os.path.basename(new_file.name), "new":True})
     
     content_disposition = "attachment;filename=%s.%s" % (title, format)
     content_disposition = content_disposition.replace(",", "_")

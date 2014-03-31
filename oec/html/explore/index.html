@@ -11,21 +11,10 @@
     {% endif %}
     
     <meta name="twitter:card" content="photo">
-    <meta name="twitter:site" content="">
-    <meta name="twitter:creator" content="">
     <meta name="twitter:title" content="{{ current_build.get_name()|striptags|safe }}">
-    <meta name="twitter:image:src" content="http://atlas.media.mit.edu/static/generated/{{ request.path.split('/')[1:-1]|join('_') }}.png">
+    <meta name="twitter:image:src" content="http://atlas.media.mit.edu/static/generated/{{ g.locale }}_{{ request.path.split('/')[1:-1]|join('_') }}.png">
     <meta name="twitter:domain" content="atlas.media.mit.edu">
     <meta name="twitter:url" content="http://atlas.media.mit.edu{{ request.path }}">
-    <meta name="twitter:app:name:iphone" content="">
-    <meta name="twitter:app:name:ipad" content="">
-    <meta name="twitter:app:name:googleplay" content="">
-    <meta name="twitter:app:url:iphone" content="">
-    <meta name="twitter:app:url:ipad" content="">
-    <meta name="twitter:app:url:googleplay" content="">
-    <meta name="twitter:app:id:iphone" content="">
-    <meta name="twitter:app:id:ipad" content="">
-    <meta name="twitter:app:id:googleplay" content="">
     
 {% endblock %}
 
