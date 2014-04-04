@@ -6,7 +6,7 @@
 <div id="fullscreen"></div>
 
 <div id="container">
-  
+
   <header>
     <div class="col1">
       {% if g.page_type != 'home' %}
@@ -32,9 +32,9 @@
         <input id="search" type="text" data-provide="typeahead" autocomplete="off" placeholder="Search" />
       {% endif %}
     </div>
-    
+
   </header>
-    
+
   {% block body %}
   {% endblock %}
 
@@ -60,7 +60,7 @@
     var change_language = function(lang){
         window.location = "/set_lang/"+lang+"/";
     };
-    
+
     if ("{{g.page_type}}" == "home") {
       var padding = 6.5,
           size = 18,
@@ -77,7 +77,7 @@
           width = {"button": 30, "drop": false},
           align = "center"
     }
-    
+
     d3plus.forms()
       .type("drop")
       .data("#language_selector")
@@ -88,9 +88,9 @@
       .icon(arrow)
       .width(width)
       .font({
-        "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+        "family": "'Helvetica Neue', 'HelveticaNeue', 'Helvetica', 'Arial', 'sans-serif'",
         "size": size,
-        "weight": "lighter",
+        "weight": "normal",
         "spacing": 1,
         "align": align
       })
@@ -98,14 +98,14 @@
       .align(align)
       .callback(change_language)
       .draw()
-    
+
   }
-  
+
   resizebg = function() {
-    var w = window.innerWidth, 
+    var w = window.innerWidth,
         h = window.innerHeight,
         aspect = w/h
-        
+
     if (aspect > 2) {
       d3.select("#fullscreen").style("background-size",w+"px "+(w/2)+"px")
     }
@@ -117,7 +117,7 @@
   resizebg()
 
   window.onresize = resizebg
-  
+
   $('#search').typeahead({
     name: 'my_search',
     limit: 10,
@@ -131,10 +131,10 @@
     $('#search').focus()
   }
 
-  $('#search').bind('typeahead:selected', function(obj, datum, name) {      
+  $('#search').bind('typeahead:selected', function(obj, datum, name) {
     window.location = "/explore/"+datum["name"];
   });
-  
+
 </script>
 
 {% endblock %}

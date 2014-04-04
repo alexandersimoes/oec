@@ -15,8 +15,6 @@ body.profile .content {
 
 p.country_name {
   font-size: 28px;
-  font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", Helvetica, Arial, sans-serif;
-  font-weight: lighter;
   line-height: 30px;
   margin: 10px;
   min-height: 40px;
@@ -41,8 +39,7 @@ span.icon img {
 }
 
 p.eci_value {
-  font-size: 15px;
-  line-height: 20px;
+  line-height: 18px;
   margin: 10px;
 }
 
@@ -75,7 +72,7 @@ div#community_treemap{
   float: left;
 }
 div#headline_info {
-  float: right; 
+  float: right;
   width: 420px;
 }
 div#headline_info p span{
@@ -85,7 +82,7 @@ div#headline_info img {
   width: 20px;
 }
 div#data_text {
-  float: right;      
+  float: right;
   height: 400px;
   overflow-y: scroll;
   width: 420px;

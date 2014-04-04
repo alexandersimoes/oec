@@ -12,9 +12,7 @@ div#cover {
 }
 
 blockquote {
-  font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", Helvetica, Arial, sans-serif;
   font-size: 20px;
-  font-weight: lighter;
   letter-spacing: 1px;
   margin: 80px 40px;
 }
@@ -26,9 +24,7 @@ blockquote p {
 div#license {
   color: #888;
   display: block;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", Helvetica, Arial, sans-serif;
   font-size: 10px;
-  font-weight: lighter;
   margin: 10px auto;
   width: 300px;
 }

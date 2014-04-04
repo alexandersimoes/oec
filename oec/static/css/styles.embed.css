@@ -20,7 +20,6 @@ div#loading {
 
 div#loading > h2 {
   display: block;
-  letter-spacing: 1px;
   margin-top: -16px;
   opacity: 0.25;
   position: absolute;
@@ -185,9 +184,7 @@ div#loading > h2 {
 #controls button#build {
   background-color: #0085BF;
   color: white;
-  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12px;
-  font-weight: lighter;
   height: 0px;
   padding: 0px 20px;
   position: relative;
@@ -255,9 +252,7 @@ div#loading > h2 {
 #controls input {
   border: solid 1px rgb(236, 236, 236);
   color: #888;
-  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12px;
-  font-weight: lighter;
   letter-spacing: 1px;
   margin: 0px;
   overflow: hidden;
