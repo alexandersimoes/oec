@@ -184,7 +184,7 @@ d3plus.forms = function(passed) {
     "color": "#ffffff",
     "corners": 0,
     "display": "inline-block",
-    "font-family": "'HelveticaNeue', 'Helvetica', 'Arial', 'sans-serif'",
+    "font-family": "'Helvetica Neue', 'HelveticaNeue', 'Helvetica', 'Arial', 'sans-serif'",
     "font-size": 12,
     "font-spacing": 0,
     "font-weight": 200,
@@ -9695,7 +9695,7 @@ d3plus.styles.default = {
       "align": "center",
       "color": "#444",
       "decoration": "none",
-      "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+      "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
       "size": 10,
       "transform": "none",
       "weight": 200
@@ -9706,7 +9706,7 @@ d3plus.styles.default = {
   "font": {
     "color": "#444",
     "decoration": "none",
-    "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+    "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
     "transform": "none",
     "weight": 200
   },
@@ -9724,7 +9724,7 @@ d3plus.styles.default = {
     "segments": 2,
     "font": {
       "decoration": "none",
-      "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+      "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
       "size": 10,
       "transform": "none",
       "weight": 200
@@ -9737,7 +9737,7 @@ d3plus.styles.default = {
     },
     "label": {
       "color": "#444",
-      "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+      "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
       "weight": 200,
       "size": 12
     },
@@ -9745,7 +9745,7 @@ d3plus.styles.default = {
     "tick": {
       "align": "middle",
       "color": "#444",
-      "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+      "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
       "weight": 200,
       "size": 10
     }
@@ -9754,7 +9754,7 @@ d3plus.styles.default = {
     "font": {
       "color": "#444",
       "decoration": "none",
-      "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+      "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
       "transform": "none",
       "weight": 200
     },
@@ -9762,7 +9762,7 @@ d3plus.styles.default = {
       "font": {
         "color": "#444",
         "decoration": "underline",
-        "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+        "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
         "transform": "none",
         "weight": 200
       },
@@ -9772,7 +9772,7 @@ d3plus.styles.default = {
     "font": {
       "color": "#444",
       "decoration": "none",
-      "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+      "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
       "size": 18,
       "transform": "none",
       "weight": 200
@@ -9786,7 +9786,7 @@ d3plus.styles.default = {
     "font": {
       "color": "#888",
       "decoration": "none",
-      "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+      "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
       "size": 12,
       "transform": "none",
       "weight": 200
@@ -9811,14 +9811,14 @@ d3plus.styles.default = {
     "height": 20,
     "label": {
       "color": "#444",
-      "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+      "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
       "weight": 200,
       "size": 12
     },
     "tick": {
       "align": "middle",
       "color": "#E5E5E5",
-      "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+      "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
       "weight": 200,
       "size": 10
     }
@@ -9832,7 +9832,7 @@ d3plus.styles.default = {
       "align": "center",
       "color": "#444",
       "decoration": "none",
-      "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+      "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
       "size": 13,
       "transform": "none",
       "weight": 200
@@ -9845,7 +9845,7 @@ d3plus.styles.default = {
         "align": "center",
         "color": "#444",
         "decoration": "none",
-        "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+        "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
         "size": 13,
         "transform": "none",
         "weight": 200
@@ -9858,7 +9858,7 @@ d3plus.styles.default = {
         "align": "center",
         "color": "#444",
         "decoration": "none",
-        "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+        "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
         "size": 13,
         "transform": "none",
         "weight": 200
@@ -9877,7 +9877,7 @@ d3plus.styles.default = {
     },
     "font": {
       "color": "#444",
-      "family": ["HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
+      "family": ["Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"],
       "size": 12,
       "transform": "none",
       "weight": 200
