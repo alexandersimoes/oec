@@ -428,10 +428,14 @@ function format_data(error, raw_data, raw_attrs, raw_other){
   })
 
   // go through raw data and set each items nest and id vars properly
+  // also calculate net values
   raw_data.data.forEach(function(d){
     d.nest = d[attr_id].substr(0, 2)
     d.id = d[attr_id]
-    d["net_"+trade_flow+"_val"] = parseFloat(d[trade_flow+"_val"]) - parseFloat(d[opposite_trade_flow+"_val"]);
+    var net_val = parseFloat(d[trade_flow+"_val"]) - parseFloat(d[opposite_trade_flow+"_val"]);
+    if(net_val > 0){
+      d["net_"+trade_flow+"_val"] = net_val;
+    }
   })
 
 }
@@ -977,12 +981,22 @@ function change_value(d){
   var new_tooltip = viz.tooltip()["value"]
 
   if(d == "net"){
-    viz.size("net_"+trade_flow+"_val")
+    if(app_type == "geo_map"){
+      viz.color("net_"+trade_flow+"_val")
+    }
+    else {
+      viz.size("net_"+trade_flow+"_val")
+    }
     var gross_index = new_tooltip.indexOf("net_"+trade_flow+"_val")
     new_tooltip.splice(gross_index, 0, "net_"+trade_flow+"_val")
   }
   else if(d == "gross"){
-    viz.size(trade_flow+"_val")
+    if(app_type == "geo_map"){
+      viz.color(trade_flow+"_val")
+    }
+    else {
+      viz.size(trade_flow+"_val")
+    }
     var net_index = new_tooltip.indexOf("net_"+trade_flow+"_val")
     if (net_index > -1) { new_tooltip.splice(net_index, 1) }
   }
