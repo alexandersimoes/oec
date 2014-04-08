@@ -14,12 +14,32 @@
 <div class="content">
 
   <div class="col1_5">
-    <p class="country_name">
-      <span class="icon" style="background-color:{{ attr.color }}">
-        <img src="{{ attr.get_icon() }}" alt="{{ attr.get_name() }} icon" />
-      </span>
-      {{ attr.get_name() }}
-    </p>
+    <div class="dropdown_container" id="product" data-url="/attr/{{ attr.classification }}/">
+      <select id="product_selector">
+        <option {% if attr.conversion %}data-conversion="{{ attr.conversion }}"{% endif %}
+            {% if attr.keywords %}data-keywords="{{ attr.keywords }}"{% endif %}
+            data-image="{{ attr.get_icon() }}" 
+            data-color="{{ attr.color }}" 
+            data-style="knockout" 
+            value="{{ attr.get_display_id() }}" 
+            selected="selected">{{ attr.get_name() }}</option>
+      </select>
+    </div>
+    <div id="viz"></div>
+  </div><div class="col2">
+    <table class="striped">
+      {% for b in builds %}
+      {% set stats = b.top_stats(5) %}
+      <tr>
+        <th>{{ _('Top 5') }} {{ b.get_name()|safe }}</th>
+        <td>
+          {% for entry in stats.entries %}
+          {% if loop.last %}and {% endif %}<a href="{{ entry.attr.get_profile_url() }}">{{ entry.attr.get_name() }}</a> ({{ entry.share|format_percent }}){% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
     {% set top_countries = attr.get_top(10) %}
     {% if attr.get_yp().pci_rank %}
       <p class="eci_value">
@@ -38,20 +58,6 @@
         <i class="fa fa-tags"></i> {{ attr.get_keywords() }}
       </p>
     {% endif %}
-  </div><div class="col2">
-    <table class="striped">
-      {% for b in builds %}
-      {% set stats = b.top_stats(5) %}
-      <tr>
-        <th>{{ _('Top 5') }} {{ b.get_name()|safe }}</th>
-        <td>
-          {% for entry in stats.entries %}
-          {% if loop.last %}and {% endif %}<a href="{{ entry.attr.get_profile_url() }}">{{ entry.attr.get_name() }}</a> ({{ entry.share|format_percent }}){% if not loop.last %}, {% endif %}
-          {% endfor %}
-        </td>
-      </tr>
-      {% endfor %}
-    </table>
   </div>
       
   <br />
@@ -95,5 +101,73 @@
     .style("background-color", function(d, i){
       return color(parseInt(this.innerHTML));
     })
+  
+  var product_selector = d3plus.forms()
+    .element(d3.select("#product_selector"))
+    .type("drop")
+    .width(280)
+    .large(400)
+    .font({
+      "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+      "size": 26,
+      "weight": "lighter",
+      "spacing": 1,
+      "align": "left"
+    })
+    .callback(function(d){
+      window.location = "/profile/{{ attr.classification }}/"+d+"/"
+    })
+    .data({
+      "callback": function(array) {
+        return array.filter(function(a){
+          a.icon_style = "knockout"
+          return a.id.length != 2
+        })
+      },
+      "fetch": d3.select(".dropdown_container#product").attr("data-url"),
+      "key": "data",
+      "map": {
+        "value": "display_id",
+        "style": "icon_style",
+        "image": "icon",
+        "text": "name",
+        "alt": "keywords",
+        "color": "color",
+        "conversion": "conversion"
+      }
+    })
+    .draw()
+
+  d3.json("/attr/{{ attr.classification }}/", function(raw_attrs){
+    
+    var attrs = {}
+    
+    // set key 'nest' to their id
+    raw_attrs.data.forEach(function(d){
+      attrs[d.id] = d
+      // attrs[d.id]["icon"] = "/static/img/icons/country/{{ attr.classification }}_"+d.id+".png"
+      if("{{ attr.classification }}" == "hs"){
+        attrs[d.id]["icon"] = "/static/img/icons/hs/hs_"+d.id.substr(0, 2)+".png"
+      }
+      else {
+        attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
+      }
+    })
+    
+    d3.json("/static/json/network_{{ attr.classification }}.json", function(raw_network){
+      var visualization = d3plus.viz()
+          .attrs(attrs)
+          .icon({"style":"knockout"})
+          .color("color")
+          .text("name")
+          .container("#viz")
+          .type("rings")
+          .edges(raw_network.edges)
+          .focus("{{ attr.id }}")
+          .width(280)
+          .height(280)
+          .draw()
+    })
+  })
 </script>
 {% endblock %}

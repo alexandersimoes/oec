@@ -56,7 +56,11 @@ div.build a.button > i {
   float: right;
   margin-top: 1px;
 }
-
+div#geo {
+  border: solid 1px red;
+  width: 280px;
+  height: 280px;
+}
 
 
 
@@ -100,4 +104,8 @@ div#data_text {
 #quick_glance {
   overflow: hidden;
   width: 100%;
+}
+
+#viz {
+  margin: 10px 0 0  0;
 }

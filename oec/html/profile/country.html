@@ -3,6 +3,8 @@
 {% block head %}
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.profile.css" />
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.table.css" />
+    <!-- load topojson library -->
+    <script src="http://www.d3plus.org/js/topojson.js"></script>
 {% endblock %}
 
 {% block title %}: {{ _('%(country)s (%(country_abbrv)s) Profile of Exports, Imports and Trade Partners', country=attr.get_name(), country_abbrv=attr.get_display_id()|upper) }}{% endblock %}
@@ -14,25 +16,12 @@
 <div class="content">
     
   <div class="col1_5">
-    <p class="country_name">
-      <span class="icon">
-        <img src="{{ attr.get_icon() }}" alt="{{ attr.get_name() }} icon" />
-      </span>
-      {{ attr.get_name() }}
-    </p>
-    {% set top_prods = attr.get_top(10) %}
-    {% if attr.get_attr_yo().eci_rank %}
-      <p class="eci_value">
-        {% autoescape false %}
-        {{ _('%(country)s %(ranked)s %(rank_val)s with an Economic Complexity Index (ECI) of %(eci)s', country=attr.get_name(article=True), ranked='<a href="/rankings/country/">%s</a>' % (_('is ranked')), rank_val='<span class="rank">%s</span>' % (attr.get_attr_yo().eci_rank), eci=attr.get_attr_yo().eci) }}
-        {% endautoescape %}
-      </p>
-    {% endif %}
-    {% if top_prods %}
-      <p class="eci_value">
-        {{ _('%(country)s is the top exporter of', country=attr.get_name(article=True)) }}{% for yp in top_prods %} {% if loop.last and loop.length > 1 %}{{ _('and') }} {% endif %}<a href="{{ yp.product.get_profile_url() }}">{{ yp.product.get_name() }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.
-      </p>
-    {% endif %}
+    <div class="dropdown_container" id="origin" data-url="/attr/country/">
+      <select id="origin_selector">
+        <option data-image="{{ attr.get_icon() }}" data-color="#752277" value="{{ attr.get_display_id() }}" selected="selected">{{ attr.get_name() }}</option>
+      </select>
+    </div>
+    <div id="viz"></div>
   </div><div class="col2">
     <table class="striped">
       {% for b in builds %}
@@ -47,6 +36,19 @@
       </tr>
       {% endfor %}
     </table>
+    {% set top_prods = attr.get_top(10) %}
+    {% if attr.get_attr_yo().eci_rank %}
+      <p class="eci_value">
+        {% autoescape false %}
+        {{ _('%(country)s %(ranked)s %(rank_val)s with an Economic Complexity Index (ECI) of %(eci)s', country=attr.get_name(article=True), ranked='<a href="/rankings/country/">%s</a>' % (_('is ranked')), rank_val='<span class="rank">%s</span>' % (attr.get_attr_yo().eci_rank), eci=attr.get_attr_yo().eci) }}
+        {% endautoescape %}
+      </p>
+    {% endif %}
+    {% if top_prods %}
+      <p class="eci_value">
+        {{ _('%(country)s is the top exporter of', country=attr.get_name(article=True)) }}{% for yp in top_prods %} {% if loop.last and loop.length > 1 %}{{ _('and') }} {% endif %}<a href="{{ yp.product.get_profile_url() }}">{{ yp.product.get_name() }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.
+      </p>
+    {% endif %}
   </div>
       
   <br />
@@ -90,5 +92,92 @@
     .style("background-color", function(d, i){
       return color(parseInt(this.innerHTML));
     })
+  
+  var country_selector = d3plus.forms()
+    .element(d3.select("#origin_selector"))
+    .type("drop")
+    .width(280)
+    .large(400)
+    .font({
+      "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+      "size": 26,
+      "weight": "lighter",
+      "spacing": 1,
+      "align": "left"
+    })
+    .callback(function(d){
+      window.location = "/profile/country/"+d+"/"
+    })
+    .data({
+      "callback": function(array) {
+        return array.filter(function(a){
+          a.icon_style = "default"
+          return a.id.length != 2
+        })
+      },
+      "fetch": d3.select(".dropdown_container#origin").attr("data-url"),
+      "key": "data",
+      "map": {
+        "value": "display_id",
+        "style": "icon_style",
+        "image": "icon",
+        "text": "name",
+        "alt": "keywords",
+        "color": "color",
+        "conversion": "conversion"
+      }
+    })
+    .draw()
+  
+  d3.json("/attr/country/", function(raw_attrs){
+    d3.json("/static/json/country_coords.json", function(raw_coords){
+      
+      var attrs = {}
+      
+      // set key 'nest' to their id
+      raw_attrs.data.forEach(function(d){
+        attrs[d.id] = d
+        attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
+        if(d.id != "{{ attr.id }}"){
+          attrs[d.id]["color"] = "#ccc"
+        }
+      })
+      
+      raw_coords["objects"]["TM_WORLD_BORDERS-0.3"]["geometries"].forEach(function(d){
+        country = raw_attrs.data.filter(function(dd){
+          return dd.id.substr(2) == d.id.toLowerCase()
+        })
+        if (country.length) {
+          d.id = country[0].id
+          d.icon = "/static/img/icons/country/country_"+d.id+".png"
+        }
+      })
+      
+      // instantiate d3plus
+        var visualization = d3plus.viz()
+          .attrs(attrs)
+          .container("#viz")
+          .coords(raw_coords)
+          .coords({
+            "center": [10,0],
+            "padding": 0,
+            "mute": ["anata"]
+          })
+          .color("color")
+          .focus("{{ attr.id }}")
+          .height(280)
+          .messages(true)
+          .text("name")
+          .tooltip("value")
+          .type("geo_map")
+          .width(280)
+          .zoom({
+            "scroll": false,
+            "pan": false,
+            "click": false
+          })
+          .draw()
+    })
+  })
 </script>
 {% endblock %}
