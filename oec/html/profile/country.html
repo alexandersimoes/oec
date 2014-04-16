@@ -134,12 +134,14 @@
     d3.json("/static/json/country_coords.json", function(raw_coords){
       
       var attrs = {}
+      var focus_id = "{{ attr.id }}";
+      focus_id = focus_id == "eublx" ? "eubel" : focus_id;
       
       // set key 'nest' to their id
       raw_attrs.data.forEach(function(d){
         attrs[d.id] = d
         attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
-        if(d.id != "{{ attr.id }}"){
+        if(d.id != focus_id){
           attrs[d.id]["color"] = "#ccc"
         }
       })
@@ -155,29 +157,29 @@
       })
       
       // instantiate d3plus
-        var visualization = d3plus.viz()
-          .attrs(attrs)
-          .container("#viz")
-          .coords(raw_coords)
-          .coords({
-            "center": [10,0],
-            "padding": 0,
-            "mute": ["anata"]
-          })
-          .color("color")
-          .focus("{{ attr.id }}")
-          .height(280)
-          .messages(true)
-          .text("name")
-          .tooltip("value")
-          .type("geo_map")
-          .width(280)
-          .zoom({
-            "scroll": false,
-            "pan": false,
-            "click": false
-          })
-          .draw()
+      var visualization = d3plus.viz()
+        .attrs(attrs)
+        .container("#viz")
+        .coords(raw_coords)
+        .coords({
+          "center": [10,0],
+          "padding": 0,
+          "mute": ["anata"]
+        })
+        .color("color")
+        .focus(focus_id)
+        .height(280)
+        .messages(true)
+        .text("name")
+        .tooltip("value")
+        .type("geo_map")
+        .width(280)
+        .zoom({
+          "scroll": false,
+          "pan": false,
+          "click": false
+        })
+        .draw()
     })
   })
 </script>
