@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, make_response, g
 from oec.utils import gzip_data, cached_query
 from oec.db_attr.models import Country, Hs, Sitc
+from oec.decorators import crossdomain
 
 mod = Blueprint('attr', __name__, url_prefix='/attr')
 
@@ -19,6 +20,7 @@ def per_request_callbacks(response):
 
 @mod.route('/<attr>/')
 @mod.route('/<attr>/<Attr_id>/')
+@crossdomain(origin='*')
 def attrs(attr="country", Attr_id=None):
     ret = {}
     lang = request.args.get('lang', None) or g.locale
