@@ -146,8 +146,30 @@
 
   </section> <!-- END #uri section -->
 
+  <section id="attrs">
+    <h2>Attribute Lookups</h2>
+    <p>To save both bandwidth and reduce repition in our data calls, the 
+      attributional data for countries and products are separated out into a
+      different call structure. By using these attribute calls in conjunction
+      with the data calls one can retrive both the full names, keywords and
+      descriptions of products and countries as well as their data.</p>
+    
+    <h3>Countries</h3>
+    <p><b>Example:</b> Get a list of all the countries available in the dataset.</p>
+    <pre class="prettyprint linenums">http://atlas.media.mit.edu/attr/country/</pre>
+    
+    <h3>HS Products</h3>
+    <p><b>Example:</b> Get a list of all the HS products available in the dataset.</p>
+    <pre class="prettyprint linenums">http://atlas.media.mit.edu/attr/hs/</pre>
+    
+    <h3>SITC Products</h3>
+    <p><b>Example:</b> Get a list of all the SITC products available in the dataset.</p>
+    <pre class="prettyprint linenums">http://atlas.media.mit.edu/attr/sitc/</pre>
+    
+  </section>
+
   <section id="examples">
-    <h2>Examples</h2>
+    <h2>Data Examples</h2>
     
     <h3>What is the total trade amount by country?</h3>
     <table class="table table-bordered table-striped">
