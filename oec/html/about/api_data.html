@@ -148,6 +148,66 @@
 
   <section id="examples">
     <h2>Examples</h2>
+    
+    <h3>What is the total trade amount by country?</h3>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Classification</th>
+          <th>Trade Flow</th>
+          <th style="max-width: 90px;">Origin Country</th>
+          <th style="max-width: 90px;">Destination Country</th>
+          <th style="max-width: 90px;">Product</th>
+          <th style="max-width: 90px;">Year</th>
+          <th style="max-width: 90px;">Output</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>hs or sitc</td>
+          <td>export OR import</td>
+          <td>show</td>
+          <td>all</td>
+          <td>all</td>
+          <td>Any year from 1962 - 2010</td>
+          <td>Origins</td>
+        </tr>
+      </tbody>
+    </table>  
+    <p><b>Example:</b> Export values by country for total trade in 2010?</p>
+    <pre class="prettyprint linenums">http://atlas.media.mit.edu/hs/export/2010/show/all/all/</pre>
+  
+    <p><b>Output:</b></p>
+    <pre class="prettyprint linenums">
+      {
+        "data": [
+        {
+            "export_val": 51933353131.62,
+            "import_val": 5931698827.09,
+            "origin_id": "afago",
+            "top_export": "052709",
+            "top_export_dest": "aschn",
+            "top_import": "052710",
+            "top_import_dest": "aschn",
+            "year": 2011
+        },
+        {
+            "export_val": 122402655.31,
+            "import_val": 237882541.36,
+            "origin_id": "afbdi",
+            "top_export": "020901",
+            "top_export_dest": "eudeu",
+            "top_import": "052523",
+            "top_import_dest": "eublx",
+            "year": 2011
+        },
+        ...
+        ]
+      }
+    </pre>
+    <hr />
+    
+    
     <h3>What does a country trade?</h3>
     <table class="table table-bordered table-striped">
       <thead>
