@@ -3309,7 +3309,7 @@ d3plus.apps.network.draw = function(vars) {
     max_size = max_size*0.45
   }
   else {
-    max_size = max_size
+    max_size = max_size*1.1
   }
 
   if (val_range[0] == val_range[1]) {
@@ -3329,8 +3329,8 @@ d3plus.apps.network.draw = function(vars) {
       var scale = vars.app_width/width
     }
     var min_size = max_size*0.25
-    if (min_size*scale < 3) {
-      min_size = 3/scale
+    if (min_size*scale < 2) {
+      min_size = 2/scale
     }
 
   }
