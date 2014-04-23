@@ -3309,7 +3309,7 @@ d3plus.apps.network.draw = function(vars) {
     max_size = max_size*0.45
   }
   else {
-    max_size = max_size*0.6
+    max_size = max_size
   }
 
   if (val_range[0] == val_range[1]) {
@@ -3336,7 +3336,7 @@ d3plus.apps.network.draw = function(vars) {
   }
 
   // Create size scale
-  var radius = d3.scale[vars.size.scale.value]()
+  var radius = d3.scale.pow().exponent(3/8)
     .domain(val_range)
     .range([min_size, max_size])
 
@@ -4186,7 +4186,7 @@ d3plus.data.edges = function(vars) {
     var placed = []
     vars.nodes.changed = true
   }
-  
+
   vars.edges.value.forEach(function(e){
 
     if (typeof e[vars.edges.source] != "object") {
@@ -4458,7 +4458,7 @@ d3plus.data.format = function(vars,format) {
     var level = vars.id.nesting.slice(0,vars.id.nesting.indexOf(depth)+1)
 
     return_data[depth] = {}
-    
+
     for (y in vars.data.restricted) {
 
       if (format == "grouped") {
@@ -4758,7 +4758,7 @@ d3plus.data.restrict = function(vars) {
   vars.data.restricted = {}
 
   if (vars[key].length) {
-    
+
     // start restricting based on "filtered" data
     var data = "filtered"
 
@@ -5046,7 +5046,7 @@ d3plus.draw.app = function(vars) {
   else {
     var returned = null
   }
-  
+
   vars.returned = {
       "nodes": null,
       "edges": null
@@ -7437,7 +7437,7 @@ d3plus.forms.element = function(vars) {
             obj[camelCaseName] = attr.value;
         }
     });
-    
+
     attributes.forEach(function(a){
 
       if (elem.getAttribute(a) !== null) {
@@ -7513,12 +7513,12 @@ d3plus.forms.element = function(vars) {
 }
 
 d3plus.forms.json = function(vars) {
-  
+
   if (vars.dev) d3plus.console.time("loading data from \""+vars.data.fetch+"\"")
   vars.loading = true
-  
+
   d3.json(vars.data.fetch,function(d){
-    
+
     if (d && Object.keys(d).length == 1) {
       vars.data.data = d[Object.keys(d)[0]]
     }
@@ -7528,23 +7528,23 @@ d3plus.forms.json = function(vars) {
     else {
       vars.data.data = []
     }
-    
+
     if (typeof vars.data.callback == "function") {
       vars.data.data = vars.data.callback(vars.data.data)
     }
-    
+
     vars.data.loaded = true
     vars.data.changed = true
     if (vars.dev) d3plus.console.timeEnd("loading data from \""+vars.data.fetch+"\"")
-    
+
     d3plus.forms.data(vars)
-    
+
     setTimeout(function(){
       vars.forms.draw()
     },vars.timing*1.5)
-    
+
   })
-  
+
 }
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -7584,7 +7584,7 @@ d3plus.forms.radio = function(vars,styles,timing) {
 }
 
 d3plus.forms.value = function(obj,arr) {
-  
+
   if (typeof obj == "object" && arr) {
     var ret = false
     for (var i = 0; i < arr.length; i++) {
@@ -7603,7 +7603,7 @@ d3plus.forms.value = function(obj,arr) {
   else {
     return false
   }
-  
+
 }
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // Draws "square" and "circle" shapes using svg:rect
@@ -8618,7 +8618,7 @@ d3plus.shape.draw = function(vars) {
         else if (d3plus.apps[vars.type.value].zoom && vars.zoom.value) {
 
           edge_update()
-          
+
           d3.select(this)
             .transition().duration(vars.style.timing.mouseevents)
             .call(transform)
@@ -9457,7 +9457,7 @@ d3plus.shape.fill = function(vars,selection,enter,exit) {
       .call(init)
 
     if (vars.timing) {
-      
+
       clip.selectAll("rect").transition().duration(vars.timing)
         .call(update)
 
@@ -11189,7 +11189,7 @@ d3plus.tooltip.create = function(params) {
 
     title_width -= title_icon.node().offsetWidth
   }
-  
+
   if (params.title) {
     var mw = params.max_width-6
     if (params.icon) mw -= (params.iconsize+6)
@@ -11615,17 +11615,17 @@ d3plus.tooltip.data = function(vars,id,length,extras,depth) {
 //-------------------------------------------------------------------
 
 d3plus.tooltip.move = function(x,y,id) {
-  
+
   if (!id) var tooltip = d3.select("div#d3plus_tooltip_id_default")
   else var tooltip = d3.select("div#d3plus_tooltip_id_"+id)
-  
+
   if (tooltip.node()) {
-    
+
     var d = tooltip.datum()
-  
+
     d.cx = x
     d.cy = y
-    
+
     if (!d.fixed) {
 
       // Set initial values, based off of anchor
@@ -11648,19 +11648,19 @@ d3plus.tooltip.move = function(x,y,id) {
         else if (d.anchor.y == "top") {
           d.flip = d.cy - d.height - d.offset < 0
         }
-        
+
         if (d.flip) {
           d.y = d.cy + d.offset + d.arrow_offset
         }
         else {
           d.y = d.cy - d.height - d.offset - d.arrow_offset
         }
-    
+
       }
       else {
 
         d.y = d.cy - d.height/2
-        
+
         // Determine whether or not to flip the tooltip
         if (d.anchor.x == "right") {
           d.flip = d.cx + d.width + d.offset <= d.limit[0]
@@ -11668,7 +11668,7 @@ d3plus.tooltip.move = function(x,y,id) {
         else if (d.anchor.x == "left") {
           d.flip = d.cx - d.width - d.offset < 0
         }
-    
+
         if (d.anchor.x == "center") {
           d.flip = false
           d.x = d.cx - d.width/2
@@ -11680,7 +11680,7 @@ d3plus.tooltip.move = function(x,y,id) {
           d.x = d.cx - d.width - d.offset
         }
       }
-  
+
       // Limit X to the bounds of the screen
       if (d.x < 0) {
         d.x = 0
@@ -11688,7 +11688,7 @@ d3plus.tooltip.move = function(x,y,id) {
       else if (d.x + d.width > d.limit[0]) {
         d.x = d.limit[0] - d.width
       }
-  
+
       // Limit Y to the bounds of the screen
       if (d.y < 0) {
         d.y = 0
@@ -11696,20 +11696,20 @@ d3plus.tooltip.move = function(x,y,id) {
       else if (d.y + d.height > d.limit[1]) {
         d.y = d.limit[1] - d.height
       }
-      
+
     }
-    
+
     tooltip
       .style("top",d.y+"px")
       .style("left",d.x+"px")
-  
+
     if (d.arrow) {
       tooltip.selectAll(".d3plus_tooltip_arrow")
         .call(d3plus.tooltip.arrow)
     }
-    
+
   }
-    
+
 }
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -11720,21 +11720,21 @@ d3plus.tooltip.remove = function(id) {
 
   // If an ID is specified, only remove that tooltip
   if (id) {
-    
+
     // First remove the background curtain, if the tooltip has one
     d3.selectAll("div#d3plus_tooltip_curtain_"+id).remove()
     // Finally, remove the tooltip itself
     d3.selectAll("div#d3plus_tooltip_id_"+id).remove()
-    
+
   }
   // If no ID is given, remove ALL d3plus tooltips
   else {
-    
+
     // First remove all background curtains on the page
     d3.selectAll("div#d3plus_tooltip_curtain").remove()
     // Finally, remove all tooltip
     d3.selectAll("div.d3plus_tooltip").remove()
-    
+
   }
 
 }
@@ -12235,7 +12235,7 @@ d3plus.ui.legend = function(vars) {
             .call(style)
 
         if (!d3plus.touch) {
-          
+
           keys
             .on(d3plus.evt.over,function(d,i){
 
@@ -14112,24 +14112,24 @@ d3plus.zoom.controls = function() {
     var zoom_enter = vars.parent.append("div")
       .attr("id","d3plus.utilsts.zoom_controls")
       .style("top",(vars.margin.top+5)+"px")
-  
+
     zoom_enter.append("div")
       .attr("id","zoom_in")
       .attr("unselectable","on")
       .on(d3plus.evt.click,function(){ vars.zoom("in") })
       .text("+")
-  
+
     zoom_enter.append("div")
       .attr("id","zoom_out")
       .attr("unselectable","on")
       .on(d3plus.evt.click,function(){ vars.zoom("out") })
       .text("-")
-  
+
     zoom_enter.append("div")
       .attr("id","zoom_reset")
       .attr("unselectable","on")
-      .on(d3plus.evt.click,function(){ 
-        vars.zoom("reset") 
+      .on(d3plus.evt.click,function(){
+        vars.zoom("reset")
         vars.update()
       })
       .html("\&#8634;")
