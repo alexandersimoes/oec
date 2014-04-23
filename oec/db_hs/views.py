@@ -34,6 +34,7 @@ def hs_yd(**kwargs):
 
 @mod.route('/<trade_flow>/all/all/all/<hs_id>/')
 @mod.route('/<trade_flow>/<year>/all/all/<hs_id>/')
+@mod.route('/<trade_flow>/<year>/all/all/show/')
 @crossdomain(origin='*')
 def hs_yp(**kwargs):
     return make_response(make_query(Yp, request.args, g.locale, **kwargs))
