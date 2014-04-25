@@ -4,7 +4,7 @@
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.profile.css" />
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.table.css" />
     <!-- load topojson library -->
-    <script src="http://www.d3plus.org/js/topojson.js"></script>
+    <script src="/static/js/libs/topojson.js"></script>
 {% endblock %}
 
 {% block title %}: {{ _('%(country)s (%(country_abbrv)s) Profile of Exports, Imports and Trade Partners', country=attr.get_name(), country_abbrv=attr.get_display_id()|upper) }}{% endblock %}

@@ -73,7 +73,10 @@ header #d3plus_button_language_selector {
 header #search {
   height: 15px;
   margin: 0px 5px;
-  width: 125px;
+  width: 124px;
+}
+.tt-hint{
+  background: none repeat scroll 0 0 !important;
 }
 
 /******************/
