@@ -759,6 +759,9 @@ d3.select("#more_years button").on("click", function(){
         var data_for_table = raw_data.data.filter(function(d){ return years.indexOf(d.year) >= 0 })
         update_text_table(data_for_table, attrs)
       }
+      if(parent.update_year){
+        update_year()
+      }
     }
 
     resize_viz()

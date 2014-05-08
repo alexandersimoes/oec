@@ -23,11 +23,12 @@ mod = Blueprint('explore', __name__, url_prefix='/explore')
 def explore_redirect(app_name='tree_map'):
     '''fetch random country'''
     c = Country.query.get(choice(random_countries))
+    latest_hs_year = available_years['hs'][-1]
 
     if app_name in ["tree_map", "stacked", "network"]:
         redirect_url = url_for('.explore', app_name=app_name, \
                         classification="hs", trade_flow="export", \
-                        origin_id=c.id_3char, dest_id="all", prod_id="show", year="2011")
+                        origin_id=c.id_3char, dest_id="all", prod_id="show", year=latest_hs_year)
     elif app_name in ["geo_map", "rings"]:
         '''fetch random product'''
         p = Hs.query.filter(Hs.hs != None) \
@@ -37,7 +38,7 @@ def explore_redirect(app_name='tree_map'):
             origin = c.id_3char
         redirect_url = url_for('.explore', app_name=app_name, \
                         classification="hs", trade_flow="export", \
-                        origin_id=origin, dest_id="all", prod_id=p.hs, year="2011")
+                        origin_id=origin, dest_id="all", prod_id=p.hs, year=latest_hs_year)
     else:
         abort(404)
     return redirect(redirect_url)
@@ -118,7 +119,7 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year>/')
 @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def explore(app_name, classification, trade_flow, origin_id, dest_id, \
-                prod_id, year="2011"):
+                prod_id, year=available_years['hs'][-1]):
     g.page_type = mod.name
 
     '''Make sure year is within bounds, if not redirect'''
@@ -173,7 +174,7 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, \
 
 @mod.route('/<app_name>/<trade_flow>/<origin>/<dest>/<product>/')
 @mod.route('/<app_name>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
-def explore_legacy(app_name, trade_flow, origin, dest, product, year='2011'):
+def explore_legacy(app_name, trade_flow, origin, dest, product, year=available_years['hs'][-1]):
     if not year.isdigit():
         abort(404)
     c = 'sitc' if int(year) < 1995 else 'hs'
@@ -191,7 +192,7 @@ def explore_legacy(app_name, trade_flow, origin, dest, product, year='2011'):
 @mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/')
 @mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
 def embed(app_name, classification, trade_flow, origin, dest, \
-                product, year="2011"):
+                product, year=available_years['hs'][-1]):
 
     current_app = App.query.filter_by(type=app_name).first_or_404()
     build_filters = {"origin":origin,"dest":dest,"product":product}
