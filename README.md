@@ -30,24 +30,24 @@ SVG support built in.
 
 Adding the Observatory to computer via virtualenv
 
-### Getting The Observatory Running Locally via Virtualenv 
+### Getting The Observatory Running Locally via Virtualenv
 
-1. Clone from github (this will create an atlas_economic_complexity folder in the current directory)
+1. Clone from github (this will create an oec folder in the current directory)
 
-        git clone https://github.com/alexandersimoes/atlas_economic_complexity.git
+        git clone https://github.com/alexandersimoes/oec.git
 2. Create the virtual environment
 
-        mkvirtualenv atlas_economic_complexity
+        mkvirtualenv oec
 3. Activate this newly created environment
 
-        workon atlas_economic_complexity
+        workon oec
 4. Install the required Python libraries
 
         pip install -r requirements.txt
 5. Create a MySQL database on your local machine
 6. Import the latest dump of the database from [atlas.media.mit.edu/static/db/](http://atlas.media.mit.edu/static/db/)
 
-        mysql -u username -p -h localhost DB_NAME < observatory_xxxx-xx-xx.sql
+        mysql -u username -p -h localhost DB_NAME < oec_xxxx-xx-xx.sql
 7. Be sure to create the following local environment variables
 
         export OEC_SECRET_KEY=some_s3cret_k3y
@@ -58,7 +58,7 @@ Adding the Observatory to computer via virtualenv
         * export OEC_REDIS_HOST=localhost
         * export OEC_REDIS_PORT=6379
         * export OEC_REDIS_PW=redis_password
-        
+
         * only necessary if using redis for caching
 8. Updating translations (if something is changed)
 
@@ -67,12 +67,12 @@ Adding the Observatory to computer via virtualenv
         pybabel compile -d oec/translations
 
 ### Getting The Observatory Running With Redis Caching enabled (Optional)
-    
+
 10. If you would like to run the Observatory with a cache (if, for instance, you wished to deploy it on a live server)
     All you will need to do is install the proper libraries and resources --
 
 11. Download, extract and compile Redis itself with:
-		
+
         $ wget http://redis.googlecode.com/files/redis-2.6.7.tar.gz
         $ tar xzf redis-2.6.7.tar.gz
         $ cd redis-2.6.7
@@ -82,13 +82,13 @@ Adding the Observatory to computer via virtualenv
 
         $ sudo easy_install redis
         $ sudo python setup.py install
-					
+
 13. Install the django-redis backend (from https://github.com/niwibe/django-redis)
-          
+
         easy_install django_redis
-					
-14. You will also need the following serialization library: (from http://msgpack.org)									
-          
+
+14. You will also need the following serialization library: (from http://msgpack.org)
+
         easy_install msgpack-python
-					
-15. The constants defined in settings.py have REDIS turned on by default. The example constants in the comments can be used to turn it off. 		 
+
+15. The constants defined in settings.py have REDIS turned on by default. The example constants in the comments can be used to turn it off.
