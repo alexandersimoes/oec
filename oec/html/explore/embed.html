@@ -605,7 +605,7 @@ switch (app_type){
       raw_data = arguments[1];
       raw_network = arguments[3];
       var prod_totals = arguments[4].data;
-      
+
       prod_totals.forEach(function(p){
         attrs[p[attr_id]]["market_val"] = p.export_val;
       })
@@ -905,7 +905,6 @@ d3.selectAll("#view_as_text a.text").on("click", function(){
     return d3.select(this).style("display") == "none" ? "block" : "none";
   })
 
-  resize_viz();
   d3.event.preventDefault();
 
 })
