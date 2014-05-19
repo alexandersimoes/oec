@@ -199,58 +199,63 @@ function activate_build_button() {
 }
 
 {% if current_build.app.type == "stacked" %}
-d3plus.forms()
-  .type("radio")
+d3plus.form()
   .data("[name=layout]")
-  // .color("#0085BF")
-  .margin(5)
+  .focus(false,change_layout)
   .font({
     "size": 12,
     "spacing": 1,
     "align": "left"
   })
-  .callback(change_layout)
+  .type("radio")
+  .ui({
+    "margin": 5
+  })
   .draw()
 {% endif %}
 {% if current_build.app.type != "rings" and current_build.app.type != "network" %}
-d3plus.forms()
-  .type("radio")
+d3plus.form()
   .data("[name=value]")
-  .margin(5)
+  .focus(false,change_value)
   .font({
     "size": 12,
     "spacing": 1,
     "align": "left"
   })
-  .callback(change_value)
+  .type("radio")
+  .ui({
+    "margin": 5
+  })
   .draw()
 {% endif %}
 {% if current_build.app.type == "tree_map" %}
-d3plus.forms()
-  .type("radio")
+d3plus.form()
   .data("[name=nesting]")
-  // .color("#0085BF")
-  .margin(5)
+  .focus(false,change_depth)
   .font({
     "size": 12,
     "spacing": 1,
     "align": "left"
   })
-  .callback(change_depth)
+  .type("radio")
+  .ui({
+    "margin": 5
+  })
   .draw()
 {% endif %}
 
-d3plus.forms()
-  .type("drop")
+d3plus.form()
   .data("div#color select")
-  // .color("#0085BF")
-  .margin(5)
+  .focus(false,change_color)
   .font({
     "size": 12,
     "spacing": 1,
     "align": "left"
   })
-  .callback(change_color)
+  .type("drop")
+  .ui({
+    "margin": 5
+  })
   .draw()
 
 var years = "{{ current_build.year }}"
@@ -278,7 +283,12 @@ var trade_flow = "{{ current_build.trade_flow }}",
           .defer(d3.json, "{{ current_build.data_url() }}")
           .defer(d3.json, "{{ current_build.attr_url() }}"),
     viz = d3plus.viz()
+            .background("none")
+            .color({
+              "heatmap": ["#cccccc","#0085BF"]
+            })
             .container("#viz")
+            .id(["nest", "id"])
             .time({"key": "year", "solo": years })
             .aggs({
               "export_val_growth_pct": "mean",
@@ -296,14 +306,8 @@ var trade_flow = "{{ current_build.trade_flow }}",
               "export_rca": "mean",
               "import_rca": "mean"
             })
-            .style({
-              "background":"none",
-              "color": {
-                "heatmap": ["#cccccc","#0085BF"]
-              },
-              "tooltip": {
-                "small": 225
-              }
+            .tooltip({
+              "small": 225
             })
             .title({"total": {"prefix":"{{ _('Total') }}: "}})
             .text("name")
@@ -312,48 +316,51 @@ var trade_flow = "{{ current_build.trade_flow }}",
             .width(viz_width)
             .icon("icon")
             .focus({"tooltip": false})
-            .number_format(function(number, key){
-              if(key){
-                if(key.indexOf("pct") > -1){ return d3.format(".2%")(number); }
-                if(key == "year"){ return number; }
-              }
-              var ret = d3plus.public.number_format.value(number,key)
-              if (key && ["export_val","import_val","net_export_val","net_import_val"].indexOf(key) >= 0) {
-                ret = "$"+ret
-              }
-              return ret
-            })
-            .text_format(function(text, key){
-              if(key){
-                if(key == "display_id"){ return text.toUpperCase(); }
-              }
-              if(text){
-                if(text == "share"){ return "{{ _('Percent') }}"; }
-                if(text == "display_id"){ return "{{ _('ID') }}"; }
-                if(text == "export_val"){ return "{{ _('Export Value') }}"; }
-                if(text == "net_export_val"){ return "{{ _('Net Export') }} {{ _('Value') }}"; }
-                if(text == "import_val"){ return "{{ _('Import Value') }}"; }
-                if(text == "net_import_val"){ return "{{ _('Net Import') }} {{ _('Value') }}"; }
-                if(text == "export_rca"){ return "{{ _('Export') }} RCA"; }
-                if(text == "import_rca"){ return "{{ _('Import') }} RCA"; }
-
-                if(text == trade_flow+"_val_growth_pct"){ return "{{ _('Annual Growth Rate (1 year)') }}"; }
-                if(text == trade_flow+"_val_growth_pct_5"){ return "{{ _('Annual Growth Rate (5 year)') }}"; }
-                if(text == trade_flow+"_val_growth_val"){ return "{{ _('Growth Value (1 year)') }}"; }
-                if(text == trade_flow+"_val_growth_val_5"){ return "{{ _('Growth Value (5 year)') }}"; }
-
-                // if(text.indexOf("growth") > -1){
-                //   text = text.replace(/_/g," ");
-                //   text = text.replace(/val/g,"{{ _('value') }}");
-                //   text = text.replace(/pct/g,"{{ _('percentage') }}");
-                //   return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
-                // }
-                if(text.indexOf("Values") >= 0 && !key){
-                  return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
+            .format({
+              "number": function(number, key){
+                if(key){
+                  if(key.indexOf("pct") > -1){ return d3.format(".2%")(number); }
+                  if(key == "year"){ return number; }
                 }
-                return d3plus.public.text_format.value(text,key);
+                var ret = d3plus.method.format.number(number,key)
+                if (key && ["export_val","import_val","net_export_val","net_import_val"].indexOf(key) >= 0) {
+                  ret = "$"+ret
+                }
+                return ret
+              },
+              "text": function(text, key){
+
+                if(key){
+                  if(key == "display_id"){ return text.toUpperCase(); }
+                }
+                if(text){
+                  if(text == "share"){ return "{{ _('Percent') }}"; }
+                  if(text == "display_id"){ return "{{ _('ID') }}"; }
+                  if(text == "export_val"){ return "{{ _('Export Value') }}"; }
+                  if(text == "net_export_val"){ return "{{ _('Net Export') }} {{ _('Value') }}"; }
+                  if(text == "import_val"){ return "{{ _('Import Value') }}"; }
+                  if(text == "net_import_val"){ return "{{ _('Net Import') }} {{ _('Value') }}"; }
+                  if(text == "export_rca"){ return "{{ _('Export') }} RCA"; }
+                  if(text == "import_rca"){ return "{{ _('Import') }} RCA"; }
+
+                  if(text == trade_flow+"_val_growth_pct"){ return "{{ _('Annual Growth Rate (1 year)') }}"; }
+                  if(text == trade_flow+"_val_growth_pct_5"){ return "{{ _('Annual Growth Rate (5 year)') }}"; }
+                  if(text == trade_flow+"_val_growth_val"){ return "{{ _('Growth Value (1 year)') }}"; }
+                  if(text == trade_flow+"_val_growth_val_5"){ return "{{ _('Growth Value (5 year)') }}"; }
+
+                  // if(text.indexOf("growth") > -1){
+                  //   text = text.replace(/_/g," ");
+                  //   text = text.replace(/val/g,"{{ _('value') }}");
+                  //   text = text.replace(/pct/g,"{{ _('percentage') }}");
+                  //   return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+                  // }
+                  if(text.indexOf("Values") >= 0 && !key){
+                    return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
+                  }
+                  return d3plus.method.format.text(text,key);
+                }
               }
-            });
+            })
 
 // console.log(document.documentElement.clientHeight, window.innerHeight, window.screen.height)
 // console.log(window.innerHeight, viz_height, d3.select("#ui").node().offsetHeight)
@@ -372,7 +379,7 @@ if(vars.controls == "false"){
   d3.select("#controls").remove();
 }
 else {
-  viz.style({"title": {"height": 24}})
+  viz.title({"height": 24})
 }
 
 if(attr_id == "origin_id" || attr_id == "dest_id"){
@@ -446,15 +453,17 @@ function finish(data, attrs){
   d3.selectAll(".dropdown_container")
     .each(function(d,i){
 
-      var ui = d3plus.forms()
-        .width(180)
-        .padding(5)
+      var ui = d3plus.form()
+        .focus(undefined,activate_build_button)
         .font({
           "size": 12,
           "spacing": 1,
           "align": "left"
         })
-        .callback(activate_build_button)
+        .ui({
+          "padding": 5
+        })
+        .width(180)
 
       if (this.id.indexOf("year") >= 0) {
         ui.search(false)
@@ -463,8 +472,8 @@ function finish(data, attrs){
         }
       }
 
-      if (this.id == "classification") {
-        ui.type("radio")
+      if ( ["trade_flow","classification"].indexOf(this.id) >= 0 ) {
+        ui.type("radio").font({"align": "center"})
       }
       else {
         ui.type("drop")
@@ -478,46 +487,36 @@ function finish(data, attrs){
       if (country_match || product_match) {
 
         var d = d3.values(attrs).filter(function(a){
-          a.icon_style = icon_style
+          a.style = icon_style
           return a.id.length != 2
         })
 
-        ui.element(d3.select(this).select("select"))
-          .data({
-            "data": d,
-            "map": {
-              "value": "display_id",
-              "style": "icon_style",
-              "image": "icon",
-              "text": "name",
-              "alt": "keywords",
-              "color": "color",
-              "conversion": "conversion"
-            }
-          })
+        ui.data(d3.select(this).select("select"))
+          .alt("conversion")
+          .color("color")
+          .data(d)
+          .icon("icon")
+          .id("display_id")
+          .keywords("keywords")
+          .text("name")
       }
       else if (["origin","destination","product"].indexOf(this.id) >= 0) {
 
-        ui.element(d3.select(this).select("select"))
-          .data({
-            "callback": function(array) {
-              return array.filter(function(a){
-                a.icon_style = icon_style
-                return a.id.length != 2
-              })
-            },
-            "fetch": this.getAttribute("data-url"),
-            "key": "data",
-            "map": {
-              "value": "display_id",
-              "style": "icon_style",
-              "image": "icon",
-              "text": "name",
-              "alt": "keywords",
-              "color": "color",
-              "conversion": "conversion"
-            }
+        var dataURL = this.getAttribute("data-url")
+
+        ui.data(d3.select(this).select("select"))
+          .alt("conversion")
+          .color("color")
+          .data(dataURL,function(array) {
+            return array.data.filter(function(a){
+              a.style = icon_style
+              return a.id.length != 2
+            })
           })
+          .icon("icon")
+          .id("display_id")
+          .keywords("keywords")
+          .text("name")
 
       }
       else {
@@ -563,10 +562,9 @@ switch (app_type){
 
       viz
         .type("tree_map")
-        .id(["nest", "id"])
         .depth(1)
         .shape("square")
-        .style({"labels": {"align": "start"}})
+        .labels({"align": "start"})
         .color("color")
         .zoom(false)
 
@@ -584,7 +582,6 @@ switch (app_type){
 
       viz
         .type("stacked")
-        .id(["nest", "id"])
         .depth(d)
         .shape("area")
         .color("color")
@@ -611,7 +608,7 @@ switch (app_type){
       })
 
       viz
-        .id("id")
+        .depth(1)
         .type("network")
         .color("color")
         .nodes(raw_network.nodes)
@@ -639,7 +636,7 @@ switch (app_type){
       var focus = "{{ current_build.product.id }}";
 
       viz
-        .id("id")
+        .depth(1)
         .type("rings")
         .color("color")
         .nodes(raw_network.nodes)
@@ -678,7 +675,7 @@ switch (app_type){
 
       viz
         .type("geo_map")
-        .id("id")
+        .depth(1)
         .color(trade_flow+"_val")
         .coords(raw_coords)
         .coords({
@@ -788,11 +785,15 @@ d3.selectAll("button#build").on("click", function(){
   }
 
   if(d3.select("#origin select").node()){
-    origin = d3.select("#origin select").node().value
+    var originSelect = d3.select("#origin select").node()
+      , originOption = originSelect.options[originSelect.selectedIndex]
+    origin = originOption.getAttribute("data-display_id")
   }
 
   if(d3.select("#destination select").node()){
-    dest = d3.select("#destination select").node().value
+    var destSelect = d3.select("#destination select").node()
+      , destOption = destSelect.options[destSelect.selectedIndex]
+    dest = destOption.getAttribute("data-display_id")
   }
 
   if(d3.select("#classification select").node()){
@@ -800,16 +801,16 @@ d3.selectAll("button#build").on("click", function(){
   }
 
   if(d3.select("#product select").node()){
-    var orig_classification = "{{ current_build.classification }}";
-    if(orig_classification != classification){
-      var selected = d3.select("#product select").node().selectedIndex
-      selected = d3.select("#product select").node()[selected]
-      prod = d3.select(selected).attr("data-conversion")
+    var orig_classification = "{{ current_build.classification }}"
+      , prodSelect = d3.select("#product select").node()
+      , prodOption = prodSelect.options[prodSelect.selectedIndex]
+    if( orig_classification != classification ){
+      prod = prodOption.getAttribute("data-conversion")
       if(!prod && classification == "sitc") { prod = "4232" }
       if(!prod && classification == "hs") { prod = "1507" }
     }
     else {
-      prod = d3.select("#product select").node().value
+      prod = prodOption.getAttribute("data-display_id")
     }
   }
 
@@ -833,7 +834,6 @@ d3.selectAll("button#build").on("click", function(){
   new_url += year + "/"
 
   curr_window.location = new_url
-  // console.log(new_url)
 
   d3.event.preventDefault();
 })
@@ -987,7 +987,7 @@ function change_layout(d){
   viz.y({"scale": d}).draw();
 }
 function change_value(d){
-  var new_tooltip = viz.tooltip()["value"]
+  var new_tooltip = viz.tooltip()
 
   if(d == "net"){
     if(app_type == "geo_map"){
@@ -1014,7 +1014,7 @@ function change_value(d){
 }
 
 function change_color(new_color){
-  var new_tooltip = viz.tooltip()["value"]
+  var new_tooltip = viz.tooltip()
   if(new_color == "color"){
     var growth_vars = [trade_flow+"_val_growth_pct", trade_flow+"_val_growth_pct_5", trade_flow+"_val_growth_val", trade_flow+"_val_growth_val_5"]
     growth_vars.forEach(function(gv){

@@ -32,9 +32,9 @@
 </div>
 
 <div class="content">
-  
+
   <div id="sidebar" class="col1">
-    
+
     <ul>
       <li{% if category == "country" %} class="active"{% endif %}>
         <a href="/rankings/country/">{{ _('Country Rankings') }}</a>
@@ -55,7 +55,7 @@
         {% endfor %}
       </select>
     </div>
-    
+
     <ul><h3>{{ _('Download') }}</h3>
       <li class="icon download">
         <a href="/rankings/{{ category }}/{{ year }}/?download=true">{{ _("Current Year") }}</a>
@@ -64,22 +64,22 @@
         <a href="/rankings/{{ category }}/?download=true">{{ _('All Years') }}</a>
       </li>
     </ul>
-  
+
   </div><div class="col3">
-  
+
       <table class="sortable">
         <thead>
           <tr>
-          
+
             {% for c in cols %}
             <th>{{ c }}</th>
             {% endfor %}
-          
+
           </tr>
         </thead>
-      
+
         <tbody>
-        
+
           {% for r in rankings %}
           <tr>
             {% if category == "country" %}
@@ -109,11 +109,11 @@
             {% endif %}
           </tr>
           {% endfor %}
-        
+
         </tbody>
-    
+
       </table>
-  
+
   </div>
 
 </div>
@@ -122,9 +122,9 @@
 
 {% block js %}
   <script>
-    
+
     function change_year(new_year) {
-      
+
       var url = window.location.pathname.split("/")
       if(url.length == 5){
         url.splice(3, 1, new_year)
@@ -133,20 +133,26 @@
         url.splice(3, 0, new_year)
       }
       window.location = url.join("/")
-      
+
     }
-  
-    d3plus.forms()
+
+    var currentYear = "{{ year }}"
+    
+    var form = d3plus.form()
       .type("drop")
       .data("#change_year")
-      // .color("#0085BF")
-      .margin(0)
-      .padding(6)
+      .focus(currentYear,change_year)
+      .order({
+        "sort": "desc"
+      })
+      .ui({
+        "margin": 0,
+        "padding": 6
+      })
       .search(false)
-      .callback(change_year)
       .draw()
-  
-  
+
+
     var total = d3.selectAll("tbody tr")[0].length
     // Add color to rankings
     var color = d3.scale.linear()
@@ -157,6 +163,6 @@
       .style("background", function(d, i){
         return color(i);
       })
-  
+
   </script>
 {% endblock %}

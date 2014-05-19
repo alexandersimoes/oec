@@ -14,12 +14,9 @@
 <h2>{{ _('Learn More About Trade in <strong>%(country)s</strong>', country=attr.get_name(article=True)) }}</h2>
 
 <div class="content">
-    
+
   <div class="col1_5">
-    <div class="dropdown_container" id="origin" data-url="/attr/country/">
-      <select id="origin_selector">
-        <option data-image="{{ attr.get_icon() }}" data-color="#752277" value="{{ attr.get_display_id() }}" selected="selected">{{ attr.get_name() }}</option>
-      </select>
+    <div class="dropdown_container" id="origin">
     </div>
     <div id="viz"></div>
   </div><div class="col2">
@@ -50,9 +47,9 @@
       </p>
     {% endif %}
   </div>
-      
+
   <br />
-    
+
   {% for b in builds %}
     {% set stats = b.top_stats(20) %}
     <div class="build">
@@ -77,11 +74,12 @@
     </div>
   {% endfor %}
 
-</div> 
+</div>
 {% endblock %}
 
 {% block js %}
 <script>
+
   // Add color to rankings
   var color = d3.scale.linear()
     .domain([0, 128])
@@ -92,70 +90,64 @@
     .style("background-color", function(d, i){
       return color(parseInt(this.innerHTML));
     })
-  
-  var country_selector = d3plus.forms()
-    .element(d3.select("#origin_selector"))
-    .type("drop")
-    .width(280)
-    .large(400)
-    .font({
-      "drop":{ "size": 14 },
-      "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
-      "size": 26,
-      "weight": "lighter",
-      "spacing": 1,
-      "align": "left"
-    })
-    .callback(function(d){
-      window.location = "/profile/country/"+d+"/"
-    })
-    .data({
-      "callback": function(array) {
-        return array.filter(function(a){
-          a.icon_style = "default"
-          return a.id.length != 2
-        })
-      },
-      "fetch": d3.select(".dropdown_container#origin").attr("data-url"),
-      "key": "data",
-      "map": {
-        "value": "display_id",
-        "style": "icon_style",
-        "image": "icon",
-        "text": "name",
-        "alt": "keywords",
-        "color": "color",
-        "conversion": "conversion"
-      }
-    })
-    .draw()
-  
+
   d3.json("/attr/country/", function(raw_attrs){
-    d3.json("/static/json/country_coords.json", function(raw_coords){
-      
-      var attrs = {}
-      var focus_id = "{{ attr.id }}";
-      focus_id = focus_id == "eublx" ? "eubel" : focus_id;
-      
-      // set key 'nest' to their id
-      raw_attrs.data.forEach(function(d){
-        attrs[d.id] = d
-        attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
-        if(d.id != focus_id){
-          attrs[d.id]["color"] = "#ccc"
+
+    var focus_id = "{{ attr.id }}"
+    focus_id = focus_id == "eublx" ? "eubel" : focus_id
+
+    // set key 'nest' to their id
+    var attrs = {}
+
+    raw_attrs = raw_attrs.data.filter(function(d){
+
+      attrs[d.id] = d3plus.util.copy(d)
+      if( d.id !== focus_id ){
+        attrs[d.id]["color"] = "#ccc"
+      }
+      d.style = "default"
+
+      return d.id.length !== 2
+
+    })
+
+    var country_selector = d3plus.form()
+      .alt("keywords")
+      .color("color")
+      .container("#origin")
+      .data(raw_attrs)
+      .focus(focus_id.substr(2),function(d){
+        if (d !== focus_id.substr(2)) {
+          window.location = "/profile/country/"+d+"/"
         }
       })
-      
+      .font({
+        "secondary":{ "size": 14 },
+        "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+        "size": 26,
+        "weight": "lighter",
+        "spacing": 1,
+        "align": "left"
+      })
+      .icon("icon")
+      .id("display_id")
+      .order("name")
+      .text("name")
+      .type("drop")
+      .width(280)
+      .draw()
+
+    d3.json("/static/json/country_coords.json", function(raw_coords){
+
       raw_coords["objects"]["TM_WORLD_BORDERS-0.3"]["geometries"].forEach(function(d){
-        country = raw_attrs.data.filter(function(dd){
+        country = raw_attrs.filter(function(dd){
           return dd.id.substr(2) == d.id.toLowerCase()
         })
         if (country.length) {
           d.id = country[0].id
-          d.icon = "/static/img/icons/country/country_"+d.id+".png"
         }
       })
-      
+
       // instantiate d3plus
       var visualization = d3plus.viz()
         .attrs(attrs)

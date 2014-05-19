@@ -14,16 +14,7 @@
 <div class="content">
 
   <div class="col1_5">
-    <div class="dropdown_container" id="product" data-url="/attr/{{ attr.classification }}/">
-      <select id="product_selector">
-        <option {% if attr.conversion %}data-conversion="{{ attr.conversion }}"{% endif %}
-            {% if attr.keywords %}data-keywords="{{ attr.keywords }}"{% endif %}
-            data-image="{{ attr.get_icon() }}" 
-            data-color="{{ attr.color }}" 
-            data-style="knockout" 
-            value="{{ attr.get_display_id() }}" 
-            selected="selected">{{ attr.get_name() }}</option>
-      </select>
+    <div class="dropdown_container" id="product">
     </div>
     <div id="viz"></div>
   </div><div class="col2">
@@ -59,9 +50,9 @@
       </p>
     {% endif %}
   </div>
-      
+
   <br />
-    
+
   {% for b in builds %}
     {% set stats = b.top_stats(20) %}
     <div class="build">
@@ -85,12 +76,13 @@
       <a class="button" href="/explore/{{ b.url() }}">{{ _('Explore') }} <i class="fa fa-chevron-right"></i></a>
     </div>
   {% endfor %}
-    
-</div> 
+
+</div>
 {% endblock %}
 
 {% block js %}
 <script>
+
   // Add color to rankings
   var color = d3.scale.linear()
     .domain([0, 1240])
@@ -101,61 +93,53 @@
     .style("background-color", function(d, i){
       return color(parseInt(this.innerHTML));
     })
-  
-  var product_selector = d3plus.forms()
-    .element(d3.select("#product_selector"))
-    .type("drop")
-    .width(280)
-    .large(400)
-    .font({
-      "drop":{ "size": 14 },
-      "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
-      "size": 26,
-      "weight": "lighter",
-      "spacing": 1,
-      "align": "left"
-    })
-    .callback(function(d){
-      window.location = "/profile/{{ attr.classification }}/"+d+"/"
-    })
-    .data({
-      "callback": function(array) {
-        return array.filter(function(a){
-          a.icon_style = "knockout"
-          return a.id.length != 2
-        })
-      },
-      "fetch": d3.select(".dropdown_container#product").attr("data-url"),
-      "key": "data",
-      "map": {
-        "value": "display_id",
-        "style": "icon_style",
-        "image": "icon",
-        "text": "name",
-        "alt": "keywords",
-        "color": "color",
-        "conversion": "conversion"
-      }
-    })
-    .draw()
 
   d3.json("/attr/{{ attr.classification }}/", function(raw_attrs){
-    
+
     var attrs = {}
-    
+      , focus_id = "{{ attr.id }}"
+
     // set key 'nest' to their id
-    raw_attrs.data.forEach(function(d){
-      attrs[d.id] = d
-      // attrs[d.id]["icon"] = "/static/img/icons/country/{{ attr.classification }}_"+d.id+".png"
+    raw_attrs = raw_attrs.data.filter(function(d){
+      d.style = "knockout"
       if("{{ attr.classification }}" == "hs"){
-        attrs[d.id]["icon"] = "/static/img/icons/hs/hs_"+d.id.substr(0, 2)+".png"
+        d["icon"] = "/static/img/icons/hs/hs_"+d.id.substr(0, 2)+".png"
       }
       else {
-        attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
+        d["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
       }
+      attrs[d.id] = d
+      return d.id.length !== 2
     })
-    
+
+    var product_selector = d3plus.form()
+      .alt("keywords")
+      .color("color")
+      .container("#product")
+      .data(raw_attrs)
+      .focus(focus_id.substr(2),function(d){
+        if (d !== focus_id.substr(2)) {
+          window.location = "/profile/{{ attr.classification }}/"+d+"/"
+        }
+      })
+      .font({
+        "secondary":{ "size": 14 },
+        "family": "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+        "size": 26,
+        "weight": "lighter",
+        "spacing": 1,
+        "align": "left"
+      })
+      .icon("icon")
+      .id("display_id")
+      .order("name")
+      .text("name")
+      .type("drop")
+      .width(280)
+      .draw()
+
     d3.json("/static/json/network_{{ attr.classification }}.json", function(raw_network){
+
       var visualization = d3plus.viz()
           .attrs(attrs)
           .icon({"style":"knockout"})
@@ -168,6 +152,7 @@
           .width(280)
           .height(280)
           .draw()
+
     })
   })
 </script>

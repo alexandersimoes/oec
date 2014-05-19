@@ -44,7 +44,8 @@
       <h5>Macro Connections @ The MIT Media Lab</h5>
     </div>
     <p>
-      <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic Complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://alexandersimoes.com/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
+      <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Observatory of Economic Complexity</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://alexandersimoes.com/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
     </p>
     <br>
     <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
@@ -58,35 +59,35 @@
 
   if (!d3.select("select#language_selector").empty()) {
 
-    var change_language = function(lang){
-        window.location = "/set_lang/"+lang+"/";
-    };
-
     if ("{{g.page_type}}" == "home") {
       var padding = 6.5,
           size = 18,
           text = "text",
           arrow = "fa-angle-down",
-          width = false,
+          width = 150,
           align = "left"
     }
     else {
       var padding = 4,
           size = 14,
-          text = {"drop": "text", "button": "value"},
+          text = {"secondary": "text", "value": "value"},
           arrow = false,
-          width = {"button": 30, "drop": false},
+          width = {"value": 30, "secondary": 100},
           align = "center"
     }
 
-    d3plus.forms()
+    d3plus.form()
       .type("drop")
       .data("#language_selector")
-      .color("#0085BF")
-      .margin(0)
-      .padding(padding)
+      .ui({
+        "color": {"primary": "#0085BF"},
+        "margin": 0,
+        "padding": padding
+      })
       .text(text)
-      .icon(arrow)
+      .icon({
+        "drop": arrow
+      })
       .width(width)
       .font({
         "family": "'Helvetica Neue', 'HelveticaNeue', 'Helvetica', 'Arial', 'sans-serif'",
@@ -96,8 +97,11 @@
         "align": align
       })
       .search(false)
-      .align(align)
-      .callback(change_language)
+      .focus(undefined,function(lang){
+        if (lang !== "{{ lang_id }}") {
+          window.location = "/set_lang/"+lang+"/";
+        }
+      })
       .draw()
 
   }
