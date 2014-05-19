@@ -29,13 +29,13 @@ SECRET_KEY = get_env_variable("OEC_SECRET_KEY", "default-dataviva.mg-secr3t")
 DEBUG = True
 SQLALCHEMY_ECHO = True
 
-''' 
+'''
     Details for connecting to the database, credentials set as environment
     variables.
 '''
 SQLALCHEMY_DATABASE_URI = "mysql://{0}:{1}@{2}/{3}?charset=utf8".format(
-    get_env_variable("OEC_DB_USER", "root"), 
-    get_env_variable("OEC_DB_PW", ""), 
+    get_env_variable("OEC_DB_USER", "root"),
+    get_env_variable("OEC_DB_PW", ""),
     get_env_variable("OEC_DB_HOST", "localhost"),
     get_env_variable("OEC_DB_NAME", "oec"))
 
@@ -52,35 +52,35 @@ if "OEC_PRODUCTION" in os.environ:
 LANGUAGES = {
     'ar': u'العربية',
     'de': u'Deutsch',
-    'el': u'Ελληνικά',
+    'el': u'ελληνικά',
     'en': u'English',
-    'es': u'Español',
+    'es': u'español',
     'fr': u'français',
     'he': u'עברית',
-    'hi': u'हिंदी',
+    'hi': u'हिन्दी',
     'it': u'italiano',
     'ja': u'日本語',
     'ko': u'한국어',
     'nl': u'Nederlands',
     'ru': u'Pyccĸий',
-    'pt': u'Português',
+    'pt': u'português',
     'tr': u'Tϋrkçe',
-    'zh_cn': u'中文'
+    'zh_cn': u'简化中国'
 }
 
-''' 
+'''
     Setup redis caching connection to be used throughout the site. Credentials
     are set in their respective env vars.
 '''
-REDIS = Redis(host=get_env_variable("OEC_REDIS_HOST", "localhost"), 
-         port=get_env_variable("OEC_REDIS_PORT", 6379), 
+REDIS = Redis(host=get_env_variable("OEC_REDIS_HOST", "localhost"),
+         port=get_env_variable("OEC_REDIS_PORT", 6379),
          password=get_env_variable("OEC_REDIS_PW", None))
-REDIS_CACHE = RedisCache(host=get_env_variable("OEC_REDIS_HOST", "localhost"), 
-         port=get_env_variable("OEC_REDIS_PORT", 6379), 
+REDIS_CACHE = RedisCache(host=get_env_variable("OEC_REDIS_HOST", "localhost"),
+         port=get_env_variable("OEC_REDIS_PORT", 6379),
          password=get_env_variable("OEC_REDIS_PW", None), default_timeout=2591999)
 try:
     REDIS.client_list()
 except ConnectionError:
     REDIS, REDIS_CACHE = [None]*2
-    
+
 FACEBOOK_ID = get_env_variable("OEC_FACEBOOK_ID",0)
