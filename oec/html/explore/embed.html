@@ -208,7 +208,7 @@ d3plus.form()
     "spacing": 1,
     "align": "left"
   })
-  .type("radio")
+  .type("toggle")
   .ui({
     "margin": 5
   })
@@ -223,7 +223,7 @@ d3plus.form()
     "spacing": 1,
     "align": "left"
   })
-  .type("radio")
+  .type("toggle")
   .ui({
     "margin": 5
   })
@@ -238,7 +238,7 @@ d3plus.form()
     "spacing": 1,
     "align": "left"
   })
-  .type("radio")
+  .type("toggle")
   .ui({
     "margin": 5
   })
@@ -290,7 +290,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
             })
             .container("#viz")
             .id(["nest", "id"])
-            .time({"key": "year", "solo": years })
+            .time({"value": "year", "solo": years })
             .aggs({
               "export_val_growth_pct": "mean",
               "export_val_growth_pct_5": "mean",
@@ -318,18 +318,18 @@ var trade_flow = "{{ current_build.trade_flow }}",
             .icon("icon")
             .focus({"tooltip": false})
             .format({
-              "number": function(number, key){
+              "number": function( number , key , vars ){
                 if(key){
                   if(key.indexOf("pct") > -1){ return d3.format(".2%")(number); }
                   if(key == "year"){ return number; }
                 }
-                var ret = d3plus.method.format.number(number,key)
+                var ret = d3plus.number.format( number , key , vars )
                 if (key && ["export_val","import_val","net_export_val","net_import_val"].indexOf(key) >= 0) {
                   ret = "$"+ret
                 }
                 return ret
               },
-              "text": function(text, key){
+              "text": function( text , key ){
 
                 if(key){
                   if(key == "display_id"){ return text.toUpperCase(); }
@@ -358,7 +358,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
                   if(text.indexOf("Values") >= 0 && !key){
                     return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
                   }
-                  return d3plus.method.format.text(text,key);
+                  return d3plus.string.title( text , key , vars );
                 }
               }
             })
@@ -463,6 +463,7 @@ function finish(data, attrs){
           "align": "left"
         })
         .ui({
+          "margin": 0,
           "padding": 5
         })
         .width(180)
@@ -475,7 +476,7 @@ function finish(data, attrs){
       }
 
       if ( ["trade_flow","classification"].indexOf(this.id) >= 0 ) {
-        ui.type("radio").font({"align": "center"})
+        ui.type("toggle").font({"align": "center"})
       }
       else {
         ui.type("drop")
@@ -613,15 +614,21 @@ switch (app_type){
         .depth(1)
         .type("network")
         .color("color")
-        .nodes(raw_network.nodes)
+        .nodes({
+          "overlap": 1.1,
+          "value": raw_network.nodes
+        })
         .edges(raw_network.edges)
         .active({
-          "key": function(d){
+          "value": function(d){
             return d.export_rca >= 1;
           },
           "spotlight":true
         })
-        .size("market_val")
+        .size({
+          "scale": d3.scale.pow().exponent(3/8),
+          "value": "market_val"
+        })
 
       finish(raw_data.data, attrs)
     }
@@ -644,7 +651,7 @@ switch (app_type){
         .nodes(raw_network.nodes)
         .edges(raw_network.edges)
         .active({
-          "key": function(d){
+          "value": function(d){
             return d.export_rca >= 1;
           },
           "spotlight":true
