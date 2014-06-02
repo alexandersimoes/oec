@@ -594,7 +594,7 @@ switch (app_type){
 
   case "network":
     q = q.defer(d3.json, "/static/json/network_{{ current_build.classification }}.json")
-    q = q.defer(d3.json, "/hs/export/{{ current_build.year }}/all/all/show/")
+    q = q.defer(d3.json, "/{{ current_build.classification }}/export/{{ current_build.year }}/all/all/show/")
     var format_data_orig = format_data
     var go = function(){
 

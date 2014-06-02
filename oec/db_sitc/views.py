@@ -19,8 +19,11 @@ def per_request_callbacks(response):
 # 
 ############################################################
 
-@mod.route('/all/<origin_id>/all/all/')
-@mod.route('/<year>/<origin_id>/all/all/')
+#@mod.route('/all/<origin_id>/all/all/')
+#@mod.route('/<year>/<origin_id>/all/all/')
+@mod.route('/<trade_flow>/all/<origin_id>/all/all/')
+@mod.route('/<trade_flow>/<year>/<origin_id>/all/all/')
+@mod.route('/<trade_flow>/<year>/show/all/all/')
 @crossdomain(origin='*')
 def sitc_yo(**kwargs):
     return make_response(make_query(Yo, request.args, g.locale, **kwargs))
@@ -31,8 +34,11 @@ def sitc_yo(**kwargs):
 def sitc_yd(**kwargs):
     return make_response(make_query(Yd, request.args, g.locale, **kwargs))
 
-@mod.route('/all/all/all/<sitc_id>/')
-@mod.route('/<year>/all/all/<sitc_id>/')
+#@mod.route('/all/all/all/<sitc_id>/')
+#@mod.route('/<year>/all/all/<sitc_id>/')
+@mod.route('/<trade_flow>/all/all/all/<hs_id>/')
+@mod.route('/<trade_flow>/<year>/all/all/<hs_id>/')
+@mod.route('/<trade_flow>/<year>/all/all/show/')
 @crossdomain(origin='*')
 def sitc_yp(**kwargs):
     return make_response(make_query(Yp, request.args, g.locale, **kwargs))
