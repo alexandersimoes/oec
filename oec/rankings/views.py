@@ -39,8 +39,7 @@ def rankings(category=None,year=None):
     if year == None:
         download_all = True if download else False
         year = available_years[category][-1]
-    # elif year > available_years[category][-1]:
-    elif year > 2012:
+    elif year > available_years[category][-1]:
         return redirect(url_for('.rankings', category=category, year=available_years[category][0]))
     elif year < available_years[category][0]:
         return redirect(url_for('.rankings', category=category, year=available_years[category][-1]))

@@ -38,8 +38,8 @@ if redis_sesh.redis:
     app.session_interface = redis_sesh
 
 # Global Latest Year Variables
-available_years = {"sitc": range(1962, 2012), "hs": range(1995, 2012), \
-                    "country": range(1962, 2012)}
+available_years = {"sitc": range(1962, 2013), "hs": range(1995, 2013), \
+                    "country": range(1962, 2013)}
 
 # Global for excluded countries
 excluded_countries = ["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", \

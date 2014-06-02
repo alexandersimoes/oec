@@ -67,7 +67,7 @@ class Build(db.Model, AutoSerialize):
 
     def get_year(self):
         if not self.year:
-            return "2011"
+            return available_years["hs"][-1]
         elif "." in self.year:
             years = self.year.split(".")
             return "{0} - {1}".format(years[0], years[1])

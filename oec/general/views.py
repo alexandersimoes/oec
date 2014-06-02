@@ -470,7 +470,7 @@ def api_data():
 # ---------------------------
 @mod.route('embed/<app_name>/<trade_flow>/<origin>/<dest>/<product>/')
 @mod.route('embed/<app_name>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
-def embed_legacy(app_name, trade_flow, origin, dest, product, year='2011'):
+def embed_legacy(app_name, trade_flow, origin, dest, product, year=2012):
     c = 'sitc' if int(year) < 1995 else 'hs'
     if product != "show" and product != "all":
         prod = Hs.query.filter_by(hs=product).first()

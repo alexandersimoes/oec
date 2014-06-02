@@ -102,7 +102,7 @@ class Country(db.Model, AutoSerialize):
     def get_display_id(self):
         return self.id_3char
 
-    def get_attr_yo(self, year=2011):
+    def get_attr_yo(self, year=available_years["hs"][-1]):
         yo = filter(lambda yo: yo.year == year, self.attr_yo)
         if len(yo): return yo[0]
         return None
@@ -192,7 +192,7 @@ class Hs(db.Model, AutoSerialize):
         return Yo.query.filter_by(year=year, top_export=self.id)\
                 .order_by(Yo.export_val.desc()).limit(limit).all()
 
-    def get_yp(self, year=2011):
+    def get_yp(self, year=available_years["hs"][-1]):
         yp = filter(lambda yp: yp.year == year, self.yp_product)
         if len(yp): return yp[0]
         return None
