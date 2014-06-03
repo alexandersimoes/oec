@@ -201,52 +201,54 @@ function activate_build_button() {
 
 {% if current_build.app.type == "stacked" %}
 d3plus.form()
-  .data("[name=layout]")
   .focus(false,change_layout)
   .font({
     "size": 12,
     "spacing": 1,
     "align": "left"
   })
+  .id("id")
   .type("toggle")
   .ui({
     "margin": 5
   })
+  .data("[name=layout]")
   .draw()
 {% endif %}
 {% if current_build.app.type != "rings" and current_build.app.type != "network" %}
 d3plus.form()
-  .data("[name=value]")
   .focus(false,change_value)
   .font({
     "size": 12,
     "spacing": 1,
     "align": "left"
   })
+  .id("id")
   .type("toggle")
   .ui({
     "margin": 5
   })
+  .data("[name=value]")
   .draw()
 {% endif %}
 {% if current_build.app.type == "tree_map" %}
 d3plus.form()
-  .data("[name=nesting]")
   .focus(false,change_depth)
   .font({
     "size": 12,
     "spacing": 1,
     "align": "left"
   })
+  .id("id")
   .type("toggle")
   .ui({
     "margin": 5
   })
+  .data("[name=nesting]")
   .draw()
 {% endif %}
 
 d3plus.form()
-  .data("div#color select")
   .focus(false,change_color)
   .font({
     "size": 12,
@@ -257,6 +259,7 @@ d3plus.form()
   .ui({
     "margin": 5
   })
+  .data("div#color select")
   .draw()
 
 var years = "{{ current_build.year }}"
@@ -358,6 +361,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
                   if(text.indexOf("Values") >= 0 && !key){
                     return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
                   }
+
                   return d3plus.string.title( text , key , vars );
                 }
               }
@@ -497,11 +501,11 @@ function finish(data, attrs){
         ui.data(d3.select(this).select("select"))
           .alt("conversion")
           .color("color")
-          .data(d)
           .icon("icon")
           .id("display_id")
           .keywords("keywords")
           .text("name")
+          .data(d)
       }
       else if (["origin","destination","product"].indexOf(this.id) >= 0) {
 
@@ -510,16 +514,16 @@ function finish(data, attrs){
         ui.data(d3.select(this).select("select"))
           .alt("conversion")
           .color("color")
+          .icon("icon")
+          .id("display_id")
+          .keywords("keywords")
+          .text("name")
           .data(dataURL,function(array) {
             return array.data.filter(function(a){
               a.style = icon_style
               return a.id.length != 2
             })
           })
-          .icon("icon")
-          .id("display_id")
-          .keywords("keywords")
-          .text("name")
 
       }
       else {
@@ -990,13 +994,15 @@ d3.selectAll("#download a").on("click", function(format, save, callback){
 })
 
 function change_depth(d){
-  viz.depth(d).draw();
+  viz.depth(parseInt(d.slice(7))).draw();
 }
 function change_layout(d){
   viz.y({"scale": d}).draw();
 }
 function change_value(d){
   var new_tooltip = viz.tooltip()
+
+  d = d.split("_")[1]
 
   if(d == "net"){
     if(app_type == "geo_map"){
@@ -1023,6 +1029,7 @@ function change_value(d){
 }
 
 function change_color(new_color){
+  console.log(new_color)
   var new_tooltip = viz.tooltip()
   if(new_color == "color"){
     var growth_vars = [trade_flow+"_val_growth_pct", trade_flow+"_val_growth_pct_5", trade_flow+"_val_growth_val", trade_flow+"_val_growth_val_5"]

@@ -69,8 +69,6 @@ d3plus.color.lighter = function( color , increment ) {
 
   var c = d3.hsl(color)
 
-  if (color === "#330000") console.log(color,increment,c.l,c.s,c.toString())
-
   if (!increment) {
     var increment = 0.1
   }
@@ -84,8 +82,6 @@ d3plus.color.lighter = function( color , increment ) {
   if (c.s < 0) {
     c.s = 0
   }
-
-  if (color === "#330000") console.log(color,increment,c.l,c.s,c.toString())
 
   return c.toString()
 
@@ -362,7 +358,7 @@ d3plus.data.element = function( vars ) {
 
         var id = data_obj[vars.id.value] || this.id || false
 
-        if ( id && parseFloat(id) === NaN ) {
+        if ( id && isNaN(parseFloat(id)) ) {
 
           var label = d3.select("label[for="+id+"]")
 
@@ -704,7 +700,7 @@ d3plus.data.json = function( vars , key , next ) {
   d3.json( url , function( error , data ) {
 
     if (!error && data) {
-
+      
       if (typeof vars[key].callback === "function") {
 
         var ret = vars[key].callback(data)
@@ -1302,7 +1298,7 @@ d3plus.font.validate = function(test_fonts) {
   if (!(test_fonts instanceof Array)) {
     test_fonts = test_fonts.split(",")
   }
-
+  
   var fontString = test_fonts.join(", ")
     , completed = d3plus.font.validate.complete
 
@@ -1627,7 +1623,7 @@ d3plus.form = function() {
                 , "focus" , "format" , "height" , "hover" , "icon" , "id"
                 , "keywords" , "open" , "order" , "remove" , "search"
                 , "select" , "selectAll" , "text" , "title" , "type" , "width" ]
-    , styles  = [ "font" , "icon" , "timing" , "title" , "ui" ]
+    , styles  = [ "data" , "font" , "icon" , "timing" , "title" , "ui" ]
 
   d3plus.method( vars , methods , styles )
 
@@ -2374,7 +2370,7 @@ d3plus.string.title = function( text , key , vars ) {
   }
 
   if ( text.charAt(text.length-1) === "." ) {
-    return txt.charAt(1).toUpperCase() + txt.substr(1)
+    return text.charAt(1).toUpperCase() + text.substr(1)
   }
 
   var smalls = locale.lowercase,
@@ -2920,7 +2916,7 @@ d3plus.tooltip.create = function(params) {
 
     title_width -= title_icon.node().offsetWidth
   }
-
+  
   if (params.title) {
     var mw = params.max_width-6
     if (params.icon) mw -= (params.iconsize+6)
@@ -3361,17 +3357,17 @@ d3plus.tooltip.data = function(vars,id,length,extras,depth) {
 //-------------------------------------------------------------------
 
 d3plus.tooltip.move = function(x,y,id) {
-
+  
   if (!id) var tooltip = d3.select("div#d3plus_tooltip_id_default")
   else var tooltip = d3.select("div#d3plus_tooltip_id_"+id)
-
+  
   if (tooltip.node()) {
-
+    
     var d = tooltip.datum()
-
+  
     d.cx = x
     d.cy = y
-
+    
     if (!d.fixed) {
 
       // Set initial values, based off of anchor
@@ -3394,19 +3390,19 @@ d3plus.tooltip.move = function(x,y,id) {
         else if (d.anchor.y == "top") {
           d.flip = d.cy - d.height - d.offset < 0
         }
-
+        
         if (d.flip) {
           d.y = d.cy + d.offset + d.arrow_offset
         }
         else {
           d.y = d.cy - d.height - d.offset - d.arrow_offset
         }
-
+    
       }
       else {
 
         d.y = d.cy - d.height/2
-
+        
         // Determine whether or not to flip the tooltip
         if (d.anchor.x == "right") {
           d.flip = d.cx + d.width + d.offset <= d.limit[0]
@@ -3414,7 +3410,7 @@ d3plus.tooltip.move = function(x,y,id) {
         else if (d.anchor.x == "left") {
           d.flip = d.cx - d.width - d.offset < 0
         }
-
+    
         if (d.anchor.x == "center") {
           d.flip = false
           d.x = d.cx - d.width/2
@@ -3426,7 +3422,7 @@ d3plus.tooltip.move = function(x,y,id) {
           d.x = d.cx - d.width - d.offset
         }
       }
-
+  
       // Limit X to the bounds of the screen
       if (d.x < 0) {
         d.x = 0
@@ -3434,7 +3430,7 @@ d3plus.tooltip.move = function(x,y,id) {
       else if (d.x + d.width > d.limit[0]) {
         d.x = d.limit[0] - d.width
       }
-
+  
       // Limit Y to the bounds of the screen
       if (d.y < 0) {
         d.y = 0
@@ -3442,20 +3438,20 @@ d3plus.tooltip.move = function(x,y,id) {
       else if (d.y + d.height > d.limit[1]) {
         d.y = d.limit[1] - d.height
       }
-
+      
     }
-
+    
     tooltip
       .style("top",d.y+"px")
       .style("left",d.x+"px")
-
+  
     if (d.arrow) {
       tooltip.selectAll(".d3plus_tooltip_arrow")
         .call(d3plus.tooltip.arrow)
     }
-
+    
   }
-
+    
 }
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -3466,21 +3462,21 @@ d3plus.tooltip.remove = function(id) {
 
   // If an ID is specified, only remove that tooltip
   if (id) {
-
+    
     // First remove the background curtain, if the tooltip has one
     d3.selectAll("div#d3plus_tooltip_curtain_"+id).remove()
     // Finally, remove the tooltip itself
     d3.selectAll("div#d3plus_tooltip_id_"+id).remove()
-
+    
   }
   // If no ID is given, remove ALL d3plus tooltips
   else {
-
+    
     // First remove all background curtains on the page
     d3.selectAll("div#d3plus_tooltip_curtain").remove()
     // Finally, remove all tooltip
     d3.selectAll("div.d3plus_tooltip").remove()
-
+    
   }
 
 }
@@ -3551,7 +3547,7 @@ d3plus.util.closest = function(arr,value) {
 d3plus.util.copy = function(obj) {
 
   return d3plus.util.merge(obj)
-
+  
 }
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -3766,7 +3762,7 @@ d3plus.util.uniques = function(data,value) {
   }
 
   var type = null
-
+  
   return d3.nest().key(function(d) {
       if (typeof value == "string") {
         if (!type && typeof d[value] !== "undefined") type = typeof d[value]
@@ -4392,24 +4388,24 @@ d3plus.zoom.controls = function() {
     var zoom_enter = vars.container.value.append("div")
       .attr("id","d3plus.utilsts.zoom_controls")
       .style("top",(vars.margin.top+5)+"px")
-
+  
     zoom_enter.append("div")
       .attr("id","zoom_in")
       .attr("unselectable","on")
       .on(d3plus.evt.click,function(){ vars.zoom("in") })
       .text("+")
-
+  
     zoom_enter.append("div")
       .attr("id","zoom_out")
       .attr("unselectable","on")
       .on(d3plus.evt.click,function(){ vars.zoom("out") })
       .text("-")
-
+  
     zoom_enter.append("div")
       .attr("id","zoom_reset")
       .attr("unselectable","on")
-      .on(d3plus.evt.click,function(){
-        vars.zoom("reset")
+      .on(d3plus.evt.click,function(){ 
+        vars.zoom("reset") 
         vars.draw.update()
       })
       .html("\&#8634;")
@@ -6730,6 +6726,7 @@ d3plus.draw.finish = function(vars) {
   // Display and reset internal_error, if applicable
   //----------------------------------------------------------------------------
   if (vars.internal_error) {
+    vars.internal_error = d3plus.string.title( vars.internal_error )
     d3plus.console.warning(vars.internal_error)
     d3plus.ui.message(vars,vars.internal_error)
     vars.internal_error = null
@@ -9217,7 +9214,7 @@ d3plus.shape.fill = function(vars,selection,enter,exit) {
       .call(init)
 
     if (vars.draw.timing) {
-
+      
       clip.selectAll("rect").transition().duration(vars.draw.timing)
         .call(update)
 
@@ -14273,7 +14270,7 @@ d3plus.input.button = function( vars ) {
 d3plus.input.drop = function( vars ) {
 
   var self = this.drop
-
+  
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Hijack events of original element, if applicable.
   //----------------------------------------------------------------------------
@@ -14889,7 +14886,7 @@ d3plus.input.button.icons = function ( elem , vars ) {
 
       var children = []
 
-      if (d[vars.icon.value] && vars.data.value.length < vars.data.large) {
+      if (d[vars.icon.value] && vars.data.value.length <= vars.data.large) {
         children.push(vars.icon.value)
       }
 
@@ -15341,14 +15338,15 @@ d3plus.input.drop.element = function ( vars ) {
 //------------------------------------------------------------------------------
 d3plus.input.drop.height = function ( vars ) {
 
-  var buttonHeight = vars.container.button.container().node().offsetHeight
-    , position     = vars.container.value.node().getBoundingClientRect()
+  var button       = vars.container.button.container().node()
+    , buttonHeight = button.offsetHeight
+    , buttonTop    = button.getBoundingClientRect().top
 
-  vars.height.secondary = window.innerHeight - position.top
-                        - buttonHeight - vars.ui.padding*2
+  vars.height.secondary = window.innerHeight - buttonTop - vars.ui.margin
+                        - buttonHeight - vars.ui.padding*2 - vars.ui.border*2
 
   if ( vars.height.secondary < buttonHeight*3 ) {
-    vars.height.secondary = position.top-10
+    vars.height.secondary = buttonTop-10
     vars.self.open({"flipped": true})
   }
   else {
