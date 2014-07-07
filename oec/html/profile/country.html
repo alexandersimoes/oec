@@ -152,8 +152,8 @@
       var visualization = d3plus.viz()
         .attrs(attrs)
         .container("#viz")
-        .coords(raw_coords)
         .coords({
+          "value": raw_coords,
           "center": [10,0],
           "padding": 0,
           "mute": ["anata"]

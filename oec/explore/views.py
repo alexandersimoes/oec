@@ -58,12 +58,21 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
             c = Country.query.filter_by(id_3char=dest).first()
             dest = "zaf"
             msg = "{0} reports their trade under South Africa in the HS classification. ".format(c.get_name())
+        if origin in ["bel", "lux"]:
+            c = Country.query.filter_by(id_3char=origin).first()
+            origin = "blx"
+            msg = "{0} reports their trade under Belgium-Luxembourg in the HS classification. ".format(c.get_name())
+        if dest in ["bel", "lux"]:
+            c = Country.query.filter_by(id_3char=dest).first()
+            dest = "blx"
+            msg = "{0} reports their trade under Belgium-Luxembourg in the HS classification. ".format(c.get_name())
 
     if msg:
         redirect_url = url_for('.explore', app_name=app_name, \
                     classification=classification, trade_flow=trade_flow, \
                     origin_id=origin, dest_id=dest, prod_id=product, year=year)
-        flash(msg+"<script>redirect('"+redirect_url+"', 10)</script>")
+        return [msg, redirect_url]
+        
 
 def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trade_flow):
     prod_tbl = Hs if classification == "hs" else Sitc
@@ -138,8 +147,8 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, \
                         classification=classification, trade_flow=trade_flow, \
                         origin_id=origin_id, dest_id=dest_id, prod_id=prod_id, \
                         year=new_year))
-
-    sanitize(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
+    
+    redir = sanitize(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
 
     '''Every possible build for accordion links'''
     all_builds = Build.query.all()
@@ -167,7 +176,11 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, \
         kwargs["sitc_id"] = prod
     else:
         kwargs["hs_id"] = prod
-
+    
+    if redir:
+        flash(redir[0])
+        return redirect(redir[1])
+    
     return render_template("explore/index.html",
         current_build = current_build,
         all_builds = all_builds)
