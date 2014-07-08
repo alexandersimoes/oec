@@ -137,42 +137,41 @@
       .width(280)
       .draw()
 
-    d3.json("/static/json/country_coords.json", function(raw_coords){
-
-      raw_coords["objects"]["TM_WORLD_BORDERS-0.3"]["geometries"].forEach(function(d){
-        country = raw_attrs.filter(function(dd){
-          return dd.id.substr(2) == d.id.toLowerCase()
+    // instantiate d3plus
+    var visualization = d3plus.viz()
+      .attrs(attrs)
+      .container("#viz")
+      .coords("/static/json/country_coords.json",function(raw_coords){
+        raw_coords["objects"]["TM_WORLD_BORDERS-0.3"]["geometries"].forEach(function(d){
+          country = raw_attrs.filter(function(dd){
+            return dd.id.substr(2) == d.id.toLowerCase()
+          })
+          if (country.length) {
+            d.id = country[0].id
+          }
         })
-        if (country.length) {
-          d.id = country[0].id
-        }
+        return raw_coords
       })
+      .coords({
+        "center": [10,0],
+        "padding": 0,
+        "mute": ["anata"]
+      })
+      .color("color")
+      .focus(focus_id)
+      .height(280)
+      .messages(true)
+      .text("name")
+      .tooltip("value")
+      .type("geo_map")
+      .width(280)
+      .zoom({
+        "scroll": false,
+        "pan": false,
+        "click": false
+      })
+      .draw()
 
-      // instantiate d3plus
-      var visualization = d3plus.viz()
-        .attrs(attrs)
-        .container("#viz")
-        .coords({
-          "value": raw_coords,
-          "center": [10,0],
-          "padding": 0,
-          "mute": ["anata"]
-        })
-        .color("color")
-        .focus(focus_id)
-        .height(280)
-        .messages(true)
-        .text("name")
-        .tooltip("value")
-        .type("geo_map")
-        .width(280)
-        .zoom({
-          "scroll": false,
-          "pan": false,
-          "click": false
-        })
-        .draw()
-    })
   })
 </script>
 {% endblock %}

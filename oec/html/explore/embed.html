@@ -667,30 +667,30 @@ switch (app_type){
     break;
 
   case "geo_map":
-    q = q.defer(d3.json, "/static/json/country_coords.json")
+
     var format_data_orig = format_data
     var go = function(){
 
       format_data_orig.apply(this, arguments);
       raw_data = arguments[1];
       raw_attrs = arguments[2];
-      raw_coords = arguments[3];
-
-      raw_coords["objects"]["TM_WORLD_BORDERS-0.3"]["geometries"].forEach(function(d){
-        country = raw_attrs.data.filter(function(dd){
-          return dd.id.substr(2) == d.id.toLowerCase()
-        })
-        if (country.length) {
-          d.id = country[0].id
-          d.icon = "/static/img/icons/country/country_"+d.id+".png"
-        }
-      })
 
       viz
         .type("geo_map")
         .depth(1)
         .color(trade_flow+"_val")
-        .coords(raw_coords)
+        .coords("/static/json/country_coords.json",function(raw_coords){
+          raw_coords["objects"]["TM_WORLD_BORDERS-0.3"]["geometries"].forEach(function(d){
+            country = raw_attrs.data.filter(function(dd){
+              return dd.id.substr(2) == d.id.toLowerCase()
+            })
+            if (country.length) {
+              d.id = country[0].id
+              d.icon = "/static/img/icons/country/country_"+d.id+".png"
+            }
+          })
+          return raw_coords
+        })
         .coords({
           "center": [10,0],
           "padding": 0,
