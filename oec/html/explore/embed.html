@@ -1,7 +1,6 @@
 {% extends "templates/base.html" %}
 
 {% block head %}
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/libs/d3plus.css" />
 <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.embed.css" />
 {% endblock %}
 
@@ -1029,8 +1028,11 @@ function change_value(d){
 }
 
 function change_color(new_color){
-  console.log(new_color)
+  if(!viz.tooltip){
+    return
+  }
   var new_tooltip = viz.tooltip()
+  
   if(new_color == "color"){
     var growth_vars = [trade_flow+"_val_growth_pct", trade_flow+"_val_growth_pct_5", trade_flow+"_val_growth_val", trade_flow+"_val_growth_val_5"]
     growth_vars.forEach(function(gv){

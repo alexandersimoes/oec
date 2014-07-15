@@ -98,7 +98,7 @@
       })
       .search(false)
       .focus(undefined,function(lang){
-        if (lang !== "{{ lang_id }}") {
+        if (lang !== "{{ g.locale }}") {
           window.location = "/set_lang/"+lang+"/";
         }
       })
