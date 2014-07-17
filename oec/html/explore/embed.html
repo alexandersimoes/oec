@@ -728,7 +728,7 @@ function update_text_table(data, attrs){
   data.forEach(function(d, i){
     table_data.push({
       "#": i+1,
-      "id": d[attr_id],
+      "id": d[attr_id].substr(2).toUpperCase(),
       "name": attrs[d[attr_id]].name,
       "val": format_currency(d[val]),
       "percent": format_percent(d[val]/total)
@@ -739,6 +739,12 @@ function update_text_table(data, attrs){
   // uppercase the column headers
   tbl.selectAll("thead th")
     .text(function(column) {
+      if(column == "id" && attr_id != "dest_id"){
+        return attr_id.split("_")[0].toUpperCase()
+      }
+      if(column == "val"){
+        return "Value (USD)"
+      }
       return column.charAt(0).toUpperCase() + column.substr(1);
     });
 
