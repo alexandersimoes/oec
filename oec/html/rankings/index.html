@@ -123,21 +123,25 @@
 {% block js %}
   <script>
 
+    var currentYear = "{{ year }}"
+
     function change_year(new_year) {
 
-      var url = window.location.pathname.split("/")
-      if(url.length == 5){
-        url.splice(3, 1, new_year)
+      if (new_year !== currentYear) {
+
+        var url = window.location.pathname.split("/")
+        if(url.length == 5){
+          url.splice(3, 1, new_year)
+        }
+        else {
+          url.splice(3, 0, new_year)
+        }
+        window.location = url.join("/")
+
       }
-      else {
-        url.splice(3, 0, new_year)
-      }
-      window.location = url.join("/")
 
     }
 
-    var currentYear = "{{ year }}"
-    
     var form = d3plus.form()
       .type("drop")
       .data("#change_year")

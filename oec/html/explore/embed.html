@@ -16,7 +16,7 @@
   <div id="ui">
     {% if current_build.app.type == "stacked" %}
     <div id="layout">
-      <input type="radio" name="layout" value="linear" id="layout_value" checked="checked"><label for="layout_value">{{ _('Value') }}</label>
+      <input type="radio" name="layout" value="linear" id="layout_linear" checked="checked"><label for="layout_linear">{{ _('Value') }}</label>
       <input type="radio" name="layout" value="share" id="layout_share" ><label for="layout_share">{{ _('Percent') }}</label>
     </div>
     {% endif %}
@@ -42,19 +42,21 @@
       <input type="radio" name="value" value="net" id="value_net" /><label for="value_net">{{ _('Net') }}</label>
     </div>
     {% endif %}
-    <div id="color">
-      <select>
-        {% if current_build.app.type == "geo_map" %}
-          <option value="val">{{ _('Value') }}</option>
-        {% else %}
-          <option value="color">{{ _('Category') }}</option>
-        {% endif %}
-        <option value="val_growth_pct">{{ _('Annual Growth Rate (1 year)') }}</option>
-        <option value="val_growth_pct_5">{{ _('Annual Growth Rate (5 year)') }}</option>
-        <option value="val_growth_val">{{ _('Growth Value (1 year)') }}</option>
-        <option value="val_growth_val_5">{{ _('Growth Value (5 year)') }}</option>
-      </select>
-    </div>
+    {% if current_build.app.type != "stacked" %}
+      <div id="color">
+        <select>
+          {% if current_build.app.type == "geo_map" %}
+            <option value="val">{{ _('Value') }}</option>
+          {% else %}
+            <option value="color">{{ _('Category') }}</option>
+          {% endif %}
+          <option value="val_growth_pct">{{ _('Annual Growth Rate (1 year)') }}</option>
+          <option value="val_growth_pct_5">{{ _('Annual Growth Rate (5 year)') }}</option>
+          <option value="val_growth_val">{{ _('Growth Value (1 year)') }}</option>
+          <option value="val_growth_val_5">{{ _('Growth Value (5 year)') }}</option>
+        </select>
+      </div>
+    {% endif %}
     {% if current_build.app.type != "stacked" %}
     <div id="more_years"><button><i class="fa fa-plus"></i>{{ _('All Years') }}</button></div>
     {% endif %}
@@ -82,6 +84,7 @@
         {% if option.color %}data-color="{{ option.color }}"{% endif %}
         {% if ui.id == "product" %}data-style="knockout"{% endif %}
         {% if option.keywords %}data-keywords="{{ option.keywords }}"{% endif %}
+        {% if option.display_id %}data-display_id="{{ option.display_id }}"{% endif %}
         value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
         {% if ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") or ui.current|lower|replace(" ", "_") == option.display_id %}selected="selected"{% endif %}>
           {% if option is string or option is number %}
@@ -97,6 +100,7 @@
       {% if ui.current.color %}data-color="{{ ui.current.color }}"{% endif %}
       {% if ui.id == "product" %}data-style="knockout"{% endif %}
       {% if ui.current.keywords %}data-keywords="{{ ui.current.keywords }}"{% endif %}
+      {% if ui.current.display_id %}data-display_id="{{ ui.current.display_id }}"{% endif %}
       value="{{ ui.current.display_id }}"
       selected="selected">{{ ui.current.name }}</option>
       {% endif %}
@@ -213,6 +217,20 @@ d3plus.form()
   })
   .data("[name=layout]")
   .draw()
+{% else %}
+  d3plus.form()
+    .focus(false,change_color)
+    .font({
+      "size": 12,
+      "spacing": 1,
+      "align": "left"
+    })
+    .type("drop")
+    .ui({
+      "margin": 5
+    })
+    .data("div#color select")
+    .draw()
 {% endif %}
 {% if current_build.app.type != "rings" and current_build.app.type != "network" %}
 d3plus.form()
@@ -247,27 +265,13 @@ d3plus.form()
   .draw()
 {% endif %}
 
-d3plus.form()
-  .focus(false,change_color)
-  .font({
-    "size": 12,
-    "spacing": 1,
-    "align": "left"
-  })
-  .type("drop")
-  .ui({
-    "margin": 5
-  })
-  .data("div#color select")
-  .draw()
-
 var years = "{{ current_build.year }}"
 if(years.indexOf(".") > 0){
   years = years.split(".")
   years = d3.range(parseInt(years[0]), parseInt(years[1])+1)
 }
 else {
-  years = [parseInt(years)]
+  years = [years]
 }
 
 /* init vars */
@@ -459,7 +463,7 @@ function finish(data, attrs){
     .each(function(d,i){
 
       var ui = d3plus.form()
-        .focus(undefined,activate_build_button)
+        .focus(false,activate_build_button)
         .font({
           "size": 12,
           "spacing": 1,
@@ -497,31 +501,36 @@ function finish(data, attrs){
           return a.id.length != 2
         })
 
-        ui.data(d3.select(this).select("select"))
-          .alt("conversion")
+        ui.alt("conversion")
           .color("color")
           .icon("icon")
           .id("display_id")
           .keywords("keywords")
           .text("name")
-          .data(d)
+          .data({
+            "element": d3.select(this).select("select"),
+            "value": d
+          })
       }
       else if (["origin","destination","product"].indexOf(this.id) >= 0) {
 
         var dataURL = this.getAttribute("data-url")
 
-        ui.data(d3.select(this).select("select"))
-          .alt("conversion")
+        ui.alt("conversion")
           .color("color")
           .icon("icon")
           .id("display_id")
           .keywords("keywords")
           .text("name")
-          .data(dataURL,function(array) {
-            return array.data.filter(function(a){
-              a.style = icon_style
-              return a.id.length != 2
-            })
+          .data({
+            "callback":function(array) {
+              return array.data.filter(function(a){
+                a.style = icon_style
+                return a.id.length != 2
+              })
+            },
+            "element": d3.select(this).select("select"),
+            "value": dataURL
           })
 
       }
@@ -996,7 +1005,8 @@ function change_depth(d){
   viz.depth(parseInt(d.slice(7))).draw();
 }
 function change_layout(d){
-  viz.y({"scale": d}).draw();
+  var l = d.split("_")[1]
+  viz.y({"scale": l}).draw();
 }
 function change_value(d){
   var new_tooltip = viz.tooltip()
@@ -1032,7 +1042,7 @@ function change_color(new_color){
     return
   }
   var new_tooltip = viz.tooltip()
-  
+
   if(new_color == "color"){
     var growth_vars = [trade_flow+"_val_growth_pct", trade_flow+"_val_growth_pct_5", trade_flow+"_val_growth_val", trade_flow+"_val_growth_val_5"]
     growth_vars.forEach(function(gv){
