@@ -29,3 +29,8 @@ fuzzywuzzy
 # Required for displaying releases from github
 markdown
 python-dateutil
+
+# For outlier detection
+numpy
+scipy
+pandas
