@@ -41,7 +41,7 @@
       {% for s in o.scores %}
       <tr>
         <td>{{ '%04d' % s[0] }}</td>
-        <td>{{ s[1] }}</td>
+        <td>{{ '%+f' % s[1] }}</td>
       </tr>
       {% endfor %}
     </table>
