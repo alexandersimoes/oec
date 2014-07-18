@@ -298,3 +298,90 @@ def download():
     return Response(response_data,
                         mimetype=mimetype,
                         headers={"Content-Disposition": content_disposition})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import pandas as pd
+import numpy as np
+import scipy.stats
+
+def filter(df, f): return df[df.apply(f)]
+
+def linear(x, y):
+    slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(x, y)
+    # when regression fails because there is less than 2 points
+    if np.isnan(slope): return None
+    # return the deviations
+    return y - (x*slope + intercept)
+  
+
+def change(x,y): return np.log([y[i]/y[i-1] for i in xrange(1, len(y))])
+
+def outlier(df, index, xField, yField, method='linear', threshold=5):
+    converters = {}
+    for a in index: converters[a] = str
+    # df = pd.read_csv(filename, sep="\t", converters=converters)
+    grouped = df.groupby(index)
+    curves = {}
+  
+    # iterate over the groups and record the outliers
+    outliers = {}
+    for name, group in grouped:
+        x,y = group[xField].values, group[yField].values
+        # don't look at products whose cumulative export is less than 10 mil
+        if np.sum(y) < 1E7: continue # REMARK - this is not generalizible
+
+        # get the deviations depending on the method
+        if method == 'change': devs = change(x, y)
+        elif method == 'linear': devs = linear(x, y)
+        else:
+          print 'ERROR: method unknown'
+          exit(1)
+        # skip if the model fitting failed because of not enough valid values
+        if devs is None: continue
+        # compute the median absolute deviation (MAD)
+        med = np.median(devs)
+        mad = np.median(np.abs(devs-med))
+        # normalized deviations
+        norm_devs = devs/mad
+        cond = np.abs(norm_devs)>threshold
+        if np.any(cond): outliers[name] = (x[cond], norm_devs[cond])
+    return outliers
+
+
+
+
+
+
+@mod.route('/outliers/<origin_id>/')
+def outliers(origin_id):
+    country = Country.query.filter_by(id_3char=origin_id).first()
+    yop = hs_tbls.Yop.query.filter_by(origin=country).all()
+    yop = [x.serialize() for x in yop]
+    df = pd.DataFrame(yop)[["year", "origin_id", "hs_id", "export_val"]]
+    
+    results = outlier(df, ['hs_id'], 'year', 'export_val', 'linear', 10)
+    
+    outliers = []
+    for prod, oliers in results.items():
+        p = Hs.query.get_or_404(prod)
+        o = {
+            "prod": p,
+            "scores": zip(oliers[0], oliers[1])
+        }
+        outliers.append(o)
+    
+    outliers = sorted(outliers, key=lambda k:  sum(abs(z[1]) for z in k['scores']), reverse=True)
+    
+    return render_template("explore/outliers.html", country=country, outliers=outliers)

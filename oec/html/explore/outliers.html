@@ -1,0 +1,56 @@
+{% extends "templates/site.html" %}
+
+{% block head %}
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.explore.css" />
+    <style>
+    div.outlier {
+/*      margin: 0 0 40px 0;*/
+      padding: 20px;
+    }
+    table {
+      width: 200px;
+    }
+    table td {
+    }
+    table td, th {
+      padding: 2px;
+      text-align: left;
+    }
+    </style>
+{% endblock %}
+
+{% block title %}: Outliers for {{ country.get_name() }}{% endblock %}
+
+{% block body %}
+
+<div class="title">
+  <h2>Outliers for {{ country.get_name(article=True) }}</h2>
+</div>
+
+<!-- the left pane -->
+<div class="content">
+  
+  {% for o in outliers %}
+  <div class="outlier">
+    <h3><a target="_blank" href="/explore/stacked/hs/export/{{ country.get_display_id() }}/show/{{ o.prod.get_display_id() }}/1995.2012/">{{ o.prod.get_name() }}</a></h3>
+    <table>
+      <tr>
+        <th>Year</th>
+        <th>MAD Score</th>
+      </tr>
+      {% for s in o.scores %}
+      <tr>
+        <td>{{ '%04d' % s[0] }}</td>
+        <td>{{ s[1] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <a target="_blank" href="/explore/stacked/hs/export/{{ country.get_display_id() }}/show/{{ o.prod.get_display_id() }}/1995.2012/">atlas.media.mit.edu/explore/stacked/hs/export/{{ country.get_display_id() }}/show/{{ o.prod.get_display_id() }}/1995.2012/</a>
+  </div>
+  {% endfor %}
+
+</div> <!-- END #main -->
+{% endblock %}
+
+{% block js %}
+{% endblock %}
