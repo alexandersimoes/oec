@@ -32,7 +32,7 @@
   
   {% for o in outliers %}
   <div class="outlier">
-    <h3><a target="_blank" href="/explore/stacked/hs/export/{{ country.get_display_id() }}/show/{{ o.prod.get_display_id() }}/1995.2012/">{{ o.prod.get_name() }}</a></h3>
+    <h3><a target="_blank" href="/explore/stacked/hs/export/{{ country.get_display_id() }}/show/{{ o.prod.get_display_id() }}/1995.2012/">{{ o.prod.get_display_id() }} {{ o.prod.get_name() }}</a></h3>
     <table>
       <tr>
         <th>Year</th>
