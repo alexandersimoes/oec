@@ -10793,9 +10793,12 @@ d3plus.data.filter = function( vars , data ) {
 
       // if the variable has nesting, check all levels
       var match = false
-
       if (vars[v].nesting) {
-        vars[v].nesting.forEach(function(n){
+        var nesting = vars[v].nesting
+        if (d3plus.object.validate(nesting)) {
+          nesting = d3.keys(nesting)
+        }
+        nesting.forEach(function(n){
           if (!match) {
             match = test_value(d3plus.variable.value(vars,d,n))
           }
@@ -11158,11 +11161,13 @@ d3plus.data.nest = function( vars , flatData , nestingLevels , requirements ) {
     if ("d3plus" in leaves[0]) {
 
       leaves.forEach(function(l){
-        if (l.d3plus.merged instanceof Array) {
-          if (!returnObj.d3plus.merged) returnObj.d3plus.merged = []
-          returnObj.d3plus.merged = returnObj.d3plus.merged.concat(l.d3plus.merged)
+        if ("d3plus" in l) {
+          if (l.d3plus.merged instanceof Array) {
+            if (!returnObj.d3plus.merged) returnObj.d3plus.merged = []
+            returnObj.d3plus.merged = returnObj.d3plus.merged.concat(l.d3plus.merged)
+          }
+          if (l.d3plus.text) returnObj.d3plus.text = l.d3plus.text
         }
-        if (l.d3plus.text) returnObj.d3plus.text = l.d3plus.text
       })
     }
 
@@ -14667,7 +14672,7 @@ d3plus = window.d3plus || {};
 
 window.d3plus = d3plus;
 
-d3plus.version = "1.4.1 - Teal";
+d3plus.version = "1.4.2 - Teal";
 
 d3plus.repo = "https://github.com/alexandersimoes/d3plus/";
 
