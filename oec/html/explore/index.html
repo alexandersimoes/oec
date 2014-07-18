@@ -107,7 +107,7 @@
         {% for entry in stats.entries %}
           <tr>
             <td>{{ loop.index }}</td>
-            <td>{{ entry.attr.get_abbrv()|upper }}</td>
+            <td>{{ entry.attr.get_display_id() }}</td>
             <td>{{ entry.attr.get_name() }}</td>
             <td>{{ entry.value|format_currency }}</td>
             <td>{{ entry.share|format_percent }}</td>
