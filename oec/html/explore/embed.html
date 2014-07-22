@@ -1074,7 +1074,15 @@ d3.selectAll(".share_button#Twitter, .share_button#Facebook").on("click", functi
 ////////////////////////////
 
 /* set window resize func */
-window.onresize = resize_viz
+// window.onresize = resize_viz
+var bg_resize = window.onresize
+window.onresize = function() {
+  if(this.resizeTO) clearTimeout(this.resizeTO);
+  this.resizeTO = setTimeout(function() {
+    resize_viz()
+  },500)
+  if (bg_resize) bg_resize()
+}
 
 /* unleash the dogs... make the AJAX requests in order to the server and when
    they return execute the go() func */
