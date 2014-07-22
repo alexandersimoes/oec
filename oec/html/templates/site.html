@@ -22,6 +22,11 @@
         <!-- <li><a role="button" class="{% if g.page_type == 'rankings' %}current{% endif %}" href="{{ url_for('rankings.rankings', category='country', year=2011) }}">{{ _('Rankings') }}</a></li> -->
         <li><a role="button" class="{% if g.page_type == 'about' %}current{% endif %}" href="{{ url_for('general.about') }}">{{ _('About') }}</a></li>
       </ul>
+      {% if g.page_type == 'profile' %}
+      <div id="secondary_nav">
+        <b>↳</b> <a class="{% if g.page_sub_type == 'country' %}current{% endif %}" href="{{ url_for('profile.profile_country_redirect') }}">Country</a> | <a class="{% if g.page_sub_type == 'hs' %}current{% endif %}" href="{{ url_for('profile.profile_product_redirect', attr_type='hs') }}">HS</a> | <a class="{% if g.page_sub_type == 'sitc' %}current{% endif %}" href="{{ url_for('profile.profile_product_redirect', attr_type='sitc') }}">SITC</a>
+      </div>
+      {% endif %}
     </nav>
     </div><div class="col1">
       {% if g.page_type != 'home' %}

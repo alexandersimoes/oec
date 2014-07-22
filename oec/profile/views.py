@@ -3,6 +3,7 @@ import time, urllib2, json
 from flask import Blueprint, render_template, g, request, current_app, \
                     session, redirect, url_for, flash, abort
 from flask.ext.babel import gettext
+from sqlalchemy.sql.expression import func
 
 from oec import app, db, babel, view_cache, random_countries, available_years
 from oec.utils import make_query, make_cache_key
@@ -21,6 +22,16 @@ def profile_country_redirect():
     c = Country.query.get(choice(random_countries))
 
     return redirect(url_for(".profile_country", attr_id=c.id_3char))
+
+@mod.route('/<attr_type>/')
+def profile_product_redirect(attr_type):
+    '''fetch random product'''
+    if attr_type == "hs":
+        p = getattr(attr_models, attr_type.capitalize()).query.order_by(func.random()).first_or_404()
+    else:
+        p = getattr(attr_models, attr_type.capitalize()).query.order_by(func.random()).first_or_404()
+
+    return redirect(url_for(".profile_product", attr_type=attr_type, attr_id=p.get_display_id()))
 
 def sanitize(id_3char):
     msg = None
@@ -42,6 +53,7 @@ def sanitize(id_3char):
 @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def profile_country(attr_id="usa"):
     g.page_type = mod.name
+    g.page_sub_type = "country"
 
     is_iOS = False
     if any(x in request.headers.get('User-Agent') for x in ["iPad","iPhone","iPod"]):
@@ -95,6 +107,7 @@ def profile_country(attr_id="usa"):
 @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def profile_product(attr_type, attr_id="usa"):
     g.page_type = mod.name
+    g.page_sub_type = attr_type
 
     is_iOS = False
     if any(x in request.headers.get('User-Agent') for x in ["iPad","iPhone","iPod"]):

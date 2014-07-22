@@ -80,6 +80,29 @@ header #search {
 }
 
 /******************/
+/* Secondary Nav  */
+/******************/
+
+header #secondary_nav {
+  color: #888;
+  text-align: left;
+  padding: 5px 0 5px 0;
+  background-color: rgba(255, 255, 255, .6);
+  display: inline-block;
+  position: relative;
+  right: 14px;
+}
+
+header #secondary_nav a {
+  font-size: 12px;
+  margin: 0 10px;
+}
+
+header #secondary_nav a.current {
+  border-bottom: 0;
+}
+
+/******************/
 /* Footer Styling */
 /******************/
 footer {
