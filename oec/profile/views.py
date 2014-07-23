@@ -60,8 +60,18 @@ def profile_country(attr_id="usa"):
         is_iOS = True
 
     sanitize(attr_id)
-
-    attr = getattr(attr_models, "Country").query.filter_by(id_3char=attr_id).first_or_404()
+    
+    attrs = getattr(attr_models, "Country_name").query.filter(func.char_length(getattr(attr_models, "Country_name").origin_id)==5).filter_by(lang=g.locale).order_by(getattr(attr_models, "Country_name").name).all()
+    prev, attr, next = [None]*3
+    for a in attrs:
+        next = a
+        if None not in [prev, attr, next]:
+            break
+        if a.origin_id[2:] == attr_id:
+            attr = a
+        elif attr is None:
+            prev = a
+    prev, attr, next = prev.country, attr.country, next.country
 
     tree_map = App.query.filter_by(type="tree_map").first()
 
@@ -100,7 +110,9 @@ def profile_country(attr_id="usa"):
     return render_template("profile/country.html",
                                 is_iOS=False,
                                 builds=builds,
-                                attr=attr)
+                                prev=prev,
+                                attr=attr,
+                                next=next)
 
 @mod.route('/<attr_type>/')
 @mod.route('/<attr_type>/<attr_id>/')
@@ -112,11 +124,25 @@ def profile_product(attr_type, attr_id="usa"):
     is_iOS = False
     if any(x in request.headers.get('User-Agent') for x in ["iPad","iPhone","iPod"]):
         is_iOS = True
+    
+    tbl = getattr(attr_models, attr_type.capitalize())
+    tbl_name = getattr(attr_models, attr_type.capitalize()+"_name")
+    id_name = attr_type + "_id"
 
-    if attr_type == "hs":
-        attr = getattr(attr_models, attr_type.capitalize()).query.filter_by(hs=attr_id).first_or_404()
-    else:
-        attr = getattr(attr_models, attr_type.capitalize()).query.filter_by(sitc=attr_id).first_or_404()
+    attrs = tbl_name.query.filter(func.char_length(getattr(tbl_name, id_name))==6) \
+                        .filter_by(lang=g.locale) \
+                        .order_by(tbl_name.name).all()
+    
+    prev, attr, next = [None]*3
+    for a in attrs:
+        next = a
+        if None not in [prev, attr, next]:
+            break
+        if getattr(a, id_name)[2:] == attr_id:
+            attr = a
+        elif attr is None:
+            prev = a
+    prev, attr, next = getattr(prev,attr_type), getattr(attr,attr_type), getattr(next,attr_type)
 
     tree_map = App.query.filter_by(type="tree_map").first()
 
@@ -144,4 +170,6 @@ def profile_product(attr_type, attr_id="usa"):
                                 is_iOS=is_iOS,
                                 builds=builds,
                                 classification=attr_type,
-                                attr=attr)
+                                prev=prev,
+                                attr=attr,
+                                next=next)

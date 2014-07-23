@@ -9,7 +9,11 @@
 {% block description %}{{ _('List of major leading origin and destination countries with economic indicator statistics of %(prod)s.', prod=attr.get_name()) }} {{ _('Principle trade partners that export %(prod)s.', prod=attr.get_name()) }} {{ _('Countries that import %(prod)s.', prod=attr.get_name()) }}{% endblock %}
 
 {% block body %}
-<h2>{{ _('Learn More About Trade of <strong>%(prod)s</strong>', prod=attr.get_name()) }}</h2>
+<div class="title">
+  <a class="prev" href="{{ prev.get_profile_url() }}">&laquo; {{ _('Previous') }} {{ _('Product') }}</a>
+  <h2>{{ _('Learn More About Trade of <strong>%(prod)s</strong>', prod=attr.get_name()) }}</h2>
+  <a class="next" href="{{ next.get_profile_url() }}">{{ _('Next') }} {{ _('Product') }} &raquo;</a>
+</div>
 
 <div class="content">
 
