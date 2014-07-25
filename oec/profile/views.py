@@ -65,13 +65,17 @@ def profile_country(attr_id="usa"):
     prev, attr, next = [None]*3
     for a in attrs:
         next = a
-        if None not in [prev, attr, next]:
+        if None not in [attr, next]:
             break
         if a.origin_id[2:] == attr_id:
             attr = a
         elif attr is None:
             prev = a
-    prev, attr, next = prev.country, attr.country, next.country
+    
+    if attr == next: next = None
+    if prev: prev = prev.country
+    if attr: attr = attr.country
+    if next: next = next.country
 
     tree_map = App.query.filter_by(type="tree_map").first()
 
@@ -134,15 +138,19 @@ def profile_product(attr_type, attr_id="usa"):
                         .order_by(tbl_name.name).all()
     
     prev, attr, next = [None]*3
-    for a in attrs:
+    for i, a in enumerate(attrs):
         next = a
-        if None not in [prev, attr, next]:
+        if None not in [attr, next]:
             break
         if getattr(a, id_name)[2:] == attr_id:
             attr = a
         elif attr is None:
             prev = a
-    prev, attr, next = getattr(prev,attr_type), getattr(attr,attr_type), getattr(next,attr_type)
+    
+    if attr == next: next = None
+    if prev: prev = getattr(prev,attr_type)
+    if attr: attr = getattr(attr,attr_type)
+    if next: next = getattr(next,attr_type)
 
     tree_map = App.query.filter_by(type="tree_map").first()
 
