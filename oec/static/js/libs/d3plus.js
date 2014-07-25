@@ -21779,9 +21779,10 @@ d3plus.shape.area = function(vars,selection,enter,exit) {
           "angle": d3.range(-70,71,1),
           "aspectRatio": ratio,
           "tolerance": 0
-        })[0]
+        })
 
-        if (lr) {
+        if (lr && lr[0]) {
+          lr = lr[0]
 
           var label = {
             "w": Math.floor(lr.width),
@@ -21995,9 +21996,10 @@ d3plus.shape.coordinates = function(vars,selection,enter,exit) {
         var rect = d3plus.geom.largestRect(path,{
           "angle": 0,
           "aspectRatio": ratio
-        })[0]
+        })
 
-        if (rect) {
+        if (rect && rect[0]) {
+          rect = rect[0]
 
           var label = {
             "anchor": "middle",
