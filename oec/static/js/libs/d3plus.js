@@ -10560,6 +10560,8 @@ d3plus.data.element = function( vars ) {
 
 d3plus.data.fetch = function( vars , years ) {
 
+  if (!vars.data.value) return []
+
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // If "years" have not been requested, determine the years using .time()
   // solo and mute
@@ -11931,7 +11933,8 @@ d3plus.form = function() {
 
         if ( element && element.node().tagName.toLowerCase() === "select" ) {
           var i = element.property("selectedIndex")
-            , option = element.selectAll("option")[0][i]
+          i = i < 0 ? 0 : i
+          var option = element.selectAll("option")[0][i]
             , val = option.getAttribute("data-"+vars.id.value) || option.getAttribute(vars.id.value)
           if (val) vars.focus.value = val
         }
@@ -14291,6 +14294,10 @@ simplify = require('simplify-js');
 
 d3plus.geom.largestRect = function(poly, options) {
   var aRatio, aRatios, angle, angleRad, angleStep, angles, area, aspectRatioStep, aspectRatios, bBox, boxHeight, boxWidth, centroid, events, height, i, insidePoly, left, maxArea, maxAspectRatio, maxHeight, maxRect, maxWidth, maxx, maxy, minAspectRatio, minSqDistH, minSqDistW, minx, miny, modifOrigins, origOrigin, origin, origins, p, p1H, p1W, p2H, p2W, rectPoly, right, rndPoint, rndX, rndY, tempPoly, tolerance, width, widthStep, x0, y0, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8;
+  if (poly.length < 3) {
+    d3plus.console.error('polygon has to have at least 3 points');
+    return null;
+  }
   events = [];
   aspectRatioStep = 0.5;
   angleStep = 5;
@@ -14343,6 +14350,10 @@ d3plus.geom.largestRect = function(poly, options) {
     }
   }
   area = Math.abs(d3.geom.polygon(poly).area());
+  if (area === 0) {
+    d3plus.console.error('polygon has 0 area');
+    return null;
+  }
   _ref = d3.extent(poly, function(d) {
     return d[0];
   }), minx = _ref[0], maxx = _ref[1];
@@ -14694,7 +14705,7 @@ d3plus = window.d3plus || {};
 
 window.d3plus = d3plus;
 
-d3plus.version = "1.4.3 - Teal";
+d3plus.version = "1.4.4 - Teal";
 
 d3plus.repo = "https://github.com/alexandersimoes/d3plus/";
 
@@ -18407,14 +18418,19 @@ d3plus.textwrap.getText = function( vars ) {
 
   if ( !vars.text.value ) {
 
-    var text = vars.container.value.html()
-    if ( text.indexOf("tspan") >= 0 ) {
-      text.replace(/\<\/tspan\>\<tspan\>/g," ")
-      text.replace(/\<\/tspan\>/g,"")
-      text.replace(/\<tspan\>/g,"")
-    }
+    var text = vars.container.value.text()
 
-    vars.self.text( text )
+    if (text) {
+
+      if ( text.indexOf("tspan") >= 0 ) {
+        text.replace(/\<\/tspan\>\<tspan\>/g," ")
+        text.replace(/\<\/tspan\>/g,"")
+        text.replace(/\<tspan\>/g,"")
+      }
+
+      vars.self.text( text )
+
+    }
 
   }
 
@@ -18427,7 +18443,7 @@ d3plus.textwrap.getText = function( vars ) {
     vars.text.phrases = [ vars.text.value + "" ]
   }
 
-  vars.container.value.html("")
+  vars.container.value.text("")
 
 }
 
@@ -18505,7 +18521,7 @@ d3plus.textwrap.tspan = function( vars ) {
     , fontSize   = vars.resize.value ? vars.size.value[1] : vars.container.fontSize || vars.size.value[0]
     , textBox    = vars.container.value.append("tspan").text( words[0] )
                      .attr( "dy" , fontSize + "px" )
-    , textHeight = textBox.node().offsetHeight
+    , textHeight = textBox.node().offsetHeight || textBox.node().getBoundingClientRect().height
     , line       = 1
     , newLine    = function( ) {
       return vars.container.value.append("tspan")
@@ -21734,7 +21750,7 @@ d3plus.shape.area = function(vars,selection,enter,exit) {
   selection.selectAll("path.d3plus_data")
     .data(function(d) {
 
-      if (vars.labels.value) {
+      if (vars.labels.value && d.values.length > 1) {
 
         var tops = []
           , bottoms = []
@@ -22638,7 +22654,7 @@ d3plus.shape.draw = function(vars) {
   vars.g.data.selectAll("g")
     .on(d3plus.evt.click,function(d){
 
-      if (!vars.draw.frozen && (!d.d3plus || !d.d3plus.static)) {
+      if (!d3.event.defaultPrevented && !vars.draw.frozen && (!d.d3plus || !d.d3plus.static)) {
 
         if (typeof vars.mouse == "function") {
           vars.mouse(d)
