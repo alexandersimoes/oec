@@ -17,11 +17,11 @@
 {% block body %}
 <div class="title">
   {% if prev %}
-  <a class="prev" href="{{ prev.get_profile_url() }}">&laquo; {{ _('Previous') }} {{ _('Product') }}</a>
+  <a title="{{ prev.get_name() }}" class="prev" href="{{ prev.get_profile_url() }}">&laquo; {{ _('Previous') }} {{ _('Product') }}</a>
   {% endif %}
   <h2>{{ _('Learn More About Trade of <strong>%(prod)s</strong>', prod=attr.get_name()) }}</h2>
   {% if next %}
-  <a class="next" href="{{ next.get_profile_url() }}">{{ _('Next') }} {{ _('Product') }} &raquo;</a>
+  <a title="{{ next.get_name() }}" class="next" href="{{ next.get_profile_url() }}">{{ _('Next') }} {{ _('Product') }} &raquo;</a>
   {% endif %}
 </div>
 

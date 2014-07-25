@@ -19,11 +19,11 @@
 {% block body %}
 <div class="title">
   {% if prev %}
-  <a class="prev" href="{{ prev.get_profile_url() }}">&laquo; {{ _('Previous') }} {{ _('Country') }}</a>
+  <a title="{{ prev.get_name() }}" class="prev" href="{{ prev.get_profile_url() }}">&laquo; {{ _('Previous') }} {{ _('Country') }}</a>
   {% endif %}
   <h2>{{ _('Learn More About Trade in <strong>%(country)s</strong>', country=attr.get_name(article=True)) }}</h2>
   {% if next %}
-  <a class="next" href="{{ next.get_profile_url() }}">{{ _('Next') }} {{ _('Country') }} &raquo;</a>
+  <a title="{{ next.get_name() }}" class="next" href="{{ next.get_profile_url() }}">{{ _('Next') }} {{ _('Country') }} &raquo;</a>
   {% endif %}
 </div>
 
