@@ -24,7 +24,7 @@
       </ul>
       {% if g.page_type == 'profile' %}
       <div id="secondary_nav">
-        <b>↳</b> <a class="{% if g.page_sub_type == 'country' %}current{% endif %}" href="{{ url_for('profile.profile_country_redirect') }}">Country</a> | <a class="{% if g.page_sub_type == 'hs' %}current{% endif %}" href="{{ url_for('profile.profile_product_redirect', attr_type='hs') }}">Product</a>
+        <a class="{% if g.page_sub_type == 'country' %}current{% endif %}" href="{{ url_for('profile.profile_country_redirect') }}">{{ _('Country') }}</a> | <a class="{% if g.page_sub_type == 'hs' %}current{% endif %}" href="{{ url_for('profile.profile_product_redirect', attr_type='hs') }}">{{ _('Product') }}</a>
       </div>
       {% endif %}
     </nav>

@@ -84,22 +84,30 @@ header #search {
 /******************/
 
 header #secondary_nav {
-  color: #888;
+  color: #bbb;
   text-align: left;
   padding: 5px 0 5px 0;
-  background-color: rgba(255, 255, 255, .6);
+  background-color: rgba(200,200,200,0.6);
   display: inline-block;
   position: relative;
-  right: 20px;
+  left: -26px;
+  top: -3px;
+  border: 1px solid #ccc;
 }
 
 header #secondary_nav a {
+  color: #aaa;
   font-size: 12px;
   margin: 0 10px;
 }
 
+header #secondary_nav a:hover {
+  color: #666;
+}
+
 header #secondary_nav a.current {
   border-bottom: 0;
+  color: #666;
 }
 
 /******************/
