@@ -54,6 +54,8 @@ def sanitize(id_3char):
 def profile_country(attr_id="usa"):
     g.page_type = mod.name
     g.page_sub_type = "country"
+    c_tbl = getattr(attr_models, "Country")
+    cname_tbl = getattr(attr_models, "Country_name")
 
     is_iOS = False
     if any(x in request.headers.get('User-Agent') for x in ["iPad","iPhone","iPod"]):
@@ -61,21 +63,16 @@ def profile_country(attr_id="usa"):
 
     sanitize(attr_id)
     
-    attrs = getattr(attr_models, "Country_name").query.filter(func.char_length(getattr(attr_models, "Country_name").origin_id)==5).filter_by(lang=g.locale).order_by(getattr(attr_models, "Country_name").name).all()
-    prev, attr, next = [None]*3
-    for a in attrs:
-        next = a
-        if None not in [attr, next]:
-            break
-        if a.origin_id[2:] == attr_id:
-            attr = a
-        elif attr is None:
-            prev = a
-    
-    if attr == next: next = None
-    if prev: prev = prev.country
-    if attr: attr = attr.country
-    if next: next = next.country
+    this_country = c_tbl.query.filter_by(id_3char=attr_id).first_or_404()
+    attrs=db.session.query(c_tbl, cname_tbl.name) \
+            .filter(c_tbl.id_3char!=None) \
+            .filter(cname_tbl.origin_id==getattr(attr_models, "Country").id) \
+            .filter(cname_tbl.lang==g.locale) \
+            .order_by(cname_tbl.name).all()
+    attrs = [a[0] for a in attrs]
+    this_country_index = attrs.index(this_country)
+    prev_country = attrs[this_country_index-1] if this_country_index>0 else None
+    next_country = attrs[this_country_index+1] if this_country_index<(len(attrs)-1) else None
 
     tree_map = App.query.filter_by(type="tree_map").first()
 
@@ -105,7 +102,7 @@ def profile_country(attr_id="usa"):
 
     builds = [exports, imports, destinations, origins]
     for b in builds:
-        b.set_options(origin=attr,
+        b.set_options(origin=this_country,
                         dest=None,
                         product=None,
                         classification="hs",
@@ -114,9 +111,9 @@ def profile_country(attr_id="usa"):
     return render_template("profile/country.html",
                                 is_iOS=False,
                                 builds=builds,
-                                prev=prev,
-                                attr=attr,
-                                next=next)
+                                prev=prev_country,
+                                attr=this_country,
+                                next=next_country)
 
 @mod.route('/<attr_type>/')
 @mod.route('/<attr_type>/<attr_id>/')
@@ -124,33 +121,24 @@ def profile_country(attr_id="usa"):
 def profile_product(attr_type, attr_id="usa"):
     g.page_type = mod.name
     g.page_sub_type = attr_type
+    p_tbl = getattr(attr_models, attr_type.capitalize())
+    pname_tbl = getattr(attr_models, attr_type.capitalize()+"_name")
+    pid_name = attr_type + "_id"
 
     is_iOS = False
     if any(x in request.headers.get('User-Agent') for x in ["iPad","iPhone","iPod"]):
         is_iOS = True
     
-    tbl = getattr(attr_models, attr_type.capitalize())
-    tbl_name = getattr(attr_models, attr_type.capitalize()+"_name")
-    id_name = attr_type + "_id"
-
-    attrs = tbl_name.query.filter(func.char_length(getattr(tbl_name, id_name))==6) \
-                        .filter_by(lang=g.locale) \
-                        .order_by(tbl_name.name).all()
-    
-    prev, attr, next = [None]*3
-    for i, a in enumerate(attrs):
-        next = a
-        if None not in [attr, next]:
-            break
-        if getattr(a, id_name)[2:] == attr_id:
-            attr = a
-        elif attr is None:
-            prev = a
-    
-    if attr == next: next = None
-    if prev: prev = getattr(prev,attr_type)
-    if attr: attr = getattr(attr,attr_type)
-    if next: next = getattr(next,attr_type)
+    this_prod = p_tbl.query.filter(getattr(p_tbl, attr_type)==attr_id).first_or_404()
+    attrs=db.session.query(p_tbl, pname_tbl.name) \
+            .filter(func.char_length(p_tbl.id)==6) \
+            .filter(getattr(pname_tbl, pid_name)==p_tbl.id) \
+            .filter(pname_tbl.lang==g.locale) \
+            .order_by(pname_tbl.name).all()
+    attrs = [a[0] for a in attrs]
+    this_prod_index = attrs.index(this_prod)
+    prev_prod = attrs[this_prod_index-1] if this_prod_index>0 else None
+    next_prod = attrs[this_prod_index+1] if this_prod_index<(len(attrs)-1) else None
 
     tree_map = App.query.filter_by(type="tree_map").first()
 
@@ -170,7 +158,7 @@ def profile_product(attr_type, attr_id="usa"):
     for b in builds:
         b.set_options(origin=None,
                         dest=None,
-                        product=attr,
+                        product=this_prod,
                         classification=attr_type,
                         year=available_years[attr_type][-1])
 
@@ -178,6 +166,6 @@ def profile_product(attr_type, attr_id="usa"):
                                 is_iOS=is_iOS,
                                 builds=builds,
                                 classification=attr_type,
-                                prev=prev,
-                                attr=attr,
-                                next=next)
+                                prev=prev_prod,
+                                attr=this_prod,
+                                next=next_prod)
