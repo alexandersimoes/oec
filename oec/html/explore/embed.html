@@ -206,9 +206,7 @@ function activate_build_button() {
 d3plus.form()
   .focus(false,change_layout)
   .font({
-    "size": 12,
-    "spacing": 1,
-    "align": "left"
+    "spacing": 1
   })
   .id("id")
   .type("toggle")
@@ -221,7 +219,6 @@ d3plus.form()
   d3plus.form()
     .focus(false,change_color)
     .font({
-      "size": 12,
       "spacing": 1,
       "align": "left"
     })
@@ -236,9 +233,7 @@ d3plus.form()
 d3plus.form()
   .focus(false,change_value)
   .font({
-    "size": 12,
-    "spacing": 1,
-    "align": "left"
+    "spacing": 1
   })
   .id("id")
   .type("toggle")
@@ -252,9 +247,7 @@ d3plus.form()
 d3plus.form()
   .focus(false,change_depth)
   .font({
-    "size": 12,
-    "spacing": 1,
-    "align": "left"
+    "spacing": 1
   })
   .id("id")
   .type("toggle")
@@ -1008,16 +1001,16 @@ d3.selectAll("#download a").on("click", function(format, save, callback){
 })
 
 function change_depth(d){
-  viz.depth(parseInt(d.slice(7))).draw();
+  viz.depth(parseInt(d[0].slice(7))).draw();
 }
 function change_layout(d){
-  var l = d.split("_")[1]
+  var l = d[0].split("_")[1]
   viz.y({"scale": l}).draw();
 }
 function change_value(d){
   var new_tooltip = viz.tooltip()
 
-  d = d.split("_")[1]
+  d = d[0].split("_")[1]
 
   if(d == "net"){
     if(app_type == "geo_map"){
@@ -1048,6 +1041,7 @@ function change_color(new_color){
     return
   }
   var new_tooltip = viz.tooltip()
+  new_color = new_color[0]
 
   if(new_color == "color"){
     var growth_vars = [trade_flow+"_val_growth_pct", trade_flow+"_val_growth_pct_5", trade_flow+"_val_growth_val", trade_flow+"_val_growth_val_5"]

@@ -103,7 +103,7 @@
       })
       .search(false)
       .focus(undefined,function(lang){
-        if (lang !== "{{ g.locale }}") {
+        if (lang[0] !== "{{ g.locale }}") {
           window.location = "/set_lang/"+lang+"/";
         }
       })
