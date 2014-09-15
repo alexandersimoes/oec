@@ -309,7 +309,6 @@ var trade_flow = "{{ current_build.trade_flow }}",
             .tooltip({
               "small": 225
             })
-            .title({"total": {"prefix":"{{ _('Total') }}: "}})
             .text("name")
             .size(trade_flow+"_val")
             .height(viz_height)
@@ -451,6 +450,13 @@ function format_data(error, raw_data, raw_attrs, raw_other){
 
 /* to be executed after app has been drawn for first time */
 function finish(data, attrs){
+
+  if (app_type === "network") {
+    viz.title({"total": {"prefix":"{{ _('Total World Trade') }}: "}})
+  }
+  else {
+    viz.title({"total": {"prefix":"{{ _('Total Country Trade') }}: "}})
+  }
 
   d3.selectAll(".dropdown_container")
     .each(function(d,i){
