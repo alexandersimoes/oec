@@ -456,3 +456,4 @@ msgstr "Τάξη"
 
 #~ msgid "Download all years data"
 #~ msgstr "Κατεβάστε όλα τα δεδομένα προηγούμενων ετών"
+

@@ -449,3 +449,4 @@ msgstr "דרגה"
 
 #~ msgid "Download all years data"
 #~ msgstr "הורד את כל נתוני השנים"
+

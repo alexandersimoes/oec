@@ -33,7 +33,7 @@ msgstr "目的国"
 
 #: oec/explore/models.py:362
 msgid "Product Name"
-msgstr "製品名"
+msgstr "品目名"
 
 #: oec/explore/models.py:401
 msgid "Origin"
@@ -41,7 +41,7 @@ msgstr "起源"
 
 #: oec/explore/models.py:416
 msgid "Destination"
-msgstr "先"
+msgstr "目的地"
 
 #: oec/explore/models.py:434 oec/rankings/views.py:49 oec/rankings/views.py:53
 msgid "Product"
@@ -321,7 +321,7 @@ msgstr "トップ5"
 #: oec/html/profile/country.html:74 oec/html/profile/product.html:79
 #: oec/html/templates/site.html:18
 msgid "Explore"
-msgstr "探る"
+msgstr "探索"
 
 #: oec/html/profile/product.html:8
 #, python-format
@@ -400,7 +400,7 @@ msgstr "ランキング"
 
 #: oec/html/templates/site.html:22
 msgid "About"
-msgstr "約"
+msgstr "OECについて"
 
 #: oec/rankings/views.py:49 oec/rankings/views.py:53 oec/rankings/views.py:57
 msgid "Rank"
@@ -438,3 +438,4 @@ msgstr "ランク"
 
 #~ msgid "Download all years data"
 #~ msgstr "すべての年のデータをダウンロード"
+

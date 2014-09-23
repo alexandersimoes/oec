@@ -460,3 +460,4 @@ msgstr "Categoria"
 
 #~ msgid "Download all years data"
 #~ msgstr "Download de todos os anos de dados"
+
