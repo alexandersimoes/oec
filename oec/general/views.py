@@ -371,6 +371,12 @@ def about_data_sources():
     g.sub_title = "data"
     return render_template("about/data_sources.html", data_type="sources")
 
+@mod.route('about/data/download/')
+def about_data_download():
+    g.page_type = "about"
+    g.sub_title = "data"
+    return render_template("about/data_download.html", data_type="download")
+
 @mod.route('about/data/<data_type>/')
 def about_data(data_type):
     g.page_type = "about"
