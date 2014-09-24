@@ -1,0 +1,31 @@
+{% extends "templates/about.html" %}
+
+{% block about_title %}:: Data Download{% endblock %}
+
+{% block about_content %}
+<div class="col2">
+  <h3>Data Downloads</h3>
+  <p>
+    The following files are complete data dumps for the entirety of the data held on the site.
+  </p>
+  
+  <h3>SITC4 rev. 2 (1962 - 2012)</h3>
+  <ul>
+    <li><a href="/static/db/raw/year_origin_sitc.tsv.bz2">Product Trade by Year and Country</a></li>
+    <li><a href="/static/db/raw/year_origin_destination_sitc.tsv.bz2">Product Trade between Origin and Destination Country by Year (bilateral)</a></li>
+  </ul>
+
+  <h3>HS4 rev. 92 (1995 - 2012)</h3>
+  <ul>
+    <li><a href="/static/db/raw/year_origin_hs.tsv.bz2">Product Trade by Year and Country</a></li>
+    <li><a href="/static/db/raw/year_origin_destination_hs.tsv.bz2">Product Trade between Origin and Destination Country by Year (bilateral)</a></li>
+  </ul>
+  
+  <h3>Attributes</h3>
+  <ul>
+    <li><a href="/static/db/raw/country.tsv.bz2">Country Names</a></li>
+    <li><a href="/static/db/raw/sitc4.tsv.bz2">SITC Product Names</a></li>
+    <li><a href="/static/db/raw/hs4.tsv.bz2">HS Product Names</a></li>
+  </ul>
+</div>
+{% endblock %}
