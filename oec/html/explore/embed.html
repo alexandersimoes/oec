@@ -22,13 +22,13 @@
     {% endif %}
     {% if current_build.app.type == "tree_map" %}
     <div id="depth">
-      <input type="radio" name="nesting" value="0" id="nesting0" {% if current_build.app.type =="stacked" and current_build.attr_type() != "origin" and current_build.attr_type() != "dest" %}checked="checked"{% endif %}>
+      <input type="radio" name="nesting" value="0" id="nesting0">
       <label for="nesting0">
         {% if current_build.attr_type() == "origin" or current_build.attr_type() == "dest" %}{{ _('Continent') }}
         {% else %}{{ _('Category') }}
         {% endif %}
       </label>
-      <input type="radio" name="nesting" value="1" id="nesting1" {% if current_build.app.type !="stacked" or (current_build.attr_type() == "origin" or current_build.attr_type() == "dest") %}checked="checked"{% endif %}>
+      <input type="radio" name="nesting" value="1" id="nesting1" checked="checked" />
       <label for="nesting1">
         {% if current_build.attr_type() == "origin" or current_build.attr_type() == "dest" %}{{ _('Country') }}
         {% else %}{{ _('Full') }}
@@ -864,7 +864,7 @@ d3.selectAll("button#build").on("click", function(){
   d3.event.preventDefault();
 })
 
-d3.select("#show_hide").on(d3plus.evt.click, function(){
+d3.select("#show_hide").on(d3plus.client.pointer.click, function(){
   var controls = d3.select("#controls")
   if (controls.style("right") == "0px"){
     // controls.style("left", "200px")
@@ -1007,16 +1007,31 @@ d3.selectAll("#download a").on("click", function(format, save, callback){
 })
 
 function change_depth(d){
-  viz.depth(parseInt(d[0].slice(7))).draw();
+
+  if(!viz.tooltip){
+    return
+  }
+
+  viz.depth(parseInt(d.slice(7))).draw();
 }
 function change_layout(d){
-  var l = d[0].split("_")[1]
+
+  if(!viz.tooltip){
+    return
+  }
+
+  var l = d.split("_")[1]
   viz.y({"scale": l}).draw();
 }
 function change_value(d){
+
+  if(!viz.tooltip){
+    return
+  }
+
   var new_tooltip = viz.tooltip()
 
-  d = d[0].split("_")[1]
+  d = d.split("_")[1]
 
   if(d == "net"){
     if(app_type == "geo_map"){
@@ -1047,7 +1062,6 @@ function change_color(new_color){
     return
   }
   var new_tooltip = viz.tooltip()
-  new_color = new_color[0]
 
   if(new_color == "color"){
     var growth_vars = [trade_flow+"_val_growth_pct", trade_flow+"_val_growth_pct_5", trade_flow+"_val_growth_val", trade_flow+"_val_growth_val_5"]

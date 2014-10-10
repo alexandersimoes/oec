@@ -132,7 +132,7 @@
       .container("#product")
       .data(raw_attrs)
       .focus(focus_id.substr(2),function(d){
-        if (d[0] !== focus_id.substr(2)) {
+        if (d !== focus_id.substr(2)) {
           window.location = "/profile/{{ attr.classification }}/"+d+"/"
         }
       })
