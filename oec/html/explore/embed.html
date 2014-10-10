@@ -311,6 +311,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
             })
             .text("name")
             .size(trade_flow+"_val")
+            .size({"threshold":false})
             .height(viz_height)
             .width(viz_width)
             .icon("icon")

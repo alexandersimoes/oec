@@ -465,3 +465,4 @@ msgstr "مرتبة"
 
 #~ msgid "Download all years data"
 #~ msgstr "تحميل جميع البيانات سنوات"
+

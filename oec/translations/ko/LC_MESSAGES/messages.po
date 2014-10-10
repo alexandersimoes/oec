@@ -441,3 +441,4 @@ msgstr "순위"
 
 #~ msgid "Download all years data"
 #~ msgstr "모든 년 자료를 다운로드"
+
