@@ -163,7 +163,10 @@
           .container("#viz")
           .type("rings")
           .edges(raw_network.edges)
-          .focus("{{ attr.id }}")
+          .focus({
+            "value": "{{ attr.id }}",
+            "tooltip" : false
+          })
           .width(280)
           .height(280)
           .time("year")
