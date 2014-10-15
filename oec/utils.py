@@ -1,20 +1,11 @@
-import cStringIO, gzip, pickle, re, operator, sys
+import sys
 from re import sub
-from itertools import groupby
-from werkzeug.datastructures import CallbackDict
 from jinja2 import Markup
-from flask import abort, current_app, make_response, Flask, jsonify, request, \
-                    Response, session, g, get_flashed_messages
-from functools import update_wrapper
+from flask import abort, current_app, jsonify, request, g, get_flashed_messages
 from datetime import datetime, date, timedelta
 from math import ceil
-from uuid import uuid4
-from config import REDIS
 from decimal import *
 from sqlalchemy import func, and_, or_, asc, desc, not_
-from uuid import uuid4
-
-from flask.sessions import SessionInterface, SessionMixin
 
 ############################################################
 # ----------------------------------------------------------
@@ -104,88 +95,6 @@ def exist_or_404(Model, id):
         return item
     abort(404, 'Entry not found in %s with id: %s' % (Model.__tablename__, id))
 
-''' Helper function to gzip JSON data (used in data API views)'''
-def gzip_data(json):
-    # GZip all requests for lighter bandwidth footprint
-    gzip_buffer = cStringIO.StringIO()
-    gzip_file = gzip.GzipFile(mode='wb', compresslevel=6, fileobj=gzip_buffer)
-    gzip_file.write(json)
-    gzip_file.close()
-    return gzip_buffer.getvalue()
-
-''' Get/Sets a given ID in the cache. If data is not supplied, 
-    used as getter'''
-def cached_query(id, data=None):
-    c = current_app.config.get('REDIS_CACHE')
-    if c is None:
-        return None
-    if data is None:
-        return c.get(id)
-    return c.set(id, data)
-
-''' We are using a custom class for storing sessions on the serverside instead
-    of clientside for persistance/security reasons. See the following:
-    http://flask.pocoo.org/snippets/75/ '''
-class RedisSession(CallbackDict, SessionMixin):
-
-    def __init__(self, initial=None, sid=None, new=False):
-        def on_update(self):
-            self.modified = True
-        CallbackDict.__init__(self, initial, on_update)
-        self.sid = sid
-        self.new = new
-        self.modified = False
-
-class RedisSessionInterface(SessionInterface):
-    serializer = pickle
-    session_class = RedisSession
-
-    def __init__(self, redis=None, prefix='session:'):
-        if redis is None:
-            redis = REDIS
-        if redis is None:
-            self.redis = None
-            self.prefix = None
-        else:
-            self.redis = redis
-            self.prefix = prefix
-
-    def generate_sid(self):
-        return str(uuid4())
-
-    def get_redis_expiration_time(self, app, session):
-        if session.permanent:
-            return app.permanent_session_lifetime
-        return timedelta(days=1)
-
-    def open_session(self, app, request):
-        sid = request.cookies.get(app.session_cookie_name)
-        if not sid:
-            sid = self.generate_sid()
-            return self.session_class(sid=sid)
-        val = self.redis.get(self.prefix + sid)
-        if val is not None:
-            data = self.serializer.loads(val)
-            return self.session_class(data, sid=sid)
-        return self.session_class(sid=sid, new=True)
-
-    def save_session(self, app, session, response):
-        domain = self.get_cookie_domain(app)
-        if not session:
-            self.redis.delete(self.prefix + session.sid)
-            if session.modified:
-                response.delete_cookie(app.session_cookie_name,
-                                       domain=domain)
-            return
-        redis_exp = self.get_redis_expiration_time(app, session)
-        cookie_exp = self.get_expiration_time(app, session)
-        val = self.serializer.dumps(dict(session))
-        self.redis.setex(self.prefix + session.sid, val,
-                         int(redis_exp.total_seconds()))
-        response.set_cookie(app.session_cookie_name, session.sid,
-                            expires=cookie_exp, httponly=True,
-                            domain=domain)
-
 ''' Helper function for seeing what SQLAlchemy is actually running on the DB
     http://stackoverflow.com/questions/4617291/how-do-i-get-a-raw-compiled-sql-query-from-a-sqlalchemy-expression '''
 def compile_query(query):
@@ -208,12 +117,7 @@ def compile_query(query):
 def make_query(data_table, url_args, lang, **kwargs):
     from oec.db_attr.models import Country, Hs, Sitc
     query = data_table.query
-    cache_id = request.path
     ret = {}
-    
-    cached_q = cached_query(cache_id)
-    if cached_q:
-        return cached_q
     
     '''Go through each of the filters from the URL and apply them to
         the query'''
@@ -254,12 +158,8 @@ def make_query(data_table, url_args, lang, **kwargs):
     # raise Exception(compile_query(query))
     ret["data"] = [row.serialize() for row in query.all()]
     
-    '''gzip and jsonify result'''
-    ret = gzip_data(jsonify(ret).data)
-    
-    cached_query(cache_id, ret)
-    
-    return ret
+    '''jsonify result'''
+    return jsonify(ret)
 
 def make_cache_key(*args, **kwargs):
     path = request.path

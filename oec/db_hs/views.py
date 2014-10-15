@@ -6,13 +6,6 @@ from oec.decorators import crossdomain
 
 mod = Blueprint('hs', __name__, url_prefix='/hs')
 
-@mod.after_request
-def per_request_callbacks(response):
-    if response.status_code != 302 and response.mimetype != "text/csv":
-        response.headers['Content-Encoding'] = 'gzip'
-        response.headers['Content-Length'] = str(len(response.data))
-    return response
-
 ############################################################
 # ----------------------------------------------------------
 # 2 variable views

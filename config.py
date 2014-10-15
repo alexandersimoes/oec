@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 import os
-from werkzeug.contrib.cache import RedisCache
-from redis import Redis, ConnectionError
 
 '''
     Used for finding environment variables through configuration
@@ -68,19 +66,16 @@ LANGUAGES = {
     'zh_cn': u'简化中国'
 }
 
+''' 
+    Setup filesystem caching used only for profile views. If directory 
+    evironment variable not set, defaults to null.
 '''
-    Setup redis caching connection to be used throughout the site. Credentials
-    are set in their respective env vars.
-'''
-REDIS = Redis(host=get_env_variable("OEC_REDIS_HOST", "localhost"),
-         port=get_env_variable("OEC_REDIS_PORT", 6379),
-         password=get_env_variable("OEC_REDIS_PW", None))
-REDIS_CACHE = RedisCache(host=get_env_variable("OEC_REDIS_HOST", "localhost"),
-         port=get_env_variable("OEC_REDIS_PORT", 6379),
-         password=get_env_variable("OEC_REDIS_PW", None), default_timeout=2591999)
-try:
-    REDIS.client_list()
-except ConnectionError:
-    REDIS, REDIS_CACHE = [None]*2
+if get_env_variable("CACHE_DIR", None):
+    CACHE_TYPE="filesystem"
+    CACHE_DIR=get_env_variable("CACHE_DIR")
+else:
+    CACHE_TYPE="null"
+CACHE_DEFAULT_TIMEOUT=2592000 # 30 days
+CACHE_THRESHOLD=4200
 
 FACEBOOK_ID = get_env_variable("OEC_FACEBOOK_ID",0)

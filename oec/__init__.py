@@ -7,9 +7,8 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 # flask-babel for handling L18n and L10n
 from flask.ext.babel import Babel
-# for new filters, redis sessions
-from utils import Momentjs, formatter, strip_html, jinja_split, \
-                    RedisSessionInterface, format_currency, format_percent
+# for new filters
+from utils import Momentjs, formatter, strip_html, jinja_split, format_currency, format_percent
 from werkzeug.contrib.fixers import ProxyFix
 # for caching views
 from flask.ext.cache import Cache
@@ -28,14 +27,7 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 
 # set up cache for views
-view_cache = Cache(app, config={'CACHE_TYPE': 'redis', \
-                'CACHE_REDIS_HOST':'localhost', 'CACHE_REDIS_PORT':6379, \
-                'CACHE_REDIS_PASSWORD':None})
-
-# Set session store as server side (Redis)
-redis_sesh = RedisSessionInterface()
-if redis_sesh.redis:
-    app.session_interface = redis_sesh
+view_cache = Cache(app)
 
 # Global Latest Year Variables
 available_years = {"sitc": range(1962, 2013), "hs": range(1995, 2013), \

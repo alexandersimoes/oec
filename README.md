@@ -55,40 +55,12 @@ Adding the Observatory to computer via virtualenv
         export OEC_DB_PW=my_db_password
         export OEC_DB_HOST=localhost
         export OEC_DB_NAME=oec
-        * export OEC_REDIS_HOST=localhost
-        * export OEC_REDIS_PORT=6379
-        * export OEC_REDIS_PW=redis_password
+        * export CACHE_DIR=/home/
 
-        * only necessary if using redis for caching
+        * only necessary if using filesystem caching
 8. Updating translations (if something is changed)
 
         pybabel extract -F babel.cfg -o messages.pot oec
         pybabel update -i messages.pot -d oec/translations
         pybabel compile -d oec/translations
 
-### Getting The Observatory Running With Redis Caching enabled (Optional)
-
-10. If you would like to run the Observatory with a cache (if, for instance, you wished to deploy it on a live server)
-    All you will need to do is install the proper libraries and resources --
-
-11. Download, extract and compile Redis itself with:
-
-        $ wget http://redis.googlecode.com/files/redis-2.6.7.tar.gz
-        $ tar xzf redis-2.6.7.tar.gz
-        $ cd redis-2.6.7
-        $ make  
-
-12.	Install the redis-py client with (from https://github.com/andymccurdy/redis-py)
-
-        $ sudo easy_install redis
-        $ sudo python setup.py install
-
-13. Install the django-redis backend (from https://github.com/niwibe/django-redis)
-
-        easy_install django_redis
-
-14. You will also need the following serialization library: (from http://msgpack.org)
-
-        easy_install msgpack-python
-
-15. The constants defined in settings.py have REDIS turned on by default. The example constants in the comments can be used to turn it off.
