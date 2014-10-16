@@ -393,6 +393,7 @@ class Build(db.Model, AutoSerialize):
 
     def get_ui(self):
         ui = []
+        lang = getattr(g, "locale", "en")
 
         if isinstance(self.origin, Country):
             # country_list = Country.query \
@@ -404,7 +405,7 @@ class Build(db.Model, AutoSerialize):
                 "id": "origin",
                 "name": _("Origin"),
                 "current": self.origin.serialize(),
-                "url": url_for('attr.attrs', attr='country')
+                "url": url_for('attr.attrs', attr='country', lang=lang)
                 # "data": country_list
             }
             ui.append(country)
@@ -420,7 +421,7 @@ class Build(db.Model, AutoSerialize):
                 "name": _("Destination"),
                 "current": self.dest.serialize(),
                 # "data": country_list,
-                "url": url_for('attr.attrs', attr='country')
+                "url": url_for('attr.attrs', attr='country', lang=lang)
             }
             ui.append(country)
 
@@ -438,7 +439,7 @@ class Build(db.Model, AutoSerialize):
                 "name": _("Product"),
                 "current": self.product.serialize(),
                 # "data": product_list,
-                "url": url_for('attr.attrs', attr=self.classification)
+                "url": url_for('attr.attrs', attr=self.classification, lang=lang)
             }
             ui.append(product)
 
