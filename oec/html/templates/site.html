@@ -104,6 +104,7 @@
       .search(false)
       .focus(undefined,function(lang){
         if (lang !== "{{ g.locale }}") {
+          localStorage.setItem('lang', lang)
           window.location = "/set_lang/"+lang+"/";
         }
       })

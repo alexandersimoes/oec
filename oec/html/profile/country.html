@@ -104,8 +104,13 @@
     .style("background-color", function(d, i){
       return color(parseInt(this.innerHTML));
     })
-
-  d3.json("/attr/country/", function(raw_attrs){
+  
+  var lang = "en"
+  if(localStorage.getItem('lang')){
+    lang = localStorage.getItem('lang');
+  }
+  
+  d3.json("/attr/country/"+lang+"/", function(raw_attrs){
 
     var focus_id = "{{ attr.id }}"
     focus_id = focus_id == "eublx" ? "eubel" : focus_id

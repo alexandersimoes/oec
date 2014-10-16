@@ -124,9 +124,9 @@ class Country(db.Model, AutoSerialize):
         else:
             return "/profile/country/"
 
-    def serialize(self):
+    def serialize(self, lang="en"):
         auto_serialized = super(Country, self).serialize()
-        auto_serialized["name"] = self.get_name()
+        # auto_serialized["name"] = self.get_name(lang)
         auto_serialized["icon"] = self.get_icon()
         try:
             auto_serialized["display_id"] = auto_serialized.pop("id_3char")
@@ -135,7 +135,7 @@ class Country(db.Model, AutoSerialize):
         return auto_serialized
 
     def __repr__(self):
-        return '<Country %r>' % (self.id)
+        return '<Country %s>' % (self.id)
 
 class Country_name(db.Model, AutoSerialize):
 
@@ -149,7 +149,7 @@ class Country_name(db.Model, AutoSerialize):
     article = db.Column(db.Boolean())
 
     def __repr__(self):
-        return '<Country Name %r:%r>' % (self.origin_id, self.lang)
+        return '<Country Name %s:%s>' % (self.origin_id, self.lang)
 
 class Hs(db.Model, AutoSerialize):
 
@@ -206,10 +206,10 @@ class Hs(db.Model, AutoSerialize):
     def get_profile_url(self):
         return "/profile/hs/"+self.hs+"/"
 
-    def serialize(self):
+    def serialize(self, lang="en"):
         auto_serialized = super(Hs, self).serialize()
-        auto_serialized["name"] = self.get_name()
-        auto_serialized["keywords"] = self.get_keywords()
+        # auto_serialized["name"] = self.get_name(lang)
+        # auto_serialized["keywords"] = self.get_keywords()
         auto_serialized["icon"] = self.get_icon()
         try:
             auto_serialized["display_id"] = auto_serialized.pop("hs")
@@ -291,10 +291,10 @@ class Sitc(db.Model, AutoSerialize):
         if len(yp): return yp[0]
         return None
 
-    def serialize(self):
+    def serialize(self, lang="en"):
         auto_serialized = super(Sitc, self).serialize()
-        auto_serialized["name"] = self.get_name()
-        auto_serialized["keywords"] = self.get_keywords()
+        # auto_serialized["name"] = self.get_name(lang)
+        # auto_serialized["keywords"] = self.get_keywords()
         auto_serialized["icon"] = self.get_icon()
         try:
             auto_serialized["display_id"] = auto_serialized.pop("sitc")

@@ -108,7 +108,12 @@
       return color(parseInt(this.innerHTML));
     })
 
-  d3.json("/attr/{{ attr.classification }}/", function(raw_attrs){
+  var lang = "en"
+  if(localStorage.getItem('lang')){
+    lang = localStorage.getItem('lang');
+  }
+
+  d3.json("/attr/{{ attr.classification }}/"+lang+"/", function(raw_attrs){
 
     var attrs = {}
       , focus_id = "{{ attr.id }}"

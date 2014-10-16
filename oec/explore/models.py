@@ -282,11 +282,12 @@ class Build(db.Model, AutoSerialize):
         return "hs"
 
     def attr_url(self):
+        lang = getattr(g, "locale", "en")
         if self.origin == "show" or self.dest == "show":
-            return url_for('attr.attrs', attr='country')
+            return url_for('attr.attrs', attr='country', lang=lang)
         if self.classification == "sitc":
-            return url_for('attr.attrs', attr='sitc')
-        return url_for('attr.attrs', attr='hs')
+            return url_for('attr.attrs', attr='sitc', lang=lang)
+        return url_for('attr.attrs', attr='hs', lang=lang)
 
     def get_tbl(self):
         if self.classification == "hs":
