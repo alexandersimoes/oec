@@ -18,7 +18,7 @@ window.d3plus = d3plus;
  * @static
  */
 
-d3plus.version = "1.6.2 - Turquoise";
+d3plus.version = "1.6.3 - Turquoise";
 
 
 /**
@@ -11969,7 +11969,7 @@ module.exports = function(vars,obj,depth) {
 
   if (validObject(obj) && "d3plus" in obj && obj.d3plus.text) {
     names.push(obj.d3plus.text.toString())
-    names.push(vars.format.value(obj.d3plus.text.toString(), undefined, vars))
+    names.push(vars.format.value(obj.d3plus.text.toString(), undefined, vars, obj))
   }
   else {
 
@@ -11978,6 +11978,8 @@ module.exports = function(vars,obj,depth) {
     else if (validObject(ids[0])) {
       ids = uniqueValues(ids,key)
     }
+
+    var formatObj = validObject(obj) ? obj : undefined;
 
     textKeys.forEach(function( t ){
 
@@ -11996,11 +11998,11 @@ module.exports = function(vars,obj,depth) {
         name = name.map(function(n){
           if (n instanceof Array) {
             return n.map(function(nn){
-              return vars.format.value(nn.toString(),t, vars)
+              return vars.format.value(nn.toString(), t, vars, formatObj);
             })
           }
           else if (n) {
-            return vars.format.value(n.toString(),t, vars)
+            return vars.format.value(n.toString(), t, vars, formatObj);
           }
         })
         if (name.length === 1) name = name[0]
@@ -12010,7 +12012,7 @@ module.exports = function(vars,obj,depth) {
     })
 
   }
-  
+
   return names
 
 }
@@ -12887,6 +12889,10 @@ module.exports = function(g) {
   }
   return {
     accepted: [false, Array, Function, Number, Object, String],
+    callback: {
+      accepted: [false, Function],
+      value: false
+    },
     global: g,
     process: Array,
     value: []
@@ -13171,7 +13177,7 @@ stringFormat = require("../../string/format.js");
 updateArray = require("../../array/update.coffee");
 
 module.exports = function(vars, method, object, key, value) {
-  var accepted, c, d3object, hasValue, id, k, longArray, n, parentKey, str, text, typeFunction, valString;
+  var accepted, c, callback, d3object, hasValue, id, k, longArray, n, parentKey, str, text, typeFunction, valString;
   if (key === "value" || !key || key === method) {
     text = "." + method + "()";
   } else {
@@ -13296,7 +13302,10 @@ module.exports = function(vars, method, object, key, value) {
       }
     }
     if (key === "value" && object.callback && !object.url) {
-      object.callback(value);
+      callback = typeof object.callback === "function" ? object.callback : object.callback.value;
+      if (callback) {
+        callback(value);
+      }
     }
   }
 };
@@ -13876,7 +13885,7 @@ var arraySort = require("../array/sort.coffee"),
     fetchData   = require("../core/fetch/data.js"),
     ie          = require("../client/ie.js"),
     methodReset = require("../core/methods/reset.coffee"),
-    print       = require("../core/console/print.coffee")
+    print       = require("../core/console/print.coffee");
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // Form Element shell
 //------------------------------------------------------------------------------
@@ -13892,7 +13901,7 @@ module.exports = function() {
       "drop": require("./types/drop/drop.js"),
       "toggle": require("./types/toggle.js")
     }
-  }
+  };
 
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Create the main drawing function.
@@ -13903,37 +13912,35 @@ module.exports = function() {
     // Set timing to 0 if it's the first time running this function or if the
     // data length is longer than the "large" limit
     //--------------------------------------------------------------------------
-    var large = vars.data.value instanceof Array
-                && vars.data.value.length > vars.data.large
+    var large = vars.data.value instanceof Array && vars.data.value.length > vars.data.large;
 
-    vars.draw.timing = vars.draw.first || large || ie
-                     ? 0 : vars.timing.ui
+    vars.draw.timing = vars.draw.first || large || ie ? 0 : vars.timing.ui;
 
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     // Create/update the UI element
     //--------------------------------------------------------------------------
     if ( vars.data.value instanceof Array ) {
 
-      if ( vars.dev.value ) print.groupCollapsed("drawing \""+vars.type.value+"\"")
+      if ( vars.dev.value ) print.groupCollapsed("drawing \""+vars.type.value+"\"");
 
       //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
       // Analyze new data, if changed.
       //------------------------------------------------------------------------
       if ( vars.data.changed ) {
-        vars.data.cache = {}
-        dataKeys( vars , "data" )
-        dataFormat( vars )
+        vars.data.cache = {};
+        dataKeys( vars , "data" );
+        dataFormat( vars );
       }
 
-      vars.data.viz = fetchData( vars )
+      vars.data.viz = fetchData( vars );
 
       //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
       // Sort the data, if needed.
       //------------------------------------------------------------------------
-      if ( vars.data.changed || vars.order.changed || vars.order.sort.changed ) {
+      if ( vars.data.sort.value && (vars.data.changed || vars.order.changed || vars.order.sort.changed) ) {
 
-        arraySort( vars.data.viz , vars.order.value || vars.text.value
-                         , vars.order.sort.value , vars.color.value , vars )
+        arraySort( vars.data.viz , vars.order.value || vars.text.value,
+                   vars.order.sort.value , vars.color.value , vars );
 
       }
 
@@ -13942,38 +13949,37 @@ module.exports = function() {
       //------------------------------------------------------------------------
       if ( !vars.focus.value ) {
 
-        var element = vars.data.element.value
+        var element = vars.data.element.value;
 
         if ( element && element.node().tagName.toLowerCase() === "select" ) {
-          var i = element.property("selectedIndex")
-          i = i < 0 ? 0 : i
-          var option = element.selectAll("option")[0][i]
-            , val = option.getAttribute("data-"+vars.id.value) || option.getAttribute(vars.id.value)
-          if (val) vars.focus.value = val
+          var i = element.property("selectedIndex");
+          i = i < 0 ? 0 : i;
+          var option = element.selectAll("option")[0][i],
+              val = option.getAttribute("data-"+vars.id.value) || option.getAttribute(vars.id.value);
+          if (val) vars.focus.value = val;
         }
 
         if ( !vars.focus.value && vars.data.viz.length ) {
-          vars.focus.value = vars.data.viz[0][vars.id.value]
+          vars.focus.value = vars.data.viz[0][vars.id.value];
         }
 
-        if ( vars.dev.value && vars.focus.value ) print.log("\"value\" set to \""+vars.focus.value+"\"")
+        if ( vars.dev.value && vars.focus.value ) print.log("\"value\" set to \""+vars.focus.value+"\"");
 
       }
 
-      function getLevel(d,depth) {
+      var getLevel = function(d,depth) {
 
-        var depth = typeof depth !== "number" ? vars.id.nesting.length === 1
-                  ? 0 : vars.id.nesting.length-1 : depth
-          , level = vars.id.nesting[depth]
+        depth = typeof depth !== "number" ? vars.id.nesting.length === 1 ? 0 : vars.id.nesting.length-1 : depth;
+        var level = vars.id.nesting[depth];
 
         if ( depth > 0 && (!(level in d) || d[level] instanceof Array) ) {
-          return getLevel(d,depth-1)
+          return getLevel(d,depth-1);
         }
         else {
-          return level
+          return level;
         }
 
-      }
+      };
 
       //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
       // Run these things if the data has changed.
@@ -13986,64 +13992,62 @@ module.exports = function() {
         if ( vars.search.value === "auto" ) {
 
           if (vars.data.viz.length > 10) {
-            vars.search.enabled = true
-            if ( vars.dev.value ) print.log("Search enabled.")
+            vars.search.enabled = true;
+            if ( vars.dev.value ) print.log("Search enabled.");
           }
           else {
-            vars.search.enabled = false
-            if ( vars.dev.value ) print.log("Search disabled.")
+            vars.search.enabled = false;
+            if ( vars.dev.value ) print.log("Search disabled.");
           }
 
         }
         else {
 
-          vars.search.enabled = vars.search.value
+          vars.search.enabled = vars.search.value;
 
         }
 
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         // Update OPTION elements with the new data.
         //----------------------------------------------------------------------
-        var elementTag = vars.data.element.value
-                       ? vars.data.element.value.node().tagName.toLowerCase() : ""
+        var elementTag = vars.data.element.value ? vars.data.element.value.node().tagName.toLowerCase() : "";
         if ( vars.data.element.value && elementTag === "select" ) {
 
-          var optionData = []
+          var optionData = [];
           for (var level in vars.data.nested.all) {
-            optionData = optionData.concat(vars.data.nested.all[level])
+            optionData = optionData.concat(vars.data.nested.all[level]);
           }
 
           options = vars.data.element.value.selectAll("option")
             .data(optionData,function(d){
-              var level = d ? getLevel(d) : false
-              return d && level in d ? d[level] : false
-            })
+              var level = d ? getLevel(d) : false;
+              return d && level in d ? d[level] : false;
+            });
 
-          options.exit().remove()
+          options.exit().remove();
 
-          options.enter().append("option")
+          options.enter().append("option");
 
           options
             .each(function(d){
 
-              var level   = getLevel(d)
-                , textKey = level === vars.id.value ? vars.text.value || vars.id.value
-                          : vars.text.nesting !== true && level in vars.text.nesting
-                          ? vars.text.nesting[level] : level
+              var level   = getLevel(d),
+                  textKey = level === vars.id.value ? vars.text.value || vars.id.value
+                          : vars.text.nesting !== true && level in vars.text.nesting ? vars.text.nesting[level] : level;
 
               for ( var k in d ) {
 
                 if ( typeof d[k] !== "object" ) {
 
                   if ( k === textKey ) {
-                    d3.select(this).html(d[k])
+                    d3.select(this).html(d[k]);
                   }
 
                   if ( ["alt","value"].indexOf(k) >= 0 ) {
-                    d3.select(this).attr(k,d[k])
+                    d3.select(this).attr(k,d[k]);
                   }
                   else {
-                    d3.select(this).attr("data-"+k,d[k])
+                    d3.select(this).attr("data-"+k,d[k]);
                   }
 
                 }
@@ -14051,30 +14055,30 @@ module.exports = function() {
               }
 
               if (d[level] === vars.focus.value) {
-                this.selected = true
+                this.selected = true;
               }
               else {
-                this.selected = false
+                this.selected = false;
               }
 
-            })
+            });
 
         }
 
       }
       else if (vars.focus.changed && vars.data.element.value) {
-        var elementTag = vars.data.element.value.node().tagName.toLowerCase()
-        if (elementTag === "select") {
+        var tag = vars.data.element.value.node().tagName.toLowerCase();
+        if (tag === "select") {
           vars.data.element.value.selectAll("option")
             .each(function(d){
-              var level = getLevel(d)
+              var level = getLevel(d);
               if (d[level] === vars.focus.value) {
-                this.selected = true
+                this.selected = true;
               }
               else {
-                this.selected = false
+                this.selected = false;
               }
-            })
+            });
         }
       }
 
@@ -14087,28 +14091,27 @@ module.exports = function() {
           //----------------------------------------------------------------------
           vars.container.ui = vars.container.value
             .selectAll("div#d3plus_"+vars.type.value+"_"+vars.container.id)
-            .data(["container"])
+            .data(["container"]);
 
           //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
           // Create container DIV for UI element
           //----------------------------------------------------------------------
-          var before = vars.data.element.value ? vars.data.element.value[0][0] : null
+          var before = vars.data.element.value ? vars.data.element.value[0][0] : null;
 
           if ( before ) {
 
             if ( before.id ) {
-              before = "#"+before.id
+              before = "#"+before.id;
             }
             else {
 
-              var id = before.getAttribute(vars.id.value)
-                     ? vars.id.value : "data-"+vars.id.value
+              var id = before.getAttribute(vars.id.value) ? vars.id.value : "data-"+vars.id.value;
 
               if ( before.getAttribute(id) ) {
-                before = "["+id+"="+before.getAttribute(id)+"]"
+                before = "["+id+"="+before.getAttribute(id)+"]";
               }
               else {
-                before = null
+                before = null;
               }
 
             }
@@ -14120,7 +14123,7 @@ module.exports = function() {
             .attr("id","d3plus_"+vars.type.value+"_"+vars.container.id)
             .style("position","relative")
             .style("overflow","visible")
-            .style("vertical-align","top")
+            .style("vertical-align","top");
 
         }
 
@@ -14128,20 +14131,20 @@ module.exports = function() {
         // Update Container
         //------------------------------------------------------------------------
         vars.container.ui
-          .style("display",vars.ui.display.value)
+          .style("display",vars.ui.display.value);
 
         vars.container.ui.transition().duration(vars.draw.timing)
-          .style("margin",vars.ui.margin+"px")
+          .style("margin",vars.ui.margin+"px");
 
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         // Create title, if available.
         //------------------------------------------------------------------------
         var title = vars.container.ui.selectAll("div.d3plus_title")
-          .data(vars.title.value ? [vars.title.value] : [])
+          .data(vars.title.value ? [vars.title.value] : []);
 
         title.enter().insert("div","#d3plus_"+vars.type.value+"_"+vars.container.id)
           .attr("class","d3plus_title")
-          .style("display","inline-block")
+          .style("display","inline-block");
 
         title
           .style("color",vars.font.color)
@@ -14154,8 +14157,8 @@ module.exports = function() {
           .style("border-width",vars.ui.border+"px")
           .text(String)
           .each(function(d){
-            vars.margin.left = this.offsetWidth
-          })
+            vars.margin.left = this.offsetWidth;
+          });
 
       }
 
@@ -14164,29 +14167,29 @@ module.exports = function() {
       //------------------------------------------------------------------------
       if ( vars.data.value.length ) {
 
-        var app = vars.format.locale.value.visualization[vars.type.value]
-        if ( vars.dev.value ) print.time("drawing "+ app)
-        vars.types[vars.type.value]( vars )
-        if ( vars.dev.value ) print.timeEnd("drawing "+ app)
+        var app = vars.format.locale.value.visualization[vars.type.value];
+        if ( vars.dev.value ) print.time("drawing "+ app);
+        vars.types[vars.type.value]( vars );
+        if ( vars.dev.value ) print.timeEnd("drawing "+ app);
 
       }
       else if ( vars.data.url && (!vars.data.loaded || vars.data.stream) ) {
 
-        dataLoad( vars , "data" , vars.self.draw )
+        dataLoad( vars , "data" , vars.self.draw );
 
       }
 
       //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
       // Initialization complete
       //------------------------------------------------------------------------
-      methodReset( vars )
-      vars.methodGroup = false
+      methodReset( vars );
+      vars.methodGroup = false;
 
-      if ( vars.dev.value ) print.groupEnd()
+      if ( vars.dev.value ) print.groupEnd();
 
     }
 
-  }
+  };
 
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Define methods and expose public variables.
@@ -14222,14 +14225,14 @@ module.exports = function() {
     "type":      require("./methods/type.coffee"),
     "ui":        require("./methods/ui.coffee"),
     "width":     require("./methods/width.coffee")
-  })
+  });
 
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Finally, return the main UI function to the user
   //----------------------------------------------------------------------------
-  return vars.self
+  return vars.self;
 
-}
+};
 
 },{"../array/sort.coffee":37,"../client/ie.js":40,"../core/console/print.coffee":54,"../core/data/format.js":58,"../core/data/keys.js":60,"../core/data/load.coffee":61,"../core/fetch/data.js":65,"../core/methods/attach.coffee":75,"../core/methods/reset.coffee":87,"./methods/active.coffee":98,"./methods/alt.coffee":99,"./methods/color.coffee":100,"./methods/container.coffee":101,"./methods/data.js":102,"./methods/depth.coffee":103,"./methods/dev.coffee":104,"./methods/draw.js":105,"./methods/focus.coffee":106,"./methods/font.coffee":107,"./methods/format.coffee":108,"./methods/height.coffee":109,"./methods/history.coffee":110,"./methods/hover.coffee":111,"./methods/icon.coffee":112,"./methods/id.coffee":113,"./methods/keywords.coffee":114,"./methods/margin.coffee":115,"./methods/open.coffee":116,"./methods/order.coffee":117,"./methods/remove.coffee":118,"./methods/search.coffee":119,"./methods/select.coffee":120,"./methods/selectAll.coffee":121,"./methods/text.coffee":122,"./methods/timing.coffee":123,"./methods/title.coffee":124,"./methods/type.coffee":125,"./methods/ui.coffee":126,"./methods/width.coffee":127,"./types/auto.js":128,"./types/button/button.js":129,"./types/drop/drop.js":134,"./types/toggle.js":151}],98:[function(require,module,exports){
 var filter;
@@ -14292,7 +14295,7 @@ module.exports = {
 
 },{"../../util/d3selection.coffee":192}],102:[function(require,module,exports){
 var d3selection = require("../../util/d3selection.coffee"),
-    process = require("../../core/methods/process/data.coffee")
+    process = require("../../core/methods/process/data.coffee");
 
 module.exports = {
   "accepted" : [ false , Array , Function , String ],
@@ -14303,19 +14306,18 @@ module.exports = {
   "element": {
     "process": function(value, vars) {
 
+      var element = false;
+
       if ( d3selection(value) ) {
-        var element = value
+        element = value;
       }
       else if (typeof value === "string" && !d3.select(value).empty()) {
-        var element = d3.select(value)
-      }
-      else {
-        var element = false
+        element = d3.select(value);
       }
 
       if (element) {
 
-        vars.self.container(d3.select(element.node().parentNode))
+        vars.self.container(d3.select(element.node().parentNode));
 
         element
           .style("position","absolute","important")
@@ -14326,11 +14328,11 @@ module.exports = {
           .style("margin","-1px","important")
           .style("padding","0","important")
           .style("border","0","important")
-          .style("overflow","hidden","important")
+          .style("overflow","hidden","important");
 
       }
 
-      return element
+      return element;
 
     },
     "value": false
@@ -14344,14 +14346,18 @@ module.exports = {
   "process"  : function(value, vars) {
 
     if ( vars.container.id === "default" && value.length ) {
-      vars.self.container({"id": "default"+value.length})
+      vars.self.container({"id": "default"+value.length});
     }
 
-    return process(value, vars, this)
+    return process(value, vars, this);
   },
   "solo"     : [],
+  "sort": {
+    "accepted": [Boolean],
+    "value":    true
+  },
   "value"    : false
-}
+};
 
 },{"../../core/methods/process/data.coffee":82,"../../util/d3selection.coffee":192}],103:[function(require,module,exports){
 module.exports = {
@@ -14558,7 +14564,7 @@ module.exports = {
     accepted: [false, Function],
     value: false
   },
-  value: function(value, key, vars) {
+  value: function(value, key, vars, data) {
     var f, v;
     if (!vars) {
       vars = {};
@@ -14569,10 +14575,10 @@ module.exports = {
       return f(v);
     } else if (typeof value === "number") {
       f = this.number.value || formatNumber;
-      return f(value, key, vars);
+      return f(value, key, vars, data);
     } else if (typeof value === "string") {
       f = this.text.value || titleCase;
-      return f(value, key, vars);
+      return f(value, key, vars, data);
     } else {
       return JSON.stringify(value);
     }
@@ -15642,7 +15648,7 @@ module.exports = function ( vars ) {
 
 },{"../../../../client/pointer.coffee":41,"../../../../core/console/print.coffee":54,"../../../../util/copy.coffee":191,"../../../form.js":97}],138:[function(require,module,exports){
 var stringFormat = require("../../../../string/format.js"),
-    stringStrip = require("../../../../string/strip.js")
+    stringStrip = require("../../../../string/strip.js");
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // Creates and populates the dropdown list of items.
@@ -15650,88 +15656,84 @@ var stringFormat = require("../../../../string/format.js"),
 module.exports = function ( vars ) {
 
   if ( vars.data.url && !vars.data.loaded ) {
-    var loadingObject = {}
-    loadingObject[vars.text.value || vars.id.value] = vars.format.value(vars.format.locale.value.ui.loading)
-    vars.data.filtered = [loadingObject]
+    var loadingObject = {};
+    loadingObject[vars.text.value || vars.id.value] = vars.format.value(vars.format.locale.value.ui.loading);
+    vars.data.filtered = [loadingObject];
     vars.data.changed = vars.data.lastFilter !== "loading";
     vars.data.lastFilter = "loading";
   }
   else if (vars.open.value) {
 
     if (!vars.text.solo.value.length || vars.text.solo.value[0] === "") {
-      vars.data.filtered = vars.data.viz
+      vars.data.filtered = vars.data.viz;
       vars.data.changed = vars.data.lastFilter !== "viz";
       vars.data.lastFilter = "viz";
       if (vars.id.nesting.length > 1 && vars.depth.value < vars.id.nesting.length-1) {
         vars.data.filtered = vars.data.filtered.filter(function(d){
           if ("endPoint" in d.d3plus && d.d3plus.endPoint === vars.depth.value) {
-            d.d3plus.icon = false
+            d.d3plus.icon = false;
           }
-          return true
-        })
+          return true;
+        });
         vars.data.changed = vars.data.lastFilter !== "depth";
         vars.data.lastFilter = "depth";
       }
     }
     else {
 
-      var searchText  = vars.text.solo.value.length
-                      ? vars.text.solo.value[0].toLowerCase() : ""
-        , searchWords = stringStrip(searchText).split("_")
-        , searchKeys  = [ vars.id.value
-                        , vars.text.value
-                        , vars.alt.value
-                        , vars.keywords.value ]
+      var searchText  = vars.text.solo.value.length ? vars.text.solo.value[0].toLowerCase() : "",
+          searchWords = stringStrip(searchText).split("_"),
+          searchKeys  = [vars.id.value, vars.text.value, vars.alt.value, vars.keywords.value ];
 
-      searchKeys = searchKeys.filter(function(t){ return t })
-      searchWords = searchWords.filter(function(t){ return t != ""; })
+      searchKeys = searchKeys.filter(function(t){ return t; });
+      searchWords = searchWords.filter(function(t){ return t !== ""; });
 
-      var startMatches = []
-        , exactMatches = []
-        , softMatches  = []
-        , searchData   = []
+      var startMatches = [],
+          exactMatches = [],
+          softMatches  = [],
+          searchData   = [];
 
       vars.id.nesting.forEach(function(n){
-        searchData = searchData.concat(vars.data.nested.all[n])
-      })
+        searchData = searchData.concat(vars.data.nested.all[n]);
+      });
 
       searchData.forEach(function(d){
 
-        var match = false
+        var match = false;
 
         searchKeys.forEach(function(key){
 
           if ( !match && key in d && typeof d[key] === "string" ) {
 
-            var text = d[key].toLowerCase()
+            var text = d[key].toLowerCase();
 
-            if ( [vars.text.value,vars.id.value].indexOf(key) >= 0 && text.indexOf(searchText) == 0 ) {
-              startMatches.push(d)
-              match = true
+            if ( [vars.text.value,vars.id.value].indexOf(key) >= 0 && text.indexOf(searchText) === 0 ) {
+              startMatches.push(d);
+              match = true;
             }
             else if ( text.indexOf(searchText) >= 0 ) {
-              exactMatches.push(d)
-              match = true
+              exactMatches.push(d);
+              match = true;
             }
             else {
 
-              var texts = stringStrip(text).split("_")
+              var texts = stringStrip(text).split("_");
 
-              for (t in texts) {
+              for (var t in texts) {
 
                 if ( !match ) {
 
-                  for (s in searchWords) {
+                  for (var s in searchWords) {
                     if (texts[t].indexOf(searchWords[s]) === 0) {
-                      softMatches.push(d)
-                      match = true
-                      break
+                      softMatches.push(d);
+                      match = true;
+                      break;
                     }
                   }
 
                 }
                 else {
-                  break
+                  break;
                 }
 
               }
@@ -15739,37 +15741,35 @@ module.exports = function ( vars ) {
             }
           }
 
-        })
+        });
 
-      })
+      });
 
-      vars.data.filtered = d3.merge([ startMatches , exactMatches , softMatches ])
+      vars.data.filtered = d3.merge([ startMatches , exactMatches , softMatches ]);
 
       vars.data.filtered.forEach(function(d,i){
-        d.d3plus_order = i
-      })
-      vars.data.changed = vars.data.lastFilter !== "search";
+        d.d3plus_order = i;
+      });
+
+      vars.data.changed = true;
       vars.data.lastFilter = "search";
 
-    }
+      if ( vars.data.filtered.length === 0 ) {
 
-    if ( vars.data.filtered.length === 0 ) {
+        var noData = {}, str = vars.format.value(vars.format.locale.value.ui.noResults);
+        noData[vars.text.value || vars.id.value] = stringFormat(str,"\""+searchText+"\"");
+        vars.data.filtered = [ noData ];
 
-      var noData = {}
-        , str = vars.format.value(vars.format.locale.value.ui.noResults)
-      noData[vars.text.value || vars.id.value] = stringFormat(str,"\""+searchText+"\"")
-      vars.data.filtered = [ noData ]
-      vars.data.changed = vars.data.lastFilter !== "none";
-      vars.data.lastFilter = "none";
+      }
 
     }
 
   }
   else {
-    vars.data.filtered = []
+    vars.data.filtered = [];
   }
 
-}
+};
 
 },{"../../../../string/format.js":163,"../../../../string/strip.js":165}],139:[function(require,module,exports){
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -15855,7 +15855,9 @@ module.exports = function(vars) {
       print.time("updating list items");
     }
     if (!("items" in vars.container)) {
-      vars.container.items = form().container(vars.container.list).type("button").ui({
+      vars.container.items = form().container(vars.container.list).data({
+        "sort": false
+      }).type("button").ui({
         border: 0,
         display: "block",
         margin: 0
@@ -17828,10 +17830,10 @@ module.exports = function(edges, source, options) {
 
 
 },{"./normalize.coffee":157}],160:[function(require,module,exports){
-var defaultLocale = require("../core/locale/languages/en_US.coffee")
+var defaultLocale = require("../core/locale/languages/en_US.coffee");
 
 // Formats numbers to look "pretty"
-module.exports = function( number , key , vars ) {
+module.exports = function(number, key, vars, data) {
 
   if ( vars && key && vars.x && vars.y && (
        ( key === vars.x.value && vars.x.scale.value === "log" ) ||
@@ -18078,7 +18080,7 @@ var defaultLocale;
 
 defaultLocale = require("../core/locale/languages/en_US.coffee");
 
-module.exports = function(text, key, vars) {
+module.exports = function(text, key, vars, data) {
   var bigs, locale, smalls;
   if (!text) {
     return "";
@@ -24249,7 +24251,7 @@ module.exports = function(params) {
             , value = fetchValue( vars , id , vars.size.value , nestKey )
             , color = fetchColor( vars , id , nestKey )
 
-          children[name] = value ? vars.format.value( value , vars.size.value , vars) : ""
+          children[name] = value ? vars.format.value(value, vars.size.value, vars, id) : ""
 
           if ( color ) {
             if ( !children.d3plus_colors ) children.d3plus_colors = {}
@@ -24266,7 +24268,7 @@ module.exports = function(params) {
       else if ( nameList && nameList !== "null" ) {
 
         var name  = fetchText( vars , nameList , depth )[0]
-        children[name] = dataValue ? vars.format.value( dataValue , vars.size.value , vars) : ""
+        children[name] = dataValue ? vars.format.value(dataValue, vars.size.value, vars, d) : ""
 
       }
 
@@ -24282,16 +24284,16 @@ module.exports = function(params) {
 
     if (typeof active == "number" && active > 0 && total) {
       var label = vars.active.value || "active"
-      ex[label] = active+"/"+total+" ("+vars.format.value((active/total)*100,"share")+"%, vars)"
+      ex[label] = active+"/"+total+" ("+vars.format.value((active/total)*100, "share", vars, d)+"%)"
     }
 
     if (typeof temp == "number" && temp > 0 && total) {
       var label = vars.temp.value || "temp"
-      ex[label] = temp+"/"+total+" ("+vars.format.value((temp/total)*100,"share")+"%, vars)"
+      ex[label] = temp+"/"+total+" ("+vars.format.value((temp/total)*100, "share", vars, d)+"%)"
     }
 
     if ( vars.tooltip.share.value && d.d3plus.share ) {
-      ex.share = vars.format.value(d.d3plus.share*100,"share", vars)+"%"
+      ex.share = vars.format.value(d.d3plus.share*100, "share", vars, d)+"%"
     }
 
     var depth = "depth" in params ? params.depth : dataDepth,
@@ -24490,11 +24492,11 @@ module.exports = function(vars,id,length,extras,children,depth) {
 
       if ( value instanceof Array ) {
         value.forEach(function(v){
-          v = vars.format.value(v,key, vars)
+          v = vars.format.value(v, key, vars, id)
         })
       }
       else {
-        value = vars.format.value(value,key, vars)
+        value = vars.format.value(value, key, vars, id)
       }
 
       var obj = {"name": name, "value": value, "highlight": h, "group": group}
@@ -25271,7 +25273,7 @@ module.exports = function(vars) {
               y += vars.ui.padding+square_size/2
 
               var idIndex = vars.id.nesting.indexOf(colorKey)
-                , title = idIndex >= 0 ? fetchText(vars,d,idIndex)[0] : vars.format.value(fetchValue(vars,d,colorName,colorKey), vars)
+                , title = idIndex >= 0 ? fetchText(vars,d,idIndex)[0] : vars.format.value(fetchValue(vars,d,colorName,colorKey), colorName, vars, d)
 
               createTooltip({
                 "data": d,
@@ -25411,7 +25413,7 @@ module.exports = function(vars) {
         .style("text-anchor",vars.legend.font.align)
         .attr("fill",vars.legend.font.color)
         .text(function(d){
-          return vars.format.value(values[d],key, vars)
+          return vars.format.value(values[d], key, vars)
         })
         .attr("y",function(d){
           return this.getBBox().height+vars.legend.gradient.height+vars.ui.padding*2
@@ -27259,7 +27261,7 @@ module.exports = {
     accepted: [false, Function],
     value: false
   },
-  value: function(value, key, vars) {
+  value: function(value, key, vars, data) {
     var f, v;
     if (!vars) {
       vars = {};
@@ -27270,10 +27272,10 @@ module.exports = {
       return f(v);
     } else if (typeof value === "number") {
       f = this.number.value || formatNumber;
-      return f(value, key, vars);
+      return f(value, key, vars, data);
     } else if (typeof value === "string") {
       f = this.text.value || titleCase;
-      return f(value, key, vars);
+      return f(value, key, vars, data);
     } else {
       return JSON.stringify(value);
     }
