@@ -118,7 +118,7 @@ footer {
   text-align: center;
 }
 
-footer > div#macro_connections {
+footer div#macro_connections {
   background-image: url("/static/img/nav/macro_connections.png");
   background-repeat: no-repeat;
   background-size: 100%;
