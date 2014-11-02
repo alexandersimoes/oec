@@ -126,7 +126,7 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
 
 
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year>/')
-@view_cache.cached(timeout=604800, key_prefix=make_cache_key)
+# @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def explore(app_name, classification, trade_flow, origin_id, dest_id, \
                 prod_id, year=available_years['hs'][-1]):
     g.page_type = mod.name
@@ -152,6 +152,7 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, \
 
     '''Every possible build for accordion links'''
     all_builds = Build.query.all()
+    # raise Exception(all_builds)
     origin, dest, prod = get_origin_dest_prod(origin_id, dest_id, prod_id, \
                                             classification, year, trade_flow)
 

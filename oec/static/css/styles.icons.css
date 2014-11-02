@@ -161,7 +161,6 @@ li#faqs.icon > a:before {
 li#tree_map.icon > a:before {
   background-image: url("/static/img/icons/app/app_tree_map_black.png");
 }
-
 li#tree_map.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_tree_map.png");
 }
@@ -169,7 +168,6 @@ li#tree_map.icon.active > a:before {
 li#stacked.icon > a:before {
   background-image: url("/static/img/icons/app/app_stacked_black.png");
 }
-
 li#stacked.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_stacked.png");
 }
@@ -177,7 +175,6 @@ li#stacked.icon.active > a:before {
 li#network.icon > a:before {
   background-image: url("/static/img/icons/app/app_network_black.png");
 }
-
 li#network.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_network.png");
 }
@@ -185,7 +182,6 @@ li#network.icon.active > a:before {
 li#rings.icon > a:before {
   background-image: url("/static/img/icons/app/app_rings_black.png");
 }
-
 li#rings.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_rings.png");
 }
@@ -193,7 +189,20 @@ li#rings.icon.active > a:before {
 li#geo_map.icon > a:before {
   background-image: url("/static/img/icons/app/app_geo_map_black.png");
 }
-
 li#geo_map.icon.active > a:before {
   background-image: url("/static/img/icons/app/app_geo_map.png");
+}
+
+li#compare.icon > a:before {
+  background-image: url("/static/img/icons/app/app_compare_black.png");
+}
+li#compare.icon.active > a:before {
+  background-image: url("/static/img/icons/app/app_compare.png");
+}
+
+li#scatter.icon > a:before {
+  background-image: url("/static/img/icons/app/app_scatter_black.png");
+}
+li#scatter.icon.active > a:before {
+  background-image: url("/static/img/icons/app/app_scatter.png");
 }

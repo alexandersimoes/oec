@@ -5,7 +5,7 @@ from datetime import datetime
 from sqlalchemy import desc, not_, func
 from oec import db, available_years, excluded_countries
 from oec.utils import AutoSerialize, compile_query
-from oec.db_attr.models import Country, Hs, Sitc
+from oec.db_attr.models import Country, Hs, Sitc, Yo
 from oec.db_hs import models as hs_models
 from oec.db_sitc import models as sitc_models
 
@@ -305,6 +305,8 @@ class Build(db.Model, AutoSerialize):
             return getattr(models, "Yod")
         if isinstance(self.product, (Sitc, Hs)) and self.origin == "show":
             return getattr(models, "Yop")
+        
+        return Yo
 
     def top_stats(self, entities=5):
 
@@ -329,6 +331,8 @@ class Build(db.Model, AutoSerialize):
                         .filter((tbl.import_val - tbl.export_val) > 0) \
                         .order_by(desc(tbl.import_val - tbl.export_val))
             sum_query = db.session.query(db.func.sum(tbl.import_val - tbl.export_val)).filter((tbl.import_val - tbl.export_val) > 0)
+        else:
+            return {"total":0, "entries":[], "header":[]}
 
         year = self.year
         if "." in str(year):
@@ -388,6 +392,7 @@ class Build(db.Model, AutoSerialize):
             if(sum):
                 stat["share"] = (val / sum) * 100
             stats.append(stat)
+        # raise Exception({"total":sum, "entries":stats, "header":header})
 
         return {"total":sum, "entries":stats, "header":header}
 

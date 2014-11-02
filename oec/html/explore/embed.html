@@ -20,7 +20,7 @@
       <input type="radio" name="layout" value="share" id="layout_share" ><label for="layout_share">{{ _('Percent') }}</label>
     </div>
     {% endif %}
-    {% if current_build.app.type == "tree_map" %}
+    {% if current_build.app.type == "tree_map" or current_build.app.type == "compare" %}
     <div id="depth">
       <input type="radio" name="nesting" value="0" id="nesting0">
       <label for="nesting0">
@@ -36,7 +36,7 @@
       </label>
     </div>
     {% endif %}
-    {% if current_build.app.type != "rings" and current_build.app.type != "network" %}
+    {% if current_build.app.type != "rings" and current_build.app.type != "network" and current_build.app.type != "compare" %}
     <div id="value">
       <input type="radio" name="value" value="gross" id="value_gross" checked="checked" /><label for="value_gross">{{ _('Gross') }}</label>
       <input type="radio" name="value" value="net" id="value_net" /><label for="value_net">{{ _('Net') }}</label>
@@ -229,7 +229,7 @@ d3plus.form()
     .data("div#color select")
     .draw()
 {% endif %}
-{% if current_build.app.type != "rings" and current_build.app.type != "network" %}
+{% if current_build.app.type != "rings" and current_build.app.type != "network" and current_build.app.type != "compare" %}
 d3plus.form()
   .focus(false,change_value)
   .font({
@@ -243,7 +243,7 @@ d3plus.form()
   .data("[name=value]")
   .draw()
 {% endif %}
-{% if current_build.app.type == "tree_map" %}
+{% if current_build.app.type == "tree_map" or current_build.app.type == "compare" %}
 d3plus.form()
   .focus(false,change_depth)
   .font({
@@ -309,7 +309,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
             .tooltip({
               "small": 225
             })
-            .text("name")
+            .text(["name", "display_id"])
             .size(trade_flow+"_val")
             .size({"threshold":false})
             .height(viz_height)
@@ -342,6 +342,9 @@ var trade_flow = "{{ current_build.trade_flow }}",
                   if(text == "net_import_val"){ return "{{ _('Net Import') }} {{ _('Value') }}"; }
                   if(text == "export_rca"){ return "{{ _('Export') }} RCA"; }
                   if(text == "import_rca"){ return "{{ _('Import') }} RCA"; }
+                  if(text == "gdp"){ return "{{ _('GDP') }}"; }
+                  if(text == "gdp_pc"){ return "{{ _('GDP per Capita') }}"; }
+                  if(text == "eci"){ return "{{ _('ECI') }}"; }
 
                   if(text == trade_flow+"_val_growth_pct"){ return "{{ _('Annual Growth Rate (1 year)') }}"; }
                   if(text == trade_flow+"_val_growth_pct_5"){ return "{{ _('Annual Growth Rate (5 year)') }}"; }
@@ -583,6 +586,7 @@ switch (app_type){
         .color("color")
         .zoom(false)
 
+      console.log(attrs)
       finish(raw_data.data, attrs)
     }
     break;
@@ -704,7 +708,32 @@ switch (app_type){
           "padding": 0,
           "mute": ["anata"]
         })
+      
+      finish(raw_data.data, attrs)
+    }
+    break;
+    
+  case "compare":
 
+    var format_data_orig = format_data
+    var go = function(){
+
+      format_data_orig.apply(this, arguments);
+      raw_data = arguments[1];
+      raw_attrs = arguments[2];
+      x_axis = trade_flow.split(".")[0]
+      y_axis = trade_flow.split(".")[1]
+
+      viz
+        .color("color")
+        .depth(1)
+        .type("scatter")
+        .x(x_axis)
+        .y(y_axis)
+        .y({"scale":"log"})
+        .size("export_val")
+        .aggs({"eci": "mean"})
+      
       finish(raw_data.data, attrs)
     }
     break;

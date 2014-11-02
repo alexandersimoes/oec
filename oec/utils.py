@@ -114,9 +114,10 @@ def compile_query(query):
         params.append( escape(v, conversions) )
     return (comp.string.encode(enc) % tuple(params)).decode(enc)
 
-def make_query(data_table, url_args, lang, **kwargs):
+def make_query(data_table, url_args, lang, join_table=None, **kwargs):
     from oec.db_attr.models import Country, Hs, Sitc
-    query = data_table.query
+    query = getattr(data_table, "query", None) or data_table
+    data_table = join_table or data_table
     ret = {}
     
     '''Go through each of the filters from the URL and apply them to
@@ -156,7 +157,15 @@ def make_query(data_table, url_args, lang, **kwargs):
                 query = query.filter(getattr(data_table, filter) == kwargs[filter])
 
     # raise Exception(compile_query(query))
-    ret["data"] = [row.serialize() for row in query.all()]
+    if join_table:
+        ret["data"] = []
+        for tpl in query.all():
+            d = {}
+            for row in tpl:
+                d = dict(d.items() + row.serialize().items())
+            ret["data"].append(d)
+    else:
+        ret["data"] = [row.serialize() for row in query.all()]
     
     '''jsonify result'''
     return jsonify(ret)
