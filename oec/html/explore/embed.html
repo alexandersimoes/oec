@@ -42,7 +42,7 @@
       <input type="radio" name="value" value="net" id="value_net" /><label for="value_net">{{ _('Net') }}</label>
     </div>
     {% endif %}
-    {% if current_build.app.type != "stacked" %}
+    {% if current_build.app.type != "stacked" and current_build.app.type != "compare" %}
       <div id="color">
         <select>
           {% if current_build.app.type == "geo_map" %}
@@ -215,7 +215,7 @@ d3plus.form()
   })
   .data("[name=layout]")
   .draw()
-{% else %}
+{% elif current_build.app.type != "compare" %}
   d3plus.form()
     .focus(false,change_color)
     .font({
@@ -711,11 +711,11 @@ switch (app_type){
           "padding": 0,
           "mute": ["anata"]
         })
-      
+
       finish(raw_data.data, attrs)
     }
     break;
-    
+
   case "compare":
 
     var format_data_orig = format_data
@@ -734,7 +734,7 @@ switch (app_type){
         .y({"scale":"log"})
         .size("export_val")
         .aggs({"eci": "mean"})
-      
+
       finish(raw_data.data, attrs)
     }
     break;
