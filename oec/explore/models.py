@@ -37,7 +37,7 @@ class Build_name(db.Model, AutoSerialize):
     name_id = db.Column(db.Integer, primary_key = True)
     lang = db.Column(db.String(5), primary_key=True)
     name = db.Column(db.String(255))
-    short_name = db.Column(db.String(30))
+    short_name = db.Column(db.String(50))
     question = db.Column(db.String(255))
     category = db.Column(db.String(30))
 
@@ -459,6 +459,21 @@ class Build(db.Model, AutoSerialize):
                 # {"name":_("Net Import"), "display_id":"net_import"}
             ]
         }
+        
+        if self.app == App.query.filter_by(type="compare").first():
+            trade_flow = {
+                "id": "trade_flow",
+                "name": _("Y Axis"),
+                "current": self.trade_flow,
+                "data": [
+                    {"name":_("GDP"), "display_id":"gdp"},
+                    {"name":_("GDPpc (constant '05 US$)"), "display_id":"gdp_pc_constant"},
+                    {"name":_("GDPpc (current US$)"), "display_id":"gdp_pc_current"},
+                    {"name":_("GDPpc PPP (constant '11)"), "display_id":"gdp_pc_constant_ppp"},
+                    {"name":_("GDPpc PPP (current)"), "display_id":"gdp_pc_current_ppp"}
+                ]
+            }
+        
         classification = {
             "id": "classification",
             "name": _("Classification"),

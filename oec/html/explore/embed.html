@@ -343,7 +343,10 @@ var trade_flow = "{{ current_build.trade_flow }}",
                   if(text == "export_rca"){ return "{{ _('Export') }} RCA"; }
                   if(text == "import_rca"){ return "{{ _('Import') }} RCA"; }
                   if(text == "gdp"){ return "{{ _('GDP') }}"; }
-                  if(text == "gdp_pc"){ return "{{ _('GDP per Capita') }}"; }
+                  if(text == "gdp_pc_constant"){ return "{{ _('GDPpc (constant \'05 US$)') }}"; }
+                  if(text == "gdp_pc_current"){ return "{{ _('GDPpc (current US$)') }}"; }
+                  if(text == "gdp_pc_constant_ppp"){ return "{{ _('GDPpc PPP (constant \'11)') }}"; }
+                  if(text == "gdp_pc_current_ppp"){ return "{{ _('GDPpc PPP (current)') }}"; }
                   if(text == "eci"){ return "{{ _('ECI') }}"; }
 
                   if(text == trade_flow+"_val_growth_pct"){ return "{{ _('Annual Growth Rate (1 year)') }}"; }
@@ -485,7 +488,7 @@ function finish(data, attrs){
         }
       }
 
-      if ( ["trade_flow","classification"].indexOf(this.id) >= 0 ) {
+      if (["trade_flow","classification"].indexOf(this.id) >= 0 && app_type != "compare") {
         ui.type("toggle").font({"align": "center"})
       }
       else {
@@ -721,15 +724,13 @@ switch (app_type){
       format_data_orig.apply(this, arguments);
       raw_data = arguments[1];
       raw_attrs = arguments[2];
-      x_axis = trade_flow.split(".")[0]
-      y_axis = trade_flow.split(".")[1]
 
       viz
         .color("color")
         .depth(1)
         .type("scatter")
-        .x(x_axis)
-        .y(y_axis)
+        .x("eci")
+        .y(trade_flow)
         .y({"scale":"log"})
         .size("export_val")
         .aggs({"eci": "mean"})
