@@ -259,6 +259,7 @@ body.about #sidebar > ul > li.active > ul {
 }
 
 #sidebar > ul > li > ul > ul > h3 {
+  font-size: 11px;
   margin: 5px 0px;
 }
 
