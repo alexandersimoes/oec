@@ -18,7 +18,7 @@ window.d3plus = d3plus;
  * @static
  */
 
-d3plus.version = "1.6.3 - Turquoise";
+d3plus.version = "1.6.5 - Turquoise";
 
 
 /**
@@ -1088,7 +1088,7 @@ Buffer.prototype.copy = function (target, target_start, start, end) {
 
   var len = end - start
 
-  if (len < 100 || !Buffer.TYPED_ARRAY_SUPPORT) {
+  if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
     for (var i = 0; i < len; i++) {
       target[i + target_start] = this[i + start]
     }
@@ -1157,6 +1157,7 @@ var BP = Buffer.prototype
  * Augment a Uint8Array *instance* (not the Uint8Array class!) with Buffer methods
  */
 Buffer._augment = function (arr) {
+  arr.constructor = Buffer
   arr._isBuffer = true
 
   // save reference to original Uint8Array get/set methods before overwriting
@@ -10959,32 +10960,30 @@ module.exports = function(vars, data, nesting) {
 
 
 },{"../fetch/value.js":68}],60:[function(require,module,exports){
-var validObject = require("../../object/validate.coffee")
+var validObject = require("../../object/validate.coffee");
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // Get Key Types from Data
 //------------------------------------------------------------------------------
 module.exports = function( vars , type ) {
 
-  if ( vars.dev.value ) {
-    var timerString = type + " key analysis"
-    console.time( timerString )
-  }
+  var timerString = type + " key analysis";
+  if ( vars.dev.value ) console.time(timerString);
 
-  vars[type].keys = {}
+  vars[type].keys = {};
 
   function get_keys( arr ) {
     if (arr instanceof Array) {
       arr.forEach(function(d) {
-        get_keys( d )
-      })
+        get_keys(d);
+      });
     }
     else if ( validObject(arr) ) {
       for (var d in arr) {
         if ( validObject(arr[d]) ) {
-          get_keys( arr[d] )
+          get_keys( arr[d] );
         }
-        else if (!(d in vars[type].keys) && d in arr) {
-          vars[type].keys[d] = typeof arr[d]
+        else if (!(d in vars[type].keys) && d in arr && arr[d] !== null) {
+          vars[type].keys[d] = typeof arr[d];
         }
       }
     }
@@ -10992,16 +10991,16 @@ module.exports = function( vars , type ) {
 
   if ( validObject(vars[type].value) ) {
     for ( var a in vars[type].value ) {
-      get_keys(vars[type].value[a])
+      get_keys(vars[type].value[a]);
     }
   }
   else {
-    get_keys(vars[type].value)
+    get_keys(vars[type].value);
   }
 
-  if ( vars.dev.value ) console.time( timerString )
+  if ( vars.dev.value ) console.time(timerString);
 
-}
+};
 
 },{"../../object/validate.coffee":162}],61:[function(require,module,exports){
 var print, validObject;
@@ -11101,18 +11100,19 @@ module.exports = function(vars, key, next) {
 },{"../../object/validate.coffee":162,"../console/print.coffee":54}],62:[function(require,module,exports){
 var fetchValue = require("../fetch/value.js"),
     validObject  = require("../../object/validate.coffee"),
-    uniqueValues = require("../../util/uniques.coffee")
+    uniqueValues = require("../../util/uniques.coffee");
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // Nests and groups the data.
 //------------------------------------------------------------------------------
 var dataNest = function( vars , flatData , nestingLevels , requirements ) {
 
-  var nestedData   = d3.nest()
-    , groupedData  = []
-    , segments     = "temp" in vars ? [ "active" , "temp" , "total" ] : []
-    , requirements = requirements || vars.types[vars.type.value].requirements || []
-    , exceptions   = "time" in vars ? [ vars.time.value , vars.icon.value ] : []
-    , checkAxes    = function() {
+  requirements = requirements || vars.types[vars.type.value].requirements || [];
+
+  var nestedData   = d3.nest(),
+      groupedData  = [],
+      segments     = "temp" in vars ? [ "active" , "temp" , "total" ] : [],
+      exceptions   = "time" in vars ? [ vars.time.value , vars.icon.value ] : [],
+      checkAxes    = function() {
 
       //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
       // If the visualization has method requirements, check to see if we need
@@ -11122,26 +11122,25 @@ var dataNest = function( vars , flatData , nestingLevels , requirements ) {
 
         ["x","y"].forEach(function(axis){
 
-          var axisKey = vars[axis].value
+          var axisKey = vars[axis].value;
 
-          if ( requirements.indexOf(axis) >= 0 && axisKey
-               && vars[axis].scale.value === "discrete") {
+          if (requirements.indexOf(axis) >= 0 && axisKey && vars[axis].scale.value === "discrete") {
 
-            exceptions.push(axisKey)
+            exceptions.push(axisKey);
 
             nestedData.key(function(d){
-              return fetchValue( vars , d , axisKey )
-            })
+              return fetchValue( vars , d , axisKey );
+            });
 
           }
 
-        })
+        });
 
       }
 
-    }
+    };
 
-  if (!(requirements instanceof Array)) requirements = [requirements]
+  if (!(requirements instanceof Array)) requirements = [requirements];
 
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Loop through each nesting level.
@@ -11155,27 +11154,27 @@ var dataNest = function( vars , flatData , nestingLevels , requirements ) {
       .key(function(d){
 
         if ( typeof level === "function" ) {
-          return level(d)
+          return level(d);
         }
 
-        return fetchValue( vars , d , level )
-      })
+        return fetchValue( vars , d , level );
+      });
 
-    checkAxes()
+    checkAxes();
 
-  })
+  });
 
   if ( !nestingLevels.length ) {
 
     nestedData
       .key(function(d){
-        return true
-      })
+        return true;
+      });
 
-    checkAxes()
+    checkAxes();
   }
 
-  var i = nestingLevels.length ? nestingLevels.length - 1 : 0
+  var i = nestingLevels.length ? nestingLevels.length - 1 : 0;
 
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // If we're at the deepest level, create the rollup function.
@@ -11188,8 +11187,8 @@ var dataNest = function( vars , flatData , nestingLevels , requirements ) {
     if ( leaves.length === 1 && ("d3plus" in leaves[0]) ) {
       // var returnObj = leaves[0]
       // returnObj.d3plus.depth = i
-      groupedData.push(leaves[0])
-      return leaves[0]
+      groupedData.push(leaves[0]);
+      return leaves[0];
     }
 
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -11200,19 +11199,19 @@ var dataNest = function( vars , flatData , nestingLevels , requirements ) {
       "d3plus": {
         "depth": i
       }
-    }
+    };
 
     if ("d3plus" in leaves[0]) {
 
       leaves.forEach(function(l){
         if ("d3plus" in l) {
           if (l.d3plus.merged instanceof Array) {
-            if (!returnObj.d3plus.merged) returnObj.d3plus.merged = []
-            returnObj.d3plus.merged = returnObj.d3plus.merged.concat(l.d3plus.merged)
+            if (!returnObj.d3plus.merged) returnObj.d3plus.merged = [];
+            returnObj.d3plus.merged = returnObj.d3plus.merged.concat(l.d3plus.merged);
           }
-          if (l.d3plus.text) returnObj.d3plus.text = l.d3plus.text
+          if (l.d3plus.text) returnObj.d3plus.text = l.d3plus.text;
         }
-      })
+      });
     }
 
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -11220,74 +11219,73 @@ var dataNest = function( vars , flatData , nestingLevels , requirements ) {
     //--------------------------------------------------------------------------
     segments.forEach(function(c){
 
-      var key = vars[c].value || c
+      var key = vars[c].value || c;
 
       returnObj.d3plus[key] = d3.sum(leaves, function( d ) {
 
+        var a = 0;
+
         if ( vars[c].value ) {
 
-          var a = fetchValue(vars,d,vars[c].value)
+          a = fetchValue(vars,d,vars[c].value);
 
           if ( typeof a !== "number" ) {
-            a = a ? 1 : 0
+            a = a ? 1 : 0;
           }
 
         }
         else if ( c === "total" ) {
-          var a = 1
-        }
-        else {
-          var a = 0
+          a = 1;
         }
 
-        return a
+        return a;
 
-      })
+      });
 
-    })
+    });
 
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     // Aggregate all values detected in the data.
     //--------------------------------------------------------------------------
     for ( var key in vars.data.keys ) {
 
-      var uniques = uniqueValues(leaves,key)
+      var uniques = uniqueValues(leaves,key);
 
       if (uniques.length) {
 
-        var agg     = vars.aggs && vars.aggs.value[key] ? vars.aggs.value[key] : "sum"
-          , aggType = typeof agg
-          , keyType = vars.data.keys[key]
-          , idKey   = vars.id.nesting.indexOf(key) >= 0
-          , timeKey = "time" in vars && key === vars.time.value
+        var agg     = vars.aggs && vars.aggs.value[key] ? vars.aggs.value[key] : "sum",
+            aggType = typeof agg,
+            keyType = vars.data.keys[key],
+            idKey   = vars.id.nesting.indexOf(key) >= 0,
+            timeKey = "time" in vars && key === vars.time.value;
 
         if ( key in returnObj.d3plus ) {
 
-          returnObj[key] = returnObj.d3plus[key]
+          returnObj[key] = returnObj.d3plus[key];
 
         }
         else if ( aggType === "function" ) {
 
-          returnObj[key] = vars.aggs.value[key](leaves)
+          returnObj[key] = vars.aggs.value[key](leaves);
 
         }
         else if ( timeKey ) {
-          var dates = []
+          var dates = [];
 
           function parseDates(arr) {
 
             for ( var i = 0; i < arr.length ; i++ ) {
-              var d = arr[i]
+              var d = arr[i];
               if (d !== undefined) {
-                if (d.constructor === Date) dates.push(d)
+                if (d.constructor === Date) dates.push(d);
                 else if (d.constructor === Array) {
-                  parseDates(d)
+                  parseDates(d);
                 }
                 else {
-                  d = new Date(d.toString())
+                  d = new Date(d.toString());
                   if (d !== "Invalid Date") {
-                    d.setTime( d.getTime() + d.getTimezoneOffset() * 60 * 1000 )
-                    dates.push(d)
+                    d.setTime( d.getTime() + d.getTimezoneOffset() * 60 * 1000 );
+                    dates.push(d);
                   }
                 }
               }
@@ -11295,55 +11293,55 @@ var dataNest = function( vars , flatData , nestingLevels , requirements ) {
 
           }
 
-          parseDates(uniques)
+          parseDates(uniques);
 
-          if (dates.length === 1) returnObj[key] = dates[0]
-          else returnObj[key] = dates
+          if (dates.length === 1) returnObj[key] = dates[0];
+          else returnObj[key] = dates;
 
         }
         else if ( keyType === "number" && aggType === "string" && !idKey ) {
-          returnObj[key] = d3[agg](uniques)
+          returnObj[key] = d3[agg](leaves.map(function(d){return d[key];}));
         }
         else {
 
-          var testVals = []
+          var testVals = [];
           function checkVal(obj) {
             if (obj instanceof Array) {
-              obj.forEach(checkVal)
+              obj.forEach(checkVal);
             }
             else if (validObject(obj) && key in obj) {
               if (obj[key] instanceof Array) {
-                obj[key].forEach(checkVal)
+                obj[key].forEach(checkVal);
               }
               else {
-                testVals.push(obj)
+                testVals.push(obj);
               }
             }
           }
-          checkVal(leaves)
+          checkVal(leaves);
 
           var keyValues = testVals.length === 1 ? testVals[0][key]
-                        : uniqueValues( testVals , key )
+                        : uniqueValues( testVals , key );
 
           if ( keyValues !== undefined && keyValues !== null ) {
 
             if ( !(keyValues instanceof Array) ) {
-              keyValues = [ keyValues ]
+              keyValues = [ keyValues ];
             }
 
             if ( keyValues.length ) {
 
               if ( idKey && vars.id.nesting.indexOf(key) > i && testVals.length > 1 ) {
                 if (key == "id" && nestingLevels.length == 1 && testVals.length > leaves.length) {
-                  var newNesting = nestingLevels.concat(key)
-                  testVals = dataNest(vars,testVals,newNesting)
+                  var newNesting = nestingLevels.concat(key);
+                  testVals = dataNest(vars,testVals,newNesting);
                 }
-                returnObj[key] = testVals.length === 1 ? testVals[0] : testVals
+                returnObj[key] = testVals.length === 1 ? testVals[0] : testVals;
 
               }
               else {
 
-                returnObj[key] = keyValues.length === 1 ? keyValues[0] : keyValues
+                returnObj[key] = keyValues.length === 1 ? keyValues[0] : keyValues;
 
               }
 
@@ -11351,9 +11349,9 @@ var dataNest = function( vars , flatData , nestingLevels , requirements ) {
 
           }
           else if (idKey) {
-            var endPoint = vars.id.nesting.indexOf(key) - 1
+            var endPoint = vars.id.nesting.indexOf(key) - 1;
             if (endPoint >= i && (!("endPoint" in returnObj.d3plus) || returnObj.d3plus.endPoint > i)) {
-              returnObj.d3plus.endPoint = i
+              returnObj.d3plus.endPoint = i;
             }
           }
 
@@ -11363,58 +11361,58 @@ var dataNest = function( vars , flatData , nestingLevels , requirements ) {
 
     }
 
-    groupedData.push(returnObj)
+    groupedData.push(returnObj);
 
-    return returnObj
+    return returnObj;
 
-  })
+  });
 
   var rename_key_value = function(obj) {
     if (obj.values && obj.values.length) {
       obj.children = obj.values.map(function(obj) {
         return rename_key_value(obj);
-      })
-      delete obj.values
-      return obj
+      });
+      delete obj.values;
+      return obj;
     }
     else if(obj.values) {
-      return obj.values
+      return obj.values;
     }
     else {
       return obj;
     }
-  }
+  };
 
   var find_keys = function(obj,depth,keys) {
     if (obj.children) {
       if (vars.data.keys[nestingLevels[depth]] == "number") {
-        obj.key = parseFloat(obj.key)
+        obj.key = parseFloat(obj.key);
       }
-      keys[nestingLevels[depth]] = obj.key
-      delete obj.key
+      keys[nestingLevels[depth]] = obj.key;
+      delete obj.key;
       for ( var k in keys ) {
-        obj[k] = keys[k]
+        obj[k] = keys[k];
       }
-      depth++
+      depth++;
       obj.children.forEach(function(c){
-        find_keys(c,depth,keys)
-      })
+        find_keys(c,depth,keys);
+      });
     }
-  }
+  };
 
   nestedData = nestedData
     .entries(flatData)
     .map(rename_key_value)
     .map(function(obj){
-      find_keys(obj,0,{})
-      return obj
-    })
+      find_keys(obj,0,{});
+      return obj;
+    });
 
-  return groupedData
+  return groupedData;
 
-}
+};
 
-module.exports = dataNest
+module.exports = dataNest;
 
 },{"../../object/validate.coffee":162,"../../util/uniques.coffee":194,"../fetch/value.js":68}],63:[function(require,module,exports){
 var arraySort = require("../../array/sort.coffee"),
@@ -11617,8 +11615,8 @@ validColor = require("../../color/validate.coffee");
 validObject = require("../../object/validate.coffee");
 
 module.exports = function(vars, id, level) {
-  var color, colorLevel, colors, getColor, getRandom, i, o, value;
-  if (id.d3plus && id.d3plus.color) {
+  var color, colorLevel, colors, getColor, getRandom, i, o, returnColor, value;
+  if (validObject(id) && id.d3plus && id.d3plus.color) {
     return id.d3plus.color;
   }
   getRandom = function(c) {
@@ -11637,7 +11635,7 @@ module.exports = function(vars, id, level) {
     level = vars.id.nesting[level];
   }
   if (!vars.color.value) {
-    return getRandom(id);
+    returnColor = getRandom(id);
   } else {
     colors = [];
     i = vars.id.nesting.indexOf(level);
@@ -11660,7 +11658,7 @@ module.exports = function(vars, id, level) {
     while (i >= 0) {
       colorLevel = vars.id.nesting[i];
       if (validObject(id)) {
-        o = (!(colorLevel in id) ? fetchValue(vars, id, colorLevel) : id);
+        o = !(colorLevel in id) ? fetchValue(vars, id, colorLevel) : id;
         value = fetchValue(vars, o, vars.color.value, colorLevel);
       } else {
         value = id;
@@ -11673,12 +11671,12 @@ module.exports = function(vars, id, level) {
       }
       i--;
     }
-    if (colors.length === 1) {
-      return colors[0];
-    } else {
-      return vars.color.missing;
-    }
+    returnColor = colors.length === 1 ? colors[0] : vars.color.missing;
   }
+  if (validObject(id) && id.d3plus) {
+    id.d3plus.color = returnColor;
+  }
+  return returnColor;
 };
 
 
@@ -21161,7 +21159,7 @@ var child         = require("../../../util/child.coffee"),
     touch         = require("../../../client/touch.coffee"),
     touchEvent    = require("../zoom/propagation.coffee"),
     uniqueValues  = require("../../../util/uniques.coffee"),
-    zoomDirection = require("../zoom/direction.coffee")
+    zoomDirection = require("../zoom/direction.coffee");
 
 var drawShape = {
   "arc":           require("./arc.coffee"),
@@ -21176,7 +21174,7 @@ var drawShape = {
   "triangle_down": require("./triangle_down.js"),
   "triangle_up":   require("./triangle_up.js"),
   "whisker":       require("./whisker.coffee")
-}
+};
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // Draws the appropriate shape based on the data
@@ -21184,7 +21182,7 @@ var drawShape = {
 module.exports = function(vars) {
 
   var data = vars.returned.nodes || [],
-      edges = vars.returned.edges || []
+      edges = vars.returned.edges || [];
 
   vars.draw.timing = data.length < vars.data.large
                      && edges.length < vars.edges.large
@@ -21212,7 +21210,7 @@ module.exports = function(vars) {
     "triangle":        "triangle_up",
     "triangle_up":     "triangle_up",
     "whisker":         "whisker"
-  }
+  };
 
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Split the data by each shape type in the data.
@@ -21576,7 +21574,7 @@ module.exports = function(vars) {
 
           vars.covered = false
 
-          if (vars.focus.value.length !== 1 || vars.focus.value[0] != d[vars.id.value]) {
+          if (vars.focus.value.length !== 1 || (!vars.focus.tooltip.value || vars.focus.value[0] !== d[vars.id.value])) {
 
             if (d.values && vars.axes.discrete) {
 
@@ -21616,7 +21614,7 @@ module.exports = function(vars) {
 
           vars.covered = false
 
-          if (d.values || (vars.types[vars.type.value].tooltip == "follow" && vars.focus.value[0] != d[vars.id.value])) {
+          if (d.values || (vars.types[vars.type.value].tooltip == "follow" && (!vars.focus.tooltip.value || vars.focus.value[0] !== d[vars.id.value]))) {
 
             if (d.values && vars.axes.discrete) {
 
@@ -23860,12 +23858,12 @@ var events = require("../../../client/pointer.coffee"),
     prefix     = require("../../../client/prefix.coffee"),
     print      = require("../../../core/console/print.coffee"),
     touch      = require("../../../client/touch.coffee"),
-    touchEvent = require("../zoom/propagation.coffee")
+    touchEvent = require("../zoom/propagation.coffee");
 
 // Enter SVG Elements
 module.exports = function(vars) {
 
-  if ( vars.dev.value ) print.time("creating SVG elements")
+  if ( vars.dev.value ) print.time("creating SVG elements");
 
   // Enter SVG
   vars.svg = vars.container.value.selectAll("svg#d3plus").data([0]);
@@ -23874,7 +23872,7 @@ module.exports = function(vars) {
     .attr("width",vars.width.value)
     .attr("height",vars.height.value)
     .attr("xmlns","http://www.w3.org/2000/svg")
-    .attr("xmlns:xmlns:xlink","http://www.w3.org/1999/xlink")
+    .attr("xmlns:xmlns:xlink","http://www.w3.org/1999/xlink");
 
   // Enter BG Rectangle
   vars.g.bg = vars.svg.selectAll("rect#bg").data(["bg"]);
@@ -23882,58 +23880,59 @@ module.exports = function(vars) {
     .attr("id","bg")
     .attr("fill",vars.background.value)
     .attr("width",vars.width.value)
-    .attr("height",vars.height.value)
+    .attr("height",vars.height.value);
 
   // Enter Timeline Group
-  vars.g.timeline = vars.svg.selectAll("g#timeline").data(["timeline"])
+  vars.g.timeline = vars.svg.selectAll("g#timeline").data(["timeline"]);
   vars.g.timeline.enter().append("g")
     .attr("id","timeline")
-    .attr("transform","translate(0,"+vars.height.value+")")
+    .attr("transform","translate(0,"+vars.height.value+")");
 
   // Enter Key Group
-  vars.g.legend = vars.svg.selectAll("g#key").data(["key"])
+  vars.g.legend = vars.svg.selectAll("g#key").data(["key"]);
   vars.g.legend.enter().append("g")
     .attr("id","key")
-    .attr("transform","translate(0,"+vars.height.value+")")
+    .attr("transform","translate(0,"+vars.height.value+")");
 
   // Enter Footer Group
-  vars.g.footer = vars.svg.selectAll("g#footer").data(["footer"])
+  vars.g.footer = vars.svg.selectAll("g#footer").data(["footer"]);
   vars.g.footer.enter().append("g")
     .attr("id","footer")
-    .attr("transform","translate(0,"+vars.height.value+")")
+    .attr("transform","translate(0,"+vars.height.value+")");
 
   // Enter App Clipping Mask
-  vars.g.clipping = vars.svg.selectAll("#clipping").data(["clipping"])
+  var clipID = "clipping_" + vars.container.id;
+  vars.g.clipping = vars.svg.selectAll("#clipping").data(["clipping"]);
   vars.g.clipping.enter().append("clipPath")
-    .attr("id","clipping")
+    .attr("id", clipID)
     .append("rect")
       .attr("width",vars.width.viz)
-      .attr("height",vars.height.viz)
+      .attr("height",vars.height.viz);
 
   // Enter Container Group
-  vars.g.container = vars.svg.selectAll("g#container").data(["container"])
+  vars.g.container = vars.svg.selectAll("g#container").data(["container"]);
   vars.g.container.enter().append("g")
     .attr("id","container")
-    .attr("clip-path","url(#clipping)")
-    .attr("transform","translate("+vars.margin.left+","+vars.margin.top+")")
+    .attr("clip-path","url(#" + clipID + ")")
+    .attr("transform","translate("+vars.margin.left+","+vars.margin.top+")");
 
   // Enter Zoom Group
-  vars.g.zoom = vars.g.container.selectAll("g#zoom").data(["zoom"])
+  vars.g.zoom = vars.g.container.selectAll("g#zoom").data(["zoom"]);
   vars.g.zoom.enter().append("g")
-    .attr("id","zoom")
+    .attr("id","zoom");
 
   // Enter App Background Group
-  vars.g.viz = vars.g.zoom.selectAll("g#d3plus_viz").data(["d3plus_viz"])
+  vars.g.viz = vars.g.zoom.selectAll("g#d3plus_viz").data(["d3plus_viz"]);
   vars.g.viz.enter().append("g")
-    .attr("id","d3plus_viz")
+    .attr("id","d3plus_viz");
 
   // Enter App Overlay Rect
-  vars.g.overlay = vars.g.viz.selectAll("rect#d3plus_overlay").data([{"id":"d3plus_overlay"}])
+  vars.g.overlay = vars.g.viz.selectAll("rect#d3plus_overlay").data([{"id":"d3plus_overlay"}]);
   vars.g.overlay.enter().append("rect")
     .attr("id","d3plus_overlay")
     .attr("width",vars.width.value)
     .attr("height",vars.height.value)
-    .attr("opacity",0)
+    .attr("opacity",0);
 
   if (!touch) {
 
@@ -23942,10 +23941,10 @@ module.exports = function(vars) {
 
         if (vars.types[vars.type.value].zoom && vars.zoom.pan.value &&
           vars.zoom.behavior.scaleExtent()[0] < vars.zoom.scale) {
-          d3.select(this).style("cursor",prefix()+"grab")
+          d3.select(this).style("cursor",prefix()+"grab");
         }
         else {
-          d3.select(this).style("cursor","auto")
+          d3.select(this).style("cursor","auto");
         }
 
       })
@@ -23953,10 +23952,10 @@ module.exports = function(vars) {
 
         if (vars.types[vars.type.value].zoom && vars.zoom.pan.value &&
           vars.zoom.behavior.scaleExtent()[0] < vars.zoom.scale) {
-          d3.select(this).style("cursor",prefix()+"grab")
+          d3.select(this).style("cursor",prefix()+"grab");
         }
         else {
-          d3.select(this).style("cursor","auto")
+          d3.select(this).style("cursor","auto");
         }
 
       })
@@ -23964,72 +23963,72 @@ module.exports = function(vars) {
 
         if (vars.types[vars.type.value].zoom && vars.zoom.pan.value &&
           vars.zoom.behavior.scaleExtent()[0] < vars.zoom.scale) {
-          d3.select(this).style("cursor",prefix()+"grabbing")
+          d3.select(this).style("cursor",prefix()+"grabbing");
         }
         else {
-          d3.select(this).style("cursor","auto")
+          d3.select(this).style("cursor","auto");
         }
 
-      })
+      });
 
   }
   else {
 
     var mouseEvent = function() {
-      touchEvent(vars, d3.event)
-    }
+      touchEvent(vars, d3.event);
+    };
 
     vars.g.overlay
       .on(events.over, mouseEvent)
       .on(events.move, mouseEvent)
-      .on(events.out , mouseEvent)
+      .on(events.out , mouseEvent);
 
   }
 
   // Enter App Background Group
-  vars.g.app = vars.g.viz.selectAll("g#app").data(["app"])
+  vars.g.app = vars.g.viz.selectAll("g#app").data(["app"]);
   vars.g.app.enter().append("g")
-    .attr("id","app")
+    .attr("id","app");
 
   // Enter Edges Group
-  vars.g.edges = vars.g.viz.selectAll("g#edges").data(["edges"])
+  vars.g.edges = vars.g.viz.selectAll("g#edges").data(["edges"]);
   vars.g.edges.enter().append("g")
     .attr("id","edges")
-    .attr("opacity",0)
+    .attr("opacity",0);
 
   // Enter Edge Focus Group
-  vars.g.edge_focus = vars.g.viz.selectAll("g#focus").data(["focus"])
+  vars.g.edge_focus = vars.g.viz.selectAll("g#focus").data(["focus"]);
   vars.g.edge_focus.enter().append("g")
-    .attr("id","focus")
+    .attr("id","focus");
 
   // Enter Edge Hover Group
-  vars.g.edge_hover = vars.g.viz.selectAll("g#edge_hover").data(["edge_hover"])
+  vars.g.edge_hover = vars.g.viz.selectAll("g#edge_hover").data(["edge_hover"]);
   vars.g.edge_hover.enter().append("g")
     .attr("id","edge_hover")
-    .attr("opacity",0)
+    .attr("opacity",0);
 
   // Enter App Data Group
-  vars.g.data = vars.g.viz.selectAll("g#data").data(["data"])
+  vars.g.data = vars.g.viz.selectAll("g#data").data(["data"]);
   vars.g.data.enter().append("g")
     .attr("id","data")
-    .attr("opacity",0)
+    .attr("opacity",0);
 
   // Enter Data Focus Group
-  vars.g.data_focus = vars.g.viz.selectAll("g#data_focus").data(["data_focus"])
+  vars.g.data_focus = vars.g.viz.selectAll("g#data_focus").data(["data_focus"]);
   vars.g.data_focus.enter().append("g")
-    .attr("id","data_focus")
+    .attr("id","data_focus");
 
   // Enter Top Label Group
-  vars.g.labels = vars.g.viz.selectAll("g#d3plus_labels").data(["d3plus_labels"])
+  vars.g.labels = vars.g.viz.selectAll("g#d3plus_labels").data(["d3plus_labels"]);
   vars.g.labels.enter().append("g")
-    .attr("id","d3plus_labels")
+    .attr("id","d3plus_labels");
 
-  vars.defs = vars.svg.selectAll("defs").data(["defs"])
-  vars.defs.enter().append("defs")
+  vars.defs = vars.svg.selectAll("defs").data(["defs"]);
+  vars.defs.enter().append("defs");
 
-  if ( vars.dev.value ) print.timeEnd("creating SVG elements")
+  if ( vars.dev.value ) print.timeEnd("creating SVG elements");
 
-}
+};
 
 },{"../../../client/pointer.coffee":41,"../../../client/prefix.coffee":42,"../../../client/touch.coffee":45,"../../../core/console/print.coffee":54,"../zoom/propagation.coffee":234}],220:[function(require,module,exports){
 var print = require("../../../core/console/print.coffee")
@@ -24108,7 +24107,7 @@ var arraySort     = require("../../../array/sort.coffee"),
     fetchValue    = require("../../../core/fetch/value.js"),
     removeTooltip = require("../../../tooltip/remove.coffee"),
     validObject   = require("../../../object/validate.coffee"),
-    zoomDirection = require("../zoom/direction.coffee")
+    zoomDirection = require("../zoom/direction.coffee");
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // Creates correctly formatted tooltip for Apps
 //-------------------------------------------------------------------
@@ -24274,8 +24273,13 @@ module.exports = function(params) {
 
     }
 
-    if ( vars.size.value && vars.tooltip.size.value && dataValue && ( same || !nameList || nameList instanceof Array ) ) {
-      ex[vars.size.value] = dataValue
+    if ( vars.tooltip.size.value && ( same || !nameList || nameList instanceof Array ) ) {
+      if (dataValue) {
+        ex[vars.size.value] = dataValue
+      }
+      if (vars.axes.opposite && vars[vars.axes.opposite].value !== vars.size.value) {
+        ex[vars[vars.axes.opposite].value] = fetchValue(vars, d, vars[vars.axes.opposite].value);
+      }
     }
 
     var active = vars.active.value ? fetchValue(vars,d,vars.active.value) : d.d3plus.active,
@@ -24740,42 +24744,43 @@ module.exports = function(vars) {
 
 
 },{"../../../core/console/print.coffee":54}],224:[function(require,module,exports){
-var copy  = require("../../../util/copy.coffee"),
-    form  = require("../../../form/form.js"),
-    print = require("../../../core/console/print.coffee")
+var copy        = require("../../../util/copy.coffee"),
+    form        = require("../../../form/form.js"),
+    print       = require("../../../core/console/print.coffee"),
+    validObject = require("../../../object/validate.coffee");
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // Draws a UI drawer, if defined.
 //------------------------------------------------------------------------------
 module.exports = function( vars ) {
 
-  var enabled = vars.ui.value && vars.ui.value.length
-    , position = vars.ui.position.value
+  var enabled = vars.ui.value && vars.ui.value.length,
+      position = vars.ui.position.value;
 
-  if ( vars.dev.value && enabled ) print.time("drawing custom UI elements")
+  if ( vars.dev.value && enabled ) print.time("drawing custom UI elements");
 
   var drawer = vars.container.value.selectAll("div#d3plus_drawer")
-    .data(["d3plus_drawer"])
+    .data(["d3plus_drawer"]);
 
   drawer.enter().append("div")
-    .attr("id","d3plus_drawer")
+    .attr("id","d3plus_drawer");
 
-  var positionStyles = {}
+  var positionStyles = {};
   vars.ui.position.accepted.forEach(function(p){
-    positionStyles[p] = p == position ? vars.margin.bottom+"px" : "auto"
-  })
+    positionStyles[p] = p == position ? vars.margin.bottom+"px" : "auto";
+  });
 
   drawer
     .style("text-align",vars.ui.align.value)
     .style("position","absolute")
     .style("width",vars.width.value-(vars.ui.padding*2)+"px")
     .style("height","auto")
-    .style(positionStyles)
+    .style(positionStyles);
 
   var ui = drawer.selectAll("div.d3plus_drawer_ui")
     .data(enabled ? vars.ui.value : [], function(d){
-      return d.method || false
-    })
+      return d.method || false;
+    });
 
   ui.enter().append("div")
     .attr("class","d3plus_drawer_ui")
@@ -24783,69 +24788,91 @@ module.exports = function( vars ) {
     .style("display","inline-block")
     .each(function(d){
 
-      var container = d3.select(this)
+      var container = d3.select(this);
+      var focus, callback;
+
+      if (typeof d.method === "string" && d.method in vars) {
+        focus = vars[d.method].value;
+        callback = function(value) {
+          if ( value !== vars[d.method].value ) {
+            vars.self[d.method](value).draw();
+          }
+        };
+      }
+      else {
+        focus = d.value[0];
+        if (validObject(focus)) focus = focus[d3.keys(focus)[0]];
+        if (typeof d.method === "function") callback = d.method;
+      }
 
       d.form = form()
         .container(container)
-        .focus(vars[d.method].value,function(value){
-
-          if ( value !== vars[d.method].value ) {
-            vars.self[d.method](value).draw()
-          }
-
-        })
+        .focus(focus, callback)
         .id("id")
-        .text("text")
-        .type("auto")
+        .text("text");
 
-    })
+    });
 
   ui.each(function(d){
 
-    var data = []
-      , title = vars.format.locale.value.method[d.method] || d.method
+    var data = [], title;
+
+    if (d.label) {
+      title = d.label;
+    }
+    else if (typeof d.method === "string" && d.method in vars) {
+      title = vars.format.locale.value.method[d.method] || d.method;
+    }
 
     d.value.forEach(function(o){
 
-      var obj = {
-        "id": o,
-        "text": vars.format.value(o)
+      var obj = {};
+
+      if (validObject(o)) {
+        obj.id   = o[d3.keys(o)[0]];
+        obj.text = d3.keys(o)[0];
       }
-      data.push(obj)
+      else {
+        obj.id   = o;
+        obj.text = vars.format.value(o);
+      }
 
-    })
+      data.push(obj);
 
-    var font = copy(vars.ui.font)
-    font.secondary = vars.ui.font
+    });
+
+    var font = copy(vars.ui.font);
+    font.secondary = vars.ui.font;
 
     d.form
       .data(data)
       .font(font)
       .format(vars.format.locale.language)
       .title(vars.format.value(title))
+      .type(d.type || "auto")
       .ui({
         "align": vars.ui.align.value,
         "padding": vars.ui.padding,
         "margin": 0
       })
       .width(d.width || false)
-      .draw()
+      .draw();
 
-  })
+  });
 
-  ui.exit().remove()
+  ui.exit().remove();
 
-  var drawerHeight = drawer.node().offsetHeight || drawer.node().getBoundingClientRect().height
+  var drawerHeight = drawer.node().offsetHeight || drawer.node().getBoundingClientRect().height;
 
   if ( drawerHeight ) {
-    vars.margin[position] += drawerHeight
+    vars.margin[position] += drawerHeight;
   }
 
-  if ( vars.dev.value && enabled ) print.timeEnd("drawing custom UI elements")
+  if ( vars.dev.value && enabled ) print.timeEnd("drawing custom UI elements");
 
-}
+};
 
-},{"../../../core/console/print.coffee":54,"../../../form/form.js":97,"../../../util/copy.coffee":191}],225:[function(require,module,exports){
+},{"../../../core/console/print.coffee":54,"../../../form/form.js":97,"../../../object/validate.coffee":162,"../../../util/copy.coffee":191}],225:[function(require,module,exports){
 var events = require("../../../client/pointer.coffee"),
     lighter    = require("../../../color/lighter.coffee"),
     print      = require("../../../core/console/print.coffee"),
@@ -25533,7 +25560,7 @@ module.exports = function(vars) {
     }
     else {
       var key_box = vars.g.legend.node().getBBox(),
-          key_height = key_box.height+key_box.y-vars.ui.padding
+          key_height = key_box.height+key_box.y
     }
 
     if (vars.margin.bottom === 0) {
@@ -28167,7 +28194,7 @@ nest = require("./helpers/graph/nest.coffee");
 stack = require("./helpers/graph/stack.coffee");
 
 bar = function(vars) {
-  var base, cMargin, d, data, discrete, h, i, length, maxSize, mod, nested, oMargin, offset, opposite, point, space, value, w, x, _i, _j, _len, _len1, _ref;
+  var base, cMargin, d, data, discrete, discreteVal, h, i, length, maxSize, mod, nested, oMargin, offset, oppVal, opposite, point, space, value, w, x, _i, _j, _len, _len1, _ref;
   discrete = vars.axes.discrete;
   h = discrete === "x" ? "height" : "width";
   w = discrete === "x" ? "width" : "height";
@@ -28189,11 +28216,9 @@ bar = function(vars) {
     stack(vars, nested);
   }
   space = vars.axes[w] / vars[vars.axes.discrete].ticks.values.length;
-  if (vars.axes.stacked) {
-    maxSize = space - vars.labels.padding * 4;
-  } else {
-    maxSize = space / nested.length;
-    maxSize -= vars.labels.padding * 2;
+  maxSize = space - vars.labels.padding * 4;
+  if (!vars.axes.stacked) {
+    maxSize /= nested.length;
     offset = space / 2 - maxSize / 2 - vars.labels.padding * 2;
     x = d3.scale.linear().domain([0, nested.length - 1]).range([-offset, offset]);
   }
@@ -28203,7 +28228,8 @@ bar = function(vars) {
     _ref = point.values;
     for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
       d = _ref[_j];
-      d.d3plus[discrete] = vars[discrete].scale.viz(fetchValue(vars, d, vars[discrete].value));
+      discreteVal = fetchValue(vars, d, vars[discrete].value);
+      d.d3plus[discrete] = vars[discrete].scale.viz(discreteVal);
       d.d3plus[discrete] += vars.axes.margin[cMargin] + mod;
       if (vars.axes.stacked) {
         base = d.d3plus[opposite + "0"];
@@ -28211,7 +28237,8 @@ bar = function(vars) {
         length = base - value;
       } else {
         base = vars[opposite].scale.viz(0);
-        value = vars[opposite].scale.viz(fetchValue(vars, d, vars[opposite].value));
+        oppVal = fetchValue(vars, d, vars[opposite].value);
+        value = vars[opposite].scale.viz(oppVal);
         length = base - value;
       }
       d.d3plus[opposite] = base - length / 2;
@@ -28221,7 +28248,9 @@ bar = function(vars) {
       d.d3plus[w] = maxSize;
       d.d3plus[h] = Math.abs(length);
       d.d3plus.init = {};
-      d.d3plus.init[opposite] = vars[opposite].scale.viz(0) - d.d3plus[opposite] + vars.axes.margin[oMargin];
+      d.d3plus.init[opposite] = vars[opposite].scale.viz(0);
+      d.d3plus.init[opposite] -= d.d3plus[opposite];
+      d.d3plus.init[opposite] += vars.axes.margin[oMargin];
       d.d3plus.init[w] = d.d3plus[w];
       d.d3plus.label = false;
     }
@@ -28232,8 +28261,10 @@ bar = function(vars) {
 bar.requirements = ["data", "x", "y"];
 
 bar.setup = function(vars) {
+  var axis;
   if (!vars.axes.discrete) {
-    return vars.self.x({
+    axis = vars.time.value === vars.y.value ? "y" : "x";
+    return vars.self[axis]({
       scale: "discrete"
     });
   }
@@ -28424,8 +28455,10 @@ box.requirements = ["data", "x", "y"];
 box.shapes = ["circle", "check", "cross", "diamond", "square", "triangle", "triangle_up", "triangle_down"];
 
 box.setup = function(vars) {
+  var axis;
   if (!vars.axes.discrete) {
-    return vars.self.x({
+    axis = vars.time.value === vars.y.value ? "y" : "x";
+    return vars.self[axis]({
       scale: "discrete"
     });
   }
@@ -28651,69 +28684,97 @@ module.exports = geo_map;
 
 
 },{}],289:[function(require,module,exports){
-var color, legible;
+var color, legible, print;
 
 color = require("../../../../core/fetch/color.coffee");
 
 legible = require("../../../../color/legible.coffee");
 
+print = require("../../../../core/console/print.coffee");
+
 module.exports = function(vars) {
-  var axis, axisData, data, style, tick, ticks, _i, _len, _ref;
-  data = vars.axes.stacked ? [] : vars.data.viz;
+  var axes, axis, axisData, data, style, tick, ticks, _i, _len, _ref;
+  axes = vars.axes;
+  data = axes.stacked ? [] : vars.data.viz;
   style = function(line, axis) {
     return line.attr("x1", function(d) {
       if (axis === "y") {
         return -2;
       } else {
-        return d.d3plus.x - vars.axes.margin.left;
+        return d.d3plus.x - axes.margin.left;
       }
     }).attr("x2", function(d) {
       if (axis === "y") {
         return -8;
       } else {
-        return d.d3plus.x - vars.axes.margin.left;
+        return d.d3plus.x - axes.margin.left;
       }
     }).attr("y1", function(d) {
       if (axis === "x") {
-        return vars.axes.height + 2;
+        return axes.height + 2;
       } else {
-        return d.d3plus.y - vars.axes.margin.top;
+        return d.d3plus.y - axes.margin.top;
       }
     }).attr("y2", function(d) {
       if (axis === "x") {
-        return vars.axes.height + 8;
+        return axes.height + 8;
       } else {
-        return d.d3plus.y - vars.axes.margin.top;
+        return d.d3plus.y - axes.margin.top;
       }
     }).style("stroke", function(d) {
       return legible(color(vars, d));
     }).style("stroke-width", vars.data.stroke.width).attr("shape-rendering", vars.shape.rendering.value);
   };
+  if (vars.dev.value) {
+    print.time("creating axis tick groups");
+  }
   ticks = vars.group.select("g#d3plus_graph_plane").selectAll("g.d3plus_data_tick").data(data, function(d) {
     var mod;
-    mod = vars.axes.discrete ? "_" + d.d3plus[vars.axes.discrete] : "";
+    mod = axes.discrete ? "_" + d.d3plus[axes.discrete] : "";
     return "tick_" + d[vars.id.value] + "_" + d.d3plus.depth + mod;
   });
   ticks.enter().append("g").attr("class", "d3plus_data_tick").attr("opacity", 0);
+  if (vars.dev.value) {
+    print.timeEnd("creating axis tick groups");
+  }
   _ref = ["x", "y"];
   for (_i = 0, _len = _ref.length; _i < _len; _i++) {
     axis = _ref[_i];
-    axisData = axis !== vars.axes.discrete ? data : [];
+    if (vars.dev.value) {
+      print.time("creating " + axis + " ticks");
+    }
+    axisData = axis !== axes.discrete ? data : [];
     tick = ticks.selectAll("line.d3plus_data_" + axis).data(axisData, function(d) {
-      var mod;
-      mod = vars.axes.discrete ? "_" + d.d3plus[vars.axes.discrete] : "";
-      return "tick_" + d[vars.id.value] + "_" + d.d3plus.depth + mod;
+      return "tick_" + d[vars.id.value] + "_" + d.d3plus.depth;
     });
+    if (vars.dev.value) {
+      print.timeEnd("creating " + axis + " ticks");
+    }
+    if (vars.dev.value) {
+      print.time("styling " + axis + " ticks");
+    }
+    if (vars.draw.timing > 0) {
+      tick.transition().duration(vars.draw.timing).call(style, axis);
+    } else {
+      tick.call(style, axis);
+    }
     tick.enter().append("line").attr("class", "d3plus_data_" + axis).call(style, axis);
-    tick.transition().duration(vars.draw.timing).call(style, axis);
+    if (vars.dev.value) {
+      print.timeEnd("styling " + axis + " ticks");
+    }
   }
-  ticks.transition().duration(vars.draw.timing).attr("opacity", 1);
-  ticks.exit().transition().duration(vars.draw.timing).attr("opacity", 0).remove();
+  if (vars.draw.timing > 0) {
+    ticks.transition().duration(vars.draw.timing).attr("opacity", 1);
+    ticks.exit().transition().duration(vars.draw.timing).attr("opacity", 0).remove();
+  } else {
+    ticks.attr("opacity", 1);
+    ticks.exit().remove();
+  }
 };
 
 
 
-},{"../../../../color/legible.coffee":46,"../../../../core/fetch/color.coffee":64}],290:[function(require,module,exports){
+},{"../../../../color/legible.coffee":46,"../../../../core/console/print.coffee":54,"../../../../core/fetch/color.coffee":64}],290:[function(require,module,exports){
 var axes, draw, mouse, plot;
 
 axes = require("./includes/axes.coffee");
@@ -29774,9 +29835,10 @@ line = function(vars) {
 line.requirements = ["data", "x", "y"];
 
 line.setup = function(vars) {
-  var size, y;
+  var axis, size, y;
   if (!vars.axes.discrete) {
-    vars.self.x({
+    axis = vars.time.value === vars.y.value ? "y" : "x";
+    vars.self[axis]({
       scale: "discrete"
     });
   }
@@ -30798,15 +30860,17 @@ scatter.requirements = ["data", "x", "y"];
 scatter.scale = 1.1;
 
 scatter.setup = function(vars) {
-  if (vars.x.value === vars.time.value) {
-    vars.self.x({
-      scale: "discrete"
-    });
-  }
-  if (vars.y.value === vars.time.value) {
-    return vars.self.y({
-      scale: "discrete"
-    });
+  if (vars.time.value && !vars.axes.discrete) {
+    if (vars.time.value === vars.x.value) {
+      vars.self.x({
+        scale: "discrete"
+      });
+    }
+    if (vars.time.value === vars.y.value) {
+      return vars.self.y({
+        scale: "discrete"
+      });
+    }
   }
 };
 
@@ -30875,9 +30939,10 @@ stacked.filter = function(vars, data) {
 stacked.requirements = ["data", "x", "y"];
 
 stacked.setup = function(vars) {
-  var size, y;
+  var axis, size, y;
   if (!vars.axes.discrete) {
-    vars.self.x({
+    axis = vars.time.value === vars.y.value ? "y" : "x";
+    vars.self[axis]({
       scale: "discrete"
     });
   }
