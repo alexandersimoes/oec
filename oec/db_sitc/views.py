@@ -1,6 +1,8 @@
 from flask import Blueprint, request, jsonify, make_response, g
 
+from oec import db
 from oec.utils import make_query
+from oec.db_attr.models import Yo as Attr_yo
 from oec.db_sitc.models import Yo, Yd, Yp, Yod, Yop, Ydp, Yodp
 from oec.decorators import crossdomain
 
@@ -19,7 +21,10 @@ mod = Blueprint('sitc', __name__, url_prefix='/sitc')
 @mod.route('/<trade_flow>/<year>/show/all/all/')
 @crossdomain(origin='*')
 def sitc_yo(**kwargs):
-    return make_response(make_query(Yo, request.args, g.locale, **kwargs))
+    q = db.session.query(Attr_yo, Yo) \
+            .filter(Attr_yo.origin_id == Yo.origin_id) \
+            .filter(Attr_yo.year == Yo.year)
+    return make_response(make_query(q, request.args, g.locale, Yo, **kwargs))
 
 @mod.route('/all/all/<dest_id>/all/')
 @mod.route('/<year>/all/<dest_id>/all/')
