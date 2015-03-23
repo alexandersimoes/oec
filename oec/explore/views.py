@@ -10,13 +10,38 @@ from oec.db_attr.models import Country, Sitc, Hs
 from oec.explore.models import Build, App, Short
 from oec.db_hs import models as hs_tbls
 from oec.db_sitc import models as sitc_tbls
+from oec.general.views import get_locale
 from sqlalchemy.sql.expression import func
 from sqlalchemy import not_
 from random import choice
 
 from config import FACEBOOK_ID
 
-mod = Blueprint('explore', __name__, url_prefix='/explore')
+@app.route('/explore/')
+@app.route('/explore/<app_name>/')
+@app.route('/explore/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year>/')
+def explore_redirect_nolang(app_name=None, classification=None, trade_flow=None, \
+                origin_id=None, dest_id=None, prod_id=None, year=available_years['hs'][-1]):
+    if classification:
+        redirect_url = url_for('explore.explore', lang=g.locale, app_name=app_name, \
+                        classification=classification, trade_flow=trade_flow, \
+                        origin_id=origin_id, dest_id=dest_id, prod_id=prod_id, \
+                        year=year)
+    elif app_name:
+        redirect_url = url_for('explore.explore_redirect', lang=g.locale, app_name=app_name)
+    else:
+        redirect_url = url_for('explore.explore_redirect', lang=g.locale)
+    return redirect(redirect_url)
+
+mod = Blueprint('explore', __name__, url_prefix='/<lang>/explore')
+
+@mod.url_value_preprocessor
+def get_profile_owner(endpoint, values):
+    lang = values.pop('lang')
+    g.locale = get_locale(lang)
+    # raise Exception(values)
+    # query = User.query.filter_by(url_slug=values.pop('user_url_slug'))
+    # g.profile_owner = query.first_or_404()
 
 @mod.route('/')
 @mod.route('/<app_name>/')
@@ -26,7 +51,7 @@ def explore_redirect(app_name='tree_map'):
     latest_hs_year = available_years['hs'][-1]
 
     if app_name in ["tree_map", "stacked", "network"]:
-        redirect_url = url_for('.explore', app_name=app_name, \
+        redirect_url = url_for('.explore', lang=g.locale, app_name=app_name, \
                         classification="hs", trade_flow="export", \
                         origin_id=c.id_3char, dest_id="all", prod_id="show", year=latest_hs_year)
     elif app_name in ["geo_map", "rings"]:
@@ -36,7 +61,7 @@ def explore_redirect(app_name='tree_map'):
         origin = "show"
         if app_name == "rings":
             origin = c.id_3char
-        redirect_url = url_for('.explore', app_name=app_name, \
+        redirect_url = url_for('.explore', lang=g.locale, app_name=app_name, \
                         classification="hs", trade_flow="export", \
                         origin_id=origin, dest_id="all", prod_id=p.hs, year=latest_hs_year)
     else:
@@ -68,7 +93,7 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
             msg = "{0} reports their trade under Belgium-Luxembourg in the HS classification. ".format(c.get_name())
 
     if msg:
-        redirect_url = url_for('.explore', app_name=app_name, \
+        redirect_url = url_for('.explore', lang=g.locale, app_name=app_name, \
                     classification=classification, trade_flow=trade_flow, \
                     origin_id=origin, dest_id=dest, prod_id=product, year=year)
         return [msg, redirect_url]
@@ -143,7 +168,7 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, \
         new_year = new_end_year
     if new_start_year != start_year or new_end_year != end_year:
         new_year = ".".join([new_start_year, new_end_year]) if "." in year else new_year
-        return redirect(url_for('.explore', app_name=app_name, \
+        return redirect(url_for('.explore', lang=g.locale, app_name=app_name, \
                         classification=classification, trade_flow=trade_flow, \
                         origin_id=origin_id, dest_id=dest_id, prod_id=prod_id, \
                         year=new_year))
@@ -199,7 +224,7 @@ def explore_legacy(app_name, trade_flow, origin, dest, product, year=available_y
             c = 'sitc'
             prod = Sitc.query.filter_by(sitc=product).first()
         product = prod.id
-    return redirect(url_for('.explore', app_name=app_name, \
+    return redirect(url_for('.explore', lang=g.locale, app_name=app_name, \
                 classification=c, trade_flow=trade_flow, origin=origin, \
                 dest=dest, product=product, year=year))
 
