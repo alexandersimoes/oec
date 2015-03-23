@@ -16,7 +16,7 @@
     <nav>
       <ul>
         <li><a role="button" class="{% if g.page_type == 'explore' %}current{% endif %}" href="{{ url_for('explore.explore_redirect', lang=g.locale) }}">{{ _('Explore') }}</a></li>
-        <li><a role="button" class="{% if g.page_type == 'profile' %}current{% endif %}" href="{{ url_for('profile.profile_country_redirect') }}">{{ _('Profiles') }}</a></li>
+        <li><a role="button" class="{% if g.page_type == 'profile' %}current{% endif %}" href="{{ url_for('profile.profile_country_redirect', lang=g.locale) }}">{{ _('Profiles') }}</a></li>
         <li><a role="button" class="{% if g.page_type == 'atlas' %}current{% endif %}" href="{{ url_for('general.atlas') }}">{{ _('Atlas') }}</a></li>
         <li><a role="button" class="{% if g.page_type == 'rankings' %}current{% endif %}" href="{{ url_for('rankings.rankings_redirect') }}">{{ _('Rankings') }}</a></li>
         <!-- <li><a role="button" class="{% if g.page_type == 'rankings' %}current{% endif %}" href="{{ url_for('rankings.rankings', category='country', year=2011) }}">{{ _('Rankings') }}</a></li> -->
@@ -24,7 +24,7 @@
       </ul>
       {% if g.page_type == 'profile' %}
       <div id="secondary_nav">
-        <a class="{% if g.page_sub_type == 'country' %}current{% endif %}" href="{{ url_for('profile.profile_country_redirect') }}">{{ _('Country') }}</a> | <a class="{% if g.page_sub_type == 'hs' %}current{% endif %}" href="{{ url_for('profile.profile_product_redirect', attr_type='hs') }}">{{ _('Product') }}</a>
+        <a class="{% if g.page_sub_type == 'country' %}current{% endif %}" href="{{ url_for('profile.profile_country_redirect', lang=g.locale) }}">{{ _('Country') }}</a> | <a class="{% if g.page_sub_type == 'hs' %}current{% endif %}" href="{{ url_for('profile.profile_product_redirect', lang=g.locale, attr_type='hs') }}">{{ _('Product') }}</a>
       </div>
       {% endif %}
     </nav>

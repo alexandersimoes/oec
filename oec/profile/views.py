@@ -9,11 +9,27 @@ from oec import app, db, babel, view_cache, random_countries, available_years
 from oec.utils import make_query, make_cache_key
 from oec.db_attr import models as attr_models
 from oec.explore.models import Build, App
+from oec.general.views import get_locale
 from sqlalchemy.sql.expression import func
 from sqlalchemy import not_
 from random import choice
 
-mod = Blueprint('profile', __name__, url_prefix='/profile')
+@app.route('/profile/country/')
+@app.route('/profile/country/<attr_id>/')
+def country_profile_redirect_nolang(attr_id=None):
+    return redirect(url_for('profile.profile_country', lang=g.locale, attr_id=attr_id))
+
+@app.route('/profile/<attr_type>/')
+@app.route('/profile/<attr_type>/<attr_id>/')
+def prod_profile_redirect_nolang(attr_id=None):
+    return redirect(url_for('profile.profile_product', lang=g.locale, attr_type=attr_type, attr_id=attr_id))
+
+mod = Blueprint('profile', __name__, url_prefix='/<lang>/profile')
+
+@mod.url_value_preprocessor
+def get_profile_owner(endpoint, values):
+    lang = values.pop('lang')
+    g.locale = get_locale(lang)
 
 @mod.route('/country/')
 def profile_country_redirect():
@@ -21,7 +37,7 @@ def profile_country_redirect():
     '''fetch random country'''
     c = Country.query.get(choice(random_countries))
 
-    return redirect(url_for(".profile_country", attr_id=c.id_3char))
+    return redirect(url_for(".profile_country", lang=g.locale, attr_id=c.id_3char))
 
 @mod.route('/<attr_type>/')
 def profile_product_redirect(attr_type):
@@ -31,7 +47,7 @@ def profile_product_redirect(attr_type):
     else:
         p = getattr(attr_models, attr_type.capitalize()).query.order_by(func.random()).first_or_404()
 
-    return redirect(url_for(".profile_product", attr_type=attr_type, attr_id=p.get_display_id()))
+    return redirect(url_for(".profile_product", lang=g.locale, attr_type=attr_type, attr_id=p.get_display_id()))
 
 def sanitize(id_3char):
     msg = None
@@ -118,7 +134,7 @@ def profile_country(attr_id="usa"):
 @mod.route('/<attr_type>/')
 @mod.route('/<attr_type>/<attr_id>/')
 @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
-def profile_product(attr_type, attr_id="usa"):
+def profile_product(attr_type, attr_id="7108"):
     g.page_type = mod.name
     g.page_sub_type = attr_type
     p_tbl = getattr(attr_models, attr_type.capitalize())

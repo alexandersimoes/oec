@@ -120,9 +120,9 @@ class Country(db.Model, AutoSerialize):
 
     def get_profile_url(self):
         if self.id_3char:
-            return "/profile/country/"+self.id_3char+"/"
+            return "/{}/profile/country/{}/".format(g.locale, self.id_3char)
         else:
-            return "/profile/country/"
+            return "/{}/profile/country/".format(g.locale)
 
     def serialize(self, lang="en"):
         auto_serialized = super(Country, self).serialize()
@@ -204,7 +204,7 @@ class Hs(db.Model, AutoSerialize):
         return "/static/img/icons/hs/hs_%s.png" % (self.id[:2])
 
     def get_profile_url(self):
-        return "/profile/hs/"+self.hs+"/"
+        return "/{}/profile/hs/{}/".format(g.locale, self.hs)
 
     def serialize(self, lang="en"):
         auto_serialized = super(Hs, self).serialize()
