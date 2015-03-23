@@ -10,21 +10,36 @@ from oec.utils import make_cache_key, compile_query
 from oec.db_attr.models import Yo, Hs, Hs_name, Sitc, Sitc_name, Country, Country_name
 from oec.db_hs.models import Yp as Yp_hs
 from oec.db_sitc.models import Yp as Yp_sitc
-
+from oec.general.views import get_locale
 import csv
 from cStringIO import StringIO
 
-mod = Blueprint('rankings', __name__, url_prefix='/rankings')
+@app.route('/rankings/')
+@app.route('/rankings/<category>/')
+@app.route('/rankings/<category>/<int:year>/')
+def rankings_redirect_nolang(category=None, year=None):
+    if category:
+        redirect_url = url_for('rankings.rankings', lang=g.locale, category=category, year=year)
+    else:
+        redirect_url = url_for('rankings.rankings_redirect', lang=g.locale)
+    return redirect(redirect_url)
+
+mod = Blueprint('rankings', __name__, url_prefix='/<lang>/rankings')
+
+@mod.url_value_preprocessor
+def get_profile_owner(endpoint, values):
+    lang = values.pop('lang')
+    g.locale = get_locale(lang)
 
 @mod.route('/')
 def rankings_redirect():
-    return redirect(url_for('.rankings', category="country"))
+    return redirect(url_for('.rankings', lang=g.locale, category="country"))
 
 @mod.route('/<category>/')
 @mod.route('/<category>/<int:year>/')
 # don't cache because downloading will not be possible
 # @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
-def rankings(category=None,year=None):    
+def rankings(category=None, year=None):
     g.page_type = mod.name
     
     download = request.args.get('download', None)
@@ -40,9 +55,9 @@ def rankings(category=None,year=None):
         download_all = True if download else False
         year = available_years[category][-1]
     elif year > available_years[category][-1]:
-        return redirect(url_for('.rankings', category=category, year=available_years[category][0]))
+        return redirect(url_for('.rankings', lang=g.locale, category=category, year=available_years[category][0]))
     elif year < available_years[category][0]:
-        return redirect(url_for('.rankings', category=category, year=available_years[category][-1]))
+        return redirect(url_for('.rankings', lang=g.locale, category=category, year=available_years[category][-1]))
     
     if category == "sitc":
         Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Sitc, Sitc_name, Yp_sitc, "sitc_id", "pci", "pci_rank", "pci_rank_delta"]

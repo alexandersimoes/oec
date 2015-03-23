@@ -17,7 +17,7 @@
 
 <div class="title">
   {% if year > g.available_years[category][0]  %}
-  <a class="prev" href="/rankings/{{ category }}/{{ year-1 }}/">&laquo; {{ _('Previous Year') }}</a>
+  <a class="prev" href="/{{ g.locale }}/rankings/{{ category }}/{{ year-1 }}/">&laquo; {{ _('Previous Year') }}</a>
   {% endif %}
   {% if category == "country" %}
     <h2>{{ _('Country Rankings') }} ({{ year }})</h2>
@@ -27,7 +27,7 @@
     <h2>{{ _('SITC Product Rankings') }} ({{ year }})</h2>
   {% endif %}
   {% if year < g.available_years[category][-1]  %}
-  <a class="next" href="/rankings/{{ category }}/{{ year+1 }}/">{{ _('Next Year') }} &raquo;</a>
+  <a class="next" href="/{{ g.locale }}/rankings/{{ category }}/{{ year+1 }}/">{{ _('Next Year') }} &raquo;</a>
   {% endif %}
 </div>
 
@@ -37,13 +37,13 @@
 
     <ul>
       <li{% if category == "country" %} class="active"{% endif %}>
-        <a href="/rankings/country/">{{ _('Country Rankings') }}</a>
+        <a href="/{{ g.locale }}/rankings/country/">{{ _('Country Rankings') }}</a>
       </li>
       <li{% if category == "hs" %} class="active"{% endif %}>
-        <a href="/rankings/hs/">{{ _('HS Product Rankings') }}</a>
+        <a href="/{{ g.locale }}/rankings/hs/">{{ _('HS Product Rankings') }}</a>
       </li>
       <li{% if category == "sitc" %} class="active"{% endif %}>
-        <a href="/rankings/sitc/">{{ _('SITC Product Rankings') }}</a>
+        <a href="/{{ g.locale }}/rankings/sitc/">{{ _('SITC Product Rankings') }}</a>
       </li>
     </ul>
 
@@ -58,10 +58,10 @@
 
     <ul><h3>{{ _('Download') }}</h3>
       <li class="icon download">
-        <a href="/rankings/{{ category }}/{{ year }}/?download=true">{{ _("Current Year") }}</a>
+        <a href="/{{ g.locale }}/rankings/{{ category }}/{{ year }}/?download=true">{{ _("Current Year") }}</a>
       </li>
       <li class="icon download">
-        <a href="/rankings/{{ category }}/?download=true">{{ _('All Years') }}</a>
+        <a href="/{{ g.locale }}/rankings/{{ category }}/?download=true">{{ _('All Years') }}</a>
       </li>
     </ul>
 
@@ -130,13 +130,15 @@
       if (new_year !== currentYear) {
 
         var url = window.location.pathname.split("/")
-        if(url.length == 5){
-          url.splice(3, 1, new_year)
+        console.log(url.length)
+        if(url.length == 6){
+          url.splice(4, 1, new_year)
         }
         else {
-          url.splice(3, 0, new_year)
+          url.splice(4, 0, new_year)
         }
-        window.location = url.join("/")
+        console.log(url.join("/"))
+        // window.location = url.join("/")
 
       }
 
