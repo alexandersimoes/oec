@@ -246,7 +246,7 @@ msgstr "経済貿易のデータの可視化"
 #: oec/html/explore/index.html:21 oec/html/explore/index.html:29
 #, python-format
 msgid "Flag of %(country)s"
-msgstr "%(country)の国旗"
+msgstr "%(country)sの国旗"
 
 #: oec/html/explore/index.html:37 oec/html/rankings/index.html:20
 msgid "Previous Year"
@@ -277,12 +277,12 @@ msgstr "主要な大手の輸出、輸入との複雑な経済指標の統計の
 #: oec/html/profile/country.html:9
 #, python-format
 msgid "Economy of %(country)s."
-msgstr "%(country)の経済"
+msgstr "%(country)sの経済"
 
 #: oec/html/profile/country.html:9
 #, python-format
 msgid "Principle trade partners of %(country)s."
-msgstr "%(country)の主要貿易相手"
+msgstr "%(country)sの主要貿易相手"
 
 #: oec/html/profile/country.html:9
 #, python-format
@@ -308,7 +308,7 @@ msgstr "ランクされています"
 #: oec/html/profile/country.html:33
 #, python-format
 msgid "%(country)s is the top exporter of"
-msgstr "%(country)は次の品目の最大輸出国"
+msgstr "%(country)sは次の品目の最大輸出国"
 
 #: oec/html/profile/country.html:33 oec/html/profile/product.html:33
 msgid "and"
@@ -345,12 +345,12 @@ msgstr "原則貿易パートナーその輸出 %(prod)s."
 #: oec/html/profile/product.html:9
 #, python-format
 msgid "Countries that import %(prod)s."
-msgstr "%(prod)を輸入している国々"
+msgstr "%(prod)sを輸入している国々"
 
 #: oec/html/profile/product.html:12
 #, python-format
 msgid "Learn More About Trade of %(prod)s"
-msgstr "%(prod)関連の貿易について更に詳しく調べる"
+msgstr "%(prod)s関連の貿易について更に詳しく調べる"
 
 #: oec/html/profile/product.html:27
 #, python-format
