@@ -90,7 +90,7 @@ def set_lang(lang):
         flash(flash_txt, 'new_lang')
     return redirect(request.args.get('next') or \
                request.referrer or \
-               url_for('general.home'))
+               url_for('general.home', lang=g.locale))
 
 ###############################
 # 404 view
@@ -310,16 +310,12 @@ class Search():
 # General views
 # ---------------------------
 @mod.route('/')
-def home():
+@mod.route('<lang>/')
+def home(lang=None):
+    if lang is None:
+        return redirect(url_for('.home', lang=g.locale))
     g.page_type = "home"
-    '''get user's country from IP address
-    ip = request.remote_addr
-
-    # fetch the url
-    url = "http://api.hostip.info/get_json.php?ip="+ip
-    json_response = json.loads(urllib2.urlopen(url).read())
-    country_code = json_response["country_code"]
-    '''
+    g.locale = get_locale(lang)
 
     '''get ramdom country'''
     c = Country.query.get(choice(random_countries))
@@ -486,7 +482,7 @@ def embed_legacy(app_name, trade_flow, origin, dest, product, year=2012):
             prod = Sitc.query.filter_by(sitc=product).first()
         product = prod.id
     lang = request.args.get('lang', 'en')
-    redirect_url = url_for('explore.embed', app_name=app_name, \
+    redirect_url = url_for('explore.embed', lang=g.locale, app_name=app_name, \
                 classification=c, trade_flow=trade_flow, origin=origin, \
                 dest=dest, product=product, year=year)
     return redirect(redirect_url+"?controls=false&lang="+lang)

@@ -107,7 +107,9 @@
       .focus(undefined,function(lang){
         if (lang !== "{{ g.locale }}") {
           localStorage.setItem('lang', lang)
-          window.location = "/set_lang/"+lang+"/";
+          var url_parts = window.location.pathname.split("/");
+          url_parts[1] = lang
+          window.location = url_parts.join("/");
         }
       })
       .draw()
