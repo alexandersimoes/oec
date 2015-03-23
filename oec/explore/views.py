@@ -39,9 +39,6 @@ mod = Blueprint('explore', __name__, url_prefix='/<lang>/explore')
 def get_profile_owner(endpoint, values):
     lang = values.pop('lang')
     g.locale = get_locale(lang)
-    # raise Exception(values)
-    # query = User.query.filter_by(url_slug=values.pop('user_url_slug'))
-    # g.profile_owner = query.first_or_404()
 
 @mod.route('/')
 @mod.route('/<app_name>/')
