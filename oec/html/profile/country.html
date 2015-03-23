@@ -105,12 +105,7 @@
       return color(parseInt(this.innerHTML));
     })
   
-  var lang = "en"
-  if(localStorage.getItem('lang')){
-    lang = localStorage.getItem('lang');
-  }
-  
-  d3.json("/attr/country/"+lang+"/", function(raw_attrs){
+  d3.json("/attr/country/{{ g.locale }}/", function(raw_attrs){
 
     var focus_id = "{{ attr.id }}"
     focus_id = focus_id == "eublx" ? "eubel" : focus_id

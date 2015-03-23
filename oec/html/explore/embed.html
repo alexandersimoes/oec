@@ -926,7 +926,7 @@ d3.select("#share #shorten").on("click", function(){
     }
   }
 
-  d3.json("/explore/shorten/")
+  d3.json("/{{ g.locale }}/explore/shorten/")
     .header("Content-type","application/x-www-form-urlencoded")
     .post("url="+url, function(error,data) {
       if (data.error) {

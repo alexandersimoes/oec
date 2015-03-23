@@ -33,7 +33,16 @@ def explore_redirect_nolang(app_name=None, classification=None, trade_flow=None,
         redirect_url = url_for('explore.explore_redirect', lang=g.locale)
     return redirect(redirect_url)
 
-mod = Blueprint('explore', __name__, url_prefix='/<lang>/explore')
+@app.route('/explore/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/')
+@app.route('/explore/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year>/')
+def embed_redirect_nolang(app_name, classification, trade_flow, origin_id, dest_id, \
+                prod_id, year=available_years['hs'][-1]):
+    return redirect(url_for('explore.embed', lang=g.locale, app_name=app_name, \
+                        classification=classification, trade_flow=trade_flow, \
+                        origin_id=origin_id, dest_id=dest_id, prod_id=prod_id, \
+                        year=year))
+
+mod = Blueprint('explore', __name__, url_prefix='/<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","nl","ru","pt","tr","zh_cn"):lang>/explore')
 
 @mod.url_value_preprocessor
 def get_profile_owner(endpoint, values):
@@ -225,13 +234,13 @@ def explore_legacy(app_name, trade_flow, origin, dest, product, year=available_y
                 classification=c, trade_flow=trade_flow, origin=origin, \
                 dest=dest, product=product, year=year))
 
-@mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/')
-@mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
-def embed(app_name, classification, trade_flow, origin, dest, \
-                product, year=available_years['hs'][-1]):
+@mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/')
+@mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year>/')
+def embed(app_name, classification, trade_flow, origin_id, dest_id, \
+                prod_id, year=available_years['hs'][-1]):
 
     current_app = App.query.filter_by(type=app_name).first_or_404()
-    build_filters = {"origin":origin,"dest":dest,"product":product}
+    build_filters = {"origin":origin_id,"dest":dest_id,"product":prod_id}
     for bf_name, bf in build_filters.items():
         if bf != "show" and bf != "all":
             build_filters[bf_name] = "<" + bf_name + ">"
@@ -239,7 +248,7 @@ def embed(app_name, classification, trade_flow, origin, dest, \
     current_build = Build.query.filter_by(app=current_app, trade_flow=trade_flow,
                         origin=build_filters["origin"], dest=build_filters["dest"],
                         product=build_filters["product"]).first_or_404()
-    current_build.set_options(origin=origin, dest=dest, product=product,
+    current_build.set_options(origin=origin_id, dest=dest_id, product=prod_id,
                                 classification=classification, year=year)
 
     '''Get URL query parameters from reqest.args object to return to the view.
