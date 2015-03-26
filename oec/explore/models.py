@@ -201,7 +201,7 @@ class Build(db.Model, AutoSerialize):
     def get_ui(self, ui_type):
         return self.ui.filter(UI.type == ui_type).first()
 
-    def set_options(self, origin=None, dest=None, product=None, classification="hs", year=2010):
+    def set_options(self, origin=None, dest=None, product=None, classification="hs", year=2012):
         if year:
             self.year = year
 
