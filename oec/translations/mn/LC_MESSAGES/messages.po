@@ -1,7 +1,7 @@
-# Korean translations for PROJECT.
-# Copyright (C) 2013 ORGANIZATION
+# Mongolian translations for PROJECT.
+# Copyright (C) 2015 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
 # fuzzy
 msgid ""
@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-03-25 21:10-0400\n"
-"PO-Revision-Date: 2013-12-27 15:28-0500\n"
+"PO-Revision-Date: 2015-03-25 23:22-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: ko <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Team: mn <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: oec/explore/models.py:362
 msgid "Origin Country"
-msgstr "원산지"
+msgstr "Гарал үүслийн улс"
 
 #: oec/explore/models.py:363 oec/explore/models.py:366
 #: oec/html/explore/embed.html:338
@@ -29,241 +29,235 @@ msgstr "ID"
 
 #: oec/explore/models.py:365
 msgid "Destination Country"
-msgstr "대상 국가"
+msgstr "Шилжин ажиллаж буй улс"
 
 #: oec/explore/models.py:368
 msgid "Product Name"
-msgstr "제품명"
+msgstr "Бүтээгдэхүүний нэр"
 
 #: oec/explore/models.py:411
 msgid "Origin"
-msgstr "원산지"
+msgstr "Гарал үүсэл"
 
 #: oec/explore/models.py:426
 msgid "Destination"
-msgstr "목적지"
+msgstr "очих"
 
 #: oec/explore/models.py:444 oec/html/profile/product.html:20
 #: oec/html/profile/product.html:24 oec/html/templates/site.html:26
 #: oec/rankings/views.py:64 oec/rankings/views.py:68
 msgid "Product"
-msgstr "제품"
+msgstr "Бүтээгдэхүүний"
 
 #: oec/explore/models.py:453
 msgid "Trade Flow"
-msgstr "거래 흐름"
+msgstr "Худалдааны урсгал"
 
 #: oec/explore/models.py:456 oec/html/explore/embed.html:344
 msgid "Export"
-msgstr "수출"
+msgstr "Экспортын"
 
 #: oec/explore/models.py:457 oec/html/explore/embed.html:345
 msgid "Import"
-msgstr "수입"
+msgstr "Импортын"
 
 #: oec/explore/models.py:466
 msgid "Y Axis"
-msgstr "Y 축"
+msgstr "Y тэнхлэг"
 
 #: oec/explore/models.py:469 oec/html/explore/embed.html:346
 msgid "GDP"
-msgstr "GDP"
+msgstr "ДНБ-ий хэмжээ"
 
 #: oec/explore/models.py:470 oec/html/explore/embed.html:347
 msgid "GDPpc (constant '05 US$)"
-msgstr "GDPpc (상수 '05 US $)"
+msgstr "GDPpc (тогтмол '05 ам.доллар)"
 
 #: oec/explore/models.py:471 oec/html/explore/embed.html:348
 msgid "GDPpc (current US$)"
-msgstr "GDPpc (현재 US $)"
+msgstr "GDPpc (одоогийн US $)"
 
 #: oec/explore/models.py:472 oec/html/explore/embed.html:349
 msgid "GDPpc PPP (constant '11)"
-msgstr "GDPpc PPP (상수 '11)"
+msgstr "GDPpc PPP (тогтмол '11)"
 
 #: oec/explore/models.py:473 oec/html/explore/embed.html:350
 msgid "GDPpc PPP (current)"
-msgstr "GDPpc PPP (현재)"
+msgstr "GDPpc PPP (одоогийн)"
 
 #: oec/explore/models.py:479
 msgid "Classification"
-msgstr "분류"
+msgstr "Ангилал"
 
 #: oec/explore/models.py:493
 msgid "Start Year"
-msgstr "시작년도"
+msgstr "Эхэлсэн он"
 
 #: oec/explore/models.py:499
 msgid "End Year"
-msgstr "종료연도"
+msgstr "Жилийн эцсийн"
 
 #: oec/explore/models.py:507 oec/rankings/views.py:90
 msgid "Year"
-msgstr "연표"
+msgstr "Жил"
 
 #: oec/html/home.html:25
 msgid ""
 "The Observatory of Economic Complexity makes international trade data and"
 " economic complexity indicators available through millions of interactive"
 " visualizations."
-msgstr ""
-"경제적 복잡성 관측소(The Observatory of Economic Complexity)는 국제 무역 데이터와 경제적 복잡성에 "
-"대한 지표를 수백만의 쌍방향 시각자료를 통해 정리 및 보관하고 있습니다."
+msgstr "Эдийн засгийн нарийн төвөгтэй байдлыг ажиглалтын олон улсын худалдааны мэдээлэл, интерактив гэж төсөөлөх нь сая сая дамжуулан авах боломжтой, эдийн засгийн нарийн төвөгтэй үзүүлэлтийг гаргадаг."
 
 #: oec/html/home.html:34
 msgid "New!"
-msgstr "새로운 기능!"
+msgstr "Шинэ!"
 
 #: oec/html/about/api_data.html:7
 msgid ""
 "Application programming interface (API) for querying the raw data used "
 "throughout The Observatory of Economic Complexity."
-msgstr "경제 복잡성 관측소를 통해 사용된 미가공 데이터를 쿼리하는 애플리케이션 프로그래밍 인터페이스 (API)."
+msgstr "Эдийн засгийн нарийн төвөгтэй байдлыг ажиглах хэрэглэсэн түүхий өгөгдлийг асууж нь Application Programming Interface (API)."
 
 #: oec/html/about/api_embed.html:8
 msgid ""
 "Application programming interface (API) for emedding an iframe of the "
 "visualizations used througout The Observatory of Economic Complexity on "
 "your own website."
-msgstr ""
-"경제 복잡성 관측소를 통해 사용된 시각화 자료의 iframe을 고객의 웹사이트에 삽입하기 위한 응용 프로그램 프로그래밍 인터페이스 "
-"(API)."
+msgstr "Өөрийн вэб сайт, эдийн засгийн нарийн төвөгтэй байдлыг ажиглах througout ашигласан гэж төсөөлөх нь iframe оруулах Application Programming Interface (API)."
 
 #: oec/html/about/data.html:4
 msgid ""
 "HS, SITC, and Country classification with their corresponding IDs and "
 "values."
-msgstr "해당 ID와 값 HS, SITC, 및 국가 분류."
+msgstr "Тэдгээрийн харгалзах иргэний үнэмлэхгүй, үнэт зүйлс нь HS, SITC болон Улс ангилал."
 
 #: oec/html/about/team.html:4
 msgid ""
 "Photos and descriptions of the team members involved in the creation of "
 "The Observatory."
-msgstr "관측소 설립에 참여한 구성원들의 사진 및 소개"
+msgstr "Ажиглалтын Төвийг бүтээхэд оролцсон багийн гишүүдийн зураг болон тайлбарууд"
 
 #: oec/html/about/updates.html:4
 msgid "A Development blog of updates to the site."
-msgstr "본 웹사이트 업데이트 기록 블로그"
+msgstr "Сайтыг сайжруулах Хөгжлийн блог"
 
 #: oec/html/atlas/index.html:4
 msgid ""
 "A book of complexity economics attempting to explain why some countries "
 "grow and others do not. The book uses many of the visualizations seen "
 "throughout this site."
-msgstr ""
-"왜 일부는 국가는 성장하고 다른 국가는 성장하지 못하는지 설명하기 위한 복잡 경제 서적. 이 책은 본 사이트를 통해 볼 수있는 "
-"시각화 자료를 많이 사용하고 있습니다."
+msgstr "Нарийн төвөгтэй байдал нь зарим улс оронд ургадаг яагаад тайлбарлах оролдлого эдийн засгийн болон бусад ном байхгүй. ном сайтын харсан гэж төсөөлөх нь олон ашигладаг."
 
 #: oec/html/explore/embed.html:7
 msgid "An emedded visualization."
-msgstr "emedded 시각화."
+msgstr "Дотор нь харуулах"
 
 #: oec/html/explore/embed.html:12 oec/html/explore/embed.html:788
 msgid "Loading"
-msgstr "화물"
+msgstr "Ачаалж байна"
 
 #: oec/html/explore/embed.html:19 oec/html/explore/embed.html:49
 #: oec/html/explore/embed.html:340 oec/html/explore/embed.html:342
 msgid "Value"
-msgstr "값"
+msgstr "Утга"
 
 #: oec/html/explore/embed.html:20 oec/html/explore/embed.html:337
 msgid "Percent"
-msgstr "퍼센트"
+msgstr "Хувь"
 
 #: oec/html/explore/embed.html:27
 msgid "Continent"
-msgstr "대륙"
+msgstr "Тив"
 
 #: oec/html/explore/embed.html:28 oec/html/explore/embed.html:51
 msgid "Category"
-msgstr "범주"
+msgstr "Бүлэг"
 
 #: oec/html/explore/embed.html:33 oec/html/profile/country.html:22
 #: oec/html/profile/country.html:26 oec/html/templates/site.html:26
 #: oec/rankings/views.py:72
 msgid "Country"
-msgstr "국가"
+msgstr "Улс"
 
 #: oec/html/explore/embed.html:34
 msgid "Full"
-msgstr "완전한"
+msgstr "Бүтэн"
 
 #: oec/html/explore/embed.html:41
 msgid "Gross"
-msgstr "심한"
+msgstr "Бохир"
 
 #: oec/html/explore/embed.html:42
 msgid "Net"
-msgstr "그물"
+msgstr "Цэвэр"
 
 #: oec/html/explore/embed.html:53 oec/html/explore/embed.html:353
 msgid "Annual Growth Rate (1 year)"
-msgstr "연간 성장율 (1 년)"
+msgstr "Жилийн өсөлт (1 жил)"
 
 #: oec/html/explore/embed.html:54 oec/html/explore/embed.html:354
 msgid "Annual Growth Rate (5 year)"
-msgstr "연간 성장률 (5 년)"
+msgstr "Жилийн өсөлт (5 жил)"
 
 #: oec/html/explore/embed.html:55 oec/html/explore/embed.html:355
 msgid "Growth Value (1 year)"
-msgstr "성장 가치 (1 년)"
+msgstr "Өсөлтийн үнэ цэнэ (1 жил)"
 
 #: oec/html/explore/embed.html:56 oec/html/explore/embed.html:356
 msgid "Growth Value (5 year)"
-msgstr "성장 가치 (5 년)"
+msgstr "Өсөлтийн үнэ цэнэ (5 жил)"
 
 #: oec/html/explore/embed.html:61 oec/html/rankings/index.html:64
 msgid "All Years"
-msgstr "모든 년도"
+msgstr "Бүх жилийн турш"
 
 #: oec/html/explore/embed.html:72 oec/html/explore/embed.html:955
 msgid "View as Text"
-msgstr "텍스트로보기"
+msgstr "Текст харах"
 
 #: oec/html/explore/embed.html:73
 msgid "Fullscreen"
-msgstr "전체화면으로 보기"
+msgstr "Бүтэн дэлгэц"
 
 #: oec/html/explore/embed.html:111
 msgid "Build Visualization"
-msgstr "시각화를 구축"
+msgstr "Нүдэнд харагдах барих"
 
 #: oec/html/explore/embed.html:114 oec/html/rankings/index.html:59
 msgid "Download"
-msgstr "다운로드"
+msgstr "Татаж авах"
 
 #: oec/html/explore/embed.html:122
 msgid "Embed"
-msgstr "퍼가기 (링크)"
+msgstr "хавсарга байдлаар"
 
 #: oec/html/explore/embed.html:127
 msgid "Share"
-msgstr "공유하기"
+msgstr "Эзлэх хувь"
 
 #: oec/html/explore/embed.html:143
 msgid "Short URL"
-msgstr "짧은 URL"
+msgstr "Богино URL"
 
 #: oec/html/explore/embed.html:339
 msgid "Export Value"
-msgstr "수출 값"
+msgstr "Экспортын үнэ цэнэ"
 
 #: oec/html/explore/embed.html:340
 msgid "Net Export"
-msgstr "순수출"
+msgstr "Цэвэр экспорт"
 
 #: oec/html/explore/embed.html:341
 msgid "Import Value"
-msgstr "가져 오기 값"
+msgstr "Импортын үнэ цэнэ"
 
 #: oec/html/explore/embed.html:342
 msgid "Net Import"
-msgstr "순 수입"
+msgstr "Цэвэр импортын"
 
 #: oec/html/explore/embed.html:343
 msgid "Market Value"
-msgstr "시장 가치"
+msgstr "Зах зээлийн үнэ цэнэ"
 
 #: oec/html/explore/embed.html:351
 msgid "ECI"
@@ -271,228 +265,193 @@ msgstr "ECI"
 
 #: oec/html/explore/embed.html:360
 msgid "value"
-msgstr "값"
+msgstr "утга"
 
 #: oec/html/explore/embed.html:361
 msgid "percentage"
-msgstr "백분율"
+msgstr "хувь"
 
 #: oec/html/explore/embed.html:382
 msgid "Brought to you by"
-msgstr "수송 담당"
+msgstr "Танд хүргэсэн"
 
 #: oec/html/explore/embed.html:463
 msgid "Total World Trade"
-msgstr "전체 세계 무역"
+msgstr "Нийт Дэлхийн худалдааны"
 
 #: oec/html/explore/embed.html:466
 msgid "Total Country Trade"
-msgstr "총 컨트리 전시회"
+msgstr "Нийт Улсын худалдааны"
 
 #: oec/html/explore/embed.html:950
 msgid "View as App"
-msgstr "그림으로 보기"
+msgstr "Нүдэнд харагдах шиг үзэх"
 
 #: oec/html/explore/index.html:30
 msgid "Data visualization of economic trade"
-msgstr "경제 무역의 데이터 시각화"
+msgstr "Эдийн засгийн худалдааны мэдээлэл нүдэнд харагдах"
 
 #: oec/html/explore/index.html:36 oec/html/rankings/index.html:20
 msgid "Previous Year"
-msgstr "이전 연도"
+msgstr "Өмнөх жил"
 
 #: oec/html/explore/index.html:40 oec/html/rankings/index.html:30
 msgid "Next Year"
-msgstr "내년"
+msgstr "Дараа жил"
 
 #: oec/html/explore/index.html:97
 msgid "Total"
-msgstr "합계"
+msgstr "Нийт"
 
 #: oec/html/profile/country.html:16
 #, python-format
 msgid ""
 "%(country)s (%(country_abbrv)s) Profile of Exports, Imports and Trade "
 "Partners"
-msgstr "%(country)s (%(country_abbrv)s) 수출, 수입 및 무역 파트너의 프로필"
+msgstr "%(country)s (%(country_abbrv)s) Экспорт, импорт, худалдаа Partners-ийн мэдээллийг vзэх"
 
 #: oec/html/profile/country.html:17
 #, python-format
 msgid ""
 "List of major leading exports, imports and complexity economic indicator "
 "statistics of %(country)s."
-msgstr "주요 주요 수출, 수입의 복잡성 경제 지표 통계 목록 %(country)s."
+msgstr "Гол тэргүүлэх экспорт, импорт, нарийн төвөгтэй байдал, эдийн засгийн үзүүлэлт статистик жагсаалт %(country)s."
 
 #: oec/html/profile/country.html:17
 #, python-format
 msgid "Economy of %(country)s."
-msgstr "경제 %(country)s."
+msgstr "%(country)s-н эдийн засаг"
 
 #: oec/html/profile/country.html:17
 #, python-format
 msgid "Principle trade partners of %(country)s."
-msgstr "원리 무역 파트너 %(country)s."
+msgstr "Үндсэн зарчим худалдааны түншүүд %(country)s."
 
 #: oec/html/profile/country.html:17
 #, python-format
 msgid "Goods and resources of %(country)s."
-msgstr "제품 및 리소스 %(country)s."
+msgstr "Бараа, ажил, нөөцийн %(country)s."
 
 #: oec/html/profile/country.html:22 oec/html/profile/product.html:20
 msgid "Previous"
-msgstr "이전"
+msgstr "Өмнөх"
 
 #: oec/html/profile/country.html:24
 #, python-format
 msgid "Learn More About Trade in <strong>%(country)s</strong>"
-msgstr "무역에 대해 자세히 알아보기 <strong>%(country)s</strong>"
+msgstr "Худалдааны талаар илүү ихийг мэдэхийг <strong>%(country)s</strong>"
 
 #: oec/html/profile/country.html:26 oec/html/profile/product.html:24
 msgid "Next"
-msgstr "다음에"
+msgstr "Дараа нь"
 
 #: oec/html/profile/country.html:41 oec/html/profile/product.html:39
 msgid "Top 5"
-msgstr "상위 5"
+msgstr "Топ 5"
 
 #: oec/html/profile/country.html:54
 #, python-format
 msgid ""
 "%(country)s %(ranked)s %(rank_val)s with an Economic Complexity Index "
 "(ECI) of %(eci)s"
-msgstr "%(country)s %(ranked)s %(rank_val)s 의 경제 복잡성 지수 (ECI)와 %(eci)s"
+msgstr "%(country)s %(ranked)s %(rank_val)s нь эдийн засгийн иж бүрэн индекс (БОНЗ) -тай %(eci)s"
 
 #: oec/html/profile/country.html:54 oec/html/profile/product.html:52
 msgid "is ranked"
-msgstr "위"
+msgstr "нь чансаанд ороогүй байна"
 
 #: oec/html/profile/country.html:60
 #, python-format
 msgid "%(country)s is the top exporter of"
-msgstr "%(country)s 의 최대수출기업임"
+msgstr "%(country)s дээд экспортлогч юм"
 
 #: oec/html/profile/country.html:60 oec/html/profile/product.html:58
 msgid "and"
-msgstr "과"
+msgstr "болон"
 
 #: oec/html/profile/country.html:87 oec/html/profile/product.html:90
 #: oec/html/templates/site.html:18
 msgid "Explore"
-msgstr "탐구(알아보기)"
+msgstr "Судлах"
 
 #: oec/html/profile/product.html:14
 #, python-format
 msgid ""
 "%(prod)s (%(prod_abbrv)s) Profile of Export Destinations and Import "
 "Origins"
-msgstr "%(prod)s (%(prod_abbrv)s) 수출목적지와 수입원산지 프로필"
+msgstr "%(prod)s (%(prod_abbrv)s) Экспортын чиглэл, импорт анхдагчдыг Profile"
 
 #: oec/html/profile/product.html:15
 #, python-format
 msgid ""
 "List of major leading origin and destination countries with economic "
 "indicator statistics of %(prod)s."
-msgstr "의 경제 지표 통계와 주요 선도 출발지와 목적지 국가의 목록 %(prod)s."
+msgstr "Эдийн засгийн үзүүлэлт статистик томоохон тэргүүлэх гарал, очих орнуудын жагсаалт %(prod)s."
 
 #: oec/html/profile/product.html:15
 #, python-format
 msgid "Principle trade partners that export %(prod)s."
-msgstr "수출 %(prod)s 하는 원리 무역 파트너"
+msgstr "Зарчим экспортлох худалдааны түншүүд %(prod)s."
 
 #: oec/html/profile/product.html:15
 #, python-format
 msgid "Countries that import %(prod)s."
-msgstr "수입 %(prod)s 하는 국가"
+msgstr "Улс орнууд импортын %(prod)s."
 
 #: oec/html/profile/product.html:22
 #, python-format
 msgid "Learn More About Trade of <strong>%(prod)s</strong>"
-msgstr "무역에 대해 자세히 알아보기 <strong>%(prod)s</strong>"
+msgstr "Худалдааны талаар илүү ихийг мэдэхийг <strong>%(prod)s</strong>"
 
 #: oec/html/profile/product.html:52
 #, python-format
 msgid ""
 "%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
 "with a Product Complexity Index (PCI) of %(pci)s"
-msgstr ""
-"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s 제품 "
-"복잡성 지수 (PCI)의과 %(pci)s"
+msgstr "%(prod)s %(ranked)s %(rank_val)s Бүтээгдэхүүн нь иж бүрэн индекс (PCI) нь %(pci)s"
 
 #: oec/html/profile/product.html:58
 #, python-format
 msgid "%(prod)s is the top export of"
-msgstr "%(prod)s 의 최고 수출이다"
+msgstr "%(prod)s дээд экспортын байна"
 
 #: oec/html/rankings/index.html:23 oec/html/rankings/index.html:40
 msgid "Country Rankings"
-msgstr "국가 순위"
+msgstr "Улс зэрэглэл"
 
 #: oec/html/rankings/index.html:25 oec/html/rankings/index.html:43
 msgid "HS Product Rankings"
-msgstr "HS 제품 순위"
+msgstr "ТАРХИ Бүтээгдэхүүний зэрэглэл"
 
 #: oec/html/rankings/index.html:27 oec/html/rankings/index.html:46
 msgid "SITC Product Rankings"
-msgstr "SITC 제품 순위"
+msgstr "SITC Бүтээгдэхүүний зэрэглэл"
 
 #: oec/html/rankings/index.html:51
 msgid "Change Year"
-msgstr "변경 년"
+msgstr "Өөрчлөлтийн жил"
 
 #: oec/html/rankings/index.html:61
 msgid "Current Year"
-msgstr "현재 년"
+msgstr "Одоогийн жил"
 
 #: oec/html/templates/site.html:19
 msgid "Profiles"
-msgstr "프로필"
+msgstr "Хувийн тохиргоонууд"
 
 #: oec/html/templates/site.html:20
 msgid "Atlas"
-msgstr ""
+msgstr "Ном"
 
 #: oec/html/templates/site.html:21
 msgid "Rankings"
-msgstr "순위"
+msgstr "Зэрэглэл"
 
 #: oec/html/templates/site.html:22
 msgid "About"
-msgstr "자세한 정보"
+msgstr "Тухай"
 
 #: oec/rankings/views.py:64 oec/rankings/views.py:68 oec/rankings/views.py:72
 msgid "Rank"
-msgstr "순위"
-
-#~ msgid "Book"
-#~ msgstr "책"
-
-#~ msgid "Language"
-#~ msgstr "언어"
-
-#~ msgid "Net Export"
-#~ msgstr "순수출"
-
-#~ msgid "Net Import"
-#~ msgstr "순 수입"
-
-#~ msgid "Interval"
-#~ msgstr "간격"
-
-#~ msgid "Click to view more years"
-#~ msgstr "년 이상을 보려면 클릭하세요"
-
-#~ msgid "View graphic"
-#~ msgstr "그림으로 보기"
-
-#~ msgid "View as Visualization"
-#~ msgstr "시각화로보기"
-
-#~ msgid "Download this year's data"
-#~ msgstr "올해의 데이터를 다운로드"
-
-#~ msgid "Download all years data"
-#~ msgstr "모든 년 자료를 다운로드"
-
-#~ msgid "Flag of %(country)s"
-#~ msgstr "의 국기 %(country)s"
+msgstr "Чансаа"
 

@@ -59,6 +59,7 @@ LANGUAGES = {
     'it': u'italiano',
     'ja': u'日本語',
     'ko': u'한국어',
+    'mn': u'Монгол',
     'nl': u'Nederlands',
     'ru': u'Pyccĸий',
     'pt': u'português',

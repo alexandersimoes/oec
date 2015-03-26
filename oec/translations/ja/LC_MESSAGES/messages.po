@@ -167,7 +167,7 @@ msgstr "パーセント"
 
 #: oec/html/explore/embed.html:27
 msgid "Continent"
-msgstr ""
+msgstr "大陸"
 
 #: oec/html/explore/embed.html:28 oec/html/explore/embed.html:51
 msgid "Category"
@@ -209,7 +209,7 @@ msgstr "成長値（5年）"
 
 #: oec/html/explore/embed.html:61 oec/html/rankings/index.html:64
 msgid "All Years"
-msgstr ""
+msgstr "すべての年"
 
 #: oec/html/explore/embed.html:72 oec/html/explore/embed.html:955
 msgid "View as Text"
@@ -443,7 +443,7 @@ msgstr "プロファイル"
 
 #: oec/html/templates/site.html:20
 msgid "Atlas"
-msgstr ""
+msgstr "アトラス"
 
 #: oec/html/templates/site.html:21
 msgid "Rankings"

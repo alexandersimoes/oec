@@ -42,7 +42,7 @@ def embed_redirect_nolang(app_name, classification, trade_flow, origin_id, dest_
                         origin_id=origin_id, dest_id=dest_id, prod_id=prod_id, \
                         year=year))
 
-mod = Blueprint('explore', __name__, url_prefix='/<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","nl","ru","pt","tr","zh_cn"):lang>/explore')
+mod = Blueprint('explore', __name__, url_prefix='/<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","mn","nl","ru","pt","tr","zh_cn"):lang>/explore')
 
 @mod.url_value_preprocessor
 def get_profile_owner(endpoint, values):
