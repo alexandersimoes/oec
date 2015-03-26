@@ -64,7 +64,7 @@ LANGUAGES = {
     'ru': u'Pyccĸий',
     'pt': u'português',
     'tr': u'Tϋrkçe',
-    'zh_cn': u'简化中国'
+    'zh': u'简化中国'
 }
 
 ''' 

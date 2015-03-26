@@ -310,7 +310,7 @@ class Search():
 # General views
 # ---------------------------
 @mod.route('/')
-@mod.route('<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","mn","nl","ru","pt","tr","zh_cn"):lang>/')
+@mod.route('<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","mn","nl","ru","pt","tr","zh"):lang>/')
 def home(lang=None):
     if lang is None:
         return redirect(url_for('.home', lang=g.locale))
