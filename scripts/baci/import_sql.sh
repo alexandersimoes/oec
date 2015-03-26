@@ -20,38 +20,45 @@ do
   do
     
     if [ $table = "yd" ]; then
-      file=yd.tsv.bz2
-      fields=(year destination_id export_val import_val)
+      file=hs_yd.tsv.bz2
+      fields=(year dest_id export_val import_val)
     fi
 
     if [ $table = "ydp" ]; then
-      file=ydp.tsv.bz2
-      fields=(year destination_id hs_id export_val import_val)
+      file=hs_ydp.tsv.bz2
+      fields=(year dest_id hs_id export_val import_val)
     fi
 
     if [ $table = "yo" ]; then
-      file=yo.tsv.bz2
-      fields=(year origin_id export_val import_val)
+      file=hs_yo.tsv.bz2
+      fields=(year origin_id export_val import_val top_export top_export_dest top_import top_import_dest)
     fi
 
     if [ $table = "yod" ]; then
-      file=yod.tsv.bz2
-      fields=(year origin_id destination_id export_val import_val)
+      file=hs_yod.tsv.bz2
+      fields=(year origin_id dest_id export_val import_val)
     fi
 
     if [ $table = "yodp" ]; then
-      file=yodp.tsv.bz2
-      fields=(year origin_id destination_id hs_id export_val import_val)
+      file=hs_yodp.tsv.bz2
+      fields=(year origin_id dest_id hs_id export_val import_val)
     fi
 
     if [ $table = "yop" ]; then
-      file=yop.tsv.bz2
+      file=hs_yop.tsv.bz2
       fields=(year origin_id hs_id export_val import_val export_rca import_rca)
     fi
 
     if [ $table = "yp" ]; then
-      file=yp.tsv.bz2
-      fields=(year hs_id export_val import_val)
+      file=hs_yp.tsv.bz2
+      fields=(year hs_id export_val import_val top_exporter top_importer pci pci_rank pci_rank_delta)
+    fi
+    
+    if [ $1 -gt "1995" ]; then
+      fields+=(export_val_growth_val import_val_growth_val export_val_growth_pct import_val_growth_pct)
+    fi
+    if [ $1 -gt "1999" ]; then
+      fields+=(export_val_growth_val_5 import_val_growth_val_5 export_val_growth_pct_5 import_val_growth_pct_5)
     fi
     
     file=$DATA_DIR"/baci/$year/$file"

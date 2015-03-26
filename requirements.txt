@@ -14,3 +14,11 @@ pandas
 
 # string matching for matching country names
 fuzzywuzzy
+
+# for easy command line options
+click
+
+# for storing data for later use
+numexpr
+cython
+tables
