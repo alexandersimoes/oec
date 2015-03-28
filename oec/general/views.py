@@ -39,13 +39,13 @@ def before_request():
 
     # Save variable in session so we can determine if this is the user's
     # first time on the site
-    # if 'first_time' in session:
-    #     session['first_time'] = False
-    # else:
-    #     session['first_time'] = True
+    if 'first_time' in session:
+        session['first_time'] = False
+    else:
+        session['first_time'] = True
 
-    # if session['first_time'] and request.endpoint != "explore.embed":
-    #     flash("Welcome! You may have noticed our recent redesign, please <a href='https://docs.google.com/forms/d/1NHkCGQR2u796RMZgo1bYUBbNPnpm1cWAX0kp6nnfwqE/viewform' target='_blank'>let us know what you think</a>.", "first_time")
+    if session['first_time'] and request.endpoint != "explore.embed":
+        flash("Welcome! We have recently redesigned the URL structure for the site to explicity include the language. The site should still function exactly the same as it had. <a href='https://docs.google.com/forms/d/1NHkCGQR2u796RMZgo1bYUBbNPnpm1cWAX0kp6nnfwqE/viewform' target='_blank'>Read more about the implications of this update here</a>.", "first_time")
 
     lang = request.args.get('lang', None)
     if lang:

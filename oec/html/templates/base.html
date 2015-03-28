@@ -53,7 +53,7 @@
     {% for category, msg in get_flashed_messages(with_categories=true) %}
     <div id="server_message" class="flash-{{ category }}">
       {{ msg|safe }} <span id="redirect"></span>
-      <i id="close_message" class="fa fa-times-circle"></i>
+      <i class="close_message fa fa-times-circle"></i>
     </div>
     {% endfor %}
 
@@ -80,7 +80,7 @@
 
     <!-- All Pages -->
     <script type="text/javascript">
-    d3.select("#close_message").on("click", function(){
+    d3.selectAll(".close_message").on("click", function(){
 
       d3.select("#server_message")
         .style("margin-top", function(){
