@@ -8,7 +8,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 # flask-babel for handling L18n and L10n
 from flask.ext.babel import Babel
 # for new filters
-from utils import Momentjs, formatter, strip_html, jinja_split, format_currency, format_percent
+from utils import Momentjs, formatter, strip_html, jinja_split, format_currency, \
+                    format_percent, langify
 from werkzeug.contrib.fixers import ProxyFix
 # for caching views
 from flask.ext.cache import Cache
@@ -58,6 +59,7 @@ app.jinja_env.filters['strip_html'] = strip_html
 app.jinja_env.filters['split'] = jinja_split
 app.jinja_env.filters['format_currency'] = format_currency
 app.jinja_env.filters['format_percent'] = format_percent
+app.jinja_env.filters['langify'] = langify
 
 # Load the modules for each different section of the site
 ''' data API view/models '''

@@ -10,7 +10,7 @@
   <header>
     <div class="col1">
       {% if g.page_type != 'home' %}
-        <a href="/" id="logo" title="Home"><h1>The Observatory of Economic Complexity</h1></a>
+        <a href="{{ url_for('general.home', lang=g.locale) }}" id="logo" title="Home"><h1>The Observatory of Economic Complexity</h1></a>
       {% endif %}
     </div><div class="col2">
     <nav>
@@ -55,6 +55,11 @@
     </p>
     <br>
     <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
+    <ul class="lang">
+      {% for lang_id, lang_name in g.supported_langs.iteritems() %}
+      <li><a href="{{ request.path|langify(lang_id) }}">{{ lang_name }}</a></li>
+      {% endfor %}
+    </ul>
   </footer>
 
 </div> <!-- END #container -->
@@ -107,8 +112,13 @@
         if (lang !== "{{ g.locale }}") {
           localStorage.setItem('lang', lang)
           var url_parts = window.location.pathname.split("/");
-          url_parts[1] = lang
-          window.location = url_parts.join("/");
+          if(url_parts[1].length == 2){
+            url_parts[1] = lang
+            window.location = url_parts.join("/");
+          }
+          else {
+            window.location = "/" + lang + "/";
+          }
         }
       })
       .draw()

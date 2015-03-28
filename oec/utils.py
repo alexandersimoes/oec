@@ -1,7 +1,7 @@
 import sys
 from re import sub
 from jinja2 import Markup
-from flask import abort, current_app, jsonify, request, g, get_flashed_messages
+from flask import abort, current_app, jsonify, request, g, get_flashed_messages, url_for
 from datetime import datetime, date, timedelta
 from math import ceil
 from decimal import *
@@ -86,6 +86,15 @@ def format_currency(value):
 
 def format_percent(value):
     return "{:.2g}%".format(value)
+
+def langify(path, lang):
+    possible_langs = g.supported_langs.keys()
+    url_parts = path.split("/")
+    if url_parts[1] in possible_langs:
+        url_parts[1] = lang
+    else:
+        return url_for('general.home', lang=lang)
+    return "/".join(url_parts)
 
 ''' A helper function for retrieving a specific item from the given model that
     will raise a 404 error if not found in the DB'''

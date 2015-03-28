@@ -152,6 +152,20 @@ footer > p img {
   vertical-align: top;
 }
 
+footer ul.lang {
+  margin: 10px 0;
+}
+
+footer ul.lang li {
+  display: inline-block;
+  margin: 0 4px 0 0;
+}
+
+footer ul.lang li a {
+  color: #888888;
+  font-size: 10px;
+}
+
 /**********************/
 /* Load Retina Images */
 /**********************/
