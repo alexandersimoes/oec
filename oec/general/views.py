@@ -45,7 +45,7 @@ def before_request():
         session['first_time'] = True
 
     if session['first_time'] and request.endpoint != "explore.embed":
-        flash("Welcome! We have recently redesigned the URL structure for the site to explicity include the language. The site should still function exactly the same as it had. <a href='https://docs.google.com/forms/d/1NHkCGQR2u796RMZgo1bYUBbNPnpm1cWAX0kp6nnfwqE/viewform' target='_blank'>Read more about the implications of this update here</a>.", "first_time")
+        flash("Welcome! We have recently redesigned the URL structure for the site to explicity include the language. The site should still function exactly the same as it had. <a href='https://github.com/alexandersimoes/oec/releases' target='_blank'>Read more about the implications of this update here</a>.", "first_time")
 
     lang = request.args.get('lang', None)
     if lang:
