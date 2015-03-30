@@ -21,19 +21,20 @@ oec_langs = ['ar','de','el','en','es','fr','he','hi','it','ja','ko','mn','nl','r
 @click.command()
 @click.argument('file_path', type=click.File('rb'))
 @click.option('-l', '--lang', prompt='Language', help='2 letter lang code of translations', required=True, type=click.Choice(oec_langs))
-@click.option('-c', '--cls', prompt='Classification', required=True, type=click.Choice(['hs', 'sitc']))
+@click.option('-c', '--cls', prompt='Classification', required=True, type=click.Choice(['hs', 'sitc', 'country']))
 def main(file_path, lang, cls):
     
     '''Initialize lookup for column indicies'''
     col_positions = {
         "id": None,
-        "name": None,
-        "desc": None,
-        "keywords": None,
-        "gender": None,
-        "plural": None,
-        "article": None
+        "name": None
     }
+    if cls == "hs" or cls == "sitc":
+        col_positions["desc"] = None
+        col_positions["keywords"] = None
+        col_positions["article"] = None
+        col_positions["plural"] = None
+        col_positions["gender"] = None
     
     with file_path as csv_file:
         
@@ -75,20 +76,40 @@ def main(file_path, lang, cls):
                         
             if vals["name"]:
                 
-                indicies = [vals["id"], lang]
-                data_vals = [vals["name"], vals["keywords"], vals["desc"], vals["gender"], vals["plural"], vals["article"]]
+                if cls == "hs" or cls == "sitc":
+                    indicies = [vals["id"], lang]
+                    data_vals = [vals["name"], vals["keywords"], vals["desc"], vals["gender"], vals["plural"], vals["article"]]
                 
-                sql = """
-                INSERT INTO attr_{0}_name
-                  ({0}_id, lang, name, keywords, `desc`, gender, plural, article)
-                VALUES
-                  (%s, %s, %s, %s, %s, %s, %s, %s)
-                ON DUPLICATE KEY UPDATE
-                  name=%s, keywords=%s, `desc`=%s, gender=%s, plural=%s, article=%s
-                """.format(cls)
+                    sql = """
+                    INSERT INTO attr_{0}_name
+                      ({0}_id, lang, name, keywords, `desc`, gender, plural, article)
+                    VALUES
+                      (%s, %s, %s, %s, %s, %s, %s, %s)
+                    ON DUPLICATE KEY UPDATE
+                      name=%s, keywords=%s, `desc`=%s, gender=%s, plural=%s, article=%s
+                    """.format(cls)
+                
+                else:
+                    indicies = [vals["id"], lang]
+                    data_vals = [vals["name"]]
+                
+                    sql = """
+                    INSERT INTO attr_{0}_name
+                      (origin_id, lang, name)
+                    VALUES
+                      (%s, %s, %s)
+                    ON DUPLICATE KEY UPDATE
+                      name=%s
+                    """.format(cls)
+                    
                 # print sql
-                
-                cursor.execute(sql, indicies+data_vals+data_vals)
+                # sys.exit()
+            
+                try:
+                    cursor.execute(sql, indicies+data_vals+data_vals)
+                except:
+                    print indicies
+                    
 
 if __name__ == "__main__":
     main()
