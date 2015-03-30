@@ -13,6 +13,7 @@ from utils import Momentjs, formatter, strip_html, jinja_split, format_currency,
 from werkzeug.contrib.fixers import ProxyFix
 # for caching views
 from flask.ext.cache import Cache
+from werkzeug.contrib.fixers import ProxyFix
 
 ''' Base directory of where the site is held '''
 oec_dir = os.path.abspath(os.path.dirname(__file__))
@@ -81,3 +82,8 @@ app.register_blueprint(general_module)
 app.register_blueprint(explore_module)
 app.register_blueprint(profile_module)
 app.register_blueprint(rankings_module)
+
+app.wsgi_app = ProxyFix(app.wsgi_app)
+
+if __name__ == '__main__':
+    app.run()
