@@ -44,6 +44,9 @@ table thead th {
   vertical-align: bottom;
   border-bottom: 1px solid #ddd;
 }
+table tbody th {
+  min-width: 100px;
+}
 table.condensed th,
 table.condensed td {
   padding: 5px;

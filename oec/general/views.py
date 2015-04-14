@@ -39,13 +39,13 @@ def before_request():
 
     # Save variable in session so we can determine if this is the user's
     # first time on the site
-    if 'first_time' in session:
-        session['first_time'] = False
-    else:
-        session['first_time'] = True
-
-    if session['first_time'] and request.endpoint != "explore.embed" and request.endpoint != "general.home":
-        flash("Welcome! We have recently redesigned the URL structure for the site to explicity include the language. The site should still function exactly the same as it had. <a href='https://github.com/alexandersimoes/oec/releases/tag/v2.2.0' target='_blank'>Read more about the implications of this update here</a>.", "first_time")
+    # if 'first_time' in session:
+    #     session['first_time'] = False
+    # else:
+    #     session['first_time'] = True
+    #
+    # if session['first_time'] and request.endpoint != "explore.embed" and request.endpoint != "general.home":
+    #     flash("Welcome! We have recently redesigned the URL structure for the site to explicity include the language. The site should still function exactly the same as it had. <a href='https://github.com/alexandersimoes/oec/releases/tag/v2.2.0' target='_blank'>Read more about the implications of this update here</a>.", "first_time")
 
     lang = request.args.get('lang', None)
     if lang:
@@ -323,7 +323,6 @@ def home(lang=None):
     default_build = Build.query.filter_by(app=current_app, name_id=1).first_or_404()
     default_build.set_options(origin=c, dest="all", product="show", classification="hs")
     
-    flash("Welcome! We have recently redesigned the URL structure for the site to explicity include the language. The site should still function exactly the same as it had. <a href='https://github.com/alexandersimoes/oec/releases/tag/v2.2.0' target='_blank'>Read more about the implications of this update here</a>.", "first_time")
     return render_template("home.html", default_build=default_build)
 
 @mod.route('iframe_test/')
