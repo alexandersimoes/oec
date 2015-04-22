@@ -21,7 +21,7 @@ def country_profile_redirect_nolang(attr_id=None):
 
 @app.route('/profile/<attr_type>/')
 @app.route('/profile/<attr_type>/<attr_id>/')
-def prod_profile_redirect_nolang(attr_id=None):
+def prod_profile_redirect_nolang(attr_type=None, attr_id=None):
     return redirect(url_for('profile.profile_product', lang=g.locale, attr_type=attr_type, attr_id=attr_id))
 
 mod = Blueprint('profile', __name__, url_prefix='/<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","mn","nl","ru","pt","tr","zh"):lang>/profile')
