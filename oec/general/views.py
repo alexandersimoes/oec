@@ -481,11 +481,11 @@ def embed_legacy(app_name, trade_flow, origin, dest, product, year=2012):
             c = 'sitc'
             prod = Sitc.query.filter_by(sitc=product).first()
         product = prod.id
-    lang = request.args.get('lang', 'en')
+    lang = request.args.get('lang', g.locale)
     redirect_url = url_for('explore.embed', lang=g.locale, app_name=app_name, \
-                classification=c, trade_flow=trade_flow, origin=origin, \
-                dest=dest, product=product, year=year)
-    return redirect(redirect_url+"?controls=false&lang="+lang)
+                classification=c, trade_flow=trade_flow, origin_id=origin, \
+                dest_id=dest, prod_id=product, year=year)
+    return redirect(redirect_url+"?controls=false")
 
 @mod.route('country/<country_id>/')
 def profile_country_legacy(country_id):
