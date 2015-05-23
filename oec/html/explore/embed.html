@@ -146,7 +146,7 @@
 
   <!-- Hidden <FORM> to submit the SVG data to the server, which will convert it
          to SVG/PDF/PNG downloadable file. -->
-  <form id="download" action="/explore/download/" method="post">
+  <form id="download" action="/{{ g.locale }}/explore/download/" method="post">
     <input type="hidden" name="url" value="" />
     <input type="hidden" name="title" value="" />
     <input type="hidden" name="format" value="svg" />
@@ -1024,7 +1024,7 @@ d3.selectAll("#download a").on("click", function(format, save, callback){
   // POST request and prompts the user to download the file
   if(save){
 
-    d3.json("/explore/download/")
+    d3.json("/{{ g.locale }}/explore/download/")
         .header("Content-Type", "application/json")
         .post(JSON.stringify({"title":title, "format":format, "save":save, "content": svg_xml}), function(error, data) {
           if(callback) { callback() }
