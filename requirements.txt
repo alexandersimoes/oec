@@ -22,3 +22,9 @@ click
 numexpr
 cython
 tables
+
+# used for unraring files (NOTE: need system unrar program)
+rarfile
+
+# ALSO don't forget to checkout all submodules
+# git submodule update --init --recursive
