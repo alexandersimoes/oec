@@ -81,12 +81,16 @@ def main(input_file, year, output_dir, hs_revision):
     '''
     STEP 4:
     Aggregate'''
-    yod = yodp.groupby(level=['origin_id','dest_id']).sum()
     yop = yodp.groupby(level=['origin_id',hs_id_col]).sum()
     ydp = yodp.groupby(level=['dest_id',hs_id_col]).sum()
-    yo = yodp.groupby(level=['origin_id']).sum()
-    yd = yodp.groupby(level=['dest_id']).sum()
     yp = yodp.groupby(level=[hs_id_col]).sum()
+        
+    # need to set a specific HS depth for aggregations without hsxx_id
+    yodp_no_index = yodp.reset_index()
+    yodp_no_index = yodp_no_index[yodp_no_index[hs_id_col].str.len() == hs_id_lens[0]]
+    yod = yodp_no_index.groupby(['origin_id','dest_id']).sum()
+    yo = yodp_no_index.groupby(['origin_id']).sum()
+    yd = yodp_no_index.groupby(['dest_id']).sum()
     
     '''
     STEP 5:
