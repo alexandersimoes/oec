@@ -49,7 +49,7 @@ def main(dir, attr_type, revision):
         if m:
             tbl = m.group(1)
             if "attr" in tbl:
-                tbl = tbl.replace('hs92_', '')
+                tbl = tbl.replace('hs{}_'.format(revision), '')
                 if bzipped: os.remove(f)
                 continue
             # return dbname + "_" + m.group(1)

@@ -59,7 +59,7 @@ def do_growth(t_name, tbl, tbl_prev, cols, years_ago=1, hs_revision=92):
 @click.option('-c', '--cols', prompt='Columns separated by commas to compute growth', type=str, required=True)
 @click.option('-y', '--years', prompt='years between data points', type=int, required=False, default=1)
 @click.option('-s', '--strcasts', type=str, required=False)
-@click.option('-r', '--hs_revision', help='HS Revision', type=click.Choice(['92', '96', '02', '07']), default='92')
+@click.option('-r', '--revision', help='HS Revision', type=click.Choice(['92', '96', '02', '07']), default='92')
 @click.option('output_path', '--output', '-o', help='Path to save files to.', type=click.Path(), required=True, prompt="Output path")
 def main(original_file, growth_file, cols, output_path, hs_revision, years, strcasts):
     start = time.time()
