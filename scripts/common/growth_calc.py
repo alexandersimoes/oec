@@ -25,9 +25,9 @@ def parse_table_name(t):
     if m:
         return m.group(1)
          
-def do_growth(t_name, tbl, tbl_prev, cols, years_ago=1, hs_revision=92):
+def do_growth(t_name, tbl, tbl_prev, cols, years_ago=1, revision=92):
     '''Growth rate'''
-    pk_lookup = {"o": "origin_id", "d": "dest_id", "p": "hs{}_id".format(hs_revision)}
+    pk_lookup = {"o": "origin_id", "d": "dest_id", "p": "hs{}_id".format(revision)}
     t_namelook = t_name.split("_")[1]
     pk = [pk_lookup[letter] for letter in t_namelook if letter != 'y']
 
@@ -61,7 +61,7 @@ def do_growth(t_name, tbl, tbl_prev, cols, years_ago=1, hs_revision=92):
 @click.option('-s', '--strcasts', type=str, required=False)
 @click.option('-r', '--revision', help='HS Revision', type=click.Choice(['92', '96', '02', '07']), default='92')
 @click.option('output_path', '--output', '-o', help='Path to save files to.', type=click.Path(), required=True, prompt="Output path")
-def main(original_file, growth_file, cols, output_path, hs_revision, years, strcasts):
+def main(original_file, growth_file, cols, output_path, revision, years, strcasts):
     start = time.time()
     
     converters = {}
@@ -77,7 +77,7 @@ def main(original_file, growth_file, cols, output_path, hs_revision, years, strc
     
     t_name = parse_table_name(original_file)
 
-    new_df = do_growth(t_name, og_df, growth_df, col_names, years, hs_revision)
+    new_df = do_growth(t_name, og_df, growth_df, col_names, years, revision)
     
     
     print "GOT TABLE NAME OF", t_name
