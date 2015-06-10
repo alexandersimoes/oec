@@ -123,8 +123,10 @@ def compile_query(query):
         params.append( escape(v, conversions) )
     return (comp.string.encode(enc) % tuple(params)).decode(enc)
 
-def make_query(data_table, url_args, lang, join_table=None, **kwargs):
-    from oec.db_attr.models import Country, Hs, Sitc
+def make_query(data_table, url_args, lang, join_table=None, classification=None, output_depth=None, **kwargs):
+    # from oec.db_attr.models import Country, Hs, Sitc
+    from oec.db_attr.models import Country, Hs92, Hs96, Hs02, Hs07
+    prod_attr_tbl_lookup = {"hs92":Hs92, "hs96":Hs96, "hs02":Hs02, "hs07":Hs07}
     query = getattr(data_table, "query", None) or data_table
     data_table = join_table or data_table
     ret = {}
@@ -155,8 +157,11 @@ def make_query(data_table, url_args, lang, join_table=None, **kwargs):
                 query = query.filter(getattr(data_table, filter) == id)
             
             elif filter == "hs_id":
-                id = Hs.query.filter_by(hs=kwargs[filter]).first().id
-                query = query.filter(getattr(data_table, filter) == id)
+                hs_tbl = prod_attr_tbl_lookup[classification]
+                hs_attr_col = getattr(hs_tbl, classification)
+                data_tbl_col = getattr(data_table, "{}_id".format(classification))
+                id = hs_tbl.query.filter(hs_attr_col == kwargs[filter]).first().id
+                query = query.filter(data_tbl_col == id)
             
             elif filter == "sitc_id":
                 id = Sitc.query.filter_by(sitc=kwargs[filter]).first().id
@@ -164,7 +169,11 @@ def make_query(data_table, url_args, lang, join_table=None, **kwargs):
             
             else:
                 query = query.filter(getattr(data_table, filter) == kwargs[filter])
-
+    
+    if output_depth:
+        col, depth = output_depth.split(".")
+        query = query.filter(getattr(data_table, col) == depth)
+    
     # raise Exception(compile_query(query))
     if join_table:
         ret["data"] = []

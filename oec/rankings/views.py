@@ -7,12 +7,15 @@ from flask.ext.babel import gettext
 
 from oec import app, db, babel, view_cache, available_years
 from oec.utils import make_cache_key, compile_query
-from oec.db_attr.models import Yo, Hs, Hs_name, Sitc, Sitc_name, Country, Country_name
-from oec.db_hs.models import Yp as Yp_hs
-from oec.db_sitc.models import Yp as Yp_sitc
+from oec.db_attr.models import Yo, Sitc, Sitc_name, Country, Country_name
+from oec.db_attr.models import Hs92, Hs92_name, Hs96, Hs96_name, Hs02, Hs02_name, Hs07, Hs07_name
+# from oec.db_hs.models import Yp as Yp_hs
+# from oec.db_sitc.models import Yp as Yp_sitc
+from oec import db_data
 from oec.general.views import get_locale
 import csv
 from cStringIO import StringIO
+from oec import utils
 
 @app.route('/rankings/')
 @app.route('/rankings/<category>/')
@@ -40,8 +43,10 @@ def rankings_redirect():
 # don't cache because downloading will not be possible
 # @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
 def rankings(category=None, year=None):
-    g.page_type = mod.name
-    
+    try:
+        depth = int(request.args.get('depth', 4))
+    except:
+        depth = 4
     download = request.args.get('download', None)
     download_all = False
     if download:
@@ -59,23 +64,38 @@ def rankings(category=None, year=None):
     elif year < available_years[category][0]:
         return redirect(url_for('.rankings', lang=g.locale, category=category, year=available_years[category][-1]))
     
-    if category == "sitc":
-        Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Sitc, Sitc_name, Yp_sitc, "sitc_id", "pci", "pci_rank", "pci_rank_delta"]
-        cols = [gettext("Rank"), "", "SITC", gettext("Product"), "PCI Value"]
+    # if category == "sitc":
+    #     Yp = getattr(db_data, "sitc_models").Yp
+    #     Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Sitc, Sitc_name, Yp, "sitc_id", "pci", "pci_rank", "pci_rank_delta"]
+    #     cols = [gettext("Rank"), "", "SITC", gettext("Product"), "PCI Value"]
+    #
+    # elif category == "hs":
+    #     Yp = getattr(db_data, "hs92_models").Yp
+    #     Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Hs, Hs_name, Yp, "hs_id", "pci", "pci_rank", "pci_rank_delta"]
+    #     cols = [gettext("Rank"), "", "HS", gettext("Product"), "PCI Value"]
     
-    elif category == "hs":
-        Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Hs, Hs_name, Yp_hs, "hs_id", "pci", "pci_rank", "pci_rank_delta"]
-        cols = [gettext("Rank"), "", "HS", gettext("Product"), "PCI Value"]
-    
-    elif category == "country":
+    if category == "country":
         Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Country, Country_name, Yo, "origin_id", "eci", "eci_rank", "eci_rank_delta"]
         cols = [gettext("Rank"), "", "Abbrv", gettext("Country"), "ECI Value"]
+    else:
+        Attr_data = getattr(db_data, "{}_models".format(category)).Yp
+        Attr = globals()[category.title()]
+        Attr_name = globals()["{}_name".format(category.title())]
+        attr_id = "{}_id".format(category)
+        index, rank, delta = ["pci", "pci_rank", "pci_rank_delta"]
+        cols = [gettext("Rank"), "", category.upper(), gettext("Product"), "PCI Value"]
+        
     
     rankings = db.session.query(Attr, Attr_name, Attr_data) \
                 .filter(getattr(Attr_name, attr_id) == Attr.id) \
                 .filter(getattr(Attr_data, attr_id) == Attr.id) \
                 .filter(Attr_name.lang == g.locale) \
                 .filter(getattr(Attr_data, index) != None)
+    
+    if category != "country":
+        x = depth+2
+        x = "{}".format(x)
+        rankings = rankings.filter(getattr(Attr_data, "{}_id_len".format(category)) == x)
     
     if download_all:
         title = "{0}_all_ranking_{1}".format(category, g.locale)
@@ -84,6 +104,7 @@ def rankings(category=None, year=None):
         title = "{0}_{1}_ranking_{2}".format(category, year, g.locale)
         rankings = rankings.filter(Attr_data.year == year).order_by(getattr(Attr_data, rank))
     
+    # raise Exception(utils.compile_query(rankings))
     rankings = rankings.all()
     
     if download:
@@ -105,6 +126,7 @@ def rankings(category=None, year=None):
         return render_template("rankings/index.html",
                                 category=category,
                                 year=year,
+                                depth=depth,
                                 cols=cols,
                                 years=available_years[category][::-1],
                                 rankings=rankings)

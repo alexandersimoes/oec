@@ -66,7 +66,7 @@ def sanitize(id_3char):
 
 @mod.route('/country/')
 @mod.route('/country/<attr_id>/')
-@view_cache.cached(timeout=604800, key_prefix=make_cache_key)
+# @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def profile_country(attr_id="usa"):
     g.page_type = mod.name
     g.page_sub_type = "country"
@@ -121,7 +121,7 @@ def profile_country(attr_id="usa"):
         b.set_options(origin=this_country,
                         dest=None,
                         product=None,
-                        classification="hs",
+                        classification="hs92",
                         year=available_years["country"][-1])
 
     return render_template("profile/country.html",
@@ -131,9 +131,9 @@ def profile_country(attr_id="usa"):
                                 attr=this_country,
                                 next=next_country)
 
-@mod.route('/<attr_type>/')
-@mod.route('/<attr_type>/<attr_id>/')
-@view_cache.cached(timeout=604800, key_prefix=make_cache_key)
+@mod.route('/<any("sitc","hs92","hs96","hs02","hs07"):attr_type>/')
+@mod.route('/<any("sitc","hs92","hs96","hs02","hs07"):attr_type>/<attr_id>/')
+# @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def profile_product(attr_type, attr_id="7108"):
     g.page_type = mod.name
     g.page_sub_type = attr_type
@@ -147,7 +147,7 @@ def profile_product(attr_type, attr_id="7108"):
     
     this_prod = p_tbl.query.filter(getattr(p_tbl, attr_type)==attr_id).first_or_404()
     attrs=db.session.query(p_tbl, pname_tbl.name) \
-            .filter(func.char_length(p_tbl.id)==6) \
+            .filter(func.char_length(p_tbl.id)==len(attr_id)+2) \
             .filter(getattr(pname_tbl, pid_name)==p_tbl.id) \
             .filter(pname_tbl.lang==g.locale) \
             .order_by(pname_tbl.name).all()

@@ -5,9 +5,8 @@ from datetime import datetime
 from sqlalchemy import desc, not_, func
 from oec import db, available_years, excluded_countries
 from oec.utils import AutoSerialize, compile_query
-from oec.db_attr.models import Country, Hs, Sitc, Yo
-from oec.db_hs import models as hs_models
-from oec.db_sitc import models as sitc_models
+from oec.db_attr.models import Country, Hs92, Hs96, Hs02, Hs07, Sitc, Yo
+from oec import db_data
 
 import ast, re, string, random
 
@@ -56,7 +55,7 @@ class Build(db.Model, AutoSerialize):
     product = db.Column(db.String(20))
 
     defaults = {
-        "hs": "0101",
+        "hs92": "0101",
         "sitc": "5722",
         "country": "pry"
     }
@@ -201,7 +200,7 @@ class Build(db.Model, AutoSerialize):
     def get_ui(self, ui_type):
         return self.ui.filter(UI.type == ui_type).first()
 
-    def set_options(self, origin=None, dest=None, product=None, classification="hs", year=2012):
+    def set_options(self, origin=None, dest=None, product=None, classification="hs92", year=2013):
         if year:
             self.year = year
 
@@ -218,8 +217,8 @@ class Build(db.Model, AutoSerialize):
                 self.dest = Country.query.filter_by(id_3char=dest).first_or_404()
 
         if self.product != "show" and self.product != "all":
-            tbl = Sitc if classification == "sitc" else Hs
-            if isinstance(product, (Sitc, Hs)):
+            tbl = globals()[classification.capitalize()]
+            if isinstance(product, (Sitc, Hs92, Hs96, Hs02, Hs07)):
                 self.product = product
             else:
                 self.product = tbl.query.filter(getattr(tbl, classification)==product).first()
@@ -241,8 +240,8 @@ class Build(db.Model, AutoSerialize):
             origin = origin.id_3char
         if isinstance(dest, Country):
             dest = dest.id_3char
-        if isinstance(product, Hs):
-            product = product.hs
+        if isinstance(product, (Hs92, Hs96, Hs02, Hs07)):
+            product = getattr(product, self.classification)
         if isinstance(product, Sitc):
             product = product.sitc
         url = '{0}/{1}/{2}/{3}/{4}/{5}/{6}/'.format(self.app.type,
@@ -251,25 +250,26 @@ class Build(db.Model, AutoSerialize):
         return url
 
     '''Returns the data URL for the specific build.'''
-    def data_url(self, year=None):
+    def data_url(self, year=None, output_depth=6):
         year = year or self.year
         if not year:
             year = available_years[self.classification][-1]
         origin, dest, product = [self.origin, self.dest, self.product]
+        xtra_args = ""
 
-        if (isinstance(product, Hs) and dest == "all" and isinstance(origin, Country)) or \
-            (isinstance(product, Sitc) and dest == "all" and isinstance(origin, Country)):
+        if (isinstance(product, (Sitc, Hs92, Hs96, Hs02, Hs07)) and dest == "all" and isinstance(origin, Country)):
             product = "show"
-        elif isinstance(product, Hs):
-            product = product.hs
-        elif isinstance(product, Sitc):
-            product = product.sitc
+            xtra_args = "?output_depth={}_id_len.{}".format(self.classification, output_depth)
+        elif isinstance(product, (Sitc, Hs92, Hs96, Hs02, Hs07)):
+            xtra_args = "?output_depth={}_id_len.{}".format(self.classification, len(product.id))
+            product = getattr(product, self.classification)
         if isinstance(origin, Country):
             origin = origin.id_3char
+            xtra_args = "?output_depth={}_id_len.{}".format(self.classification, output_depth)
         if isinstance(dest, Country):
             dest = dest.id_3char
-        url = '/{0}/{1}/{2}/{3}/{4}/{5}/'.format(self.classification,
-                self.trade_flow, year, origin, dest, product)
+        url = '/{}/{}/{}/{}/{}/{}/{}'.format(self.classification,
+                self.trade_flow, year, origin, dest, product, xtra_args)
         return url
 
     def attr_type(self):
@@ -277,33 +277,30 @@ class Build(db.Model, AutoSerialize):
             return "origin"
         if self.dest == "show":
             return "dest"
-        if self.classification == "sitc":
-            return "sitc"
-        return "hs"
+        return self.classification
 
     def attr_url(self):
         lang = getattr(g, "locale", "en")
         if self.origin == "show" or self.dest == "show":
             return url_for('attr.attrs', attr='country', lang=lang)
-        if self.classification == "sitc":
-            return url_for('attr.attrs', attr='sitc', lang=lang)
-        return url_for('attr.attrs', attr='hs', lang=lang)
+        # if self.classification == "sitc":
+        #     return url_for('attr.attrs', attr='sitc', lang=lang)
+        # return url_for('attr.attrs', attr='hs92', lang=lang)
+        return url_for('attr.attrs', attr=self.classification, lang=lang)
 
     def get_tbl(self):
-        if self.classification == "hs":
-            models = hs_models
-        else:
-            models = sitc_models
+        models = getattr(db_data, "{}_models".format(self.classification))
+        # models = getattr(db_data, "{}_models".format("hs92"))
 
         if isinstance(self.origin, Country) and isinstance(self.dest, Country):
             return getattr(models, "Yodp")
-        if isinstance(self.origin, Country) and isinstance(self.product, (Sitc, Hs)):
+        if isinstance(self.origin, Country) and isinstance(self.product, (Sitc, Hs92, Hs96, Hs02, Hs07)):
             return getattr(models, "Yodp")
         if isinstance(self.origin, Country) and self.product == "show":
             return getattr(models, "Yop")
         if isinstance(self.origin, Country) and self.dest == "show":
             return getattr(models, "Yod")
-        if isinstance(self.product, (Sitc, Hs)) and self.origin == "show":
+        if isinstance(self.product, (Hs92, Hs96, Hs02, Hs07)) and self.origin == "show":
             return getattr(models, "Yop")
         
         return Yo
@@ -350,9 +347,9 @@ class Build(db.Model, AutoSerialize):
         if isinstance(self.product, Sitc) and self.app.type != "rings":
             query = query.filter_by(sitc_id=self.product.id)
             sum_query = sum_query.filter_by(sitc_id=self.product.id)
-        if isinstance(self.product, Hs) and self.app.type != "rings":
-            query = query.filter_by(hs_id=self.product.id)
-            sum_query = sum_query.filter_by(hs_id=self.product.id)
+        if isinstance(self.product, (Hs92, Hs96, Hs02, Hs07)) and self.app.type != "rings":
+            query = query.filter(getattr(tbl, "{}_id".format(self.classification))==self.product.id)
+            sum_query = sum_query.filter(getattr(tbl, "{}_id".format(self.classification))==self.product.id)
 
         sum = sum_query.first()[0]
 
@@ -401,11 +398,6 @@ class Build(db.Model, AutoSerialize):
         lang = getattr(g, "locale", "en")
 
         if isinstance(self.origin, Country):
-            # country_list = Country.query \
-            #                 .filter(not_(Country.id.in_(excluded_countries))) \
-            #                 .filter(Country.id_3char != None)
-            # country_list = [c.serialize() for c in country_list]
-            # country_list = sorted(country_list, key=lambda k: k['name'])
             country = {
                 "id": "origin",
                 "name": _("Origin"),
@@ -416,11 +408,6 @@ class Build(db.Model, AutoSerialize):
             ui.append(country)
 
         if isinstance(self.dest, Country):
-            # country_list = Country.query \
-            #                 .filter(not_(Country.id.in_(excluded_countries))) \
-            #                 .filter(Country.id_3char != None)
-            # country_list = [c.serialize() for c in country_list]
-            # country_list = sorted(country_list, key=lambda k: k['name'])
             country = {
                 "id": "destination",
                 "name": _("Destination"),
@@ -430,15 +417,7 @@ class Build(db.Model, AutoSerialize):
             }
             ui.append(country)
 
-        if isinstance(self.product, (Sitc, Hs)):
-            # if self.classification == "sitc":
-            #     product_list = Sitc.query \
-            #                     .filter(func.char_length(Sitc.id)==6).all()
-            # else:
-            #     product_list = Hs.query \
-            #                     .filter(func.char_length(Hs.id)==6).all()
-            # product_list = [p.serialize() for p in product_list]
-            # product_list = sorted(product_list, key=lambda k: k['name'])
+        if isinstance(self.product, (Sitc, Hs92, Hs96, Hs02, Hs07)):
             product = {
                 "id": "product",
                 "name": _("Product"),
@@ -478,7 +457,7 @@ class Build(db.Model, AutoSerialize):
             "id": "classification",
             "name": _("Classification"),
             "current": self.classification,
-            "data": ["HS", "SITC"]
+            "data": ["HS92", "HS96", "HS02", "HS07", "SITC"]
         }
         ui.append(trade_flow)
 

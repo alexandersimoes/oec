@@ -39,8 +39,17 @@
       <li{% if category == "country" %} class="active"{% endif %}>
         <a href="/{{ g.locale }}/rankings/country/">{{ _('Country Rankings') }}</a>
       </li>
-      <li{% if category == "hs" %} class="active"{% endif %}>
-        <a href="/{{ g.locale }}/rankings/hs/">{{ _('HS Product Rankings') }}</a>
+      <li{% if category == "hs92" %} class="active"{% endif %}>
+        <a href="/{{ g.locale }}/rankings/hs92/">{{ _('HS92 Product Rankings') }}</a>
+      </li>
+      <li{% if category == "hs96" %} class="active"{% endif %}>
+        <a href="/{{ g.locale }}/rankings/hs96/">{{ _('HS96 Product Rankings') }}</a>
+      </li>
+      <li{% if category == "hs02" %} class="active"{% endif %}>
+        <a href="/{{ g.locale }}/rankings/hs02/">{{ _('HS02 Product Rankings') }}</a>
+      </li>
+      <li{% if category == "hs07" %} class="active"{% endif %}>
+        <a href="/{{ g.locale }}/rankings/hs07/">{{ _('HS07 Product Rankings') }}</a>
       </li>
       <li{% if category == "sitc" %} class="active"{% endif %}>
         <a href="/{{ g.locale }}/rankings/sitc/">{{ _('SITC Product Rankings') }}</a>
@@ -48,13 +57,23 @@
     </ul>
 
     <div class="change_year">
-      <h3>{{ _('Change Year') }}</h3>
+      <h3>{{ _('Year') }}</h3>
       <select id="change_year">
         {% for y in years %}
         <option value="{{ y }}" {% if y == year %}selected="selected"{% endif %}>{{ y }}</option>
         {% endfor %}
       </select>
     </div>
+    
+    {% if category != "country" %}
+    <div class="change_depth">
+      <h3>{{ _('Depth') }}</h3>
+      <select id="change_depth">
+        <option value="4" {% if depth == 4 %}selected="selected"{% endif %}>4 Digit</option>
+        <option value="6" {% if depth == 6 %}selected="selected"{% endif %}>6 Digit</option>
+      </select>
+    </div>
+    {% endif %}
 
     <ul><h3>{{ _('Download') }}</h3>
       <li class="icon download">
@@ -104,7 +123,7 @@
               {% endif %}
             </td>
             <td>{{ r[0].get_display_id() }}</td>
-            <td><img class="icon" style="background-color: {{ r[0].color }};" src="/static/img/icons/{{ r[0].classification }}/{{ r[0].classification }}_{{ r[0].id[:2] }}.png" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
+            <td><img class="icon" style="background-color: {{ r[0].color }};" src="{{ r[0].get_icon() }}" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
             <td>{{ r[2]["pci"] }}</td>
             {% endif %}
           </tr>
@@ -123,33 +142,54 @@
 {% block js %}
   <script>
 
-    var currentYear = "{{ year }}"
+    var currentYear = "{{ year }}";
+    var currentDepth = {{ depth }};
+    var year_first_time = true;
+    var depth_first_time = true;
 
     function change_year(new_year) {
 
-      if (new_year !== currentYear) {
-
-        var url = window.location.pathname.split("/")
-        console.log(url.length)
-        if(url.length == 6){
-          url.splice(4, 1, new_year)
-        }
-        else {
-          url.splice(4, 0, new_year)
-        }
-        console.log(url.join("/"))
-        // window.location = url.join("/")
-
+      var url = window.location.pathname.split("/")
+      
+      if(url.length == 6){
+        url.splice(4, 1, new_year)
       }
+      else {
+        url.splice(4, 0, new_year)
+      }
+      
+      if(!year_first_time){
+        window.location = url.join("/") + "?depth=" + depth_form.focus();
+      }
+      year_first_time = false;
 
     }
 
-    var form = d3plus.form()
+    var year_form = d3plus.form()
       .type("drop")
       .data("#change_year")
       .focus(currentYear,change_year)
       .order({
         "sort": "desc"
+      })
+      .ui({
+        "margin": 0,
+        "padding": 6
+      })
+      .search(false)
+      .draw()
+    
+    var depth_form = d3plus.form()
+      .type("drop")
+      .data("#change_depth")
+      .focus(4, function(selected_depth){
+        if(!depth_first_time){
+          window.location = window.location.pathname + "?depth=" + selected_depth;
+        }
+        depth_first_time = false;
+      })
+      .order({
+        "sort": "asc"
       })
       .ui({
         "margin": 0,

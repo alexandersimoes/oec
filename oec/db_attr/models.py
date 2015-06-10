@@ -1,6 +1,7 @@
 from flask import g
 from oec import db, available_years
 from oec.utils import AutoSerialize, exist_or_404
+from oec.db_attr.abstract_models import ProdAttr, ProdNameAttr
 
 class Country(db.Model, AutoSerialize):
 
@@ -18,20 +19,47 @@ class Country(db.Model, AutoSerialize):
     # attr_yo_origin = db.relationship("db_attr.models.Yo", backref = 'origin', lazy = 'dynamic')
     attr_yo = db.relationship("db_attr.models.Yo", backref = 'country', lazy = 'dynamic')
 
-    hs_yo = db.relationship("db_hs.models.Yo", backref = 'country', lazy = 'dynamic')
-    sitc_yo = db.relationship("db_sitc.models.Yo", backref = 'country', lazy = 'dynamic')
+    hs92_yo = db.relationship("db_data.hs92_models.Yo", backref = 'country', lazy = 'dynamic')
+    hs96_yo = db.relationship("db_data.hs96_models.Yo", backref = 'country', lazy = 'dynamic')
+    hs02_yo = db.relationship("db_data.hs02_models.Yo", backref = 'country', lazy = 'dynamic')
+    hs07_yo = db.relationship("db_data.hs07_models.Yo", backref = 'country', lazy = 'dynamic')
+    # sitc_yo = db.relationship("db_data.sitc_models.Yo", backref = 'country', lazy = 'dynamic')
 
-    hs_yodp_origin = db.relationship("db_hs.models.Yodp", primaryjoin = ('db_hs.models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
-    hs_yodp_dest = db.relationship("db_hs.models.Yodp", primaryjoin = ('db_hs.models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
-    hs_yod_dest = db.relationship("db_hs.models.Yod", primaryjoin = ('db_hs.models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
-    hs_yod_origin = db.relationship("db_hs.models.Yod", primaryjoin = ('db_hs.models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
-    hs_yop_origin = db.relationship("db_hs.models.Yop", primaryjoin = ('db_hs.models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    hs92_yodp_origin = db.relationship("db_data.hs92_models.Yodp", primaryjoin = ('db_data.hs92_models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    hs92_yodp_dest = db.relationship("db_data.hs92_models.Yodp", primaryjoin = ('db_data.hs92_models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    hs92_yod_dest = db.relationship("db_data.hs92_models.Yod", primaryjoin = ('db_data.hs92_models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    hs92_yod_origin = db.relationship("db_data.hs92_models.Yod", primaryjoin = ('db_data.hs92_models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    hs92_yop_origin = db.relationship("db_data.hs92_models.Yop", primaryjoin = ('db_data.hs92_models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    
+    hs96_yodp_origin = db.relationship("db_data.hs96_models.Yodp", primaryjoin = ('db_data.hs96_models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    hs96_yodp_dest = db.relationship("db_data.hs96_models.Yodp", primaryjoin = ('db_data.hs96_models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    hs96_yod_dest = db.relationship("db_data.hs96_models.Yod", primaryjoin = ('db_data.hs96_models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    hs96_yod_origin = db.relationship("db_data.hs96_models.Yod", primaryjoin = ('db_data.hs96_models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    hs96_yop_origin = db.relationship("db_data.hs96_models.Yop", primaryjoin = ('db_data.hs96_models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    
+    hs02_yodp_origin = db.relationship("db_data.hs02_models.Yodp", primaryjoin = ('db_data.hs02_models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    hs02_yodp_dest = db.relationship("db_data.hs02_models.Yodp", primaryjoin = ('db_data.hs02_models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    hs02_yod_dest = db.relationship("db_data.hs02_models.Yod", primaryjoin = ('db_data.hs02_models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    hs02_yod_origin = db.relationship("db_data.hs02_models.Yod", primaryjoin = ('db_data.hs02_models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    hs02_yop_origin = db.relationship("db_data.hs02_models.Yop", primaryjoin = ('db_data.hs02_models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    
+    hs07_yodp_origin = db.relationship("db_data.hs07_models.Yodp", primaryjoin = ('db_data.hs07_models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    hs07_yodp_dest = db.relationship("db_data.hs07_models.Yodp", primaryjoin = ('db_data.hs07_models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    hs07_yod_dest = db.relationship("db_data.hs07_models.Yod", primaryjoin = ('db_data.hs07_models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    hs07_yod_origin = db.relationship("db_data.hs07_models.Yod", primaryjoin = ('db_data.hs07_models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    hs07_yop_origin = db.relationship("db_data.hs07_models.Yop", primaryjoin = ('db_data.hs07_models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
 
-    sitc_yodp_origin = db.relationship("db_sitc.models.Yodp", primaryjoin = ('db_sitc.models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
-    sitc_yodp_dest = db.relationship("db_sitc.models.Yodp", primaryjoin = ('db_sitc.models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
-    sitc_yod_dest = db.relationship("db_sitc.models.Yod", primaryjoin = ('db_sitc.models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
-    sitc_yod_origin = db.relationship("db_sitc.models.Yod", primaryjoin = ('db_sitc.models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
-    sitc_yop_origin = db.relationship("db_sitc.models.Yop", primaryjoin = ('db_sitc.models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    # sitc_yodp_origin = db.relationship("db_data.sitc_models.Yodp", primaryjoin = ('db_data.sitc_models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    # sitc_yodp_dest = db.relationship("db_data.sitc_models.Yodp", primaryjoin = ('db_data.sitc_models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    # sitc_yod_dest = db.relationship("db_data.sitc_models.Yod", primaryjoin = ('db_data.sitc_models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    # sitc_yod_origin = db.relationship("db_data.sitc_models.Yod", primaryjoin = ('db_data.sitc_models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    # sitc_yop_origin = db.relationship("db_data.sitc_models.Yop", primaryjoin = ('db_data.sitc_models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+
+    # sitc_yodp_origin = db.relationship("db_sitc.models.Yodp", primaryjoin = ('db_sitc.models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    # sitc_yodp_dest = db.relationship("db_sitc.models.Yodp", primaryjoin = ('db_sitc.models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    # sitc_yod_dest = db.relationship("db_sitc.models.Yod", primaryjoin = ('db_sitc.models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    # sitc_yod_origin = db.relationship("db_sitc.models.Yod", primaryjoin = ('db_sitc.models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    # sitc_yop_origin = db.relationship("db_sitc.models.Yop", primaryjoin = ('db_sitc.models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
 
     def get_attr_name(self, lang=None):
         return self.name.filter_by(lang=lang).first()
@@ -102,7 +130,8 @@ class Country(db.Model, AutoSerialize):
     def get_display_id(self):
         return self.id_3char
 
-    def get_attr_yo(self, year=available_years["hs"][-1]):
+    def get_attr_yo(self, year=None):
+        year = year or available_years["country"][-1]
         yo = filter(lambda yo: yo.year == year, self.attr_yo)
         if len(yo): return yo[0]
         return None
@@ -113,8 +142,9 @@ class Country(db.Model, AutoSerialize):
     def get_icon(self):
         return "/static/img/icons/country/country_%s.png" % (self.id)
 
-    def get_top(self, limit=10, year=available_years["hs"][-1]):
-        from oec.db_hs.models import Yp
+    def get_top(self, limit=10, year=None):
+        from oec.db_data.hs92_models import Yp
+        year = year or available_years["country"][-1]
         return Yp.query.filter_by(year=year, top_exporter=self.id)\
                 .order_by(Yp.export_val.desc()).limit(limit).all()
 
@@ -151,175 +181,250 @@ class Country_name(db.Model, AutoSerialize):
     def __repr__(self):
         return '<Country Name %s:%s>' % (self.origin_id, self.lang)
 
-class Hs(db.Model, AutoSerialize):
+class Hs92(ProdAttr):
+    __tablename__ = 'attr_hs92'
 
-    __tablename__ = 'attr_hs'
+    hs92 = db.Column(db.String(6))
 
-    id = db.Column(db.String(8), primary_key=True)
-    hs = db.Column(db.String(6))
-    conversion = db.Column(db.String(6))
-    color = db.Column(db.String(7))
+    name = db.relationship("Hs92_name", backref="hs", lazy="dynamic")
+    yodp_product = db.relationship("db_data.hs92_models.Yodp", backref = 'product', lazy = 'dynamic')
+    yop_product = db.relationship("db_data.hs92_models.Yop", backref = 'product', lazy = 'dynamic')
+    yp_product = db.relationship("db_data.hs92_models.Yp", backref = 'product', lazy = 'dynamic')
+    classification = "hs92"
 
-    name = db.relationship("Hs_name", backref="hs", lazy="dynamic")
+class Hs96(ProdAttr):
+    __tablename__ = 'attr_hs96'
+    
+    hs96 = db.Column(db.String(6))
 
-    yodp_product = db.relationship("db_hs.models.Yodp", backref = 'product', lazy = 'dynamic')
-    yop_product = db.relationship("db_hs.models.Yop", backref = 'product', lazy = 'dynamic')
-    yp_product = db.relationship("db_hs.models.Yp", backref = 'product', lazy = 'dynamic')
+    name = db.relationship("Hs96_name", backref="hs", lazy="dynamic")
+    yodp_product = db.relationship("db_data.hs96_models.Yodp", backref = 'product', lazy = 'dynamic')
+    yop_product = db.relationship("db_data.hs96_models.Yop", backref = 'product', lazy = 'dynamic')
+    yp_product = db.relationship("db_data.hs96_models.Yp", backref = 'product', lazy = 'dynamic')
+    classification = "hs96"
 
-    classification = "hs"
+class Hs02(ProdAttr):
+    __tablename__ = 'attr_hs02'
+    
+    hs02 = db.Column(db.String(6))
 
-    def get_name(self, lang=None, article=None):
-        lang = lang or getattr(g, "locale", "en")
-        name = self.name.filter_by(lang=lang).first()
-        if name:
-            if lang == "en" and name.article and article:
-                return "The {0}".format(name.name)
-            return name.name
-        return ""
+    name = db.relationship("Hs02_name", backref="hs", lazy="dynamic")
+    yodp_product = db.relationship("db_data.hs02_models.Yodp", backref = 'product', lazy = 'dynamic')
+    yop_product = db.relationship("db_data.hs02_models.Yop", backref = 'product', lazy = 'dynamic')
+    yp_product = db.relationship("db_data.hs02_models.Yp", backref = 'product', lazy = 'dynamic')
+    classification = "hs02"
 
-    def get_keywords(self, lang=None):
-        lang = lang or getattr(g, "locale", "en")
-        name = self.name.filter_by(lang=lang).first()
-        if name:
-            return name.keywords
-        return ""
+class Hs07(ProdAttr):
+    __tablename__ = 'attr_hs07'
+    
+    hs07 = db.Column(db.String(6))
+    
+    name = db.relationship("Hs07_name", backref="hs", lazy="dynamic")
+    yodp_product = db.relationship("db_data.hs07_models.Yodp", backref = 'product', lazy = 'dynamic')
+    yop_product = db.relationship("db_data.hs07_models.Yop", backref = 'product', lazy = 'dynamic')
+    yp_product = db.relationship("db_data.hs07_models.Yp", backref = 'product', lazy = 'dynamic')
+    classification = "hs07"
 
-    def get_display_id(self):
-        return self.hs
+class Hs92_name(db.Model, AutoSerialize, ProdNameAttr):
+    __tablename__ = 'attr_hs92_name'
+    hs92_id = db.Column(db.String(8), db.ForeignKey(Hs92.id), primary_key=True)
 
-    def get_top(self, limit=10, year=available_years["hs"][-1]):
-        from oec.db_hs.models import Yo
-        return Yo.query.filter_by(year=year, top_export=self.id)\
-                .order_by(Yo.export_val.desc()).limit(limit).all()
+class Hs96_name(db.Model, AutoSerialize, ProdNameAttr):
+    __tablename__ = 'attr_hs96_name'
+    hs96_id = db.Column(db.String(8), db.ForeignKey(Hs96.id), primary_key=True)
 
-    def get_yp(self, year=available_years["hs"][-1]):
-        yp = filter(lambda yp: yp.year == year, self.yp_product)
-        if len(yp): return yp[0]
-        return None
+class Hs02_name(db.Model, AutoSerialize, ProdNameAttr):
+    __tablename__ = 'attr_hs02_name'
+    hs02_id = db.Column(db.String(8), db.ForeignKey(Hs02.id), primary_key=True)
 
-    def get_abbrv(self, lang=None):
-        return self.hs if self.hs else ""
+class Hs07_name(db.Model, AutoSerialize, ProdNameAttr):
+    __tablename__ = 'attr_hs07_name'
+    hs07_id = db.Column(db.String(8), db.ForeignKey(Hs07.id), primary_key=True)
 
-    def get_icon(self):
-        return "/static/img/icons/hs/hs_%s.png" % (self.id[:2])
-
-    def get_profile_url(self):
-        return "/{}/profile/hs/{}/".format(g.locale, self.hs)
-
-    def serialize(self, lang="en"):
-        auto_serialized = super(Hs, self).serialize()
-        # auto_serialized["name"] = self.get_name(lang)
-        # auto_serialized["keywords"] = self.get_keywords()
-        auto_serialized["icon"] = self.get_icon()
-        try:
-            auto_serialized["display_id"] = auto_serialized.pop("hs")
-        except KeyError:
-            auto_serialized["display_id"] = None
-        return auto_serialized
-
-    def __repr__(self):
-        return '<Hs %r>' % (self.hs)
-
-class Hs_name(db.Model, AutoSerialize):
-
-    __tablename__ = 'attr_hs_name'
-
-    hs_id = db.Column(db.String(8), db.ForeignKey(Hs.id), primary_key=True)
-    lang = db.Column(db.String(5), primary_key=True)
-    name = db.Column(db.String(255))
-    keywords = db.Column(db.String(255))
-    desc = db.Column(db.Text())
-    gender = db.Column(db.String(1))
-    plural = db.Column(db.Boolean())
-    article = db.Column(db.Boolean())
-
-    def __repr__(self):
-        return '<Hs Name %r:%r>' % (self.hs_id, self.lang)
-
-class Sitc(db.Model, AutoSerialize):
-
+class Sitc(ProdAttr):
     __tablename__ = 'attr_sitc'
 
-    id = db.Column(db.String(8), primary_key=True)
     sitc = db.Column(db.String(6))
-    conversion = db.Column(db.String(6))
-    color = db.Column(db.String(7))
 
     name = db.relationship("Sitc_name", backref="sitc", lazy="dynamic")
-
-    yodp_product = db.relationship("db_sitc.models.Yodp", backref = 'product', lazy = 'dynamic')
-    yop_product = db.relationship("db_sitc.models.Yop", backref = 'product', lazy = 'dynamic')
-    yp_product = db.relationship("db_sitc.models.Yp", backref = 'product', lazy = 'dynamic')
-
+    # yodp_product = db.relationship("db_data.sitc_models.Yodp", backref = 'product', lazy = 'dynamic')
+    # yop_product = db.relationship("db_data.sitc_models.Yop", backref = 'product', lazy = 'dynamic')
+    # yp_product = db.relationship("db_data.sitc_models.Yp", backref = 'product', lazy = 'dynamic')
     classification = "sitc"
 
-    def get_name(self, lang=None, article=None):
-        lang = lang or getattr(g, "locale", "en")
-        name = self.name.filter_by(lang=lang).first()
-        if name:
-            if lang == "en" and name.article and article:
-                return "The {0}".format(name.name)
-            return name.name
-        return ""
-
-    def get_keywords(self, lang=None):
-        lang = lang or getattr(g, "locale", "en")
-        name = self.name.filter_by(lang=lang).first()
-        if name:
-            return name.keywords
-        return ""
-
-    def get_display_id(self):
-        return self.sitc
-
-    def get_abbrv(self, lang=None):
-        return self.sitc if self.sitc else ""
-
-    def get_icon(self):
-        return "/static/img/icons/sitc/sitc_%s.png" % (self.id[:2])
-
-    def get_profile_url(self):
-        return "/profile/sitc/"+self.sitc+"/"
-
-    def get_top(self, limit=10, year=available_years["sitc"][-1]):
-        from oec.db_sitc.models import Yp
-        return Yp.query.filter_by(year=year, top_exporter=self.id)\
-                .order_by(Yp.export_val.desc()).limit(limit).all()
-
-    def get_yp(self, year=2010):
-        yp = filter(lambda yp: yp.year == year, self.yp_product)
-        if len(yp): return yp[0]
-        return None
-
-    def serialize(self, lang="en"):
-        auto_serialized = super(Sitc, self).serialize()
-        # auto_serialized["name"] = self.get_name(lang)
-        # auto_serialized["keywords"] = self.get_keywords()
-        auto_serialized["icon"] = self.get_icon()
-        try:
-            auto_serialized["display_id"] = auto_serialized.pop("sitc")
-        except KeyError:
-            auto_serialized["display_id"] = None
-        return auto_serialized
-
-    def __repr__(self):
-        return '<Sitc %r>' % (self.sitc)
-
-class Sitc_name(db.Model, AutoSerialize):
-
+class Sitc_name(db.Model, AutoSerialize, ProdNameAttr):
     __tablename__ = 'attr_sitc_name'
-
     sitc_id = db.Column(db.String(8), db.ForeignKey(Sitc.id), primary_key=True)
-    lang = db.Column(db.String(5), primary_key=True)
-    name = db.Column(db.String(255))
-    keywords = db.Column(db.String(255))
-    desc = db.Column(db.Text())
-    gender = db.Column(db.String(1))
-    plural = db.Column(db.Boolean())
-    article = db.Column(db.Boolean())
 
-    def __repr__(self):
-        return '<Sitc Name %r:%r>' % (self.sitc_id, self.lang)
+# class Hs(db.Model, AutoSerialize):
+#
+#     __tablename__ = 'attr_hs'
+#
+#     id = db.Column(db.String(8), primary_key=True)
+#     hs = db.Column(db.String(6))
+#     conversion = db.Column(db.String(6))
+#     color = db.Column(db.String(7))
+#
+#     name = db.relationship("Hs_name", backref="hs", lazy="dynamic")
+#
+#     yodp_product = db.relationship("db_hs.models.Yodp", backref = 'product', lazy = 'dynamic')
+#     yop_product = db.relationship("db_hs.models.Yop", backref = 'product', lazy = 'dynamic')
+#     yp_product = db.relationship("db_hs.models.Yp", backref = 'product', lazy = 'dynamic')
+#
+#     classification = "hs"
+#
+#     def get_name(self, lang=None, article=None):
+#         lang = lang or getattr(g, "locale", "en")
+#         name = self.name.filter_by(lang=lang).first()
+#         if name:
+#             if lang == "en" and name.article and article:
+#                 return "The {0}".format(name.name)
+#             return name.name
+#         return ""
+#
+#     def get_keywords(self, lang=None):
+#         lang = lang or getattr(g, "locale", "en")
+#         name = self.name.filter_by(lang=lang).first()
+#         if name:
+#             return name.keywords
+#         return ""
+#
+#     def get_display_id(self):
+#         return self.hs
+#
+#     def get_top(self, limit=10, year=available_years["hs"][-1]):
+#         from oec.db_hs.models import Yo
+#         return Yo.query.filter_by(year=year, top_export=self.id)\
+#                 .order_by(Yo.export_val.desc()).limit(limit).all()
+#
+#     def get_yp(self, year=available_years["hs"][-1]):
+#         yp = filter(lambda yp: yp.year == year, self.yp_product)
+#         if len(yp): return yp[0]
+#         return None
+#
+#     def get_abbrv(self, lang=None):
+#         return self.hs if self.hs else ""
+#
+#     def get_icon(self):
+#         return "/static/img/icons/hs/hs_%s.png" % (self.id[:2])
+#
+#     def get_profile_url(self):
+#         return "/{}/profile/hs/{}/".format(g.locale, self.hs)
+#
+#     def serialize(self, lang="en"):
+#         auto_serialized = super(Hs, self).serialize()
+#         # auto_serialized["name"] = self.get_name(lang)
+#         # auto_serialized["keywords"] = self.get_keywords()
+#         auto_serialized["icon"] = self.get_icon()
+#         try:
+#             auto_serialized["display_id"] = auto_serialized.pop("hs")
+#         except KeyError:
+#             auto_serialized["display_id"] = None
+#         return auto_serialized
+#
+#     def __repr__(self):
+#         return '<Hs %r>' % (self.hs)
+#
+# class Hs_name(db.Model, AutoSerialize):
+#
+#     __tablename__ = 'attr_hs_name'
+#
+#     hs_id = db.Column(db.String(8), db.ForeignKey(Hs.id), primary_key=True)
+#     lang = db.Column(db.String(5), primary_key=True)
+#     name = db.Column(db.String(255))
+#     keywords = db.Column(db.String(255))
+#     desc = db.Column(db.Text())
+#     gender = db.Column(db.String(1))
+#     plural = db.Column(db.Boolean())
+#     article = db.Column(db.Boolean())
+#
+#     def __repr__(self):
+#         return '<Hs Name %r:%r>' % (self.hs_id, self.lang)
+#
+# class Sitc(db.Model, AutoSerialize):
+#
+#     __tablename__ = 'attr_sitc'
+#
+#     id = db.Column(db.String(8), primary_key=True)
+#     sitc = db.Column(db.String(6))
+#     conversion = db.Column(db.String(6))
+#     color = db.Column(db.String(7))
+#
+#     name = db.relationship("Sitc_name", backref="sitc", lazy="dynamic")
+#
+#     yodp_product = db.relationship("db_sitc.models.Yodp", backref = 'product', lazy = 'dynamic')
+#     yop_product = db.relationship("db_sitc.models.Yop", backref = 'product', lazy = 'dynamic')
+#     yp_product = db.relationship("db_sitc.models.Yp", backref = 'product', lazy = 'dynamic')
+#
+#     classification = "sitc"
+#
+#     def get_name(self, lang=None, article=None):
+#         lang = lang or getattr(g, "locale", "en")
+#         name = self.name.filter_by(lang=lang).first()
+#         if name:
+#             if lang == "en" and name.article and article:
+#                 return "The {0}".format(name.name)
+#             return name.name
+#         return ""
+#
+#     def get_keywords(self, lang=None):
+#         lang = lang or getattr(g, "locale", "en")
+#         name = self.name.filter_by(lang=lang).first()
+#         if name:
+#             return name.keywords
+#         return ""
+#
+#     def get_display_id(self):
+#         return self.sitc
+#
+#     def get_abbrv(self, lang=None):
+#         return self.sitc if self.sitc else ""
+#
+#     def get_icon(self):
+#         return "/static/img/icons/sitc/sitc_%s.png" % (self.id[:2])
+#
+#     def get_profile_url(self):
+#         return "/profile/sitc/"+self.sitc+"/"
+#
+#     def get_top(self, limit=10, year=available_years["sitc"][-1]):
+#         from oec.db_sitc.models import Yp
+#         return Yp.query.filter_by(year=year, top_exporter=self.id)\
+#                 .order_by(Yp.export_val.desc()).limit(limit).all()
+#
+#     def get_yp(self, year=2010):
+#         yp = filter(lambda yp: yp.year == year, self.yp_product)
+#         if len(yp): return yp[0]
+#         return None
+#
+#     def serialize(self, lang="en"):
+#         auto_serialized = super(Sitc, self).serialize()
+#         # auto_serialized["name"] = self.get_name(lang)
+#         # auto_serialized["keywords"] = self.get_keywords()
+#         auto_serialized["icon"] = self.get_icon()
+#         try:
+#             auto_serialized["display_id"] = auto_serialized.pop("sitc")
+#         except KeyError:
+#             auto_serialized["display_id"] = None
+#         return auto_serialized
+#
+#     def __repr__(self):
+#         return '<Sitc %r>' % (self.sitc)
+#
+# class Sitc_name(db.Model, AutoSerialize):
+#
+#     __tablename__ = 'attr_sitc_name'
+#
+#     sitc_id = db.Column(db.String(8), db.ForeignKey(Sitc.id), primary_key=True)
+#     lang = db.Column(db.String(5), primary_key=True)
+#     name = db.Column(db.String(255))
+#     keywords = db.Column(db.String(255))
+#     desc = db.Column(db.Text())
+#     gender = db.Column(db.String(1))
+#     plural = db.Column(db.Boolean())
+#     article = db.Column(db.Boolean())
+#
+#     def __repr__(self):
+#         return '<Sitc Name %r:%r>' % (self.sitc_id, self.lang)
 
 class Yo(db.Model, AutoSerialize):
 

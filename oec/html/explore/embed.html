@@ -20,22 +20,25 @@
       <input type="radio" name="layout" value="share" id="layout_share" ><label for="layout_share">{{ _('Percent') }}</label>
     </div>
     {% endif %}
+    
     {% if current_build.app.type == "tree_map" or current_build.app.type == "compare" %}
     <div id="depth">
+      {% if current_build.attr_type() == "origin" or current_build.attr_type() == "dest" %}
       <input type="radio" name="nesting" value="0" id="nesting0">
-      <label for="nesting0">
-        {% if current_build.attr_type() == "origin" or current_build.attr_type() == "dest" %}{{ _('Continent') }}
-        {% else %}{{ _('Category') }}
-        {% endif %}
-      </label>
+      <label for="nesting0">{{ _('Continent') }}</label>
       <input type="radio" name="nesting" value="1" id="nesting1" checked="checked" />
-      <label for="nesting1">
-        {% if current_build.attr_type() == "origin" or current_build.attr_type() == "dest" %}{{ _('Country') }}
-        {% else %}{{ _('Full') }}
-        {% endif %}
-      </label>
+      <label for="nesting1">{{ _('Country') }}</label>
+      {% else %}
+      <input type="radio" name="nesting" value="0" id="nesting0">
+      <label for="nesting0">{{ _('Category') }}</label>
+      <input type="radio" name="nesting" value="1" id="nesting1" checked="checked" />
+      <label for="nesting1">{{ _('4 Digit') }} </label>
+      <input type="radio" name="nesting" value="2" id="nesting2"/>
+      <label for="nesting2">{{ _('6 Digit') }} </label>
+      {% endif %}
     </div>
     {% endif %}
+    
     {% if current_build.app.type != "rings" and current_build.app.type != "network" and current_build.app.type != "compare" %}
     <div id="value">
       <input type="radio" name="value" value="gross" id="value_gross" checked="checked" /><label for="value_gross">{{ _('Gross') }}</label>
@@ -280,7 +283,7 @@ var trade_flow = "{{ current_build.trade_flow }}",
     viz_height = window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
     q = queue()
-          .defer(d3.json, "{{ current_build.data_url() }}")
+          .defer(d3.json, "{{ current_build.data_url(output_depth=8) }}")
           .defer(d3.json, "{{ current_build.attr_url() }}"),
     viz = d3plus.viz()
             .background("none")
@@ -318,11 +321,12 @@ var trade_flow = "{{ current_build.trade_flow }}",
             .focus({"tooltip": false})
             .format({
               "number": function( number , key , vars ){
+                var key = key.key;
                 if(key){
                   if(key.indexOf("pct") > -1){ return d3.format(".2%")(number); }
                   if(key == "year"){ return number; }
                 }
-                var ret = d3plus.number.format( number , key , vars )
+                var ret = d3plus.number.format( number , {"key":key, "vars":vars})
                 if (key && ["export_val","import_val","net_export_val","net_import_val"].indexOf(key) >= 0) {
                   ret = "$"+ret
                 }
@@ -380,7 +384,7 @@ if(!in_explore_page){
 
 if (in_the_wild) {
   viz.footer("{{ _('Brought to you by') }}: The Observatory of Economic Complexity")
-  viz.footer({"link": window.location.origin+"/explore/{{ current_build.url() }}"})
+  viz.footer({"link": window.location.origin+"/{{ g.locale }}/explore/{{ current_build.url() }}"})
 }
 
 if(vars.controls == "false"){
@@ -396,10 +400,13 @@ if(attr_id == "origin_id" || attr_id == "dest_id"){
     .icon({"style":{"nest":"knockout","id":"default"}})
     .tooltip(["display_id",trade_flow+"_val"])
 }
-if(attr_id == "hs_id" || attr_id == "sitc_id" ){
+if(attr_id.indexOf("hs") == 0 || attr_id == "sitc_id" ){
   viz
     .icon({"style":"knockout"})
     .tooltip(["display_id",trade_flow+"_val",trade_flow+"_rca"])
+}
+if(attr_id.indexOf("hs") == 0){
+  viz.id(["nest", "nest_mid", "id"])
 }
 
 function resize_viz(obj){
@@ -435,7 +442,7 @@ function format_data(error, raw_data, raw_attrs, raw_other){
     if(attr_id == "origin_id" || attr_id == "dest_id"){
       attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
     }
-    else if(attr_id == "hs_id"){
+    else if(attr_id.indexOf("hs") == 0){
       attrs[d.id]["icon"] = "/static/img/icons/hs/hs_"+d.id.substr(0, 2)+".png"
     }
     else if(attr_id == "sitc_id"){
@@ -447,6 +454,9 @@ function format_data(error, raw_data, raw_attrs, raw_other){
   // also calculate net values
   raw_data.data.forEach(function(d){
     d.nest = d[attr_id].substr(0, 2)
+    if(attr_id.indexOf("hs") == 0){
+      d.nest_mid = d[attr_id].substr(0, 6)
+    }
     d.id = d[attr_id]
     var net_val = parseFloat(d[trade_flow+"_val"]) - parseFloat(d[opposite_trade_flow+"_val"]);
     if(net_val > 0){
@@ -489,7 +499,7 @@ function finish(data, attrs){
         }
       }
 
-      if (["trade_flow","classification"].indexOf(this.id) >= 0 && app_type != "compare") {
+      if (["trade_flow"].indexOf(this.id) >= 0 && app_type != "compare") {
         ui.type("toggle").font({"align": "center"})
       }
       else {
@@ -498,7 +508,7 @@ function finish(data, attrs){
 
 
       var country_match = ["origin","destination"].indexOf(this.id) >= 0 && ["origin_id","dest_id"].indexOf(attr_id) >= 0,
-          product_match = this.id == "product" && ["hs_id","sitc_id"].indexOf(attr_id) >= 0,
+          product_match = this.id == "product" && ["hs","sitc_id"].indexOf(attr_id) >= 0,
           icon_style = this.id == "product" ? "knockout" : "default"
 
       if (country_match || product_match) {
@@ -522,6 +532,7 @@ function finish(data, attrs){
       else if (["origin","destination","product"].indexOf(this.id) >= 0) {
 
         var dataURL = this.getAttribute("data-url")
+        console.log(dataURL)
 
         ui.alt("conversion")
           .color("color")
@@ -586,7 +597,7 @@ switch (app_type){
         .type("tree_map")
         .depth(1)
         .shape("square")
-        .labels({"align": "start"})
+        .labels({"align": "start", "valign":"top"})
         .color("color")
         .zoom(false)
 
@@ -787,7 +798,7 @@ d3.select("#more_years button").on("click", function(){
     .on("click",null)
     .text("{{ _('Loading') }}...")
 
-  d3.json("{{ current_build.data_url('all') }}", function(raw_data){
+  d3.json("{{ current_build.data_url(year='all', output_depth=8) }}", function(raw_data){
 
     // go through raw data and set each items nest and id vars properly
     raw_data.data.forEach(function(d){
@@ -878,9 +889,9 @@ d3.selectAll("button#build").on("click", function(){
     }
   }
 
-  var new_url =  "/explore/"
+  var new_url =  "/{{ g.locale }}/explore/"
   if(curr_window.location.pathname.indexOf("embed") > -1){
-    new_url = "/explore/embed/"
+    new_url = "/{{ g.locale }}/explore/embed/"
   }
   new_url += "{{ current_build.app.type }}/"
   new_url += classification + "/"
@@ -891,6 +902,7 @@ d3.selectAll("button#build").on("click", function(){
   new_url += year + "/"
 
   curr_window.location = new_url
+  // console.log(new_url)
 
   d3.event.preventDefault();
 })

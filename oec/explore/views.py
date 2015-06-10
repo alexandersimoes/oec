@@ -5,11 +5,12 @@ from flask import Blueprint, render_template, g, request, session, redirect, \
 from flask.ext.babel import gettext
 
 from oec import app, db, babel, view_cache, random_countries, available_years, oec_dir
-from oec.utils import make_query, make_cache_key
-from oec.db_attr.models import Country, Sitc, Hs
+from oec.utils import make_query, make_cache_key, compile_query
+from oec.db_attr.models import Country, Sitc, Hs92, Hs96, Hs02, Hs07
 from oec.explore.models import Build, App, Short
-from oec.db_hs import models as hs_tbls
-from oec.db_sitc import models as sitc_tbls
+# from oec.db_hs import models as hs_tbls
+# from oec.db_sitc import models as sitc_tbls
+from oec import db_data, db_attr
 from oec.general.views import get_locale
 from sqlalchemy.sql.expression import func
 from sqlalchemy import not_
@@ -21,7 +22,8 @@ from config import FACEBOOK_ID
 @app.route('/explore/<app_name>/')
 @app.route('/explore/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year>/')
 def explore_redirect_nolang(app_name=None, classification=None, trade_flow=None, \
-                origin_id=None, dest_id=None, prod_id=None, year=available_years['hs'][-1]):
+                origin_id=None, dest_id=None, prod_id=None, year=None):
+    year = year or available_years[classification][-1]
     if classification:
         redirect_url = url_for('explore.explore', lang=g.locale, app_name=app_name, \
                         classification=classification, trade_flow=trade_flow, \
@@ -36,7 +38,8 @@ def explore_redirect_nolang(app_name=None, classification=None, trade_flow=None,
 @app.route('/explore/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/')
 @app.route('/explore/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year>/')
 def embed_redirect_nolang(app_name, classification, trade_flow, origin_id, dest_id, \
-                prod_id, year=available_years['hs'][-1]):
+                prod_id, year=None):
+    year = year or available_years[classification][-1]
     return redirect(url_for('explore.embed', lang=g.locale, app_name=app_name, \
                         classification=classification, trade_flow=trade_flow, \
                         origin_id=origin_id, dest_id=dest_id, prod_id=prod_id, \
@@ -54,11 +57,11 @@ def get_profile_owner(endpoint, values):
 def explore_redirect(app_name='tree_map'):
     '''fetch random country'''
     c = Country.query.get(choice(random_countries))
-    latest_hs_year = available_years['hs'][-1]
+    latest_hs_year = available_years['hs92'][-1]
 
     if app_name in ["tree_map", "stacked", "network"]:
         redirect_url = url_for('.explore', lang=g.locale, app_name=app_name, \
-                        classification="hs", trade_flow="export", \
+                        classification="hs92", trade_flow="export", \
                         origin_id=c.id_3char, dest_id="all", prod_id="show", year=latest_hs_year)
     elif app_name in ["geo_map", "rings"]:
         '''fetch random product'''
@@ -68,8 +71,8 @@ def explore_redirect(app_name='tree_map'):
         if app_name == "rings":
             origin = c.id_3char
         redirect_url = url_for('.explore', lang=g.locale, app_name=app_name, \
-                        classification="hs", trade_flow="export", \
-                        origin_id=origin, dest_id="all", prod_id=p.hs, year=latest_hs_year)
+                        classification="hs92", trade_flow="export", \
+                        origin_id=origin, dest_id="all", prod_id=p.hs92, year=latest_hs_year)
     else:
         abort(404)
     return redirect(redirect_url)
@@ -80,7 +83,7 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
         c = Country.query.filter_by(id_3char=origin).first()
         origin = "chn"
         msg = "Bilateral trade not available for {0}. ".format(c.get_name())
-    if classification == "hs":
+    if "hs" in classification:
         if origin in ["nam", "lso", "bwa", "swz"]:
             c = Country.query.filter_by(id_3char=origin).first()
             origin = "zaf"
@@ -106,15 +109,15 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
         
 
 def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trade_flow):
-    prod_tbl = Hs if classification == "hs" else Sitc
-    data_tbls = hs_tbls if classification == "hs" else sitc_tbls
+    prod_tbl = getattr(db_attr.models, classification.capitalize())
+    data_tbls = getattr(db_data, "{}_models".format(classification))
     year = year.split(".")[1] if "." in year else year
 
     origin = Country.query.filter_by(id_3char=origin_id).first()
     dest = Country.query.filter_by(id_3char=dest_id).first()
     product = prod_tbl.query.filter(getattr(prod_tbl, classification) == prod_id).first()
 
-    defaults = {"origin":"nausa", "dest":"aschn", "hs":"010101", "sitc":"105722"}
+    defaults = {"origin":"nausa", "dest":"aschn", "hs92":"010101", "hs96":"010101", "hs02":"010101", "hs07":"010101", "sitc":"105722"}
 
     if not origin:
         # find the largest exporter or importer of given product
@@ -159,8 +162,9 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year>/')
 # @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def explore(app_name, classification, trade_flow, origin_id, dest_id, \
-                prod_id, year=available_years['hs'][-1]):
+                prod_id, year=None):
     g.page_type = mod.name
+    year = year or available_years[self.classification][-1]
 
     '''Make sure year is within bounds, if not redirect'''
     start_year = year.split(".")[0] if "." in year else year
@@ -186,22 +190,21 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, \
     # raise Exception(all_builds)
     origin, dest, prod = get_origin_dest_prod(origin_id, dest_id, prod_id, \
                                             classification, year, trade_flow)
-
-    for i, build in enumerate(all_builds):
-        build.set_options(origin=origin, dest=dest, product=prod, classification=classification, year=year)
-
+    
     current_app = App.query.filter_by(type=app_name).first_or_404()
     build_filters = {"origin":origin_id,"dest":dest_id,"product":prod_id}
     for bf_name, bf in build_filters.items():
         if bf != "show" and bf != "all":
             build_filters[bf_name] = "<" + bf_name + ">"
-
+    
     current_build = Build.query.filter_by(app=current_app, trade_flow=trade_flow,
                         origin=build_filters["origin"], dest=build_filters["dest"],
                         product=build_filters["product"]).first_or_404()
-
     current_build.set_options(origin=origin, dest=dest, product=prod,
                                 classification=classification, year=year)
+
+    for i, build in enumerate(all_builds):
+        build.set_options(origin=origin, dest=dest, product=prod, classification=classification, year=year)
 
     kwargs = {"trade_flow":trade_flow, "origin_id":origin, "dest_id":dest, "year":year}
     if classification == "sitc":
@@ -219,7 +222,7 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, \
 
 @mod.route('/<app_name>/<trade_flow>/<origin>/<dest>/<product>/')
 @mod.route('/<app_name>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
-def explore_legacy(app_name, trade_flow, origin, dest, product, year=available_years['hs'][-1]):
+def explore_legacy(app_name, trade_flow, origin, dest, product, year=available_years['hs92'][-1]):
     if not year.isdigit():
         abort(404)
     c = 'sitc' if int(year) < 1995 else 'hs'
@@ -237,7 +240,7 @@ def explore_legacy(app_name, trade_flow, origin, dest, product, year=available_y
 @mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/')
 @mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year>/')
 def embed(app_name, classification, trade_flow, origin_id, dest_id, \
-                prod_id, year=available_years['hs'][-1]):
+                prod_id, year=available_years['hs92'][-1]):
 
     current_app = App.query.filter_by(type=app_name).first_or_404()
     build_filters = {"origin":origin_id,"dest":dest_id,"product":prod_id}

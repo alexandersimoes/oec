@@ -114,16 +114,19 @@
     var attrs = {}
 
     raw_attrs = raw_attrs.data.filter(function(d){
+      if(d.id !== "octkl" && d.id !== "octon" && d.id !== "ocwlf" && d.id !== "ocwsm"){
 
-      attrs[d.id] = d3plus.util.copy(d)
-      if( d.id !== focus_id ){
-        attrs[d.id]["color"] = "#ccc"
+        attrs[d.id] = d3plus.util.copy(d)
+        if( d.id !== focus_id ){
+          attrs[d.id]["color"] = "#ccc"
+        }
+        d.style = "default"
       }
-      d.style = "default"
 
       return d.id.length !== 2
 
     })
+    console.log(attrs)
 
     var country_selector = d3plus.form()
       .alt("keywords")
@@ -153,40 +156,66 @@
       .draw()
 
     // instantiate d3plus
-    var visualization = d3plus.viz()
-      .attrs(attrs)
-      .container("#viz")
-      .coords("/static/json/country_coords.json",function(raw_coords){
-        raw_coords["objects"]["TM_WORLD_BORDERS-0.3"]["geometries"].forEach(function(d){
-          country = raw_attrs.filter(function(dd){
-            return dd.id.substr(2) == d.id.toLowerCase()
-          })
-          if (country.length) {
-            d.id = country[0].id
-          }
+    // var visualization = d3plus.viz()
+    //   .attrs(attrs)
+    //   .container("#viz")
+    //   .coords("/static/json/country_coords.json",function(raw_coords){
+    //     console.log(raw_coords)
+    //     raw_coords["objects"]["TM_WORLD_BORDERS-0.3"]["geometries"].forEach(function(d){
+    //       country = raw_attrs.filter(function(dd){
+    //         return dd.id.substr(2) == d.id.toLowerCase()
+    //       })
+    //       if (country.length) {
+    //         d.id = country[0].id
+    //       }
+    //     })
+    //     return raw_coords
+    //   })
+    //   .coords({
+    //     "center": [10,0],
+    //     "padding": 0,
+    //     "mute": ["anata"]
+    //   })
+    //   .color("color")
+    //   .focus(focus_id)
+    //   .height(280)
+    //   .messages(true)
+    //   .text("name")
+    //   .tooltip("value")
+    //   .type("geo_map")
+    //   .width(280)
+    //   .zoom({
+    //     "scroll": false,
+    //     "pan": false,
+    //     "click": false
+    //   })
+    //   .time("year")
+    //   .draw()
+    // sample data array
+
+      // instantiate d3plus
+      var visualization = d3plus.viz()
+        .attrs(attrs)
+        .container("#viz")
+        .type("geo_map")
+        .focus({
+          "value": focus_id,
+          "tooltip" : false
         })
-        return raw_coords
-      })
-      .coords({
-        "center": [10,0],
-        "padding": 0,
-        "mute": ["anata"]
-      })
-      .color("color")
-      .focus(focus_id)
-      .height(280)
-      .messages(true)
-      .text("name")
-      .tooltip("value")
-      .type("geo_map")
-      .width(280)
-      .zoom({
-        "scroll": false,
-        "pan": false,
-        "click": false
-      })
-      .time("year")
-      .draw()
+        .color("color")
+        .coords("/static/json/country_coords.json")
+        .coords({
+          "center": [10,0],
+          "padding": 0,
+          "mute": ["anata", focus_id.substr(0, 2)]
+        })
+        .id("country")
+        .legend(false)
+        .text("name")
+        .height(280)
+        .width(280)
+        .time("year")
+        .draw()
 
   })
 </script>

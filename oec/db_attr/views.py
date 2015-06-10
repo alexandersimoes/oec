@@ -1,6 +1,7 @@
 from oec import db
 from flask import Blueprint, request, jsonify, make_response, g
-from oec.db_attr.models import Country, Country_name, Hs, Hs_name, Sitc, Sitc_name
+# from oec.db_attr.models import Country, Country_name, Hs, Hs_name, Sitc, Sitc_name
+from oec.db_attr.models import *
 from oec.decorators import crossdomain
 
 mod = Blueprint('attr', __name__, url_prefix='/attr')
@@ -22,8 +23,10 @@ def attrs(attr="country", lang='en'):
     
     q = db.session.query(Attr, Attr_name) \
         .filter(Attr.id == getattr(Attr_name, join_id)) \
-        .filter(Attr_name.lang == lang) \
-        .filter(Attr.color!=None)
+        .filter(Attr_name.lang == lang)
+        # .filter(Attr.color!=None)
+    # g.locale="en"
+    # raise Exception(q.all()[100][0].get_abbrv())
     
     for attr, attr_name in q.all():
         attr = attr.serialize()

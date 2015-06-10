@@ -32,8 +32,9 @@ db = SQLAlchemy(app)
 view_cache = Cache(app)
 
 # Global Latest Year Variables
-available_years = {"sitc": range(1962, 2013), "hs": range(1995, 2013), \
-                    "country": range(1962, 2013)}
+available_years = {"sitc": range(1962, 2014), "hs92": range(1995, 2014), \
+                    "hs96": range(1998, 2014), "hs02": range(2003, 2014), \
+                    "hs07": range(2008, 2013), "country": range(1962, 2014)}
 
 # Global for excluded countries
 excluded_countries = ["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", \
@@ -65,8 +66,9 @@ app.jinja_env.filters['langify'] = langify
 # Load the modules for each different section of the site
 ''' data API view/models '''
 from oec.db_attr.views import mod as db_attr_module
-from oec.db_sitc.views import mod as db_sitc_module
-from oec.db_hs.views import mod as db_hs_module
+# from oec.db_sitc.views import mod as db_sitc_module
+# from oec.db_hs.views import mod as db_hs_module
+from oec.db_data.views import mod as db_data_module
 ''' front facing views/models of site '''
 from oec.general.views import mod as general_module
 from oec.explore.views import mod as explore_module
@@ -75,8 +77,9 @@ from oec.rankings.views import mod as rankings_module
 
 ''' Register these modules as blueprints '''
 app.register_blueprint(db_attr_module)
-app.register_blueprint(db_sitc_module)
-app.register_blueprint(db_hs_module)
+# app.register_blueprint(db_sitc_module)
+# app.register_blueprint(db_hs_module)
+app.register_blueprint(db_data_module)
 
 app.register_blueprint(general_module)
 app.register_blueprint(explore_module)
