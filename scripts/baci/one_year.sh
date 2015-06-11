@@ -51,6 +51,8 @@ for i in $(seq $1 $2); do
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yodp.tsv.bz2 $PWD/data/baci/$PREV_YEAR/hs$3_yodp.tsv.bz2 --years=1 --cols=export_val,import_val -o $PWD/data/baci/$i -s hs$3_id -r $3
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yop.tsv.bz2 $PWD/data/baci/$PREV_YEAR/hs$3_yop.tsv.bz2 --years=1 --cols=export_val,import_val -o $PWD/data/baci/$i -s hs$3_id -r $3
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yp.tsv.bz2 $PWD/data/baci/$PREV_YEAR/hs$3_yp.tsv.bz2 --years=1 --cols=export_val,import_val -o $PWD/data/baci/$i -s hs$3_id -r $3
+    echo "PCI rank delta!"
+    python scripts/baci/rank_delta.py $PWD/data/baci/$i/hs$3_yp.tsv.bz2 $PWD/data/baci/$PREV_YEAR/hs$3_yp.tsv.bz2 --rank_col=pci_rank --index_cols=hs$3_id --strcasts=hs$3_id -o $PWD/data/baci/$i
   fi
 
   if [ $i -gt $FIVE_YR_GROWTH ]; then

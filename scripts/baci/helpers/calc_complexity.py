@@ -9,6 +9,7 @@ import ps_calcs
 
 def calc_complexity(attr_yo, yp, yop, year, hs_id_col, hs_id_lens):
     pcis = pd.Series([])
+    pcis_rank = pd.Series([])
     for hs_id_len in hs_id_lens:
         ubiquity_required = 20
         diversity_required = 200
@@ -58,6 +59,9 @@ def calc_complexity(attr_yo, yp, yop, year, hs_id_col, hs_id_lens):
         eci, pci = ps_calcs.complexity(yop_rcas.fillna(0))
         
         pcis = pd.concat([pcis, pci])
+        pcis_rank = pd.concat([pcis_rank, pci.rank(ascending=False)])
+        
+
         
         '''for testing'''
         # q = "select id as {0}_id, name from attr_{0}, attr_{0}_name where {0}_id = id and lang = 'en' and length(id) = 6".format(classification)
@@ -67,18 +71,9 @@ def calc_complexity(attr_yo, yp, yop, year, hs_id_col, hs_id_lens):
         # print p_names.sort(['pci_rank']).head(20)
     
     yp["pci"] = pcis
-    yp["pci_rank"] = pcis.rank(ascending=False)
+    yp["pci_rank"] = pcis_rank
     
     attr_yo["eci"] = eci
     attr_yo["eci_rank"] = eci.rank(ascending=False)
-    
-    # '''get previous years values'''
-    # q = "select hs_id, pci_rank from hs_yp where year = {0}".format(int(year)-1)
-    # prev_year_pci = sql.read_frame(q, db, index_col="hs_id")
-    # yp["pci_rank_delta"] = prev_year_pci["pci_rank"] - yp["pci_rank"]
-    #
-    # q = "select origin_id, eci_rank from attr_yo where year = {0}".format(int(year)-1)
-    # prev_year_eci = sql.read_frame(q, db, index_col="origin_id")
-    # attr_yo["eci_rank_delta"] = prev_year_eci["eci_rank"] - attr_yo["eci_rank"]
     
     return attr_yo, yp

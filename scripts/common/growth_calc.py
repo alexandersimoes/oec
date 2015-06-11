@@ -18,7 +18,6 @@ import pandas as pd
 import numpy as np
 import re
 
-
 def parse_table_name(t):
     pattern = re.compile('(\w+).tsv(.bz2)*')
     m = pattern.search(t)
@@ -90,3 +89,4 @@ def main(original_file, growth_file, cols, output_path, revision, years, strcast
 
 if __name__ == "__main__":
     main()
+    
