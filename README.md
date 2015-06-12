@@ -64,3 +64,10 @@ Adding the Observatory to computer via virtualenv
         pybabel update -i messages.pot -d oec/translations
         pybabel compile -d oec/translations
 
+
+### Deployment
+The following software is required to be installed on your server to deploy the OEC:
+
+* Python
+* MySQL
+* Redis (at least version 2.8.6)
