@@ -55,7 +55,7 @@ class Build(db.Model, AutoSerialize):
     product = db.Column(db.String(20))
 
     defaults = {
-        "hs92": "0101",
+        "hs92": "0101", "hs96": "0101", "hs02": "0101", "hs07": "0101",
         "sitc": "5722",
         "country": "pry"
     }
@@ -305,7 +305,7 @@ class Build(db.Model, AutoSerialize):
         
         return Yo
 
-    def top_stats(self, entities=5):
+    def top_stats(self, entities=5, output_depth=8):
 
         tbl = self.get_tbl()
         query = tbl.query
@@ -330,6 +330,9 @@ class Build(db.Model, AutoSerialize):
             sum_query = db.session.query(db.func.sum(tbl.import_val - tbl.export_val)).filter((tbl.import_val - tbl.export_val) > 0)
         else:
             return {"total":0, "entries":[], "header":[]}
+        
+        if output_depth and getattr(tbl, "{}_id_len".format(self.classification), None):
+            query = query.filter(getattr(tbl, "{}_id_len".format(self.classification)) == output_depth)
 
         year = self.year
         if "." in str(year):

@@ -282,9 +282,6 @@ var trade_flow = "{{ current_build.trade_flow }}",
     // viz_height = is_iOS ? window.screen.height - d3.select("#ui").node().offsetHeight : window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_height = window.innerHeight - d3.select("#ui").node().offsetHeight,
     viz_width = window.innerWidth - parseInt(d3.select("#controls").style("width")),
-    q = queue()
-          .defer(d3.json, "{{ current_build.data_url(output_depth=8) }}")
-          .defer(d3.json, "{{ current_build.attr_url() }}"),
     viz = d3plus.viz()
             .background("none")
             .color({
@@ -373,6 +370,15 @@ var trade_flow = "{{ current_build.trade_flow }}",
                 }
               }
             })
+
+if(app_type == "network"){
+  var q = queue().defer(d3.json, "{{ current_build.data_url(output_depth=6) }}")
+}
+else {
+  var q = queue().defer(d3.json, "{{ current_build.data_url(output_depth=8) }}")
+}
+q = q.defer(d3.json, "{{ current_build.attr_url() }}");
+
 
 // console.log(document.documentElement.clientHeight, window.innerHeight, window.screen.height)
 // console.log(window.innerHeight, viz_height, d3.select("#ui").node().offsetHeight)
@@ -532,7 +538,6 @@ function finish(data, attrs){
       else if (["origin","destination","product"].indexOf(this.id) >= 0) {
 
         var dataURL = this.getAttribute("data-url")
-        console.log(dataURL)
 
         ui.alt("conversion")
           .color("color")
@@ -626,7 +631,12 @@ switch (app_type){
     break;
 
   case "network":
-    q = q.defer(d3.json, "/static/json/network_{{ current_build.classification }}.json")
+    if(attr_id.indexOf("hs") == 0){
+      q = q.defer(d3.json, "/static/json/network_hs.json")
+    }
+    else {
+      q = q.defer(d3.json, "/static/json/network_sitc.json")
+    }
     q = q.defer(d3.json, "/{{ current_build.classification }}/export/{{ current_build.year }}/all/all/show/")
     var format_data_orig = format_data
     var go = function(){
@@ -642,6 +652,7 @@ switch (app_type){
 
       viz
         .depth(1)
+        .id(["nest","id"])
         .type("network")
         .color("color")
         .nodes({
