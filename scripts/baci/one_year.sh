@@ -46,7 +46,7 @@ for i in $(seq $1 $2); do
     echo "one year growth!"
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yd.tsv.bz2 $PWD/data/baci/$PREV_YEAR/hs$3_yd.tsv.bz2 --years=1 --cols=export_val,import_val -o $PWD/data/baci/$i -r $3
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_ydp.tsv.bz2 $PWD/data/baci/$PREV_YEAR/hs$3_ydp.tsv.bz2 --years=1 --cols=export_val,import_val -o $PWD/data/baci/$i -s hs$3_id -r $3
-    python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yo.tsv.bz2 $PWD/data/baci/$PREV_YEAR/hs$3_yo.tsv.bz2 --years=1 --cols=export_val,import_val -o $PWD/data/baci/$i -r $3
+    python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yo.tsv.bz2 $PWD/data/baci/$PREV_YEAR/hs$3_yo.tsv.bz2 --years=1 --cols=export_val,import_val -o $PWD/data/baci/$i -r $3 -s top_export,top_import
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yod.tsv.bz2 $PWD/data/baci/$PREV_YEAR/hs$3_yod.tsv.bz2 --years=1 --cols=export_val,import_val -o $PWD/data/baci/$i -r $3
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yodp.tsv.bz2 $PWD/data/baci/$PREV_YEAR/hs$3_yodp.tsv.bz2 --years=1 --cols=export_val,import_val -o $PWD/data/baci/$i -s hs$3_id -r $3
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yop.tsv.bz2 $PWD/data/baci/$PREV_YEAR/hs$3_yop.tsv.bz2 --years=1 --cols=export_val,import_val -o $PWD/data/baci/$i -s hs$3_id -r $3
@@ -60,7 +60,7 @@ for i in $(seq $1 $2); do
     PREV_YEAR_FIVE=`expr $i - 5`
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yd.tsv.bz2 $PWD/data/baci/$PREV_YEAR_FIVE/hs$3_yd.tsv.bz2 --years=5 --cols=export_val,import_val -o $PWD/data/baci/$i -r $3
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_ydp.tsv.bz2 $PWD/data/baci/$PREV_YEAR_FIVE/hs$3_ydp.tsv.bz2 --years=5 --cols=export_val,import_val -o $PWD/data/baci/$i -s hs$3_id -r $3
-    python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yo.tsv.bz2 $PWD/data/baci/$PREV_YEAR_FIVE/hs$3_yo.tsv.bz2 --years=5 --cols=export_val,import_val -o $PWD/data/baci/$i -r $3
+    python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yo.tsv.bz2 $PWD/data/baci/$PREV_YEAR_FIVE/hs$3_yo.tsv.bz2 --years=5 --cols=export_val,import_val -o $PWD/data/baci/$i -r $3 -s top_export,top_import
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yod.tsv.bz2 $PWD/data/baci/$PREV_YEAR_FIVE/hs$3_yod.tsv.bz2 --years=5 --cols=export_val,import_val -o $PWD/data/baci/$i -r $3
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yodp.tsv.bz2 $PWD/data/baci/$PREV_YEAR_FIVE/hs$3_yodp.tsv.bz2 --years=5 --cols=export_val,import_val -o $PWD/data/baci/$i -s hs$3_id -r $3
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yop.tsv.bz2 $PWD/data/baci/$PREV_YEAR_FIVE/hs$3_yop.tsv.bz2 --years=5 --cols=export_val,import_val -o $PWD/data/baci/$i -s hs$3_id -r $3
