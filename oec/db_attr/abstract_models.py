@@ -52,8 +52,6 @@ class ProdAttr(db.Model, AutoSerialize):
 
     def serialize(self, lang="en"):
         auto_serialized = super(ProdAttr, self).serialize()
-        auto_serialized["name"] = self.get_name(lang)
-        auto_serialized["keywords"] = self.get_keywords()
         auto_serialized["icon"] = self.get_icon()
         try:
             auto_serialized["display_id"] = auto_serialized.pop(self.classification)

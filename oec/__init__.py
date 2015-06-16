@@ -44,7 +44,7 @@ excluded_countries = ["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", \
 random_countries = ["afago","afdza","afegy","afmar","afnga","afzaf","asare", \
     "asaze","asbgd","aschn","ashkg","asidn","asind","asirn","asirq","asisr", \
     "asjpn","askaz","askor","askwt","asmys","asomn","aspak","asphl","asqat", \
-    "asrus","assau","assgp","astha","astur","astwn","asvnm","euaut", \
+    "eurus","assau","assgp","astha","astur","astwn","asvnm","euaut", \
     "eubgr","eublr","eublx","euche","eucze","eudeu","eudnk","euesp","eufin", \
     "eufra","eugbr","eugrc","euhun","euirl","euita","eultu","eunld","eunor", \
     "eupol","euprt","eurou","eusvk","eusvn","euswe","euukr","nacan","nacri", \
