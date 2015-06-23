@@ -33,19 +33,15 @@ def get_profile_owner(endpoint, values):
 
 @mod.route('/country/')
 def profile_country_redirect():
-    Country = getattr(attr_models, "Country")
     '''fetch random country'''
-    c = Country.query.get(choice(random_countries))
-
+    c = getattr(attr_models, "Country").query.get(choice(random_countries))
     return redirect(url_for(".profile_country", lang=g.locale, attr_id=c.id_3char))
 
-@mod.route('/<attr_type>/')
+@mod.route('/<any("sitc","hs92","hs96","hs02","hs07"):attr_type>/')
 def profile_product_redirect(attr_type):
     '''fetch random product'''
     if attr_type == "hs":
-        p = getattr(attr_models, attr_type.capitalize()).query.order_by(func.random()).first_or_404()
-    else:
-        p = getattr(attr_models, attr_type.capitalize()).query.order_by(func.random()).first_or_404()
+    p = getattr(attr_models, attr_type.capitalize()).query.order_by(func.random()).first_or_404()
 
     return redirect(url_for(".profile_product", lang=g.locale, attr_type=attr_type, attr_id=p.get_display_id()))
 
@@ -64,7 +60,6 @@ def sanitize(id_3char):
         redirect_url = url_for('.profile_country', attr_id=redirect_id_3char)
         flash(msg+"<script>redirect('"+redirect_url+"', 10)</script>")
 
-@mod.route('/country/')
 @mod.route('/country/<attr_id>/')
 # @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def profile_country(attr_id="usa"):
@@ -78,7 +73,7 @@ def profile_country(attr_id="usa"):
         is_iOS = True
 
     sanitize(attr_id)
-    
+
     this_country = c_tbl.query.filter_by(id_3char=attr_id).first_or_404()
     attrs=db.session.query(c_tbl, cname_tbl.name) \
             .filter(c_tbl.id_3char!=None) \
@@ -131,7 +126,6 @@ def profile_country(attr_id="usa"):
                                 attr=this_country,
                                 next=next_country)
 
-@mod.route('/<any("sitc","hs92","hs96","hs02","hs07"):attr_type>/')
 @mod.route('/<any("sitc","hs92","hs96","hs02","hs07"):attr_type>/<attr_id>/')
 # @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def profile_product(attr_type, attr_id="7108"):
@@ -144,7 +138,7 @@ def profile_product(attr_type, attr_id="7108"):
     is_iOS = False
     if any(x in request.headers.get('User-Agent') for x in ["iPad","iPhone","iPod"]):
         is_iOS = True
-    
+
     this_prod = p_tbl.query.filter(getattr(p_tbl, attr_type)==attr_id).first_or_404()
     attrs=db.session.query(p_tbl, pname_tbl.name) \
             .filter(func.char_length(p_tbl.id)==len(attr_id)+2) \
