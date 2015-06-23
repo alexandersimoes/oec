@@ -40,7 +40,6 @@ def profile_country_redirect():
 @mod.route('/<any("sitc","hs92","hs96","hs02","hs07"):attr_type>/')
 def profile_product_redirect(attr_type):
     '''fetch random product'''
-    if attr_type == "hs":
     p = getattr(attr_models, attr_type.capitalize()).query.order_by(func.random()).first_or_404()
 
     return redirect(url_for(".profile_product", lang=g.locale, attr_type=attr_type, attr_id=p.get_display_id()))
