@@ -320,7 +320,8 @@ def explore_new(app_name, classification, trade_flow, origin_id, dest_id, prod_i
     redir = sanitize(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
 
     '''get every possible build for sub nav'''
-    all_builds = get_all_builds(classification, origin_id, dest_id, prod_id, year)
+    origin, dest, prod = get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trade_flow)
+    all_builds = get_all_builds(classification, origin_id, dest_id, prod_id, year, {"origin":origin, "dest":dest, "prod":prod})
     
     '''get this build'''
     build = BuildNew(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)

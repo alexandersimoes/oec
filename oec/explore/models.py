@@ -11,15 +11,6 @@ all_viz = [
     {"slug":"geo_map", "name":"Geo Map", "color":"#333"}
 ]
 
-''' Defaults used for a build if required by that build and the user
-    has not specified one
-'''
-defaults = {
-    "hs92": "0101", "hs96": "0101", "hs02": "0101", "hs07": "0101",
-    "sitc": "5722",
-    "country": "pry"
-}
-
 ''' Title, question, short name and category specific per build type. See below:
     0. tmap/stacked showing products exported/imported by country
     1. tmap/stacked showing destinations that a country exports to/imports from
@@ -153,6 +144,15 @@ build_metadata = { \
 
 class Build(object):
     
+    ''' Defaults used for a build if required by that build and the user
+        has not specified one
+    '''
+    defaults = {
+        "hs92": "0101", "hs96": "0101", "hs02": "0101", "hs07": "0101",
+        "sitc": "5722",
+        "country": "pry"
+    }
+    
     def __init__(self, viz="tree_map", classification="hs92", trade_flow="export", origin=None, dest=None, prod=None, year=None):
         self.viz = filter(lambda v: v["slug"]==viz, all_viz)[0]
         self.classification = classification
@@ -170,7 +170,7 @@ class Build(object):
         else:
             c = Country.query.filter_by(id_3char=country_id).first()
             if not c:
-                c = Country.query.filter_by(id_3char=defaults["country"]).first()
+                c = Country.query.filter_by(id_3char=self.defaults["country"]).first()
             return c
     
     def get_prod(self, prod_id, classification):
@@ -180,7 +180,7 @@ class Build(object):
             Prod = globals()[classification.capitalize()]
             p = Prod.query.filter(getattr(Prod, classification)==prod_id).first()
             if not p:
-                p = Prod.query.filter(getattr(Prod, classification)==defaults[classification]).first()
+                p = Prod.query.filter(getattr(Prod, classification)==self.defaults[classification]).first()
             return p
     
     def year_to_str(self, year):
@@ -258,10 +258,10 @@ class Build(object):
     def __repr__(self):
         return "<Build: {}:{}:{}:{}:{}>".format(self.viz["slug"], self.trade_flow, self.origin, self.dest, self.prod)
 
-def get_all_builds(classification, origin_id, dest_id, prod_id, year):
-    origin_id = defaults["country"] if any(x in origin_id for x in ["show", "all"]) else origin_id
-    dest_id = defaults["country"] if any(x in dest_id for x in ["show", "all"]) else dest_id
-    prod_id = defaults["country"] if any(x in prod_id for x in ["show", "all"]) else prod_id
+def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults):
+    origin_id = defaults["origin"] if any(x in origin_id for x in ["show", "all"]) else origin_id
+    dest_id = defaults["dest"] if any(x in dest_id for x in ["show", "all"]) else dest_id
+    prod_id = defaults["prod"] if any(x in prod_id for x in ["show", "all"]) else prod_id
     
     build_types = [
         {"origin": origin_id, "dest": "all", "prod": "show"},
