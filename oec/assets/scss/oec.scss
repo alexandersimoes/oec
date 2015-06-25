@@ -1,0 +1,25 @@
+@import "helpers/reset";
+@import "helpers/variables";
+
+body {
+  background-color: #eee;
+  font-family: $sans-serif;
+  min-height: 100vh;
+
+  &.open {
+    overflow: hidden;
+  }
+
+}
+
+h2 {
+  font-size: 30px;
+}
+
+p {
+  font-family: $serif;
+  font-size: 17px;
+  line-height: 28px;
+}
+
+@import "elements/nav";

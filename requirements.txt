@@ -25,3 +25,6 @@ fuzzywuzzy
 # Required for displaying releases from github
 markdown
 python-dateutil
+
+# SCSS compiler
+-e git://github.com/bcarlin/flask-scss.git#egg=Flask-Scss-dev

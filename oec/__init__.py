@@ -15,6 +15,8 @@ from werkzeug.contrib.fixers import ProxyFix
 from flask.ext.cache import Cache
 from werkzeug.contrib.fixers import ProxyFix
 
+from config import DEBUG
+
 ''' Base directory of where the site is held '''
 oec_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -24,6 +26,10 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 
 # Load default configuration from config.py
 app.config.from_object('config')
+
+if DEBUG:
+    from flask.ext.scss import Scss
+    Scss(app)
 
 # DB connection object
 db = SQLAlchemy(app)
