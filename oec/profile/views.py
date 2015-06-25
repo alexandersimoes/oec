@@ -8,7 +8,6 @@ from sqlalchemy.sql.expression import func
 from oec import app, db, babel, view_cache, random_countries, available_years
 from oec.utils import make_query, make_cache_key
 from oec.db_attr import models as attr_models
-from oec.explore.models import Build, App
 from oec.general.views import get_locale
 from sqlalchemy.sql.expression import func
 from sqlalchemy import not_

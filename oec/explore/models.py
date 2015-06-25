@@ -1,532 +1,347 @@
-# -*- coding: utf-8 -*-
-from flask import g, url_for
-from flask.ext.babel import gettext as _
-from datetime import datetime
-from sqlalchemy import desc, not_, func
-from oec import db, available_years, excluded_countries
-from oec.utils import AutoSerialize, compile_query
-from oec.db_attr.models import Country, Hs92, Hs96, Hs02, Hs07, Sitc, Yo
-from oec import db_data
+from oec.db_attr.models import Country, Hs92, Hs96, Hs02, Hs07, Sitc
 
-import ast, re, string, random
+''' All the viz types currently supported
+'''
+all_viz = [
+    {"slug":"tree_map", "name":"Tree Map", "color":"#333"},
+    {"slug":"stacked", "name":"Stacked", "color":"#333"},
+    {"slug":"network", "name":"Network", "color":"#333"},
+    {"slug":"rings", "name":"Rings", "color":"#333"},
+    {"slug":"scatter", "name":"Scatter", "color":"#333"},
+    {"slug":"geo_map", "name":"Geo Map", "color":"#333"}
+]
 
-class App(db.Model, AutoSerialize):
+''' Title, question, short name and category specific per build type. See below:
+    0. tmap/stacked showing products exported/imported by country
+    1. tmap/stacked showing destinations that a country exports to/imports from
+    2. tmap/stacked of countries that export/import a product
+    3. tmap/stacked of products exported/imported from a destination
+    4. tmap/stacked of destinations that a country exports a product to
+    5. network of product space
+    6. rings
+    7. scatter of PCI by GDP
+'''
+build_metadata = { \
+    0: {
+        "export": {
+            "title": "Products exported by {origin}",
+            "question": "What does {origin} export?",
+            "short_name": "Exports",
+            "category": "Country"
+        },
+        "import": {
+            "title":"Products imported by {origin}",
+            "question": "What does {origin} import?",
+            "short_name": "Imports",
+            "category": "Country"
+        }
+    },
+    1: {
+        "export": {
+            "title": "Import origins of {origin}",
+            "question": "Where does {origin} export to?",
+            "short_name": "Export Destinations",
+            "category": "Country"
+        },
+        "import": {
+            "title": "Export destinations of {origin}",
+            "question": "Where does {origin} import from?",
+            "short_name": "Import Origins",
+            "category": "Country"
+        }
+    },
+    2: {
+        "export": {
+            "title": "Countries that export {prod}",
+            "question": "Which countries export {product}?",
+            "short_name": "Exporters",
+            "category": "Product"
+        },
+        "import": {
+            "title": "Countries that import {prod}",
+            "question": "Which countries import {product}?",
+            "short_name": "Importers",
+            "category": "Product"
+        }
+    },
+    3: {
+        "export": {
+            "title": "Products that {origin} imports from {dest}",
+            "question": "What does {origin} export to {dest}?",
+            "short_name": "Exports to Destination",
+            "category": "Bilateral"
+        },
+        "import": {
+            "title": "Products that {origin} exports to {dest}",
+            "question": "What does {origin} import from {dest}?",
+            "short_name": "Imports from Origin",
+            "category": "Bilateral"
+        }
+    },
+    4: {
+        "export": {
+            "title": "Export destinations of {prod} from {origin}",
+            "question": "Where does {origin} export {prod} to?",
+            "short_name": "Exports by Product",
+            "category": "Bilateral"
+        },
+        "import": {
+            "title": "Import origins of {prod} to {origin}",
+            "question": "Where does {origin} import {prod} from?",
+            "short_name": "Imports by Product",
+            "category": "Bilateral"
+        }
+    },
+    5: {
+        "export": {
+            "title": "Product Space of {origin}",
+            "question": "What does {origin} export?",
+            "short_name": "Product Space",
+            "category": None
+        }
+    },
+    6: {
+        "export": {
+            "title": "Connections of {product} in {origin}",
+            "question": "Where does {origin} export {prod} to?",
+            "short_name": "Product Connections",
+            "category": None
+        }
+    },
+    7: {
+        "gdp": {
+            "title": "Complexity compared to GDP",
+            "question": "How does complexity compare to GDP?",
+            "short_name": "vs GDP",
+            "category": "Economic Complexity"
+        },
+        "gdp_pc_constant": {
+            "title": "Complexity compared to GDP per capita (constant 2005 US$)",
+            "question": "How does complexity compare to GDP per capita?",
+            "short_name": "vs GDPpc (constant '05 US$)",
+            "category": "Economic Complexity"
+        },
+        "gdp_pc_current": {
+            "title": "Complexity compared to GDP per capita (current US$)",
+            "question": "How does complexity compare to GDP per capita?",
+            "short_name": "vs GDPpc (current US$)",
+            "category": "Economic Complexity"
+        },
+        "gdp_pc_constant_ppp": {
+            "title": "Complexity compared to GDP per capita, PPP (constant 2011 international $)",
+            "question": "How does complexity compare to GDP per capita?",
+            "short_name": "vs GDPpc PPP (constant '11)",
+            "category": "Economic Complexity"
+        },
+        "gdp_pc_current_ppp": {
+            "title": "Complexity compared to GDP per capita, PPP (constant 2011 international $)",
+            "question": "How does complexity compare to GDP per capita?",
+            "short_name": "vs GDPpc PPP (current)",
+            "category": "Economic Complexity"
+        }
+    }
+}
 
-    __tablename__ = 'explore_app'
-
-    id = db.Column(db.Integer, primary_key = True)
-    type = db.Column(db.String(20))
-    name = db.Column(db.String(20))
-    d3plus = db.Column(db.String(20))
-    color = db.Column(db.String(7))
-
-    def get_name(self):
-        # lang = getattr(g, "locale", "en")
-        # return getattr(self,"name_"+lang)
-        return self.name
-
-    def __repr__(self):
-        return '<App %r>' % (self.type)
-
-class Build_name(db.Model, AutoSerialize):
-
-    __tablename__ = 'explore_build_name'
-
-    # build_id = db.Column(db.Integer, db.ForeignKey(Build.id), primary_key = True)
-    name_id = db.Column(db.Integer, primary_key = True)
-    lang = db.Column(db.String(5), primary_key=True)
-    name = db.Column(db.String(255))
-    short_name = db.Column(db.String(50))
-    question = db.Column(db.String(255))
-    category = db.Column(db.String(30))
-
-    def __repr__(self):
-        return '<Build Name %r:%r>' % (self.name_id, self.lang)
-
-class Build(db.Model, AutoSerialize):
-
-    __tablename__ = 'explore_build'
-
-    app_id = db.Column(db.Integer, db.ForeignKey(App.id), primary_key = True)
-    name_id = db.Column(db.Integer, db.ForeignKey(Build_name.name_id), primary_key = True)
-    trade_flow = db.Column(db.String(20))
-    origin = db.Column(db.String(20))
-    dest = db.Column(db.String(20))
-    product = db.Column(db.String(20))
-
+class Build(object):
+    
+    ''' Defaults used for a build if required by that build and the user
+        has not specified one
+    '''
     defaults = {
         "hs92": "0101", "hs96": "0101", "hs02": "0101", "hs07": "0101",
         "sitc": "5722",
         "country": "pry"
     }
-
-    app = db.relationship('App',
-            backref=db.backref('Builds', lazy='dynamic'))
-    # name = db.relationship("Build_name", backref="build", lazy="joined")
-
-    def get_year(self):
-        if not self.year:
-            return available_years["hs"][-1]
-        elif "." in self.year:
-            years = self.year.split(".")
-            return "{0} - {1}".format(years[0], years[1])
+    
+    def __init__(self, viz="tree_map", classification="hs92", trade_flow="export", origin=None, dest=None, prod=None, year=None):
+        self.viz = filter(lambda v: v["slug"]==viz, all_viz)[0]
+        self.classification = classification
+        self.trade_flow = trade_flow
+        self.origin = self.get_country(origin)
+        self.dest = self.get_country(dest)
+        self.prod = self.get_prod(prod, classification)
+        self.year = year
+        self.year_str = self.year_to_str(year)
+        self.id = self.get_build_id(self.viz, origin, dest, prod)
+    
+    def get_country(self, country_id):
+        if country_id == "show" or country_id == "all":
+            return country_id
         else:
-            return self.year
-
-    def get_short_name(self, lang=None):
-        lang = lang or getattr(g, "locale", "en")
-        build_name = Build_name.query.filter_by(name_id=self.name_id, lang=lang).first()
-        if build_name:
-            return build_name.short_name
+            c = Country.query.filter_by(id_3char=country_id).first()
+            if not c:
+                c = Country.query.filter_by(id_3char=self.defaults["country"]).first()
+            return c
+    
+    def get_prod(self, prod_id, classification):
+        if prod_id == "show" or prod_id == "all":
+            return prod_id
         else:
-            return ""
-
-    def get_category(self, lang=None):
-        lang = lang or getattr(g, "locale", "en")
-        build_name = Build_name.query.filter_by(name_id=self.name_id, lang=lang).first()
-        if build_name:
-            return build_name.category
+            Prod = globals()[classification.capitalize()]
+            p = Prod.query.filter(getattr(Prod, classification)==prod_id).first()
+            if not p:
+                p = Prod.query.filter(getattr(Prod, classification)==self.defaults[classification]).first()
+            return p
+    
+    def year_to_str(self, year):
+        if len(year) == 1:
+            return year[0]
         else:
-            return ""
-
-    def l18n_name(self, name, replace_term, item, lang):
-        item_w_article = item.get_name(lang, article=True)
-        attr_name = item.get_attr_name(lang)
-        name_as_words = name.split(" ")
-        replace_term_word = [s for s in name_as_words if replace_term in s][0]
-        prev_word_index = name_as_words.index(replace_term_word)-1
-        prev_word = name_as_words[prev_word_index]
-
-        ''' French! '''
-        if lang == "fr":
-            if prev_word == "<de>":
-                prev_word = "de"
-                if attr_name.article:
-                    if item_w_article.startswith("le"):
-                        prev_word = "du"
-                        item_w_article = item_w_article.replace("le ", "")
-                    if item_w_article.startswith("les"):
-                        prev_word = "des"
-                        item_w_article = item_w_article.replace("les ", "")
-            if prev_word == u"<à>":
-                prev_word = u"à"
-                if attr_name.article:
-                    if item_w_article.startswith("le"):
-                        prev_word = "au"
-                        item_w_article = item_w_article.replace("le ", "")
-                    if item_w_article.startswith("les"):
-                        prev_word = "aux"
-                        item_w_article = item_w_article.replace("les ", "")
-        ''' Spanish! '''
-        if lang == "es":
-            if prev_word == "<de>":
-                prev_word = "de"
-                if attr_name.article:
-                    if item_w_article.startswith("el"):
-                        prev_word = "del"
-                        item_w_article = item_w_article.replace("el ", "")
-            if prev_word == "<a>":
-                prev_word = "a"
-                if attr_name.article:
-                    if item_w_article.startswith("el"):
-                        prev_word = "al"
-                        item_w_article = item_w_article.replace("el ", "")
-
-        ''' Italian! '''
-        if lang == "it":
-            if attr_name.article:
-                if item_w_article.startswith("il "): ending = "l"
-                if item_w_article.startswith("lo "): ending = "llo"
-                if item_w_article.startswith("l'"): ending = "ll'"
-                if item_w_article.startswith("i "): ending = "i"
-                if item_w_article.startswith("gli "): ending = "gli"
-                if item_w_article.startswith("la "): ending = "lla"
-                if item_w_article.startswith("le "): ending = "lle"
-                item_w_article = item_w_article.replace("il ", "").replace("lo ", "").replace("l'", "") \
-                    .replace("i ", "").replace("gli ", "").replace("la ", "").replace("le ", "")
-                if prev_word == "<da>":
-                    prev_word = "da" + ending
-                if prev_word == "<di>":
-                    prev_word = "de" + ending
-                if prev_word == "<in>":
-                    prev_word = "ne" + ending
+            interval = year[1] - year[0]
+            if interval == 1:
+                return "{}.{}".format(year[0], year[-1])
             else:
-                prev_word = prev_word.replace("<", "").replace(">", "")
-
-
-        name_as_words[prev_word_index] = prev_word
-        # raise Exception(name_as_words)
-        name = " ".join(name_as_words)
-        # if replace_term == "<dest>":
-        #     raise Exception(name.replace(replace_term, unicode(item_w_article)))
-        return name.replace(replace_term, u"<strong>{0}</strong>".format(item_w_article))
-
-    def get_name(self, lang=None):
-        lang = lang or getattr(g, "locale", "en")
-        build_name = Build_name.query.filter_by(name_id=self.name_id, lang=lang).first()
-        if build_name:
-            name = build_name.name
-        else:
-            return ""
-
-        if "<origin>" in name:
-            name = self.l18n_name(name, "<origin>", self.origin, lang)
-            # name = name.replace("<origin>", self.origin.get_name(lang, article=True))
-        if "<dest>" in name:
-            name = self.l18n_name(name, "<dest>", self.dest, lang)
-            # name = name.replace("<dest>", self.dest.get_name(lang, article=True))
-        if "<product>" in name:
-            name = name.replace("<product>", u"<strong>{0}</strong>".format(self.product.get_name(lang, article=True)))
-
-        return name
-
-    def get_question(self, lang=None):
-        lang = lang or getattr(g, "locale", "en")
-        build_q = Build_name.query.filter_by(name_id=self.name_id, lang=lang).first()
-        if build_q:
-            q = build_q.question
-        else:
-            return ""
-
-        if "<origin>" in q:
-            q = q.replace("<origin>", self.origin.get_name(lang))
-        if "<dest>" in q:
-            q = q.replace("<dest>", self.dest.get_name(lang))
-        if "<product>" in q:
-            q = q.replace("<product>", self.product.get_name(lang))
-
-        return q
-
-    def get_ui(self, ui_type):
-        return self.ui.filter(UI.type == ui_type).first()
-
-    def set_options(self, origin=None, dest=None, product=None, classification="hs92", year=2013):
-        if year:
-            self.year = year
-
-        if self.origin != "show" and self.origin != "all":
-            if isinstance(origin, Country):
-                self.origin = origin
-            else:
-                self.origin = Country.query.filter_by(id_3char=origin).first_or_404()
-
-        if self.dest != "show" and self.dest != "all":
-            if isinstance(dest, Country):
-                self.dest = dest
-            else:
-                self.dest = Country.query.filter_by(id_3char=dest).first_or_404()
-
-        if self.product != "show" and self.product != "all":
-            tbl = globals()[classification.capitalize()]
-            if isinstance(product, (Sitc, Hs92, Hs96, Hs02, Hs07)):
-                self.product = product
-            else:
-                self.product = tbl.query.filter(getattr(tbl, classification)==product).first()
-
-        if classification:
-            self.classification = classification
-
-    '''Returns the URL for the specific build.'''
-    def url(self, year=None):
-        year = year or self.year
-        if not year:
-            year = available_years[self.classification][-1]
-        if "." in str(year) and self.app.type != "stacked":
-            year = year.split(".")[1]
-        if "." not in str(year) and self.app.type == "stacked":
-            year = "{0}.{1}".format(available_years[self.classification][0], available_years[self.classification][-1])
-        origin, dest, product = [self.origin, self.dest, self.product]
-        if isinstance(origin, Country):
-            origin = origin.id_3char
-        if isinstance(dest, Country):
-            dest = dest.id_3char
-        if isinstance(product, (Hs92, Hs96, Hs02, Hs07)):
-            product = getattr(product, self.classification)
-        if isinstance(product, Sitc):
-            product = product.sitc
-        url = '{0}/{1}/{2}/{3}/{4}/{5}/{6}/'.format(self.app.type,
-                self.classification, self.trade_flow, origin, dest,
-                product, year)
-        return url
-
-    '''Returns the data URL for the specific build.'''
-    def data_url(self, year=None, output_depth=6):
-        year = year or self.year
-        if not year:
-            year = available_years[self.classification][-1]
-        origin, dest, product = [self.origin, self.dest, self.product]
-        xtra_args = ""
-
-        if (isinstance(product, (Sitc, Hs92, Hs96, Hs02, Hs07)) and dest == "all" and isinstance(origin, Country)):
-            product = "show"
-            xtra_args = "?output_depth={}_id_len.{}".format(self.classification, output_depth)
-        elif isinstance(product, (Sitc, Hs92, Hs96, Hs02, Hs07)):
-            xtra_args = "?output_depth={}_id_len.{}".format(self.classification, len(product.id))
-            product = getattr(product, self.classification)
-        if isinstance(origin, Country):
-            origin = origin.id_3char
-            xtra_args = "?output_depth={}_id_len.{}".format(self.classification, output_depth)
-        if isinstance(dest, Country):
-            dest = dest.id_3char
-        url = '/{}/{}/{}/{}/{}/{}/{}'.format(self.classification,
-                self.trade_flow, year, origin, dest, product, xtra_args)
-        return url
-
-    def attr_type(self):
-        if self.origin == "show":
-            return "origin"
-        if self.dest == "show":
-            return "dest"
-        return self.classification
-
-    def attr_url(self):
-        lang = getattr(g, "locale", "en")
-        if self.origin == "show" or self.dest == "show":
-            return url_for('attr.attrs', attr='country', lang=lang)
-        # if self.classification == "sitc":
-        #     return url_for('attr.attrs', attr='sitc', lang=lang)
-        # return url_for('attr.attrs', attr='hs92', lang=lang)
-        return url_for('attr.attrs', attr=self.classification, lang=lang)
-
-    def get_tbl(self):
-        models = getattr(db_data, "{}_models".format(self.classification))
-        # models = getattr(db_data, "{}_models".format("hs92"))
-
-        if isinstance(self.origin, Country) and isinstance(self.dest, Country):
-            return getattr(models, "Yodp")
-        if isinstance(self.origin, Country) and isinstance(self.product, (Sitc, Hs92, Hs96, Hs02, Hs07)):
-            return getattr(models, "Yodp")
-        if isinstance(self.origin, Country) and self.product == "show":
-            return getattr(models, "Yop")
-        if isinstance(self.origin, Country) and self.dest == "show":
-            return getattr(models, "Yod")
-        if isinstance(self.product, (Hs92, Hs96, Hs02, Hs07)) and self.origin == "show":
-            return getattr(models, "Yop")
+                return "{}.{}.{}".format(year[0], year[-1], interval)
+    
+    def get_build_id(self, viz, origin, dest, prod):
+        '''build showing products given an origin'''
+        if viz == "network":
+            return 5
+        if origin == "show" and dest == "all" and prod == "all":
+            return 7
+        if dest == "all" and prod == "show":
+            return 0
+        if dest == "show" and prod == "all":
+            return 1
+        if origin == "show":
+            return 2
+        if prod == "show":
+            return 3
+        if dest == "show":
+            return 4
+        if dest == "all":
+            return 6
+    
+    def url(self):
+        return "{viz}/{classification}/{trade_flow}/{origin}/{dest}/{prod}/{year}/".format(
+            viz = self.viz["slug"],
+            classification = self.classification,
+            trade_flow = self.trade_flow,
+            origin = getattr(self.origin, "id_3char", self.origin),
+            dest = getattr(self.dest, "id_3char", self.dest),
+            prod = getattr(self.prod, self.classification, self.prod),
+            year = self.year_str,
+        )
+    
+    def title(self):
+        title = build_metadata[self.id][self.trade_flow]["title"]
         
-        return Yo
-
-    def top_stats(self, entities=5, output_depth=8):
-
-        tbl = self.get_tbl()
-        query = tbl.query
-
-        if self.trade_flow == "export":
-            query = query.order_by(tbl.export_val.desc()).filter(tbl.export_val != None)
-            sum_query = db.session.query(db.func.sum(tbl.export_val))
-        elif self.trade_flow == "import":
-            query = query.order_by(tbl.import_val.desc()).filter(tbl.import_val != None)
-            sum_query = db.session.query(db.func.sum(tbl.import_val))
-        elif self.trade_flow == "net_export":
-            query = db.session \
-                        .query(tbl, tbl.export_val - tbl.import_val) \
-                        .filter((tbl.export_val - tbl.import_val) > 0) \
-                        .order_by(desc(tbl.export_val - tbl.import_val))
-            sum_query = db.session.query(db.func.sum(tbl.export_val - tbl.import_val)).filter((tbl.export_val - tbl.import_val) > 0)
-        elif self.trade_flow == "net_import":
-            query = db.session \
-                        .query(tbl, tbl.import_val - tbl.export_val) \
-                        .filter((tbl.import_val - tbl.export_val) > 0) \
-                        .order_by(desc(tbl.import_val - tbl.export_val))
-            sum_query = db.session.query(db.func.sum(tbl.import_val - tbl.export_val)).filter((tbl.import_val - tbl.export_val) > 0)
-        else:
-            return {"total":0, "entries":[], "header":[]}
-        
-        if output_depth and getattr(tbl, "{}_id_len".format(self.classification), None):
-            query = query.filter(getattr(tbl, "{}_id_len".format(self.classification)) == output_depth)
-
-        year = self.year
-        if "." in str(year):
-            year = str(year).split(".")[1]
-
-        sum_query = sum_query.filter_by(year=year)
-        query = query.filter_by(year=year)
-
+        origin, dest, prod = None, None, None
         if isinstance(self.origin, Country):
-            query = query.filter_by(origin_id=self.origin.id)
-            sum_query = sum_query.filter_by(origin_id=self.origin.id)
+            origin=self.origin.get_name()
         if isinstance(self.dest, Country):
-            query = query.filter_by(dest_id=self.dest.id)
-            sum_query = sum_query.filter_by(dest_id=self.dest.id)
-        if isinstance(self.product, Sitc) and self.app.type != "rings":
-            query = query.filter_by(sitc_id=self.product.id)
-            sum_query = sum_query.filter_by(sitc_id=self.product.id)
-        if isinstance(self.product, (Hs92, Hs96, Hs02, Hs07)) and self.app.type != "rings":
-            query = query.filter(getattr(tbl, "{}_id".format(self.classification))==self.product.id)
-            sum_query = sum_query.filter(getattr(tbl, "{}_id".format(self.classification))==self.product.id)
-
-        sum = sum_query.first()[0]
-
-        show_attr = {self.origin:"origin", self.dest:"dest", self.product:"product"}
-
-        if show_attr.get("show", "product") == "origin":
-            attr_name = _("Origin Country")
-            attr_id_name = _("ID")
-        elif show_attr.get("show", "product") == "dest":
-            attr_name = _("Destination Country")
-            attr_id_name = _("ID")
-        elif show_attr.get("show", "product") == "product":
-            attr_name = _("Product Name")
-            attr_id_name = "SITC" if self.classification == "sitc" else "HS"
-
-        header = ["Rank", attr_id_name, attr_name, self.trade_flow.title()+" Value", "Share"]
-
-        stats = []
-        for s in query.limit(entities).all():
-            if self.trade_flow == "export":
-                val = s.export_val
-                attr = getattr(s, show_attr.get("show", "product"))
-            if self.trade_flow == "import":
-                val = s.import_val
-                attr = getattr(s, show_attr.get("show", "product"))
-            if self.trade_flow == "net_export":
-                attr = getattr(s[0], show_attr.get("show", "product"))
-                val = s[1]
-            if self.trade_flow == "net_import":
-                attr = getattr(s[0], show_attr.get("show", "product"))
-                val = s[1]
-            stat = {
-                "attr": attr,
-                "value": val,
-                "share": 0
-            }
-            if(sum):
-                stat["share"] = (val / sum) * 100
-            stats.append(stat)
-        # raise Exception({"total":sum, "entries":stats, "header":header})
-
-        return {"total":sum, "entries":stats, "header":header}
-
-    def get_ui(self):
-        ui = []
-        lang = getattr(g, "locale", "en")
-
+            dest=self.dest.get_name()
+        if isinstance(self.prod, (Hs92, Hs96, Hs02, Hs07, Sitc)):
+            prod=self.prod.get_name()
+        
+        return title.format(origin=origin, dest=dest, prod=prod)
+    
+    def question(self):
+        question = build_metadata[self.id][self.trade_flow]["question"]
+        
+        origin, dest, prod = None, None, None
         if isinstance(self.origin, Country):
-            country = {
-                "id": "origin",
-                "name": _("Origin"),
-                "current": self.origin.serialize(),
-                "url": url_for('attr.attrs', attr='country', lang=lang)
-                # "data": country_list
-            }
-            ui.append(country)
-
+            origin=self.origin.get_name()
         if isinstance(self.dest, Country):
-            country = {
-                "id": "destination",
-                "name": _("Destination"),
-                "current": self.dest.serialize(),
-                # "data": country_list,
-                "url": url_for('attr.attrs', attr='country', lang=lang)
-            }
-            ui.append(country)
-
-        if isinstance(self.product, (Sitc, Hs92, Hs96, Hs02, Hs07)):
-            product = {
-                "id": "product",
-                "name": _("Product"),
-                "current": self.product.serialize(),
-                # "data": product_list,
-                "url": url_for('attr.attrs', attr=self.classification, lang=lang)
-            }
-            ui.append(product)
-
-        trade_flow = {
-            "id": "trade_flow",
-            "name": _("Trade Flow"),
-            "current": self.trade_flow,
-            "data": [
-                {"name":_("Export"), "display_id":"export"},
-                {"name":_("Import"), "display_id":"import"}
-                # {"name":_("Net Export"), "display_id":"net_export"},
-                # {"name":_("Net Import"), "display_id":"net_import"}
-            ]
-        }
+            dest=self.dest.get_name()
+        if isinstance(self.prod, (Hs92, Hs96, Hs02, Hs07, Sitc)):
+            prod=self.prod.get_name()
         
-        if self.app == App.query.filter_by(type="compare").first():
-            trade_flow = {
-                "id": "trade_flow",
-                "name": _("Y Axis"),
-                "current": self.trade_flow,
-                "data": [
-                    {"name":_("GDP"), "display_id":"gdp"},
-                    {"name":_("GDPpc (constant '05 US$)"), "display_id":"gdp_pc_constant"},
-                    {"name":_("GDPpc (current US$)"), "display_id":"gdp_pc_current"},
-                    {"name":_("GDPpc PPP (constant '11)"), "display_id":"gdp_pc_constant_ppp"},
-                    {"name":_("GDPpc PPP (current)"), "display_id":"gdp_pc_current_ppp"}
-                ]
-            }
+        return question.format(origin=origin, dest=dest, prod=prod)
+    
+    def short_name(self):
+        return build_metadata[self.id][self.trade_flow]["short_name"]
+    
+    def category(self):
+        return build_metadata[self.id][self.trade_flow]["category"]
+    
+    def __repr__(self):
+        return "<Build: {}:{}:{}:{}:{}>".format(self.viz["slug"], self.trade_flow, self.origin, self.dest, self.prod)
+
+def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults):
+    origin_id = defaults["origin"] if any(x in origin_id for x in ["show", "all"]) else origin_id
+    dest_id = defaults["dest"] if any(x in dest_id for x in ["show", "all"]) else dest_id
+    prod_id = defaults["prod"] if any(x in prod_id for x in ["show", "all"]) else prod_id
+    
+    build_types = [
+        {"origin": origin_id, "dest": "all", "prod": "show"},
+        {"origin": origin_id, "dest": "show", "prod": "all"},
+        {"origin": "show", "dest": "all", "prod": prod_id},
+        {"origin": origin_id, "dest": dest_id, "prod": "show"},
+        {"origin": origin_id, "dest": "show", "prod": prod_id},
+    ]
+    
+    all_builds = []
+    for v in all_viz:
         
-        classification = {
-            "id": "classification",
-            "name": _("Classification"),
-            "current": self.classification,
-            "data": ["HS92", "HS96", "HS02", "HS07", "SITC"]
-        }
-        ui.append(trade_flow)
-
-        if "." in self.year:
-            year_parts = [int(y) for y in self.year.split(".")]
-            if len(year_parts) == 2:
-                years = range(year_parts[0], year_parts[1]+1)
-            else:
-                years = range(year_parts[0], year_parts[1]+1, year_parts[2])
-            start_year = {
-                "id": "start_year",
-                "name": _("Start Year"),
-                "current": years[0],
-                "data": available_years[self.classification][::-1]
-            }
-            end_year = {
-                "id": "end_year",
-                "name": _("End Year"),
-                "current": years[-1],
-                "data": available_years[self.classification][::-1]
-            }
-            ui = ui + [start_year, end_year]
-        else:
-            year = {
-                "id": "year",
-                "name": _("Year"),
-                "current": int(self.year),
-                "data": available_years[self.classification][::-1]
-            }
-            ui.append(year)
-
-        ui.append(classification)
-
-        return ui
-
-    def __repr__(self):
-        return '<Build %d:%s>' % (self.name_id, self.app.type)
-
-class Short(db.Model):
-
-    __tablename__ = 'explore_short'
-
-    slug = db.Column(db.String(30), unique=True, primary_key=True)
-    long_url = db.Column(db.String(255), unique=True)
-    created = db.Column(db.DateTime, default=datetime.now)
-    clicks = db.Column(db.Integer, default=0)
-    last_accessed = db.Column(db.DateTime)
-
-    @staticmethod
-    def make_unique_slug(long_url):
-
-        # Helper to generate random URL string
-        # Thx EJF: https://github.com/ericjohnf/urlshort
-        def id_generator(size=6, chars=string.ascii_lowercase + string.digits):
-            return ''.join(random.choice(chars) for x in range(size))
-
-        # test if it already exists
-        short = Short.query.filter_by(long_url = long_url).first()
-        if short:
-            return short.slug
-        else:
-            while True:
-                new_slug = id_generator()
-                if Short.query.filter_by(slug = new_slug).first() == None:
-                    break
-            return new_slug
-
-    def __repr__(self):
-        return "<ShortURL: '%s'>" % self.long_url
+        if any(x in v["slug"] for x in ["tree_map", "stacked"]):
+            '''tree_map/stacked has all permutations of builds'''
+            
+            for tf in ["export", "import"]:
+                for b in build_types:
+                    build = BuildNew(
+                        viz = v["slug"], 
+                        classification = classification, 
+                        trade_flow = tf,
+                        origin = b["origin"],
+                        dest = b["dest"],
+                        prod = b["prod"],
+                        year = year)
+                    all_builds.append(build)
+        
+        elif v["slug"] == "network":
+            '''network aka product space only has 1 build'''
+            
+            build = BuildNew(
+                viz = v["slug"], 
+                classification = classification, 
+                trade_flow = "export",
+                origin = origin_id,
+                dest = "all",
+                prod = "show",
+                year = year)
+            all_builds.append(build)
+        
+        elif v["slug"] == "rings":
+            '''rings only has 1 build'''
+            
+            build = BuildNew(
+                viz = v["slug"], 
+                classification = classification, 
+                trade_flow = "export",
+                origin = origin_id,
+                dest = "all",
+                prod = prod_id,
+                year = year)
+            all_builds.append(build)
+        
+        elif v["slug"] == "scatter":
+            '''scatter has builds using GDP'''
+            
+            for gdp_type in ["gdp", "gdp_pc_constant", "gdp_pc_current", "gdp_pc_constant_ppp", "gdp_pc_current_ppp"]:
+                build = BuildNew(
+                    viz = v["slug"], 
+                    classification = classification, 
+                    trade_flow = gdp_type,
+                    origin = "show",
+                    dest = "all",
+                    prod = "all",
+                    year = year)
+                all_builds.append(build)
+        
+        elif v["slug"] == "geo_map":
+            '''geo map has builds for exporters/importers of a product'''
+            
+            for tf in ["export", "import"]:
+                build = BuildNew(
+                    viz = v["slug"], 
+                    classification = classification, 
+                    trade_flow = tf,
+                    origin = "show",
+                    dest = "all",
+                    prod = prod_id,
+                    year = year)
+                all_builds.append(build)
+            
+    
+    return all_builds

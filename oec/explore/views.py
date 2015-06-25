@@ -1,5 +1,6 @@
 import os, time, urllib, urllib2, json
 
+from werkzeug.routing import ValidationError
 from flask import Blueprint, render_template, g, request, session, redirect, \
                     url_for, flash, jsonify, Response, abort
 from flask.ext.babel import gettext
@@ -7,7 +8,6 @@ from flask.ext.babel import gettext
 from oec import app, db, babel, view_cache, random_countries, available_years, oec_dir
 from oec.utils import make_query, make_cache_key, compile_query
 from oec.db_attr.models import Country, Sitc, Hs92, Hs96, Hs02, Hs07
-from oec.explore.models import Build, App, Short
 # from oec.db_hs import models as hs_tbls
 # from oec.db_sitc import models as sitc_tbls
 from oec import db_data, db_attr
@@ -158,85 +158,6 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
 
     return (origin, dest, product)
 
-
-@mod.route('/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year>/')
-# @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
-def explore(app_name, classification, trade_flow, origin_id, dest_id, \
-                prod_id, year=None):
-    g.page_type = mod.name
-    year = year or available_years[self.classification][-1]
-
-    '''Make sure year is within bounds, if not redirect'''
-    start_year = year.split(".")[0] if "." in year else year
-    end_year = year.split(".")[1] if "." in year else year
-    new_start_year, new_end_year = start_year, end_year
-    if int(start_year) < available_years[classification][0]:
-        new_start_year = str(available_years[classification][0])
-        new_year = new_start_year
-    if int(end_year) > available_years[classification][-1]:
-        new_end_year = str(available_years[classification][-1])
-        new_year = new_end_year
-    if new_start_year != start_year or new_end_year != end_year:
-        new_year = ".".join([new_start_year, new_end_year]) if "." in year else new_year
-        return redirect(url_for('.explore', lang=g.locale, app_name=app_name, \
-                        classification=classification, trade_flow=trade_flow, \
-                        origin_id=origin_id, dest_id=dest_id, prod_id=prod_id, \
-                        year=new_year))
-    
-    redir = sanitize(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
-
-    '''Every possible build for accordion links'''
-    all_builds = Build.query.all()
-    # raise Exception(all_builds)
-    origin, dest, prod = get_origin_dest_prod(origin_id, dest_id, prod_id, \
-                                            classification, year, trade_flow)
-    
-    current_app = App.query.filter_by(type=app_name).first_or_404()
-    build_filters = {"origin":origin_id,"dest":dest_id,"product":prod_id}
-    for bf_name, bf in build_filters.items():
-        if bf != "show" and bf != "all":
-            build_filters[bf_name] = "<" + bf_name + ">"
-    
-    current_build = Build.query.filter_by(app=current_app, trade_flow=trade_flow,
-                        origin=build_filters["origin"], dest=build_filters["dest"],
-                        product=build_filters["product"]).first_or_404()
-    current_build.set_options(origin=origin, dest=dest, product=prod,
-                                classification=classification, year=year)
-
-    for i, build in enumerate(all_builds):
-        build.set_options(origin=origin, dest=dest, product=prod, classification=classification, year=year)
-
-    kwargs = {"trade_flow":trade_flow, "origin_id":origin, "dest_id":dest, "year":year}
-    if classification == "sitc":
-        kwargs["sitc_id"] = prod
-    else:
-        kwargs["hs_id"] = prod
-    
-    if redir:
-        flash(redir[0])
-        return redirect(redir[1])
-    
-    return render_template("explore/index.html",
-        current_build = current_build,
-        all_builds = all_builds)
-
-@mod.route('/<app_name>/<trade_flow>/<origin>/<dest>/<product>/')
-@mod.route('/<app_name>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
-def explore_legacy(app_name, trade_flow, origin, dest, product, year=available_years['hs92'][-1]):
-    if not year.isdigit():
-        abort(404)
-    c = 'sitc' if int(year) < 1995 else 'hs'
-    if product != "show" and product != "all":
-        prod = Hs.query.filter_by(hs=product).first()
-        c = 'hs'
-        if not prod:
-            c = 'sitc'
-            prod = Sitc.query.filter_by(sitc=product).first()
-        product = prod.id
-    return redirect(url_for('.explore', lang=g.locale, app_name=app_name, \
-                classification=c, trade_flow=trade_flow, origin=origin, \
-                dest=dest, product=product, year=year))
-
 @mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/')
 @mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year>/')
 def embed(app_name, classification, trade_flow, origin_id, dest_id, \
@@ -333,3 +254,83 @@ def download():
     return Response(response_data,
                         mimetype=mimetype,
                         headers={"Content-Disposition": content_disposition})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from werkzeug.routing import BaseConverter
+
+class YearConverter(BaseConverter):
+    
+    all_years = [item for sublist in available_years.values() for item in sublist]
+    min_year = min(all_years)
+    max_year = max(all_years)
+
+    def to_python(self, value):
+        
+        '''force int conversion'''
+        try:
+            years = [int(y) for y in value.split('.')]
+        except ValueError:
+            raise ValidationError()
+        
+        '''treat as range'''
+        if len(years) == 2:
+            years = range(years[0], years[1]+1)
+        elif len(years) > 2:
+            years = range(years[0], years[1]+1, years[2])
+        
+        '''clamp years based on min/max available years for all classifications'''
+        try:
+            clamped_min = years.index(self.min_year)
+        except ValueError:
+            clamped_min = 0
+        try:
+            clamped_max = years.index(self.max_year)
+        except ValueError:
+            clamped_max = len(years)-1
+        
+        return years
+
+    def to_url(self, values):
+        return '.'.join(BaseConverter.to_url(value)
+                        for value in values)
+
+app.url_map.converters['year'] = YearConverter
+
+from oec.explore.models import Build, get_all_builds
+
+@mod.route('/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year:year>/')
+# @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
+def explore_new(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year=None):
+    
+    '''sanitize input args'''
+    redir = sanitize(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
+
+    '''get every possible build for sub nav'''
+    origin, dest, prod = get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trade_flow)
+    all_builds = get_all_builds(classification, origin_id, dest_id, prod_id, year, {"origin":origin, "dest":dest, "prod":prod})
+    
+    '''get this build'''
+    build = BuildNew(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
+    raise Exception(build.id, build.get_title())
+    
+    if redir:
+        flash(redir[0])
+        return redirect(redir[1])
+    
+    return render_template("explore/index.html",
+        current_build = build,
+        all_builds = all_builds)

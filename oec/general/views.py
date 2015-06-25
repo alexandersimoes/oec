@@ -15,7 +15,6 @@ import oec
 from oec.db_attr.models import Country, Country_name, Sitc, Sitc_name
 from oec.db_attr.models import Hs92, Hs92_name, Hs96, Hs96_name
 from oec.db_attr.models import Hs02, Hs02_name, Hs07, Hs07_name
-from oec.explore.models import App, Build, Short
 
 import time, urllib2, json, itertools
 from dateutil import parser
