@@ -1,0 +1,271 @@
+<!-- extend from base layout -->
+{% extends "templates/base_new.html" %}
+
+{% block content %}
+
+<nav>
+
+  <content>
+    <a id="logo" href="{{ url_for('general.home', lang=g.locale) }}">
+      <img src="/static/img/nav/oec.png">
+    </a>
+
+    <div id="search">
+      <i class="fa fa-search"></i>{{ _('Search') }}
+    </div>
+
+    <ul>
+
+      <li class="explore">
+        {{ _('Explore') }}
+      </li>
+      <div class="accordion explore">
+        <ul>
+          <li class="tree_map">
+            <a href="{{ url_for('explore.explore_redirect', lang=g.locale) }}">{{ _('Tree Map') }}</a>
+          </li>
+        </ul>
+      </div>
+      <li class="profile">
+        {{ _('Profiles') }}
+      </li>
+      <div class="accordion profile">
+        <ul>
+          <li class="country">
+            <a href="{{ url_for('profile.profile_country_redirect', lang=g.locale) }}">{{ _('Country') }}</a>
+          </li>
+          <li class="hs92">
+            <a href="{{ url_for('profile.profile_product_redirect', lang=g.locale, attr_type='hs92') }}">{{ _('Product') }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <li class="rankings">
+        {{ _('Rankings') }}
+      </li>
+      <div class="accordion rankings">
+        <ul>
+          <li class="country">
+            <a href="{{ url_for('profile.profile_country_redirect', lang=g.locale) }}">{{ _('Country') }}</a>
+          </li>
+          <li class="hs92">
+            <a href="{{ url_for('profile.profile_product_redirect', lang=g.locale, attr_type='hs92') }}">{{ _('Product') }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <li class="publications">
+        {{ _('Publications') }}
+      </li>
+      <div class="accordion publications">
+        <ul>
+          <li class="atlas">
+            <a href="">{{ _('The Atlas') }}</a>
+          </li>
+          <li class="information">
+            <a href="">{{ _('Why Information Grows') }}</a>
+          </li>
+          <li class="research">
+            <a href="">{{ _('Research Papers') }}</a>
+          </li>
+        </ul>
+      </div>
+
+    </ul>
+
+    <div id="nav_footer">
+
+      <a id="mc" href="http://macroconnections.media.mit.edu/" target="_blank">
+        <img src="/static/img/nav/mc.png" width=148 height=60>
+      </a>
+
+      <a class="about" href="{{ url_for('general.about') }}">{{ _('About the Page') }}</a> – <a class="data" href="{{ url_for('general.about') }}">{{ _('Data Sources') }}</a>
+
+    </div>
+
+  </content>
+
+</nav>
+
+<a id="hamburger">
+  <i class="fa fa-bars"></i>
+</a>
+
+<div id="mask"></div>
+
+<div id="container">
+
+  <div id="content">
+    {% block body %}
+    {% endblock %}
+  </div>
+
+  <footer>
+    <div>
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
+      The Observatory of Economic Complexity by <a xmlns:cc="http://creativecommons.org/ns#" href="http://alexandersimoes.com/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
+      <ul class="lang">
+        {% for lang_id, lang_name in g.supported_langs.iteritems() %}
+        <li><a href="{{ request.path|langify(lang_id) }}">{{ lang_name }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </footer>
+
+</div>
+
+<script src="/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
+<script src="/static/js/libs/typeahead.min.js"></script>
+<script>
+
+  // var page = "{{ g.page_type }}", sub_page = "{{ g.page_sub_type }}";
+  var page = "profile", sub_page = "country";
+
+  if (!color) var color = "#0085BF";
+
+  // Sets the logo color.
+  d3.select("#logo").style("background-color", color);
+
+  // Sets the H2 colors
+  d3.selectAll("h2").style("color", color);
+
+  // Sets the search box background color.
+  var rgb = d3.rgb(color);
+  d3.select("#search").style("background-color", "rgba("+rgb.r+", "+rgb.g+", "+rgb.b+", 0.05)");
+
+  // Closes all sub-menus and stores their individual heights.
+  d3.selectAll("nav > content > ul ul").each(function(){
+    var h = this.offsetHeight;
+    d3.select(this).attr("data-height", h).style("margin-top", -h+"px");
+  })
+
+  // Opens the current accordion and styles the current page link.
+  d3.select(".accordion."+page+" ul")
+    .style("margin-top", "0px")
+    .select("li."+sub_page).select("a")
+      .style("color", color)
+      .style("font-weight", 600);
+
+  // Click event for each accordion menu.
+  d3.selectAll("nav > content > ul > li").on("click", function(){
+    var sub = d3.select(".accordion."+this.className+" ul"),
+        h = sub.attr("data-height"),
+        t = sub.style("margin-top") === "0px" ? "-"+h : 0;
+    sub.transition().duration(parseFloat(h)*2).ease("linear").style("margin-top", t+"px");
+  });
+
+  // Styles the header, if present.
+  var header = d3.select("header"), img, canvas;
+  if (!header.empty()) {
+    header.attr("data-height", header.node().offsetHeight);
+    var icon = header.select("#icon");
+    if (!icon.empty()) {
+      icon.attr("data-height", icon.node().offsetWidth)
+    }
+    var img = header.select("#header");
+    if (!img.empty()) {
+      canvas = Caman("#header", function() {
+        this.greyscale();
+        this.contrast(-20);
+        this.brightness(-20);
+        this.newLayer(function() {
+          this.setBlendingMode("overlay");
+          this.fillColor(color);
+        })
+        this.render(resizeCanvas);
+      });
+    }
+  }
+
+  // Hamburger menu logic.
+  d3.selectAll("#hamburger, #mask").on("click", function(){
+    var open = d3.select("nav").classed("open");
+    d3.select("nav").classed("open", !open);
+    d3.select("#mask").classed("open", !open);
+    d3.select("body").classed("open", !open);
+  });
+
+  // Logic for resizing the header, if present.
+  function resizeHeader() {
+
+    if (!header.empty()) {
+
+      var originalHeight = parseFloat(header.attr("data-height")),
+          min = 40,
+          scrollHeight = originalHeight - window.scrollY,
+          newHeight = d3.max([scrollHeight, min]);
+
+      header
+        .style("height", newHeight+"px")
+        .style(d3plus.client.prefix()+"box-shadow", scrollHeight <= min ? "0 2px 2px rgba(0,0,0,0.5)" : "none");
+
+      var icon = header.select("#icon");
+      if (!icon.empty()) {
+        var iconSize = parseFloat(icon.attr("data-height")),
+            small = window.innerWidth <= 768,
+            iconScale = d3.scale.linear()
+              .domain([min, originalHeight])
+              .range([min * 0.75, iconSize]);
+        var iconSize = iconScale(newHeight);
+        var iconMargin = d3.scale.linear()
+              .domain([min, originalHeight])
+              .range([-iconSize, 0]),
+            iconOpacity = d3.scale.linear()
+              .domain([min, originalHeight])
+              .range([0, 1]);
+        icon
+          .style("width", iconSize+"px")
+          .style("height", iconSize+"px")
+          .style("margin-top", small ? d3.min([0, iconMargin(newHeight)])+"px" : "0px")
+          .style("opacity", small ? iconOpacity(newHeight) : 1)
+      }
+
+      var title = header.select("h1");
+      if (!title.empty()) {
+        var fontSize = window.innerWidth <= 768 ? 35 : 50,
+            fontScale = d3.scale.linear()
+              .domain([min, originalHeight])
+              .range([20, fontSize]);
+        title.style("font-size", fontScale(newHeight)+"px")
+      }
+
+    }
+
+  }
+
+  // Logic for resizing the header canvas image, if present.
+  function resizeCanvas() {
+
+    if (canvas) {
+      var w = header.node().offsetWidth, h = parseFloat(header.attr("data-height")), r = w/h;
+      var iw = canvas.preScaledWidth, ih = canvas.preScaledHeight, ir = iw/ih;
+      if (r > ir) {
+        var cw = w, ch = w/ir;
+      }
+      else {
+        var ch = h, cw = h*r;
+      }
+      Caman(canvas.canvas, function(){
+        this.resize({width: cw, height: ch});
+        this.render();
+      })
+      d3.select(canvas.canvas)
+        .style("margin-left", -cw/2+"px")
+        .style("margin-top", -ch/2+"px");
+    }
+
+    resizeHeader();
+
+  }
+
+  window.onresize = function(){
+    resizeCanvas();
+  }
+
+  document.onscroll = function(){
+    resizeHeader();
+  };
+
+</script>
+
+{% endblock %}

@@ -31,6 +31,11 @@ def get_profile_owner(endpoint, values):
     lang = values.pop('lang')
     g.locale = get_locale(lang)
 
+@mod.route("/material/")
+def material_design():
+    attr = getattr(attr_models, "Country").query.get("euita")
+    return render_template("profile/index.html")
+
 @mod.route('/country/')
 def profile_country_redirect():
     '''fetch random country'''
