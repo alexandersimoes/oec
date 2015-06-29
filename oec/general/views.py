@@ -15,6 +15,7 @@ import oec
 from oec.db_attr.models import Country, Country_name, Sitc, Sitc_name
 from oec.db_attr.models import Hs92, Hs92_name, Hs96, Hs96_name
 from oec.db_attr.models import Hs02, Hs02_name, Hs07, Hs07_name
+from oec.explore.models import Build
 
 import time, urllib2, json, itertools
 from dateutil import parser
@@ -320,9 +321,8 @@ def home(lang=None):
 
     '''get ramdom country'''
     c = Country.query.get(choice(random_countries))
-    current_app = App.query.filter_by(type="tree_map").first_or_404()
-    default_build = Build.query.filter_by(app=current_app, name_id=1).first_or_404()
-    default_build.set_options(origin=c, dest="all", product="show", classification="hs")
+    # exports tree map
+    default_build = Build("tree_map", "hs92", "export", c, "all", "show")
     
     return render_template("home.html", default_build=default_build)
 
