@@ -1,7 +1,9 @@
-import sys
+import sys, math
 from re import sub
 from jinja2 import Markup
+from babel.numbers import format_decimal
 from flask import abort, current_app, jsonify, request, g, get_flashed_messages, url_for
+from flask.ext.babel import gettext, pgettext
 from datetime import datetime, date, timedelta
 from math import ceil
 from decimal import *
@@ -198,3 +200,65 @@ def make_cache_key(*args, **kwargs):
         cache_key += "/"+msgs
     
     return cache_key
+
+def num_format(number, key = None, labels = True):
+
+    if key == "ordinal":
+
+        ordinals = (pgettext('0', 'th'),
+                    pgettext('1', 'st'),
+                    pgettext('2', 'nd'),
+                    pgettext('3', 'rd'),
+                    pgettext('4', 'th'),
+                    pgettext('5', 'th'),
+                    pgettext('6', 'th'),
+                    pgettext('7', 'th'),
+                    pgettext('8', 'th'),
+                    pgettext('9', 'th'))
+
+        n = int(number)
+        if n % 100 in (11, 12, 13):
+            return "{0}{1}".format(n, ordinals[0])
+        return "{0}{1}".format(n, ordinals[n % 10])
+
+    # Converts the number to a float.
+    n = float(number)
+    label  = None
+    suffix = None
+
+    # Determines which index of "groups" to move the decimal point to.
+    if n:
+
+        groups = ["", "k", "M", "B", "T"]
+        m = max(0,min(len(groups)-1, int(math.floor(math.log10(abs(n))/3))))
+
+        # Moves the decimal point and rounds the new number to specific decimals.
+        n = n/10**(3*m)
+        if n > 99:
+            n = int(n)
+        elif n > 9:
+            n = round(n, 1)
+        elif n > 1:
+            n = round(n, 2)
+        else:
+            n = round(n, 3)
+
+        # Initializes the number suffix based on the group.
+        suffix = groups[m]
+
+    n = format_decimal(n, locale=g.locale)
+
+    # If the language is not English, translate the suffix.
+    if suffix:
+        if g.locale != "en":
+            suffix = u" {0}".format(plurals(key=suffix, n=n))
+        n = u"{0} {1}".format(n,suffix)
+
+    if key and labels:
+        affix = affixes(key)
+        if affix:
+            return u"{0}{1}{2}".format(unicode(affix[0]), n, unicode(affix[1]))
+        elif "growth" in key:
+            return "{0}%".format(n)
+
+    return n

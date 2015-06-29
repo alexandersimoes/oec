@@ -1,4 +1,6 @@
+import ast
 from flask import g
+from sqlalchemy import func
 from oec import db, available_years
 from oec.utils import AutoSerialize, exist_or_404
 from oec.db_attr.abstract_models import ProdAttr, ProdNameAttr
@@ -13,6 +15,8 @@ class Country(db.Model, AutoSerialize):
     id_num = db.Column(db.String(20))
     color = db.Column(db.String(7))
     comtrade_name = db.Column(db.String(255))
+    borders_land = db.Column(db.String(255))
+    borders_maritime = db.Column(db.String(255))
 
     name = db.relationship("Country_name", backref="country", lazy="dynamic")
 
@@ -61,6 +65,14 @@ class Country(db.Model, AutoSerialize):
     # sitc_yod_origin = db.relationship("db_sitc.models.Yod", primaryjoin = ('db_sitc.models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     # sitc_yop_origin = db.relationship("db_sitc.models.Yop", primaryjoin = ('db_sitc.models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
 
+    def next(self):
+        c = self.__class__
+        return self.query.filter(c.id > self.id).filter(func.char_length(c.id)==len(self.id)).order_by(c.id).first()
+    
+    def prev(self):
+        c = self.__class__
+        return self.query.filter(c.id < self.id).filter(func.char_length(c.id)==len(self.id)).order_by(c.id.desc()).first()
+    
     def get_attr_name(self, lang=None):
         return self.name.filter_by(lang=lang).first()
 
@@ -163,6 +175,16 @@ class Country(db.Model, AutoSerialize):
         except KeyError:
             auto_serialized["display_id"] = None
         return auto_serialized
+    
+    def borders(self, maritime=False):
+        if maritime:
+            if not self.borders_maritime: return None
+            border_countries = ast.literal_eval(self.borders_maritime)
+        else:
+            if not self.borders_land: return None
+            border_countries = ast.literal_eval(self.borders_land)
+        border_countries = self.query.filter(self.__class__.id.in_(border_countries)).all()
+        return border_countries
 
     def __repr__(self):
         return '<Country %s>' % (self.id)

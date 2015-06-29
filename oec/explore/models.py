@@ -160,11 +160,13 @@ class Build(object):
         self.origin = self.get_country(origin)
         self.dest = self.get_country(dest)
         self.prod = self.get_prod(prod, classification)
-        self.year = year
-        self.year_str = self.year_to_str(year)
+        self.year = year if type(year) == list else [year]
+        self.year_str = self.year_to_str(self.year)
         self.id = self.get_build_id(self.viz, origin, dest, prod)
     
     def get_country(self, country_id):
+        if isinstance(country_id, Country):
+            return country_id
         if country_id == "show" or country_id == "all":
             return country_id
         else:
@@ -174,6 +176,8 @@ class Build(object):
             return c
     
     def get_prod(self, prod_id, classification):
+        if isinstance(prod_id, (Hs92, Hs96, Hs02, Hs07, Sitc)):
+            return country_id
         if prod_id == "show" or prod_id == "all":
             return prod_id
         else:
