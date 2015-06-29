@@ -129,6 +129,9 @@
   // Sets the H2 colors
   d3.selectAll("h2").style("color", color);
 
+  // Sets the stat bubble background color.
+  d3.select("#stats").style("background-color", color);
+
   // Sets the search box background color.
   var rgb = d3.rgb(color);
   d3.select("#search").style("background-color", "rgba("+rgb.r+", "+rgb.g+", "+rgb.b+", 0.05)");
@@ -199,7 +202,10 @@
         .style("height", newHeight+"px")
         .style(d3plus.client.prefix()+"box-shadow", scrollHeight <= min ? "0 2px 2px rgba(0,0,0,0.5)" : "none");
 
-      var icon = header.select("#icon");
+      var icon = header.select("#icon"),
+          normalized = d3.scale.linear()
+            .domain([min, originalHeight])
+            .range([0, 1]);
       if (!icon.empty()) {
         var iconSize = parseFloat(icon.attr("data-height")),
             small = window.innerWidth <= 768,
@@ -209,15 +215,12 @@
         var iconSize = iconScale(newHeight);
         var iconMargin = d3.scale.linear()
               .domain([min, originalHeight])
-              .range([-iconSize, 0]),
-            iconOpacity = d3.scale.linear()
-              .domain([min, originalHeight])
-              .range([0, 1]);
+              .range([-iconSize, 0]);
         icon
           .style("width", iconSize+"px")
           .style("height", iconSize+"px")
           .style("margin-top", small ? d3.min([0, iconMargin(newHeight)])+"px" : "0px")
-          .style("opacity", small ? iconOpacity(newHeight) : 1)
+          .style("opacity", small ? normalized(newHeight) : 1)
       }
 
       var title = header.select("h1");
