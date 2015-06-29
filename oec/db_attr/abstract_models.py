@@ -1,12 +1,21 @@
+from flask import g
+from sqlalchemy import func
 from oec import db, available_years
 from oec.utils import AutoSerialize
-from flask import g
 
 class ProdAttr(db.Model, AutoSerialize):
     __abstract__ = True
     id = db.Column(db.String(8), primary_key=True)
     conversion = db.Column(db.String(6))
     color = db.Column(db.String(7))
+    
+    def next(self):
+        c = self.__class__
+        return self.query.filter(c.id > self.id).filter(func.char_length(c.id)==len(self.id)).order_by(c.id).first()
+    
+    def prev(self):
+        c = self.__class__
+        return self.query.filter(c.id < self.id).filter(func.char_length(c.id)==len(self.id)).order_by(c.id.desc()).first()
 
     def get_name(self, lang=None, article=None):
         lang = lang or getattr(g, "locale", "en")
