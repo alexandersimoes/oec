@@ -1,6 +1,5 @@
 import itertools
 from textblob import TextBlob
-from fuzzywuzzy import process
 from sqlalchemy import desc, func
 from flask import g
 from oec.db_attr.models import Country, Country_name, Sitc, Sitc_name, Hs92, Hs92_name
@@ -228,8 +227,6 @@ class Search():
         
         exact = []
         for combo in combos[:4]:
-            # get_default("product", origin, b.trade_flow, classification)
-            # combo = map(lambda c: c.get_display_id() if c is not None else None, combo)
             trade_flow, origin, dest, product = combo
             
             origin = origin or get_default("origin", dest, "export", "hs92", self.year)
