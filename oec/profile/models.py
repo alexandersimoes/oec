@@ -174,13 +174,13 @@ class Country(Profile):
 
         ''' DataViva
         '''
-        dv_prods_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/hs/".format(self.attr.id)
-        dv_munic_origin_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/".format(self.attr.id)
+        dv_munic_dest_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=import_val".format(self.attr.id)
+        dv_munic_origin_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=export_val".format(self.attr.id)
         dv_section = {
             "title": "DataViva",
             "builds": [
-                {"title": "Imports of Brazil from {}".format(self.attr.get_name()), "iframe": dv_prods_iframe, "subtitle": "This treemap shows the shares of products that Brazil imported from {} in {}.".format(self.attr.get_name(), self.year)},
-                {"title": "{} Trade Partners of Brazil".format(self.attr.get_name()), "iframe": dv_munic_origin_iframe, "subtitle": "This treemap shows the municipalities in Brazil that imported products from {}.".format(self.attr.get_name())},
+                {"title": "Brazilian Municipalities that import from {}".format(self.attr.get_name()), "iframe": dv_dest_dest_iframe, "subtitle": "This treemap shows the municipalities in Brazil that imported products from {}.".format(self.attr.get_name())},
+                {"title": "Brazilian Municipalities that export to {}".format(self.attr.get_name()), "iframe": dv_munic_origin_iframe, "subtitle": "This treemap shows the municipalities in Brazil that exported products to {}.".format(self.attr.get_name())},
             ]
         }
 
@@ -195,7 +195,7 @@ class Country(Profile):
         }
 
 
-        return [trade_section, ps_section, dv_section, pantheon_section]
+        return [trade_section, ps_section, dv_section]
 
 class Product(Profile):
     pass
