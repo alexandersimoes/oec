@@ -1,6 +1,7 @@
 import ast
 from flask import g
 from sqlalchemy import func
+from sqlalchemy.ext.hybrid import hybrid_property
 from oec import db, available_years
 from oec.utils import AutoSerialize, exist_or_404
 from oec.db_attr.abstract_models import ProdAttr, ProdNameAttr
@@ -260,22 +261,37 @@ class Hs07(ProdAttr):
 class Hs92_name(db.Model, AutoSerialize, ProdNameAttr):
     __tablename__ = 'attr_hs92_name'
     hs92_id = db.Column(db.String(8), db.ForeignKey(Hs92.id), primary_key=True)
+    
+    @hybrid_property
+    def id(self):
+        return self.hs92_id
 
 class Hs96_name(db.Model, AutoSerialize, ProdNameAttr):
     __tablename__ = 'attr_hs96_name'
     hs96_id = db.Column(db.String(8), db.ForeignKey(Hs96.id), primary_key=True)
+    
+    @hybrid_property
+    def id(self):
+        return self.hs96_id
 
 class Hs02_name(db.Model, AutoSerialize, ProdNameAttr):
     __tablename__ = 'attr_hs02_name'
     hs02_id = db.Column(db.String(8), db.ForeignKey(Hs02.id), primary_key=True)
+    
+    @hybrid_property
+    def id(self):
+        return self.hs02_id
 
 class Hs07_name(db.Model, AutoSerialize, ProdNameAttr):
     __tablename__ = 'attr_hs07_name'
     hs07_id = db.Column(db.String(8), db.ForeignKey(Hs07.id), primary_key=True)
+    
+    @hybrid_property
+    def id(self):
+        return self.hs07_id
 
 class Sitc(ProdAttr):
     __tablename__ = 'attr_sitc'
-
     sitc = db.Column(db.String(6))
 
     name = db.relationship("Sitc_name", backref="sitc", lazy="dynamic")
@@ -287,6 +303,11 @@ class Sitc(ProdAttr):
 class Sitc_name(db.Model, AutoSerialize, ProdNameAttr):
     __tablename__ = 'attr_sitc_name'
     sitc_id = db.Column(db.String(8), db.ForeignKey(Sitc.id), primary_key=True)
+    
+    @hybrid_property
+    def id(self):
+        return self.sitc_id
+    
 
 # class Hs(db.Model, AutoSerialize):
 #

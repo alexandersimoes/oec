@@ -10,6 +10,7 @@ all_viz = [
     {"slug":"scatter", "name":"Scatter", "color":"#333"},
     {"slug":"geo_map", "name":"Geo Map", "color":"#333"}
 ]
+test = 2
 
 ''' Title, question, short name and category specific per build type. See below:
     0. tmap/stacked showing products exported/imported by country
@@ -53,13 +54,13 @@ build_metadata = { \
     2: {
         "export": {
             "title": "Countries that export {prod}",
-            "question": "Which countries export {product}?",
+            "question": "Which countries export {prod}?",
             "short_name": "Exporters",
             "category": "Product"
         },
         "import": {
             "title": "Countries that import {prod}",
-            "question": "Which countries import {product}?",
+            "question": "Which countries import {prod}?",
             "short_name": "Importers",
             "category": "Product"
         }
@@ -262,10 +263,13 @@ class Build(object):
     def __repr__(self):
         return "<Build: {}:{}:{}:{}:{}>".format(self.viz["slug"], self.trade_flow, self.origin, self.dest, self.prod)
 
-def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults):
+def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, viz=None):
     origin_id = defaults["origin"] if any(x in origin_id for x in ["show", "all"]) else origin_id
     dest_id = defaults["dest"] if any(x in dest_id for x in ["show", "all"]) else dest_id
-    prod_id = defaults["prod"] if any(x in prod_id for x in ["show", "all"]) else prod_id
+    try:
+        prod_id = defaults["prod"] if any(x in prod_id for x in ["show", "all"]) else prod_id
+    except:
+        raise Exception(classification, origin_id, dest_id, prod_id, year, defaults, viz)
     
     build_types = [
         {"origin": origin_id, "dest": "all", "prod": "show"},
@@ -275,15 +279,19 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults):
         {"origin": origin_id, "dest": "show", "prod": prod_id},
     ]
     
+    wanted_viz = all_viz
+    if viz:
+        wanted_viz = filter(lambda v: v["slug"]==viz, all_viz)
+    
     all_builds = []
-    for v in all_viz:
+    for v in wanted_viz:
         
         if any(x in v["slug"] for x in ["tree_map", "stacked"]):
             '''tree_map/stacked has all permutations of builds'''
             
             for tf in ["export", "import"]:
                 for b in build_types:
-                    build = BuildNew(
+                    build = Build(
                         viz = v["slug"], 
                         classification = classification, 
                         trade_flow = tf,
@@ -296,7 +304,7 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults):
         elif v["slug"] == "network":
             '''network aka product space only has 1 build'''
             
-            build = BuildNew(
+            build = Build(
                 viz = v["slug"], 
                 classification = classification, 
                 trade_flow = "export",
@@ -309,7 +317,7 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults):
         elif v["slug"] == "rings":
             '''rings only has 1 build'''
             
-            build = BuildNew(
+            build = Build(
                 viz = v["slug"], 
                 classification = classification, 
                 trade_flow = "export",
@@ -323,7 +331,7 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults):
             '''scatter has builds using GDP'''
             
             for gdp_type in ["gdp", "gdp_pc_constant", "gdp_pc_current", "gdp_pc_constant_ppp", "gdp_pc_current_ppp"]:
-                build = BuildNew(
+                build = Build(
                     viz = v["slug"], 
                     classification = classification, 
                     trade_flow = gdp_type,
@@ -337,7 +345,7 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults):
             '''geo map has builds for exporters/importers of a product'''
             
             for tf in ["export", "import"]:
-                build = BuildNew(
+                build = Build(
                     viz = v["slug"], 
                     classification = classification, 
                     trade_flow = tf,
