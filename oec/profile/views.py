@@ -30,11 +30,6 @@ def get_profile_owner(endpoint, values):
     lang = values.pop('lang')
     g.locale = get_locale(lang)
 
-@mod.route("/material/")
-def material_design():
-    attr = getattr(attr_models, "Country").query.get("euita")
-    return render_template("profile/index.html")
-
 @mod.route('/country/')
 def profile_country_redirect():
     '''fetch random country'''
@@ -66,7 +61,7 @@ def sanitize(id_3char):
 # @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def profile_country(attr_id="usa"):
     c = Country("hs92", attr_id)
-    return render_template("profile/country.html", profile=c)
+    return render_template("profile/index.html", profile=c)
 
 @mod.route('/<any("sitc","hs92","hs96","hs02","hs07"):attr_type>/<attr_id>/')
 # @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
@@ -76,12 +71,12 @@ def profile_product(attr_type, attr_id="7108"):
     p_tbl = getattr(attr_models, attr_type.capitalize())
     pname_tbl = getattr(attr_models, attr_type.capitalize()+"_name")
     pid_name = attr_type + "_id"
-    
+
     '''determine if iOS for d3plus'''
     is_iOS = False
     if any(x in request.headers.get('User-Agent') for x in ["iPad","iPhone","iPod"]):
         is_iOS = True
-    
+
     '''get builds'''
     return render_template("profile/product.html",
                                 is_iOS=is_iOS,

@@ -17,6 +17,9 @@ class Country(db.Model, AutoSerialize):
     comtrade_name = db.Column(db.String(255))
     borders_land = db.Column(db.String(255))
     borders_maritime = db.Column(db.String(255))
+    image_author = db.Column(db.String(200))
+    image_link = db.Column(db.String(200))
+    palette = db.Column(db.String(200))
 
     name = db.relationship("Country_name", backref="country", lazy="dynamic")
 
@@ -34,19 +37,19 @@ class Country(db.Model, AutoSerialize):
     hs92_yod_dest = db.relationship("db_data.hs92_models.Yod", primaryjoin = ('db_data.hs92_models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
     hs92_yod_origin = db.relationship("db_data.hs92_models.Yod", primaryjoin = ('db_data.hs92_models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     hs92_yop_origin = db.relationship("db_data.hs92_models.Yop", primaryjoin = ('db_data.hs92_models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
-    
+
     hs96_yodp_origin = db.relationship("db_data.hs96_models.Yodp", primaryjoin = ('db_data.hs96_models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     hs96_yodp_dest = db.relationship("db_data.hs96_models.Yodp", primaryjoin = ('db_data.hs96_models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
     hs96_yod_dest = db.relationship("db_data.hs96_models.Yod", primaryjoin = ('db_data.hs96_models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
     hs96_yod_origin = db.relationship("db_data.hs96_models.Yod", primaryjoin = ('db_data.hs96_models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     hs96_yop_origin = db.relationship("db_data.hs96_models.Yop", primaryjoin = ('db_data.hs96_models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
-    
+
     hs02_yodp_origin = db.relationship("db_data.hs02_models.Yodp", primaryjoin = ('db_data.hs02_models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     hs02_yodp_dest = db.relationship("db_data.hs02_models.Yodp", primaryjoin = ('db_data.hs02_models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
     hs02_yod_dest = db.relationship("db_data.hs02_models.Yod", primaryjoin = ('db_data.hs02_models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
     hs02_yod_origin = db.relationship("db_data.hs02_models.Yod", primaryjoin = ('db_data.hs02_models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     hs02_yop_origin = db.relationship("db_data.hs02_models.Yop", primaryjoin = ('db_data.hs02_models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
-    
+
     hs07_yodp_origin = db.relationship("db_data.hs07_models.Yodp", primaryjoin = ('db_data.hs07_models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     hs07_yodp_dest = db.relationship("db_data.hs07_models.Yodp", primaryjoin = ('db_data.hs07_models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
     hs07_yod_dest = db.relationship("db_data.hs07_models.Yod", primaryjoin = ('db_data.hs07_models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
@@ -68,12 +71,13 @@ class Country(db.Model, AutoSerialize):
     def next(self):
         c = self.__class__
         return self.query.filter(c.id > self.id).filter(func.char_length(c.id)==len(self.id)).order_by(c.id).first()
-    
+
     def prev(self):
         c = self.__class__
         return self.query.filter(c.id < self.id).filter(func.char_length(c.id)==len(self.id)).order_by(c.id.desc()).first()
-    
+
     def get_attr_name(self, lang=None):
+        lang = lang or getattr(g, "locale", "en")
         return self.name.filter_by(lang=lang).first()
 
     def get_name(self, lang=None, article=None):
@@ -154,6 +158,12 @@ class Country(db.Model, AutoSerialize):
     def get_icon(self):
         return "/static/img/icons/country/country_%s.png" % (self.id)
 
+    def get_image(self):
+        if self.image_link:
+            return "/static/img/headers/country/{}.jpg".format(self.id)
+        else:
+            return None
+
     def get_top(self, limit=10, year=None):
         from oec.db_data.hs92_models import Yp
         year = year or available_years["country"][-1]
@@ -175,7 +185,7 @@ class Country(db.Model, AutoSerialize):
         except KeyError:
             auto_serialized["display_id"] = None
         return auto_serialized
-    
+
     def borders(self, maritime=False):
         if maritime:
             if not self.borders_maritime: return None
@@ -216,7 +226,7 @@ class Hs92(ProdAttr):
 
 class Hs96(ProdAttr):
     __tablename__ = 'attr_hs96'
-    
+
     hs96 = db.Column(db.String(6))
 
     name = db.relationship("Hs96_name", backref="hs", lazy="dynamic")
@@ -227,7 +237,7 @@ class Hs96(ProdAttr):
 
 class Hs02(ProdAttr):
     __tablename__ = 'attr_hs02'
-    
+
     hs02 = db.Column(db.String(6))
 
     name = db.relationship("Hs02_name", backref="hs", lazy="dynamic")
@@ -238,9 +248,9 @@ class Hs02(ProdAttr):
 
 class Hs07(ProdAttr):
     __tablename__ = 'attr_hs07'
-    
+
     hs07 = db.Column(db.String(6))
-    
+
     name = db.relationship("Hs07_name", backref="hs", lazy="dynamic")
     yodp_product = db.relationship("db_data.hs07_models.Yodp", backref = 'product', lazy = 'dynamic')
     yop_product = db.relationship("db_data.hs07_models.Yop", backref = 'product', lazy = 'dynamic')

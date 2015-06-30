@@ -3,9 +3,9 @@
 {% block body %}
 
 <header>
-  <img id="header" src="/static/img/headers/country/ashkg.jpg"></img>
-  <img id="icon" src="/static/img/icons/country/country_ashkg.png">
-  <h1>Hong Kong</h1>
+  <img id="header" src="{{ profile.attr.get_image() }}"></img>
+  <img id="icon" src="{{ profile.attr.get_icon() }}">
+  <h1>{{ profile.title() }}</h1>
 </header>
 
 <section id="stats">
@@ -61,6 +61,15 @@
 </section>
 
 <script>
-  var color = "#b7802b";
+  var palette = JSON.parse("{{ profile.palette()|safe }}".replace(/'/g, '"')),
+      color;
+  for (var p = 0; p < palette.length; p++) {
+    var c = d3.hsl(palette[p]);
+    if (c.l > 0.5) {
+      color = d3plus.color.legible(palette[p]);
+      break;
+    }
+  }
+  if (!color) color = palette[1];
 </script>
 {% endblock %}
