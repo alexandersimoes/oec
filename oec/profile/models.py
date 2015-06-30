@@ -179,7 +179,7 @@ class Country(Profile):
         dv_section = {
             "title": "DataViva",
             "builds": [
-                {"title": "Brazilian Municipalities that import from {}".format(self.attr.get_name()), "iframe": dv_dest_dest_iframe, "subtitle": "This treemap shows the municipalities in Brazil that imported products from {}.".format(self.attr.get_name())},
+                {"title": "Brazilian Municipalities that import from {}".format(self.attr.get_name()), "iframe": dv_munic_dest_iframe, "subtitle": "This treemap shows the municipalities in Brazil that imported products from {}.".format(self.attr.get_name())},
                 {"title": "Brazilian Municipalities that export to {}".format(self.attr.get_name()), "iframe": dv_munic_origin_iframe, "subtitle": "This treemap shows the municipalities in Brazil that exported products to {}.".format(self.attr.get_name())},
             ]
         }
