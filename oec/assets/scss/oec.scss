@@ -20,6 +20,15 @@ p {
   font-family: $serif;
   font-size: 17px;
   line-height: 28px;
+
+  a {
+    color: $color;
+    text-decoration: none;
+    &:hover {
+      border-bottom: 1px solid $color;
+    }
+  }
+
 }
 
 @import "elements/nav";

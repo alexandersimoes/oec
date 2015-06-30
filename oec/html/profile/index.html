@@ -38,27 +38,44 @@
   </aside>
 
   <content>
-    <h2>Introduction</h2>
-    <p>
-      Here's some paragraph text that explains some stuff. It will have numbers and figures related to the country.
-    </p>
+    <h2>{% trans %}Introduction{% endtrans %}</h2>
+    {% for p in profile.intro() %}
+      <p>{{ p|safe }}</p>
+    {% endfor %}
   </content>
 
 </section>
 
+{% for section in profile.sections() %}
+<section>
+  <aside></aside>
+  <content>
+    <h2>{{ section.title }}</h2>
+    {% if section.subtitle %}
+    <p>{{ section.subtitle }}</p>
+    {% endif %}
+  <content>
+</section>
+{% for build in section.builds %}
 <section>
   <aside>
-    <h2>Trade Balance</h2>
-    <p>
-      Here's some paragraph text that explains some stuff.
-    </p>
+    <h2>{{ build.title }}</h2>
+    {% if build.subtitle %}
+    <p>{{ build.subtitle }}</>
+    {% endif %}
   </aside>
 
   <content>
+    {% if build.iframe %}
+    <iframe class="viz" src="{{ build.iframe }}"></iframe>
+    {% else %}
     <div class="viz"></div>
+    {% endif %}
   </content>
 
 </section>
+{% endfor %}
+{% endfor %}
 
 <script>
   var palette = JSON.parse("{{ profile.palette()|safe }}".replace(/'/g, '"')),

@@ -61,6 +61,7 @@ def sanitize(id_3char):
 # @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def profile_country(attr_id="usa"):
     c = Country("hs92", attr_id)
+    # raise Exception(c.sections()[1])
     return render_template("profile/index.html", profile=c)
 
 @mod.route('/<any("sitc","hs92","hs96","hs02","hs07"):attr_type>/<attr_id>/')

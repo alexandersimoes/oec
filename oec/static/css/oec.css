@@ -69,6 +69,11 @@ h2 {
     font-family: "Lora", "Times", serif;
     font-size: 17px;
     line-height: 28px; }
+    p a {
+      color: #0085BF;
+      text-decoration: none; }
+      p a:hover {
+        border-bottom: 1px solid #0085BF; }
 nav {
   -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
@@ -320,7 +325,10 @@ nav {
           margin: 50px 0 0 50px;
           width: 250px; }
           #container #content section aside .viz {
-            height: 200px; }
+            background-color: #ddd;
+            display: block;
+            height: 200px;
+            width: 100%; }
             @media all and (max-width: 768px) {
               #container #content section aside {
                 margin: 20px 20px 0 20px;
@@ -337,6 +345,11 @@ nav {
             #container #content section content {
               margin: 20px 20px 0 20px;   }
 }
+            #container #content section content .viz {
+              background-color: #ddd;
+              display: block;
+              height: 400px;
+              width: 100%; }
   #container footer {
     -webkit-box-flex: none;
     -moz-box-flex: none;
@@ -408,9 +421,3 @@ nav {
     #mask.open {
       display: block;   }
 }
-
-.viz {
-  background-color: #ddd;
-  display: block;
-  height: 400px;
-  width: 100%; }

@@ -217,7 +217,10 @@ nav {
         width: $nav;
 
         .viz {
+          background-color: #ddd;
+          display: block;
           height: 200px;
+          width: 100%;
         }
 
         @media all and (max-width: 768px) {
@@ -233,6 +236,13 @@ nav {
 
         @media all and (max-width: 768px) {
           margin: 20px 20px 0 20px;
+        }
+
+        .viz {
+          background-color: #ddd;
+          display: block;
+          height: 400px;
+          width: 100%;
         }
 
       }
@@ -318,11 +328,4 @@ nav {
     }
   }
 
-}
-
-.viz {
-  background-color: #ddd;
-  display: block;
-  height: 400px;
-  width: 100%;
 }
