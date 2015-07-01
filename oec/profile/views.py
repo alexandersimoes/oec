@@ -66,19 +66,5 @@ def profile_country(attr_id="usa"):
 @mod.route('/<any("sitc","hs92","hs96","hs02","hs07"):attr_type>/<attr_id>/')
 # @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def profile_product(attr_type, attr_id="7108"):
-    g.page_type = mod.name
-    g.page_sub_type = attr_type
-    p_tbl = getattr(attr_models, attr_type.capitalize())
-    pname_tbl = getattr(attr_models, attr_type.capitalize()+"_name")
-    pid_name = attr_type + "_id"
-
-    '''determine if iOS for d3plus'''
-    is_iOS = False
-    if any(x in request.headers.get('User-Agent') for x in ["iPad","iPhone","iPod"]):
-        is_iOS = True
-
-    '''get builds'''
-    return render_template("profile/product.html",
-                                is_iOS=is_iOS,
-                                builds=builds,
-                                classification=attr_type)
+    p = Product(attr_type, attr_id)
+    return render_template("profile/index.html", profile=p)
