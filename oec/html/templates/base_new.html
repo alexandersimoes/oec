@@ -28,17 +28,21 @@
     <script src="/static/js/libs/moment.min.js"></script>
     <script>moment.lang("{{g.locale}}")</script>
     <script>
-    function redirect(url, seconds){
-      seconds = !seconds && seconds !== 0 ? 6 : seconds;
-      if (seconds <=0){
-        window.location = url;
+
+      function redirect(url, seconds){
+        seconds = !seconds && seconds !== 0 ? 6 : seconds;
+        if (seconds <=0){
+          window.location = url;
+        }
+        else {
+          seconds--;
+          d3.select("#redirect").text("This page will redirect in "+seconds+" seconds.")
+          setTimeout(function(){ redirect(url, seconds) }, 1000)
+        }
       }
-      else {
-        seconds--;
-        d3.select("#redirect").text("This page will redirect in "+seconds+" seconds.")
-        setTimeout(function(){ redirect(url, seconds) }, 1000)
-      }
-    }
+
+      var resizeFunctions = [], scrollFunctions = [];
+
     </script>
 
     {% block head %}
@@ -77,15 +81,33 @@
 
     <!-- All Pages -->
     <script type="text/javascript">
-    d3.selectAll(".close_message").on("click", function(){
 
-      d3.select("#server_message")
-        .style("margin-top", function(){
-          return -this.offsetHeight+"px"
-        }).transition().delay(600)
-        .remove()
+      d3.selectAll(".close_message").on("click", function(){
 
-    });
+        d3.select("#server_message")
+          .style("margin-top", function(){
+            return -this.offsetHeight+"px"
+          }).transition().delay(600)
+          .remove()
+
+      });
+
+      if (resizeFunctions.length) {
+        window.onresize = function(){
+          for (var i = 0; i < resizeFunctions.length; i++) {
+            resizeFunctions[i]();
+          }
+        }
+      }
+
+      if (scrollFunctions.length) {
+        document.onscroll = function(){
+          for (var i = 0; i < scrollFunctions.length; i++) {
+            scrollFunctions[i]();
+          }
+        }
+      }
+
     </script>
 
   </body>

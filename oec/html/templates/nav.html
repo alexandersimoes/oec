@@ -271,13 +271,8 @@
 
   }
 
-  window.onresize = function(){
-    resizeCanvas();
-  }
-
-  document.onscroll = function(){
-    resizeHeader();
-  };
+  resizeFunctions.push(resizeCanvas);
+  scrollFunctions.push(resizeHeader);
 
 </script>
 

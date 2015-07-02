@@ -67,9 +67,9 @@
 
   <content>
     {% if build.iframe %}
-    <iframe class="viz" src="{{ build.iframe }}"></iframe>
+    <iframe class="viz" data-url="{{ build.iframe }}"></iframe>
     {% else %}
-    <div class="viz"></div>
+    <div class="viz" data-title="{{ build.title }}"></div>
     {% endif %}
   </content>
 
@@ -78,6 +78,7 @@
 {% endfor %}
 
 <script>
+
   var palette = JSON.parse("{{ profile.palette()|safe }}".replace(/'/g, '"')),
       color;
   for (var p = 0; p < palette.length; p++) {
@@ -88,5 +89,55 @@
     }
   }
   if (!color) color = palette[1];
+
+  var builds = [];
+  d3.selectAll(".viz").each(function(d, i){
+    builds.push({
+      "container": d3.select(this),
+      "height": this.offsetHeight,
+      "index": i,
+      "loaded": false,
+      "timer": false,
+      "top": this.offsetTop
+    })
+  })
+
+  function buildInView(b) {
+    var top = window.scrollY, height = window.innerHeight;
+    return top+height > b.top+100 && top+100 < b.top+b.height;
+  }
+
+  function buildScroll(ms) {
+    if (ms === undefined) ms = 500;
+    for (var i = 0; i < builds.length; i++) {
+      var b = builds[i];
+      if (!b.timer && !b.loaded) {
+        if (buildInView(b)) {
+          b.timer = setTimeout(function(build){
+            clearTimeout(build.timer);
+            build.timer = false;
+            if (buildInView(build)) {
+              buildLoad(build)
+            }
+          }, ms, b)
+
+        }
+      }
+    }
+  }
+
+  function buildLoad(build) {
+    var url = build.container.attr("data-url");
+    if (url) {
+      build.container.attr("src", url);
+    }
+    console.log("load:", build);
+    build.loaded = true;
+  }
+
+  buildScroll(0);
+
+  scrollFunctions.push(buildScroll);
+
 </script>
 {% endblock %}
