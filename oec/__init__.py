@@ -34,7 +34,7 @@ if DEBUG:
 
     from flask.ext.assets import Environment, Bundle
     assets = Environment(app)
-    js = Bundle("js/visualization/visualization.js", "js/visualization/configs/*.js", output="js/visualization.js")
+    js = Bundle("js/visualization/visualization.js", "js/visualization/configs/*.js", "js/visualization/helpers/*.js", output="js/visualization.js")
     assets.register("js", js)
 
 # DB connection object

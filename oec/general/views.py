@@ -34,6 +34,7 @@ def before_request():
     g.page_type = mod.name
     g.supported_langs = current_app.config.get('LANGUAGES')
     g.available_years = available_years
+    g.cache_version = 1
 
     # Save variable in session so we can determine if this is the user's
     # first time on the site
@@ -113,7 +114,7 @@ def home(lang=None):
     c = Country.query.get(choice(random_countries))
     # exports tree map
     default_build = Build("tree_map", "hs92", "export", c, "all", "show")
-    
+
     return render_template("home.html", default_build=default_build)
 
 @mod.route('iframe_test/')

@@ -46,7 +46,7 @@
       {% endfor %}
     </ul>
     {% else %}
-    <div class="topojson"></div>
+    <div id="topojson"></div>
     {% endif %}
   </aside>
 
@@ -107,6 +107,46 @@
   }
   else {
     color = "{{ profile.attr.color }}";
+  }
+
+  // If it's a country page, create the map!
+  var map = d3.select("#topojson");
+  if (!map.empty()) {
+
+    load("/static/json/country_coords.json", function(coords){
+
+      var key = d3.keys(coords.objects)[0],
+          geoms = coords.objects[key].geometries,
+          width = map.node().parentNode.offsetWidth,
+          height = width;
+
+      coords.objects[key].geometries = geoms.filter(function(d){
+        return d.id === "{{ profile.attr.id }}";
+      })
+
+      var svg = map.append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+      var projection = d3.geo.mercator().scale(1).translate([0, 0]),
+          path = d3.geo.path().projection(projection),
+          country = topojson.feature(coords, coords.objects[key]).features[0],
+          b = path.bounds(country),
+          s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
+          t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+
+      projection
+        .scale(s)
+        .translate(t);
+
+      svg.append("path")
+        .datum(country)
+        .attr("d", path)
+        .attr("fill", color);
+
+
+    });
+
   }
 
   var builds = [];
