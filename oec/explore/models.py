@@ -144,7 +144,7 @@ build_metadata = { \
 }
 
 class Build(object):
-    
+
     ''' Defaults used for a build if required by that build and the user
         has not specified one
     '''
@@ -153,7 +153,7 @@ class Build(object):
         "sitc": "5722",
         "country": "pry"
     }
-    
+
     def __init__(self, viz="tree_map", classification="hs92", trade_flow="export", origin=None, dest=None, prod=None, year=None):
         self.viz = filter(lambda v: v["slug"]==viz, all_viz)[0]
         self.classification = classification
@@ -164,7 +164,7 @@ class Build(object):
         self.year = year if type(year) == list else [year]
         self.year_str = self.year_to_str(self.year)
         self.id = self.get_build_id(self.viz, origin, dest, prod)
-    
+
     def get_country(self, country_id):
         if isinstance(country_id, Country):
             return country_id
@@ -175,10 +175,10 @@ class Build(object):
             if not c:
                 c = Country.query.filter_by(id_3char=self.defaults["country"]).first()
             return c
-    
+
     def get_prod(self, prod_id, classification):
         if isinstance(prod_id, (Hs92, Hs96, Hs02, Hs07, Sitc)):
-            return country_id
+            return prod_id
         if prod_id == "show" or prod_id == "all":
             return prod_id
         else:
@@ -187,7 +187,7 @@ class Build(object):
             if not p:
                 p = Prod.query.filter(getattr(Prod, classification)==self.defaults[classification]).first()
             return p
-    
+
     def year_to_str(self, year):
         if len(year) == 1:
             return year[0]
@@ -197,7 +197,7 @@ class Build(object):
                 return "{}.{}".format(year[0], year[-1])
             else:
                 return "{}.{}.{}".format(year[0], year[-1], interval)
-    
+
     def get_build_id(self, viz, origin, dest, prod):
         '''build showing products given an origin'''
         if viz == "network":
@@ -216,7 +216,7 @@ class Build(object):
             return 4
         if dest == "all":
             return 6
-    
+
     def url(self):
         return "{viz}/{classification}/{trade_flow}/{origin}/{dest}/{prod}/{year}/".format(
             viz = self.viz["slug"],
@@ -227,10 +227,10 @@ class Build(object):
             prod = getattr(self.prod, self.classification, self.prod),
             year = self.year_str,
         )
-    
+
     def title(self):
         title = build_metadata[self.id][self.trade_flow]["title"]
-        
+
         origin, dest, prod = None, None, None
         if isinstance(self.origin, Country):
             origin=self.origin.get_name()
@@ -238,12 +238,12 @@ class Build(object):
             dest=self.dest.get_name()
         if isinstance(self.prod, (Hs92, Hs96, Hs02, Hs07, Sitc)):
             prod=self.prod.get_name()
-        
+
         return title.format(origin=origin, dest=dest, prod=prod)
-    
+
     def question(self):
         question = build_metadata[self.id][self.trade_flow]["question"]
-        
+
         origin, dest, prod = None, None, None
         if isinstance(self.origin, Country):
             origin=self.origin.get_name()
@@ -251,15 +251,15 @@ class Build(object):
             dest=self.dest.get_name()
         if isinstance(self.prod, (Hs92, Hs96, Hs02, Hs07, Sitc)):
             prod=self.prod.get_name()
-        
+
         return question.format(origin=origin, dest=dest, prod=prod)
-    
+
     def short_name(self):
         return build_metadata[self.id][self.trade_flow]["short_name"]
-    
+
     def category(self):
         return build_metadata[self.id][self.trade_flow]["category"]
-    
+
     def __repr__(self):
         return "<Build: {}:{}:{}:{}:{}>".format(self.viz["slug"], self.trade_flow, self.origin, self.dest, self.prod)
 
@@ -270,7 +270,7 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
         prod_id = defaults["prod"] if any(x in prod_id for x in ["show", "all"]) else prod_id
     except:
         raise Exception(classification, origin_id, dest_id, prod_id, year, defaults, viz)
-    
+
     build_types = [
         {"origin": origin_id, "dest": "all", "prod": "show"},
         {"origin": origin_id, "dest": "show", "prod": "all"},
@@ -278,82 +278,82 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
         {"origin": origin_id, "dest": dest_id, "prod": "show"},
         {"origin": origin_id, "dest": "show", "prod": prod_id},
     ]
-    
+
     wanted_viz = all_viz
     if viz:
         wanted_viz = filter(lambda v: v["slug"]==viz, all_viz)
-    
+
     all_builds = []
     for v in wanted_viz:
-        
+
         if any(x in v["slug"] for x in ["tree_map", "stacked"]):
             '''tree_map/stacked has all permutations of builds'''
-            
+
             for tf in ["export", "import"]:
                 for b in build_types:
                     build = Build(
-                        viz = v["slug"], 
-                        classification = classification, 
+                        viz = v["slug"],
+                        classification = classification,
                         trade_flow = tf,
                         origin = b["origin"],
                         dest = b["dest"],
                         prod = b["prod"],
                         year = year)
                     all_builds.append(build)
-        
+
         elif v["slug"] == "network":
             '''network aka product space only has 1 build'''
-            
+
             build = Build(
-                viz = v["slug"], 
-                classification = classification, 
+                viz = v["slug"],
+                classification = classification,
                 trade_flow = "export",
                 origin = origin_id,
                 dest = "all",
                 prod = "show",
                 year = year)
             all_builds.append(build)
-        
+
         elif v["slug"] == "rings":
             '''rings only has 1 build'''
-            
+
             build = Build(
-                viz = v["slug"], 
-                classification = classification, 
+                viz = v["slug"],
+                classification = classification,
                 trade_flow = "export",
                 origin = origin_id,
                 dest = "all",
                 prod = prod_id,
                 year = year)
             all_builds.append(build)
-        
+
         elif v["slug"] == "scatter":
             '''scatter has builds using GDP'''
-            
+
             for gdp_type in ["gdp", "gdp_pc_constant", "gdp_pc_current", "gdp_pc_constant_ppp", "gdp_pc_current_ppp"]:
                 build = Build(
-                    viz = v["slug"], 
-                    classification = classification, 
+                    viz = v["slug"],
+                    classification = classification,
                     trade_flow = gdp_type,
                     origin = "show",
                     dest = "all",
                     prod = "all",
                     year = year)
                 all_builds.append(build)
-        
+
         elif v["slug"] == "geo_map":
             '''geo map has builds for exporters/importers of a product'''
-            
+
             for tf in ["export", "import"]:
                 build = Build(
-                    viz = v["slug"], 
-                    classification = classification, 
+                    viz = v["slug"],
+                    classification = classification,
                     trade_flow = tf,
                     origin = "show",
                     dest = "all",
                     prod = prod_id,
                     year = year)
                 all_builds.append(build)
-            
-    
+
+
     return all_builds
