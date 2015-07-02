@@ -123,14 +123,11 @@
 
   if (!color) var color = "#0085BF";
 
-  // Sets the logo color.
-  d3.select("#logo").style("background-color", color);
+  // Sets the logo, header, and stats background color.
+  d3.selectAll("#logo, header, #stats").style("background-color", color);
 
   // Sets the H2 colors
   d3.selectAll("h2").style("color", color);
-
-  // Sets the stat bubble background color.
-  d3.select("#stats").style("background-color", color);
 
   // Sets the search box background color.
   var rgb = d3.rgb(color);

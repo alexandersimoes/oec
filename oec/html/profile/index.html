@@ -3,7 +3,10 @@
 {% block body %}
 
 <header>
-  <img id="header" src="{{ profile.attr.get_image() }}"></img>
+  {% set image = profile.attr.get_image() %}
+  {% if image %}
+  <img id="header" src="{{ image }}"></img>
+  {% endif %}
   <img id="icon" src="{{ profile.attr.get_icon() }}">
   <h1>{{ profile.title() }}</h1>
 </header>
