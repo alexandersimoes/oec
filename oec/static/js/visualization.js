@@ -49,7 +49,7 @@ configs.default = function(build) {
         }
         return ret
       },
-      "text": function( text , key ){
+      "text": function( text , key , vars ){
 
         if(key){
           if(key == "display_id"){ return text.toUpperCase(); }
@@ -86,6 +86,7 @@ configs.default = function(build) {
     },
     "icon": "icon",
     "id": ["nest", "id"],
+    "messages": {"branding": true},
     "size": {
       "value": build.trade_flow+"_val",
       "threshold": false

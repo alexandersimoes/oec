@@ -305,6 +305,13 @@ class Build(object):
             return url_for('attr.attrs', attr='country', lang=lang)
         return url_for('attr.attrs', attr=self.classification, lang=lang)
     
+    def attr_type(self):
+        if self.origin == "show":
+            return "origin"
+        if self.dest == "show":
+            return "dest"
+        return self.classification
+    
     def __repr__(self):
         return "<Build: {}:{}:{}:{}:{}>".format(self.viz["slug"], self.trade_flow, self.origin, self.dest, self.prod)
 

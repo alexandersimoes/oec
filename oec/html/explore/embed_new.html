@@ -9,6 +9,7 @@
 
 {% block content %}
 
+<div id="loading"><h2>{{ _('Loading') }}...</h2></div>
 <div id="app">
   <div id="text"></div>
   <div id="viz"></div>
@@ -24,7 +25,8 @@
 <script src="/static/js/d3.tabulate.js"></script>
 
 <script>
-
+var attrs = {}, data, trade_flow = "{{ build.trade_flow }}", opposite_trade_flow = trade_flow == "export" ? "import" : "export";
+var attr_id = "{{ build.attr_type() }}_id";
 var default_config = configs["default"]({{ build.serialize()|safe }});
 var viz_config = configs["{{ build.viz.slug }}"]({{ build.serialize()|safe }});
 
@@ -37,43 +39,49 @@ var viz = d3plus.viz()
             .height(viz_height)
             .width(viz_width);
 
-var q = queue().defer(d3.json, "{{ current_build.data_url(output_depth=8) }}")
-q = q.defer(d3.json, "{{ current_build.attr_url() }}");
+var q = queue()
+            .defer(d3.json, "{{ build.data_url(output_depth=8) }}")
+            .defer(d3.json, "{{ build.attr_url() }}");
 
 /* unleash the dogs... make the AJAX requests in order to the server and when
    they return execute the go() func */
-q.await(function(a, b, c){
+q.await(function(error, raw_data, raw_attrs){
   
-  console.log(a, b, c);
+  // set key 'nest' to their id
+  raw_attrs.data.forEach(function(d){
+    attrs[d.id] = d
+    if(attr_id == "origin_id" || attr_id == "dest_id"){
+      attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
+    }
+    else if(attr_id.indexOf("hs") == 0){
+      attrs[d.id]["icon"] = "/static/img/icons/hs/hs_"+d.id.substr(0, 2)+".png"
+    }
+    else if(attr_id == "sitc_id"){
+      attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
+    }
+  })
+
+  // go through raw data and set each items nest and id vars properly
+  // also calculate net values
+  raw_data.data.forEach(function(d){
+    d.nest = d[attr_id].substr(0, 2)
+    if(attr_id.indexOf("hs") == 0){
+      d.nest_mid = d[attr_id].substr(0, 6)
+    }
+    d.id = d[attr_id]
+    var net_val = parseFloat(d[trade_flow+"_val"]) - parseFloat(d[opposite_trade_flow+"_val"]);
+    if(net_val > 0){
+      d["net_"+trade_flow+"_val"] = net_val;
+    }
+  })
   
-  // // set key 'nest' to their id
-  // raw_attrs.data.forEach(function(d){
-  //   attrs[d.id] = d
-  //   if(attr_id == "origin_id" || attr_id == "dest_id"){
-  //     attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
-  //   }
-  //   else if(attr_id.indexOf("hs") == 0){
-  //     attrs[d.id]["icon"] = "/static/img/icons/hs/hs_"+d.id.substr(0, 2)+".png"
-  //   }
-  //   else if(attr_id == "sitc_id"){
-  //     attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
-  //   }
-  // })
-  //
-  // // go through raw data and set each items nest and id vars properly
-  // // also calculate net values
-  // raw_data.data.forEach(function(d){
-  //   d.nest = d[attr_id].substr(0, 2)
-  //   if(attr_id.indexOf("hs") == 0){
-  //     d.nest_mid = d[attr_id].substr(0, 6)
-  //   }
-  //   d.id = d[attr_id]
-  //   var net_val = parseFloat(d[trade_flow+"_val"]) - parseFloat(d[opposite_trade_flow+"_val"]);
-  //   if(net_val > 0){
-  //     d["net_"+trade_flow+"_val"] = net_val;
-  //   }
-  // })
-  //
+  viz.data(raw_data.data).attrs(attrs).draw();
+  
+  d3.select("#loading")
+    .style("display", "none")
+
+  d3.select("#viz")
+    .style("display", "block")
   
 });
 
