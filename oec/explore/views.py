@@ -162,18 +162,8 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
 @mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year>/')
 def embed(app_name, classification, trade_flow, origin_id, dest_id, \
                 prod_id, year=available_years['hs92'][-1]):
-
-    current_app = App.query.filter_by(type=app_name).first_or_404()
-    build_filters = {"origin":origin_id,"dest":dest_id,"product":prod_id}
-    for bf_name, bf in build_filters.items():
-        if bf != "show" and bf != "all":
-            build_filters[bf_name] = "<" + bf_name + ">"
-
-    current_build = Build.query.filter_by(app=current_app, trade_flow=trade_flow,
-                        origin=build_filters["origin"], dest=build_filters["dest"],
-                        product=build_filters["product"]).first_or_404()
-    current_build.set_options(origin=origin_id, dest=dest_id, product=prod_id,
-                                classification=classification, year=year)
+    
+    b = Build(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
 
     '''Get URL query parameters from reqest.args object to return to the view.
     '''
@@ -182,7 +172,7 @@ def embed(app_name, classification, trade_flow, origin_id, dest_id, \
         global_vars["controls"] = "true"
     
     return render_template("explore/embed.html",
-        current_build = current_build,
+        current_build = b,
         global_vars = json.dumps(global_vars),
         facebook_id = FACEBOOK_ID)
 
