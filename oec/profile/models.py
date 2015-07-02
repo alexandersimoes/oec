@@ -30,14 +30,7 @@ class Profile(object):
             return ast.literal_eval(p)
         else:
             return ["#b7802b"]
-
-
-class Country(Profile):
-
-    def __init__(self, classification, id):
-        super(Country, self).__init__(classification, id)
-        self.attr = attrs.Country.query.filter_by(id_3char = self.id).first()
-
+    
     @staticmethod
     def stringify_items(items, val=None, attr=None):
         str_items = []
@@ -57,6 +50,12 @@ class Country(Profile):
             str_items = str_items[0]
         return str_items
 
+
+class Country(Profile):
+
+    def __init__(self, classification, id):
+        super(Country, self).__init__(classification, id)
+        self.attr = attrs.Country.query.filter_by(id_3char = self.id).first()
 
     def intro(self):
         all_paragraphs = []
@@ -174,8 +173,8 @@ class Country(Profile):
 
         ''' DataViva
         '''
-        dv_munic_dest_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=import_val".format(self.attr.id)
-        dv_munic_origin_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=export_val".format(self.attr.id)
+        dv_munic_dest_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false".format(self.attr.id)
+        dv_munic_origin_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false".format(self.attr.id)
         dv_section = {
             "title": "DataViva",
             "builds": [
@@ -194,8 +193,123 @@ class Country(Profile):
             ]
         }
 
-
         return [trade_section, ps_section, dv_section]
 
 class Product(Profile):
-    pass
+    
+    def __init__(self, classification, id):
+        super(Product, self).__init__(classification, id)
+        self.attr_cls = getattr(attrs, classification.capitalize())
+        self.attr = self.attr_cls.query.filter(getattr(self.attr_cls, classification) == self.id).first()
+    
+    def heirarchy(self):
+        prods = []
+        
+        _2dig = self.attr_cls.query.get(self.attr.id[:4])
+        prods.append(_2dig)
+        
+        '''if this is a 2 digit product show only its children,
+            on the other hand if its a 4 or 6 digit product show
+            the single 4 digit prod and all 6 digit children with 
+            itself included'''
+        if self.attr == _2dig:
+            children = self.attr_cls.query \
+                        .filter(self.attr_cls.id.startswith(_2dig.id)) \
+                        .filter(func.char_length(self.attr_cls.id) == 6) \
+                        .order_by("id") \
+                        .all()
+            prods = prods + list(children)
+        else:
+            _4dig = self.attr_cls.query.get(self.attr.id[:6])
+            prods.append(_4dig)
+            children = self.attr_cls.query \
+                        .filter(self.attr_cls.id.startswith(_4dig.id)) \
+                        .filter(func.char_length(self.attr_cls.id) == 8) \
+                        .order_by("id") \
+                        .all()
+            prods = prods + list(children)
+        
+        return prods
+            
+    
+    def intro(self):
+        all_paragraphs = []
+        ''' Paragraph #1
+        '''
+        p1 = u"{} is a {} digit {} product." \
+                .format(self.attr.get_name(), len(self.attr.get_display_id()), self.classification.upper())
+        all_paragraphs.append(p1)
+        
+        ''' Paragraph #2
+        '''
+        # get total world trade rank
+        this_yp = self.models.Yp.query.filter_by(year = self.year, product = self.attr).first()
+        all_yp = self.models.Yp.query.filter_by(year = self.year) \
+                    .filter(func.char_length(getattr(self.models.Yp, "{}_id".format(self.classification))) == len(self.attr.id)) \
+                    .order_by(desc("export_val")).all()
+        econ_rank = num_format(all_yp.index(this_yp) + 1, "ordinal")
+        # get PCI ranking
+        pci_rank = this_yp.pci_rank
+        if pci_rank:
+            pci_rank = u" and {} most complex by PCI ranking".format(num_format(pci_rank, "ordinal"))
+        else:
+            pci_rank = u""
+        p2 = u"{} is the {} largest product by world trade{}. In {}, {} USD " \
+                "worth of {} was exported and {} USD imported." \
+                .format(self.attr.get_name(), econ_rank, pci_rank, self.year,
+                    num_format(this_yp.export_val), self.attr.get_name(),
+                    num_format(this_yp.import_val))
+        all_paragraphs.append(p2)
+        
+        ''' Paragraph #3
+        '''
+        p3 = []
+        # find out which countries this product is their #1 export/import
+        countries_top_export = self.models.Yo.query.filter_by(year = self.year, top_export = self.attr.id).all()
+        if countries_top_export:
+            countries_top_export = self.stringify_items(countries_top_export, None, "country")
+            p3.append(u"{} is the top export of {}.".format(self.attr.get_name(), countries_top_export))
+        countries_top_import = self.models.Yo.query.filter_by(year = self.year, top_import = self.attr.id).all()
+        if countries_top_import:
+            countries_top_import = self.stringify_items(countries_top_import, None, "country")
+            p3.append(u"{} is the top import of {}.".format(self.attr.get_name(), countries_top_import))
+        if p3:
+            all_paragraphs = all_paragraphs + p3
+        
+        ''' Paragraph #4
+        '''
+        keywords = self.attr.get_keywords()
+        if keywords:
+            all_paragraphs.append(u"{} is also known as {}.".format(self.attr.get_name(), keywords))
+        
+        return all_paragraphs
+
+    
+    def sections(self):
+        ''' Trade Section
+        '''
+        rings = Build("rings", "hs92", "export", None, "all", self.attr, self.year)
+        exporters = Build("rings", "hs92", "export", "show", "all", self.attr, self.year)
+        importers = Build("rings", "hs92", "import", "show", "all", self.attr, self.year)
+        trade_section = {
+            "title": u"{} Trade".format(self.attr.get_name()),
+            "builds": [
+                {"title": u"Rings", "build": rings, "subtitle": u"The rings visualization shows the primary and secondary network connections for {} in the Product Space.".format(self.attr.get_name())},
+                {"title": u"Exporters", "build": exporters, "subtitle": u"This treemap shows the share of countries that export {}.".format(self.attr.get_name())},
+                {"title": u"Importers", "build": importers, "subtitle": u"This treemap shows the share of countries that import {}.".format(self.attr.get_name())},
+            ]
+        }
+        
+        ''' DataViva Section
+        '''
+        dv_munic_exporters_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val".format(self.attr.id)
+        dv_munic_importers_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val".format(self.attr.id)
+        dv_section = {
+            "title": "DataViva",
+            "builds": [
+                {"title": u"{} exporters in Brazil".format(self.attr.get_name()), "iframe": dv_munic_exporters_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that export {}.".format(self.attr.get_name())},
+                {"title": u"{} importers in Brazil".format(self.attr.get_name()), "iframe": dv_munic_importers_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that import {}.".format(self.attr.get_name())},
+            ]
+        }
+        
+        return [trade_section, dv_section]
