@@ -8,14 +8,18 @@ class ProdAttr(db.Model, AutoSerialize):
     id = db.Column(db.String(8), primary_key=True)
     conversion = db.Column(db.String(6))
     color = db.Column(db.String(7))
-    
+
     def next(self):
         c = self.__class__
         return self.query.filter(c.id > self.id).filter(func.char_length(c.id)==len(self.id)).order_by(c.id).first()
-    
+
     def prev(self):
         c = self.__class__
         return self.query.filter(c.id < self.id).filter(func.char_length(c.id)==len(self.id)).order_by(c.id.desc()).first()
+
+    def get_attr_name(self, lang=None):
+        lang = lang or getattr(g, "locale", "en")
+        return self.name.filter_by(lang=lang).first()
 
     def get_name(self, lang=None, article=None):
         lang = lang or getattr(g, "locale", "en")
@@ -32,6 +36,12 @@ class ProdAttr(db.Model, AutoSerialize):
         if name:
             return name.keywords
         return ""
+
+    def get_image(self):
+        if hasattr(self, "image_link") and self.image_link:
+            return "/static/img/headers/hs/{}.jpg".format(self.id[:2])
+        else:
+            return None
 
     def get_display_id(self):
         return getattr(self, self.classification)
@@ -79,6 +89,6 @@ class ProdNameAttr(object):
     gender = db.Column(db.String(1))
     plural = db.Column(db.Boolean())
     article = db.Column(db.Boolean())
-    
+
     def __repr__(self):
         return '<Prod %r>' % (self.name)
