@@ -11,23 +11,23 @@ $serif: "Lora", "Times", serif;
   font-family: 'Lora';
   font-style: normal;
   font-weight: 400;
-  src: local('Lora'), local('Lora-Regular'), url('./fonts/Lora-Regular.otf') format('opentype');
+  src: local('Lora'), local('Lora-Regular'), url('./fonts/Lora-Regular.ttf') format('opentype');
 }
 @font-face {
   font-family: 'Lora';
   font-style: normal;
   font-weight: 700;
-  src: local('Lora Bold'), local('Lora-Bold'), url('./fonts/Lora-Bold.otf') format('opentype');
+  src: local('Lora Bold'), local('Lora-Bold'), url('./fonts/Lora-Bold.ttf') format('opentype');
 }
 @font-face {
   font-family: 'Lora';
   font-style: italic;
   font-weight: 400;
-  src: local('Lora Italic'), local('Lora-Italic'), url('./fonts/Lora-Italic.otf') format('opentype');
+  src: local('Lora Italic'), local('Lora-Italic'), url('./fonts/Lora-Italic.ttf') format('opentype');
 }
 @font-face {
   font-family: 'Lora';
   font-style: italic;
   font-weight: 700;
-  src: local('Lora Bold Italic'), local('Lora-BoldItalic'), url('./fonts/Lora-BoldItalic.otf') format('opentype');
+  src: local('Lora Bold Italic'), local('Lora-BoldItalic'), url('./fonts/Lora-BoldItalic.ttf') format('opentype');
 }
