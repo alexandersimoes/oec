@@ -171,8 +171,8 @@ def embed(app_name, classification, trade_flow, origin_id, dest_id, \
     if "controls" not in global_vars:
         global_vars["controls"] = "true"
     
-    return render_template("explore/embed.html",
-        current_build = b,
+    return render_template("explore/embed_new.html",
+        build = b,
         global_vars = json.dumps(global_vars),
         facebook_id = FACEBOOK_ID)
 

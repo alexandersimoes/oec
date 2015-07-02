@@ -1,3 +1,5 @@
+import json
+from flask import g, url_for
 from oec.db_attr.models import Country, Hs92, Hs96, Hs02, Hs07, Sitc
 
 ''' All the viz types currently supported
@@ -259,7 +261,50 @@ class Build(object):
 
     def category(self):
         return build_metadata[self.id][self.trade_flow]["category"]
+    
+    def serialize(self):
+        return json.dumps({
+            "viz": self.viz,
+            "classification": self.classification,
+            "trade_flow": self.trade_flow,
+            "origin": self.origin.serialize() if hasattr(self.origin, "serialize") else self.origin,
+            "dest": self.dest.serialize() if hasattr(self.dest, "serialize") else self.dest,
+            "prod": self.prod.serialize() if hasattr(self.prod, "serialize") else self.prod,
+            "year": self.year,
+            "year_str": self.year_str,
+            "id": self.id,
+            "title": self.title(),
+        })
+    
+    '''Returns the data URL for the specific build.'''
+    def data_url(self, year=None, output_depth=6):
+        year = year or self.year_str
+        if not year:
+            year = available_years[self.classification][-1]
+        origin, dest, prod = [self.origin, self.dest, self.prod]
+        xtra_args = ""
 
+        if (isinstance(prod, (Sitc, Hs92, Hs96, Hs02, Hs07)) and dest == "all" and isinstance(origin, Country)):
+            prod = "show"
+            xtra_args = "?output_depth={}_id_len.{}".format(self.classification, output_depth)
+        elif isinstance(prod, (Sitc, Hs92, Hs96, Hs02, Hs07)):
+            xtra_args = "?output_depth={}_id_len.{}".format(self.classification, len(prod.id))
+            prod = getattr(prod, self.classification)
+        if isinstance(origin, Country):
+            origin = origin.id_3char
+            xtra_args = "?output_depth={}_id_len.{}".format(self.classification, output_depth)
+        if isinstance(dest, Country):
+            dest = dest.id_3char
+        url = '/{}/{}/{}/{}/{}/{}/{}'.format(self.classification,
+                self.trade_flow, year, origin, dest, prod, xtra_args)
+        return url
+
+    def attr_url(self):
+        lang = getattr(g, "locale", "en")
+        if self.origin == "show" or self.dest == "show":
+            return url_for('attr.attrs', attr='country', lang=lang)
+        return url_for('attr.attrs', attr=self.classification, lang=lang)
+    
     def __repr__(self):
         return "<Build: {}:{}:{}:{}:{}>".format(self.viz["slug"], self.trade_flow, self.origin, self.dest, self.prod)
 
