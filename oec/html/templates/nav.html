@@ -133,7 +133,7 @@
   d3.select("#search").style("background-color", "rgba("+rgb.r+", "+rgb.g+", "+rgb.b+", 0.05)");
 
   // Sets paragraph link styles
-  d3.selectAll("p a")
+  d3.selectAll("aside a, p a")
     .style("color", color)
     .on(d3plus.client.pointer.over, function(){
       d3.select(this).style("border-bottom", "2px solid " + color);

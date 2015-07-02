@@ -212,9 +212,40 @@ nav {
 
       }
 
+      a {
+        color: $color;
+        text-decoration: none;
+        &:hover {
+          border-bottom: 1px solid $color;
+        }
+      }
+
       aside {
         margin: 50px 0 0 50px;
         width: $nav;
+
+        ul {
+          font-family: $serif;
+          font-size: 17px;
+          line-height: 28px;
+
+          .active {
+            font-weight: 700;
+          }
+
+          .depth2 {
+            list-style-type: none;
+          }
+
+          .depth6 {
+            margin-left: 20px;
+          }
+
+          .depth8 {
+            margin-left: 40px;
+          }
+
+        }
 
         .viz {
           background-color: #ddd;

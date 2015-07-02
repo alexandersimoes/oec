@@ -19,7 +19,7 @@ class Profile(object):
         self.year = available_years[self.classification][-1]
 
     def title(self):
-        return self.attr.get_attr_name().name
+        return self.attr.get_attr_name()
 
     def palette(self):
         if hasattr(self.attr, "palette"):

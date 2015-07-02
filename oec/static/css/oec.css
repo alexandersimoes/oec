@@ -70,11 +70,6 @@ h2 {
     font-size: 17px;
     line-height: 28px;
     margin-bottom: 20px; }
-    p a {
-      color: #0085BF;
-      text-decoration: none; }
-      p a:hover {
-        border-bottom: 1px solid #0085BF; }
 nav {
   -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
@@ -322,9 +317,26 @@ nav {
               #container #content section .stat sub {
                 font-size: 11px;   }
 }
+        #container #content section a {
+          color: #0085BF;
+          text-decoration: none; }
+          #container #content section a:hover {
+            border-bottom: 1px solid #0085BF; }
         #container #content section aside {
           margin: 50px 0 0 50px;
           width: 250px; }
+          #container #content section aside ul {
+            font-family: "Lora", "Times", serif;
+            font-size: 17px;
+            line-height: 28px; }
+            #container #content section aside ul .active {
+              font-weight: 700; }
+              #container #content section aside ul .depth2 {
+                list-style-type: none; }
+                #container #content section aside ul .depth6 {
+                  margin-left: 20px; }
+                  #container #content section aside ul .depth8 {
+                    margin-left: 40px; }
           #container #content section aside .viz {
             background-color: #ddd;
             display: block;

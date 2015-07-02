@@ -37,7 +37,17 @@
 <section>
 
   <aside>
-    <div class="viz"></div>
+    {% if g.page_sub_type == "product" %}
+    <ul>
+      {% for attr in profile.heirarchy() %}
+      <li class="depth{{ attr.id|length }}{% if attr.id == profile.attr.id %} active{% endif %}"><a href="{{ attr.get_profile_url() }}">
+        {{ attr.id }} - {{ attr.get_attr_name() }}
+      </a></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div class="topojson"></div>
+    {% endif %}
   </aside>
 
   <content>

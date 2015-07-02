@@ -19,7 +19,7 @@ class ProdAttr(db.Model, AutoSerialize):
 
     def get_attr_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
-        return self.name.filter_by(lang=lang).first()
+        return self.name.filter_by(lang=lang).first().name
 
     def get_name(self, lang=None, article=None):
         lang = lang or getattr(g, "locale", "en")

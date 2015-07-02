@@ -21,15 +21,6 @@ p {
   font-size: 17px;
   line-height: 28px;
   margin-bottom: 20px;
-
-  a {
-    color: $color;
-    text-decoration: none;
-    &:hover {
-      border-bottom: 1px solid $color;
-    }
-  }
-
 }
 
 @import "elements/nav";
