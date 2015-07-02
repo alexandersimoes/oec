@@ -29,8 +29,8 @@ class Profile(object):
         if p:
             return ast.literal_eval(p)
         else:
-            return ["#b7802b"]
-    
+            return []
+
     @staticmethod
     def stringify_items(items, val=None, attr=None):
         str_items = []
@@ -196,21 +196,21 @@ class Country(Profile):
         return [trade_section, ps_section, dv_section]
 
 class Product(Profile):
-    
+
     def __init__(self, classification, id):
         super(Product, self).__init__(classification, id)
         self.attr_cls = getattr(attrs, classification.capitalize())
         self.attr = self.attr_cls.query.filter(getattr(self.attr_cls, classification) == self.id).first()
-    
+
     def heirarchy(self):
         prods = []
-        
+
         _2dig = self.attr_cls.query.get(self.attr.id[:4])
         prods.append(_2dig)
-        
+
         '''if this is a 2 digit product show only its children,
             on the other hand if its a 4 or 6 digit product show
-            the single 4 digit prod and all 6 digit children with 
+            the single 4 digit prod and all 6 digit children with
             itself included'''
         if self.attr == _2dig:
             children = self.attr_cls.query \
@@ -228,10 +228,10 @@ class Product(Profile):
                         .order_by("id") \
                         .all()
             prods = prods + list(children)
-        
+
         return prods
-            
-    
+
+
     def intro(self):
         all_paragraphs = []
         ''' Paragraph #1
@@ -239,7 +239,7 @@ class Product(Profile):
         p1 = u"{} is a {} digit {} product." \
                 .format(self.attr.get_name(), len(self.attr.get_display_id()), self.classification.upper())
         all_paragraphs.append(p1)
-        
+
         ''' Paragraph #2
         '''
         # get total world trade rank
@@ -260,7 +260,7 @@ class Product(Profile):
                     num_format(this_yp.export_val), self.attr.get_name(),
                     num_format(this_yp.import_val))
         all_paragraphs.append(p2)
-        
+
         ''' Paragraph #3
         '''
         p3 = []
@@ -275,16 +275,16 @@ class Product(Profile):
             p3.append(u"{} is the top import of {}.".format(self.attr.get_name(), countries_top_import))
         if p3:
             all_paragraphs = all_paragraphs + p3
-        
+
         ''' Paragraph #4
         '''
         keywords = self.attr.get_keywords()
         if keywords:
             all_paragraphs.append(u"{} is also known as {}.".format(self.attr.get_name(), keywords))
-        
+
         return all_paragraphs
 
-    
+
     def sections(self):
         ''' Trade Section
         '''
@@ -299,7 +299,7 @@ class Product(Profile):
                 {"title": u"Importers", "build": importers, "subtitle": u"This treemap shows the share of countries that import {}.".format(self.attr.get_name())},
             ]
         }
-        
+
         ''' DataViva Section
         '''
         dv_munic_exporters_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val".format(self.attr.id)
@@ -311,5 +311,5 @@ class Product(Profile):
                 {"title": u"{} importers in Brazil".format(self.attr.get_name()), "iframe": dv_munic_importers_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that import {}.".format(self.attr.get_name())},
             ]
         }
-        
+
         return [trade_section, dv_section]

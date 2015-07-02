@@ -68,7 +68,8 @@ h2 {
   p {
     font-family: "Lora", "Times", serif;
     font-size: 17px;
-    line-height: 28px; }
+    line-height: 28px;
+    margin-bottom: 10px; }
     p a {
       color: #0085BF;
       text-decoration: none; }

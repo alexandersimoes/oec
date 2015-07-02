@@ -34,7 +34,7 @@
           <li class="country">
             <a href="{{ url_for('profile.profile_country_redirect', lang=g.locale) }}">{{ _('Country') }}</a>
           </li>
-          <li class="hs92">
+          <li class="product">
             <a href="{{ url_for('profile.profile_product_redirect', lang=g.locale, attr_type='hs92') }}">{{ _('Product') }}</a>
           </li>
         </ul>
@@ -118,8 +118,7 @@
 <script src="/static/js/libs/typeahead.min.js"></script>
 <script>
 
-  // var page = "{{ g.page_type }}", sub_page = "{{ g.page_sub_type }}";
-  var page = "profile", sub_page = "country";
+  var page = "{{ g.page_type }}", sub_page = "{{ g.page_sub_type }}";
 
   if (!color) var color = "#0085BF";
 

@@ -84,14 +84,20 @@
 
   var palette = JSON.parse("{{ profile.palette()|safe }}".replace(/'/g, '"')),
       color;
-  for (var p = 0; p < palette.length; p++) {
-    var c = d3.hsl(palette[p]);
-    if (c.l > 0.5) {
-      color = d3plus.color.legible(palette[p]);
-      break;
+
+  if (palette.length) {
+    for (var p = 0; p < palette.length; p++) {
+      var c = d3.hsl(palette[p]);
+      if (c.l > 0.5) {
+        color = d3plus.color.legible(palette[p]);
+        break;
+      }
     }
+    if (!color) color = palette[1];
   }
-  if (!color) color = palette[1];
+  else {
+    color = "{{ profile.attr.color }}";
+  }
 
   var builds = [];
   d3.selectAll(".viz").each(function(d, i){

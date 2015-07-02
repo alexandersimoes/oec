@@ -30,6 +30,10 @@ def get_profile_owner(endpoint, values):
     lang = values.pop('lang')
     g.locale = get_locale(lang)
 
+@app.before_request
+def before_request():
+    g.page_type = mod.name
+
 @mod.route('/country/')
 def profile_country_redirect():
     '''fetch random country'''
@@ -61,11 +65,12 @@ def sanitize(id_3char):
 # @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def profile_country(attr_id="usa"):
     c = Country("hs92", attr_id)
-    # raise Exception(c.sections()[1])
+    g.page_sub_type = "country"
     return render_template("profile/index.html", profile=c)
 
 @mod.route('/<any("sitc","hs92","hs96","hs02","hs07"):attr_type>/<attr_id>/')
 # @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def profile_product(attr_type, attr_id="7108"):
     p = Product(attr_type, attr_id)
+    g.page_sub_type = "product"
     return render_template("profile/index.html", profile=p)
