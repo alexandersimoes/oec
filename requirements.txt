@@ -26,5 +26,8 @@ fuzzywuzzy
 markdown
 python-dateutil
 
+# JS compiler
+Flask-Assets
+
 # SCSS compiler
 -e git://github.com/bcarlin/flask-scss.git#egg=Flask-Scss-dev

@@ -27,6 +27,11 @@
     <script src="/static/js/libs/d3plus.js"></script>
     <script src="/static/js/libs/moment.min.js"></script>
     <script>moment.lang("{{g.locale}}")</script>
+
+    {% assets "js" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+
     <script>
 
       function redirect(url, seconds){
