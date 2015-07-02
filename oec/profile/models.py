@@ -205,7 +205,7 @@ class Product(Profile):
     def heirarchy(self):
         prods = []
 
-        _2dig = self.attr_cls.query.get(self.attr.id[:4])
+        _2dig = self.attr_cls.query.get(self.attr.id[:2])
         prods.append(_2dig)
 
         '''if this is a 2 digit product show only its children,
