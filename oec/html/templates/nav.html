@@ -54,19 +54,19 @@
         </ul>
       </div>
 
-      <li class="publications">
-        {{ _('Publications') }}
+      <li class="resources">
+        {{ _('Resources') }}
       </li>
-      <div class="accordion publications">
+      <div class="accordion resources">
         <ul>
-          <li class="atlas">
-            <a href="">{{ _('The Atlas') }}</a>
+          <li class="publications">
+            <a href="{{ url_for('resources.publications') }}">{{ _('Publications') }}</a>
           </li>
-          <li class="information">
-            <a href="">{{ _('Why Information Grows') }}</a>
+          <li class="data">
+            <a href="{{ url_for('resources.publications') }}">{{ _('Data Downloads') }}</a>
           </li>
-          <li class="research">
-            <a href="">{{ _('Research Papers') }}</a>
+          <li class="api">
+            <a href="{{ url_for('resources.publications') }}">{{ _('API') }}</a>
           </li>
         </ul>
       </div>
@@ -79,7 +79,7 @@
         <img src="/static/img/nav/mc.png" width=148 height=60>
       </a>
 
-      <a class="about" href="{{ url_for('general.about') }}">{{ _('About the Page') }}</a> – <a class="data" href="{{ url_for('general.about') }}">{{ _('Data Sources') }}</a>
+      <a class="about" href="{{ url_for('about.about') }}">{{ _('About the Site') }}</a> – <a class="data" href="{{ url_for('general.permissions') }}">{{ _('Permissions') }}</a>
 
     </div>
 
@@ -102,8 +102,11 @@
 
   <footer>
     <div>
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
-      The Observatory of Economic Complexity by <a xmlns:cc="http://creativecommons.org/ns#" href="http://alexandersimoes.com/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://atlas.media.mit.edu/about/permissions/" rel="cc:morePermissions">http://atlas.media.mit.edu/about/permissions/</a>.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
+        <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/80x15.png" />
+      </a>
+      <br>
+      The Observatory of Economic Complexity by <a xmlns:cc="http://creativecommons.org/ns#" href="http://alexandersimoes.com/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Permissions beyond the scope of this license may be available <a xmlns:cc="http://creativecommons.org/ns#" href="/permissions/" rel="cc:morePermissions">here</a>.
       <ul class="lang">
         {% for lang_id, lang_name in g.supported_langs.iteritems() %}
         <li><a href="{{ request.path|langify(lang_id) }}">{{ lang_name }}</a></li>
@@ -206,7 +209,7 @@
 
       header
         .style("height", newHeight+"px")
-        .style(d3plus.client.prefix()+"box-shadow", scrollHeight <= min ? "0 2px 2px rgba(0,0,0,0.5)" : "none");
+        .style(d3plus.client.prefix()+"box-shadow", scrollHeight <= min ? "0 2px 4px rgba(0,0,0,0.5)" : "none");
 
       var icon = header.select("#icon"),
           normalized = d3.scale.linear()

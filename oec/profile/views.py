@@ -30,7 +30,7 @@ def get_profile_owner(endpoint, values):
     lang = values.pop('lang')
     g.locale = get_locale(lang)
 
-@app.before_request
+@mod.before_request
 def before_request():
     g.page_type = mod.name
 

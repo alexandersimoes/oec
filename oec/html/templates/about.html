@@ -13,10 +13,10 @@
   <div id="sidebar" class="col1">
     
     <ul>
-      <li id="team" class="icon {% if g.sub_title == 'team' %} active{% endif %}">
+      <li id="team" class="icon {% if g.sub_page_type == 'team' %} active{% endif %}">
         <a href="/about/team/">Team</a>
       </li>
-      <li id="data" class="icon {% if g.sub_title == 'data' %} active{% endif %}">
+      <li id="data" class="icon {% if g.sub_page_type == 'data' %} active{% endif %}">
         <a href="/about/data/">Data</a>
         <ul>
           <ul>
@@ -39,7 +39,7 @@
           </ul>
         </ul>
       </li>
-      <li id="api" class="icon {% if g.sub_title == 'api' %} active{% endif %}">
+      <li id="api" class="icon {% if g.sub_page_type == 'api' %} active{% endif %}">
         <a href="/about/api/">Api</a>
         <ul>
           <ul>
@@ -52,16 +52,16 @@
           </ul>
         </ul>
       </li>
-      <li id="permissions" class="icon {% if g.sub_title == 'permissions' %} active{% endif %}">
+      <li id="permissions" class="icon {% if g.sub_page_type == 'permissions' %} active{% endif %}">
         <a href="/about/permissions/">Permissions</a>
       </li>
-      <li id="updates" class="icon {% if g.sub_title == 'updates' %} active{% endif %}">
+      <li id="updates" class="icon {% if g.sub_page_type == 'updates' %} active{% endif %}">
         <a href="/about/updates/">Updates</a>
       </li>
-      <li id="translations" class="icon {% if g.sub_title == 'translations' %} active{% endif %}">
+      <li id="translations" class="icon {% if g.sub_page_type == 'translations' %} active{% endif %}">
         <a href="/about/translations/">Translations</a>
       </li>
-      <li id="faqs" class="icon {% if g.sub_title == 'faqs' %} active{% endif %}">
+      <li id="faqs" class="icon {% if g.sub_page_type == 'faqs' %} active{% endif %}">
         <a href="/about/faqs/">FAQs</a>
       </li>
     </ul>

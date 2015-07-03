@@ -93,7 +93,7 @@
 // Cross browser flex information here:
 // http://stackoverflow.com/questions/13934654/is-there-any-polyfill-for-current-css-flexible-box-layout-module-as-per-w3c-cr
 
-@mixin flex-display {
+@mixin flex {
   @include justify();
   display: -webkit-box;     // OLD - iOS 6-, Safari 3.1-6
   display: -moz-box;        // OLD - Firefox 19- (buggy but mostly works)
@@ -123,6 +123,11 @@
   -webkit-flex-direction: $flow;
   -moz-flex-direction: $flow;
   flex-direction: $flow;
+}
+
+@mixin flex-wrap($wrap: wrap) {
+  -webkit-flex-wrap: $wrap;
+  flex-wrap: $wrap;
 }
 
 @mixin align-content($align: center) {

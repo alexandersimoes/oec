@@ -1,0 +1,99 @@
+$image_size: 150px;
+
+.member {
+  margin: 30px 0 40px;
+  min-height: $image_size;
+  padding-left: $image_size + 30;
+  padding-top: 0;
+  position: relative;
+
+  &:before {
+    @include shadow();
+    @include rounded($image_size);
+    background-color: $color;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: $image_size - 12;
+    content: "";
+    display: block;
+    height: $image_size;
+    margin-left: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: $image_size;
+  }
+
+  @media all and (max-width: 500px) {
+    padding-left: 0;
+    padding-top: $image_size + 30;
+
+    &:before {
+      margin-left: -$image_size/2;
+      left: 50%;
+    }
+
+  }
+
+  & h3 a {
+    @include transition(text-shadow 0.1s);
+    font-size: 24px;
+    margin-left: 5px;
+    &:hover {
+      border: 0 !important;
+      text-shadow: $shadow;
+    }
+  }
+
+}
+
+#past {
+  @include flex;
+  @include flex-wrap;
+
+  $past_size: 100px;
+  .member {
+    margin: 30px 0 0;
+    max-width: 50%;
+    min-height: $past_size;
+    padding-left: $past_size + 30;
+    padding-right: 15px;
+
+    &:before {
+      @include rounded($past_size);
+      background-size: $past_size - 12;
+      height: $past_size;
+      left: 15px;
+      width: $past_size;
+    }
+
+    @media all and (max-width: 768px) and (max-width: 500px) {
+      max-width: 100%;
+      padding-left: $past_size + 15;
+      padding-right: 0;
+      padding-top: 0;
+      &:before {
+        left: 0;
+        margin-left: 0;
+      }
+    }
+
+  }
+
+}
+
+$team: "alexander_simoes",
+       "dave_landry",
+       "cesar_hidalgo",
+       "eric_franco",
+       "crystal_noel",
+       "ali_almossawi",
+       "sarah_chung";
+
+@each $name in $team {
+  ##{$name} {
+    &:before {
+      background-image: url("/static/img/about/#{$name}.png");
+    }
+  }
+}

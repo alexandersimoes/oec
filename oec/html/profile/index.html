@@ -1,5 +1,8 @@
 {% extends "templates/nav.html" %}
 
+{% set title = profile.title() %}
+{% block title %} - {{ title }}{% endblock %}
+
 {% block body %}
 
 <header>
@@ -8,7 +11,7 @@
   <img id="header" src="{{ image }}"></img>
   {% endif %}
   <img id="icon" src="{{ profile.attr.get_icon() }}">
-  <h1>{{ profile.title() }}</h1>
+  <h1>{{ title }}</h1>
 </header>
 
 <section id="stats">

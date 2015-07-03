@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from operator import itemgetter
 from datetime import datetime
 from markdown import markdown
@@ -133,131 +134,12 @@ def search():
 # ---------------------------
 @mod.route('atlas/')
 def atlas():
-    g.page_type = "atlas"
-    return render_template("atlas/index.html")
+    return redirect(url_for("resources.publications"))
 
-###############################
-# About views
-# ---------------------------
-@mod.route('about/')
-def about():
-    return redirect(url_for('.about_team'))
-
-@mod.route('about/team/')
-def about_team():
-    g.page_type = "about"
-    g.sub_title = "team"
-    return render_template("about/team.html")
-
-@mod.route('about/data/')
-def about_data_redirect():
-    return redirect(url_for('.about_data_sources'))
-
-@mod.route('about/data/sources/')
-def about_data_sources():
-    g.page_type = "about"
-    g.sub_title = "data"
-    return render_template("about/data_sources.html", data_type="sources")
-
-@mod.route('about/data/download/')
-def about_data_download():
-    g.page_type = "about"
-    g.sub_title = "data"
-    return render_template("about/data_download.html", data_type="download")
-
-@mod.route('about/data/<data_type>/')
-def about_data(data_type):
-    g.page_type = "about"
-    g.sub_title = "data"
-    lang = request.args.get('lang', g.locale)
-    download = request.args.get('download', None)
-
-    if data_type == "sitc":
-        items = Sitc.query.filter(Sitc.sitc != None).order_by(Sitc.sitc).all()
-        headers = ["SITC", "Name"]
-        title = "SITC4 product names and codes"
-        id_col = "sitc"
-    elif data_type == "hs":
-        items = Hs.query.filter(Hs.hs != None).order_by(Hs.hs).all()
-        headers = ["HS", "Name"]
-        title = "HS4 (harmonized system) product names and codes"
-        id_col = "hs"
-    elif data_type == "country":
-        items = Country.query.filter(Country.id_3char != None).order_by(Country.id_3char).all()
-        headers = ["Abbrv", "Name"]
-        title = "Country names and abbreviations"
-        id_col = "id_3char"
-
-    if download:
-        s = StringIO()
-        writer = csv.writer(s)
-        title = "{0}_classification_list".format(data_type)
-        writer.writerow([unicode(h).encode("utf-8") for h in headers])
-        for i in items:
-            writer.writerow([getattr(i, id_col), unicode(i.get_name()).encode("utf-8")])
-        content_disposition = "attachment;filename={0}.csv".format(title)
-        return Response(s.getvalue(),
-                            mimetype="text/csv;charset=UTF-8",
-                            headers={"Content-Disposition": content_disposition})
-
-    return render_template("about/data.html", items=items, headers=headers,
-                            title=title, data_type=data_type, id_col=id_col)
-
-@mod.route('about/permissions/')
-def about_permissions():
-    g.page_type = "about"
-    g.sub_title = "permissions"
-    return render_template("about/permissions.html")
-
-@mod.route('about/faqs/')
-def about_faqs():
-    g.page_type = "about"
-    g.sub_title = "faqs"
-    return render_template("about/faqs.html")
-
-@mod.route('about/translations/')
-def about_translations():
-    g.page_type = "about"
-    g.sub_title = "translations"
-    return render_template("about/translations.html")
-
-@mod.route('about/updates/')
-def about_updates():
-    g.page_type = "about"
-    g.sub_title = "updates"
-    releases = json.load(urllib2.urlopen("https://api.github.com/repos/alexandersimoes/oec/releases"))
-    updates = []
-    for r in releases:
-        u = {
-            "title": r["name"],
-            "body": markdown(r["body"]),
-            "date": {
-                "human": parser.parse(r["published_at"]).strftime("%A, %b %d %Y"),
-                "meta": r["published_at"]
-            },
-            "url": r["html_url"]
-        }
-        updates.append(u)
-    return render_template("about/updates.html", updates=updates)
-
-###############################
-# API views
-# ---------------------------
-@mod.route('about/api/')
-def api():
-    return redirect(url_for(".api_embed"))
-
-@mod.route('about/api/embed/')
-def api_embed():
-    g.page_type = "about"
-    g.sub_title = "api"
-    return render_template("about/api_embed.html", data_type="embed")
-
-@mod.route('about/api/data/')
-def api_data():
-    g.page_type = "about"
-    g.sub_title = "api"
-    return render_template("about/api_data.html", data_type="data")
+@mod.route('permissions/')
+def permissions():
+    g.page_type = "permissions"
+    return render_template("general/permissions.html")
 
 ###############################
 # Legacy support views

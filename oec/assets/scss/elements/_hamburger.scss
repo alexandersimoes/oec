@@ -1,0 +1,45 @@
+#hamburger {
+  @include transition(opacity 0.1s);
+  color: #fff;
+  cursor: pointer;
+  font-size: 19px;
+  height: 20px;
+  left: 7px;
+  margin: 10px;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  visibility: hidden;
+  width: 20px;
+  z-index: 8;
+
+  @media all and (max-width: 1024px) {
+    opacity: 0.75;
+    visibility: visible;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+}
+
+#mask {
+  background-color: #000;
+  bottom: 0;
+  cursor: pointer;
+  display: none;
+  left: 0;
+  opacity: 0.5;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10;
+
+  @media all and (max-width: 1024px) {
+    &.open {
+      display: block;
+    }
+  }
+
+}

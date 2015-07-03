@@ -1,8 +1,10 @@
 @import "helpers/reset";
 @import "helpers/variables";
+@import "helpers/vendor";
 
 body {
   background-color: #eee;
+  color: #333;
   font-family: $sans-serif;
   min-height: 100vh;
 
@@ -16,11 +18,46 @@ h2 {
   font-size: 30px;
 }
 
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  color: #878787;
+  font-family: $serif;
+  font-size: 17px;
+  font-weight: 400;
+  margin: 2px 0 5px;
+}
+
 p {
   font-family: $serif;
   font-size: 17px;
   line-height: 28px;
+  margin: 10px 0 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+}
+
+blockquote {
+  font-family: $serif;
+  font-style: italic;
+  padding: 0px 30px;
   margin-bottom: 20px;
+
+  p {
+    font-size: 13px;
+    line-height: 15px;
+    margin-top: 5px;
+    text-align: right;
+  }
+
 }
 
 @import "elements/nav";
+@import "elements/container";
+@import "elements/hamburger";
+@import "elements/team";
