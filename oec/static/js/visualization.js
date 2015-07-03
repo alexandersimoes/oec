@@ -15,6 +15,20 @@ var visualization = function(build, elem) {
 
 configs.default = function(build) {
   
+  /*  If we're looking at countries their icons are flags and we don't
+      want to show the colored background because the flags don't take up
+      100% of the icon square. 
+  
+      Also we want to show RCA if we're looking at products. */
+  if(build.attr_type == "dest" || build.attr_type == "origin"){
+    var icon = {"value":"icon", "style":{"nest":"knockout","id":"default"}};
+    var tooltip = ["display_id", build.trade_flow+"_val"];
+  }
+  else {
+    var icon = {"value":"icon", "style":"knockout"};
+    var tooltip = ["display_id", build.trade_flow+"_val", build.trade_flow+"_rca"]
+  }
+  
   return {
     "aggs": {
       "export_val_growth_pct": "mean",
@@ -48,43 +62,9 @@ configs.default = function(build) {
           ret = "$"+ret
         }
         return ret
-      },
-      "text": function( text , key , vars ){
-
-        if(key){
-          if(key == "display_id"){ return text.toUpperCase(); }
-        }
-        if(text){
-          if(text == "share"){ return "{{ _('Percent') }}"; }
-          if(text == "display_id"){ return "{{ _('ID') }}"; }
-          if(text == "export_val"){ return "{{ _('Export Value') }}"; }
-          if(text == "net_export_val"){ return "{{ _('Net Export') }} {{ _('Value') }}"; }
-          if(text == "import_val"){ return "{{ _('Import Value') }}"; }
-          if(text == "net_import_val"){ return "{{ _('Net Import') }} {{ _('Value') }}"; }
-          if(text == "market_val"){ return "{{ _('Market Value') }}"; }
-          if(text == "export_rca"){ return "{{ _('Export') }} RCA"; }
-          if(text == "import_rca"){ return "{{ _('Import') }} RCA"; }
-          if(text == "gdp"){ return "{{ _('GDP') }}"; }
-          if(text == "gdp_pc_constant"){ return "{{ _('GDPpc (constant \'05 US$)') }}"; }
-          if(text == "gdp_pc_current"){ return "{{ _('GDPpc (current US$)') }}"; }
-          if(text == "gdp_pc_constant_ppp"){ return "{{ _('GDPpc PPP (constant \'11)') }}"; }
-          if(text == "gdp_pc_current_ppp"){ return "{{ _('GDPpc PPP (current)') }}"; }
-          if(text == "eci"){ return "{{ _('ECI') }}"; }
-
-          if(text == trade_flow+"_val_growth_pct"){ return "{{ _('Annual Growth Rate (1 year)') }}"; }
-          if(text == trade_flow+"_val_growth_pct_5"){ return "{{ _('Annual Growth Rate (5 year)') }}"; }
-          if(text == trade_flow+"_val_growth_val"){ return "{{ _('Growth Value (1 year)') }}"; }
-          if(text == trade_flow+"_val_growth_val_5"){ return "{{ _('Growth Value (5 year)') }}"; }
-
-          if(text.indexOf("Values") >= 0 && !key){
-            return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
-          }
-
-          return d3plus.string.title( text , key , vars );
-        }
       }
     },
-    "icon": "icon",
+    "icon": icon,
     "id": ["nest", "id"],
     "messages": {"branding": true},
     "size": {
@@ -94,9 +74,14 @@ configs.default = function(build) {
     "text": ["name", "display_id"],
     "time": {"value": "year", "solo": build.year },
     "tooltip": { "small": 225 },
+    "tooltip": tooltip,
     "type": build.viz.slug
   }
 
+}
+
+configs.stacked = function(build) {
+  return {}
 }
 
 configs.tree_map = function(build) {

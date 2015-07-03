@@ -274,6 +274,7 @@ class Build(object):
             "year_str": self.year_str,
             "id": self.id,
             "title": self.title(),
+            "attr_type": self.attr_type(),
         })
     
     '''Returns the data URL for the specific build.'''
