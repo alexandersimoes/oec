@@ -13,6 +13,7 @@ from oec.db_attr.models import Hs92, Hs92_name, Hs96, Hs96_name
 from oec.db_attr.models import Hs02, Hs02_name, Hs07, Hs07_name
 from oec.explore.models import Build
 from oec.general.search import Search
+from oec.translations.lookup import get_translations
 
 import time, urllib2, json
 from dateutil import parser
@@ -36,6 +37,7 @@ def before_request():
     g.supported_langs = current_app.config.get('LANGUAGES')
     g.available_years = available_years
     g.cache_version = 1
+    g.translations = json.dumps(get_translations())
 
     # Save variable in session so we can determine if this is the user's
     # first time on the site

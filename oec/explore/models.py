@@ -262,21 +262,6 @@ class Build(object):
     def category(self):
         return build_metadata[self.id][self.trade_flow]["category"]
     
-    def serialize(self):
-        return json.dumps({
-            "viz": self.viz,
-            "classification": self.classification,
-            "trade_flow": self.trade_flow,
-            "origin": self.origin.serialize() if hasattr(self.origin, "serialize") else self.origin,
-            "dest": self.dest.serialize() if hasattr(self.dest, "serialize") else self.dest,
-            "prod": self.prod.serialize() if hasattr(self.prod, "serialize") else self.prod,
-            "year": self.year,
-            "year_str": self.year_str,
-            "id": self.id,
-            "title": self.title(),
-            "attr_type": self.attr_type(),
-        })
-    
     '''Returns the data URL for the specific build.'''
     def data_url(self, year=None, output_depth=6):
         year = year or self.year_str
@@ -312,6 +297,23 @@ class Build(object):
         if self.dest == "show":
             return "dest"
         return self.classification
+    
+    def serialize(self):
+        return json.dumps({
+            "viz": self.viz,
+            "classification": self.classification,
+            "trade_flow": self.trade_flow,
+            "origin": self.origin.serialize() if hasattr(self.origin, "serialize") else self.origin,
+            "dest": self.dest.serialize() if hasattr(self.dest, "serialize") else self.dest,
+            "prod": self.prod.serialize() if hasattr(self.prod, "serialize") else self.prod,
+            "year": self.year,
+            "year_str": self.year_str,
+            "id": self.id,
+            "title": self.title(),
+            "attr_type": self.attr_type(),
+            "data_url": self.data_url(),
+            "attr_url": self.attr_url(),
+        })
     
     def __repr__(self):
         return "<Build: {}:{}:{}:{}:{}>".format(self.viz["slug"], self.trade_flow, self.origin, self.dest, self.prod)

@@ -158,24 +158,6 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
 
     return (origin, dest, product)
 
-@mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/')
-@mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year>/')
-def embed(app_name, classification, trade_flow, origin_id, dest_id, \
-                prod_id, year=available_years['hs92'][-1]):
-    
-    b = Build(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
-
-    '''Get URL query parameters from reqest.args object to return to the view.
-    '''
-    global_vars = {x[0]:x[1] for x in request.args.items()}
-    if "controls" not in global_vars:
-        global_vars["controls"] = "true"
-    
-    return render_template("explore/embed_new.html",
-        build = b,
-        global_vars = json.dumps(global_vars),
-        facebook_id = FACEBOOK_ID)
-
 @mod.route('/shorten/', methods=['GET', 'POST'])
 def shorten_url():
 
@@ -324,3 +306,21 @@ def explore_new(app_name, classification, trade_flow, origin_id, dest_id, prod_i
     return render_template("explore/index.html",
         current_build = build,
         all_builds = all_builds)
+
+@mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/')
+@mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year:year>/')
+def embed(app_name, classification, trade_flow, origin_id, dest_id, \
+                prod_id, year=available_years['hs92'][-1]):
+    
+    b = Build(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
+
+    '''Get URL query parameters from reqest.args object to return to the view.
+    '''
+    global_vars = {x[0]:x[1] for x in request.args.items()}
+    if "controls" not in global_vars:
+        global_vars["controls"] = "true"
+    
+    return render_template("explore/embed_new.html",
+        build = b,
+        global_vars = json.dumps(global_vars),
+        facebook_id = FACEBOOK_ID)

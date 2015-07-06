@@ -1,15 +1,97 @@
 var configs = {};
 
-var visualization = function(build, elem) {
+var visualization = function(build) {
 
-  var app = build.app.type; // Alex, is this right?
+  var attrs = {}, 
+      trade_flow = build.trade_flow,
+      opposite_trade_flow = trade_flow == "export" ? "import" : "export",
+      attr_id = build.attr_type + "_id",
+      default_config = configs["default"](build),
+      viz_config = configs[build.viz.slug](build);
 
-  d3plus.viz()
-    .container(elem)
-    .type(app)
-    .config(configs.default(build))
-    .config(configs[app](build))
-    .draw()
+  var viz_height = window.innerHeight;
+  var viz_width = window.innerWidth;
+
+  var viz = d3plus.viz()
+              .config(default_config)
+              .config(viz_config)
+              .height(viz_height)
+              .width(viz_width);
+  
+  /* Need to set text formatting in HTML for translations */
+  viz.format({"text": function(text, key, vars){
+      if(key){
+        if(key.key == "display_id"){ return text.toUpperCase(); }
+      }
+      if(text){
+        if(text == "display_id"){ 
+          if(build.attr_type == "origin" || build.attr_type == "dest"){
+            return oec.translations["id"];
+          }
+          else {
+            return build.attr_type.toUpperCase() + " ID";
+          }
+        }
+
+        if(d3.keys(oec.translations).indexOf(text) > -1){
+          return oec.translations[text];
+        }
+
+        if(text.indexOf("Values") >= 0 && !key){
+          return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
+        }
+
+        return d3plus.string.title(text, key, vars);
+      }
+    }
+  })
+
+
+  var q = queue()
+              .defer(d3.json, build.data_url)
+              .defer(d3.json, build.attr_url);
+
+  /* unleash the dogs... make the AJAX requests in order to the server and when
+     they return execute the go() func */
+  q.await(function(error, raw_data, raw_attrs){
+  
+    // set key 'nest' to their id
+    raw_attrs.data.forEach(function(d){
+      attrs[d.id] = d
+      if(attr_id == "origin_id" || attr_id == "dest_id"){
+        attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
+      }
+      else if(attr_id.indexOf("hs") == 0){
+        attrs[d.id]["icon"] = "/static/img/icons/hs/hs_"+d.id.substr(0, 2)+".png"
+      }
+      else if(attr_id == "sitc_id"){
+        attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
+      }
+    })
+
+    // go through raw data and set each items nest and id vars properly
+    // also calculate net values
+    raw_data.data.forEach(function(d){
+      d.nest = d[attr_id].substr(0, 2)
+      if(attr_id.indexOf("hs") == 0){
+        d.nest_mid = d[attr_id].substr(0, 6)
+      }
+      d.id = d[attr_id]
+      var net_val = parseFloat(d[trade_flow+"_val"]) - parseFloat(d[opposite_trade_flow+"_val"]);
+      if(net_val > 0){
+        d["net_"+trade_flow+"_val"] = net_val;
+      }
+    })
+  
+    viz.data(raw_data.data).attrs(attrs).draw();
+  
+    d3.select("#loading")
+      .style("display", "none")
+
+    d3.select("#viz")
+      .style("display", "block")
+  
+  });
 
 }
 
@@ -81,8 +163,15 @@ configs.default = function(build) {
 }
 
 configs.stacked = function(build) {
-  return {}
+  return {
+    "depth": 1,
+    "shape": "area",
+    "x": "year",
+    "color": "color",
+    "order": "nest"
+  }
 }
+
 
 configs.tree_map = function(build) {
   return {
