@@ -12,7 +12,6 @@ all_viz = [
     {"slug":"scatter", "name":"Scatter", "color":"#333"},
     {"slug":"geo_map", "name":"Geo Map", "color":"#333"}
 ]
-test = 2
 
 ''' Title, question, short name and category specific per build type. See below:
     0. tmap/stacked showing products exported/imported by country
@@ -263,7 +262,10 @@ class Build(object):
         return build_metadata[self.id][self.trade_flow]["category"]
     
     '''Returns the data URL for the specific build.'''
-    def data_url(self, year=None, output_depth=6):
+    def data_url(self, year=None, output_depth=None):
+        if self.viz["slug"] == "stacked":
+            output_depth = 6
+        output_depth = output_depth or 8
         year = year or self.year_str
         if not year:
             year = available_years[self.classification][-1]
