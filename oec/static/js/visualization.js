@@ -1,4 +1,4 @@
-var configs = {};
+var configs = {}, viz;
 
 var visualization = function(build) {
 
@@ -17,6 +17,39 @@ var visualization = function(build) {
               .config(viz_config)
               .height(viz_height)
               .width(viz_width);
+  
+
+  // viz = d3plus.viz()
+  //     .background("none")
+  //     .color("color")
+  //     .container("#viz")
+  //     .focus({"tooltip": false})
+  //     .icon({"value":"icon", "style":"knockout"})
+  //     .id(["nest", "id"])
+  //     .depth(1)
+  //     .messages({"branding": true})
+  //     .size({
+  //       "value": build.trade_flow+"_val",
+  //       "threshold": false
+  //     })
+  //     .text(["name", "display_id"])
+  //     .time({"value": "year", "solo": build.year })
+  //     .type("rings")
+  //     .nodes("/static/json/network_hs.json", function(network){
+  //       viz.edges(network.edges);
+  //       return network.nodes;
+  //     })
+  //     .focus(build.prod.id)
+  //     .height(viz_height)
+  //     .width(viz_width);
+  // console.log(build.prod)
+      
+  if(build.viz.slug == "network" || build.viz.slug == "rings"){
+    viz.nodes("/static/json/network_hs.json", function(network){
+      viz.edges(network.edges);
+      return network.nodes;
+    })
+  }
   
   /* Need to set text formatting in HTML for translations */
   viz.format({"text": function(text, key, vars){
@@ -50,6 +83,7 @@ var visualization = function(build) {
   var q = queue()
               .defer(d3.json, build.data_url)
               .defer(d3.json, build.attr_url);
+              // .defer(d3.json, "https://atlas.media.mit.edu/attr/hs/en/");
 
   /* unleash the dogs... make the AJAX requests in order to the server and when
      they return execute the go() func */
@@ -68,6 +102,15 @@ var visualization = function(build) {
         attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
       }
     })
+    
+    // for geo map, get rid of small island nations that don't exist
+    // in geography
+    if(build.viz.slug == "geo_map"){
+      delete attrs["octkl"]
+      delete attrs["octon"]
+      delete attrs["ocwlf"]
+      delete attrs["ocwsm"]
+    }
 
     // go through raw data and set each items nest and id vars properly
     // also calculate net values
@@ -84,7 +127,7 @@ var visualization = function(build) {
     })
   
     viz.data(raw_data.data).attrs(attrs).draw();
-  
+    
     d3.select("#loading")
       .style("display", "none")
 
@@ -160,6 +203,87 @@ configs.default = function(build) {
     "type": build.viz.slug
   }
 
+}
+
+configs.geo_map = function(build) {
+  return {
+    "color": build.trade_flow+"_val",
+    "coords": {
+      "center": [10,0],
+      "padding": 0,
+      "mute": ["anata"],
+      "value": "/static/json/country_coords.json"
+    },
+    "depth": 1,
+    "size": "export_val",
+    "x": "eci",
+    "y": {
+      "scale": "log",
+      "value": build.trade_flow
+    },
+  }
+}
+
+configs.network = function(build) {
+  return {
+    "active": {
+      "value": function(d){
+        return d.export_rca >= 1;
+      },
+      "spotlight":true      
+    },
+    "color": "color",
+    "depth": 1,
+    // "edges": {
+    //     "value": "/static/json/just_edges.json",
+    //     "callback": function(network){
+    //       return network.edges
+    //     }
+    // },
+    "id": ["nest","id"],
+    "nodes": {
+      "overlap": 1.1,
+    },
+    // "nodes": {
+    //   "overlap": 1.1,
+    //   "value": {
+    //     "value": "/static/json/just_nodes.json",
+    //     "callback": function(network){
+    //       return network.nodes
+    //     }
+    //   }
+    // },
+    "size": "export_val"
+  }
+}
+
+configs.rings = function(build) {
+  return {
+    "active": {
+      "value": function(d){
+        return d.export_rca >= 1;
+      },
+      "spotlight":true      
+    },
+    "color": "color",
+    "focus": build.prod.id,
+    "id": ["nest","id"],
+    "depth": 1,
+    "size": "export_val"
+  }
+}
+
+configs.scatter = function(build) {
+  return {
+    "color": "color",
+    "depth": 1,
+    "size": "export_val",
+    "x": "eci",
+    "y": {
+      "scale": "log",
+      "value": build.trade_flow
+    },
+  }
 }
 
 configs.stacked = function(build) {

@@ -104,7 +104,7 @@ build_metadata = { \
     },
     6: {
         "export": {
-            "title": "Connections of {product} in {origin}",
+            "title": "Connections of {prod} in {origin}",
             "question": "Where does {origin} export {prod} to?",
             "short_name": "Product Connections",
             "category": None
@@ -263,7 +263,7 @@ class Build(object):
     
     '''Returns the data URL for the specific build.'''
     def data_url(self, year=None, output_depth=None):
-        if self.viz["slug"] == "stacked":
+        if self.viz["slug"] == "stacked" or self.viz["slug"] == "network" or self.viz["slug"] == "rings":
             output_depth = 6
         output_depth = output_depth or 8
         year = year or self.year_str

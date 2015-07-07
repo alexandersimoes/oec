@@ -17,6 +17,14 @@ var visualization = function(build) {
               .config(viz_config)
               .height(viz_height)
               .width(viz_width);
+
+  /* need to grab json network file for rings and product space */
+  if(build.viz.slug == "network" || build.viz.slug == "rings"){
+    viz.nodes("/static/json/network_hs.json", function(network){
+      viz.edges(network.edges);
+      return network.nodes;
+    })
+  }
   
   /* Need to set text formatting in HTML for translations */
   viz.format({"text": function(text, key, vars){
@@ -68,6 +76,15 @@ var visualization = function(build) {
         attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
       }
     })
+    
+    // for geo map, get rid of small island nations that don't exist
+    // in geography
+    if(build.viz.slug == "geo_map"){
+      delete attrs["octkl"]
+      delete attrs["octon"]
+      delete attrs["ocwlf"]
+      delete attrs["ocwsm"]
+    }
 
     // go through raw data and set each items nest and id vars properly
     // also calculate net values
@@ -84,7 +101,7 @@ var visualization = function(build) {
     })
   
     viz.data(raw_data.data).attrs(attrs).draw();
-  
+    
     d3.select("#loading")
       .style("display", "none")
 
