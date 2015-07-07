@@ -296,7 +296,7 @@ def explore_new(app_name, classification, trade_flow, origin_id, dest_id, prod_i
     all_builds = get_all_builds(classification, origin_id, dest_id, prod_id, year, {"origin":origin, "dest":dest, "prod":prod})
     
     '''get this build'''
-    build = BuildNew(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
+    build = Build(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
     raise Exception(build.id, build.get_title())
     
     if redir:

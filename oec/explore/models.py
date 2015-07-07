@@ -10,7 +10,8 @@ all_viz = [
     {"slug":"network", "name":"Network", "color":"#333"},
     {"slug":"rings", "name":"Rings", "color":"#333"},
     {"slug":"scatter", "name":"Scatter", "color":"#333"},
-    {"slug":"geo_map", "name":"Geo Map", "color":"#333"}
+    {"slug":"geo_map", "name":"Geo Map", "color":"#333"},
+    {"slug":"line", "name":"Line", "color":"#333"}
 ]
 
 ''' Title, question, short name and category specific per build type. See below:
@@ -22,6 +23,7 @@ all_viz = [
     5. network of product space
     6. rings
     7. scatter of PCI by GDP
+    8. line chart of trade balance
 '''
 build_metadata = { \
     0: {
@@ -141,7 +143,15 @@ build_metadata = { \
             "short_name": "vs GDPpc PPP (current)",
             "category": "Economic Complexity"
         }
-    }
+    },
+    8: {
+        "show": {
+            "title": "Trade balance of {origin}",
+            "question": "What is the trade balance for {origin}?",
+            "short_name": "Trade Balance",
+            "category": None
+        }
+    },
 }
 
 class Build(object):
@@ -201,7 +211,9 @@ class Build(object):
 
     def get_build_id(self, viz, origin, dest, prod):
         '''build showing products given an origin'''
-        if viz == "network":
+        if viz["slug"] == "line":
+            return 8
+        if viz["slug"] == "network":
             return 5
         if origin == "show" and dest == "all" and prod == "all":
             return 7
@@ -289,12 +301,12 @@ class Build(object):
 
     def attr_url(self):
         lang = getattr(g, "locale", "en")
-        if self.origin == "show" or self.dest == "show":
+        if self.origin == "show" or self.dest == "show" or self.trade_flow == "show":
             return url_for('attr.attrs', attr='country', lang=lang)
         return url_for('attr.attrs', attr=self.classification, lang=lang)
     
     def attr_type(self):
-        if self.origin == "show":
+        if self.origin == "show" or self.trade_flow == "show":
             return "origin"
         if self.dest == "show":
             return "dest"

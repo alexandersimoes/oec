@@ -12,38 +12,13 @@ var visualization = function(build) {
   var viz_height = window.innerHeight;
   var viz_width = window.innerWidth;
 
-  var viz = d3plus.viz()
+  viz = d3plus.viz()
               .config(default_config)
               .config(viz_config)
               .height(viz_height)
               .width(viz_width);
-  
 
-  // viz = d3plus.viz()
-  //     .background("none")
-  //     .color("color")
-  //     .container("#viz")
-  //     .focus({"tooltip": false})
-  //     .icon({"value":"icon", "style":"knockout"})
-  //     .id(["nest", "id"])
-  //     .depth(1)
-  //     .messages({"branding": true})
-  //     .size({
-  //       "value": build.trade_flow+"_val",
-  //       "threshold": false
-  //     })
-  //     .text(["name", "display_id"])
-  //     .time({"value": "year", "solo": build.year })
-  //     .type("rings")
-  //     .nodes("/static/json/network_hs.json", function(network){
-  //       viz.edges(network.edges);
-  //       return network.nodes;
-  //     })
-  //     .focus(build.prod.id)
-  //     .height(viz_height)
-  //     .width(viz_width);
-  // console.log(build.prod)
-      
+  /* need to grab json network file for rings and product space */
   if(build.viz.slug == "network" || build.viz.slug == "rings"){
     viz.nodes("/static/json/network_hs.json", function(network){
       viz.edges(network.edges);
@@ -79,11 +54,10 @@ var visualization = function(build) {
     }
   })
 
-
+  console.log(build)
   var q = queue()
               .defer(d3.json, build.data_url)
               .defer(d3.json, build.attr_url);
-              // .defer(d3.json, "https://atlas.media.mit.edu/attr/hs/en/");
 
   /* unleash the dogs... make the AJAX requests in order to the server and when
      they return execute the go() func */
@@ -125,6 +99,25 @@ var visualization = function(build) {
         d["net_"+trade_flow+"_val"] = net_val;
       }
     })
+    
+    console.log(raw_data.data.length)
+    if(build.viz.slug == "line"){
+      raw_data.data = raw_data.data.map(function(d){
+        d.trade = d.export_val;
+        d.id = d.id + "_export";
+        d.name = "Exports";
+        return d;
+      })
+      var clones = raw_data.data.map(function(d){
+        var x = JSON.parse(JSON.stringify(d));
+        x.trade = x.import_val;
+        x.id = x.id + "_import";
+        x.name = "Imports"
+        return x;
+      })
+      raw_data.data = raw_data.data.concat(clones);
+      console.log(raw_data.data.length)
+    }
   
     viz.data(raw_data.data).attrs(attrs).draw();
     
@@ -221,6 +214,15 @@ configs.geo_map = function(build) {
       "scale": "log",
       "value": build.trade_flow
     },
+  }
+}
+
+configs.line = function(build) {
+  return {
+    "color": "id",
+    "depth": 1,
+    "x": "year",
+    "y": "trade",
   }
 }
 

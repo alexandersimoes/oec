@@ -1,4 +1,4 @@
-var configs = {};
+var configs = {}, viz;
 
 var visualization = function(build) {
 
@@ -12,7 +12,7 @@ var visualization = function(build) {
   var viz_height = window.innerHeight;
   var viz_width = window.innerWidth;
 
-  var viz = d3plus.viz()
+  viz = d3plus.viz()
               .config(default_config)
               .config(viz_config)
               .height(viz_height)
@@ -54,7 +54,7 @@ var visualization = function(build) {
     }
   })
 
-
+  console.log(build)
   var q = queue()
               .defer(d3.json, build.data_url)
               .defer(d3.json, build.attr_url);
@@ -99,6 +99,25 @@ var visualization = function(build) {
         d["net_"+trade_flow+"_val"] = net_val;
       }
     })
+    
+    console.log(raw_data.data.length)
+    if(build.viz.slug == "line"){
+      raw_data.data = raw_data.data.map(function(d){
+        d.trade = d.export_val;
+        d.id = d.id + "_export";
+        d.name = "Exports";
+        return d;
+      })
+      var clones = raw_data.data.map(function(d){
+        var x = JSON.parse(JSON.stringify(d));
+        x.trade = x.import_val;
+        x.id = x.id + "_import";
+        x.name = "Imports"
+        return x;
+      })
+      raw_data.data = raw_data.data.concat(clones);
+      console.log(raw_data.data.length)
+    }
   
     viz.data(raw_data.data).attrs(attrs).draw();
     
