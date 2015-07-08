@@ -247,29 +247,37 @@ class Product(Profile):
         all_yp = self.models.Yp.query.filter_by(year = self.year) \
                     .filter(func.char_length(getattr(self.models.Yp, "{}_id".format(self.classification))) == len(self.attr.id)) \
                     .order_by(desc("export_val")).all()
-        econ_rank = num_format(all_yp.index(this_yp) + 1, "ordinal")
-        # get PCI ranking
-        pci_rank = this_yp.pci_rank
-        if pci_rank:
-            pci_rank = u" and {} most complex by PCI ranking".format(num_format(pci_rank, "ordinal"))
-        else:
-            pci_rank = u""
-        p2 = u"{} is the {} largest product by world trade{}. In {}, {} USD " \
-                "worth of {} was exported and {} USD imported." \
-                .format(self.attr.get_name(), econ_rank, pci_rank, self.year,
-                    num_format(this_yp.export_val), self.attr.get_name(),
-                    num_format(this_yp.import_val))
-        all_paragraphs.append(p2)
+        if this_yp:
+            econ_rank = num_format(all_yp.index(this_yp) + 1, "ordinal")
+            # get PCI ranking
+            pci_rank = this_yp.pci_rank
+            if pci_rank:
+                pci_rank = u" and {} most complex by PCI ranking".format(num_format(pci_rank, "ordinal"))
+            else:
+                pci_rank = u""
+            p2 = u"{} is the {} largest product by world trade{}. In {}, {} USD " \
+                    "worth of {} was exported and {} USD imported." \
+                    .format(self.attr.get_name(), econ_rank, pci_rank, self.year,
+                        num_format(this_yp.export_val), self.attr.get_name(),
+                        num_format(this_yp.import_val))
+            all_paragraphs.append(p2)
 
         ''' Paragraph #3
         '''
         p3 = []
         # find out which countries this product is their #1 export/import
-        countries_top_export = self.models.Yo.query.filter_by(year = self.year, top_export = self.attr.id).all()
+        countries_top = self.models.Yo.query.filter_by(year = self.year)
+        if len(self.attr.id) == 6:
+            countries_top_export = countries_top.filter_by(top_export_hs4 = self.attr.id)
+            countries_top_import = countries_top.filter_by(top_import_hs4 = self.attr.id)
+        elif len(self.attr.id) == 8:
+            countries_top_export = countries_top.filter_by(top_export_hs6 = self.attr.id)
+            countries_top_import = countries_top.filter_by(top_import_hs6 = self.attr.id)
+        countries_top_export = countries_top_export.all()
+        countries_top_import = countries_top_import.all()
         if countries_top_export:
             countries_top_export = self.stringify_items(countries_top_export, None, "country")
             p3.append(u"{} is the top export of {}.".format(self.attr.get_name(), countries_top_export))
-        countries_top_import = self.models.Yo.query.filter_by(year = self.year, top_import = self.attr.id).all()
         if countries_top_import:
             countries_top_import = self.stringify_items(countries_top_import, None, "country")
             p3.append(u"{} is the top import of {}.".format(self.attr.get_name(), countries_top_import))
