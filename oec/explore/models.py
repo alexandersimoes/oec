@@ -10,9 +10,9 @@ all_viz = [
     {"slug":"network", "name":"Network", "color":"#333"},
     {"slug":"rings", "name":"Rings", "color":"#333"},
     {"slug":"scatter", "name":"Scatter", "color":"#333"},
-    {"slug":"geo_map", "name":"Geo Map", "color":"#333"}
+    {"slug":"geo_map", "name":"Geo Map", "color":"#333"},
+    {"slug":"line", "name":"Line", "color":"#333"}
 ]
-test = 2
 
 ''' Title, question, short name and category specific per build type. See below:
     0. tmap/stacked showing products exported/imported by country
@@ -23,6 +23,7 @@ test = 2
     5. network of product space
     6. rings
     7. scatter of PCI by GDP
+    8. line chart of trade balance
 '''
 build_metadata = { \
     0: {
@@ -105,7 +106,7 @@ build_metadata = { \
     },
     6: {
         "export": {
-            "title": "Connections of {product} in {origin}",
+            "title": "Connections of {prod} in {origin}",
             "question": "Where does {origin} export {prod} to?",
             "short_name": "Product Connections",
             "category": None
@@ -142,7 +143,15 @@ build_metadata = { \
             "short_name": "vs GDPpc PPP (current)",
             "category": "Economic Complexity"
         }
-    }
+    },
+    8: {
+        "show": {
+            "title": "Trade balance of {origin}",
+            "question": "What is the trade balance for {origin}?",
+            "short_name": "Trade Balance",
+            "category": None
+        }
+    },
 }
 
 class Build(object):
@@ -202,7 +211,9 @@ class Build(object):
 
     def get_build_id(self, viz, origin, dest, prod):
         '''build showing products given an origin'''
-        if viz == "network":
+        if viz["slug"] == "line":
+            return 8
+        if viz["slug"] == "network":
             return 5
         if origin == "show" and dest == "all" and prod == "all":
             return 7
@@ -262,22 +273,11 @@ class Build(object):
     def category(self):
         return build_metadata[self.id][self.trade_flow]["category"]
     
-    def serialize(self):
-        return json.dumps({
-            "viz": self.viz,
-            "classification": self.classification,
-            "trade_flow": self.trade_flow,
-            "origin": self.origin.serialize() if hasattr(self.origin, "serialize") else self.origin,
-            "dest": self.dest.serialize() if hasattr(self.dest, "serialize") else self.dest,
-            "prod": self.prod.serialize() if hasattr(self.prod, "serialize") else self.prod,
-            "year": self.year,
-            "year_str": self.year_str,
-            "id": self.id,
-            "title": self.title(),
-        })
-    
     '''Returns the data URL for the specific build.'''
-    def data_url(self, year=None, output_depth=6):
+    def data_url(self, year=None, output_depth=None):
+        if self.viz["slug"] == "stacked" or self.viz["slug"] == "network" or self.viz["slug"] == "rings":
+            output_depth = 6
+        output_depth = output_depth or 8
         year = year or self.year_str
         if not year:
             year = available_years[self.classification][-1]
@@ -301,16 +301,33 @@ class Build(object):
 
     def attr_url(self):
         lang = getattr(g, "locale", "en")
-        if self.origin == "show" or self.dest == "show":
+        if self.origin == "show" or self.dest == "show" or self.trade_flow == "show":
             return url_for('attr.attrs', attr='country', lang=lang)
         return url_for('attr.attrs', attr=self.classification, lang=lang)
     
     def attr_type(self):
-        if self.origin == "show":
+        if self.origin == "show" or self.trade_flow == "show":
             return "origin"
         if self.dest == "show":
             return "dest"
         return self.classification
+    
+    def serialize(self):
+        return json.dumps({
+            "viz": self.viz,
+            "classification": self.classification,
+            "trade_flow": self.trade_flow,
+            "origin": self.origin.serialize() if hasattr(self.origin, "serialize") else self.origin,
+            "dest": self.dest.serialize() if hasattr(self.dest, "serialize") else self.dest,
+            "prod": self.prod.serialize() if hasattr(self.prod, "serialize") else self.prod,
+            "year": self.year,
+            "year_str": self.year_str,
+            "id": self.id,
+            "title": self.title(),
+            "attr_type": self.attr_type(),
+            "data_url": self.data_url(),
+            "attr_url": self.attr_url(),
+        })
     
     def __repr__(self):
         return "<Build: {}:{}:{}:{}:{}>".format(self.viz["slug"], self.trade_flow, self.origin, self.dest, self.prod)

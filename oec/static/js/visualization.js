@@ -1,19 +1,151 @@
-var configs = {};
+var configs = {}, viz;
 
-var visualization = function(build, elem) {
+var visualization = function(build) {
 
-  var app = build.app.type; // Alex, is this right?
+  var attrs = {}, 
+      trade_flow = build.trade_flow,
+      opposite_trade_flow = trade_flow == "export" ? "import" : "export",
+      attr_id = build.attr_type + "_id",
+      default_config = configs["default"](build),
+      viz_config = configs[build.viz.slug](build);
 
-  d3plus.viz()
-    .container(elem)
-    .type(app)
-    .config(configs.default(build))
-    .config(configs[app](build))
-    .draw()
+  var viz_height = window.innerHeight;
+  var viz_width = window.innerWidth;
+
+  viz = d3plus.viz()
+              .config(default_config)
+              .config(viz_config)
+              .height(viz_height)
+              .width(viz_width);
+
+  /* need to grab json network file for rings and product space */
+  if(build.viz.slug == "network" || build.viz.slug == "rings"){
+    viz.nodes("/static/json/network_hs.json", function(network){
+      viz.edges(network.edges);
+      return network.nodes;
+    })
+  }
+  
+  /* Need to set text formatting in HTML for translations */
+  viz.format({"text": function(text, key, vars){
+      if(key){
+        if(key.key == "display_id"){ return text.toUpperCase(); }
+      }
+      if(text){
+        if(text == "display_id"){ 
+          if(build.attr_type == "origin" || build.attr_type == "dest"){
+            return oec.translations["id"];
+          }
+          else {
+            return build.attr_type.toUpperCase() + " ID";
+          }
+        }
+
+        if(d3.keys(oec.translations).indexOf(text) > -1){
+          return oec.translations[text];
+        }
+
+        if(text.indexOf("Values") >= 0 && !key){
+          return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
+        }
+
+        return d3plus.string.title(text, key, vars);
+      }
+    }
+  })
+
+  console.log(build)
+  var q = queue()
+              .defer(d3.json, build.data_url)
+              .defer(d3.json, build.attr_url);
+
+  /* unleash the dogs... make the AJAX requests in order to the server and when
+     they return execute the go() func */
+  q.await(function(error, raw_data, raw_attrs){
+  
+    // set key 'nest' to their id
+    raw_attrs.data.forEach(function(d){
+      attrs[d.id] = d
+      if(attr_id == "origin_id" || attr_id == "dest_id"){
+        attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
+      }
+      else if(attr_id.indexOf("hs") == 0){
+        attrs[d.id]["icon"] = "/static/img/icons/hs/hs_"+d.id.substr(0, 2)+".png"
+      }
+      else if(attr_id == "sitc_id"){
+        attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
+      }
+    })
+    
+    // for geo map, get rid of small island nations that don't exist
+    // in geography
+    if(build.viz.slug == "geo_map"){
+      delete attrs["octkl"]
+      delete attrs["octon"]
+      delete attrs["ocwlf"]
+      delete attrs["ocwsm"]
+    }
+
+    // go through raw data and set each items nest and id vars properly
+    // also calculate net values
+    raw_data.data.forEach(function(d){
+      d.nest = d[attr_id].substr(0, 2)
+      if(attr_id.indexOf("hs") == 0){
+        d.nest_mid = d[attr_id].substr(0, 6)
+      }
+      d.id = d[attr_id]
+      var net_val = parseFloat(d[trade_flow+"_val"]) - parseFloat(d[opposite_trade_flow+"_val"]);
+      if(net_val > 0){
+        d["net_"+trade_flow+"_val"] = net_val;
+      }
+    })
+    
+    console.log(raw_data.data.length)
+    if(build.viz.slug == "line"){
+      raw_data.data = raw_data.data.map(function(d){
+        d.trade = d.export_val;
+        d.id = d.id + "_export";
+        d.name = "Exports";
+        return d;
+      })
+      var clones = raw_data.data.map(function(d){
+        var x = JSON.parse(JSON.stringify(d));
+        x.trade = x.import_val;
+        x.id = x.id + "_import";
+        x.name = "Imports"
+        return x;
+      })
+      raw_data.data = raw_data.data.concat(clones);
+      console.log(raw_data.data.length)
+    }
+  
+    viz.data(raw_data.data).attrs(attrs).draw();
+    
+    d3.select("#loading")
+      .style("display", "none")
+
+    d3.select("#viz")
+      .style("display", "block")
+  
+  });
 
 }
 
 configs.default = function(build) {
+  
+  /*  If we're looking at countries their icons are flags and we don't
+      want to show the colored background because the flags don't take up
+      100% of the icon square. 
+  
+      Also we want to show RCA if we're looking at products. */
+  if(build.attr_type == "dest" || build.attr_type == "origin"){
+    var icon = {"value":"icon", "style":{"nest":"knockout","id":"default"}};
+    var tooltip = ["display_id", build.trade_flow+"_val"];
+  }
+  else {
+    var icon = {"value":"icon", "style":"knockout"};
+    var tooltip = ["display_id", build.trade_flow+"_val", build.trade_flow+"_rca"]
+  }
   
   return {
     "aggs": {
@@ -48,43 +180,9 @@ configs.default = function(build) {
           ret = "$"+ret
         }
         return ret
-      },
-      "text": function( text , key , vars ){
-
-        if(key){
-          if(key == "display_id"){ return text.toUpperCase(); }
-        }
-        if(text){
-          if(text == "share"){ return "{{ _('Percent') }}"; }
-          if(text == "display_id"){ return "{{ _('ID') }}"; }
-          if(text == "export_val"){ return "{{ _('Export Value') }}"; }
-          if(text == "net_export_val"){ return "{{ _('Net Export') }} {{ _('Value') }}"; }
-          if(text == "import_val"){ return "{{ _('Import Value') }}"; }
-          if(text == "net_import_val"){ return "{{ _('Net Import') }} {{ _('Value') }}"; }
-          if(text == "market_val"){ return "{{ _('Market Value') }}"; }
-          if(text == "export_rca"){ return "{{ _('Export') }} RCA"; }
-          if(text == "import_rca"){ return "{{ _('Import') }} RCA"; }
-          if(text == "gdp"){ return "{{ _('GDP') }}"; }
-          if(text == "gdp_pc_constant"){ return "{{ _('GDPpc (constant \'05 US$)') }}"; }
-          if(text == "gdp_pc_current"){ return "{{ _('GDPpc (current US$)') }}"; }
-          if(text == "gdp_pc_constant_ppp"){ return "{{ _('GDPpc PPP (constant \'11)') }}"; }
-          if(text == "gdp_pc_current_ppp"){ return "{{ _('GDPpc PPP (current)') }}"; }
-          if(text == "eci"){ return "{{ _('ECI') }}"; }
-
-          if(text == trade_flow+"_val_growth_pct"){ return "{{ _('Annual Growth Rate (1 year)') }}"; }
-          if(text == trade_flow+"_val_growth_pct_5"){ return "{{ _('Annual Growth Rate (5 year)') }}"; }
-          if(text == trade_flow+"_val_growth_val"){ return "{{ _('Growth Value (1 year)') }}"; }
-          if(text == trade_flow+"_val_growth_val_5"){ return "{{ _('Growth Value (5 year)') }}"; }
-
-          if(text.indexOf("Values") >= 0 && !key){
-            return trade_flow.charAt(0).toUpperCase() + trade_flow.substr(1).toLowerCase() + " " + text;
-          }
-
-          return d3plus.string.title( text , key , vars );
-        }
       }
     },
-    "icon": "icon",
+    "icon": icon,
     "id": ["nest", "id"],
     "messages": {"branding": true},
     "size": {
@@ -94,10 +192,112 @@ configs.default = function(build) {
     "text": ["name", "display_id"],
     "time": {"value": "year", "solo": build.year },
     "tooltip": { "small": 225 },
+    "tooltip": tooltip,
     "type": build.viz.slug
   }
 
 }
+
+configs.geo_map = function(build) {
+  return {
+    "color": build.trade_flow+"_val",
+    "coords": {
+      "center": [10,0],
+      "padding": 0,
+      "mute": ["anata"],
+      "value": "/static/json/country_coords.json"
+    },
+    "depth": 1,
+    "size": "export_val",
+    "x": "eci",
+    "y": {
+      "scale": "log",
+      "value": build.trade_flow
+    },
+  }
+}
+
+configs.line = function(build) {
+  return {
+    "color": "id",
+    "depth": 1,
+    "x": "year",
+    "y": "trade",
+  }
+}
+
+configs.network = function(build) {
+  return {
+    "active": {
+      "value": function(d){
+        return d.export_rca >= 1;
+      },
+      "spotlight":true      
+    },
+    "color": "color",
+    "depth": 1,
+    // "edges": {
+    //     "value": "/static/json/just_edges.json",
+    //     "callback": function(network){
+    //       return network.edges
+    //     }
+    // },
+    "id": ["nest","id"],
+    "nodes": {
+      "overlap": 1.1,
+    },
+    // "nodes": {
+    //   "overlap": 1.1,
+    //   "value": {
+    //     "value": "/static/json/just_nodes.json",
+    //     "callback": function(network){
+    //       return network.nodes
+    //     }
+    //   }
+    // },
+    "size": "export_val"
+  }
+}
+
+configs.rings = function(build) {
+  return {
+    "active": {
+      "value": function(d){
+        return d.export_rca >= 1;
+      },
+      "spotlight":true      
+    },
+    "color": "color",
+    "focus": build.prod.id,
+    "id": ["nest","id"],
+    "depth": 1,
+    "size": "export_val"
+  }
+}
+
+configs.scatter = function(build) {
+  return {
+    "color": "color",
+    "depth": 1,
+    "size": "export_val",
+    "x": "eci",
+    "y": {
+      "scale": "log",
+      "value": build.trade_flow
+    },
+  }
+}
+
+configs.stacked = function(build) {
+  return {
+    "depth": 1,
+    "shape": "area",
+    "x": "year",
+    "color": "color",
+    "order": "nest"
+  }
+}
+
 
 configs.tree_map = function(build) {
   return {

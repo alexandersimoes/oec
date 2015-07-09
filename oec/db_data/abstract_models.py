@@ -68,11 +68,17 @@ class TopTrade(object):
     top_import_dest = db.Column(db.String(5))
     
     @declared_attr
-    def top_export(cls):
+    def top_export_hs4(cls):
+        return db.Column(db.String(6), db.ForeignKey(Hs92.id))
+    @declared_attr
+    def top_export_hs6(cls):
         return db.Column(db.String(8), db.ForeignKey(Hs92.id))
     
     @declared_attr
-    def top_import(cls):
+    def top_import_hs4(cls):
+        return db.Column(db.String(6), db.ForeignKey(Hs92.id))
+    @declared_attr
+    def top_import_hs6(cls):
         return db.Column(db.String(8), db.ForeignKey(Hs92.id))
 
 class TopTrader(object):
