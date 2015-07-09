@@ -5,14 +5,14 @@ import flickr
 import _flickr_short
 import click
 
-FILE_PATH = os.path.join( os.path.dirname(os.path.realpath(__file__)) , '../../dataviva/static/img/profiles/unformatted')
+FILE_PATH = os.path.join( os.path.dirname(os.path.realpath(__file__)) , '../../oec/static/img/headers/unformatted')
 SHORT_URL = u'http://flic.kr/p/%s'
 
 ''' Connect to DB '''
-db = MySQLdb.connect(host=os.environ.get("DATAVIVA2_DB_HOST", "localhost"),
-                     user=os.environ.get("DATAVIVA2_DB_USER", "root"),
-                     passwd=os.environ.get("DATAVIVA2_DB_PW", ""),
-                     db=os.environ.get("DATAVIVA2_DB_NAME", "dataviva2"))
+db = MySQLdb.connect(host=os.environ.get("OEC_DB_HOST", "localhost"),
+                     user=os.environ.get("OEC_DB_USER", "root"),
+                     passwd=os.environ.get("OEC_DB_PW", ""),
+                     db=os.environ.get("OEC_DB_NAME", "oec"))
 db.autocommit(1)
 cursor = db.cursor()
 badImages = []
@@ -35,7 +35,7 @@ def process(pid, uid):
     return {"author": author.replace("'", "\\'"), "url": url}
 
 def db_is_old(uid, url, mode):
-    q = "SELECT image_link, image_author FROM attrs_{} WHERE image_link=%s AND id=%s;".format(mode)
+    q = "SELECT image_link, image_author FROM attr_{} WHERE image_link=%s AND id=%s;".format(mode)
     cursor.execute(q, [url, uid])
     res = cursor.fetchone()
     return res is None
@@ -50,14 +50,14 @@ def download(uid, data, mode):
     print " *** Image downloaded!", path
 
 def update_db(uid, data, mode):
-    q = "UPDATE attrs_{} SET image_link=%s, image_author=%s, palette=NULL WHERE id = %s;".format(mode)
+    q = "UPDATE attr_{} SET image_link=%s, image_author=%s, palette=NULL WHERE id = %s;".format(mode)
     cursor.execute(q, [data["short_url"], data["author"], uid])
     print " *** Updated DB with data %s" % data
 
 @click.command()
 @click.argument('file_path', type=click.Path(exists=True))
-@click.option('-m', '--mode', prompt='Mode', help='bra, hs, cnae, cbo', required=True)
-def read_csv(file_path, mode='bra'):
+@click.option('-m', '--mode', prompt='Mode', help='country, hs', required=True)
+def read_csv(file_path, mode='country'):
     input_file = csv.DictReader(open(file_path))
 
     for row in input_file:
@@ -87,11 +87,11 @@ def read_csv(file_path, mode='bra'):
             else:
                 print " *** No change"
         else:
-            q = "SELECT image_link FROM attrs_{} WHERE id=%s;".format(mode)
+            q = "SELECT image_link FROM attr_{} WHERE id=%s;".format(mode)
             cursor.execute(q, [uid])
             res = cursor.fetchone()[0]
             if res:
-                q = "UPDATE attrs_{} SET image_link=NULL, image_author=NULL, palette=NULL WHERE id = %s;".format(mode)
+                q = "UPDATE attr_{} SET image_link=NULL, image_author=NULL, palette=NULL WHERE id = %s;".format(mode)
                 cursor.execute(q, [uid])
                 print " *** Removed image from DB"
             else:

@@ -1,5 +1,3 @@
-@import "helpers/variables";
-
 @mixin box($style: border-box) {
   -webkit-box-sizing: $style;
   -moz-box-sizing: $style;
