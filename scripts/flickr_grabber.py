@@ -5,7 +5,7 @@ import flickr
 import _flickr_short
 import click
 
-FILE_PATH = os.path.join( os.path.dirname(os.path.realpath(__file__)) , '../../oec/static/img/headers/unformatted')
+FILE_PATH = os.path.join( os.path.dirname(os.path.realpath(__file__)) , '../oec/static/img/headers/unformatted')
 SHORT_URL = u'http://flic.kr/p/%s'
 
 ''' Connect to DB '''
@@ -89,8 +89,9 @@ def read_csv(file_path, mode='country'):
         else:
             q = "SELECT image_link FROM attr_{} WHERE id=%s;".format(mode)
             cursor.execute(q, [uid])
-            res = cursor.fetchone()[0]
-            if res:
+            res = cursor.fetchone()
+            if res and len(res) > 0:
+                res = res[0]
                 q = "UPDATE attr_{} SET image_link=NULL, image_author=NULL, palette=NULL WHERE id = %s;".format(mode)
                 cursor.execute(q, [uid])
                 print " *** Removed image from DB"
