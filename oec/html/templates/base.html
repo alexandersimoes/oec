@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="Description" content="{% block description %}An online resource for international trade data and economic complexity indicators available through interactive visualizations of countries and products.{% endblock %}">
     <!-- <meta name="viewport" content="width=1100,initial-scale=1, maximum-scale=1.0, user-scalable=0" /> -->
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=.32"> -->
 
     {% if "/explore/" not in request.path %}
@@ -15,33 +15,44 @@
 
     <title>OEC{% block title %}{% endblock %}</title>
 
-    <link rel="shortcut icon" type="image/png" href="/static/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="256x256" href="/static/img/touchicon.png">
+    <link rel="shortcut icon" type="image/png" href="/static/img/favicon.ico?v=4">
+    <link rel="apple-touch-icon" sizes="256x256" href="/static/img/touchicon.png?v=3">
 
-    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.reset.css" />
-    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.general.css" />
-    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.grid.css" />
-    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.icons.css" />
-    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.nav.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/oec.css" />
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/libs/font-awesome-4.3.0/css/font-awesome.min.css" />
 
+    <script src="/static/js/libs/caman.full.min.js"></script>
     <script src="/static/js/libs/modernizr.custom.js"></script>
     <script src="/static/js/libs/d3.v3.min.js"></script>
     <script src="/static/js/libs/d3plus.js"></script>
+    <script src="/static/js/libs/topojson.js"></script>
+    <script src="/static/js/libs/localforage.js"></script>
     <script src="/static/js/libs/moment.min.js"></script>
     <script>moment.lang("{{g.locale}}")</script>
+
+    {% assets "js" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+
     <script>
-    function redirect(url, seconds){
-      seconds = !seconds && seconds !== 0 ? 6 : seconds;
-      if (seconds <=0){
-        window.location = url;
+
+      function redirect(url, seconds){
+        seconds = !seconds && seconds !== 0 ? 6 : seconds;
+        if (seconds <=0){
+          window.location = url;
+        }
+        else {
+          seconds--;
+          d3.select("#redirect").text("This page will redirect in "+seconds+" seconds.")
+          setTimeout(function(){ redirect(url, seconds) }, 1000)
+        }
       }
-      else {
-        seconds--;
-        d3.select("#redirect").text("This page will redirect in "+seconds+" seconds.")
-        setTimeout(function(){ redirect(url, seconds) }, 1000)
-      }
-    }
+
+      var resizeFunctions = [], scrollFunctions = [], cache_version = "{{ g.cache_version }}";
+      
+      var oec = {};
+      oec.translations = {{ g.translations|safe }};
+
     </script>
 
     {% block head %}
@@ -80,15 +91,33 @@
 
     <!-- All Pages -->
     <script type="text/javascript">
-    d3.selectAll(".close_message").on("click", function(){
 
-      d3.select("#server_message")
-        .style("margin-top", function(){
-          return -this.offsetHeight+"px"
-        }).transition().delay(600)
-        .remove()
+      d3.selectAll(".close_message").on("click", function(){
 
-    });
+        d3.select("#server_message")
+          .style("margin-top", function(){
+            return -this.offsetHeight+"px"
+          }).transition().delay(600)
+          .remove()
+
+      });
+
+      if (resizeFunctions.length) {
+        window.onresize = function(){
+          for (var i = 0; i < resizeFunctions.length; i++) {
+            resizeFunctions[i]();
+          }
+        }
+      }
+
+      if (scrollFunctions.length) {
+        document.onscroll = function(){
+          for (var i = 0; i < scrollFunctions.length; i++) {
+            scrollFunctions[i]();
+          }
+        }
+      }
+
     </script>
 
   </body>

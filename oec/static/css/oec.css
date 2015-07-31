@@ -1,3 +1,28 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
+em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
+b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
+details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
+output, ruby, section, summary, time, mark, audio, video {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  vertical-align: top; }
+
+  blockquote, q {
+    quotes: none; }
+
+    blockquote:before, blockquote:after, q:before, q:after {
+      content: '';
+      content: none; }
+
+      table {
+        border-collapse: collapse;
+        border-spacing: 0; }
+
+        a {
+          outline: 0; }
 @font-face {
   font-family: 'Lora';
   font-style: normal;
@@ -25,36 +50,6 @@
         font-weight: 700;
         src: local('Lora Bold Italic'), local('Lora-BoldItalic'),
                 url('./fonts/Lora-BoldItalic.ttf') format('opentype'); }
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6,
-p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
-em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
-b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
-details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
-output, ruby, section, summary, time, mark, audio, video {
-  border: 0;
-  margin: 0;
-  padding: 0;
-  vertical-align: top; }
-
-  div {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box; }
-
-    blockquote, q {
-      quotes: none; }
-
-      blockquote:before, blockquote:after, q:before, q:after {
-        content: '';
-        content: none; }
-
-        table {
-          border-collapse: collapse;
-          border-spacing: 0; }
-
-          a {
-            outline: 0; }
 body {
   background-color: #eee;
   color: #333;
@@ -150,8 +145,7 @@ nav {
           padding: 6px 0;
           text-align: center; }
           nav content #search .fa-search {
-            margin-right: 2px;
-            margin-top: 1px; }
+            margin-right: 5px; }
         nav content ul {
           -webkit-box-flex: 1;
           -moz-box-flex: 1;
@@ -425,7 +419,7 @@ nav {
 }
       #container footer div {
         margin: 0 auto;
-        max-width: 400px; }
+        max-width: 650px; }
         #container footer ul {
           margin-top: 10px;
           text-align: center; }
@@ -572,3 +566,6 @@ nav {
 
 #sarah_chung:before {
   background-image: url("/static/img/about/sarah_chung.png"); }
+.book {
+  margin-left: 10%;
+  width: 80% !important; }

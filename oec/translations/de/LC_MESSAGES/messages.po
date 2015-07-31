@@ -44,7 +44,7 @@ msgid "Destination"
 msgstr "Ziel"
 
 #: oec/explore/models.py:444 oec/html/profile/product.html:20
-#: oec/html/profile/product.html:24 oec/html/templates/site.html:26
+#: oec/html/profile/product.html:24 oec/html/templates/nav.html:26
 #: oec/rankings/views.py:64 oec/rankings/views.py:68
 msgid "Product"
 msgstr "Produkt"
@@ -187,7 +187,7 @@ msgid "Category"
 msgstr "Kategorie"
 
 #: oec/html/explore/embed.html:33 oec/html/profile/country.html:22
-#: oec/html/profile/country.html:26 oec/html/templates/site.html:26
+#: oec/html/profile/country.html:26 oec/html/templates/nav.html:26
 #: oec/rankings/views.py:72
 msgid "Country"
 msgstr "Land"
@@ -390,7 +390,7 @@ msgid "and"
 msgstr "und"
 
 #: oec/html/profile/country.html:87 oec/html/profile/product.html:90
-#: oec/html/templates/site.html:18
+#: oec/html/templates/nav.html:18
 msgid "Explore"
 msgstr "Erkunden"
 
@@ -459,19 +459,19 @@ msgstr "Jahr ändern"
 msgid "Current Year"
 msgstr "Aktuelles Jahr"
 
-#: oec/html/templates/site.html:19
+#: oec/html/templates/nav.html:19
 msgid "Profiles"
 msgstr "Profile"
 
-#: oec/html/templates/site.html:20
+#: oec/html/templates/nav.html:20
 msgid "Atlas"
 msgstr ""
 
-#: oec/html/templates/site.html:21
+#: oec/html/templates/nav.html:21
 msgid "Rankings"
 msgstr "Rankings"
 
-#: oec/html/templates/site.html:22
+#: oec/html/templates/nav.html:22
 msgid "About"
 msgstr "Info"
 

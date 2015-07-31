@@ -1,59 +1,53 @@
-{% extends "templates/site.html" %}
-
-{% block head %}
-  <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.home.css" />
-{% endblock %}
+{% extends "templates/nav.html" %}
 
 {% block title %}: The Observatory of Economic Complexity{% endblock %}
 
 {% block body %}
 
-  <div id="logo_large"><h1>The Observatory of Economic Complexity</h1></div>
+<header>
+  <h1>The Observatory of Economic Complexity</h1>
+</header>
 
-  <div id="search_bar">
-
-    <select id="language_selector">
-      {% for lang_id, lang_name in g.supported_langs.iteritems() %}
-      <option value="{{ lang_id }}" {% if lang_id == g.locale %} selected="selected" {% endif %}>{{ lang_name }}</option>
-      {% endfor %}
-    </select>
+<section>
+  <content>
 
     <input id="search" type="text" data-provide="typeahead" autocomplete="off" autofocus="" placeholder="{{ default_build.title()|striptags }}" />
-  </div>
 
-  <h2>
-    {{ _('The Observatory of Economic Complexity makes international trade data and economic complexity indicators available through millions of interactive visualizations.') }}
-  </h2>
+    <p>
+      {{ _('The Observatory of Economic Complexity makes international trade data and economic complexity indicators available through millions of interactive visualizations.') }}
+    </p>
 
-  <div class="related">
+    <div class="related">
 
-    <div class="related_type">
-      <h3>Other projects by Macro Connections<br>@ the MIT Media Lab</h3>
-      <a href="http://pantheon.media.mit.edu/" target="_blank">
-        <div class="project" id="pantheon">
-          <!--<span class="new">{% trans %}New!{% endtrans %}</span>-->
-          Mapping global cultural production
-        </div>
-      </a>
-      <a href="http://pulse.media.mit.edu/" target="_blank">
-        <div class="project" id="placepulse">
-          Mapping of urban perception
-        </div>
-      </a>
-      <a href="https://immersion.media.mit.edu/" target="_blank">
-        <div class="project" id="immersion">
-          Dive visually into your e-mail metadata
-        </div>
-      </a>
-    </div><div class="related_type">
-      <h3>Other projects<br>powered by D3plus</h3>
-      <a href="http://www.dataviva.info/" target="_blank">
-        <div class="project" id="dataviva">
-          Opening the data of the Brazilian economy
-        </div>
-      </a>
+      <div class="related_type">
+        <h3>Other projects by Macro Connections<br>@ the MIT Media Lab</h3>
+        <a href="http://pantheon.media.mit.edu/" target="_blank">
+          <div class="project" id="pantheon">
+            Mapping global cultural production
+          </div>
+        </a>
+        <a href="http://pulse.media.mit.edu/" target="_blank">
+          <div class="project" id="placepulse">
+            Mapping of urban perception
+          </div>
+        </a>
+        <a href="https://immersion.media.mit.edu/" target="_blank">
+          <div class="project" id="immersion">
+            Dive visually into your e-mail metadata
+          </div>
+        </a>
+      </div><div class="related_type">
+        <h3>Other projects<br>powered by D3plus</h3>
+        <a href="http://www.dataviva.info/" target="_blank">
+          <div class="project" id="dataviva">
+            Opening the data of the Brazilian economy
+          </div>
+        </a>
+      </div>
+
     </div>
 
-  </div>
+  </section>
+</content>
 
 {% endblock %}
