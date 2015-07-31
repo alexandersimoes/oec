@@ -1,21 +1,18 @@
 // WARNING: Do not edit the contents of this file. It is compiled dynamically
 // from multiple source files located in the assets/js directory.
 
-var configs = {}, viz;
+var configs = {};
 
 var visualization = function(build) {
 
-  var attrs = {}, 
-      trade_flow = build.trade_flow,
-      opposite_trade_flow = trade_flow == "export" ? "import" : "export",
-      attr_id = build.attr_type + "_id",
+  var trade_flow = build.trade_flow,
       default_config = configs["default"](build),
       viz_config = configs[build.viz.slug](build);
 
   var viz_height = window.innerHeight;
   var viz_width = window.innerWidth;
 
-  viz = d3plus.viz()
+  var viz = d3plus.viz()
               .config(default_config)
               .config(viz_config)
               .height(viz_height)
@@ -65,62 +62,9 @@ var visualization = function(build) {
   /* unleash the dogs... make the AJAX requests in order to the server and when
      they return execute the go() func */
   q.await(function(error, raw_data, raw_attrs){
-  
-    // set key 'nest' to their id
-    raw_attrs.data.forEach(function(d){
-      attrs[d.id] = d
-      if(attr_id == "origin_id" || attr_id == "dest_id"){
-        attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
-      }
-      else if(attr_id.indexOf("hs") == 0){
-        attrs[d.id]["icon"] = "/static/img/icons/hs/hs_"+d.id.substr(0, 2)+".png"
-      }
-      else if(attr_id == "sitc_id"){
-        attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
-      }
-    })
     
-    // for geo map, get rid of small island nations that don't exist
-    // in geography
-    if(build.viz.slug == "geo_map"){
-      delete attrs["octkl"]
-      delete attrs["octon"]
-      delete attrs["ocwlf"]
-      delete attrs["ocwsm"]
-    }
-
-    // go through raw data and set each items nest and id vars properly
-    // also calculate net values
-    raw_data.data.forEach(function(d){
-      d.nest = d[attr_id].substr(0, 2)
-      if(attr_id.indexOf("hs") == 0){
-        d.nest_mid = d[attr_id].substr(0, 6)
-      }
-      d.id = d[attr_id]
-      var net_val = parseFloat(d[trade_flow+"_val"]) - parseFloat(d[opposite_trade_flow+"_val"]);
-      if(net_val > 0){
-        d["net_"+trade_flow+"_val"] = net_val;
-      }
-    })
-    
-    console.log(raw_data.data.length)
-    if(build.viz.slug == "line"){
-      raw_data.data = raw_data.data.map(function(d){
-        d.trade = d.export_val;
-        d.id = d.id + "_export";
-        d.name = "Exports";
-        return d;
-      })
-      var clones = raw_data.data.map(function(d){
-        var x = JSON.parse(JSON.stringify(d));
-        x.trade = x.import_val;
-        x.id = x.id + "_import";
-        x.name = "Imports"
-        return x;
-      })
-      raw_data.data = raw_data.data.concat(clones);
-      console.log(raw_data.data.length)
-    }
+    var attrs = format_attrs(raw_attrs, build)
+    var data = format_data(raw_data, attrs, build)
   
     viz.data(raw_data.data).attrs(attrs).draw();
     
@@ -131,6 +75,8 @@ var visualization = function(build) {
       .style("display", "block")
   
   });
+  
+  return viz;
 
 }
 
@@ -304,7 +250,37 @@ configs.stacked = function(build) {
 
 
 function x(){
-  alert('getting all years!')
+  // remove show all years ui element
+  var ui = viz.ui().filter(function(u){
+    return u.value[0] != "Show all years"
+  })
+  console.log(ui)
+  
+  // hide viz and show "loading"
+  d3.select("#viz").style("display", "none");
+  d3.select("#loading").style("display", "block");
+  
+  // reformat data url aka replace current year with "all"
+  var data_url = build.data_url;
+  data_url = data_url.split("/");
+  data_url[3] = "all";
+  data_url = data_url.join("/");
+  
+  var q = queue()
+    .defer(d3.json, data_url)
+    .defer(d3.json, build.attr_url)
+    .await(function(error, raw_data, raw_attrs){
+  
+      var attrs = format_attrs(raw_attrs, build)
+      var data = format_data(raw_data, attrs, build)
+     
+      viz.data(raw_data.data).attrs(attrs).ui(ui).draw();
+      
+      d3.select("#viz").style("display", "block");
+      d3.select("#loading").style("display", "none");
+
+    });
+
 }
 configs.tree_map = function(build) {
   return {
@@ -315,11 +291,88 @@ configs.tree_map = function(build) {
     "zoom": false,
     "ui": [
       {"method":"depth", "value":[{"HS2": 0}, {"HS6":1}], "label":"Depth"},
-      {"method":x, "value":["Show all years"], "type":"button"}
+      {"method":x, "value":["Show all years"], "type":"button"},
+      {"method":"color", "value": [
+        {"Category": "color"},
+        {"Annual Growth Rate (1 year)": build.trade_flow+"_growth_pct"},
+        {"Annual Growth Rate (5 year)": build.trade_flow+"_growth_pct_5"},
+        {"Growth Value (1 year)": build.trade_flow+"_growth_val"},
+        {"Growth Value (5 year)": build.trade_flow+"_growth_val_5"},
+      ]}
     ]
   }
 }
 
+function format_data(raw_data, attrs, build){
+  
+  var data = raw_data.data;
+  var opposite_trade_flow = build.trade_flow == "export" ? "import" : "export";
+  var attr_id = attr_id = build.attr_type + "_id";
+  
+  // go through raw data and set each items nest and id vars properly
+  // also calculate net values
+  data.forEach(function(d){
+    d.nest = d[attr_id].substr(0, 2)
+    if(attr_id.indexOf("hs") == 0){
+      d.nest_mid = d[attr_id].substr(0, 6)
+    }
+    d.id = d[attr_id]
+    var net_val = parseFloat(d[build.trade_flow+"_val"]) - parseFloat(d[opposite_trade_flow+"_val"]);
+    if(net_val > 0){
+      d["net_"+build.trade_flow+"_val"] = net_val;
+    }
+  })
+  
+  // special case for line chart of trade balance (need to duplicate data)
+  if(build.viz.slug == "line"){
+    data = data.map(function(d){
+      d.trade = d.export_val;
+      d.id = d.id + "_export";
+      d.name = "Exports";
+      return d;
+    })
+    var clones = data.map(function(d){
+      var x = JSON.parse(JSON.stringify(d));
+      x.trade = x.import_val;
+      x.id = x.id + "_import";
+      x.name = "Imports"
+      return x;
+    })
+    data = data.concat(clones);
+  }
+  
+  return data;
+  
+}
+
+function format_attrs(raw_attrs, build){
+  var attrs = {};
+  var attr_id = attr_id = build.attr_type + "_id";
+  
+  raw_attrs.data.forEach(function(d){
+    attrs[d.id] = d
+    if(attr_id == "origin_id" || attr_id == "dest_id"){
+      attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
+    }
+    else if(attr_id.indexOf("hs") == 0){
+      attrs[d.id]["icon"] = "/static/img/icons/hs/hs_"+d.id.substr(0, 2)+".png"
+    }
+    else if(attr_id == "sitc_id"){
+      attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
+    }
+  })
+  
+  // for geo map, get rid of small island nations that don't exist
+  // in geography
+  if(build.viz.slug == "geo_map"){
+    delete attrs["octkl"]
+    delete attrs["octon"]
+    delete attrs["ocwlf"]
+    delete attrs["ocwsm"]
+  }
+  
+  return attrs;
+}
 var load = function(url, callback) {
 
   localforage.getItem("cache_version", function(error, c){

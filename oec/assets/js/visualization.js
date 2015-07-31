@@ -2,10 +2,7 @@ var configs = {};
 
 var visualization = function(build) {
 
-  var attrs = {}, 
-      trade_flow = build.trade_flow,
-      opposite_trade_flow = trade_flow == "export" ? "import" : "export",
-      attr_id = build.attr_type + "_id",
+  var trade_flow = build.trade_flow,
       default_config = configs["default"](build),
       viz_config = configs[build.viz.slug](build);
 
@@ -62,62 +59,9 @@ var visualization = function(build) {
   /* unleash the dogs... make the AJAX requests in order to the server and when
      they return execute the go() func */
   q.await(function(error, raw_data, raw_attrs){
-  
-    // set key 'nest' to their id
-    raw_attrs.data.forEach(function(d){
-      attrs[d.id] = d
-      if(attr_id == "origin_id" || attr_id == "dest_id"){
-        attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
-      }
-      else if(attr_id.indexOf("hs") == 0){
-        attrs[d.id]["icon"] = "/static/img/icons/hs/hs_"+d.id.substr(0, 2)+".png"
-      }
-      else if(attr_id == "sitc_id"){
-        attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
-      }
-    })
     
-    // for geo map, get rid of small island nations that don't exist
-    // in geography
-    if(build.viz.slug == "geo_map"){
-      delete attrs["octkl"]
-      delete attrs["octon"]
-      delete attrs["ocwlf"]
-      delete attrs["ocwsm"]
-    }
-
-    // go through raw data and set each items nest and id vars properly
-    // also calculate net values
-    raw_data.data.forEach(function(d){
-      d.nest = d[attr_id].substr(0, 2)
-      if(attr_id.indexOf("hs") == 0){
-        d.nest_mid = d[attr_id].substr(0, 6)
-      }
-      d.id = d[attr_id]
-      var net_val = parseFloat(d[trade_flow+"_val"]) - parseFloat(d[opposite_trade_flow+"_val"]);
-      if(net_val > 0){
-        d["net_"+trade_flow+"_val"] = net_val;
-      }
-    })
-    
-    console.log(raw_data.data.length)
-    if(build.viz.slug == "line"){
-      raw_data.data = raw_data.data.map(function(d){
-        d.trade = d.export_val;
-        d.id = d.id + "_export";
-        d.name = "Exports";
-        return d;
-      })
-      var clones = raw_data.data.map(function(d){
-        var x = JSON.parse(JSON.stringify(d));
-        x.trade = x.import_val;
-        x.id = x.id + "_import";
-        x.name = "Imports"
-        return x;
-      })
-      raw_data.data = raw_data.data.concat(clones);
-      console.log(raw_data.data.length)
-    }
+    var attrs = format_attrs(raw_attrs, build)
+    var data = format_data(raw_data, attrs, build)
   
     viz.data(raw_data.data).attrs(attrs).draw();
     
