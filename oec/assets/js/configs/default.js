@@ -51,6 +51,7 @@ configs.default = function(build) {
     },
     "icon": icon,
     "id": ["nest", "id"],
+    "legend": {"filters":true},
     "messages": {"branding": true},
     "size": {
       "value": build.trade_flow+"_val",
