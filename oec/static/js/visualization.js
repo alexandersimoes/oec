@@ -187,6 +187,7 @@ configs.default = function(build) {
     },
     "icon": icon,
     "id": ["nest", "id"],
+    "legend": {"filters":true},
     "messages": {"branding": true},
     "size": {
       "value": build.trade_flow+"_val",
@@ -302,13 +303,20 @@ configs.stacked = function(build) {
 }
 
 
+function x(){
+  alert('getting all years!')
+}
 configs.tree_map = function(build) {
   return {
     "depth": 1,
     "shape": "square",
     "labels": {"align": "start", "valign":"top"},
     "color": "color",
-    "zoom": false
+    "zoom": false,
+    "ui": [
+      {"method":"depth", "value":[{"HS2": 0}, {"HS6":1}], "label":"Depth"},
+      {"method":x, "value":["Show all years"], "type":"button"}
+    ]
   }
 }
 

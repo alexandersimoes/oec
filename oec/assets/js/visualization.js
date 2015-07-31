@@ -1,4 +1,4 @@
-var configs = {}, viz;
+var configs = {};
 
 var visualization = function(build) {
 
@@ -12,7 +12,7 @@ var visualization = function(build) {
   var viz_height = window.innerHeight;
   var viz_width = window.innerWidth;
 
-  viz = d3plus.viz()
+  var viz = d3plus.viz()
               .config(default_config)
               .config(viz_config)
               .height(viz_height)
@@ -128,5 +128,7 @@ var visualization = function(build) {
       .style("display", "block")
   
   });
+  
+  return viz;
 
 }
