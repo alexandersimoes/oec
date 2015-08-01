@@ -54,7 +54,6 @@ var visualization = function(build) {
     }
   })
 
-  console.log(build)
   var q = queue()
               .defer(d3.json, build.data_url)
               .defer(d3.json, build.attr_url);
@@ -89,10 +88,12 @@ configs.default = function(build) {
       Also we want to show RCA if we're looking at products. */
   if(build.attr_type == "dest" || build.attr_type == "origin"){
     var icon = {"value":"icon", "style":{"nest":"knockout","id":"default"}};
+    var id_nesting = ["nest", "id"];
     var tooltip = ["display_id", build.trade_flow+"_val"];
   }
   else {
     var icon = {"value":"icon", "style":"knockout"};
+    var id_nesting = ["nest", "nest_mid", "id"];
     var tooltip = ["display_id", build.trade_flow+"_val", build.trade_flow+"_rca"]
   }
   
@@ -132,7 +133,7 @@ configs.default = function(build) {
       }
     },
     "icon": icon,
-    "id": ["nest", "id"],
+    "id": id_nesting,
     "legend": {"filters":true},
     "messages": {"branding": true},
     "size": {
@@ -164,6 +165,16 @@ configs.geo_map = function(build) {
       "scale": "log",
       "value": build.trade_flow
     },
+    "ui": [
+      {"method":show_all_years, "value":["Show all years"], "type":"button"},
+      {"method":"color", "value": [
+        {"Value": build.trade_flow+"_val"},
+        {"Annual Growth Rate (1 year)": build.trade_flow+"_val_growth_pct"},
+        {"Annual Growth Rate (5 year)": build.trade_flow+"_val_growth_pct_5"},
+        {"Growth Value (1 year)": build.trade_flow+"_val_growth_val"},
+        {"Growth Value (5 year)": build.trade_flow+"_val_growth_val_5"},
+      ]}
+    ]
   }
 }
 
@@ -239,22 +250,37 @@ configs.scatter = function(build) {
 }
 
 configs.stacked = function(build) {
+  function change_layout(new_layout){
+    viz.y({"scale": new_layout}).draw();
+  }
+  
+  if(build.attr_type == "dest" || build.attr_type == "origin"){
+    var depth_ui = {"method":"depth", "value":[{"Continent": 0}, {"Country":1}], "label":"Depth"}
+  }
+  else {
+    var depth_ui = {"method":"depth", "value":[{"HS2": 0}, {"HS4":1}], "label":"Depth"}
+  }
+  
   return {
     "depth": 1,
     "shape": "area",
     "x": "year",
+    "y": {"scale": "linear"},
     "color": "color",
-    "order": "nest"
+    "order": "nest",
+    "ui": [
+      depth_ui,
+      {"method":change_layout, "value":[{"Value": "linear"}, {"Share": "share"}], "label":"Layout"}
+    ]
   }
 }
 
 
-function x(){
+function show_all_years(){
   // remove show all years ui element
   var ui = viz.ui().filter(function(u){
     return u.value[0] != "Show all years"
   })
-  console.log(ui)
   
   // hide viz and show "loading"
   d3.select("#viz").style("display", "none");
@@ -283,6 +309,13 @@ function x(){
 
 }
 configs.tree_map = function(build) {
+  if(build.attr_type == "dest" || build.attr_type == "origin"){
+    var depth_ui = {"method":"depth", "value":[{"Continent": 0}, {"Country":1}], "label":"Depth"}
+  }
+  else {
+    var depth_ui = {"method":"depth", "value":[{"HS2": 0}, {"HS4":1}, {"HS6":2}], "label":"Depth"}
+  }
+  
   return {
     "depth": 1,
     "shape": "square",
@@ -290,8 +323,8 @@ configs.tree_map = function(build) {
     "color": "color",
     "zoom": false,
     "ui": [
-      {"method":"depth", "value":[{"HS2": 0}, {"HS6":1}], "label":"Depth"},
-      {"method":x, "value":["Show all years"], "type":"button"},
+      depth_ui,
+      {"method":show_all_years, "value":["Show all years"], "type":"button"},
       {"method":"color", "value": [
         {"Category": "color"},
         {"Annual Growth Rate (1 year)": build.trade_flow+"_growth_pct"},

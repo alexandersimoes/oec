@@ -51,7 +51,6 @@ var visualization = function(build) {
     }
   })
 
-  console.log(build)
   var q = queue()
               .defer(d3.json, build.data_url)
               .defer(d3.json, build.attr_url);

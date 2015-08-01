@@ -7,10 +7,12 @@ configs.default = function(build) {
       Also we want to show RCA if we're looking at products. */
   if(build.attr_type == "dest" || build.attr_type == "origin"){
     var icon = {"value":"icon", "style":{"nest":"knockout","id":"default"}};
+    var id_nesting = ["nest", "id"];
     var tooltip = ["display_id", build.trade_flow+"_val"];
   }
   else {
     var icon = {"value":"icon", "style":"knockout"};
+    var id_nesting = ["nest", "nest_mid", "id"];
     var tooltip = ["display_id", build.trade_flow+"_val", build.trade_flow+"_rca"]
   }
   
@@ -50,7 +52,7 @@ configs.default = function(build) {
       }
     },
     "icon": icon,
-    "id": ["nest", "id"],
+    "id": id_nesting,
     "legend": {"filters":true},
     "messages": {"branding": true},
     "size": {

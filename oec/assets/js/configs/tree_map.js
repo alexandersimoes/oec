@@ -31,6 +31,13 @@ function show_all_years(){
 
 }
 configs.tree_map = function(build) {
+  if(build.attr_type == "dest" || build.attr_type == "origin"){
+    var depth_ui = {"method":"depth", "value":[{"Continent": 0}, {"Country":1}], "label":"Depth"}
+  }
+  else {
+    var depth_ui = {"method":"depth", "value":[{"HS2": 0}, {"HS4":1}, {"HS6":2}], "label":"Depth"}
+  }
+  
   return {
     "depth": 1,
     "shape": "square",
@@ -38,7 +45,7 @@ configs.tree_map = function(build) {
     "color": "color",
     "zoom": false,
     "ui": [
-      {"method":"depth", "value":[{"HS2": 0}, {"HS6":1}], "label":"Depth"},
+      depth_ui,
       {"method":show_all_years, "value":["Show all years"], "type":"button"},
       {"method":"color", "value": [
         {"Category": "color"},
