@@ -79,6 +79,31 @@ var visualization = function(build) {
 
 }
 
+function share(){
+  var lang = build.lang;
+  var same_origin = window.parent.location.host == window.location.host;
+  var url = encodeURIComponent(window.location.pathname + "?lang="+lang)
+  if(same_origin){
+    if(window.location != window.parent.location){
+      var url = encodeURIComponent(window.parent.location.pathname + "?lang="+lang)
+    }
+  }
+  // make post request to server for short URL
+  d3.json("/"+lang+"/explore/shorten/")
+    .header("Content-type","application/x-www-form-urlencoded")
+    .post("url="+url, function(error, data) {
+      if (data.error) {
+        console.log(data.error)
+      }
+      else{
+        d3.select("#short").style("display", "block")
+        d3.selectAll(".modal#share input.short_url").property("value", "http://"+location.host+"/"+data.slug)
+      }
+    })
+  // open modal window
+  d3.selectAll(".modal#share").classed("active", true)
+}
+
 configs.default = function(build) {
   
   /*  If we're looking at countries their icons are flags and we don't
@@ -173,7 +198,8 @@ configs.geo_map = function(build) {
         {"Annual Growth Rate (5 year)": build.trade_flow+"_val_growth_pct_5"},
         {"Growth Value (1 year)": build.trade_flow+"_val_growth_val"},
         {"Growth Value (5 year)": build.trade_flow+"_val_growth_val_5"},
-      ]}
+      ]},
+      {"method":share, "value":["Share"], "type":"button"}
     ]
   }
 }
@@ -184,6 +210,7 @@ configs.line = function(build) {
     "depth": 1,
     "x": "year",
     "y": "trade",
+    "ui": [{"method":share, "value":["Share"], "type":"button"}]
   }
 }
 
@@ -216,7 +243,8 @@ configs.network = function(build) {
     //     }
     //   }
     // },
-    "size": "export_val"
+    "size": "export_val",
+    "ui": [{"method":share, "value":["Share"], "type":"button"}]
   }
 }
 
@@ -232,7 +260,8 @@ configs.rings = function(build) {
     "focus": build.prod.id,
     "id": ["nest","id"],
     "depth": 1,
-    "size": "export_val"
+    "size": "export_val",
+    "ui": [{"method":share, "value":["Share"], "type":"button"}]
   }
 }
 
@@ -246,6 +275,7 @@ configs.scatter = function(build) {
       "scale": "log",
       "value": build.trade_flow
     },
+    "ui": [{"method":share, "value":["Share"], "type":"button"}]
   }
 }
 
@@ -270,7 +300,8 @@ configs.stacked = function(build) {
     "order": "nest",
     "ui": [
       depth_ui,
-      {"method":change_layout, "value":[{"Value": "linear"}, {"Share": "share"}], "label":"Layout"}
+      {"method":change_layout, "value":[{"Value": "linear"}, {"Share": "share"}], "label":"Layout"},
+      {"method":share, "value":["Share"], "type":"button"}
     ]
   }
 }
@@ -331,7 +362,8 @@ configs.tree_map = function(build) {
         {"Annual Growth Rate (5 year)": build.trade_flow+"_growth_pct_5"},
         {"Growth Value (1 year)": build.trade_flow+"_growth_val"},
         {"Growth Value (5 year)": build.trade_flow+"_growth_val_5"},
-      ]}
+      ]},
+      {"method":share, "value":["Share"], "type":"button"}
     ]
   }
 }

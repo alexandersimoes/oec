@@ -11,6 +11,120 @@ body {
 }
 
 /***********/
+/* Share   */
+/***********/
+#share a.share_button {
+  color: #000;
+  display: inline-block;
+  margin: 0 20px 0 0;
+  text-align: center;
+  width: 20px;
+}
+#share a.share_button:last-child {
+  margin: 0 0 0 0;
+}
+#share i {
+  display: inline-block;
+  font-size: 20px;
+}
+#short{
+  display: none;
+}
+
+/***********/
+/* Modal   */
+/***********/
+.btn-close {
+  color: #aaaaaa;
+  font-size: 30px;
+  text-decoration: none;
+  position: absolute;
+  right: 5px;
+  top: 0;
+}
+.btn-close:hover {
+  color: #919191;
+}
+.modal:before {
+  content: "";
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+.modal.active:before {
+  display: block;
+}
+.modal.active .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  top: 20%;
+}
+.modal-dialog {
+  background: #fefefe;
+  border: #333333 solid 1px;
+  border-radius: 5px;
+  margin-left: -200px;
+  position: fixed;
+  left: 50%;
+  top: -100%;
+  z-index: 11;
+  width: 360px;
+  -webkit-transform: translate(0, -500%);
+  -ms-transform: translate(0, -500%);
+  transform: translate(0, -500%);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -moz-transition: -moz-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+}
+.modal-body {
+  padding: 20px;
+}
+.modal-body h3 {
+  font-size: 16px;
+  margin: 10px 0 5px 0;
+}
+.modal-body h3:first-child {
+  margin: 0;
+}
+.modal-body input {
+  border: solid 1px rgb(236, 236, 236);
+  color: #888;
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin: 0px;
+  overflow: hidden;
+  padding: 3px;
+  width: 100%;
+}
+.modal-body input:focus {
+  color: #444;
+  outline: 0;
+}
+.modal-header,
+.modal-footer {
+  padding: 10px 20px;
+}
+.modal-header {
+  border-bottom: #eeeeee solid 1px;
+}
+.modal-header h2 {
+  font-size: 20px;
+}
+.modal-footer {
+  border-top: #eeeeee solid 1px;
+  text-align: right;
+}
+
+
+
+/***********/
 /* Loading */
 /***********/
 div#loading {
@@ -248,34 +362,3 @@ div#loading > h2 {
   top: 5px;
 }
 
-#controls input {
-  border: solid 1px rgb(236, 236, 236);
-  color: #888;
-  font-size: 12px;
-  letter-spacing: 1px;
-  margin: 0px;
-  overflow: hidden;
-  padding: 3px;
-  width: 170px;
-}
-#controls input:focus {
-  color: #444;
-  outline: 0;
-}
-#controls #share a {
-  display: inline-block;
-  text-align: center;
-  width: 40px;
-}
-#controls #share i {
-  display: inline-block;
-  font-size: 20px;
-}
-#controls #short{
-  display: none;
-}
-.fa-external-link,
-.fa-file-text,
-.fa-external-link {
-  color: black !important;
-}

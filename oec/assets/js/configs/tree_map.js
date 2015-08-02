@@ -53,7 +53,8 @@ configs.tree_map = function(build) {
         {"Annual Growth Rate (5 year)": build.trade_flow+"_growth_pct_5"},
         {"Growth Value (1 year)": build.trade_flow+"_growth_val"},
         {"Growth Value (5 year)": build.trade_flow+"_growth_val_5"},
-      ]}
+      ]},
+      {"method":share, "value":["Share"], "type":"button"}
     ]
   }
 }

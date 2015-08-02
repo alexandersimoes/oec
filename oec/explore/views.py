@@ -12,6 +12,7 @@ from oec.db_attr.models import Country, Sitc, Hs92, Hs96, Hs02, Hs07
 # from oec.db_sitc import models as sitc_tbls
 from oec import db_data, db_attr
 from oec.general.views import get_locale
+from oec.explore.models import Build, get_all_builds, Short
 from sqlalchemy.sql.expression import func
 from sqlalchemy import not_
 from random import choice
@@ -158,6 +159,10 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
 
     return (origin, dest, product)
 
+'''
+    Using a terminal, this view can be tested via:
+    curl -d url=/en/explore/embed/stacked/hs/export/gbr/all/show/2002.2012/?lang=en http://localhost:5000/en/explore/shorten/
+'''
 @mod.route('/shorten/', methods=['GET', 'POST'])
 def shorten_url():
 
@@ -281,8 +286,6 @@ class YearConverter(BaseConverter):
                         for value in values)
 
 app.url_map.converters['year'] = YearConverter
-
-from oec.explore.models import Build, get_all_builds
 
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year:year>/')
 # @view_cache.cached(timeout=604800, key_prefix=make_cache_key)

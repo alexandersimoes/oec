@@ -4,5 +4,6 @@ configs.line = function(build) {
     "depth": 1,
     "x": "year",
     "y": "trade",
+    "ui": [{"method":share, "value":["Share"], "type":"button"}]
   }
 }

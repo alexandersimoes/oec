@@ -1,5 +1,7 @@
-import json
+import json, string, random
+from datetime import datetime
 from flask import g, url_for
+from oec import db
 from oec.db_attr.models import Country, Hs92, Hs96, Hs02, Hs07, Sitc
 
 ''' All the viz types currently supported
@@ -314,19 +316,21 @@ class Build(object):
     
     def serialize(self):
         return json.dumps({
-            "viz": self.viz,
+            "attr_type": self.attr_type(),
+            "attr_url": self.attr_url(),
             "classification": self.classification,
-            "trade_flow": self.trade_flow,
-            "origin": self.origin.serialize() if hasattr(self.origin, "serialize") else self.origin,
+            "data_url": self.data_url(),
             "dest": self.dest.serialize() if hasattr(self.dest, "serialize") else self.dest,
+            "id": self.id,
+            "lang": getattr(g, "locale", "en"),
+            "origin": self.origin.serialize() if hasattr(self.origin, "serialize") else self.origin,
             "prod": self.prod.serialize() if hasattr(self.prod, "serialize") else self.prod,
+            "title": self.title(),
+            "trade_flow": self.trade_flow,
+            "url": self.url(),
+            "viz": self.viz,
             "year": self.year,
             "year_str": self.year_str,
-            "id": self.id,
-            "title": self.title(),
-            "attr_type": self.attr_type(),
-            "data_url": self.data_url(),
-            "attr_url": self.attr_url(),
         })
     
     def __repr__(self):
@@ -426,3 +430,35 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
 
 
     return all_builds
+
+class Short(db.Model):
+
+    __tablename__ = 'explore_short'
+
+    slug = db.Column(db.String(30), unique=True, primary_key=True)
+    long_url = db.Column(db.String(255), unique=True)
+    created = db.Column(db.DateTime, default=datetime.now)
+    clicks = db.Column(db.Integer, default=0)
+    last_accessed = db.Column(db.DateTime)
+
+    @staticmethod
+    def make_unique_slug(long_url):
+
+        # Helper to generate random URL string
+        # Thx EJF: https://github.com/ericjohnf/urlshort
+        def id_generator(size=6, chars=string.ascii_lowercase + string.digits):
+            return ''.join(random.choice(chars) for x in range(size))
+
+        # test if it already exists
+        short = Short.query.filter_by(long_url = long_url).first()
+        if short:
+            return short.slug
+        else:
+            while True:
+                new_slug = id_generator()
+                if Short.query.filter_by(slug = new_slug).first() == None:
+                    break
+            return new_slug
+
+    def __repr__(self):
+        return "<ShortURL: '%s'>" % self.long_url

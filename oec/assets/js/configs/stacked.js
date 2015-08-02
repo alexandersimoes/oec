@@ -19,7 +19,8 @@ configs.stacked = function(build) {
     "order": "nest",
     "ui": [
       depth_ui,
-      {"method":change_layout, "value":[{"Value": "linear"}, {"Share": "share"}], "label":"Layout"}
+      {"method":change_layout, "value":[{"Value": "linear"}, {"Share": "share"}], "label":"Layout"},
+      {"method":share, "value":["Share"], "type":"button"}
     ]
   }
 }

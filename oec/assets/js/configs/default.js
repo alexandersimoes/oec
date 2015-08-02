@@ -1,3 +1,28 @@
+function share(){
+  var lang = build.lang;
+  var same_origin = window.parent.location.host == window.location.host;
+  var url = encodeURIComponent(window.location.pathname + "?lang="+lang)
+  if(same_origin){
+    if(window.location != window.parent.location){
+      var url = encodeURIComponent(window.parent.location.pathname + "?lang="+lang)
+    }
+  }
+  // make post request to server for short URL
+  d3.json("/"+lang+"/explore/shorten/")
+    .header("Content-type","application/x-www-form-urlencoded")
+    .post("url="+url, function(error, data) {
+      if (data.error) {
+        console.log(data.error)
+      }
+      else{
+        d3.select("#short").style("display", "block")
+        d3.selectAll(".modal#share input.short_url").property("value", "http://"+location.host+"/"+data.slug)
+      }
+    })
+  // open modal window
+  d3.selectAll(".modal#share").classed("active", true)
+}
+
 configs.default = function(build) {
   
   /*  If we're looking at countries their icons are flags and we don't

@@ -10,6 +10,7 @@ configs.rings = function(build) {
     "focus": build.prod.id,
     "id": ["nest","id"],
     "depth": 1,
-    "size": "export_val"
+    "size": "export_val",
+    "ui": [{"method":share, "value":["Share"], "type":"button"}]
   }
 }
