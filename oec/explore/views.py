@@ -107,7 +107,7 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
                     classification=classification, trade_flow=trade_flow, \
                     origin_id=origin, dest_id=dest, prod_id=product, year=year)
         return [msg, redirect_url]
-        
+
 
 def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trade_flow):
     prod_tbl = getattr(db_attr.models, classification.capitalize())
@@ -190,7 +190,7 @@ def download():
     title = request.form.get("title", None) or request.json.get("title", None)
     title = "{0}_{1}".format(g.locale, title)
     save = request.json.get("save", False) if request.json else None
-    
+
     temp = tempfile.NamedTemporaryFile()
     if save:
         file_path = os.path.abspath(os.path.join(oec_dir, 'static/generated', "{0}.png".format(title)))
@@ -221,10 +221,10 @@ def download():
             response_data = out
     else:
         response_data = data.encode("utf-8")
-    
+
     if save:
         return jsonify({"file_name":os.path.basename(new_file.name), "new":True})
-    
+
     content_disposition = "attachment;filename=%s.%s" % (title, format)
     content_disposition = content_disposition.replace(",", "_")
 
@@ -250,25 +250,25 @@ def download():
 from werkzeug.routing import BaseConverter
 
 class YearConverter(BaseConverter):
-    
+
     all_years = [item for sublist in available_years.values() for item in sublist]
     min_year = min(all_years)
     max_year = max(all_years)
 
     def to_python(self, value):
-        
+
         '''force int conversion'''
         try:
             years = [int(y) for y in value.split('.')]
         except ValueError:
             raise ValidationError()
-        
+
         '''treat as range'''
         if len(years) == 2:
             years = range(years[0], years[1]+1)
         elif len(years) > 2:
             years = range(years[0], years[1]+1, years[2])
-        
+
         '''clamp years based on min/max available years for all classifications'''
         try:
             clamped_min = years.index(self.min_year)
@@ -278,7 +278,7 @@ class YearConverter(BaseConverter):
             clamped_max = years.index(self.max_year)
         except ValueError:
             clamped_max = len(years)-1
-        
+
         return years
 
     def to_url(self, values):
@@ -289,23 +289,23 @@ app.url_map.converters['year'] = YearConverter
 
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year:year>/')
 # @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
-def explore_new(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year=None):
-    
+def explore(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year=None):
+
     '''sanitize input args'''
     redir = sanitize(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
 
     '''get every possible build for sub nav'''
     origin, dest, prod = get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trade_flow)
     all_builds = get_all_builds(classification, origin_id, dest_id, prod_id, year, {"origin":origin, "dest":dest, "prod":prod})
-    
+
     '''get this build'''
     build = Build(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
     raise Exception(build.id, build.get_title())
-    
+
     if redir:
         flash(redir[0])
         return redirect(redir[1])
-    
+
     return render_template("explore/index.html",
         current_build = build,
         all_builds = all_builds)
@@ -314,7 +314,7 @@ def explore_new(app_name, classification, trade_flow, origin_id, dest_id, prod_i
 @mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year:year>/')
 def embed(app_name, classification, trade_flow, origin_id, dest_id, \
                 prod_id, year=available_years['hs92'][-1]):
-    
+
     b = Build(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
 
     '''Get URL query parameters from reqest.args object to return to the view.
@@ -322,7 +322,7 @@ def embed(app_name, classification, trade_flow, origin_id, dest_id, \
     global_vars = {x[0]:x[1] for x in request.args.items()}
     if "controls" not in global_vars:
         global_vars["controls"] = "true"
-    
+
     return render_template("explore/embed_new.html",
         build = b,
         global_vars = json.dumps(global_vars),
