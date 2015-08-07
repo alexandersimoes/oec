@@ -58,7 +58,7 @@ def get_profile_owner(endpoint, values):
 def explore_redirect(app_name='tree_map'):
     '''fetch random country'''
     c = Country.query.get(choice(random_countries))
-    latest_hs_year = available_years['hs92'][-1]
+    latest_hs_year = [available_years['hs92'][-1]]
 
     if app_name in ["tree_map", "stacked", "network"]:
         redirect_url = url_for('.explore', lang=g.locale, app_name=app_name, \
@@ -151,7 +151,7 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
 
     if not product:
         # find the largest exporter or importer of given product
-        direction = "top_export" if trade_flow == "export" else "top_import"
+        direction = "top_export_hs4" if trade_flow == "export" else "top_import_hs4"
         product = getattr(data_tbls, "Yo").query.filter_by(year=year) \
                         .filter_by(country=origin).first()
         product = defaults[classification] if not product else getattr(product, direction)
@@ -282,8 +282,7 @@ class YearConverter(BaseConverter):
         return years
 
     def to_url(self, values):
-        return '.'.join(BaseConverter.to_url(value)
-                        for value in values)
+        return '.'.join(str(value) for value in values)
 
 app.url_map.converters['year'] = YearConverter
 
@@ -300,7 +299,7 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, prod_id, y
 
     '''get this build'''
     build = Build(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
-    raise Exception(build.id, build.get_title())
+    # raise Exception(build.id, build.title())
 
     if redir:
         flash(redir[0])
