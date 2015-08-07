@@ -232,7 +232,7 @@ class Build(object):
         if dest == "all":
             return 6
 
-    def url(self):
+    def url(self, year=None):
         return "{viz}/{classification}/{trade_flow}/{origin}/{dest}/{prod}/{year}/".format(
             viz = self.viz["slug"],
             classification = self.classification,
@@ -240,7 +240,7 @@ class Build(object):
             origin = getattr(self.origin, "id_3char", self.origin),
             dest = getattr(self.dest, "id_3char", self.dest),
             prod = getattr(self.prod, self.classification, self.prod),
-            year = self.year_str,
+            year = year or self.year_str,
         )
 
     def title(self):
