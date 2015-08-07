@@ -39,7 +39,7 @@ class ProdAttr(db.Model, AutoSerialize):
 
     def get_image(self):
         if hasattr(self, "image_link") and self.image_link:
-            return "/static/img/headers/hs/{}.jpg".format(self.id[:2])
+            return "/static/img/headers/hs/{}.jpg".format(self.id)
         else:
             return None
 

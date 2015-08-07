@@ -225,6 +225,10 @@ class Hs92(ProdAttr):
     yp_product = db.relationship("db_data.hs92_models.Yp", backref = 'product', lazy = 'dynamic')
     classification = "hs92"
 
+    image_author = db.Column(db.String(200))
+    image_link = db.Column(db.String(200))
+    palette = db.Column(db.String(200))
+
 class Hs96(ProdAttr):
     __tablename__ = 'attr_hs96'
 

@@ -42,7 +42,7 @@ def attrs(attr="country", lang='en'):
 @mod.route('/palette/', methods = ['GET', 'POST'])
 def palette():
 
-    attrs = {"country": Country}
+    attrs = {"country": Country, "hs": Hs92}
 
     if request.method == "POST":
 
