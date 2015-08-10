@@ -78,17 +78,60 @@ h2 {
         margin: 10px 0 20px; }
         p:last-child {
           margin-bottom: 0; }
+          p sup {
+            display: inline-block;
+            margin-left: 2px;
+            margin-top: -5px; }
 
-blockquote {
+table {
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+  background-color: white;
+  margin-bottom: 20px;
+  width: 100%; }
+  table tr {
+    border-bottom: 1px solid #ddd;
+    font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif; }
+    table tr:last-child {
+      border-bottom: none; }
+      table tr th, table tr td {
+        font-size: 15px;
+        line-height: 20px;
+        padding: 10px; }
+        table tr th {
+          text-align: left; }
+
+ol {
   font-family: "Lora", "Times", serif;
-  font-style: italic;
-  padding: 0px 30px;
-  margin-bottom: 20px; }
-  blockquote p {
-    font-size: 13px;
-    line-height: 15px;
-    margin-top: 5px;
-    text-align: right; }
+  font-size: 14px;
+  line-height: 20px;
+  margin-left: 35px;
+  padding: 10px 0 20px; }
+  ol li {
+    padding: 5px 0; }
+
+pre {
+  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.25);
+  background-color: #444;
+  color: #eee;
+  margin: 10px 0 20px;
+  overflow-x: scroll;
+  padding: 20px 0;
+  width: 100%; }
+
+  blockquote {
+    font-family: "Lora", "Times", serif;
+    font-style: italic;
+    padding: 0px 30px;
+    margin-bottom: 20px; }
+    blockquote p {
+      font-size: 13px;
+      line-height: 15px;
+      margin-top: 5px;
+      text-align: right; }
 nav {
   -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
@@ -160,14 +203,18 @@ nav {
             font-weight: 700;
             overflow: hidden;
             padding: 15px 30px; }
-            nav content ul .accordion {
-              overflow: hidden; }
-              nav content ul .accordion li {
-                font-weight: 400;
-                padding: 10px 30px 10px 60px; }
-                nav content ul .accordion li a {
-                  color: #868686;
-                  text-decoration: none; }
+            nav content ul li:hover {
+              color: black; }
+          nav content ul .accordion {
+            overflow: hidden; }
+            nav content ul .accordion li {
+              font-weight: 400;
+              padding: 10px 30px 10px 60px; }
+              nav content ul .accordion li a {
+                color: #868686;
+                text-decoration: none; }
+                nav content ul .accordion li a:hover {
+                  color: black; }
   nav #nav_footer {
     -webkit-box-flex: none;
     -moz-box-flex: none;
@@ -569,3 +616,14 @@ nav {
 .book {
   margin-left: 10%;
   width: 80% !important; }
+code {
+  background-color: #f9f2f4;
+  color: #c7254e;
+  display: inline-block;
+  font-size: 12px;
+  margin-top: -2px;
+  padding: 2px 4px;
+  white-space: nowrap; }
+
+  td.code {
+    width: 120px; }

@@ -60,13 +60,13 @@
       <div class="accordion resources">
         <ul>
           <li class="publications">
-            <a href="{{ url_for('resources.publications') }}">{{ _('Publications') }}</a>
+            <a href="{{ url_for('resources.publications', lang=g.locale) }}">{{ _('Publications') }}</a>
           </li>
           <li class="data">
-            <a href="{{ url_for('resources.publications') }}">{{ _('Data Downloads') }}</a>
+            <a href="{{ url_for('resources.data', lang=g.locale) }}">{{ _('Data Sources') }}</a>
           </li>
           <li class="api">
-            <a href="{{ url_for('resources.publications') }}">{{ _('API') }}</a>
+            <a href="{{ url_for('resources.api', lang=g.locale) }}">{{ _('API') }}</a>
           </li>
         </ul>
       </div>

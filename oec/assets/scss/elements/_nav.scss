@@ -61,6 +61,10 @@ nav {
         overflow: hidden;
         padding: 15px 30px;
 
+        &:hover {
+          color: black;
+        }
+
       }
 
       .accordion {
@@ -71,6 +75,9 @@ nav {
           a {
             color: #868686;
             text-decoration: none;
+            &:hover {
+              color: black;
+            }
           }
         }
       }

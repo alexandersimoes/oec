@@ -94,21 +94,8 @@ def about():
 def team():
     return redirect(url_for('.about'))
 
-@mod.route('data/')
 def data_redirect():
     return redirect(url_for('.data_sources'))
-
-@mod.route('data/sources/')
-def data_sources():
-    g.page_type = "about"
-    g.sub_page_type = "data"
-    return render_template("about/data_sources.html", data_type="sources")
-
-@mod.route('data/download/')
-def data_download():
-    g.page_type = "about"
-    g.sub_page_type = "data"
-    return render_template("about/data_download.html", data_type="download")
 
 @mod.route('data/<data_type>/')
 def data(data_type):
@@ -180,23 +167,19 @@ def updates():
     return render_template("about/updates.html", updates=updates)
 
 ###############################
-# API views
+# Legacy views (redirects)
 # ---------------------------
 @mod.route('api/')
-def api():
-    return redirect(url_for(".api_embed"))
-
 @mod.route('api/embed/')
-def api_embed():
-    g.page_type = "about"
-    g.sub_page_type = "api"
-    return render_template("about/api_embed.html", data_type="embed")
-
 @mod.route('api/data/')
-def api_data():
-    g.page_type = "about"
-    g.sub_page_type = "api"
-    return render_template("about/api_data.html", data_type="data")
+def api():
+    return redirect(url_for("resources.api"))
+
+@mod.route('data/')
+@mod.route('data/sources/')
+@mod.route('data/download/')
+def data_sources():
+    return redirect(url_for('resources.data'))
 
 @mod.route('permissions/')
 def permissions():
