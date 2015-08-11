@@ -201,20 +201,63 @@ nav {
             cursor: pointer;
             display: block;
             font-weight: 700;
-            overflow: hidden;
+            overflow-y: hidden;
             padding: 15px 30px; }
             nav content ul li:hover {
               color: black; }
+              nav content ul li.clicker {
+                position: relative; }
+                nav content ul li.clicker:before {
+                  -webkit-transition: transform 0.1s, margin-top 0.1s;
+                  -moz-transition: transform 0.1s, margin-top 0.1s;
+                  -o-transition: transform 0.1s, margin-top 0.1s;
+                  transition: transform 0.1s, margin-top 0.1s;
+                  content: "\f105";
+                  display: block;
+                  font-family: "FontAwesome";
+                  font-size: 16px;
+                  left: 18px;
+                  margin-top: 0;
+                  opacity: 0.5;
+                  position: absolute;
+                  top: 16px; }
+                  nav content ul li.clicker.open:before {
+                    -webkit-transform: rotate(90deg);
+                    -ms-transform: rotate(90deg);
+                    transform: rotate(90deg);
+                    margin-top: 1px; }
           nav content ul .accordion {
             overflow: hidden; }
             nav content ul .accordion li {
               font-weight: 400;
-              padding: 10px 30px 10px 60px; }
+              padding: 10px 30px 10px 45px; }
               nav content ul .accordion li a {
                 color: #868686;
                 text-decoration: none; }
                 nav content ul .accordion li a:hover {
                   color: black; }
+              nav content ul .accordion li:before {
+                left: 33px;
+                top: 11px; }
+                nav content ul .accordion li:first-child {
+                  padding-top: 0px; }
+                  nav content ul .accordion li:first-child:before {
+                    top: 1px; }
+            nav content ul .accordion .sub_menu {
+              padding: 0 0 10px 70px; }
+              nav content ul .accordion .sub_menu h5 {
+                color: #aaa;
+                font-weight: 400;
+                margin-bottom: 2px; }
+                nav content ul .accordion .sub_menu li {
+                  font-size: 12px;
+                  padding: 3px 5px; }
+                  nav content ul .accordion .sub_menu li.active {
+                    background-color: #aaa;
+                    color: white;
+                    position: relative; }
+                    nav content ul .accordion .sub_menu li.active a {
+                      color: white; }
   nav #nav_footer {
     -webkit-box-flex: none;
     -moz-box-flex: none;
@@ -513,6 +556,58 @@ nav {
     #mask.open {
       display: block;   }
 }
+body.explore #container {
+  margin-top: 0; }
+  body.explore #hamburger {
+    color: #0085BF; }
+
+#explorer {
+  -webkit-transition: padding 0.5s;
+  -moz-transition: padding 0.5s;
+  -o-transition: padding 0.5s;
+  transition: padding 0.5s;
+  padding: 20px 50px 10px;
+  position: relative;
+  text-align: center; }
+  #explorer h1 {
+    -webkit-transition: font-size 0.5s;
+    -moz-transition: font-size 0.5s;
+    -o-transition: font-size 0.5s;
+    transition: font-size 0.5s; }
+    #explorer #collapse {
+      -webkit-transition: transform 0.5s, opacity 0.1s;
+      -moz-transition: transform 0.5s, opacity 0.1s;
+      -o-transition: transform 0.5s, opacity 0.1s;
+      transition: transform 0.5s, opacity 0.1s;
+      cursor: pointer;
+      font-size: 19px;
+      height: 19px;
+      margin: 10px;
+      opacity: 0.75;
+      position: absolute;
+      right: 4px;
+      text-align: center;
+      top: 0;
+      width: 16px; }
+      #explorer #collapse:hover {
+        border-bottom: none;
+        opacity: 1; }
+  #explorer #changers {
+    display: block;
+    margin-top: 10px; }
+  #explorer.small {
+    padding: 10px 0 5px; }
+    #explorer.small h1 {
+      font-size: 16px; }
+      #explorer.small #collapse {
+        -webkit-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        transform: rotate(180deg); }
+        #explorer.small #changers {
+          display: none; }
+
+iframe.viz {
+  margin: 5px 15px 0; }
 .member {
   margin: 30px 0 40px;
   min-height: 150px;

@@ -16,19 +16,57 @@
 
     <ul>
 
-      <li class="explore">
-        {{ _('Explore') }}
-      </li>
+      <li class="explore clicker">{{ _('Explore') }}</li>
       <div class="accordion explore">
-        <ul>
-          <li class="tree_map">
-            <a href="{{ url_for('explore.explore_redirect', lang=g.locale) }}">{{ _('Tree Map') }}</a>
-          </li>
-        </ul>
+        {% if all_builds %}
+          <ul>
+          {% set current_url = current_build.url() %}
+          {% set pre_app = None %}
+          {% for build in all_builds %}
+
+            {% if pre_app != build.viz.slug %}
+
+              {% if pre_app != None %}
+                    </ul>
+                  </div>
+              {% endif %}
+
+              {% set pre_app = build.viz.slug %}
+
+              <li class="{{ pre_app }} clicker">{{ build.viz.name }}</li>
+                <div class="accordion {{ pre_app }}">
+                  <ul>
+              {% set pre_cat = "init" %}
+
+            {% endif %}
+
+            {% if pre_cat != build.category() and build.category() != "init" %}
+              {% if pre_cat != "init" %}</ul>{% endif %}
+              <ul class="sub_menu">
+              {% if build.category() != None %}
+              <h5>{{ build.category() }}</h5>
+              {% endif %}
+            {% endif %}
+
+            {% set pre_cat = build.category() %}
+
+            {% set url = build.url() %}
+            <li{% if url == current_url %} class="active"{% endif %}>
+              <a href="/{{ g.locale }}/explore/{{ url }}">{{ build.short_name() }}</a>
+            </li>
+
+          {% endfor %}
+          </ul></div></ul>
+        {% else %}
+          <ul>
+            <li class="tree_map">
+              <a href="{{ url_for('explore.explore_redirect', lang=g.locale) }}">{{ _('Tree Map') }}</a>
+            </li>
+          </ul>
+        {% endif %}
       </div>
-      <li class="profile">
-        {{ _('Profiles') }}
-      </li>
+
+      <li class="profile clicker">{{ _('Profiles') }}</li>
       <div class="accordion profile">
         <ul>
           <li class="country">
@@ -40,9 +78,7 @@
         </ul>
       </div>
 
-      <li class="rankings">
-        {{ _('Rankings') }}
-      </li>
+      <li class="rankings clicker">{{ _('Rankings') }}</li>
       <div class="accordion rankings">
         <ul>
           <li class="country">
@@ -54,9 +90,7 @@
         </ul>
       </div>
 
-      <li class="resources">
-        {{ _('Resources') }}
-      </li>
+      <li class="resources clicker">{{ _('Resources') }}</li>
       <div class="accordion resources">
         <ul>
           <li class="publications">
@@ -120,7 +154,7 @@
 <script src="/static/js/libs/typeahead.min.js"></script>
 <script>
 
-  var page = "{{ g.page_type }}", sub_page = "{{ g.page_sub_type }}";
+  var page = "{{ g.page_type }}", sub_page = "{{ g.page_sub_type }}" || "none";
 
   if (!color) var color = "#0085BF";
 
@@ -145,24 +179,34 @@
     })
 
   // Closes all sub-menus and stores their individual heights.
-  d3.selectAll("nav > content > ul ul").each(function(){
-    var h = this.offsetHeight;
-    d3.select(this).attr("data-height", h).style("margin-top", -h+"px");
-  })
+  d3.selectAll("div.accordion > ul")
+    .style("margin-top", function(){
+      return -this.offsetHeight+"px";
+    });
 
   // Opens the current accordion and styles the current page link.
   d3.select(".accordion."+page+" ul")
     .style("margin-top", "0px")
-    .select("li."+sub_page).select("a")
+    .selectAll("li."+sub_page+", li."+sub_page+" a")
       .style("color", color)
       .style("font-weight", 600);
 
+  d3.select("li.clicker."+page).classed("open", true);
+  d3.select("li.clicker."+sub_page).classed("open", true);
+
+  var sub_accordion = d3.select(".accordion."+sub_page);
+  if (!sub_accordion.empty()) {
+    sub_accordion.select("ul").style("margin-top", "0px");
+  }
+
   // Click event for each accordion menu.
-  d3.selectAll("nav > content > ul > li").on("click", function(){
-    var sub = d3.select(".accordion."+this.className+" ul"),
-        h = sub.attr("data-height"),
-        t = sub.style("margin-top") === "0px" ? "-"+h : 0;
-    sub.transition().duration(parseFloat(h)*2).ease("linear").style("margin-top", t+"px");
+  d3.selectAll("li.clicker").on("click", function(){
+    var sub = d3.select("div.accordion."+this.className.split(" ")[0]+" ul")
+        h = sub.node().offsetHeight,
+        open = sub.style("margin-top") !== "0px"
+        t = !open ? "-"+h : 0;
+    d3.select(this).classed("open", open);
+    sub.transition().duration(h).ease("linear").style("margin-top", t+"px");
   });
 
   // Styles the header, if present.

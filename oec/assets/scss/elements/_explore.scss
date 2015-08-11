@@ -1,0 +1,74 @@
+body.explore {
+
+  #container {
+    margin-top: 0;
+  }
+
+  #hamburger {
+    color: $color;
+  }
+
+}
+
+$timing: 0.5s;
+
+#explorer {
+  @include transition(padding $timing);
+  padding: 20px 50px 10px;
+  position: relative;
+  text-align: center;
+
+  h1 {
+    @include transition(font-size $timing);
+  }
+
+  #collapse {
+    @include transition(transform $timing, opacity 0.1s);
+    cursor: pointer;
+    font-size: 19px;
+    height: 19px;
+    margin: 10px;
+    opacity: 0.75;
+    position: absolute;
+    right: 4px;
+    text-align: center;
+    top: 0;
+    width: 16px;
+    &:hover {
+      border-bottom: none;
+      opacity: 1;
+    }
+  }
+
+  #changers {
+    display: block;
+    margin-top: 10px;
+
+    .prev, .next {
+
+    }
+
+  }
+
+  &.small {
+    padding: 10px 0 5px;
+
+    h1 {
+      font-size: 16px;
+    }
+
+    #collapse {
+      @include transform(rotate(180deg));
+    }
+
+    #changers {
+      display: none;
+    }
+
+  }
+
+}
+
+iframe.viz {
+  margin: 5px 15px 0;
+}

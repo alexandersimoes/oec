@@ -1,3 +1,4 @@
+@import "helpers/functions";
 @import "helpers/reset";
 @import "helpers/variables";
 @import "helpers/vendor";
@@ -116,6 +117,7 @@ blockquote {
 @import "elements/nav";
 @import "elements/container";
 @import "elements/hamburger";
+@import "elements/explore";
 @import "elements/team";
 @import "elements/publications";
 @import "elements/api";

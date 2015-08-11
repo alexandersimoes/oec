@@ -290,6 +290,9 @@ app.url_map.converters['year'] = YearConverter
 # @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def explore(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year=None):
 
+    g.page_type = "explore"
+    g.page_sub_type = app_name
+
     '''sanitize input args'''
     redir = sanitize(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
 
@@ -299,14 +302,75 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, prod_id, y
 
     '''get this build'''
     build = Build(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
-    # raise Exception(build.id, build.title())
+
+    '''create the ui array for the current build'''
+    ui = []
+    if isinstance(build.origin, Country):
+        country = {
+            "id": "origin",
+            "name": gettext("Origin"),
+            "data": [build.origin.serialize()],
+            "url": url_for('attr.attrs', attr='country', lang=g.locale)
+        }
+        ui.append(country)
+
+    if isinstance(build.dest, Country):
+        country = {
+            "id": "destination",
+            "name": gettext("Destination"),
+            "data": [build.dest.serialize()],
+            "url": url_for('attr.attrs', attr='country', lang=g.locale)
+        }
+        ui.append(country)
+
+    if isinstance(build.prod, (Sitc, Hs92, Hs96, Hs02, Hs07)):
+        product = {
+            "id": "product",
+            "name": gettext("Product"),
+            "data": [build.prod.serialize()],
+            "url": url_for('attr.attrs', attr=build.classification, lang=g.locale)
+        }
+        ui.append(product)
+
+    if build.viz["slug"] == "compare":
+        trade_flow = {
+            "id": "trade_flow",
+            "name": gettext("Y Axis"),
+            "current": build.trade_flow,
+            "data": [
+                {"name": gettext("GDP"), "display_id":"gdp"},
+                {"name": gettext("GDPpc (constant '05 US$)"), "display_id":"gdp_pc_constant"},
+                {"name": gettext("GDPpc (current US$)"), "display_id":"gdp_pc_current"},
+                {"name": gettext("GDPpc PPP (constant '11)"), "display_id":"gdp_pc_constant_ppp"},
+                {"name": gettext("GDPpc PPP (current)"), "display_id":"gdp_pc_current_ppp"}
+            ]
+        }
+    else:
+        trade_flow = {
+            "id": "trade_flow",
+            "name": gettext("Trade Flow"),
+            "current": build.trade_flow,
+            "data": [
+                {"name": gettext("Export"), "display_id":"export"},
+                {"name": gettext("Import"), "display_id":"import"}
+            ]
+        }
+
+    ui.append(trade_flow)
+
+    ui.append({
+        "id": "classification",
+        "name": gettext("Classification"),
+        "current": build.classification,
+        "data": ["HS92", "HS96", "HS02", "HS07", "SITC"]
+    })
 
     if redir:
         flash(redir[0])
         return redirect(redir[1])
 
     return render_template("explore/index.html",
-        current_build = build,
+        current_build = build, build_ui = ui,
         all_builds = all_builds)
 
 @mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/')

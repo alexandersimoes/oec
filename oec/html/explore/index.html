@@ -8,21 +8,21 @@
     {% if current_build.year_str|int < g.available_years[current_build.classification][-1]  %}
     <link rel="next" href="/{{ g.locale }}/explore/{{ current_build.url(year=current_build.year_str|int+1) }}" />
     {% endif %}
-    
+
     <!-- Twitter "photo card" -->
     <meta name="twitter:card" content="photo">
     <meta name="twitter:title" content="{{ current_build.title()|striptags|safe }}">
     <meta name="twitter:image:src" content="http://atlas.media.mit.edu/static/generated/{{ g.locale }}_{{ request.path.split('/')[1:-1]|join('_') }}.png">
     <meta name="twitter:domain" content="atlas.media.mit.edu">
     <meta name="twitter:url" content="http://atlas.media.mit.edu{{ request.path }}{% if g.locale != 'en' %}?lang={{ g.locale }}{% endif %}">
-    
+
     <!-- Facebook Properties -->
     <meta property="og:image" content="http://atlas.media.mit.edu/static/generated/{{ g.locale }}_{{ request.path.split('/')[1:-1]|join('_') }}.png" />
     <meta property="og:title" content="{{ current_build.title()|striptags|safe }}">
     <meta property="og:url" content="http://atlas.media.mit.edu{{ request.path }}{% if g.locale != 'en' %}?lang={{ g.locale }}{% endif %}">
     <meta property="og:site_name" content="The Observatory of Economic Complexity"/>
     <meta property="og:type" content="website" />
-    
+
 {% endblock %}
 
 {% block title %}: {{ current_build.title()|striptags }} ({{ current_build.year_str }}){% endblock %}
@@ -30,141 +30,91 @@
 
 {% block body %}
 
-<div class="title">
-  {% if current_build.year_str|int > g.available_years[current_build.classification][0] and current_build.viz.slug != "stacked" %}
-  <a class="prev" href="/{{ g.locale }}/explore/{{ current_build.url(year=current_build.year_str|int-1) }}">« {{ _('Previous Year') }}</a>
-  {% endif %}
-  <h2>{{ current_build.title()|safe }} ({{ current_build.year_str }})</h2>
-  {% if current_build.year_str|int < g.available_years[current_build.classification][-1] and current_build.viz.slug != "stacked"  %}
-  <a class="next" href="/{{ g.locale }}/explore/{{ current_build.url(year=current_build.year_str|int+1) }}">{{ _('Next Year') }} »</a>
-  {% endif %}
-</div>
+<div id="explorer">
+  <a id="collapse"><i class="fa fa-cog"></i></a>
+  <h1>{{ current_build.title()|safe }} ({{ current_build.year_str }})</h1>
+  <div id="changers">
 
-<!-- the left pane -->
-<div class="content">
+    {% if current_build.year_str|int > g.available_years[current_build.classification][0] and current_build.viz.slug != "stacked"  %}
+    <a class="prev" href="/{{ g.locale }}/explore/{{ current_build.url(year=current_build.year_str|int-1) }}">
+      <i class="fa fa-arrow-left"></i>
+      {{ _('Previous Year') }}
+    </a>
+    {% endif %}
 
-  <div class="col1" id="sidebar">
-
-    {% set pre_app = None %}
-
-    <ul>
-    {% for build in all_builds %}
-
-      {% if pre_app != build.viz.slug and pre_app != None %}
-            </ul>
-          </ul>
-        </li>
-      {% endif %}
-
-      {% if pre_app != build.viz.slug %}
-
-        {% set pre_app = build.viz.slug %}
-        <li id="{{ build.viz.slug }}"  class="icon{% if current_build.viz.slug == pre_app %} active{% endif %}">
-          <a class="accordion" href="#{{ build.viz.slug }}" title="{{ build.viz.slug }}">
-            {{ build.viz.title }}
-          </a>
-          <ul class="accordion">
-        {% set pre_cat = "init" %}
-
-      {% endif %}
-
-      {% if pre_cat != build.category() and build.category() != "init" %}
-        {% if pre_cat != "init" %}</ul>{% endif %}
-        <ul>
-        {% if build.category() != None %}
-        <h3>{{ build.category() }}</h3>
+    {% for ui in build_ui %}
+    <div class="dropdown_container" id="{{ ui.id }}"{% if ui.url %} data-url="{{ui.url}}"{% endif %}>
+      <h3>{{ ui.name }}</h3>
+      <select id="{{ ui.id }}_selector">
+        {% if ui.data %}
+          {% for option in ui.data %}
+          <option{% if option.conversion %} data-conversion="{{ option.conversion }}"{% endif %}
+          {% if option.icon %} data-image="{{ option.icon }}"{% endif %}
+          {% if option.color %} data-color="{{ option.color }}"{% endif %}
+          {% if ui.id == "product" %} data-style="knockout"{% endif %}
+          {% if option.keywords %} data-keywords="{{ option.keywords }}"{% endif %}
+          {% if option.display_id %} data-display_id="{{ option.display_id }}"{% endif %}
+          value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
+          {% if not ui.current or (ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") or ui.current|lower|replace(" ", "_") == option.display_id) %}selected="selected"{% endif %}>
+            {% if option.name %}{{ option.name }}{% else %}{{ option }}{% endif %}
+          </option>
+          {% endfor %}
         {% endif %}
-      {% endif %}
-
-      {% set pre_cat = build.category() %}
-
-      <li{% if build == current_build %} class="active"{% endif %}>
-        <a href="/{{ g.locale }}/explore/{{ build.url() }}">
-          {{ build.short_name() }}
-        </a>
-      </li>
-
+      </select>
+    </div>
     {% endfor %}
-    </ul>
 
-  </div><div class="col3">
-
-    <!-- table of data from visualization -->
-    <div id="text_data" class="visually_hidden">
-
-    </div>
-
-    <!-- Container for the visualization -->
-    <div id="zviz">
-      <iframe scrolling="no" id="iframe_viz" src="/{{ g.locale }}/explore/embed/{{ current_build.url() }}" width="800px" height="545px" frameborder="0"></iframe>
-    </div>
+    {% if current_build.year_str|int < g.available_years[current_build.classification][-1] and current_build.viz.slug != "stacked"  %}
+    <a class="next" href="/{{ g.locale }}/explore/{{ current_build.url(year=current_build.year_str|int+1) }}">
+      {{ _('Next Year') }}
+      <i class="fa fa-arrow-right"></i>
+    </a>
+    {% endif %}
 
   </div>
+</div>
 
-</div> <!-- END #main -->
+<!-- Container for the visualization -->
+<iframe class="viz" scrolling="no" frameborder="0"></iframe>
+
 {% endblock %}
 
 {% block js %}
-<!-- The JavaScript -->
-<!-- Libraries -->
-<script src="/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
-<script src="/static/js/libs/jquery-ui/jquery-ui.min.js"></script>
 <script>
 
-  function accordion(app) {
+  var url = "{{ current_build.url() }}",
+      explorer = d3.select("#explorer"),
+      iframe = d3.select("iframe.viz"),
+      navWidth = d3.select("nav").node().offsetWidth;
 
-    var ul = d3.select("#sidebar li#"+app+" ul")
+  function resizeIframe() {
+    var n = window.innerWidth <= 1024 ? 0 : navWidth,
+        p = parseFloat(iframe.style("margin-left"), 10),
+        w = window.innerWidth - n - p * 2,
+        h = window.innerHeight - explorer.node().offsetHeight - p,
+        viz = iframe.node().contentWindow.viz;
 
-    var prev_display = ul.style("height")
-
-    if (prev_display == "0px") {
-
-      var new_height = ul.style("height", "auto").style("height")
-
-      ul.style("height", "0px")
-
+    if (viz) {
+      iframe.transition().duration(500).attr("height", h + "px").attr("width", w + "px");
+      viz.height(h).width(w).draw();
+    }
+    else {
+      iframe.attr("height", h + "px").attr("width", w + "px");
     }
 
-    d3.selectAll("#sidebar > ul > li")
-      .attr("class",function(){
-        if (this.id == app && new_height) {
-          return "icon active"
-        }
-        else {
-          return "icon"
-        }
-      })
-
-    d3.selectAll("ul.accordion")
-      .transition().duration(600)
-      .style("height", function(){
-        if (this.parentNode.id == app && new_height) {
-          return new_height
-        }
-        else {
-          return "0px"
-        }
-      })
-
   }
+  resizeIframe();
 
-  d3.selectAll("#sidebar a.accordion").on("click", function(){
+  d3.select("iframe.viz")
+    // .style("background-color", "red")
+    .attr("src", "/"+oec.locale+"/explore/embed/"+url)
 
-    d3.event.preventDefault();
-
-    accordion(this.title.replace(" ", "_"))
-
+  d3.select("#collapse").on("click", function(){
+    explorer.classed("small", explorer.node().className !== "small");
+    setTimeout(resizeIframe, 500);
   })
 
-  /////////////////////////////
-  // Initialize page --
-  ////////////////////////////
-
-  // Open default app selection accordion
-  accordion("{{ current_build.viz.slug }}")
-
-  // hide text on load
-  // d3.select("#text_data").style("display", "none");
+  resizeFunctions.push(resizeIframe);
 
 </script>
 {% endblock %}

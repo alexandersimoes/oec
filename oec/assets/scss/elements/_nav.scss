@@ -58,11 +58,35 @@ nav {
         cursor: pointer;
         display: block;
         font-weight: 700;
-        overflow: hidden;
+        overflow-y: hidden;
         padding: 15px 30px;
 
         &:hover {
           color: black;
+        }
+
+        &.clicker {
+
+          position: relative;
+
+          &:before {
+            @include transition(transform 0.1s, margin-top 0.1s);
+            content: unicode("f105");
+            display: block;
+            font-family: "FontAwesome";
+            font-size: 16px;
+            left: 18px;
+            margin-top: 0;
+            opacity: 0.5;
+            position: absolute;
+            top: 16px;
+          }
+
+          &.open:before {
+            @include transform(rotate(90deg));
+            margin-top: 1px;
+          }
+
         }
 
       }
@@ -71,7 +95,7 @@ nav {
         overflow: hidden;
         li {
           font-weight: 400;
-          padding: 10px 30px 10px 60px;
+          padding: 10px 30px 10px 45px;
           a {
             color: #868686;
             text-decoration: none;
@@ -79,7 +103,51 @@ nav {
               color: black;
             }
           }
+
+          &:before {
+            left: 33px;
+            top: 11px;
+          }
+
+          &:first-child {
+            padding-top: 0px;
+
+            &:before {
+              top: 1px;
+            }
+          }
+
         }
+
+        .sub_menu {
+          padding: 0 0 10px 70px;
+
+          h5 {
+            color: #aaa;
+            font-weight: 400;
+            margin-bottom: 2px;
+          }
+
+          li {
+            font-size: 12px;
+            padding: 3px 5px;
+
+            &.active {
+              background-color: #aaa;
+              color: white;
+              // font-weight: 800;
+              position: relative;
+
+              a {
+                color: white;
+              }
+
+            }
+
+          }
+
+        }
+
       }
 
     }
