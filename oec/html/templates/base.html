@@ -49,9 +49,10 @@
       }
 
       var resizeFunctions = [], scrollFunctions = [], cache_version = "{{ g.cache_version }}";
-      
+
       var oec = {};
       oec.translations = {{ g.translations|safe }};
+      oec.locale = "{{ g.locale }}";
 
     </script>
 
@@ -103,11 +104,20 @@
       });
 
       if (resizeFunctions.length) {
-        window.onresize = function(){
+
+        var resize;
+
+        function resizeEnd() {
           for (var i = 0; i < resizeFunctions.length; i++) {
             resizeFunctions[i]();
           }
         }
+
+        window.onresize = function(){
+          clearTimeout(resize);
+          resize = setTimeout(resizeEnd, 200);
+        }
+
       }
 
       if (scrollFunctions.length) {
