@@ -24,11 +24,11 @@ function share(){
 }
 
 configs.default = function(build) {
-  
+
   /*  If we're looking at countries their icons are flags and we don't
       want to show the colored background because the flags don't take up
-      100% of the icon square. 
-  
+      100% of the icon square.
+
       Also we want to show RCA if we're looking at products. */
   if(build.attr_type == "dest" || build.attr_type == "origin"){
     var icon = {"value":"icon", "style":{"nest":"knockout","id":"default"}};
@@ -40,7 +40,12 @@ configs.default = function(build) {
     var id_nesting = ["nest", "nest_mid", "id"];
     var tooltip = ["display_id", build.trade_flow+"_val", build.trade_flow+"_rca"]
   }
-  
+
+  var background = "none";
+  if(window.parent.location.host == window.location.host){
+    background = "#eeeeee";
+  }
+
   return {
     "aggs": {
       "export_val_growth_pct": "mean",
@@ -58,7 +63,7 @@ configs.default = function(build) {
       "export_rca": "mean",
       "import_rca": "mean"
     },
-    "background": "none",
+    "background": background,
     "color": { "heatmap": ["#cccccc","#0085BF"] },
     "container": "#viz",
     "focus": {"tooltip": false},
@@ -79,7 +84,7 @@ configs.default = function(build) {
     "icon": icon,
     "id": id_nesting,
     "legend": {"filters":true},
-    "messages": {"branding": true},
+    "messages": {"branding": true, "style": "large"},
     "size": {
       "value": build.trade_flow+"_val",
       "threshold": false
