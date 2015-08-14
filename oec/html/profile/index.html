@@ -119,13 +119,17 @@
     load("/static/json/country_coords.json", function(coords){
 
       var key = d3.keys(coords.objects)[0],
-          geoms = coords.objects[key].geometries,
           width = map.node().parentNode.offsetWidth,
           height = width;
 
-      coords.objects[key].geometries = geoms.filter(function(d){
-        return d.id === "{{ profile.attr.id }}";
-      })
+      if (!coords.objects[key].lookup) {
+        coords.objects[key].lookup = coords.objects[key].geometries.reduce(function(obj, d){
+          obj[d.id] = d;
+          return obj;
+        }, {});
+      }
+
+      coords.objects[key].geometries = [coords.objects[key].lookup["{{ profile.attr.id }}"]];
 
       var svg = map.append("svg")
         .attr("width", width)
@@ -180,7 +184,10 @@
       svg.append("path")
         .datum(country)
         .attr("d", path)
-        .attr("fill", color);
+        .attr("opacity", 0)
+        .attr("fill", color)
+        .transition().duration(500)
+          .attr("opacity", 1);
 
 
     });
