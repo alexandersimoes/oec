@@ -12,6 +12,13 @@ body.explore {
 
 $timing: 0.5s;
 
+@-webkit-keyframes blink
+{
+  0%  { background-color: $color; }
+  50% { background-color: #00a9f2; }
+  100%{ background-color: $color; }
+}
+
 #explorer {
   @include transition(padding $timing);
   padding: 20px 50px 10px;
@@ -20,6 +27,7 @@ $timing: 0.5s;
 
   h1 {
     @include transition(font-size $timing);
+    padding: 0 100px;
   }
 
   #collapse {
@@ -40,11 +48,48 @@ $timing: 0.5s;
     }
   }
 
+  #prev, #next {
+    @include transition(top $timing);
+    font-size: 12px;
+    position: absolute;
+    top: 34px;
+  }
+
+  #prev {
+    left: 50px;
+  }
+
+  #next {
+    right: 50px;
+  }
+
   #changers {
     display: block;
     margin-top: 10px;
 
-    .prev, .next {
+    .dropdown_container {
+      display: inline-block;
+    }
+
+    #build {
+      @include transition(background-color 0.5s);
+      border: none;
+      background-color: #cccccc;
+      color: white;
+      cursor: pointer;
+      font-size: 12px;
+      height: 25px;
+      margin: 6px 0;
+      padding: 5;
+      position: relative;
+      // text-align: left;
+      // visibility: hidden;
+
+      &.active {
+        @include shadow();
+        @include animation();
+        background-color: $color;
+      }
 
     }
 
@@ -55,6 +100,10 @@ $timing: 0.5s;
 
     h1 {
       font-size: 16px;
+    }
+
+    #next, #prev {
+      top: 14px;
     }
 
     #collapse {

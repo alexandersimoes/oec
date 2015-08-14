@@ -1,3 +1,8 @@
+@mixin animation($style: 2s blink infinite) {
+  -webkit-animation: $style;
+  -moz-animation: $style;
+}
+
 @mixin box($style: border-box) {
   -webkit-box-sizing: $style;
   -moz-box-sizing: $style;

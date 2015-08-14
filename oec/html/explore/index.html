@@ -32,19 +32,28 @@
 
 <div id="explorer">
   <a id="collapse"><i class="fa fa-cog"></i></a>
-  <h1>{{ current_build.title()|safe }} ({{ current_build.year_str }})</h1>
-  <div id="changers">
 
-    {% if current_build.year_str|int > g.available_years[current_build.classification][0] and current_build.viz.slug != "stacked"  %}
-    <a class="prev" href="/{{ g.locale }}/explore/{{ current_build.url(year=current_build.year_str|int-1) }}">
-      <i class="fa fa-arrow-left"></i>
-      {{ _('Previous Year') }}
-    </a>
-    {% endif %}
+  {% if current_build.viz.slug != "stacked" %}
+  {% if current_build.year_str|int > g.available_years['sitc'][0] %}
+  <a id="prev" href="/{{ g.locale }}/explore/{{ current_build.url(year=current_build.year_str|int-1) }}">
+    <i class="fa fa-arrow-left"></i>
+    {{ _('Previous Year') }}
+  </a>
+  {% endif %}
+  {% if current_build.year_str|int < g.available_years['sitc'][-1] %}
+  <a id="next" href="/{{ g.locale }}/explore/{{ current_build.url(year=current_build.year_str|int+1) }}">
+    {{ _('Next Year') }}
+    <i class="fa fa-arrow-right"></i>
+  </a>
+  {% endif %}
+  {% endif %}
+
+  <h1>{{ current_build.title()|safe }} ({{ current_build.year|join('-') }})</h1>
+  <div id="changers">
 
     {% for ui in build_ui %}
     <div class="dropdown_container" id="{{ ui.id }}"{% if ui.url %} data-url="{{ui.url}}"{% endif %}>
-      <h3>{{ ui.name }}</h3>
+      <legend for="{{ ui.id }}_selector">{{ ui.name }}</legend>
       <select id="{{ ui.id }}_selector">
         {% if ui.data %}
           {% for option in ui.data %}
@@ -56,7 +65,13 @@
           {% if option.display_id %} data-display_id="{{ option.display_id }}"{% endif %}
           value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
           {% if not ui.current or (ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") or ui.current|lower|replace(" ", "_") == option.display_id) %}selected="selected"{% endif %}>
-            {% if option.name %}{{ option.name }}{% else %}{{ option }}{% endif %}
+            {% if option.name %}
+              {{ option.name }}
+            {% elif option.id %}
+              {{ option.id }}
+            {% else %}
+              {{ option }}
+            {% endif %}
           </option>
           {% endfor %}
         {% endif %}
@@ -64,12 +79,7 @@
     </div>
     {% endfor %}
 
-    {% if current_build.year_str|int < g.available_years[current_build.classification][-1] and current_build.viz.slug != "stacked"  %}
-    <a class="next" href="/{{ g.locale }}/explore/{{ current_build.url(year=current_build.year_str|int+1) }}">
-      {{ _('Next Year') }}
-      <i class="fa fa-arrow-right"></i>
-    </a>
-    {% endif %}
+    <button id="build">{{ _('Build') }}</button>
 
   </div>
 </div>
@@ -81,6 +91,168 @@
 
 {% block js %}
 <script>
+
+  var attr_id = "{{ current_build.attr_type() }}_id",
+      app_type = "{{ current_build.viz.slug }}";
+
+  var same_origin = false,
+      in_the_wild = true,
+      in_explore_page = false;
+
+  try {
+    same_origin = window.parent.location.host == window.location.host;
+    in_the_wild = (window.parent.location.origin && window.parent.location.origin.indexOf("atlas.media.mit.edu") < 0) &&
+                  (window.parent.location.origin && window.parent.location.origin.indexOf("oec.media.mit.edu") < 0) &&
+                  (window.parent.location.origin && window.parent.location.origin.indexOf("localhost") < 0);
+    // in_explore_page = (window.location != window.parent.location) && !in_the_wild && (window.parent.location.pathname.indexOf("explore") >= 0 || window.parent.location.pathname.indexOf("profile") >= 0);
+    in_explore_page = (window.location != window.parent.location) && !in_the_wild && (window.parent.location.pathname.indexOf("explore") >= 0);
+  }
+  catch (e) {}
+
+  function activate_build_button(focus, form) {
+    d3.select("button#build").classed("active", form.focus(Object).previous !== false);
+  }
+
+  d3.selectAll("button#build").on("click", function(){
+
+    var classification = "{{ current_build.classification }}",
+        tf = d3.select("#trade_flow select").node().value.toLowerCase(),
+        origin = "{{ current_build.origin.id_3char }}" || "{{ current_build.origin }}",
+        dest = "{{ current_build.dest.id_3char }}" || "{{ current_build.dest }}",
+        prod = "{{ current_build.prod.hs }}" || "{{ current_build.prod.sitc }}" || "{{ current_build.prod }}";
+
+    if (d3.select("#year select").node()){
+      var year = d3.select("#year select").node().value
+    }
+    else {
+      var year = d3.select("#start_year select").node().value
+      year += "."
+      year += d3.select("#end_year select").node().value
+    }
+
+    if(d3.select("#origin select").node()){
+      var originSelect = d3.select("#origin select").node()
+        , originOption = originSelect.options[originSelect.selectedIndex]
+      origin = originOption.getAttribute("data-display_id")
+    }
+
+    if(d3.select("#destination select").node()){
+      var destSelect = d3.select("#destination select").node()
+        , destOption = destSelect.options[destSelect.selectedIndex]
+      dest = destOption.getAttribute("data-display_id")
+    }
+
+    if(d3.select("#classification select").node()){
+      classification = d3.select("#classification select").node().value.toLowerCase()
+    }
+
+    if(d3.select("#product select").node()){
+      var orig_classification = "{{ current_build.classification }}"
+        , prodSelect = d3.select("#product select").node()
+        , prodOption = prodSelect.options[prodSelect.selectedIndex]
+      if( orig_classification != classification ){
+        prod = prodOption.getAttribute("data-conversion")
+        if(!prod && classification == "sitc") { prod = "4232" }
+        if(!prod && classification == "hs") { prod = "1507" }
+      }
+      else {
+        prod = prodOption.getAttribute("data-display_id")
+      }
+    }
+
+    var curr_window = window
+    if(same_origin){
+      if(self!=top && !in_the_wild){
+        curr_window = window.parent
+      }
+    }
+
+    var new_url =  "/" + oec.locale + "/explore/";
+    new_url += app_type + "/";
+    new_url += classification + "/";
+    new_url += tf + "/";
+    new_url += origin + "/";
+    new_url += dest + "/";
+    new_url += prod + "/";
+    new_url += year + "/";
+
+    // console.log(new_url)
+    curr_window.location = new_url
+
+    d3.event.preventDefault();
+  })
+
+  // Style control dropdowns
+  d3.selectAll(".dropdown_container")
+    .each(function(d,i){
+
+      var element = d3.select(this).select("select");
+
+      var ui = d3plus.form()
+        .focus(false, activate_build_button)
+        .data(element)
+        // .font({
+        //   "size": 12,
+        //   "spacing": 1,
+        //   "align": "left"
+        // })
+        // .ui({
+        //   "margin": 0,
+        //   "padding": 5
+        // })
+        // .width(180)
+
+      if (this.id.indexOf("year") >= 0) {
+        ui.search(false).order({"sort": "desc"}).data({"sort": true});
+        // if(this.id.indexOf("start") >=0 || this.id.indexOf("end") >=0){
+        //   ui.width(75)
+        // }
+      }
+      else if (this.id === "classification") {
+        ui.search(false).format({"text": function(d){ return d.toUpperCase(); }});
+      }
+
+      if (["trade_flow"].indexOf(this.id) >= 0 && app_type != "compare") {
+        ui.type("toggle")
+          // .font({"align": "center"})
+      }
+      else {
+        ui.type("drop")
+      }
+
+      if (["origin","destination","product"].indexOf(this.id) >= 0) {
+
+        ui.alt("conversion")
+          .color("color")
+          .icon("icon")
+          .id("display_id")
+          .keywords("keywords")
+          .text("name")
+          .width(200)
+          .draw();
+
+        var country_match = ["origin","destination"].indexOf(this.id) >= 0 && ["origin_id","dest_id"].indexOf(attr_id) >= 0,
+            product_match = this.id == "product" && ["hs_id","sitc_id"].indexOf(attr_id) >= 0,
+            icon_style = this.id == "product" ? "knockout" : "default";
+
+        var url = this.getAttribute("data-url");
+        load(url, function(d){
+
+          d = d.data.filter(function(a){
+            a.style = icon_style;
+            return a.id.length !== 2;
+          });
+
+          ui.data(d).draw();
+
+        });
+
+      }
+      else {
+        ui.draw();
+      }
+
+    })
 
   var url = "{{ current_build.url() }}",
       explorer = d3.select("#explorer"),
@@ -107,7 +279,7 @@
 
   d3.select("iframe.viz")
     // .style("background-color", "red")
-    .attr("src", "/"+oec.locale+"/explore/embed/"+url)
+    .attr("src", "/"+oec.locale+"/explore/embed/"+url);
 
   d3.select("#collapse").on("click", function(){
     explorer.classed("small", explorer.node().className !== "small");

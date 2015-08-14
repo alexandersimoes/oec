@@ -263,7 +263,7 @@ nav {
                     color: white;
                     position: relative; }
                     nav content ul .accordion .sub_menu li.active a {
-                      color: white; }
+                      color: white !important; }
   nav #nav_footer {
     -webkit-box-flex: none;
     -moz-box-flex: none;
@@ -567,6 +567,15 @@ body.explore #container {
   body.explore #hamburger {
     color: #0085BF; }
 
+@-webkit-keyframes blink {
+  0% {
+    background-color: #0085BF;   }
+    50% {
+      background-color: #00a9f2;   }
+      100% {
+        background-color: #0085BF;   }
+}
+
 #explorer {
   -webkit-transition: padding 0.5s;
   -moz-transition: padding 0.5s;
@@ -579,7 +588,8 @@ body.explore #container {
     -webkit-transition: font-size 0.5s;
     -moz-transition: font-size 0.5s;
     -o-transition: font-size 0.5s;
-    transition: font-size 0.5s; }
+    transition: font-size 0.5s;
+    padding: 0 100px; }
     #explorer #collapse {
       -webkit-transition: transform 0.5s, opacity 0.1s;
       -moz-transition: transform 0.5s, opacity 0.1s;
@@ -598,19 +608,56 @@ body.explore #container {
       #explorer #collapse:hover {
         border-bottom: none;
         opacity: 1; }
-  #explorer #changers {
-    display: block;
-    margin-top: 10px; }
+  #explorer #prev, #explorer #next {
+    -webkit-transition: top 0.5s;
+    -moz-transition: top 0.5s;
+    -o-transition: top 0.5s;
+    transition: top 0.5s;
+    font-size: 12px;
+    position: absolute;
+    top: 34px; }
+    #explorer #prev {
+      left: 50px; }
+      #explorer #next {
+        right: 50px; }
+        #explorer #changers {
+          display: block;
+          margin-top: 10px; }
+          #explorer #changers .dropdown_container {
+            display: inline-block; }
+            #explorer #changers #build {
+              -webkit-transition: background-color 0.5s;
+              -moz-transition: background-color 0.5s;
+              -o-transition: background-color 0.5s;
+              transition: background-color 0.5s;
+              border: none;
+              background-color: #cccccc;
+              color: white;
+              cursor: pointer;
+              font-size: 12px;
+              height: 25px;
+              margin: 6px 0;
+              padding: 5;
+              position: relative; }
+              #explorer #changers #build.active {
+                -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+                -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+                box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+                -webkit-animation: 2s blink infinite;
+                -moz-animation: 2s blink infinite;
+                background-color: #0085BF; }
   #explorer.small {
     padding: 10px 0 5px; }
     #explorer.small h1 {
       font-size: 16px; }
-      #explorer.small #collapse {
-        -webkit-transform: rotate(180deg);
-        -ms-transform: rotate(180deg);
-        transform: rotate(180deg); }
-        #explorer.small #changers {
-          display: none; }
+      #explorer.small #next, #explorer.small #prev {
+        top: 14px; }
+        #explorer.small #collapse {
+          -webkit-transform: rotate(180deg);
+          -ms-transform: rotate(180deg);
+          transform: rotate(180deg); }
+          #explorer.small #changers {
+            display: none; }
 
 iframe.viz {
   margin: 5px 15px 0; }

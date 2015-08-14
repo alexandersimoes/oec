@@ -112,7 +112,6 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
 def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trade_flow):
     prod_tbl = getattr(db_attr.models, classification.capitalize())
     data_tbls = getattr(db_data, "{}_models".format(classification))
-    year = year.split(".")[1] if "." in year else year
 
     origin = Country.query.filter_by(id_3char=origin_id).first()
     dest = Country.query.filter_by(id_3char=dest_id).first()
@@ -123,7 +122,7 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
     if not origin:
         # find the largest exporter or importer of given product
         direction = "top_exporter" if trade_flow == "export" else "top_importer"
-        origin = getattr(data_tbls, "Yp").query.filter_by(year=year) \
+        origin = getattr(data_tbls, "Yp").query.filter_by(year=year[-1]) \
                         .filter_by(product=product).first()
         origin = defaults["origin"] if not origin else getattr(origin, direction)
         origin = Country.query.get(origin)
@@ -132,7 +131,7 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
         if product:
             # find the largest exporter or importer of given product
             direction = "top_importer" if trade_flow == "export" else "top_exporter"
-            dest = getattr(data_tbls, "Yp").query.filter_by(year=year) \
+            dest = getattr(data_tbls, "Yp").query.filter_by(year=year[-1]) \
                             .filter_by(product=product).first()
             if not dest:
               dest = Country.query.get("nausa")
@@ -141,7 +140,7 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
         else:
             # find the largest exporter or importer destination of given country
             direction = "top_export_dest" if trade_flow == "export" else "top_import_dest"
-            dest = getattr(data_tbls, "Yo").query.filter_by(year=year) \
+            dest = getattr(data_tbls, "Yo").query.filter_by(year=year[-1]) \
                             .filter_by(country=origin).first()
             dest = defaults["dest"] if not dest else getattr(dest, direction)
             if not dest:
@@ -152,7 +151,7 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
     if not product:
         # find the largest exporter or importer of given product
         direction = "top_export_hs4" if trade_flow == "export" else "top_import_hs4"
-        product = getattr(data_tbls, "Yo").query.filter_by(year=year) \
+        product = getattr(data_tbls, "Yo").query.filter_by(year=year[-1]) \
                         .filter_by(country=origin).first()
         product = defaults[classification] if not product else getattr(product, direction)
         product = prod_tbl.query.get(product)
@@ -364,6 +363,31 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, prod_id, y
         "current": build.classification,
         "data": ["HS92", "HS96", "HS02", "HS07", "SITC"]
     })
+
+    years = set()
+    for d in available_years:
+        [years.add(y) for y in available_years[d]]
+
+    if build.viz["slug"] == "stacked":
+        ui.append({
+            "id": "start_year",
+            "name": gettext("Start Year"),
+            "current": build.year[0],
+            "data": years
+        })
+        ui.append({
+            "id": "end_year",
+            "name": gettext("End Year"),
+            "current": build.year[1],
+            "data": years
+        })
+    else:
+        ui.append({
+            "id": "year",
+            "name": gettext("Year"),
+            "current": build.year[-1],
+            "data": years
+        })
 
     if redir:
         flash(redir[0])
