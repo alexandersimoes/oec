@@ -296,15 +296,15 @@ class Product(Profile):
     def sections(self):
         ''' Trade Section
         '''
+        exporters = Build("tree_map", "hs92", "export", "show", "all", self.attr, self.year)
+        importers = Build("tree_map", "hs92", "import", "show", "all", self.attr, self.year)
         rings = Build("rings", "hs92", "export", None, "all", self.attr, self.year)
-        exporters = Build("rings", "hs92", "export", "show", "all", self.attr, self.year)
-        importers = Build("rings", "hs92", "import", "show", "all", self.attr, self.year)
         trade_section = {
             "title": u"{} Trade".format(self.attr.get_name()),
             "builds": [
-                {"title": u"Rings", "build": rings, "subtitle": u"The rings visualization shows the primary and secondary network connections for {} in the Product Space.".format(self.attr.get_name())},
                 {"title": u"Exporters", "build": exporters, "subtitle": u"This treemap shows the share of countries that export {}.".format(self.attr.get_name())},
                 {"title": u"Importers", "build": importers, "subtitle": u"This treemap shows the share of countries that import {}.".format(self.attr.get_name())},
+                {"title": u"Rings", "build": rings, "subtitle": u"The rings visualization shows the primary and secondary network connections for {} in the Product Space.".format(self.attr.get_name())},
             ]
         }
 
