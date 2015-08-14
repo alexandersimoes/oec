@@ -53,27 +53,26 @@ var visualization = function(build) {
       }
     }
   })
-
-  var q = queue()
-              .defer(d3.json, build.data_url)
-              .defer(d3.json, build.attr_url);
-
-  /* unleash the dogs... make the AJAX requests in order to the server and when
-     they return execute the go() func */
-  q.await(function(error, raw_data, raw_attrs){
-    
-    var attrs = format_attrs(raw_attrs, build)
-    var data = format_data(raw_data, attrs, build)
   
-    viz.data(raw_data.data).attrs(attrs).draw();
-    
-    d3.select("#loading")
-      .style("display", "none")
+  load(build.attr_url, function(raw_attrs){
+    var attrs = format_attrs(raw_attrs, build);
 
-    d3.select("#viz")
-      .style("display", "block")
+    /* unleash the dogs... make the AJAX requests in order to the server and when
+       they return execute the go() func */
+    d3.json(build.data_url, function(error, raw_data){
+      var data = format_data(raw_data, attrs, build);
   
-  });
+      viz.data(raw_data.data).attrs(attrs).draw();
+    
+      d3.select("#loading")
+        .style("display", "none");
+
+      d3.select("#viz")
+        .style("display", "block");
+  
+    });
+    
+  })
   
   return viz;
 
