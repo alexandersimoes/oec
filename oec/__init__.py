@@ -9,7 +9,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.babel import Babel
 # for new filters
 from utils import Momentjs, formatter, strip_html, jinja_split, format_currency, \
-                    format_percent, langify
+                    format_percent, langify, num_format
 from werkzeug.contrib.fixers import ProxyFix
 # for caching views
 from flask.ext.cache import Cache
@@ -75,6 +75,7 @@ app.jinja_env.filters['split'] = jinja_split
 app.jinja_env.filters['format_currency'] = format_currency
 app.jinja_env.filters['format_percent'] = format_percent
 app.jinja_env.filters['langify'] = langify
+app.jinja_env.filters['num_format'] = num_format
 
 # Load the modules for each different section of the site
 for view in ["about", "db_attr", "db_data", "general", "explore", "profile", "publications", "rankings", "resources"]:

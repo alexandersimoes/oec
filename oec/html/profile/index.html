@@ -14,27 +14,51 @@
   <h1>{{ title }}</h1>
 </header>
 
+{% set stats = profile.stats() %}
 <section id="stats">
+  {% if g.page_sub_type == "product" %}
   <div class="stat">
     <sub>Exports</sub>
-    <h3>$4.5B</h3>
+    <h3>{% if "exports" in stats %}${{ stats['exports']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
   <div class="stat">
     <sub>Imports</sub>
-    <h3>$3.7T</h3>
+    <h3>{% if "imports" in stats %}${{ stats['imports']|num_format }}{% else %}&mdash;{% endif %}</h3>
+  </div>
+  <div class="stat">
+    <sub>PCI</sub>
+    <h3>{% if "pci" in stats %}{{ stats['pci']|num_format }}{% else %}&mdash;{% endif %}</h3>
+  </div>
+  <div class="stat">
+    <sub>Top Exporter</sub>
+    <h3>{% if "top_exporter" in stats %}{{ stats['top_exporter'][2:]|upper }}{% else %}&mdash;{% endif %}</h3>
+  </div>
+  <div class="stat">
+    <sub>Top Importer</sub>
+    <h3>{% if "top_importer" in stats %}{{ stats['top_importer'][2:]|upper }}{% else %}&mdash;{% endif %}</h3>
+  </div>
+  {% else %}
+  <div class="stat">
+    <sub>Exports</sub>
+    <h3>{% if "exports" in stats %}${{ stats['exports']|num_format }}{% else %}&mdash;{% endif %}</h3>
+  </div>
+  <div class="stat">
+    <sub>Imports</sub>
+    <h3>{% if "imports" in stats %}${{ stats['imports']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
   <div class="stat">
     <sub>ECI</sub>
-    <h3>1.34</h3>
+    <h3>{% if "eci" in stats %}{{ stats['eci']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
   <div class="stat">
     <sub>Population</sub>
-    <h3>4.3M</h3>
+    <h3>{% if "population" in stats %}{{ stats['population']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
   <div class="stat">
     <sub>GDP</sub>
-    <h3>$25k</h3>
+    <h3>{% if "gdp" in stats %}${{ stats['gdp']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
+  {% endif %}
 </section>
 
 <section>
