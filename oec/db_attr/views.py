@@ -1,6 +1,5 @@
 from oec import db
 from flask import Blueprint, request, jsonify, make_response, g, render_template
-# from oec.db_attr.models import Country, Country_name, Hs, Hs_name, Sitc, Sitc_name
 from oec.db_attr.models import *
 from oec.decorators import crossdomain
 

@@ -261,10 +261,21 @@ class Product(Profile):
                         num_format(this_yp.export_val), self.attr.get_name(),
                         num_format(this_yp.import_val))
             all_paragraphs.append(p2)
-
+        
         ''' Paragraph #3
         '''
-        p3 = []
+        yop_exp = self.models.Yop.query.filter_by(year = self.year, product = self.attr).order_by(desc("export_val")).limit(5).all()
+        exporters = self.stringify_items(yop_exp, "export_val", "origin")
+        yop_imp = self.models.Yop.query.filter_by(year = self.year, product = self.attr).order_by(desc("import_val")).limit(5).all()
+        importers = self.stringify_items(yop_imp, "import_val", "origin")
+        p3 = u"The top exporters of {} are {}. " \
+                u"The top importers are {}." \
+                .format(self.attr.get_name(), exporters, importers)
+        all_paragraphs.append(p3)
+
+        ''' Paragraph #4
+        '''
+        p4 = []
         # find out which countries this product is their #1 export/import
         countries_top = self.models.Yo.query.filter_by(year = self.year)
         if len(self.attr.id) == 6:
@@ -277,14 +288,14 @@ class Product(Profile):
         countries_top_import = countries_top_import.all()
         if countries_top_export:
             countries_top_export = self.stringify_items(countries_top_export, None, "country")
-            p3.append(u"{} is the top export of {}.".format(self.attr.get_name(), countries_top_export))
+            p4.append(u"{} is the top export of {}.".format(self.attr.get_name(), countries_top_export))
         if countries_top_import:
             countries_top_import = self.stringify_items(countries_top_import, None, "country")
-            p3.append(u"{} is the top import of {}.".format(self.attr.get_name(), countries_top_import))
-        if p3:
-            all_paragraphs = all_paragraphs + p3
+            p4.append(u"{} is the top import of {}.".format(self.attr.get_name(), countries_top_import))
+        if p4:
+            all_paragraphs = all_paragraphs + p4
 
-        ''' Paragraph #4
+        ''' Paragraph #5
         '''
         keywords = self.attr.get_keywords()
         if keywords:
