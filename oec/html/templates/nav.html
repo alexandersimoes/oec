@@ -16,7 +16,19 @@
 
     <ul>
 
-      <li class="explore clicker">{{ _('Explore') }}</li>
+      <li class="profile clicker">{{ _('Profiles') }}</li>
+      <div class="accordion profile">
+        <ul>
+          <li class="country">
+            <a href="{{ url_for('profile.profile_country_redirect', lang=g.locale) }}">{{ _('Country') }}</a>
+          </li>
+          <li class="product">
+            <a href="{{ url_for('profile.profile_product_redirect', lang=g.locale, attr_type='hs92') }}">{{ _('Product') }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <li class="explore clicker">{{ _('Visualize') }}</li>
       <div class="accordion explore">
         {% if all_builds %}
           <ul>
@@ -64,18 +76,6 @@
             </li>
           </ul>
         {% endif %}
-      </div>
-
-      <li class="profile clicker">{{ _('Profiles') }}</li>
-      <div class="accordion profile">
-        <ul>
-          <li class="country">
-            <a href="{{ url_for('profile.profile_country_redirect', lang=g.locale) }}">{{ _('Country') }}</a>
-          </li>
-          <li class="product">
-            <a href="{{ url_for('profile.profile_product_redirect', lang=g.locale, attr_type='hs92') }}">{{ _('Product') }}</a>
-          </li>
-        </ul>
       </div>
 
       <li class="rankings clicker">{{ _('Rankings') }}</li>
