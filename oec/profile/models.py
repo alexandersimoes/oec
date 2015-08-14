@@ -310,13 +310,16 @@ class Product(Profile):
 
         ''' DataViva Section
         '''
-        dv_munic_exporters_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val".format(self.attr.id)
-        dv_munic_importers_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val".format(self.attr.id)
+        dv_hs = self.attr
+        if len(dv_hs.id) > 6:
+            dv_hs = self.attr_cls.query.get(self.attr.id[:6])
+        dv_munic_exporters_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val".format(dv_hs.id)
+        dv_munic_importers_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val".format(dv_hs.id)
         dv_section = {
             "title": "DataViva",
             "builds": [
-                {"title": u"{} exporters in Brazil".format(self.attr.get_name()), "iframe": dv_munic_exporters_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that export {}.".format(self.attr.get_name())},
-                {"title": u"{} importers in Brazil".format(self.attr.get_name()), "iframe": dv_munic_importers_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that import {}.".format(self.attr.get_name())},
+                {"title": u"{} exporters in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_exporters_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that export {}.".format(dv_hs.get_name())},
+                {"title": u"{} importers in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_importers_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that import {}.".format(dv_hs.get_name())},
             ]
         }
 
