@@ -66,7 +66,7 @@ def explore_redirect(app_name='tree_map'):
                         origin_id=c.id_3char, dest_id="all", prod_id="show", year=latest_hs_year)
     elif app_name in ["geo_map", "rings"]:
         '''fetch random product'''
-        p = Hs.query.filter(Hs.hs != None) \
+        p = Hs92.query.filter(Hs92.hs92 != None).filter(func.length(Hs92.hs92) == 4) \
                             .order_by(func.random()).limit(1).first()
         origin = "show"
         if app_name == "rings":

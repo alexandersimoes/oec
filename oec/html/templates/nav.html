@@ -72,7 +72,22 @@
         {% else %}
           <ul>
             <li class="tree_map">
-              <a href="{{ url_for('explore.explore_redirect', lang=g.locale) }}">{{ _('Tree Map') }}</a>
+              <a href="{{ url_for('explore.explore_redirect', app_name='tree_map', lang=g.locale) }}">{{ _('Tree Map') }}</a>
+            </li>
+            <li class="stacked">
+              <a href="{{ url_for('explore.explore_redirect', app_name='stacked', lang=g.locale) }}">{{ _('Stacked') }}</a>
+            </li>
+            <li class="network">
+              <a href="{{ url_for('explore.explore_redirect', app_name='network', lang=g.locale) }}">{{ _('Network') }}</a>
+            </li>
+            <li class="rings">
+              <a href="{{ url_for('explore.explore_redirect', app_name='rings', lang=g.locale) }}">{{ _('Rings') }}</a>
+            </li>
+            <li class="scatter">
+              <a href="{{ url_for('explore.explore_redirect', app_name='scatter', lang=g.locale) }}">{{ _('Scatter') }}</a>
+            </li>
+            <li class="geo_map">
+              <a href="{{ url_for('explore.explore_redirect', app_name='geo_map', lang=g.locale) }}">{{ _('Geo Map') }}</a>
             </li>
           </ul>
         {% endif %}
