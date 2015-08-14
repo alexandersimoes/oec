@@ -166,7 +166,7 @@
       }, []), 0.9);
 
       country.geometry.coordinates = country.geometry.coordinates.filter(function(c, i){
-        return distances[i] === 0 || areas[i]/distances[i] > distanceCutoff;
+        return distances[i] === 0 || areas[i]/distances[i] >= distanceCutoff;
       });
 
       var b = path.bounds(country),
