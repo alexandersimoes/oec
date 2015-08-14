@@ -203,8 +203,14 @@ nav {
             font-weight: 700;
             overflow-y: hidden;
             padding: 15px 30px; }
-            nav content ul li:hover {
-              color: black; }
+            nav content ul li a {
+              color: #868686 !important;
+              display: block;
+              text-decoration: none; }
+              nav content ul li a.active {
+                color: black !important; }
+            nav content ul li:hover, nav content ul li a:hover {
+              color: black !important; }
               nav content ul li.clicker {
                 position: relative; }
                 nav content ul li.clicker:before {

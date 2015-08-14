@@ -61,8 +61,19 @@ nav {
         overflow-y: hidden;
         padding: 15px 30px;
 
-        &:hover {
-          color: black;
+        a {
+          color: #868686 !important;
+          display: block;
+          text-decoration: none;
+
+          &.active {
+            color: black !important;
+          }
+
+        }
+
+        &:hover, a:hover {
+          color: black !important;
         }
 
         &.clicker {
@@ -139,7 +150,7 @@ nav {
               position: relative;
 
               a {
-                color: white;
+                color: white !important;
               }
 
             }
