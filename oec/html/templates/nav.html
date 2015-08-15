@@ -194,6 +194,21 @@
       d3.select(this).style("border-bottom", "2px solid transparent");
     })
 
+  // Styles the header, if present.
+  var header = d3.select("header"), img;
+  if (!header.empty()) {
+    header.attr("data-height", header.node().offsetHeight);
+    var icon = header.select("#icon");
+    if (!icon.empty()) {
+      icon.attr("data-height", icon.node().offsetWidth)
+    }
+    img = header.select("#header");
+    if (!img.empty()) {
+      header.style("background-color", "black");
+      resizeCanvas();
+    }
+  }
+
   // Closes all sub-menus and stores their individual heights.
   d3.selectAll("div.accordion > ul")
     .style("margin-top", function(){
@@ -224,29 +239,6 @@
     d3.select(this).classed("open", open);
     sub.transition().duration(h).ease("linear").style("margin-top", t+"px");
   });
-
-  // Styles the header, if present.
-  var header = d3.select("header"), img, canvas;
-  if (!header.empty()) {
-    header.attr("data-height", header.node().offsetHeight);
-    var icon = header.select("#icon");
-    if (!icon.empty()) {
-      icon.attr("data-height", icon.node().offsetWidth)
-    }
-    var img = header.select("#header");
-    if (!img.empty()) {
-      canvas = Caman("#header", function() {
-        this.greyscale();
-        this.contrast(-20);
-        this.brightness(-20);
-        this.newLayer(function() {
-          this.setBlendingMode("overlay");
-          this.fillColor(color);
-        })
-        this.render(resizeCanvas);
-      });
-    }
-  }
 
   // Hamburger menu logic.
   d3.selectAll("#hamburger, #mask").on("click", function(){
@@ -307,22 +299,37 @@
   // Logic for resizing the header canvas image, if present.
   function resizeCanvas() {
 
-    if (canvas) {
-      var w = header.node().offsetWidth, h = parseFloat(header.attr("data-height")), r = w/h;
-      var iw = canvas.preScaledWidth, ih = canvas.preScaledHeight, ir = iw/ih;
-      if (r > ir) {
-        var cw = w, ch = w/ir;
-      }
-      else {
-        var ch = h, cw = h*r;
-      }
-      Caman(canvas.canvas, function(){
-        this.resize({width: cw, height: ch});
-        this.render();
-      })
-      d3.select(canvas.canvas)
-        .style("margin-left", -cw/2+"px")
-        .style("margin-top", -ch/2+"px");
+    if (!img.empty()) {
+
+      setTimeout(function(){
+
+        var w = header.node().offsetWidth, h = parseFloat(header.attr("data-height")), r = w/h;
+        var iw = img.node().offsetWidth, ih = img.node().offsetHeight, ir = iw/ih;
+        var blur = 80;
+        if (r > ir) {
+          var cw = w+blur, ch = w/ir+blur/ir, rw = w, rh = w/ir;
+        }
+        else {
+          var ch = h+blur, cw = h*r+blur*r, rh = h, rw = h*r;
+        }
+        if (!img.classed("loaded")) {
+          img.classed("loaded", true)
+            .style("width", cw+"px")
+            .style("height", ch+"px")
+            .style("margin-left", -cw/2+"px")
+            .style("margin-top", -ch/2+"px")
+            .style("-webkit-filter", "blur(5px) contrast(1.1) brightness(1)");
+        }
+        else {
+          img.transition().duration(250)
+            .style("width", cw+"px")
+            .style("height", ch+"px")
+            .style("margin-left", -cw/2+"px")
+            .style("margin-top", -ch/2+"px");
+        }
+
+      }, 1000);
+
     }
 
     resizeHeader();

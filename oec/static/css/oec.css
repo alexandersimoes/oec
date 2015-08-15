@@ -356,10 +356,12 @@ nav {
             flex-direction: column;   }
 }
           #container #content header #header {
+            -webkit-transition: -webkit-filter 1s;
             left: 50%;
             position: absolute;
             top: 50%;
-            z-index: -1; }
+            z-index: -1;
+            -webkit-filter: blur(50px) contrast(1.1) brightness(0); }
             #container #content header #icon {
               -webkit-box-flex: none;
               -moz-box-flex: none;

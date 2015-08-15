@@ -46,10 +46,14 @@
       }
 
       #header {
+        // @include transition(opacity 1s);
+        -webkit-transition: -webkit-filter 1s;
         left: 50%;
+        // opacity: 0;
         position: absolute;
         top: 50%;
         z-index: -1;
+        -webkit-filter: blur(50px) contrast(1.1) brightness(0);
       }
 
       #icon {
