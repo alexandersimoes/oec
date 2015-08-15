@@ -61,6 +61,8 @@
         height: 80px;
         margin: 0 20px 0 0;
         width: 80px;
+        -webkit-filter: drop-shadow($shadow);
+        filter: drop-shadow($shadow);
       }
 
       h1 {
@@ -86,7 +88,7 @@
         a {
           color: white;
           &:hover {
-            border-color: white;
+            border-color: transparent;
           }
         }
 
@@ -182,7 +184,6 @@
         }
 
         .viz {
-          background-color: #ddd;
           display: block;
           height: 200px;
           width: 100%;
@@ -214,7 +215,6 @@
         }
 
         .viz {
-          background-color: #ddd;
           display: block;
           height: 400px;
           width: 100%;

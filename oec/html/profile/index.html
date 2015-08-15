@@ -91,6 +91,7 @@
 
 </section>
 
+<script>var build_data = [];</script>
 {% for section in profile.sections() %}
 <section>
   <aside></aside>
@@ -115,6 +116,7 @@
     <iframe class="viz" data-url="{{ build.iframe }}"></iframe>
     {% else %}
     <div class="viz" data-title="{{ build.title }}"></div>
+    <script>build_data.push({{ build.build.serialize()|safe }});</script>
     {% endif %}
   </content>
 
@@ -264,7 +266,7 @@
     if (url) {
       build.container.attr("src", url);
     }
-    console.log("load:", build);
+    visualization(build_data[build.index], build.container)
     build.loaded = true;
   }
 
