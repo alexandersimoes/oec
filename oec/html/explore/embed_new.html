@@ -1,11 +1,7 @@
 {% extends "templates/base.html" %}
 
-{% block head %}
-<link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.embed.css" />
-{% endblock %}
-
 {% block description %}{{ _('An emedded visualization.') }}{% endblock %}
-{% block title %}: {{ build.title()|striptags }}{% endblock %}
+{% block title %} - {{ build.title()|striptags }}{% endblock %}
 
 {% block content %}
 
@@ -34,12 +30,7 @@
   </div>
 </div>
 
-<div id="loading"><h2>{{ _('Loading') }}...</h2></div>
-<div id="app">
-  <div id="text"></div>
-  <div id="viz"></div>
-  <div id="ui"></div>
-</div>
+<div id="viz"></div>
 
 {% endblock %}
 
@@ -51,7 +42,7 @@
 
 <script>
 var build = {{ build.serialize()|safe }};
-var viz = visualization(build);
+var viz = visualization(build, "#viz");
 </script>
 
 {% endblock %}

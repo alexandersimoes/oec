@@ -1,19 +1,17 @@
 var configs = {};
 
-var visualization = function(build) {
+var visualization = function(build, container) {
 
   var trade_flow = build.trade_flow,
       default_config = configs["default"](build),
       viz_config = configs[build.viz.slug](build);
 
-  var viz_height = window.innerHeight;
-  var viz_width = window.innerWidth;
-
   var viz = d3plus.viz()
+              .container(container)
               .config(default_config)
               .config(viz_config)
-              .height(viz_height)
-              .width(viz_width);
+              .error("Loading Visualiation")
+              .draw();
 
   /* need to grab json network file for rings and product space */
   if(build.viz.slug == "network" || build.viz.slug == "rings"){
@@ -22,14 +20,14 @@ var visualization = function(build) {
       return network.nodes;
     })
   }
-  
+
   /* Need to set text formatting in HTML for translations */
   viz.format({"text": function(text, key, vars){
       if(key){
         if(key.key == "display_id"){ return text.toUpperCase(); }
       }
       if(text){
-        if(text == "display_id"){ 
+        if(text == "display_id"){
           if(build.attr_type == "origin" || build.attr_type == "dest"){
             return oec.translations["id"];
           }
@@ -50,7 +48,7 @@ var visualization = function(build) {
       }
     }
   })
-  
+
   load(build.attr_url, function(raw_attrs){
     var attrs = format_attrs(raw_attrs, build);
 
@@ -58,19 +56,16 @@ var visualization = function(build) {
        they return execute the go() func */
     d3.json(build.data_url, function(error, raw_data){
       var data = format_data(raw_data, attrs, build);
-  
-      viz.data(raw_data.data).attrs(attrs).draw();
-    
-      d3.select("#loading")
-        .style("display", "none");
+
+      viz.data(raw_data.data).attrs(attrs).error(false).draw();
 
       d3.select("#viz")
         .style("display", "block");
-  
+
     });
-    
+
   })
-  
+
   return viz;
 
 }

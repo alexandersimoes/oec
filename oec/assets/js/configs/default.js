@@ -65,7 +65,6 @@ configs.default = function(build) {
     },
     "background": background,
     "color": { "heatmap": ["#cccccc","#0085BF"] },
-    "container": "#viz",
     "focus": {"tooltip": false},
     "format": {
       "number": function( number , key , vars ){
