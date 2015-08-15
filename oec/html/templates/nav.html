@@ -198,11 +198,11 @@
   var header = d3.select("header"), img;
   if (!header.empty()) {
     header.attr("data-height", header.node().offsetHeight);
-    var icon = header.select("#icon");
+    var icon = header.select(".icon");
     if (!icon.empty()) {
       icon.attr("data-height", icon.node().offsetWidth)
     }
-    img = header.select("#header");
+    img = header.select(".header");
     if (!img.empty()) {
       header.style("background-color", "black");
       resizeCanvas();
@@ -262,7 +262,7 @@
         .style("height", newHeight+"px")
         .style(d3plus.client.prefix()+"box-shadow", scrollHeight <= min ? "0 2px 4px rgba(0,0,0,0.5)" : "none");
 
-      var icon = header.select("#icon"),
+      var icon = header.select(".icon"),
           normalized = d3.scale.linear()
             .domain([min, originalHeight])
             .range([0, 1]);
@@ -325,7 +325,7 @@
             .style("height", ch+"px")
             .style("margin-left", -cw/2+"px")
             .style("margin-top", -ch/2+"px")
-            .style("-webkit-filter", "blur(5px) contrast(1.1) brightness(1)");
+            .style("-webkit-filter", "blur(5px) contrast(1.1) brightness(0.8)");
         }
         else {
           img.transition().duration(250)

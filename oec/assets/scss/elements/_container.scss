@@ -22,41 +22,21 @@
   #content {
     @include flex-size(1);
 
-    header {
+    .profile_header {
       @include flex;
       @include align-items(center);
       @include justify(center);
-      @include transition(box-shadow 0.1s);
       height: $header;
-      left: $nav;
       overflow: hidden;
-      padding: 0 50px;
-      position: fixed;
-      right: 0;
-      top: 0;
       -webkit-transform: translateZ(0);
       z-index: 5;
 
-      @media all and (max-width: 1024px) {
-        left: 0;
-      }
-
-      @media all and (max-width: 768px) {
-        @include flex-direction(column);
-      }
-
-      #header {
-        // @include transition(opacity 1s);
-        -webkit-transition: -webkit-filter 1s;
-        left: 50%;
-        // opacity: 0;
+      .header {
         position: absolute;
-        top: 50%;
         z-index: -1;
-        -webkit-filter: blur(50px) contrast(1.1) brightness(0);
       }
 
-      #icon {
+      .icon {
         @include flex-size(none);
         height: 80px;
         margin: 0 20px 0 0;
@@ -67,9 +47,51 @@
 
       h1 {
         color: #fff;
-        font-size: 50px;
         text-shadow: $shadow;
         width: 100%;
+
+        sub {
+          color: white;
+          display: block;
+          font-size: 11px;
+          text-shadow: $shadow;
+
+          i {
+            display: inline-block;
+            margin: 2px 5px 0;
+          }
+
+          a {
+            color: white;
+            &:hover {
+              border-color: transparent;
+            }
+          }
+
+        }
+
+      }
+
+    }
+
+    header {
+      @include transition(box-shadow 0.1s);
+      left: $nav;
+      padding: 0 50px;
+      position: fixed;
+      right: 0;
+      top: 0;
+
+      @media all and (max-width: 1024px) {
+        left: 0;
+      }
+
+      @media all and (max-width: 768px) {
+        @include flex-direction(column);
+      }
+
+      h1 {
+        font-size: 50px;
 
         @media all and (max-width: 768px) {
           font-size: 35px;
@@ -78,30 +100,60 @@
 
       }
 
-      sub {
-        color: white;
-        display: block;
-        font-size: 11px;
-        font-weight: 200;
-        text-shadow: $shadow;
-
-        a {
-          color: white;
-          &:hover {
-            border-color: transparent;
-          }
-        }
-
-        @media all and (max-width: 768px) {
-          // text-align: center;
-        }
-
+      .header {
+        -webkit-transition: -webkit-filter 1s;
+        left: 50%;
+        top: 50%;
+        -webkit-filter: blur(50px) contrast(1.1) brightness(0);
       }
 
     }
 
     section {
       @include flex;
+
+      .profile_button {
+        @include flex-size(1);
+        @include shadow();
+        background-color: black;
+        margin-top: 50px;
+        -webkit-transition: -webkit-filter 0.1s;
+        -webkit-filter: grayscale(1);
+
+        &:hover {
+          @include shadow();
+          -webkit-filter: grayscale(0);
+        }
+
+        .header {
+          height: 110%;
+          margin-left: -5px;
+          margin-top: -5px;
+          position: absolute;
+          width: 110%;
+          z-index: -1;
+          -webkit-filter: blur(5px) contrast(1.1) brightness(0.8);
+        }
+
+        .icon {
+          margin: 0 10px;
+        }
+
+        h1 {
+          font-size: 25px;
+        }
+
+        &:first-child {
+          margin-left: 50px;
+          margin-right: 25px;
+        }
+
+        &:last-child {
+          margin-left: 25px;
+          margin-right: 50px;
+        }
+
+      }
 
       &#stats {
         padding: 6px 0 7px

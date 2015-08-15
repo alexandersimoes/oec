@@ -5,16 +5,18 @@
 
 {% block body %}
 
-<header>
+<header class="profile_header">
   {% set image = profile.attr.get_image() %}
   {% if image %}
-  <img id="header" src="{{ image }}"></img>
+  <img class="header" src="{{ image }}"></img>
   {% endif %}
-  <img id="icon" src="{{ profile.attr.get_icon() }}">
+  <img class="icon" src="{{ profile.attr.get_icon() }}">
   <h1>
     {{ title }}
     {% if profile.attr.image_author %}
-    <sub><a href="{{ profile.attr.image_link }}" target="_blank">Photo by {{ profile.attr.image_author }}</a></sub>
+    <sub><a href="{{ profile.attr.image_link }}" target="_blank">
+      <i class="fa fa-camera"></i>Photo by {{ profile.attr.image_author }}
+    </a></sub>
     {% endif %}
   </h1>
 </header>
@@ -123,6 +125,28 @@
 </section>
 {% endfor %}
 {% endfor %}
+
+<section>
+  {% set prev = profile.attr.prev() %}
+  {% set image = prev.get_image() %}
+  <a href="{{ prev.get_profile_url() }}" class="profile_header profile_button"{% if not image %} style="background-color: {{ prev.color }};"{% endif %}>
+    {% if image %}
+    <img class="header" src="{{ image }}"></img>
+    {% endif %}
+    <img class="icon" src="{{ prev.get_icon() }}">
+    <h1>{{ prev.get_name() }}<sub><i class="fa fa-arrow-left"></i>{{ _("Previous Profile") }}</sub></h1>
+  </a>
+
+  {% set next = profile.attr.next() %}
+  {% set image = next.get_image() %}
+  <a href="{{ next.get_profile_url() }}" class="profile_header profile_button"{% if not image %} style="background-color: {{ prev.color }};"{% endif %}>
+    {% if image %}
+    <img class="header" src="{{ image }}"></img>
+    {% endif %}
+    <img class="icon" src="{{ next.get_icon() }}">
+    <h1>{{ next.get_name() }}<sub><i class="fa fa-arrow-right"></i>{{ _("Next Profile") }}</sub></h1>
+  </a>
+</section>
 
 <script>
 
@@ -266,7 +290,9 @@
     if (url) {
       build.container.attr("src", url);
     }
-    visualization(build_data[build.index], build.container)
+    else {
+      visualization(build_data[build.index], build.container);
+    }
     build.loaded = true;
   }
 
