@@ -11,7 +11,12 @@
   <img id="header" src="{{ image }}"></img>
   {% endif %}
   <img id="icon" src="{{ profile.attr.get_icon() }}">
-  <h1>{{ title }}</h1>
+  <h1>
+    {{ title }}
+    {% if profile.attr.image_author %}
+    <sub><a href="{{ profile.attr.image_link }}" target="_blank">Photo by {{ profile.attr.image_author }}</a></sub>
+    {% endif %}
+  </h1>
 </header>
 
 {% set stats = profile.stats() %}

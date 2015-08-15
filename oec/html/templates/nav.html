@@ -289,7 +289,14 @@
             fontScale = d3.scale.linear()
               .domain([min, originalHeight])
               .range([20, fontSize]);
-        title.style("font-size", fontScale(newHeight)+"px")
+        title.style("font-size", fontScale(newHeight)+"px");
+        var sub = header.select("sub");
+        if (!sub.empty()) {
+            var fontScale = d3.scale.linear()
+                  .domain([min, originalHeight])
+                  .range([0, 11]);
+            sub.style("font-size", fontScale(newHeight)+"px");
+        }
       }
 
     }
