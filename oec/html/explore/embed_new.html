@@ -52,12 +52,6 @@
 <script>
 var build = {{ build.serialize()|safe }};
 var viz = visualization(build);
-
-// close modal window
-d3.selectAll(".modal#share .btn-close").on("click", function(){
-  d3.selectAll(".modal#share").classed("active", false);
-  d3.event.preventDefault();
-})
 </script>
 
 {% endblock %}

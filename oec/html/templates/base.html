@@ -128,6 +128,12 @@
         }
       }
 
+      // close modal windows
+      d3.selectAll(".modal .btn-close").on("click", function(){
+        d3.selectAll(".modal").classed("active", false);
+        d3.event.preventDefault();
+      });
+
     </script>
 
   </body>
