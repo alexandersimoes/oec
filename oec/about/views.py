@@ -135,12 +135,6 @@ def data(data_type):
     return render_template("about/data.html", items=items, headers=headers,
                             title=title, data_type=data_type, id_col=id_col)
 
-@mod.route('faqs/')
-def faqs():
-    g.page_type = "about"
-    g.sub_page_type = "faqs"
-    return render_template("about/faqs.html")
-
 @mod.route('translations/')
 def translations():
     g.page_type = "about"

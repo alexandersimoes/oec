@@ -26,6 +26,7 @@
       @include flex;
       @include align-items(center);
       @include justify(center);
+      @include transition(box-shadow 0.1s);
       height: $header;
       overflow: hidden;
       -webkit-transform: translateZ(0);
@@ -95,7 +96,10 @@
     }
 
     header {
-      @include transition(box-shadow 0.1s);
+      @include flex;
+      @include align-items(center);
+      @include justify(center);
+      height: $header;
       left: $nav;
       padding: 0 50px;
       position: fixed;
@@ -111,7 +115,11 @@
       }
 
       h1 {
+        color: #fff;
         font-size: 50px;
+        position: relative;
+        text-shadow: $shadow;
+        width: 100%;
 
         @media all and (max-width: 768px) {
           font-size: 35px;

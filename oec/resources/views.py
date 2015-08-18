@@ -23,3 +23,8 @@ def api():
 def data():
     g.page_sub_type = "data"
     return render_template("resources/data.html")
+
+@mod.route('faqs/')
+def faqs():
+    g.page_sub_type = "faqs"
+    return render_template("resources/faqs.html")

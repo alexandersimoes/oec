@@ -112,6 +112,9 @@
       <li class="resources clicker">{{ _('Resources') }}</li>
       <div class="accordion resources">
         <ul>
+          <li class="faqs">
+            <a href="{{ url_for('resources.faqs', lang=g.locale) }}">{{ _('FAQs') }}</a>
+          </li>
           <li class="data">
             <a href="{{ url_for('resources.data', lang=g.locale) }}">{{ _('Data Sources') }}</a>
           </li>
