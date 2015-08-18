@@ -174,6 +174,7 @@
     load("/static/json/country_coords.json", function(coords){
 
       var key = d3.keys(coords.objects)[0],
+          id = "{{ profile.attr.id }}",
           width = map.node().parentNode.offsetWidth,
           height = width;
 
@@ -182,9 +183,10 @@
           obj[d.id] = d;
           return obj;
         }, {});
+        coords.objects[key].lookup.all = coords.objects[key].geometries;
       }
 
-      coords.objects[key].geometries = [coords.objects[key].lookup["{{ profile.attr.id }}"]];
+      coords.objects[key].geometries = [coords.objects[key].lookup[id]];
 
       var svg = map.append("svg")
         .attr("width", width)
@@ -194,55 +196,91 @@
           path = d3.geo.path().projection(projection),
           country = topojson.feature(coords, coords.objects[key]).features[0];
 
-      // Logic for removing small/far away geometries.
-      var test = d3plus.util.copy(country),
-          areas = [],
-          areaMax = 0,
-          distances = [],
-          center = path.centroid(country);
+      // List of countries to only take largest land mass.
+      if (["nausa"].indexOf(id) >= 0) {
 
-      country.geometry.coordinates = country.geometry.coordinates.filter(function(c){
+        var areas = [], test = d3plus.util.copy(country);
+        country.geometry.coordinates.forEach(function(c, i){
+          test.geometry.coordinates = [c];
+          areas.push(path.area(test))
+        })
 
-        test.geometry.coordinates = [c];
-        var area = path.area(test);
-        if (area > 0) {
-          areas.push(area);
-          if (area > areaMax) {
-            areaMax = area;
+        var maxArea = d3.max(areas);
+        country.geometry.coordinates = country.geometry.coordinates.filter(function(c, i){
+          return areas[i] >= maxArea;
+        });
+
+      }
+      else {
+
+        // Logic for removing small/far away geometries.
+        var test = d3plus.util.copy(country),
+            areas = [],
+            areaMax = 0,
+            distances = [],
+            center = path.centroid(country);
+
+        country.geometry.coordinates = country.geometry.coordinates.filter(function(c){
+
+          test.geometry.coordinates = [c];
+          var area = path.area(test);
+          if (area > 0) {
+            areas.push(area);
+            if (area > areaMax) {
+              areaMax = area;
+            }
+            distances.push(d3plus.network.distance(path.centroid(test), center))
+            return true;
           }
-          distances.push(d3plus.network.distance(path.centroid(test), center))
-          return true;
-        }
-        else {
-          return false;
-        }
+          else {
+            return false;
+          }
 
-      });
+        });
 
-      var distanceCutoff = d3.quantile(distances.reduce(function(arr, dist, i) {
-        if (dist) arr.push(areas[i]/dist);
-        return arr;
-      }, []), 0.9);
+        var distanceCutoff = d3.quantile(distances.reduce(function(arr, dist, i) {
+          if (dist) arr.push(areas[i]/dist);
+          return arr;
+        }, []), 0.9);
 
-      country.geometry.coordinates = country.geometry.coordinates.filter(function(c, i){
-        return distances[i] === 0 || areas[i]/distances[i] >= distanceCutoff;
-      });
+        country.geometry.coordinates = country.geometry.coordinates.filter(function(c, i){
+          return distances[i] === 0 || areas[i]/distances[i] >= distanceCutoff;
+        });
+
+      }
 
       var b = path.bounds(country),
           s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
           t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
 
+      coords.objects[key].geometries = coords.objects[key].lookup.all;
+      var countries = topojson.feature(coords, coords.objects[key]);
+
       projection
         .scale(s)
         .translate(t);
 
-      svg.append("path")
-        .datum(country)
-        .attr("d", path)
-        .attr("opacity", 0)
+      svg.attr("opacity", 0).append("rect")
+        .attr("opacity", 0.1)
         .attr("fill", color)
-        .transition().duration(1000)
-          .attr("opacity", 1);
+        .attr("width", "100%")
+        .attr("height", "100%");
+
+      svg.append("rect")
+        .attr("fill", "none")
+        .attr("stroke", color)
+        .attr("width", "100%")
+        .attr("height", "100%");
+
+      svg.selectAll("path").data(countries.features)
+        .enter().append("path")
+        .attr("d", path)
+        .attr("fill", color)
+        .attr("opacity", function(d){
+          return d.id === id ? 1 : 0.25;
+        });
+
+      svg.transition().duration(1000).attr("opacity", 1);
 
 
     });
