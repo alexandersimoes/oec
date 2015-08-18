@@ -250,7 +250,8 @@
       }
 
       var b = path.bounds(country),
-          s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
+          zoom = 0.75,
+          s = zoom / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
           t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
 
       coords.objects[key].geometries = coords.objects[key].lookup.all;
