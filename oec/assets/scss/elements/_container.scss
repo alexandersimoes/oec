@@ -43,10 +43,20 @@
         width: 80px;
         -webkit-filter: drop-shadow($shadow);
         filter: drop-shadow($shadow);
+        @media all and (max-width: 768px) {
+          margin: 0;
+        }
+      }
+
+      &:hover {
+        .author {
+          opacity: 1;
+        }
       }
 
       h1 {
         color: #fff;
+        position: relative;
         text-shadow: $shadow;
         width: 100%;
 
@@ -55,6 +65,16 @@
           display: block;
           font-size: 11px;
           text-shadow: $shadow;
+
+          &.author {
+            @include transition(opacity 0.5s);
+            bottom: -15px;
+            opacity: 0;
+            position: absolute;
+            @media all and (max-width: 768px) {
+              position: static;
+            }
+          }
 
           i {
             display: inline-block;
