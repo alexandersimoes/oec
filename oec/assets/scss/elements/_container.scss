@@ -134,16 +134,8 @@
 
       .profile_button {
         @include flex-size(1);
-        @include shadow();
         background-color: black;
         margin-top: 50px;
-        -webkit-transition: -webkit-filter 0.1s;
-        -webkit-filter: grayscale(1);
-
-        &:hover {
-          @include shadow();
-          -webkit-filter: grayscale(0);
-        }
 
         .header {
           height: 110%;
@@ -156,7 +148,7 @@
         }
 
         .icon {
-          margin: 0 10px;
+          margin: 0 25px;
         }
 
         h1 {
@@ -164,13 +156,12 @@
         }
 
         &:first-child {
-          margin-left: 50px;
-          margin-right: 25px;
+          margin-right: 5px;
         }
 
         &:last-child {
-          margin-left: 25px;
-          margin-right: 50px;
+          margin-left: 5px;
+          text-align: right;
         }
 
       }

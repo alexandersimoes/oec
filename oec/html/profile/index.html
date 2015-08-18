@@ -143,8 +143,8 @@
     {% if image %}
     <img class="header" src="{{ image }}"></img>
     {% endif %}
+    <h1>{{ next.get_name() }}<sub>{{ _("Next Profile") }}<i class="fa fa-arrow-right"></i></sub></h1>
     <img class="icon" src="{{ next.get_icon() }}">
-    <h1>{{ next.get_name() }}<sub><i class="fa fa-arrow-right"></i>{{ _("Next Profile") }}</sub></h1>
   </a>
 </section>
 
