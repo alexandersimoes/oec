@@ -100,7 +100,7 @@
   <content>
     <h2>{{ section.title }}</h2>
     {% if section.subtitle %}
-    <p>{{ section.subtitle }}</p>
+    <p>{{ section.subtitle|safe }}</p>
     {% endif %}
   <content>
 </section>
@@ -109,7 +109,7 @@
   <aside>
     <h2>{{ build.title }}</h2>
     {% if build.subtitle %}
-    <p>{{ build.subtitle }}</>
+    <p>{{ build.subtitle|safe }}</p>
     {% endif %}
   </aside>
 
