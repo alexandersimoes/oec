@@ -20,7 +20,7 @@
   {% if category == "country" %}
     <h1>{{ _('Country Rankings') }} ({{ year }})</h1>
   {% else %}
-    <h1>{{ category|title }} {{ _('Product Rankings') }} ({{ year }})</h1>
+    <h1>{{ category|upper }} {{ _('Product Rankings') }} ({{ year }})</h1>
   {% endif %}
   {% if year < g.available_years[category][-1]  %}
   <a class="next" href="/{{ g.locale }}/rankings/{{ category }}/{{ year+1 }}/">{{ _('Next Year') }} &raquo;</a>
