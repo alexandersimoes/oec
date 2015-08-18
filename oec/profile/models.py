@@ -143,17 +143,39 @@ class Country(Profile):
     def sections(self):
         ''' Trade Section
         '''
+        export_subtitle, import_subtitle, dest_subtitle, origin_subtitle = [None]*4
+        
         export_tmap = Build("tree_map", "hs92", "export", self.attr, "all", "show", self.year)
+        yop_exp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
+        if yop_exp:
+            exports_list = self.stringify_items(yop_exp, "export_val", "product")
+            export_subtitle = u"The top exports by share are {}.".format(exports_list)
+        
         import_tmap = Build("tree_map", "hs92", "import", self.attr, "all", "show", self.year)
+        yop_imp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr).order_by(desc("import_val")).limit(5).all()
+        if yop_imp:
+            imports_list = self.stringify_items(yop_imp, "import_val", "product")
+            import_subtitle = u"The top imports by share are {}.".format(imports_list)
+        
         dests_tmap = Build("tree_map", "hs92", "export", self.attr, "show", "all", self.year)
+        yod_exp = self.models.Yod.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
+        if yod_exp:
+            dest_list = self.stringify_items(yod_exp, "export_val", "dest")
+            dest_subtitle = u"The top export destinations of {} are {}.".format(self.attr.get_name(), dest_list)
+        
         origins_tmap = Build("tree_map", "hs92", "import", self.attr, "show", "all", self.year)
+        yod_imp = self.models.Yod.query.filter_by(year = self.year, dest = self.attr).order_by(desc("export_val")).limit(5).all()
+        if yod_imp:
+            origin_list = self.stringify_items(yod_imp, "export_val", "origin")
+            origin_subtitle = u"The top import origins of {} are {}.".format(self.attr.get_name(), origin_list)
+        
         trade_section = {
             "title": u"{} Trade".format(self.attr.get_name()),
             "builds": [
-                {"title": u"Exports", "build": export_tmap},
-                {"title": u"Imports", "build": import_tmap},
-                {"title": u"Destinations", "build": dests_tmap},
-                {"title": u"Origins", "build": origins_tmap},
+                {"title": u"Exports", "build": export_tmap, "subtitle": export_subtitle},
+                {"title": u"Imports", "build": import_tmap, "subtitle": import_subtitle},
+                {"title": u"Destinations", "build": dests_tmap, "subtitle": dest_subtitle},
+                {"title": u"Origins", "build": origins_tmap, "subtitle": origin_subtitle},
             ]
         }
 
@@ -337,17 +359,22 @@ class Product(Profile):
     def sections(self):
         ''' Trade Section
         '''
-        exporters = Build("tree_map", "hs92", "export", "show", "all", self.attr, self.year)
-        importers = Build("tree_map", "hs92", "import", "show", "all", self.attr, self.year)
-        rings = Build("rings", "hs92", "export", None, "all", self.attr, self.year)
         trade_section = {
             "title": u"{} Trade".format(self.attr.get_name()),
-            "builds": [
-                {"title": u"Exporters", "build": exporters, "subtitle": u"This treemap shows the share of countries that export {}.".format(self.attr.get_name())},
-                {"title": u"Importers", "build": importers, "subtitle": u"This treemap shows the share of countries that import {}.".format(self.attr.get_name())},
-                {"title": u"Rings", "build": rings, "subtitle": u"The rings visualization shows the primary and secondary network connections for {} in the Product Space.".format(self.attr.get_name())},
-            ]
+            "builds": []
         }
+        
+        exporters = Build("tree_map", "hs92", "export", "show", "all", self.attr, self.year)
+        exporters_subtitle = u"This treemap shows the share of countries that export {}.".format(self.attr.get_name())
+        trade_section["builds"].append({"title": u"Exporters", "build": exporters, "subtitle": exporters_subtitle})
+        
+        importers = Build("tree_map", "hs92", "import", "show", "all", self.attr, self.year)
+        importers_subtitle = u"This treemap shows the share of countries that import {}.".format(self.attr.get_name())
+        trade_section["builds"].append({"title": u"Importers", "build": importers, "subtitle": importers_subtitle})
+        
+        rings = Build("rings", "hs92", "export", None, "all", self.attr, self.year)
+        rings_subtitle = u"The rings visualization shows the primary and secondary network connections for {} in the Product Space.".format(self.attr.get_name())
+        trade_section["builds"].append({"title": u"Rings", "build": rings, "subtitle": rings_subtitle})
 
         ''' DataViva Section
         '''
