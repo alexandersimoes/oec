@@ -115,6 +115,25 @@ def explore_redirect(app_name='tree_map'):
 
 def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
     msg = None
+    classifications = ['sitc', 'hs92', 'hs96', 'hs02', 'hs07']
+    
+    '''Check classification'''
+    # support for legacy URLs that use hs not hs92
+    if classification not in classifications:
+        classification = 'hs92'
+        msg = u"Data only available in the following classification: SITC, HS92, HS96, HS02, HS07"
+    elif not set(year).issubset(set(available_years[classification])):
+        found = False
+        for c in reversed(classifications):
+            if set(year).issubset(set(available_years[c])):
+                classification = c
+                found = True
+                break
+        if not found:
+            classification = 'hs92'
+            year = [available_years[classification][-1]] if len(year) == 1 else available_years[classification]
+        msg = u"Classification changed to {} for the data requested.".format(classification)
+    '''Check countries:'''
     if origin == "twn" and dest != "all":
         c = Country.query.filter_by(id_3char=origin).first()
         origin = "chn"
@@ -269,18 +288,14 @@ def download():
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year:year>/')
 # @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def explore(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year=None):
-    '''support for legacy URLs that use hs not hs92'''
-    if classification not in ['sitc', 'hs92', 'hs96', 'hs02', 'hs07']:
-        return redirect(url_for('.embed', lang=g.locale, app_name=app_name, \
-                        classification='hs92', trade_flow=trade_flow, \
-                        origin_id=origin_id, dest_id=dest_id, prod_id=prod_id, \
-                        year=year))
-
     g.page_type = "explore"
     g.page_sub_type = app_name
 
     '''sanitize input args'''
     redir = sanitize(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
+    if redir:
+        flash(redir[0])
+        return redirect(redir[1])
 
     '''get every possible build for sub nav'''
     origin, dest, prod = get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trade_flow)
@@ -375,10 +390,6 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, prod_id, y
             "current": build.year[-1],
             "data": years
         })
-
-    if redir:
-        flash(redir[0])
-        return redirect(redir[1])
 
     return render_template("explore/index.html",
         current_build = build, build_ui = ui,
