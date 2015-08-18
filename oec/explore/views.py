@@ -1,6 +1,6 @@
 import os, time, urllib, urllib2, json
 
-from werkzeug.routing import ValidationError
+from werkzeug.routing import ValidationError, BaseConverter
 from flask import Blueprint, render_template, g, request, session, redirect, \
                     url_for, flash, jsonify, Response, abort
 from flask.ext.babel import gettext
@@ -16,8 +16,43 @@ from oec.explore.models import Build, get_all_builds, Short
 from sqlalchemy.sql.expression import func
 from sqlalchemy import not_
 from random import choice
-
 from config import FACEBOOK_ID
+
+class YearConverter(BaseConverter):
+    all_years = [item for sublist in available_years.values() for item in sublist]
+    min_year = min(all_years)
+    max_year = max(all_years)
+
+    def to_python(self, value):
+
+        '''force int conversion'''
+        try:
+            years = [int(y) for y in value.split('.')]
+        except ValueError:
+            raise ValidationError()
+
+        '''treat as range'''
+        if len(years) == 2:
+            years = range(years[0], years[1]+1)
+        elif len(years) > 2:
+            years = range(years[0], years[1]+1, years[2])
+
+        '''clamp years based on min/max available years for all classifications'''
+        try:
+            clamped_min = years.index(self.min_year)
+        except ValueError:
+            clamped_min = 0
+        try:
+            clamped_max = years.index(self.max_year)
+        except ValueError:
+            clamped_max = len(years)-1
+
+        return years
+
+    def to_url(self, values):
+        return '.'.join(str(value) for value in values)
+
+app.url_map.converters['year'] = YearConverter
 
 @app.route('/explore/')
 @app.route('/explore/<app_name>/')
@@ -231,63 +266,15 @@ def download():
                         mimetype=mimetype,
                         headers={"Content-Disposition": content_disposition})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-from werkzeug.routing import BaseConverter
-
-class YearConverter(BaseConverter):
-
-    all_years = [item for sublist in available_years.values() for item in sublist]
-    min_year = min(all_years)
-    max_year = max(all_years)
-
-    def to_python(self, value):
-
-        '''force int conversion'''
-        try:
-            years = [int(y) for y in value.split('.')]
-        except ValueError:
-            raise ValidationError()
-
-        '''treat as range'''
-        if len(years) == 2:
-            years = range(years[0], years[1]+1)
-        elif len(years) > 2:
-            years = range(years[0], years[1]+1, years[2])
-
-        '''clamp years based on min/max available years for all classifications'''
-        try:
-            clamped_min = years.index(self.min_year)
-        except ValueError:
-            clamped_min = 0
-        try:
-            clamped_max = years.index(self.max_year)
-        except ValueError:
-            clamped_max = len(years)-1
-
-        return years
-
-    def to_url(self, values):
-        return '.'.join(str(value) for value in values)
-
-app.url_map.converters['year'] = YearConverter
-
 @mod.route('/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year:year>/')
 # @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
 def explore(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year=None):
+    '''support for legacy URLs that use hs not hs92'''
+    if classification not in ['sitc', 'hs92', 'hs96', 'hs02', 'hs07']:
+        return redirect(url_for('.embed', lang=g.locale, app_name=app_name, \
+                        classification='hs92', trade_flow=trade_flow, \
+                        origin_id=origin_id, dest_id=dest_id, prod_id=prod_id, \
+                        year=year))
 
     g.page_type = "explore"
     g.page_sub_type = app_name
@@ -401,6 +388,12 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, prod_id, y
 @mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year:year>/')
 def embed(app_name, classification, trade_flow, origin_id, dest_id, \
                 prod_id, year=available_years['hs92'][-1]):
+    '''support for legacy URLs that use hs not hs92'''
+    if classification not in ['sitc', 'hs92', 'hs96', 'hs02', 'hs07']:
+        return redirect(url_for('.embed', lang=g.locale, app_name=app_name, \
+                        classification='hs92', trade_flow=trade_flow, \
+                        origin_id=origin_id, dest_id=dest_id, prod_id=prod_id, \
+                        year=year))
 
     b = Build(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
 
