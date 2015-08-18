@@ -277,7 +277,11 @@
         .enter().append("path")
         .attr("d", path)
         .attr("fill", color)
-        .attr("opacity", function(d){
+        .attr("stroke", color)
+        .attr("fill-opacity", function(d){
+          return d.id === id ? 1 : 0.25;
+        })
+        .attr("stroke-opacity", function(d){
           return d.id === id ? 1 : 0.25;
         });
 
