@@ -25,7 +25,7 @@
 
 {% endblock %}
 
-{% block title %}: {{ current_build.title()|striptags }} ({{ current_build.year_str }}){% endblock %}
+{% block title %} - {{ current_build.title()|striptags }} ({{ current_build.year_str }}){% endblock %}
 {% block description %}{{ current_build.question() }} {{ _('Data visualization of economic trade') }}.{% endblock %}
 
 {% block body %}

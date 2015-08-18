@@ -99,8 +99,10 @@ table {
         font-size: 15px;
         line-height: 20px;
         padding: 10px; }
-        table tr th {
-          text-align: left; }
+        table tr th img, table tr td img {
+          width: 25px; }
+    table tr th {
+      text-align: left; }
 
 ol {
   font-family: "Lora", "Times", serif;
@@ -740,6 +742,10 @@ body.explore #container {
 
 iframe.viz {
   margin: 5px 15px 0; }
+body.rankings #container {
+  margin-top: 0; }
+  body.rankings #hamburger {
+    color: #0085BF; }
 .member {
   margin: 30px 0 40px;
   min-height: 150px;

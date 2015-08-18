@@ -1,5 +1,7 @@
 {% extends "templates/nav.html" %}
 
+{% block title %} - {% if category == "country" %}{{ category|title }}{% else %}{{ category|upper }} Product{% endif %} Ranking ({{ year }}){% endblock %}
+
 {% block head %}
     {% if year > g.available_years[category][0]  %}
     <link rel="prev" href="/rankings/{{ category }}/{{ year-1 }}/" />
@@ -7,135 +9,106 @@
     {% if year < g.available_years[category][-1]  %}
     <link rel="next" href="/rankings/{{ category }}/{{ year+1 }}/" />
     {% endif %}
-    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.rankings.css" />
-    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.table.css" />
 {% endblock %}
-
-{% block title %}: {% if category == "country" %}{{ category|title }}{% else %}{{ category|upper }} Product{% endif %} Ranking ({{ year }}){% endblock %}
 
 {% block body %}
 
-<div class="title">
+<div id="explorer">
   {% if year > g.available_years[category][0]  %}
   <a class="prev" href="/{{ g.locale }}/rankings/{{ category }}/{{ year-1 }}/">&laquo; {{ _('Previous Year') }}</a>
   {% endif %}
   {% if category == "country" %}
-    <h2>{{ _('Country Rankings') }} ({{ year }})</h2>
-  {% elif category == "hs" %}
-    <h2>{{ _('HS Product Rankings') }} ({{ year }})</h2>
-  {% elif category == "sitc" %}
-    <h2>{{ _('SITC Product Rankings') }} ({{ year }})</h2>
+    <h1>{{ _('Country Rankings') }} ({{ year }})</h1>
+  {% else %}
+    <h1>{{ category|title }} {{ _('Product Rankings') }} ({{ year }})</h1>
   {% endif %}
   {% if year < g.available_years[category][-1]  %}
   <a class="next" href="/{{ g.locale }}/rankings/{{ category }}/{{ year+1 }}/">{{ _('Next Year') }} &raquo;</a>
   {% endif %}
-</div>
 
-<div class="content">
-
-  <div id="sidebar" class="col1">
-
-    <ul>
-      <li{% if category == "country" %} class="active"{% endif %}>
-        <a href="/{{ g.locale }}/rankings/country/">{{ _('Country Rankings') }}</a>
-      </li>
-      <li{% if category == "hs92" %} class="active"{% endif %}>
-        <a href="/{{ g.locale }}/rankings/hs92/">{{ _('HS92 Product Rankings') }}</a>
-      </li>
-      <li{% if category == "hs96" %} class="active"{% endif %}>
-        <a href="/{{ g.locale }}/rankings/hs96/">{{ _('HS96 Product Rankings') }}</a>
-      </li>
-      <li{% if category == "hs02" %} class="active"{% endif %}>
-        <a href="/{{ g.locale }}/rankings/hs02/">{{ _('HS02 Product Rankings') }}</a>
-      </li>
-      <li{% if category == "hs07" %} class="active"{% endif %}>
-        <a href="/{{ g.locale }}/rankings/hs07/">{{ _('HS07 Product Rankings') }}</a>
-      </li>
-      <li{% if category == "sitc" %} class="active"{% endif %}>
-        <a href="/{{ g.locale }}/rankings/sitc/">{{ _('SITC Product Rankings') }}</a>
-      </li>
-    </ul>
-
-    <div class="change_year">
-      <h3>{{ _('Year') }}</h3>
-      <select id="change_year">
-        {% for y in years %}
-        <option value="{{ y }}" {% if y == year %}selected="selected"{% endif %}>{{ y }}</option>
-        {% endfor %}
-      </select>
-    </div>
-    
-    {% if category != "country" %}
-    <div class="change_depth">
-      <h3>{{ _('Depth') }}</h3>
-      <select id="change_depth">
-        <option value="4" {% if depth == 4 %}selected="selected"{% endif %}>4 Digit</option>
-        <option value="6" {% if depth == 6 %}selected="selected"{% endif %}>6 Digit</option>
-      </select>
-    </div>
-    {% endif %}
-
-    <ul><h3>{{ _('Download') }}</h3>
-      <li class="icon download">
-        <a href="/{{ g.locale }}/rankings/{{ category }}/{{ year }}/?download=true">{{ _("Current Year") }}</a>
-      </li>
-      <li class="icon download">
-        <a href="/{{ g.locale }}/rankings/{{ category }}/?download=true">{{ _('All Years') }}</a>
-      </li>
-    </ul>
-
-  </div><div class="col3">
-
-      <table class="sortable">
-        <thead>
-          <tr>
-
-            {% for c in cols %}
-            <th>{{ c }}</th>
-            {% endfor %}
-
-          </tr>
-        </thead>
-
-        <tbody>
-
-          {% for r in rankings %}
-          <tr>
-            {% if category == "country" %}
-            <td><span>{{ r[2]["eci_rank"] }}</span></td>
-            <td>
-              {% if r[2]["eci_rank_delta"] > 0 %}
-                <i class="fa fa-arrow-up fa-lg"></i> {{ r[2]["eci_rank_delta"] }}
-              {% elif r[2]["eci_rank_delta"] < 0 and r[2]["eci_rank_delta"] %}
-                <i class="fa fa-arrow-down fa-lg"></i> {{ r[2]["eci_rank_delta"]|abs }}
-              {% endif %}
-            </td>
-            <td>{{ r[0]["id_3char"]|upper }}</td>
-            <td><img class="icon" src="/static/img/icons/country/country_{{ r[0].id }}.png" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
-            <td>{{ r[2]["eci"] }}</td>
-            {% else %}
-            <td><span>{{ r[2]["pci_rank"] }}</span></td>
-            <td>
-              {% if r[2]["pci_rank_delta"] > 0 %}
-                <i class="fa fa-arrow-up fa-lg"></i> {{ r[2]["pci_rank_delta"] }}
-              {% elif r[2]["pci_rank_delta"] < 0 and r[2]["pci_rank_delta"] %}
-                <i class="fa fa-arrow-down fa-lg"></i> {{ r[2]["pci_rank_delta"]|abs }}
-              {% endif %}
-            </td>
-            <td>{{ r[0].get_display_id() }}</td>
-            <td><img class="icon" style="background-color: {{ r[0].color }};" src="{{ r[0].get_icon() }}" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
-            <td>{{ r[2]["pci"] }}</td>
-            {% endif %}
-          </tr>
-          {% endfor %}
-
-        </tbody>
-
-      </table>
-
+  <div class="change_year">
+    <h3>{{ _('Year') }}</h3>
+    <select id="change_year">
+      {% for y in years %}
+      <option value="{{ y }}" {% if y == year %}selected="selected"{% endif %}>{{ y }}</option>
+      {% endfor %}
+    </select>
   </div>
 
+  {% if category != "country" %}
+  <div class="change_depth">
+    <h3>{{ _('Depth') }}</h3>
+    <select id="change_depth">
+      <option value="4" {% if depth == 4 %}selected="selected"{% endif %}>4 Digit</option>
+      <option value="6" {% if depth == 6 %}selected="selected"{% endif %}>6 Digit</option>
+    </select>
+  </div>
+  {% endif %}
+
+  <ul><h3>{{ _('Download') }}</h3>
+    <li class="icon download">
+      <a href="/{{ g.locale }}/rankings/{{ category }}/{{ year }}/?download=true">{{ _("Current Year") }}</a>
+    </li>
+    <li class="icon download">
+      <a href="/{{ g.locale }}/rankings/{{ category }}/?download=true">{{ _('All Years') }}</a>
+    </li>
+  </ul>
+
 </div>
+
+<section>
+  <content>
+
+    <table class="sortable">
+      <thead>
+        <tr>
+
+          {% for c in cols %}
+          <th>{{ c }}</th>
+          {% endfor %}
+
+        </tr>
+      </thead>
+
+      <tbody>
+
+        {% for r in rankings %}
+        <tr>
+          {% if category == "country" %}
+          <td><span>{{ r[2]["eci_rank"] }}</span></td>
+          <td>
+            {% if r[2]["eci_rank_delta"] > 0 %}
+              <i class="fa fa-arrow-up fa-lg"></i> {{ r[2]["eci_rank_delta"] }}
+            {% elif r[2]["eci_rank_delta"] < 0 and r[2]["eci_rank_delta"] %}
+              <i class="fa fa-arrow-down fa-lg"></i> {{ r[2]["eci_rank_delta"]|abs }}
+            {% endif %}
+          </td>
+          <td>{{ r[0]["id_3char"]|upper }}</td>
+          <td><img class="icon" src="/static/img/icons/country/country_{{ r[0].id }}.png" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
+          <td>{{ r[2]["eci"] }}</td>
+          {% else %}
+          <td><span>{{ r[2]["pci_rank"] }}</span></td>
+          <td>
+            {% if r[2]["pci_rank_delta"] > 0 %}
+              <i class="fa fa-arrow-up fa-lg"></i> {{ r[2]["pci_rank_delta"] }}
+            {% elif r[2]["pci_rank_delta"] < 0 and r[2]["pci_rank_delta"] %}
+              <i class="fa fa-arrow-down fa-lg"></i> {{ r[2]["pci_rank_delta"]|abs }}
+            {% endif %}
+          </td>
+          <td>{{ r[0].get_display_id() }}</td>
+          <td><img class="icon" style="background-color: {{ r[0].color }};" src="{{ r[0].get_icon() }}" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
+          <td>{{ r[2]["pci"] }}</td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+
+      </tbody>
+
+    </table>
+
+  </content>
+</section>
+
 {% endblock %}
 
 
@@ -150,14 +123,14 @@
     function change_year(new_year) {
 
       var url = window.location.pathname.split("/")
-      
+
       if(url.length == 6){
         url.splice(4, 1, new_year)
       }
       else {
         url.splice(4, 0, new_year)
       }
-      
+
       if(!year_first_time){
         window.location = url.join("/") + "?depth=" + depth_form.focus();
       }
@@ -178,7 +151,7 @@
       })
       .search(false)
       .draw()
-    
+
     var depth_form = d3plus.form()
       .type("drop")
       .data("#change_depth")
