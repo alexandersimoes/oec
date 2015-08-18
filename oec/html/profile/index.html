@@ -164,7 +164,7 @@
     if (!color) color = palette[1];
   }
   else {
-    color = "{{ profile.attr.color }}";
+    color = d3plus.color.legible("{{ profile.attr.color }}");
   }
 
   // If it's a country page, create the map!
