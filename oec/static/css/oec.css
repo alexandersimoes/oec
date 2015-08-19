@@ -277,6 +277,33 @@ nav {
       text-decoration: none; }
       nav #nav_footer #mc {
         display: block; }
+body.home #container {
+  margin-top: 0; }
+  body.home #container content {
+    text-align: center; }
+    body.home #container content #big_logo {
+      width: 90%; }
+      body.home #container content p {
+        margin: 50px auto;
+        max-width: 700px; }
+        body.home #container content #macro, body.home #container content #d3plus {
+          display: inline-block;
+          text-align: left; }
+          body.home #container content #macro .link,
+          body.home #container content #d3plus .link {
+            color: #333;
+            display: inline-block;
+            font-size: 13px;
+            margin: 10px 20px 10px 0;
+            width: 150px; }
+            body.home #container content #macro .link:hover,
+            body.home #container content #d3plus .link:hover {
+              border-bottom: 0; }
+              body.home #container content #macro .link img,
+              body.home #container content #d3plus .link img {
+                display: block; }
+#search {
+  display: none; }
 #container {
   -webkit-justify-content: center;
   -moz-justify-content: center;

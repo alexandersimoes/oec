@@ -1,0 +1,45 @@
+body.home {
+
+  #container {
+    margin-top: 0;
+
+    content {
+      text-align: center;
+
+      #big_logo {
+        width: 90%;
+      }
+
+      p {
+        margin: 50px auto;
+        max-width: 700px;
+      }
+
+      #macro, #d3plus {
+        display: inline-block;
+        text-align: left;
+
+        .link {
+          color: #333;
+          display: inline-block;
+          font-size: 13px;
+          margin: 10px 20px 10px 0;
+          width: 150px;
+
+          &:hover {
+            border-bottom: 0;
+          }
+
+          img {
+            display: block;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

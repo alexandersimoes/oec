@@ -113,12 +113,7 @@ def home(lang=None):
     g.page_type = "home"
     g.locale = get_locale(lang)
 
-    '''get ramdom country'''
-    c = Country.query.get(choice(random_countries))
-    # exports tree map
-    default_build = Build("tree_map", "hs92", "export", c, "all", "show")
-
-    return render_template("home.html", default_build=default_build)
+    return render_template("home.html")
 
 @mod.route('iframe_test/')
 @mod.route('iframe_test/<lang>/')
