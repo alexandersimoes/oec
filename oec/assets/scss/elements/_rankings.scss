@@ -2,10 +2,85 @@ body.rankings {
 
   #container {
     margin-top: 0;
+
+    content {
+      margin-top: 10px !important;
+
+      .Rank {
+        font-weight: bold;
+        text-align: center;
+        width: 40px;
+      }
+
+      .Delta {
+        text-align: center;
+        width: 50px;
+        .fa {
+          font-size: 13px;
+        }
+        .fa-arrow-up {
+          color: #00cc00;
+        }
+        .fa-arrow-down {
+          color: #cc0000;
+        }
+      }
+
+      .ID {
+        width: 50px;
+      }
+
+      .Country, .Product {
+        img {
+          margin-right: 5px;
+          width: 20px;
+        }
+      }
+
+      .ECI, .PCI {
+        width: 50px;
+      }
+
+    }
+
   }
 
   #hamburger {
     color: $color;
   }
+
+  .download {
+    background-color: white;
+    border: 1px solid rgb(195, 195, 195);
+    color: rgb(68, 68, 68) !important;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 200;
+    margin: 0;
+    padding: 6px;
+    &:hover {
+      border-color: rgb(195, 195, 195);
+    }
+    i {
+      margin-right: 2px;
+      margin-top: 1px;
+    }
+  }
+
+  .change_dataset {
+    margin-bottom: 15px;
+
+    .active {
+      color: #333 !important;
+      display: inline-block;
+      font-weight: bold;
+      margin-top: -1px;
+      &:hover {
+        border-color: #333 !important;
+      }
+    }
+
+  }
+
 
 }

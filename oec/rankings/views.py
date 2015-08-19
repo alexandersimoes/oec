@@ -81,14 +81,14 @@ def rankings(category=None, year=None):
 
     if category == "country":
         Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Country, Country_name, Yo, "origin_id", "eci", "eci_rank", "eci_rank_delta"]
-        cols = [gettext("Rank"), "", "Abbrv", gettext("Country"), "ECI Value"]
+        cols = [gettext("Rank"), "", "ID", gettext("Country"), "ECI"]
     else:
         Attr_data = getattr(db_data, "{}_models".format(category)).Yp
         Attr = globals()[category.title()]
         Attr_name = globals()["{}_name".format(category.title())]
         attr_id = "{}_id".format(category)
         index, rank, delta = ["pci", "pci_rank", "pci_rank_delta"]
-        cols = [gettext("Rank"), "", category.upper(), gettext("Product"), "PCI Value"]
+        cols = [gettext("Rank"), "", "ID", gettext("Product"), "PCI"]
 
 
     rankings = db.session.query(Attr, Attr_name, Attr_data) \

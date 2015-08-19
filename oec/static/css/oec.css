@@ -99,10 +99,8 @@ table {
         font-size: 15px;
         line-height: 20px;
         padding: 10px; }
-        table tr th img, table tr td img {
-          width: 25px; }
-    table tr th {
-      text-align: left; }
+        table tr th {
+          text-align: left; }
 
 ol {
   font-family: "Lora", "Times", serif;
@@ -467,9 +465,9 @@ nav {
             #container #content section .profile_button h1 {
               font-size: 25px; }
               #container #content section .profile_button:first-child {
-                margin-right: 5px; }
+                margin-right: 1px; }
                 #container #content section .profile_button:last-child {
-                  margin-left: 5px;
+                  margin-left: 1px;
                   text-align: right; }
       #container #content section#stats {
         padding: 6px 0 7px; }
@@ -744,8 +742,54 @@ iframe.viz {
   margin: 5px 15px 0; }
 body.rankings #container {
   margin-top: 0; }
-  body.rankings #hamburger {
-    color: #0085BF; }
+  body.rankings #container content {
+    margin-top: 10px !important; }
+    body.rankings #container content .Rank {
+      font-weight: bold;
+      text-align: center;
+      width: 40px; }
+      body.rankings #container content .Delta {
+        text-align: center;
+        width: 50px; }
+        body.rankings #container content .Delta .fa {
+          font-size: 13px; }
+          body.rankings #container content .Delta .fa-arrow-up {
+            color: #00cc00; }
+            body.rankings #container content .Delta .fa-arrow-down {
+              color: #cc0000; }
+    body.rankings #container content .ID {
+      width: 50px; }
+      body.rankings #container content .Country img,
+      body.rankings #container content .Product img {
+        margin-right: 5px;
+        width: 20px; }
+    body.rankings #container content .ECI, body.rankings #container content .PCI {
+      width: 50px; }
+body.rankings #hamburger {
+  color: #0085BF; }
+  body.rankings .download {
+    background-color: white;
+    border: 1px solid #c3c3c3;
+    color: #444 !important;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 200;
+    margin: 0;
+    padding: 6px; }
+    body.rankings .download:hover {
+      border-color: #c3c3c3; }
+      body.rankings .download i {
+        margin-right: 2px;
+        margin-top: 1px; }
+body.rankings .change_dataset {
+  margin-bottom: 15px; }
+  body.rankings .change_dataset .active {
+    color: #333 !important;
+    display: inline-block;
+    font-weight: bold;
+    margin-top: -1px; }
+    body.rankings .change_dataset .active:hover {
+      border-color: #333 !important; }
 .member {
   margin: 30px 0 40px;
   min-height: 150px;

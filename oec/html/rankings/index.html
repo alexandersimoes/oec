@@ -14,57 +14,80 @@
 {% block body %}
 
 <div id="explorer">
+
   {% if year > g.available_years[category][0]  %}
-  <a class="prev" href="/{{ g.locale }}/rankings/{{ category }}/{{ year-1 }}/">&laquo; {{ _('Previous Year') }}</a>
+  <a id="prev" href="/{{ g.locale }}/rankings/{{ category }}/{{ year-1 }}/">
+    <i class="fa fa-arrow-left"></i>
+    {{ _('Previous Year') }}
+  </a>
   {% endif %}
+
   {% if category == "country" %}
     <h1>{{ _('Country Rankings') }} ({{ year }})</h1>
   {% else %}
     <h1>{{ category|upper }} {{ _('Product Rankings') }} ({{ year }})</h1>
   {% endif %}
+
   {% if year < g.available_years[category][-1]  %}
-  <a class="next" href="/{{ g.locale }}/rankings/{{ category }}/{{ year+1 }}/">{{ _('Next Year') }} &raquo;</a>
+  <a id="next" href="/{{ g.locale }}/rankings/{{ category }}/{{ year+1 }}/">
+    {{ _('Next Year') }}
+    <i class="fa fa-arrow-right"></i>
+  </a>
   {% endif %}
 
-  <div class="change_year">
-    <h3>{{ _('Year') }}</h3>
-    <select id="change_year">
-      {% for y in years %}
-      <option value="{{ y }}" {% if y == year %}selected="selected"{% endif %}>{{ y }}</option>
-      {% endfor %}
-    </select>
-  </div>
+  <div id="changers">
 
-  {% if category != "country" %}
-  <div class="change_depth">
-    <h3>{{ _('Depth') }}</h3>
-    <select id="change_depth">
-      <option value="4" {% if depth == 4 %}selected="selected"{% endif %}>4 Digit</option>
-      <option value="6" {% if depth == 6 %}selected="selected"{% endif %}>6 Digit</option>
-    </select>
-  </div>
-  {% endif %}
+    <div class="change_dataset">
+        <a id="country" {% if category == 'country' %}class="active" {% endif %}href="{{ url_for('rankings.rankings', lang=g.locale, category='country') }}">{{ _('Country') }}</a> |
+        <a id="hs07" {% if category == 'hs07' %}class="active" {% endif %}href="{{ url_for('rankings.rankings', lang=g.locale, category='hs07') }}">HS07</a> |
+        <a id="hs02" {% if category == 'hs02' %}class="active" {% endif %}href="{{ url_for('rankings.rankings', lang=g.locale, category='hs02') }}">HS02</a> |
+        <a id="hs96" {% if category == 'hs96' %}class="active" {% endif %}href="{{ url_for('rankings.rankings', lang=g.locale, category='hs96') }}">HS96</a> |
+        <a id="hs92" {% if category == 'hs92' %}class="active" {% endif %}href="{{ url_for('rankings.rankings', lang=g.locale, category='hs92') }}">HS92</a> |
+        <a id="sitc" {% if category == 'sitc' %}class="active" {% endif %}href="{{ url_for('rankings.rankings', lang=g.locale, category='sitc') }}">SITC</a>
+    </div>
 
-  <ul><h3>{{ _('Download') }}</h3>
-    <li class="icon download">
-      <a href="/{{ g.locale }}/rankings/{{ category }}/{{ year }}/?download=true">{{ _("Current Year") }}</a>
+    <div class="dropdown_container">
+      <legend for="change_year">{{ _("Year") }}</legend>
+      <select id="change_year">
+        {% for y in years %}
+        <option value="{{ y }}" {% if y == year %}selected="selected"{% endif %}>{{ y }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    {% if category != "country" %}
+    <div class="dropdown_container">
+      <legend for="change_depth">{{ _('Depth') }}</legend>
+      <select id="change_depth">
+        <option value="4" {% if depth == 4 %}selected="selected"{% endif %}>4 Digit</option>
+        <option value="6" {% if depth == 6 %}selected="selected"{% endif %}>6 Digit</option>
+      </select>
+    </div>
+    {% endif %}
+
+    <a class="download" href="/{{ g.locale }}/rankings/{{ category }}/{{ year }}/?download=true">
+      <i class="fa fa-save"></i>
+      {{ _("Download Current Year") }}
+    </a>
     </li>
-    <li class="icon download">
-      <a href="/{{ g.locale }}/rankings/{{ category }}/?download=true">{{ _('All Years') }}</a>
-    </li>
-  </ul>
+    <a class="download" href="/{{ g.locale }}/rankings/{{ category }}/?download=true">
+      <i class="fa fa-save"></i>
+      {{ _('Download All Years') }}
+    </a>
+
+  </div>
 
 </div>
 
 <section>
   <content>
 
-    <table class="sortable">
+    <table>
       <thead>
         <tr>
 
           {% for c in cols %}
-          <th>{{ c }}</th>
+          <th class="{{ c }}">{{ c }}</th>
           {% endfor %}
 
         </tr>
@@ -75,29 +98,29 @@
         {% for r in rankings %}
         <tr>
           {% if category == "country" %}
-          <td><span>{{ r[2]["eci_rank"] }}</span></td>
-          <td>
+          <td class="Rank"><span>{{ r[2]["eci_rank"] }}</span></td>
+          <td class="Delta">
             {% if r[2]["eci_rank_delta"] > 0 %}
               <i class="fa fa-arrow-up fa-lg"></i> {{ r[2]["eci_rank_delta"] }}
             {% elif r[2]["eci_rank_delta"] < 0 and r[2]["eci_rank_delta"] %}
               <i class="fa fa-arrow-down fa-lg"></i> {{ r[2]["eci_rank_delta"]|abs }}
             {% endif %}
           </td>
-          <td>{{ r[0]["id_3char"]|upper }}</td>
-          <td><img class="icon" src="/static/img/icons/country/country_{{ r[0].id }}.png" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
-          <td>{{ r[2]["eci"] }}</td>
+          <td class="ID">{{ r[0]["id_3char"]|upper }}</td>
+          <td class="Country"><img class="icon" src="/static/img/icons/country/country_{{ r[0].id }}.png" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
+          <td class="ECI">{{ r[2]["eci"] }}</td>
           {% else %}
-          <td><span>{{ r[2]["pci_rank"] }}</span></td>
-          <td>
+          <td class="Rank"><span>{{ r[2]["pci_rank"] }}</span></td>
+          <td class="Delta">
             {% if r[2]["pci_rank_delta"] > 0 %}
               <i class="fa fa-arrow-up fa-lg"></i> {{ r[2]["pci_rank_delta"] }}
             {% elif r[2]["pci_rank_delta"] < 0 and r[2]["pci_rank_delta"] %}
               <i class="fa fa-arrow-down fa-lg"></i> {{ r[2]["pci_rank_delta"]|abs }}
             {% endif %}
           </td>
-          <td>{{ r[0].get_display_id() }}</td>
-          <td><img class="icon" style="background-color: {{ r[0].color }};" src="{{ r[0].get_icon() }}" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
-          <td>{{ r[2]["pci"] }}</td>
+          <td class="ID">{{ r[0].get_display_id() }}</td>
+          <td class="Product"><img class="icon" style="background-color: {{ r[0].color }};" src="{{ r[0].get_icon() }}" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
+          <td class="PCI">{{ r[2]["pci"] }}</td>
           {% endif %}
         </tr>
         {% endfor %}
@@ -141,7 +164,8 @@
     var year_form = d3plus.form()
       .type("drop")
       .data("#change_year")
-      .focus(currentYear,change_year)
+      .data({"sort": true})
+      .focus(currentYear, change_year)
       .order({
         "sort": "desc"
       })
@@ -155,6 +179,7 @@
     var depth_form = d3plus.form()
       .type("drop")
       .data("#change_depth")
+      .data({"sort": true})
       .focus(4, function(selected_depth){
         if(!depth_first_time){
           window.location = window.location.pathname + "?depth=" + selected_depth;
@@ -172,16 +197,16 @@
       .draw()
 
 
-    var total = d3.selectAll("tbody tr")[0].length
-    // Add color to rankings
-    var color = d3.scale.linear()
-      .domain([0, total/2, total-1])
-      .interpolate(d3.interpolateRgb)
-      .range(["#00cc00", "#cccccc", "#cc0000"])
-    d3.selectAll("tbody tr").select("td span")
-      .style("background", function(d, i){
-        return color(i);
-      })
+    // var total = d3.selectAll("tbody tr")[0].length
+    // // Add color to rankings
+    // var color = d3.scale.linear()
+    //   .domain([0, total/2, total-1])
+    //   .interpolate(d3.interpolateRgb)
+    //   .range(["#00cc00", "#cccccc", "#cc0000"])
+    // d3.selectAll("tbody tr").select("td span")
+    //   .style("color", function(d, i){
+    //     return color(i);
+    //   })
 
   </script>
 {% endblock %}
