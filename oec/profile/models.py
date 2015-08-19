@@ -56,7 +56,7 @@ class Country(Profile):
     def __init__(self, classification, id):
         super(Country, self).__init__(classification, id)
         self.attr = attrs.Country.query.filter_by(id_3char = self.id).first()
-    
+
     def stats(self):
         stats = {}
         this_yo = self.models.Yo.query.filter_by(year = self.year, country = self.attr).first()
@@ -144,31 +144,31 @@ class Country(Profile):
         ''' Trade Section
         '''
         export_subtitle, import_subtitle, dest_subtitle, origin_subtitle = [None]*4
-        
+
         export_tmap = Build("tree_map", "hs92", "export", self.attr, "all", "show", self.year)
         yop_exp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
         if yop_exp:
             exports_list = self.stringify_items(yop_exp, "export_val", "product")
             export_subtitle = u"The top exports by share are {}.".format(exports_list)
-        
+
         import_tmap = Build("tree_map", "hs92", "import", self.attr, "all", "show", self.year)
         yop_imp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr).order_by(desc("import_val")).limit(5).all()
         if yop_imp:
             imports_list = self.stringify_items(yop_imp, "import_val", "product")
             import_subtitle = u"The top imports by share are {}.".format(imports_list)
-        
+
         dests_tmap = Build("tree_map", "hs92", "export", self.attr, "show", "all", self.year)
         yod_exp = self.models.Yod.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
         if yod_exp:
             dest_list = self.stringify_items(yod_exp, "export_val", "dest")
             dest_subtitle = u"The top export destinations of {} are {}.".format(self.attr.get_name(), dest_list)
-        
+
         origins_tmap = Build("tree_map", "hs92", "import", self.attr, "show", "all", self.year)
         yod_imp = self.models.Yod.query.filter_by(year = self.year, dest = self.attr).order_by(desc("export_val")).limit(5).all()
         if yod_imp:
             origin_list = self.stringify_items(yod_imp, "export_val", "origin")
             origin_subtitle = u"The top import origins of {} are {}.".format(self.attr.get_name(), origin_list)
-        
+
         trade_section = {
             "title": u"{} Trade".format(self.attr.get_name()),
             "builds": [
@@ -240,9 +240,10 @@ class Product(Profile):
 
     def __init__(self, classification, id):
         super(Product, self).__init__(classification, id)
+        self.classification = classification
         self.attr_cls = getattr(attrs, classification.capitalize())
         self.attr = self.attr_cls.query.filter(getattr(self.attr_cls, classification) == self.id).first()
-    
+
     def stats(self):
         stats = {}
         this_yp = self.models.Yp.query.filter_by(year = self.year, product = self.attr).first()
@@ -313,7 +314,7 @@ class Product(Profile):
                         num_format(this_yp.export_val), self.attr.get_name(),
                         num_format(this_yp.import_val))
             all_paragraphs.append(p2)
-        
+
         ''' Paragraph #3
         '''
         yop_exp = self.models.Yop.query.filter_by(year = self.year, product = self.attr).order_by(desc("export_val")).limit(5).all()
@@ -357,38 +358,43 @@ class Product(Profile):
 
 
     def sections(self):
+        sections = []
         ''' Trade Section
         '''
         trade_section = {
             "title": u"{} Trade".format(self.attr.get_name()),
             "builds": []
         }
-        
-        exporters = Build("tree_map", "hs92", "export", "show", "all", self.attr, self.year)
+
+        exporters = Build("tree_map", self.classification, "export", "show", "all", self.attr, self.year)
         exporters_subtitle = u"This treemap shows the share of countries that export {}.".format(self.attr.get_name())
         trade_section["builds"].append({"title": u"Exporters", "build": exporters, "subtitle": exporters_subtitle})
-        
-        importers = Build("tree_map", "hs92", "import", "show", "all", self.attr, self.year)
+
+        importers = Build("tree_map", self.classification, "import", "show", "all", self.attr, self.year)
         importers_subtitle = u"This treemap shows the share of countries that import {}.".format(self.attr.get_name())
         trade_section["builds"].append({"title": u"Importers", "build": importers, "subtitle": importers_subtitle})
-        
-        rings = Build("rings", "hs92", "export", None, "all", self.attr, self.year)
+
+        rings = Build("rings", self.classification, "export", None, "all", self.attr, self.year)
         rings_subtitle = u"The rings visualization shows the primary and secondary network connections for {} in the Product Space.".format(self.attr.get_name())
         trade_section["builds"].append({"title": u"Rings", "build": rings, "subtitle": rings_subtitle})
 
+        sections.append(trade_section)
+
         ''' DataViva Section
         '''
-        dv_hs = self.attr
-        if len(dv_hs.id) > 6:
-            dv_hs = self.attr_cls.query.get(self.attr.id[:6])
-        dv_munic_exporters_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val".format(dv_hs.id)
-        dv_munic_importers_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val".format(dv_hs.id)
-        dv_section = {
-            "title": "DataViva",
-            "builds": [
-                {"title": u"{} exporters in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_exporters_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that export {}.".format(dv_hs.get_name())},
-                {"title": u"{} importers in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_importers_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that import {}.".format(dv_hs.get_name())},
-            ]
-        }
+        if self.classification == "hs92":
+            dv_hs = self.attr
+            if len(dv_hs.id) > 6:
+                dv_hs = self.attr_cls.query.get(self.attr.id[:6])
+            dv_munic_exporters_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val".format(dv_hs.id)
+            dv_munic_importers_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val".format(dv_hs.id)
+            dv_section = {
+                "title": "DataViva",
+                "builds": [
+                    {"title": u"{} exporters in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_exporters_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that export {}.".format(dv_hs.get_name())},
+                    {"title": u"{} importers in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_importers_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that import {}.".format(dv_hs.get_name())},
+                ]
+            }
+            sections.append(dv_section)
 
-        return [trade_section, dv_section]
+        return sections

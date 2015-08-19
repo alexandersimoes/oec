@@ -274,7 +274,7 @@ class Build(object):
 
     def category(self):
         return build_metadata[self.id][self.trade_flow]["category"]
-    
+
     '''Returns the data URL for the specific build.'''
     def data_url(self, year=None, output_depth=None):
         if self.viz["slug"] == "stacked" or self.viz["slug"] == "network" or self.viz["slug"] == "rings":
@@ -306,14 +306,14 @@ class Build(object):
         if self.origin == "show" or self.dest == "show" or self.trade_flow == "show":
             return url_for('attr.attrs', attr='country', lang=lang)
         return url_for('attr.attrs', attr=self.classification, lang=lang)
-    
+
     def attr_type(self):
         if self.origin == "show" or self.trade_flow == "show":
             return "origin"
         if self.dest == "show":
             return "dest"
         return self.classification
-    
+
     def serialize(self):
         return json.dumps({
             "attr_type": self.attr_type(),
@@ -332,7 +332,7 @@ class Build(object):
             "year": self.year,
             "year_str": self.year_str,
         })
-    
+
     def __repr__(self):
         return "<Build: {}:{}:{}:{}:{}>".format(self.viz["slug"], self.trade_flow, self.origin, self.dest, self.prod)
 
