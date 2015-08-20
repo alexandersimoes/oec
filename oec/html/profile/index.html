@@ -15,7 +15,7 @@
     {{ title }}
     {% if profile.attr.image_author %}
     <sub class="author"><a href="{{ profile.attr.image_link }}" target="_blank">
-      <i class="fa fa-camera"></i>Photo by {{ profile.attr.image_author }}
+      <i class="fa fa-camera"></i>{{ _("Photo by") }} {{ profile.attr.image_author }}
     </a></sub>
     {% endif %}
   </h1>
@@ -25,11 +25,11 @@
 <section id="stats">
   {% if g.page_sub_type == "product" %}
   <div class="stat">
-    <sub>Exports</sub>
+    <sub>{{ _("Exports") }}</sub>
     <h3>{% if "exports" in stats %}${{ stats['exports']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
   <div class="stat">
-    <sub>Imports</sub>
+    <sub>{{ _("Imports") }}</sub>
     <h3>{% if "imports" in stats %}${{ stats['imports']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
   <div class="stat">
@@ -37,20 +37,20 @@
     <h3>{% if "pci" in stats %}{{ stats['pci']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
   <div class="stat">
-    <sub>Top Exporter</sub>
+    <sub>{{ _("Top Exporter") }}</sub>
     <h3>{% if "top_exporter" in stats %}{{ stats['top_exporter'][2:]|upper }}{% else %}&mdash;{% endif %}</h3>
   </div>
   <div class="stat">
-    <sub>Top Importer</sub>
+    <sub>{{ _("Top Importer") }}</sub>
     <h3>{% if "top_importer" in stats %}{{ stats['top_importer'][2:]|upper }}{% else %}&mdash;{% endif %}</h3>
   </div>
   {% else %}
   <div class="stat">
-    <sub>Exports</sub>
+    <sub>{{ _("Exports") }}</sub>
     <h3>{% if "exports" in stats %}${{ stats['exports']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
   <div class="stat">
-    <sub>Imports</sub>
+    <sub>{{ _("Imports") }}</sub>
     <h3>{% if "imports" in stats %}${{ stats['imports']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
   <div class="stat">
@@ -58,11 +58,11 @@
     <h3>{% if "eci" in stats %}{{ stats['eci']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
   <div class="stat">
-    <sub>Population</sub>
+    <sub>{{ _("Population") }}</sub>
     <h3>{% if "population" in stats %}{{ stats['population']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
   <div class="stat">
-    <sub>GDP</sub>
+    <sub>{{ _("GDP") }}</sub>
     <h3>{% if "gdp" in stats %}${{ stats['gdp']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
   {% endif %}
