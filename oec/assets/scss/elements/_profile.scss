@@ -166,8 +166,12 @@ ul.heirarchy {
 
   font-family: $sans-serif;
   font-size: 14px;
-  line-height: 24px;
+  line-height: 18px;
   list-style-type: none;
+
+  li {
+    padding: 3px 0;
+  }
 
   .active {
     font-weight: 700;

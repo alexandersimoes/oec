@@ -660,16 +660,18 @@ body.home #container {
 ul.heirarchy {
   font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   font-size: 14px;
-  line-height: 24px;
+  line-height: 18px;
   list-style-type: none; }
-  ul.heirarchy .active {
-    font-weight: 700; }
-    ul.heirarchy .depth2 {
-      list-style-type: none; }
-      ul.heirarchy .depth6 {
-        margin-left: 10px; }
-        ul.heirarchy .depth8 {
-          margin-left: 20px; }
+  ul.heirarchy li {
+    padding: 3px 0; }
+    ul.heirarchy .active {
+      font-weight: 700; }
+      ul.heirarchy .depth2 {
+        list-style-type: none; }
+        ul.heirarchy .depth6 {
+          margin-left: 10px; }
+          ul.heirarchy .depth8 {
+            margin-left: 20px; }
 body.explore #container {
   margin-top: 0; }
   body.explore #hamburger {
