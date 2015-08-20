@@ -44,7 +44,10 @@ class ProdAttr(db.Model, AutoSerialize):
             return None
 
     def get_display_id(self):
-        return getattr(self, self.classification)
+        if len(self.id) == 2:
+            return self.id
+        else:
+            return getattr(self, self.classification)
 
     def get_top(self, limit=10, year=None):
         from oec import db_data

@@ -409,26 +409,14 @@ body.home #container {
             -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
             box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
             width: 100%; }
-            #container #content section aside ul {
-              font-family: "Lora", "Times", serif;
-              font-size: 17px;
-              line-height: 28px; }
-              #container #content section aside ul .active {
-                font-weight: 700; }
-                #container #content section aside ul .depth2 {
-                  list-style-type: none; }
-                  #container #content section aside ul .depth6 {
-                    margin-left: 20px; }
-                    #container #content section aside ul .depth8 {
-                      margin-left: 40px; }
-          #container #content section aside .viz {
-            display: block;
-            height: 200px;
-            width: 100%; }
-            @media all and (max-width: 768px) {
-              #container #content section aside {
-                margin: 20px 20px 0 20px;
-                width: auto;   }
+            #container #content section aside .viz {
+              display: block;
+              height: 200px;
+              width: 100%; }
+              @media all and (max-width: 768px) {
+                #container #content section aside {
+                  margin: 20px 20px 0 20px;
+                  width: auto;   }
 }
       #container #content section content {
         -webkit-box-flex: 1;
@@ -668,6 +656,20 @@ body.home #container {
       #container #content section .stat sub {
         font-size: 11px;   }
 }
+
+ul.heirarchy {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  list-style-type: none; }
+  ul.heirarchy .active {
+    font-weight: 700; }
+    ul.heirarchy .depth2 {
+      list-style-type: none; }
+      ul.heirarchy .depth6 {
+        margin-left: 10px; }
+        ul.heirarchy .depth8 {
+          margin-left: 20px; }
 body.explore #container {
   margin-top: 0; }
   body.explore #hamburger {

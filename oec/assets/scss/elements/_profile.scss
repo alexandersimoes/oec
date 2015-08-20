@@ -161,3 +161,28 @@
   }
 
 }
+
+ul.heirarchy {
+
+  font-family: $sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  list-style-type: none;
+
+  .active {
+    font-weight: 700;
+  }
+
+  .depth2 {
+    list-style-type: none;
+  }
+
+  .depth6 {
+    margin-left: 10px;
+  }
+
+  .depth8 {
+    margin-left: 20px;
+  }
+
+}

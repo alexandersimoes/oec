@@ -72,11 +72,13 @@
 
   <aside>
     {% if g.page_sub_type == "product" %}
-    <ul>
+    <ul class="heirarchy">
       {% for attr in profile.heirarchy() %}
-      <li class="depth{{ attr.id|length }}{% if attr.id == profile.attr.id %} active{% endif %}"><a href="{{ attr.get_profile_url() }}">
-        {{ attr.id }} - {{ attr.get_attr_name() }}
-      </a></li>
+      <li class="depth{{ attr.id|length }}{% if attr.id == profile.attr.id %} active{% endif %}">
+        {% if attr.id|length != 2 %}<a href="{{ attr.get_profile_url() }}">{% endif %}
+        {{ attr.get_display_id() }}. {{ attr.get_attr_name() }}
+        {% if attr.id|length != 2 %}</a>{% endif %}
+      </li>
       {% endfor %}
     </ul>
     {% else %}
