@@ -64,3 +64,89 @@ Adding the Observatory to computer via virtualenv
         pybabel update -i messages.pot -d oec/translations
         pybabel compile -d oec/translations
 
+
+#Deploying to a linux server
+###Step 1: Install virtual environments and pip
+```$ sudo apt-get install python-virtualenv python-pip git libmysqlclient-dev python-dev```
+
+###Step 2: Create virtual environment
+```$ virtualenv oec```
+```$ source oec/bin/activate```
+
+###Step 3: Pull in app from github
+```$ git clone https://github.com/alexandersimoes/oec.git -b v3.0 —-single-branch```
+
+###Step 4: Install python requirements
+```$ pip install -r requirements.txt```
+
+###Step 5: Install gunicorn
+```$ pip install gunicorn```
+
+###Step 6: Set environment vars
+```
+export OEC_SECRET_KEY=yet_another_supers3cret_k35y
+export OEC_DB_USER=oec_user
+export OEC_DB_PW=oec_pw
+export OEC_DB_HOST=localhost
+export OEC_DB_NAME=oec
+export CACHE_DIR=/home/macro/sites/oec/cache
+export OEC_PRODUCTION=1
+```
+
+###Step 7: Make cache directory
+```$ mkdir /home/macro/sites/oec/cache```
+
+###Step 7: Create nginx config 
+```$ sudo nano /etc/nginx/sites-available/oec.conf```
+
+```
+server {
+    listen 80;
+    server_name 104.239.233.5;
+ 
+    root /home/macro/sites/oec;
+ 
+    access_log /home/macro/sites/oec/logs/access.log;
+    error_log /home/macro/sites/oec/logs/error.log;
+
+    location / {
+        proxy_set_header X-Forward-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        if (!-f $request_filename) {
+            proxy_pass http://127.0.0.1:8000;
+            break;
+        }
+    }
+}
+```
+```$ sudo ln -s /etc/nginx/sites-available/oec.conf /etc/nginx/sites-enabled/```
+ 
+###Step 8: Create dir for logs
+```$ mkdir /home/macro/sites/oec/logs```
+
+###Step 9: Check nginx config
+```$ sudo nginx -t```
+
+###Step 10: Using supervisor to autostart/manage gunicorn process
+```sudo apt-get install supervisor```
+
+###Step 11: Create supervisor config
+```$ sudo nano /etc/supervisor/conf.d/oec.conf```
+
+```
+[program:oec]
+command = /home/macro/venv/oec/bin/gunicorn oec:app
+directory = /home/macro/sites/oec
+user = macro
+stdout_logfile = /home/macro/sites/oec/logs/gunicorn.log
+redirect_stderr = true
+environment=PATH="/home/macro/venv/oec/bin", OEC_SECRET_KEY="oec-secret-key", OEC_DB_USER="oec_user", OEC_DB_PW="oec_pw", OEC_DB_HOST="localhost", OEC_DB_NAME="oec", CACHE_DIR="/home/macro/sites/oec/cache", OEC_PRODUCTION="1"
+```
+
+###Step 13: Start up supervisor
+```
+$ sudo supervisorctl reread
+$ sudo supervisorctl update
+$ sudo supervisorctl status oec
+```
