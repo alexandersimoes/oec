@@ -344,77 +344,6 @@ body.home #container {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1; }
-    #container #content .profile_header {
-      -webkit-justify-content: center;
-      -moz-justify-content: center;
-      justify-content: center;
-      display: -webkit-box;
-      display: -moz-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-align-items: center;
-      align-items: center;
-      -webkit-justify-content: center;
-      -moz-justify-content: center;
-      justify-content: center;
-      -webkit-transition: box-shadow 0.1s;
-      -moz-transition: box-shadow 0.1s;
-      -o-transition: box-shadow 0.1s;
-      transition: box-shadow 0.1s;
-      height: 150px;
-      overflow: hidden;
-      -webkit-transform: translateZ(0);
-      z-index: 5; }
-      #container #content .profile_header .header {
-        position: absolute;
-        z-index: -1; }
-        #container #content .profile_header .icon {
-          -webkit-box-flex: none;
-          -moz-box-flex: none;
-          -webkit-flex: none;
-          -ms-flex: none;
-          flex: none;
-          height: 80px;
-          margin: 0 20px 0 0;
-          width: 80px;
-          -webkit-filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
-          filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5)); }
-          @media all and (max-width: 768px) {
-            #container #content .profile_header .icon {
-              margin: 0;   }
-}
-      #container #content .profile_header:hover .author {
-        opacity: 1; }
-      #container #content .profile_header h1 {
-        color: #fff;
-        position: relative;
-        text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
-        width: 100%; }
-        #container #content .profile_header h1 sub {
-          color: white;
-          display: block;
-          font-size: 11px;
-          text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5); }
-          #container #content .profile_header h1 sub.author {
-            -webkit-transition: opacity 0.5s;
-            -moz-transition: opacity 0.5s;
-            -o-transition: opacity 0.5s;
-            transition: opacity 0.5s;
-            bottom: -15px;
-            opacity: 0;
-            position: absolute; }
-            @media all and (max-width: 768px) {
-              #container #content .profile_header h1 sub.author {
-                position: static;   }
-}
-          #container #content .profile_header h1 sub i {
-            display: inline-block;
-            margin: 2px 5px 0; }
-            #container #content .profile_header h1 sub a {
-              color: white; }
-              #container #content .profile_header h1 sub a:hover {
-                border-color: transparent; }
     #container #content header {
       -webkit-justify-content: center;
       -moz-justify-content: center;
@@ -470,83 +399,6 @@ body.home #container {
       display: -ms-flexbox;
       display: -webkit-flex;
       display: flex; }
-      #container #content section .profile_button {
-        -webkit-box-flex: 1;
-        -moz-box-flex: 1;
-        -webkit-flex: 1;
-        -ms-flex: 1;
-        flex: 1;
-        background-color: black;
-        margin-top: 50px; }
-        #container #content section .profile_button .header {
-          height: 110%;
-          margin-left: -5px;
-          margin-top: -5px;
-          position: absolute;
-          width: 110%;
-          z-index: -1;
-          -webkit-filter: blur(5px) contrast(1.1) brightness(0.8); }
-          #container #content section .profile_button .icon {
-            margin: 0 25px; }
-            #container #content section .profile_button h1 {
-              font-size: 25px; }
-              #container #content section .profile_button:first-child {
-                margin-right: 1px; }
-                #container #content section .profile_button:last-child {
-                  margin-left: 1px;
-                  text-align: right; }
-      #container #content section#stats {
-        padding: 6px 0 7px; }
-        @media all and (max-width: 768px) {
-          #container #content section {
-            -webkit-flex-direction: column;
-            -moz-flex-direction: column;
-            flex-direction: column;   }
-            #container #content section#stats {
-              -webkit-flex-direction: row;
-              -moz-flex-direction: row;
-              flex-direction: row;   }
-}
-      #container #content section .stat {
-        -webkit-justify-content: center;
-        -moz-justify-content: center;
-        justify-content: center;
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-flex-direction: column;
-        -moz-flex-direction: column;
-        flex-direction: column;
-        -webkit-align-items: center;
-        align-items: center;
-        -webkit-box-flex: 1;
-        -moz-box-flex: 1;
-        -webkit-flex: 1;
-        -ms-flex: 1;
-        flex: 1;
-        border-right: 1px solid rgba(0, 0, 0, 0.1);
-        color: white;
-        margin: 0;
-        padding: 0 10px;
-        text-align: center; }
-        #container #content section .stat:last-child {
-          border-right: none; }
-          #container #content section .stat h3 {
-            font-size: 20px;
-            font-weight: 200; }
-            @media all and (max-width: 768px) {
-              #container #content section .stat h3 {
-                font-size: 16px;   }
-}
-        #container #content section .stat sub {
-          font-size: 14px;
-          font-weight: 200; }
-          @media all and (max-width: 768px) {
-            #container #content section .stat sub {
-              font-size: 11px;   }
-}
       #container #content section h4 {
         margin: 10px 0; }
         #container #content section aside {
@@ -666,6 +518,155 @@ body.home #container {
   @media all and (max-width: 1024px) {
     #mask.open {
       display: block;   }
+}
+#container #content .profile_header {
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  -webkit-transition: box-shadow 0.1s;
+  -moz-transition: box-shadow 0.1s;
+  -o-transition: box-shadow 0.1s;
+  transition: box-shadow 0.1s;
+  height: 150px;
+  overflow: hidden;
+  -webkit-transform: translateZ(0);
+  z-index: 5; }
+  #container #content .profile_header .header {
+    position: absolute;
+    z-index: -1; }
+    #container #content .profile_header .icon {
+      -webkit-box-flex: none;
+      -moz-box-flex: none;
+      -webkit-flex: none;
+      -ms-flex: none;
+      flex: none;
+      height: 80px;
+      margin: 0 20px 0 0;
+      width: 80px;
+      -webkit-filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5)); }
+      @media all and (max-width: 768px) {
+        #container #content .profile_header .icon {
+          margin: 0;   }
+}
+  #container #content .profile_header:hover .author {
+    opacity: 1; }
+  #container #content .profile_header h1 {
+    color: #fff;
+    position: relative;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    width: 100%; }
+    #container #content .profile_header h1 sub {
+      color: white;
+      display: block;
+      font-size: 11px;
+      text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5); }
+      #container #content .profile_header h1 sub.author {
+        -webkit-transition: opacity 0.5s;
+        -moz-transition: opacity 0.5s;
+        -o-transition: opacity 0.5s;
+        transition: opacity 0.5s;
+        bottom: -15px;
+        opacity: 0;
+        position: absolute; }
+        @media all and (max-width: 768px) {
+          #container #content .profile_header h1 sub.author {
+            position: static;   }
+}
+      #container #content .profile_header h1 sub i {
+        display: inline-block;
+        margin: 2px 5px 0; }
+        #container #content .profile_header h1 sub a {
+          color: white; }
+          #container #content .profile_header h1 sub a:hover {
+            border-color: transparent; }
+#container #content section .profile_button {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  background-color: black;
+  margin-top: 50px; }
+  #container #content section .profile_button .header {
+    height: 110%;
+    margin-left: -5px;
+    margin-top: -5px;
+    position: absolute;
+    width: 110%;
+    z-index: -1;
+    -webkit-filter: blur(5px) contrast(1.1) brightness(0.8); }
+    #container #content section .profile_button .icon {
+      margin: 0 25px; }
+      #container #content section .profile_button h1 {
+        font-size: 25px; }
+        #container #content section .profile_button:first-child {
+          margin-right: 1px; }
+          #container #content section .profile_button:last-child {
+            margin-left: 1px;
+            text-align: right; }
+#container #content section#stats {
+  padding: 6px 0 7px; }
+  @media all and (max-width: 768px) {
+    #container #content section {
+      -webkit-flex-direction: column;
+      -moz-flex-direction: column;
+      flex-direction: column;   }
+      #container #content section#stats {
+        -webkit-flex-direction: row;
+        -moz-flex-direction: row;
+        flex-direction: row;   }
+}
+#container #content section .stat {
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  color: white;
+  margin: 0;
+  max-width: 150px;
+  padding: 0 10px;
+  text-align: center; }
+  #container #content section .stat:last-child {
+    border-right: none; }
+    #container #content section .stat h3 {
+      font-size: 20px;
+      font-weight: 200; }
+      @media all and (max-width: 768px) {
+        #container #content section .stat h3 {
+          font-size: 16px;   }
+}
+  #container #content section .stat sub {
+    font-size: 14px;
+    font-weight: 200; }
+    @media all and (max-width: 768px) {
+      #container #content section .stat sub {
+        font-size: 11px;   }
 }
 body.explore #container {
   margin-top: 0; }
