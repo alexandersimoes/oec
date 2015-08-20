@@ -212,6 +212,10 @@ class Country_name(db.Model, AutoSerialize):
 
     def __repr__(self):
         return '<Country Name %s:%s>' % (self.origin_id, self.lang)
+    
+    @hybrid_property
+    def id(self):
+        return self.origin_id
 
 class Hs92(ProdAttr):
     __tablename__ = 'attr_hs92'

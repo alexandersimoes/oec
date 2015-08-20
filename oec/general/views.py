@@ -123,7 +123,13 @@ def iframe_test(lang="en"):
 @mod.route('search/')
 def search():
     query = request.args.get('q', '')
-    results = {"items": Search(query).results()}
+    mode = request.args.get('mode', 'explore')
+    data_filter = request.args.get('filter', None)
+    if mode == "explore":
+        results = {"items": Search(query).results()}
+    else:
+        results = Search(query, mode, data_filter).results()
+        results = {"items": [s.serialize() for s in results]}
     return jsonify(results)
 
 ###############################

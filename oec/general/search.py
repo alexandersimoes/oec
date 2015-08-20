@@ -2,15 +2,19 @@ import itertools
 from textblob import TextBlob
 from sqlalchemy import desc, func
 from flask import g
-from oec.db_attr.models import Country, Country_name, Sitc, Sitc_name, Hs92, Hs92_name
+from oec.db_attr.models import Country, Country_name, Sitc, Sitc_name, Hs92, Hs92_name, \
+                                Hs96, Hs96_name, Hs02, Hs02_name, Hs07, Hs07_name
+from oec import db, db_data
 from oec.explore import models
 from oec import db_data, available_years
 
 class Search():
     text = None
 
-    def __init__(self, text=""):
+    def __init__(self, text="", mode="explore", filter=None):
         self.text = TextBlob(text)
+        self.mode = mode
+        self.filter = filter
         self.classification = "hs92"
         self.trade_flow = "export"
         self.year = available_years[self.classification][-1]
@@ -245,24 +249,45 @@ class Search():
 
     def results(self):
         lang = getattr(g, "locale", "en")
-        excluded_tags = ['TO', 'DT']
-        cleaned_words = [tag[0] for tag in self.text.tags if tag[1] not in excluded_tags]
+        if self.mode == "explore":
+            excluded_tags = ['TO', 'DT']
+            cleaned_words = [tag[0] for tag in self.text.tags if tag[1] not in excluded_tags]
 
-        self.sitc, self.hs, trade_flow = [[]]*3
-        self.countries = self.get_attrs(cleaned_words, Country_name, "country", lang)
+            self.sitc, self.hs, trade_flow = [[]]*3
+            self.countries = self.get_attrs(cleaned_words, Country_name, "country", lang)
         
-        flat_countries = [item.get_name() for sublist in self.countries for item in sublist]
+            flat_countries = [item.get_name() for sublist in self.countries for item in sublist]
 
-        country_words = [c.split() for c in flat_countries]
-        country_words = [item for sublist in country_words for item in sublist]
-        if len(country_words) < len(cleaned_words):
-            self.sitc = sum(self.get_attrs(cleaned_words, Sitc_name, "sitc", lang, 2), [])
-            self.hs = sum(self.get_attrs(cleaned_words, Hs92_name, "hs", lang, 2), [])
-            self.trade_flow = self.get_trade_flow(self.text) or "export"
+            country_words = [c.split() for c in flat_countries]
+            country_words = [item for sublist in country_words for item in sublist]
+            if len(country_words) < len(cleaned_words):
+                self.sitc = sum(self.get_attrs(cleaned_words, Sitc_name, "sitc", lang, 2), [])
+                self.hs = sum(self.get_attrs(cleaned_words, Hs92_name, "hs", lang, 2), [])
+                self.trade_flow = self.get_trade_flow(self.text) or "export"
 
-        if len(self.countries) + len(self.sitc) + len(self.hs) == 0:
-            return []
+            if len(self.countries) + len(self.sitc) + len(self.hs) == 0:
+                return []
 
-        builds = self.get_builds()
+            builds = self.get_builds()
 
-        return builds
+            return builds
+        else:
+            Attr = globals()[self.mode.title()]
+            Attr_name = globals()["{}_name".format(self.mode.title())]
+            if self.mode == "country":
+                Data_model = getattr(db_data, "{}_models".format(self.classification)).Yo
+                data_join_col = Data_model.origin_id
+            else:
+                Data_model = getattr(db_data, "{}_models".format(self.mode)).Yp
+                data_join_col = getattr(Data_model, "{}_id".format(self.mode))
+            query = db.session.query(Attr, Attr_name, Data_model) \
+                    .filter(Attr.id == Attr_name.id) \
+                    .filter(Attr_name.lang == lang) \
+                    .filter(data_join_col == Attr.id) \
+                    .filter(Data_model.year == 2013)
+            if self.filter:
+                query = query.filter(Attr_name.id.startswith(self.filter))
+            if self.text:
+                query = query.filter(Attr_name.name.contains(self.text))
+            query = query.order_by(Data_model.export_val.desc())
+            return [r[0] for r in query.all()]
