@@ -838,6 +838,7 @@ ul.heirarchy {
     ul.heirarchy .active {
       font-weight: 700; }
       ul.heirarchy .depth2 {
+        font-weight: 700;
         list-style-type: none; }
         ul.heirarchy .depth6 {
           margin-left: 10px; }

@@ -75,9 +75,13 @@
     <ul class="heirarchy">
       {% for attr in profile.heirarchy() %}
       <li class="depth{{ attr.id|length }}{% if attr.id == profile.attr.id %} active{% endif %}">
-        {% if attr.id|length != 2 %}<a href="{{ attr.get_profile_url() }}">{% endif %}
-        {{ attr.get_display_id() }}. {{ attr.get_attr_name() }}
-        {% if attr.id|length != 2 %}</a>{% endif %}
+        {% if attr.id|length != 2 %}
+        <a href="{{ attr.get_profile_url() }}">
+          {{ attr.get_display_id() }}. {{ attr.get_attr_name() }}
+        </a>
+        {% else %}
+        {{ attr.get_attr_name() }}
+        {% endif %}
       </li>
       {% endfor %}
     </ul>
