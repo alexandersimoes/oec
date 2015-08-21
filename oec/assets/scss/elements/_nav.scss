@@ -49,6 +49,10 @@ nav {
       }
     }
 
+    & > ul {
+      padding-left: 15px;
+    }
+
     ul {
       @include flex-size(1);
       text-align: left;
@@ -131,7 +135,7 @@ nav {
         }
 
         .sub_menu {
-          padding: 0 0 10px 70px;
+          padding: 0 0 10px 55px;
 
           h5 {
             color: #aaa;

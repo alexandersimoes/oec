@@ -1,5 +1,9 @@
 body.home {
 
+  #hamburger {
+    color: $color;
+  }
+
   #container {
     margin-top: 0;
 
@@ -7,6 +11,7 @@ body.home {
       text-align: center;
 
       #big_logo {
+        max-width: 800px;
         width: 90%;
       }
 
@@ -24,14 +29,19 @@ body.home {
           display: inline-block;
           font-size: 13px;
           margin: 10px 20px 10px 0;
-          width: 150px;
+          width: 130px;
 
           &:hover {
             border-bottom: 0;
+            img {
+              @include shadow();
+            }
           }
 
           img {
+            @include rounded(50px);
             display: block;
+            margin-bottom: 10px;
           }
 
         }
