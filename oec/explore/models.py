@@ -337,8 +337,10 @@ class Build(object):
         return "<Build: {}:{}:{}:{}:{}>".format(self.viz["slug"], self.trade_flow, self.origin, self.dest, self.prod)
 
 def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, viz=None):
-    origin_id = defaults["origin"] if any(x in origin_id for x in ["show", "all"]) else origin_id
-    dest_id = defaults["dest"] if any(x in dest_id for x in ["show", "all"]) else dest_id
+    if origin_id:
+        origin_id = defaults["origin"] if any(x in origin_id for x in ["show", "all"]) else origin_id
+    if dest_id:
+        dest_id = defaults["dest"] if any(x in dest_id for x in ["show", "all"]) else dest_id
     try:
         prod_id = defaults["prod"] if any(x in prod_id for x in ["show", "all"]) else prod_id
     except:
@@ -351,6 +353,7 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
         {"origin": origin_id, "dest": dest_id, "prod": "show"},
         {"origin": origin_id, "dest": "show", "prod": prod_id},
     ]
+    build_types = filter(lambda x: None not in x.values(), build_types)
 
     wanted_viz = all_viz
     if viz:
