@@ -10,7 +10,7 @@
       <img src="/static/img/nav/oec.png">
     </a>
 
-    <div id="search">
+    <div id="search_button">
       <i class="fa fa-search"></i>{{ _('Search') }}
     </div>
 
@@ -168,13 +168,23 @@
   </footer>
 
   <div id="search">
-    <input id="search" type="text" data-provide="typeahead" autocomplete="off" placeholder="" />
+    <div id="search_div">
+      <i class="fa fa-search"></i>
+      <input id="search_input" type="text" placeholder="{{ _('Search') }}" />
+      <div id="search_modes">
+        <select id="search_mode_selector">
+          <option value="all">No Filter</option>
+          <option value="country" selected>Countries</option>
+          <option value="hs92">Products</option>
+          <option value="explore">Visualizations</option>
+        </select>
+      </div>
+    </div>
+    <div id="search_results"></div>
   </div>
 
 </div>
 
-<script src="/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
-<script src="/static/js/libs/typeahead.min.js"></script>
 <script>
 
   var page = "{{ g.page_type }}", sub_page = "{{ g.page_sub_type }}" || "none";
@@ -189,7 +199,7 @@
 
   // Sets the search box background color.
   var rgb = d3.rgb(color);
-  d3.select("#search").style("background-color", "rgba("+rgb.r+", "+rgb.g+", "+rgb.b+", 0.05)");
+  d3.select("#search_button").style("background-color", "rgba("+rgb.r+", "+rgb.g+", "+rgb.b+", 0.1)");
 
   // Sets paragraph link styles
   d3.selectAll("aside a, p a")
@@ -313,7 +323,7 @@
   // Logic for resizing the header canvas image, if present.
   function resizeCanvas() {
 
-    if (!img.empty()) {
+    if (img && !img.empty()) {
 
       setTimeout(function(){
 
@@ -352,6 +362,101 @@
 
   resizeFunctions.push(resizeCanvas);
   scrollFunctions.push(resizeHeader);
+
+  function search_results(data) {
+
+    if (!data) data = [];
+
+    var results = d3.select("#search_results").selectAll(".result")
+      .data(data, function(d){ return d.id; });
+
+    var enter = results.enter().append("div")
+      .attr("class", "result")
+      .style("background-color", function(d){
+        return analyze_palette(d.palette) || d.color;
+      });
+
+    enter.append("img")
+      .attr("class", "icon")
+      .attr("src", function(d) { return d.icon; });
+
+    enter.append("h1")
+      .text(function(d){ return d.id; })
+
+    results.exit().remove();
+
+  }
+
+  var search_mode = "country";
+
+  var search_form = d3plus.form()
+    .data("#search_mode_selector")
+    .focus(search_mode, function(d){
+      if (d !== search_mode) {
+        clear_search(d);
+      }
+    })
+    .font({
+      "size": 14
+    })
+    .ui({"padding": 8})
+    .draw()
+
+  function search_term(q) {
+    d3.json("/search/?mode=" + search_mode + "&q=" + q, function(error, data){
+      if (!error) {
+        search_results(data.items);
+      }
+    });
+  }
+
+  d3.select("#search_input").on("keyup", function(){
+    var q = this.value;
+    if (q.length) {
+      search_term(q);
+    }
+    else {
+      search_results();
+    }
+  })
+
+  d3.select("#search").on("click", function(){
+    if (d3.event.toElement === this || d3.event.toElement === d3.select("#search_results").node()) {
+      close_search();
+    }
+  })
+
+  function clear_search(mode) {
+    search_mode = mode;
+    search_results();
+    d3.select("#search_input").node().value = "";
+    d3.select("#search_input").node().focus();
+  }
+
+  function search(mode) {
+
+    if (mode && mode !== search_mode) {
+      search_form.focus(mode).draw();
+    }
+
+    d3.select("#search").style("visibility", "visible").classed("visible", true);
+    d3.select("#search_input").node().focus();
+
+  }
+
+  function close_search() {
+    d3.select("#search").classed("visible", false);
+    setTimeout(function(){
+      d3.select("#search").style("visibility", "hidden");
+    }, 500);
+  }
+
+  d3.select("#search_button").on("click", function(){
+    search("all");
+  });
+
+  search();
+  search_term("unit");
 
 </script>
 

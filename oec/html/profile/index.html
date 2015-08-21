@@ -156,17 +156,12 @@
 
 <script>
 
-  var palette = JSON.parse("{{ profile.palette()|safe }}".replace(/'/g, '"')),
+  var palette = "{{ profile.palette()|safe }}",
       color;
 
   if (palette.length) {
-    for (var p = 0; p < palette.length; p++) {
-      var c = d3.hsl(palette[p]);
-      if (c.l > 0.5) {
-        color = d3plus.color.legible(palette[p]);
-        break;
-      }
-    }
+    palette = JSON.parse(palette.replace(/'/g, '"'));
+    color = analyze_palette(palette);
     if (!color) color = palette[1];
   }
   else {
@@ -348,6 +343,12 @@
   buildScroll(0);
 
   scrollFunctions.push(buildScroll);
+
+  var classification = "{{ g.page_sub_type }}";
+  if (classification === "product") classification = "hs92";
+  d3.select("header").on("click", function(){
+    search(classification);
+  })
 
   // Demo Mode
   // setTimeout(function(){

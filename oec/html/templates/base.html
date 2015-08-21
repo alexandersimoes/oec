@@ -54,6 +54,22 @@
       oec.translations = {{ g.translations|safe }};
       oec.locale = "{{ g.locale }}";
 
+      function analyze_palette(palette) {
+        if (!palette) return;
+        if (palette.constructor === String) {
+          palette = JSON.parse(palette.replace(/'/g, '"'));
+        }
+        var color;
+        for (var p = 0; p < palette.length; p++) {
+          var c = d3.hsl(palette[p]);
+          if (c.l > 0.5) {
+            color = d3plus.color.legible(palette[p]);
+            break;
+          }
+        }
+        return color;
+      }
+
     </script>
 
     {% block head %}
