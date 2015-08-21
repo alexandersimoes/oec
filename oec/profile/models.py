@@ -375,7 +375,7 @@ class Product(Profile):
         importers_subtitle = u"This treemap shows the share of countries that import {}.".format(self.attr.get_name())
         trade_section["builds"].append({"title": u"Importers", "build": importers, "subtitle": importers_subtitle})
 
-        rings = Build("rings", self.classification, "export", None, "all", self.attr, self.year)
+        rings = Build("rings", self.classification, "export", "all", "all", self.attr, self.year)
         rings_subtitle = u"The rings visualization shows the primary and secondary network connections for {} in the Product Space.".format(self.attr.get_name())
         trade_section["builds"].append({"title": u"Rings", "build": rings, "subtitle": rings_subtitle})
 

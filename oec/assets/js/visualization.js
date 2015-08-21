@@ -15,8 +15,13 @@ var visualization = function(build, container) {
 
   /* need to grab json network file for rings and product space */
   if(build.viz.slug == "network" || build.viz.slug == "rings"){
-    viz.nodes("/static/json/network_hs.json", function(network){
+    var network_file = "/static/json/network_hs.json";
+    if(build.viz.slug == "rings" && build.prod.id.length == 8){
+      network_file = "/static/json/network_hs6.json";
+    }
+    viz.nodes(network_file, function(network){
       viz.edges(network.edges);
+      console.log(network.edges)
       return network.nodes;
     })
   }
