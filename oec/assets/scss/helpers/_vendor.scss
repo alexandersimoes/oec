@@ -14,8 +14,8 @@
   -moz-filter: blur($radius + px);
   -ms-filter: blur($radius + px);
   -o-filter: blur($radius + px);
-  filter: url(blur.svg#blur);
-  filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='#{$radius}');
+  // filter: url(blur.svg#blur);
+  // filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='#{$radius}');
 }
 
 @mixin image($image, $width, $height, $hd: none) {

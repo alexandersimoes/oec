@@ -173,8 +173,8 @@
       <input id="search_input" type="text" placeholder="{{ _('Search') }}" />
       <div id="search_modes">
         <select id="search_mode_selector">
-          <option value="all">No Filter</option>
-          <option value="country" selected>Countries</option>
+          <option value="all" selected>No Filter</option>
+          <option value="country">Countries</option>
           <option value="hs92">Products</option>
           <option value="explore">Visualizations</option>
         </select>
@@ -363,31 +363,98 @@
   resizeFunctions.push(resizeCanvas);
   scrollFunctions.push(resizeHeader);
 
-  function search_results(data) {
+  function add_results(container, data) {
 
-    if (!data) data = [];
+    var g = container.node().id;
+    if (g === "search_results") g = search_mode;
 
-    var results = d3.select("#search_results").selectAll(".result")
+    var results = container.selectAll(".result")
       .data(data, function(d){ return d.id; });
 
-    var enter = results.enter().append("div")
+    var enter = results.enter().append("a")
       .attr("class", "result")
+      .attr("href", function(d){
+        var p = "/" + oec.locale + "/";
+        return !d.id ? p + "explore/" + d.name : p + "profile/" + g + "/" + d.display_id;
+      })
       .style("background-color", function(d){
-        return analyze_palette(d.palette) || d.color;
+        return analyze_palette(d.palette) || d.color || "#0085BF";
       });
+
+    enter.each(function(d){
+      if (d.image) {
+        d3.select(this).append("img")
+          .attr("class", "background")
+          .attr("src", d.image);
+      }
+    });
 
     enter.append("img")
       .attr("class", "icon")
-      .attr("src", function(d) { return d.icon; });
+      .attr("src", function(d) {
+        return d.icon || "/static/img/icons/app/app_" + d.name.split("/")[0] + ".png";
+      });
 
     enter.append("h1")
-      .text(function(d){ return d.id; })
+      .text(function(d){
+        return d.value || d.name || d.display_id;
+      })
 
     results.exit().remove();
 
   }
 
-  var search_mode = "country";
+  function search_results(data) {
+
+    if (!data) data = {};
+
+    var titles = {
+      "country": "Countries",
+      "hs92": "Products",
+      "explore": "Visualizations"
+    }
+
+    var group_data = [];
+    ["country", "hs92", "explore"].forEach(function(g){
+      if (data[g] && data[g].length) {
+        group_data.push(g);
+      }
+    })
+
+    d3.select("#search_results").selectAll("*").remove();
+    if (group_data.length > 1) {
+
+      var groups = d3.select("#search_results").selectAll(".search_group")
+        .data(group_data, String);
+
+      groups.enter().append("div")
+        .attr("class", "search_group")
+        .attr("id", String)
+        .append("h1").text(function(g){ return titles[g]; });
+
+      groups.each(function(g){
+        add_results(d3.select(this), data[g]);
+      });
+
+      groups.exit().remove();
+
+    }
+    else if (group_data.length === 1) {
+
+      add_results(d3.select("#search_results"), data[group_data[0]]);
+
+    }
+    else if (search_query.length) {
+
+      d3.select("#search_results").append("h1")
+        .style("text-align", "center")
+        .text("No Results");
+
+    }
+
+  }
+
+  var search_mode = "all", search_query = "", attrs = {};
 
   var search_form = d3plus.form()
     .data("#search_mode_selector")
@@ -402,21 +469,85 @@
     .ui({"padding": 8})
     .draw()
 
-  function search_term(q) {
-    d3.json("/search/?mode=" + search_mode + "&q=" + q, function(error, data){
-      if (!error) {
-        search_results(data.items);
-      }
+  function filterData(a, q) {
+    return attrs[a].filter(function(d){
+      return d.name.toLowerCase().indexOf(q) >= 0 ||
+             d.id.indexOf(q) === 0 ||
+             (d.display_id && d.display_id.indexOf(q) === 0) ||
+             (d.keywords && d.keywords.indexOf(q) >= 0);
     });
   }
 
-  d3.select("#search_input").on("keyup", function(){
-    var q = this.value;
-    if (q.length) {
-      search_term(q);
+  function search_term(q) {
+
+    var m = search_mode === "all" ? "" : "&mode=" + search_mode;
+
+    var categories = search_mode;
+    if (categories === "all") {
+      categories = ["country", "hs92"];
     }
     else {
-      search_results();
+      categories = [categories];
+    }
+
+    var data = {};
+    function loadAttr() {
+      if (categories.length) {
+        var a = categories.pop();
+        if (!attrs[a]) {
+          load("/attr/" + a, function(d){
+            attrs[a] = d.data;
+            data[a] = filterData(a, q);
+            loadAttr();
+          })
+        }
+        else {
+          data[a] = filterData(a, q);
+          loadAttr();
+        }
+      }
+      else if (["explore", "all"].indexOf(search_mode) >= 0) {
+        d3.json("/search/?mode=explore&q=" + q, function(error, d){
+          if (!error) {
+            data.explore = d.explore;
+            search_results(data);
+          }
+          else {
+            search_results();
+          }
+        });
+      }
+      else {
+        search_results(data);
+      }
+    }
+    loadAttr();
+
+  }
+
+  var searchInterval = "";
+  d3.select("#search_input").on("keyup", function(){
+
+    if (d3.event.keyCode === 27) {
+      close_search();
+    }
+    else {
+
+      var q = this.value.toLowerCase();
+      if (q !== search_query) {
+        clearInterval(searchInterval);
+        search_query = q;
+
+        if (q.length) {
+          searchInterval = setTimeout(function(){
+            search_term(search_query);
+          }, 300);
+        }
+        else {
+          search_results();
+        }
+      }
+
     }
   })
 
@@ -455,8 +586,8 @@
     search("all");
   });
 
-  search();
-  search_term("unit");
+  // search();
+  // search_term("unit");
 
 </script>
 

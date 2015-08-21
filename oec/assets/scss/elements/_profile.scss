@@ -42,6 +42,16 @@
         text-shadow: $shadow;
         width: 100%;
 
+        i {
+          // font-size: 35px;
+          // margin-top: 20px;
+          opacity: 0.5;
+          @media all and (max-width: 768px) {
+            // font-size: 20px;
+            // margin-top: 16px;
+          }
+        }
+
         sub {
           color: white;
           display: block;
