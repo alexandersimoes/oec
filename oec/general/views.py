@@ -122,15 +122,13 @@ def iframe_test(lang="en"):
 
 @mod.route('search/')
 def search():
-    query = request.args.get('q', '')
-    mode = request.args.get('mode', 'explore')
-    data_filter = request.args.get('filter', None)
-    if mode == "explore":
-        results = {"items": Search(query).results()}
-    else:
-        results = Search(query, mode, data_filter).results()
-        results = {"items": [s.serialize() for s in results]}
-    return jsonify(results)
+    search_args = {}
+    search_args["text"] = request.args.get('q', '')
+    search_args["mode"] = request.args.get('mode', None)
+    search_args["data_filter"] = request.args.get('filter', None)
+    search_args = {k:v for k, v in search_args.items() if v}
+    search_results = Search(**search_args).results()
+    return jsonify(search_results)
 
 ###############################
 # API views

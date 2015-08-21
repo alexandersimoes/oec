@@ -75,6 +75,7 @@ class ProdAttr(db.Model, AutoSerialize):
     def serialize(self, lang="en"):
         auto_serialized = super(ProdAttr, self).serialize()
         auto_serialized["icon"] = self.get_icon()
+        auto_serialized["image"] = self.get_image()
         try:
             auto_serialized["display_id"] = auto_serialized.pop(self.classification)
         except KeyError:
