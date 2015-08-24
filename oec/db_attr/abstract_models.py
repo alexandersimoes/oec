@@ -71,6 +71,11 @@ class ProdAttr(db.Model, AutoSerialize):
 
     def get_profile_url(self):
         return "/{}/profile/{}/{}/".format(g.locale, self.classification, getattr(self, self.classification))
+    
+    def get_profile_link(self):
+        url = self.get_profile_url()
+        name = self.get_name()
+        return '<a href="{}">{}</a>'.format(url, name)
 
     def serialize(self, lang="en"):
         auto_serialized = super(ProdAttr, self).serialize()

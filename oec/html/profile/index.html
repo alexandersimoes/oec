@@ -33,7 +33,7 @@
     <h3>{% if "imports" in stats %}${{ stats['imports']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
   <div class="stat">
-    <sub>PCI</sub>
+    <sub>{{ _("Product Complexity") }}</sub>
     <h3>{% if "pci" in stats and stats['pci'] %}{{ stats['pci']|num_format }}{% else %}&mdash;{% endif %}</h3>
   </div>
   <div class="stat">
@@ -47,24 +47,40 @@
   {% else %}
   <div class="stat">
     <sub>{{ _("Exports") }}</sub>
-    <h3>{% if "exports" in stats %}${{ stats['exports']|num_format }}{% else %}&mdash;{% endif %}</h3>
+    <h3>{% if "export_val" in stats %}${{ stats['export_val']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
+    {% if "export_val" in stats %}
+    <p>{{ stats['export_val']['rank'] }}/{{ stats['export_val']['total'] }}</p>
+    {% endif %}
   </div>
   <div class="stat">
     <sub>{{ _("Imports") }}</sub>
-    <h3>{% if "imports" in stats %}${{ stats['imports']|num_format }}{% else %}&mdash;{% endif %}</h3>
+    <h3>{% if "import_val" in stats %}${{ stats['import_val']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
+    {% if "import_val" in stats %}
+    <p>{{ stats['import_val']['rank'] }}/{{ stats['import_val']['total'] }}</p>
+    {% endif %}
   </div>
   <div class="stat">
-    <sub>ECI</sub>
-    <h3>{% if "eci" in stats %}{{ stats['eci']|num_format }}{% else %}&mdash;{% endif %}</h3>
+    <sub>{{ _("Economic Complexity") }}</sub>
+    <h3>{% if "eci" in stats %}{{ stats['eci']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
+    {% if "eci" in stats %}
+    <p>{{ stats['eci']['rank'] }}/{{ stats['eci']['total'] }}</p>
+    {% endif %}
   </div>
   <div class="stat">
     <sub>{{ _("Population") }}</sub>
-    <h3>{% if "population" in stats %}{{ stats['population']|num_format }}{% else %}&mdash;{% endif %}</h3>
+    <h3>{% if "population" in stats %}{{ stats['population']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
+    {% if "population" in stats %}
+    <p>{{ stats['population']['rank'] }}/{{ stats['population']['total'] }}</p>
+    {% endif %}
   </div>
   <div class="stat">
     <sub>{{ _("GDP") }}</sub>
-    <h3>{% if "gdp" in stats %}${{ stats['gdp']|num_format }}{% else %}&mdash;{% endif %}</h3>
+    <h3>{% if "gdp" in stats %}{{ stats['gdp']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
+    {% if "gdp" in stats %}
+    <p>{{ stats['gdp']['rank'] }}/{{ stats['gdp']['total'] }}</p>
+    {% endif %}
   </div>
+
   {% endif %}
 </section>
 

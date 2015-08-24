@@ -56,19 +56,27 @@ class Country(Profile):
     def __init__(self, classification, id):
         super(Country, self).__init__(classification, id)
         self.attr = attrs.Country.query.filter_by(id_3char = self.id).first()
+        self.cached_stats = {}
 
     def stats(self):
-        stats = {}
-        this_yo = self.models.Yo.query.filter_by(year = self.year, country = self.attr).first()
-        if this_yo:
-            stats["exports"] = this_yo.export_val
-            stats["imports"] = this_yo.import_val
-        attr_yo = attrs.Yo.query.filter_by(year = self.year, country = self.attr).first()
-        if attr_yo:
-            stats["eci"] = attr_yo.eci
-            stats["population"] = attr_yo.population
-            stats["gdp"] = attr_yo.gdp
-        return stats
+        if not self.cached_stats:
+            yo_base_q = self.models.Yo.query.filter_by(year=self.year)
+            this_yo = yo_base_q.filter_by(country=self.attr).first()
+            if this_yo:
+                for stat_type in ["export_val", "import_val"]:
+                    res = yo_base_q.order_by(desc(stat_type)).all()
+                    self.cached_stats[stat_type] = {"rank":res.index(this_yo)+1, "total":len(res), "val":getattr(this_yo, stat_type)}
+            
+            attr_yo_base_q = attrs.Yo.query.filter_by(year=self.year)
+            this_attr_yo = attr_yo_base_q.filter_by(country=self.attr).first()
+            if this_attr_yo:
+                for stat_type in ["eci", "population", "gdp"]:
+                    res = attr_yo_base_q.order_by(desc(stat_type)).all()
+                    val = getattr(this_attr_yo, stat_type)
+                    if val:
+                        self.cached_stats[stat_type] = {"rank":res.index(this_attr_yo)+1, "total":len(res), "val":val}
+            
+        return self.cached_stats
 
     def intro(self):
         all_paragraphs = []
@@ -77,35 +85,40 @@ class Country(Profile):
         this_yo = self.models.Yo.query.filter_by(year = self.year, country = self.attr).first()
         all_yo = self.models.Yo.query.filter_by(year = self.year).order_by(desc("export_val")).all()
         if this_yo:
-            econ_rank = num_format(all_yo.index(this_yo) + 1, "ordinal")
+            econ_rank = num_format(all_yo.index(this_yo) + 1, "ordinal") if all_yo.index(this_yo) else ""
             export_val = this_yo.export_val
             import_val = this_yo.import_val
             trade_balance = u"positive" if export_val > import_val else u"negative"
+            trade_delta = abs(export_val - import_val)
             this_attr_yo = attrs.Yo.query.filter_by(year = self.year, country = self.attr).first()
-            eci_rank = this_attr_yo.eci_rank
-            if eci_rank:
-                eci_rank = u"and {} most complex by ECI ranking".format(num_format(eci_rank, "ordinal"))
+            # eci_rank = this_attr_yo.eci_rank
+            if this_attr_yo and this_attr_yo.eci_rank:
+                eci_rank = u" and the {} most complex economy according to the Economic Complexity Index (ECI)".format(num_format(this_attr_yo.eci_rank, "ordinal"))
             else:
                 eci_rank = u""
-            gdp = this_attr_yo.gdp
-            gdp_pc = this_attr_yo.gdp_pc_current
-            formatted_vals = {"export_val":export_val, "import_val":import_val, "gdp":gdp, "gdp_pc":gdp_pc}
+            formatted_vals = {"export_val":export_val, "import_val":import_val, "trade_delta":trade_delta}
             formatted_vals = {k: num_format(v) for k, v in formatted_vals.items()}
-            p1 = u"The economy of {c} is the {econ_rank} largest economy in the world " \
+            p1 = u"{c} is the {econ_rank} largest export economy in the world" \
                     u"{eci_rank}. In {y}, {c} exported " \
-                    u"USD {export_val} in products and imported USD {import_val}, " \
-                    u"resulting in a {trade_balance} trade balance. In {y} the GDP of {c} " \
-                    u"was {gdp} and its GDP per capita was {gdp_pc}." \
+                    u"USD {export_val} and imported USD {import_val}, " \
+                    u"resulting in a {trade_balance} trade balance of USD {trade_delta}. " \
                     .format(c=self.attr.get_name(), y=self.year, econ_rank=econ_rank,
                         eci_rank=eci_rank, trade_balance=trade_balance, **formatted_vals)
+            if this_attr_yo:
+                gdp = this_attr_yo.gdp
+                gdp_pc = this_attr_yo.gdp_pc_current
+                formatted_vals = {"gdp":gdp, "gdp_pc":gdp_pc}
+                formatted_vals = {k: num_format(v) for k, v in formatted_vals.items()}
+                p1 += u"In {y} the GDP of {c} was {gdp} and its GDP per capita was {gdp_pc}." \
+                        .format(c=self.attr.get_name(), y=self.year, **formatted_vals)
             all_paragraphs.append(p1)
 
         ''' Paragraph #2
         '''
-        yop_exp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
+        yop_exp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr, hs92_id_len=6).order_by(desc("export_val")).limit(5).all()
         if yop_exp:
             exports_list = self.stringify_items(yop_exp, "export_val", "product")
-            yop_imp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr).order_by(desc("import_val")).limit(5).all()
+            yop_imp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr, hs92_id_len=6).order_by(desc("import_val")).limit(5).all()
             imports_list = self.stringify_items(yop_imp, "import_val", "product")
             p2 = u"The top exports of {} are {}, using the 1992 " \
                     u"revision of the HS (harmonized system) classification. " \
@@ -118,8 +131,8 @@ class Country(Profile):
         yod_exp = self.models.Yod.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
         if yod_exp:
             dest_list = self.stringify_items(yod_exp, "export_val", "dest")
-            yod_imp = self.models.Yod.query.filter_by(year = self.year, dest = self.attr).order_by(desc("export_val")).limit(5).all()
-            origin_list = self.stringify_items(yod_imp, "export_val", "origin")
+            yod_imp = self.models.Yod.query.filter_by(year = self.year, dest = self.attr).order_by(desc("import_val")).limit(5).all()
+            origin_list = self.stringify_items(yod_imp, "import_val", "origin")
             p3 = u"The top export destinations of {} are {}. " \
                     u"The top import origins are {}." \
                     .format(self.attr.get_name(), dest_list, origin_list)
@@ -141,21 +154,51 @@ class Country(Profile):
         return all_paragraphs
 
     def sections(self):
+        sections = []
         ''' Trade Section
         '''
         export_subtitle, import_subtitle, dest_subtitle, origin_subtitle = [None]*4
 
         export_tmap = Build("tree_map", "hs92", "export", self.attr, "all", "show", self.year)
-        yop_exp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
-        if yop_exp:
-            exports_list = self.stringify_items(yop_exp, "export_val", "product")
-            export_subtitle = u"The top exports by share are {}.".format(exports_list)
-
         import_tmap = Build("tree_map", "hs92", "import", self.attr, "all", "show", self.year)
-        yop_imp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr).order_by(desc("import_val")).limit(5).all()
-        if yop_imp:
-            imports_list = self.stringify_items(yop_imp, "import_val", "product")
-            import_subtitle = u"The top imports by share are {}.".format(imports_list)
+        
+        yop_base = self.models.Yop.query.filter_by(year = self.year, origin = self.attr, hs92_id_len=6)
+        # get growth
+        past_yr = self.year - 5
+        past_yo = self.models.Yo.query.filter_by(year = past_yr, country = self.attr).first()
+        this_yo = self.models.Yo.query.filter_by(year = self.year, country = self.attr).first()
+        if self.stats().get("export_val"):
+            exp_rank = num_format(self.stats()["export_val"]["rank"], "ordinal") if self.stats()["export_val"]["rank"] > 1 else ""
+            export_subtitle = u"In {} {} exported {}, making it the {} largest exporter in the world. " \
+                                .format(self.year, self.attr.get_name(), num_format(self.stats()["export_val"]["val"]), exp_rank)
+            if past_yo:
+                chg = "increased" if this_yo.export_val_growth_pct_5 >= 0 else "decreased"
+                export_subtitle += u"During the last five years the exports of {} have {} at an annualized rate of {}%, " \
+                                    u"from USD {} in {} to USD {} in {}. " \
+                                    .format(self.attr.get_name(), chg, num_format(this_yo.export_val_growth_pct_5*100), \
+                                        num_format(past_yo.export_val), past_yr, num_format(this_yo.export_val), self.year)
+            top_exports = yop_base.order_by(desc("export_val")).limit(2).all()
+            if top_exports:
+                export_subtitle += u"The most recent exports are lead by {}, which represent {}% of the total exports of {}, " \
+                                    u"followed by {}, which account for {}%." \
+                                    .format(top_exports[0].product.get_profile_link(), num_format((top_exports[0].export_val/self.stats()["export_val"]["val"])*100), \
+                                        self.attr.get_name(), top_exports[1].product.get_profile_link(), num_format((top_exports[1].export_val/self.stats()["export_val"]["val"])*100))
+
+        if self.stats().get("import_val"):
+            imp_rank = num_format(self.stats()["import_val"]["rank"], "ordinal") if self.stats()["import_val"]["rank"] > 1 else ""
+            import_subtitle = u"In {} {} imported {}, making it the {} largest importer in the world. " \
+                                .format(self.year, self.attr.get_name(), num_format(self.stats()["import_val"]["val"]), imp_rank)
+            if past_yo:
+                chg = "increased" if this_yo.import_val_growth_pct_5 >= 0 else "decreased"
+                import_subtitle += u"During the last five years the imports of {} have {} at an annualized rate of {}%, " \
+                                    u"from USD {} in {} to USD {} in {}. " \
+                                    .format(self.attr.get_name(), chg, num_format(this_yo.import_val_growth_pct_5*100), num_format(past_yo.import_val), past_yr, num_format(this_yo.import_val), self.year)
+            top_imports = yop_base.order_by(desc("import_val")).limit(2).all()
+            if top_imports:
+                import_subtitle += u"The most recent imports are lead by {}, which represent {}% of the total imports of {}, " \
+                                    u"followed by {}, which account for {}%." \
+                                    .format(top_imports[0].product.get_profile_link(), num_format((top_imports[0].import_val/self.stats()["import_val"]["val"])*100), \
+                                        self.attr.get_name(), top_imports[1].product.get_profile_link(), num_format((top_imports[1].import_val/self.stats()["import_val"]["val"])*100))
 
         dests_tmap = Build("tree_map", "hs92", "export", self.attr, "show", "all", self.year)
         yod_exp = self.models.Yod.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
@@ -178,6 +221,7 @@ class Country(Profile):
                 {"title": u"Origins", "build": origins_tmap, "subtitle": origin_subtitle},
             ]
         }
+        sections.append(trade_section)
 
         ''' Product Space Section
         '''
@@ -211,6 +255,7 @@ class Country(Profile):
                 {"title": u"Network", "build": product_space, "subtitle": u"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure."},
             ]
         }
+        sections.append(ps_section)
 
         ''' DataViva
         '''
@@ -223,18 +268,21 @@ class Country(Profile):
                 {"title": u"Brazilian Municipalities that export to {}".format(self.attr.get_name()), "iframe": dv_munic_origin_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that exported products to {}.".format(self.attr.get_name())},
             ]
         }
+        sections.append(dv_section)
 
         ''' Pantheon
         '''
-        pantheon_iframe = "http://pantheon.media.mit.edu/treemap/country_exports/{}/all/-4000/2010/H15/pantheon".format(self.attr.id_2char.upper())
-        pantheon_section = {
-            "title": "Pantheon",
-            "builds": [
-                {"title": u"Cultural Production of {}".format(self.attr.get_name()), "iframe": pantheon_iframe, "subtitle": u"This treemap shows the cultural exports of {}, as proxied by the production of globally famous historical characters.".format(self.attr.get_name(), self.year)},
-            ]
-        }
+        if self.attr.id_2char:
+            pantheon_iframe = "http://pantheon.media.mit.edu/treemap/country_exports/{}/all/-4000/2010/H15/pantheon".format(self.attr.id_2char.upper())
+            pantheon_section = {
+                "title": "Pantheon",
+                "builds": [
+                    {"title": u"Cultural Production of {}".format(self.attr.get_name()), "iframe": pantheon_iframe, "subtitle": u"This treemap shows the cultural exports of {}, as proxied by the production of globally famous historical characters.".format(self.attr.get_name(), self.year)},
+                ]
+            }
+            sections.append(pantheon_section)
 
-        return [trade_section, ps_section, dv_section]
+        return sections
 
 class Product(Profile):
 

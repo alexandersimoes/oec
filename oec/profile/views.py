@@ -66,6 +66,7 @@ def sanitize(id_3char):
 def profile_country(attr_id="usa"):
     c = Country("hs92", attr_id)
     g.page_sub_type = "country"
+    # raise Exception(c.stats())
     return render_template("profile/index.html", profile=c)
 
 @mod.route('/<any("sitc","hs92","hs96","hs02","hs07"):attr_type>/<attr_id>/')
