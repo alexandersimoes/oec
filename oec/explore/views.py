@@ -96,9 +96,10 @@ def explore_redirect(app_name='tree_map'):
     latest_hs_year = [available_years['hs92'][-1]]
 
     if app_name in ["tree_map", "stacked", "network"]:
+        year = [available_years['hs92'][0], available_years['hs92'][-1]] if app_name == "stacked" else latest_hs_year
         redirect_url = url_for('.explore', lang=g.locale, app_name=app_name, \
                         classification="hs92", trade_flow="export", \
-                        origin_id=c.id_3char, dest_id="all", prod_id="show", year=latest_hs_year)
+                        origin_id=c.id_3char, dest_id="all", prod_id="show", year=year)
     elif app_name in ["geo_map", "rings"]:
         '''fetch random product'''
         p = Hs92.query.filter(Hs92.hs92 != None).filter(func.length(Hs92.hs92) == 4) \
@@ -109,6 +110,10 @@ def explore_redirect(app_name='tree_map'):
         redirect_url = url_for('.explore', lang=g.locale, app_name=app_name, \
                         classification="hs92", trade_flow="export", \
                         origin_id=origin, dest_id="all", prod_id=p.hs92, year=latest_hs_year)
+    elif app_name in ["scatter"]:
+        redirect_url = url_for('.explore', lang=g.locale, app_name=app_name, \
+                        classification="hs92", trade_flow="gdp", \
+                        origin_id="show", dest_id="all", prod_id="all", year=latest_hs_year)
     else:
         abort(404)
     return redirect(redirect_url)
