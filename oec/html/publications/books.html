@@ -4,7 +4,15 @@
 
 {% block body %}
 
-<header><h1>{{ _("Books") }}</h1></header>
+<header class="profile_header">
+  <img class="header" src="/static/img/headers/pages/grows.jpg"></img>
+  <h1>
+    {{ _("Books") }}
+    <sub class="author"><a href="https://flic.kr/p/sC7tjy" target="_blank">
+      <i class="fa fa-camera"></i>{{ _("Photo by") }} Dauro Veras
+    </a></sub>
+  </h1>
+</header>
 
 <section>
   <aside>
@@ -78,5 +86,7 @@
 
   </content>
 </section>
+
+<script>var color = "#36c74d";</script>
 
 {% endblock %}

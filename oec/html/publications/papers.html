@@ -4,7 +4,15 @@
 
 {% block body %}
 
-<header><h1>{{ _("Papers") }}</h1></header>
+<header class="profile_header">
+  <img class="header" src="/static/img/headers/pages/classroom.jpg"></img>
+  <h1>
+    {{ _("Papers") }}
+    <sub class="author"><a href="https://flic.kr/p/nm2s5h" target="_blank">
+      <i class="fa fa-camera"></i>{{ _("Photo by") }} Ryan Tyler Smith
+    </a></sub>
+  </h1>
+</header>
 
 <section>
   <aside>
@@ -214,5 +222,7 @@ use of information visualization “apps”.</p>
 
   </content>
 </section>
+
+<script>var color = "#856747";</script>
 
 {% endblock %}
