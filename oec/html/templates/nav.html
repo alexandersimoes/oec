@@ -244,8 +244,10 @@
   d3.select(".accordion."+page+" ul")
     .style("margin-top", "0px")
     .selectAll("li."+sub_page+", li."+sub_page+" a")
-      .style("color", color)
       .style("font-weight", 600);
+
+  d3.selectAll(".accordion > ul > li, .accordion > ul > li > a")
+    .style("color", color);
 
   d3.select("li.clicker."+page).classed("open", true);
   d3.select("li.clicker."+sub_page).classed("open", true);
