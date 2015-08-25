@@ -5,31 +5,6 @@
 
 {% block content %}
 
-<div class="modal" id="share">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <h2>{{ _('Share') }}</h2>
-      <a href="#close" class="btn-close">×</a>
-    </div>
-    <div class="modal-body">
-      <h3>{{ _('Short URL') }}</h3>
-      <input type="text" class="short_url" onfocus="this.select()" onMouseUp="return false" value="">
-      <h3>{{ _('Embed') }}</h3>
-      <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://atlas.media.mit.edu/{{ g.locale }}/explore/embed/{{ build.url() }}?controls=false&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
-      <h3>{{ _('Social Media') }}</h3>
-      <a href="http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&display=popup&app_id={{ facebook_id }}&name={{ build.title()|striptags|safe }} ({{ build.year_str }})&link=http://atlas.media.mit.edu/{{ g.locale }}/explore/{{ build.url() }}&redirect_uri=http://atlas.media.mit.edu/close/&picture=http://atlas.media.mit.edu/static/img/touchicon.png" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=300')" id="Facebook" title="Facebook">
-        <i class="fa fa-facebook"></i>
-      </a>
-      <a href="https://twitter.com/share?url=http://atlas.media.mit.edu/{{ g.locale }}/explore/{{ build.url() }}{% if g.locale != 'en' %}?lang={{ g.locale }}{% endif %}&text={{ build.title()|striptags|safe }} ({{ build.year_str }})&hashtags=oec" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=300')" id="Twitter" title="Tweet" data-lang="{{ g.locale }}"  xml:lang="{{ g.locale }}">
-        <i class="fa fa-twitter"></i>
-      </a>
-      <a href="https://plus.google.com/share?url=http://atlas.media.mit.edu/{{ g.locale }}/explore/{{ build.url() }}&hl={{ g.locale }}" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Google+', 'width=640,height=300')" id="Google" title="Google+">
-        <i class="fa fa-google-plus"></i>
-      </a>
-    </div>
-  </div>
-</div>
-
 <div id="viz"></div>
 
 {% endblock %}
