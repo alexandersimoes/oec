@@ -28,6 +28,6 @@ configs.network = function(build) {
     //   }
     // },
     "size": "export_val",
-    "ui": [{"method":share, "value":["Share"], "type":"button"}]
+    "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
   }
 }

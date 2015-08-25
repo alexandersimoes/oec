@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import g, url_for
 from oec import db
 from oec.db_attr.models import Country, Hs92, Hs96, Hs02, Hs07, Sitc
+from config import FACEBOOK_ID
 
 ''' All the viz types currently supported
 '''
@@ -242,6 +243,23 @@ class Build(object):
             prod = getattr(self.prod, self.classification, self.prod),
             year = year or self.year_str,
         )
+    
+    def facebook_url(self):
+        link = "http://atlas.media.mit.edu/{}/explore/{}".format(g.locale, self.url())
+        return "http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
+                "display=popup&app_id={}&name={} ({})&link={}&" \
+                "redirect_uri=http://atlas.media.mit.edu/close/&" \
+                "picture=http://atlas.media.mit.edu/static/img/touchicon.png" \
+                .format(FACEBOOK_ID, self.title(), self.year_str, link)
+    def twitter_url(self):
+        link = "http://atlas.media.mit.edu/{}/explore/{}".format(g.locale, self.url())
+        lang_txt = "&lang={}".format(g.locale) if g.locale != "en" else ""
+        return "https://twitter.com/share?url={}{}&text={} ({})&hashtags=oec" \
+                .format(link, lang_txt, self.title(), self.year_str)
+    def google_url(self):
+        link = "http://atlas.media.mit.edu/{}/explore/{}".format(g.locale, self.url())
+        return "https://plus.google.com/share?url={}&hl={}" \
+                .format(link, g.locale)
 
     def title(self):
         title = build_metadata[self.id][self.trade_flow]["title"]
@@ -325,6 +343,7 @@ class Build(object):
             "lang": getattr(g, "locale", "en"),
             "origin": self.origin.serialize() if hasattr(self.origin, "serialize") else self.origin,
             "prod": self.prod.serialize() if hasattr(self.prod, "serialize") else self.prod,
+            "social": {"facebook":self.facebook_url(),"twitter":self.twitter_url(),"google":self.google_url()},
             "title": self.title(),
             "trade_flow": self.trade_flow,
             "url": self.url(),
