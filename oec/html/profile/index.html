@@ -49,35 +49,35 @@
     <sub>{{ _("Exports") }}</sub>
     <h3>{% if "export_val" in stats %}${{ stats['export_val']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
     {% if "export_val" in stats %}
-    <p>{{ stats['export_val']['rank'] }}/{{ stats['export_val']['total'] }}</p>
+    <sub>Rank: {{ stats['export_val']['rank'] }} of {{ stats['export_val']['total'] }}</sub>
     {% endif %}
   </div>
   <div class="stat">
     <sub>{{ _("Imports") }}</sub>
     <h3>{% if "import_val" in stats %}${{ stats['import_val']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
     {% if "import_val" in stats %}
-    <p>{{ stats['import_val']['rank'] }}/{{ stats['import_val']['total'] }}</p>
+    <sub>Rank: {{ stats['import_val']['rank'] }} of {{ stats['import_val']['total'] }}</sub>
     {% endif %}
   </div>
   <div class="stat">
     <sub>{{ _("Economic Complexity") }}</sub>
     <h3>{% if "eci" in stats %}{{ stats['eci']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
     {% if "eci" in stats %}
-    <p>{{ stats['eci']['rank'] }}/{{ stats['eci']['total'] }}</p>
+    <sub>Rank: {{ stats['eci']['rank'] }} of {{ stats['eci']['total'] }}</sub>
     {% endif %}
   </div>
   <div class="stat">
     <sub>{{ _("Population") }}</sub>
     <h3>{% if "population" in stats %}{{ stats['population']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
     {% if "population" in stats %}
-    <p>{{ stats['population']['rank'] }}/{{ stats['population']['total'] }}</p>
+    <sub>Rank: {{ stats['population']['rank'] }} of {{ stats['population']['total'] }}</sub>
     {% endif %}
   </div>
   <div class="stat">
     <sub>{{ _("GDP") }}</sub>
     <h3>{% if "gdp" in stats %}{{ stats['gdp']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
     {% if "gdp" in stats %}
-    <p>{{ stats['gdp']['rank'] }}/{{ stats['gdp']['total'] }}</p>
+    <sub>Rank: {{ stats['gdp']['rank'] }} of {{ stats['gdp']['total'] }}</sub>
     {% endif %}
   </div>
 
