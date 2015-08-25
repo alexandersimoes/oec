@@ -72,8 +72,8 @@ h2 {
 
       p {
         font-family: "Lora", "Times", serif;
-        font-size: 17px;
-        line-height: 28px;
+        font-size: 14px;
+        line-height: 20px;
         margin: 10px 0 20px; }
         p:last-child {
           margin-bottom: 0; }
@@ -576,9 +576,10 @@ body.home #hamburger {
             -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
             box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
             width: 100%; }
-            #container #content section aside .viz {
+            #container #content section aside #topojson {
               display: block;
               height: 200px;
+              margin-top: 10px;
               width: 100%; }
               @media all and (max-width: 768px) {
                 #container #content section aside {
@@ -603,7 +604,7 @@ body.home #hamburger {
               padding: 5px 0; }
         #container #content section content .viz {
           display: block;
-          height: 400px;
+          height: 450px;
           width: 100%; }
   #container footer {
     -webkit-box-flex: none;
@@ -775,6 +776,7 @@ body.home #hamburger {
             margin-left: 1px;
             text-align: right; }
 #container #content section#stats {
+  margin-bottom: -35px;
   padding: 6px 0 7px; }
   @media all and (max-width: 768px) {
     #container #content section {
