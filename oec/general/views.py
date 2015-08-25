@@ -135,7 +135,7 @@ def search():
 # ---------------------------
 @mod.route('atlas/')
 def atlas():
-    return redirect(url_for("resources.publications"))
+    return redirect(url_for("publications.books", lang="en"))
 
 @mod.route('permissions/')
 def permissions():

@@ -105,9 +105,17 @@
         </ul>
       </div>
 
-      <li class="publications">
-        <a href="{{ url_for('publications.index', lang=g.locale) }}"{% if g.page_type == 'publications' %} class="active"{% endif %}>{{ _('Publications') }}</a>
-      </li>
+      <li class="publications clicker">{{ _('Publications') }}</li>
+      <div class="accordion publications">
+        <ul>
+          <li class="books">
+            <a href="{{ url_for('publications.books', lang=g.locale) }}">{{ _('Books') }}</a>
+          </li>
+          <li class="papers">
+            <a href="{{ url_for('publications.papers', lang=g.locale) }}">{{ _('Papers') }}</a>
+          </li>
+        </ul>
+      </div>
 
       <li class="resources clicker">{{ _('Resources') }}</li>
       <div class="accordion resources">
@@ -202,7 +210,7 @@
   d3.select("#search_button").style("background-color", "rgba("+rgb.r+", "+rgb.g+", "+rgb.b+", 0.1)");
 
   // Sets paragraph link styles
-  d3.selectAll("aside a, p a")
+  d3.selectAll("aside a, p a, h2 a")
     .style("color", color)
     .on(d3plus.client.pointer.over, function(){
       d3.select(this).style("border-bottom", "2px solid " + color);

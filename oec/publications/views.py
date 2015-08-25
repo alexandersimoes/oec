@@ -14,6 +14,12 @@ def get_profile_owner(endpoint, values):
 def before_request():
     g.page_type = mod.name
 
-@mod.route("/")
-def index():
-    return render_template("publications/index.html")
+@mod.route("/books/")
+def books():
+    g.page_sub_type = "books"
+    return render_template("publications/books.html")
+
+@mod.route("/papers/")
+def papers():
+    g.page_sub_type = "papers"
+    return render_template("publications/papers.html")
