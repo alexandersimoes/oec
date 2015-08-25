@@ -208,7 +208,7 @@ configs.geo_map = function(build) {
         {"Growth Value (1 year)": build.trade_flow+"_val_growth_val"},
         {"Growth Value (5 year)": build.trade_flow+"_val_growth_val_5"},
       ]},
-      {"method":share, "value":["Share"], "type":"button"}
+      {"method":share(build), "value":["Share"], "type":"button"}
     ]
   }
 }
@@ -219,7 +219,7 @@ configs.line = function(build) {
     "depth": 1,
     "x": "year",
     "y": "trade",
-    "ui": [{"method":share, "value":["Share"], "type":"button"}]
+    "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
   }
 }
 
@@ -253,7 +253,7 @@ configs.network = function(build) {
     //   }
     // },
     "size": "export_val",
-    "ui": [{"method":share, "value":["Share"], "type":"button"}]
+    "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
   }
 }
 
@@ -270,7 +270,7 @@ configs.rings = function(build) {
     "id": ["nest","id"],
     "depth": 1,
     "size": "export_val",
-    "ui": [{"method":share, "value":["Share"], "type":"button"}]
+    "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
   }
 }
 
@@ -284,7 +284,7 @@ configs.scatter = function(build) {
       "scale": "log",
       "value": build.trade_flow
     },
-    "ui": [{"method":share, "value":["Share"], "type":"button"}]
+    "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
   }
 }
 
@@ -310,7 +310,7 @@ configs.stacked = function(build) {
     "ui": [
       depth_ui,
       {"method":change_layout, "value":[{"Value": "linear"}, {"Share": "share"}], "label":"Layout"},
-      {"method":share, "value":["Share"], "type":"button"}
+      {"method":share(build), "value":["Share"], "type":"button"}
     ]
   }
 }

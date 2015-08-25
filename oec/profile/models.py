@@ -93,7 +93,8 @@ class Country(Profile):
             this_attr_yo = attrs.Yo.query.filter_by(year = self.year, country = self.attr).first()
             # eci_rank = this_attr_yo.eci_rank
             if this_attr_yo and this_attr_yo.eci_rank:
-                eci_rank = u" and the {} most complex economy according to the Economic Complexity Index (ECI)".format(num_format(this_attr_yo.eci_rank, "ordinal"))
+                eci_rank = num_format(this_attr_yo.eci_rank, "ordinal") if this_attr_yo.eci_rank > 1 else ""
+                eci_rank = u" and the {} most complex economy according to the Economic Complexity Index (ECI)".format(eci_rank)
             else:
                 eci_rank = u""
             formatted_vals = {"export_val":export_val, "import_val":import_val, "trade_delta":trade_delta}
@@ -213,7 +214,6 @@ class Country(Profile):
             origin_subtitle = u"The top import origins of {} are {}.".format(self.attr.get_name(), origin_list)
 
         trade_section = {
-            "title": u"{} Trade".format(self.attr.get_name()),
             "builds": [
                 {"title": u"Exports", "build": export_tmap, "subtitle": export_subtitle},
                 {"title": u"Imports", "build": import_tmap, "subtitle": import_subtitle},
@@ -247,7 +247,7 @@ class Country(Profile):
                 .format(self.attr.get_name(), num_exports_w_rca)
         else:
             subtitle = ""
-        product_space = Build("network", "hs92", "export", self.attr, "show", "all", self.year)
+        product_space = Build("network", "hs92", "export", self.attr, "all", "show", self.year)
         ps_section = {
             "title": u"Export Opportunity in {}".format(self.attr.get_name()),
             "subtitle": subtitle,
