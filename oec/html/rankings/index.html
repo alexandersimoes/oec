@@ -23,9 +23,9 @@
   {% endif %}
 
   {% if category == "country" %}
-    <h1>{{ _('Country Rankings') }} ({{ year }})</h1>
+    <h1>{{ _('Economic Complexity Rankings') }} ({{ year }})</h1>
   {% else %}
-    <h1>{{ category|upper }} {{ _('Product Rankings') }} ({{ year }})</h1>
+    <h1>{{ _('Product Complexity Rankings') }} ({{ year }})</h1>
   {% endif %}
 
   {% if year < g.available_years[category][-1]  %}
@@ -37,14 +37,18 @@
 
   <div id="changers">
 
-    <div class="change_dataset">
-        <a id="country" {% if category == 'country' %}class="active" {% endif %}href="{{ url_for('rankings.rankings', lang=g.locale, category='country') }}">{{ _('Country') }}</a> |
-        <a id="hs07" {% if category == 'hs07' %}class="active" {% endif %}href="{{ url_for('rankings.rankings', lang=g.locale, category='hs07') }}">HS07</a> |
-        <a id="hs02" {% if category == 'hs02' %}class="active" {% endif %}href="{{ url_for('rankings.rankings', lang=g.locale, category='hs02') }}">HS02</a> |
-        <a id="hs96" {% if category == 'hs96' %}class="active" {% endif %}href="{{ url_for('rankings.rankings', lang=g.locale, category='hs96') }}">HS96</a> |
-        <a id="hs92" {% if category == 'hs92' %}class="active" {% endif %}href="{{ url_for('rankings.rankings', lang=g.locale, category='hs92') }}">HS92</a> |
-        <a id="sitc" {% if category == 'sitc' %}class="active" {% endif %}href="{{ url_for('rankings.rankings', lang=g.locale, category='sitc') }}">SITC</a>
+    {% if category != "country" %}
+    <div class="dropdown_container">
+      <legend for="change_dataset">{{ _("Classification") }}</legend>
+      <select id="change_dataset">
+        <option value="hs07" {% if category == 'hs07' %} selected="selected"{% endif %}>HS07</option>
+        <option value="hs02" {% if category == 'hs02' %} selected="selected"{% endif %}>HS02</option>
+        <option value="hs96" {% if category == 'hs96' %} selected="selected"{% endif %}>HS96</option>
+        <option value="hs92" {% if category == 'hs92' %} selected="selected"{% endif %}>HS92</option>
+        <option value="sitc" {% if category == 'sitc' %} selected="selected"{% endif %}>SITC</option>
+      </select>
     </div>
+    {% endif %}
 
     <div class="dropdown_container">
       <legend for="change_year">{{ _("Year") }}</legend>
@@ -140,6 +144,7 @@
 
     var currentYear = "{{ year }}";
     var currentDepth = {{ depth }};
+    var category = "{{ category }}";
     var year_first_time = true;
     var depth_first_time = true;
 
@@ -158,6 +163,25 @@
         window.location = url.join("/") + "?depth=" + depth_form.focus();
       }
       year_first_time = false;
+
+    }
+
+    if (!d3.select("#change_dataset").empty()) {
+
+      d3plus.form()
+        .type("drop")
+        .data("#change_dataset")
+        .focus(category, function(c){
+          if (category !== c) {
+            window.location = "/" + oec.locale + "/rankings/" + c;
+          }
+        })
+        .ui({
+          "margin": 0,
+          "padding": 6
+        })
+        .search(false)
+        .draw();
 
     }
 
