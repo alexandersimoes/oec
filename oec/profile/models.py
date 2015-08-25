@@ -367,13 +367,14 @@ class Product(Profile):
         ''' Paragraph #3
         '''
         yop_exp = self.models.Yop.query.filter_by(year = self.year, product = self.attr).filter(self.models.Yop.export_val!=None).order_by(desc("export_val")).limit(5).all()
-        exporters = self.stringify_items(yop_exp, "export_val", "origin")
-        yop_imp = self.models.Yop.query.filter_by(year=self.year, product=self.attr).filter(self.models.Yop.import_val!=None).order_by(desc("import_val")).limit(5).all()
-        importers = self.stringify_items(yop_imp, "import_val", "origin")
-        p3 = u"The top exporters of {} are {}. " \
-                u"The top importers are {}." \
-                .format(self.attr.get_name(), exporters, importers)
-        all_paragraphs.append(p3)
+        if yop_exp:
+            exporters = self.stringify_items(yop_exp, "export_val", "origin")
+            yop_imp = self.models.Yop.query.filter_by(year=self.year, product=self.attr).filter(self.models.Yop.import_val!=None).order_by(desc("import_val")).limit(5).all()
+            importers = self.stringify_items(yop_imp, "import_val", "origin")
+            p3 = u"The top exporters of {} are {}. " \
+                    u"The top importers are {}." \
+                    .format(self.attr.get_name(), exporters, importers)
+            all_paragraphs.append(p3)
 
         ''' Paragraph #4
         '''
