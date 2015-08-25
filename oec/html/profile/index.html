@@ -107,7 +107,6 @@
   </aside>
 
   <content>
-    <h2>{% trans %}Introduction{% endtrans %}</h2>
     {% for p in profile.intro() %}
       <p>{{ p|safe }}</p>
     {% endfor %}
@@ -120,7 +119,9 @@
 <section>
   <aside></aside>
   <content>
+    {% if section.title %}
     <h2>{{ section.title }}</h2>
+    {% endif %}
     {% if section.subtitle %}
     <p>{{ section.subtitle|safe }}</p>
     {% endif %}
