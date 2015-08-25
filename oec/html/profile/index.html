@@ -116,6 +116,7 @@
 
 <script>var build_data = [];</script>
 {% for section in profile.sections() %}
+{% if section.title and section.subtitle %}
 <section>
   <aside></aside>
   <content>
@@ -127,6 +128,7 @@
     {% endif %}
   <content>
 </section>
+{% endif %}
 {% for build in section.builds %}
 <section>
   <aside>
