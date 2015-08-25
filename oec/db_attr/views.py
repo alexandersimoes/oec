@@ -1,4 +1,4 @@
-from oec import db
+from oec import db, db_data, available_years
 from flask import Blueprint, request, jsonify, make_response, g, render_template
 from oec.db_attr.models import *
 from oec.decorators import crossdomain
@@ -16,20 +16,24 @@ mod = Blueprint('attr', __name__, url_prefix='/attr')
 @crossdomain(origin='*')
 def attrs(attr="country", lang='en'):
     ret = {"data":[]}
+    data_classification = "hs92" if attr == "country" else attr
+    data_models = getattr(db_data, "{}_models".format(data_classification))
     Attr = globals()[attr.title()]
     Attr_name = globals()[attr.title()+"_name"]
+    Attr_data = data_models.Yo if attr == "country" else data_models.Yp
     join_id = "origin_id" if attr == "country" else attr+"_id"
+    latest_year = available_years[data_classification][-1]
 
-    q = db.session.query(Attr, Attr_name) \
+    q = db.session.query(Attr, Attr_name, Attr_data) \
         .filter(Attr.id == getattr(Attr_name, join_id)) \
+        .filter(Attr.id == getattr(Attr_data, join_id)) \
+        .filter(Attr_data.year == latest_year) \
         .filter(Attr_name.lang == lang)
-        # .filter(Attr.color!=None)
-    # g.locale="en"
-    # raise Exception(q.all()[100][0].get_abbrv())
 
-    for attr, attr_name in q.all():
+    for attr, attr_name, attr_data in q.all():
         attr = attr.serialize()
         attr["name"] = attr_name.name
+        attr["weight"] = attr_data.export_val
         if hasattr(attr_name, "keywords"):
             attr["keywords"] = attr_name.keywords
         ret["data"].append(attr)
