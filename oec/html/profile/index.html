@@ -207,7 +207,15 @@
         coords.objects[key].lookup.all = coords.objects[key].geometries;
       }
 
-      coords.objects[key].geometries = [coords.objects[key].lookup[id]];
+      var geo_ids = [id];
+      if (id === "eublx") {
+        geo_ids = ["eubel", "eulux"];
+      }
+
+      coords.objects[key].geometries = [];
+      geo_ids.forEach(function(g){
+        coords.objects[key].geometries.push(coords.objects[key].lookup[g]);
+      })
 
       var svg = map.append("svg")
         .attr("width", width)
@@ -300,10 +308,10 @@
         .attr("fill", color)
         .attr("stroke", color)
         .attr("fill-opacity", function(d){
-          return d.id === id ? 1 : 0.25;
+          return geo_ids.indexOf(d.id) >= 0 ? 1 : 0.25;
         })
         .attr("stroke-opacity", function(d){
-          return d.id === id ? 1 : 0.25;
+          return geo_ids.indexOf(d.id) >= 0 ? 1 : 0.25;
         });
 
       svg.transition().duration(1000).attr("opacity", 1);
