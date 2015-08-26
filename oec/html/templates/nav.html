@@ -419,12 +419,12 @@
       data = {};
       if (search_mode === "all") {
         data = {
-          "country": attrs.country.slice(0, 20),
-          "hs92": attrs.hs92.slice(0, 20)
+          "country": attrs.country.slice(0, default_cutoff),
+          "hs92": attrs.hs92.slice(0, default_cutoff)
         };
       }
       else if (attrs[search_mode]) {
-        data[search_mode] = attrs[search_mode].slice(0, 20);
+        data[search_mode] = attrs[search_mode].slice(0, default_cutoff);
       }
     }
 
@@ -474,7 +474,7 @@
 
   }
 
-  var search_mode = "all", search_query = "", attrs = {};
+  var search_mode = "all", search_query = "", attrs = {}, default_cutoff = 200;
 
   var search_form = d3plus.form()
     .data("#search_mode_selector")
@@ -499,7 +499,7 @@
       });
     }
     else {
-      return attrs[a].slice(0, 20);
+      return attrs[a].slice(0, default_cutoff);
     }
   }
 
