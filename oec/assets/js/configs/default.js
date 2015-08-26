@@ -97,6 +97,11 @@ configs.default = function(build) {
     },
     "text": {"nest":"name", "id":["name", "display_id"]},
     "time": {"value": "year", "solo": build.year },
+    "title": {
+      "font": {
+        "weight": 800
+      }
+    },
     "tooltip": { "small": 225 },
     "tooltip": tooltip,
     "type": build.viz.slug,

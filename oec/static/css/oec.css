@@ -605,6 +605,7 @@ body.home #hamburger {
         #container #content section content .viz {
           display: block;
           height: 450px;
+          margin-top: 10px;
           width: 100%; }
   #container footer {
     -webkit-box-flex: none;

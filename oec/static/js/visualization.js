@@ -65,6 +65,11 @@ var visualization = function(build, container) {
     }
   })
 
+  /* If not on the explore page, show the title! */
+  if (window.parent.location.href.indexOf("/explore/") < 0 || window.parent.location.href.indexOf("/embed/") > 0) {
+    viz.title(build.title);
+  }
+
   load(build.attr_url, function(raw_attrs){
     var attrs = format_attrs(raw_attrs, build);
 
@@ -185,6 +190,11 @@ configs.default = function(build) {
     },
     "text": {"nest":"name", "id":["name", "display_id"]},
     "time": {"value": "year", "solo": build.year },
+    "title": {
+      "font": {
+        "weight": 800
+      }
+    },
     "tooltip": { "small": 225 },
     "tooltip": tooltip,
     "type": build.viz.slug,
