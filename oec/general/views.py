@@ -36,7 +36,7 @@ def before_request():
     g.page_type = mod.name
     g.supported_langs = current_app.config.get('LANGUAGES')
     g.available_years = available_years
-    g.cache_version = 2
+    g.cache_version = 3
     g.translations = json.dumps(get_translations())
 
     # Save variable in session so we can determine if this is the user's
