@@ -25,7 +25,7 @@
 
 {% endblock %}
 
-{% block title %} - {{ current_build.title()|striptags }} ({{ current_build.year_str }}){% endblock %}
+{% block title %} - {{ current_build.title()|striptags }}{% endblock %}
 {% block description %}{{ current_build.question() }} {{ _('Data visualization of economic trade') }}.{% endblock %}
 
 {% block body %}
@@ -48,7 +48,7 @@
   {% endif %}
   {% endif %}
 
-  <h1>{{ current_build.title()|safe }} ({{ current_build.year|join('-') }})</h1>
+  <h1>{{ current_build.title()|safe }}</h1>
   <div id="changers">
 
     {% for ui in build_ui %}

@@ -243,7 +243,7 @@ class Build(object):
             prod = getattr(self.prod, self.classification, self.prod),
             year = year or self.year_str,
         )
-    
+
     def facebook_url(self):
         link = "http://atlas.media.mit.edu/{}/explore/{}".format(g.locale, self.url())
         return "http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
@@ -272,7 +272,12 @@ class Build(object):
         if isinstance(self.prod, (Hs92, Hs96, Hs02, Hs07, Sitc)):
             prod=self.prod.get_name()
 
-        return title.format(origin=origin, dest=dest, prod=prod)
+        title = title.format(origin=origin, dest=dest, prod=prod)
+        if len(self.year) == 1:
+            years = self.year[0]
+        else:
+            years = "{}-{}".format(self.year[0], self.year[-1])
+        return "{} ({})".format(title, years)
 
     def question(self):
         question = build_metadata[self.id][self.trade_flow]["question"]
