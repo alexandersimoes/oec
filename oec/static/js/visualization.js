@@ -432,7 +432,6 @@ function format_data(raw_data, attrs, build){
       d["net_"+build.trade_flow+"_val"] = net_val;
     }
   })
-  console.log(data)
   
   // special case for line chart of trade balance (need to duplicate data)
   if(build.viz.slug == "line"){

@@ -750,31 +750,38 @@ body.home #hamburger {
           color: white; }
           #container #content .profile_header h1 sub a:hover {
             border-color: transparent; }
-#container #content section .profile_button {
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  background-color: black;
-  margin-top: 50px; }
-  #container #content section .profile_button .header {
-    height: 110%;
-    margin-left: -5px;
-    margin-top: -5px;
-    position: absolute;
-    width: 110%;
-    z-index: -1;
-    -webkit-filter: blur(3px) contrast(1.1) brightness(0.8); }
-    #container #content section .profile_button .icon {
-      margin: 0 25px; }
-      #container #content section .profile_button h1 {
-        font-size: 25px; }
-        #container #content section .profile_button:first-child {
-          margin-right: 1px; }
-          #container #content section .profile_button:last-child {
-            margin-left: 1px;
-            text-align: right; }
+#container #content section p img {
+  border: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  margin: 10px 0 0 0;
+  width: 100%; }
+  #container #content section .profile_button {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    background-color: black;
+    margin-top: 50px; }
+    #container #content section .profile_button .header {
+      height: 110%;
+      margin-left: -5px;
+      margin-top: -5px;
+      position: absolute;
+      width: 110%;
+      z-index: -1;
+      -webkit-filter: blur(3px) contrast(1.1) brightness(0.8); }
+      #container #content section .profile_button .icon {
+        margin: 0 25px; }
+        #container #content section .profile_button h1 {
+          font-size: 25px; }
+          #container #content section .profile_button:first-child {
+            margin-right: 1px; }
+            #container #content section .profile_button:last-child {
+              margin-left: 1px;
+              text-align: right; }
 #container #content section#stats {
   margin-bottom: -35px;
   padding: 6px 0 7px; }

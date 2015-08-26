@@ -278,12 +278,14 @@ class Country(Profile):
         ''' DataViva
         '''
         dv_munic_dest_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false".format(self.attr.id)
+        dv_munic_dest_link = "<a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>".format(self.attr.id)
         dv_munic_origin_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false".format(self.attr.id)
+        dv_munic_origin_link = "<a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>".format(self.attr.id)
         dv_section = {
-            "title": "DataViva",
+            "title": "Additional data on {} from other sites created by members of our team:".format(self.attr.get_name()),
             "builds": [
-                {"title": u"Brazilian Municipalities that import from {}".format(self.attr.get_name()), "iframe": dv_munic_dest_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that imported products from {}.".format(self.attr.get_name())},
-                {"title": u"Brazilian Municipalities that export to {}".format(self.attr.get_name()), "iframe": dv_munic_origin_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that exported products to {}.".format(self.attr.get_name())},
+                {"title": u"Brazilian Municipalities that import from {}".format(self.attr.get_name()), "iframe": dv_munic_dest_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that imported products from {}.<br />{}".format(self.attr.get_name(), dv_munic_dest_link)},
+                {"title": u"Brazilian Municipalities that export to {}".format(self.attr.get_name()), "iframe": dv_munic_origin_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that exported products to {}.<br />{}".format(self.attr.get_name(), dv_munic_origin_link)},
             ]
         }
         sections.append(dv_section)
@@ -291,11 +293,12 @@ class Country(Profile):
         ''' Pantheon
         '''
         if self.attr.id_2char:
-            pantheon_iframe = "http://pantheon.media.mit.edu/treemap/country_exports/{}/all/-4000/2010/H15/pantheon".format(self.attr.id_2char.upper())
+            pantheon_iframe = "http://pantheon.media.mit.edu:5000/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/embed".format(self.attr.id_2char.upper())
+            pantheon_link = "<a target='_blank' href='http://pantheon.media.mit.edu:5000/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/'><img src='http://pantheon.media.mit.edu/pantheon_logo.png' /></a>".format(self.attr.id_2char.upper())
             pantheon_section = {
                 "title": "Pantheon",
                 "builds": [
-                    {"title": u"Cultural Production of {}".format(self.attr.get_name()), "iframe": pantheon_iframe, "subtitle": u"This treemap shows the cultural exports of {}, as proxied by the production of globally famous historical characters.".format(self.attr.get_name(), self.year)},
+                    {"title": u"Cultural Production of {}".format(self.attr.get_name()), "iframe": pantheon_iframe, "subtitle": u"This treemap shows the cultural exports of {}, as proxied by the production of globally famous historical characters.<br />{}".format(self.attr.get_name(), pantheon_link)},
                 ]
             }
             sections.append(pantheon_section)

@@ -116,7 +116,7 @@
 
 <script>var build_data = [];</script>
 {% for section in profile.sections() %}
-{% if section.title and section.subtitle %}
+{% if section.title or section.subtitle %}
 <section>
   <aside></aside>
   <content>
