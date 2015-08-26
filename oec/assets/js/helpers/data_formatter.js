@@ -17,6 +17,7 @@ function format_data(raw_data, attrs, build){
       d["net_"+build.trade_flow+"_val"] = net_val;
     }
   })
+  console.log(data)
   
   // special case for line chart of trade balance (need to duplicate data)
   if(build.viz.slug == "line"){
@@ -55,6 +56,7 @@ function format_attrs(raw_attrs, build){
   var attr_id = attr_id = build.attr_type + "_id";
   
   raw_attrs.data.forEach(function(d){
+    d.nest = d.id.substr(0, 2);
     attrs[d.id] = d
     if(attr_id == "origin_id" || attr_id == "dest_id"){
       attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"

@@ -174,7 +174,7 @@ configs.default = function(build) {
       "value": build.trade_flow+"_val",
       "threshold": false
     },
-    "text": ["name", "display_id"],
+    "text": {"nest":"name", "id":["name", "display_id"]},
     "time": {"value": "year", "solo": build.year },
     "tooltip": { "small": 225 },
     "tooltip": tooltip,
@@ -208,7 +208,8 @@ configs.geo_map = function(build) {
         {"Growth Value (1 year)": build.trade_flow+"_val_growth_val"},
         {"Growth Value (5 year)": build.trade_flow+"_val_growth_val_5"},
       ]},
-      {"method":share(build), "value":["Share"], "type":"button"}
+      {"method":share(build), "value":["Share"], "type":"button"},
+      {"method":download(container), "value":["Download"], "type":"button"}
     ]
   }
 }
@@ -222,20 +223,14 @@ configs.line = function(build) {
     "depth": 0,
     "id": "test",
     "x": "year",
-    "y": "trade"
-    // "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
+    "y": "trade",
+    "ui": [
+      {"method":share(build), "value":["Share"], "type":"button"},
+      {"method":download(container), "value":["Download"], "type":"button"}
+    ]
   }
 }
 
-
-"As of 2013 Brazil had a positive trade balance of USD 54 M in net exports."
-"As compared to 1995 when Brazil still had a positive trade balance, though at the time it was only USD 13 M in net exports."
-"As compared to 1995 when Brazil still had a positive trade balance, though at that time it had a higher value of USD 60 M in net exports."
-
-"As compared to 1995 when Brazil had a negative trade balance of 13 M in net imports."
-
-"As of 2013 Brazil had a negative trade balance of USD 54 M in net imports."
-"As compared to 1995 when Brazil still had a positive trade balance, though at the time it was only USD 13 M in net exports."
 function change_layout(new_layout){
   var network_file = "/static/json/"+new_layout+".json";
   viz.nodes(network_file, function(network){
@@ -302,7 +297,10 @@ configs.rings = function(build) {
     "id": ["nest","id"],
     "depth": 1,
     "size": "export_val",
-    "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
+    "ui": [
+      {"method":share(build), "value":["Share"], "type":"button"},
+      {"method":download(container), "value":["Download"], "type":"button"}
+    ]
   }
 }
 
@@ -316,7 +314,10 @@ configs.scatter = function(build) {
       "scale": "log",
       "value": build.trade_flow
     },
-    "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
+    "ui": [
+      {"method":share(build), "value":["Share"], "type":"button"},
+      {"method":download(container), "value":["Download"], "type":"button"}
+    ]
   }
 }
 
@@ -342,7 +343,8 @@ configs.stacked = function(build) {
     "ui": [
       depth_ui,
       {"method":change_layout, "value":[{"Value": "linear"}, {"Share": "share"}], "label":"Layout"},
-      {"method":share(build), "value":["Share"], "type":"button"}
+      {"method":share(build), "value":["Share"], "type":"button"},
+      {"method":download(container), "value":["Download"], "type":"button"}
     ]
   }
 }
@@ -430,6 +432,7 @@ function format_data(raw_data, attrs, build){
       d["net_"+build.trade_flow+"_val"] = net_val;
     }
   })
+  console.log(data)
   
   // special case for line chart of trade balance (need to duplicate data)
   if(build.viz.slug == "line"){
@@ -468,6 +471,7 @@ function format_attrs(raw_attrs, build){
   var attr_id = attr_id = build.attr_type + "_id";
   
   raw_attrs.data.forEach(function(d){
+    d.nest = d.id.substr(0, 2);
     attrs[d.id] = d
     if(attr_id == "origin_id" || attr_id == "dest_id"){
       attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
@@ -505,13 +509,18 @@ function download(container){
       title.splice(title.length-1, 1)
       title = title.join("_").replace("embed", "explore")
       
-      var svg = d3.select(container).select("svg")
-        .attr("title", title)
-        .attr("version", 1.1)
-        .attr("xmlns", "http://www.w3.org/2000/svg")
+      if(format == "svg" || format == "png"){
+        var svg = d3.select(container).select("svg")
+          .attr("title", title)
+          .attr("version", 1.1)
+          .attr("xmlns", "http://www.w3.org/2000/svg")
 
-      // Add this content as the value of input
-      var svg_xml = (new XMLSerializer).serializeToString(svg.node());
+        // Add this content as the value of input
+        var content = (new XMLSerializer).serializeToString(svg.node());
+      }
+      else if(format == "csv"){
+        contet = "[[1, 2, 3], [4, 5, 6], [7, 8, 9]]"
+      }
       
       var form = d3.select("body").append("form").attr("id", "download").attr("action", "/en/explore/download/").attr("method", "post");
       form.append("input").attr("type", "text").attr("name", "content").attr("value", svg_xml);

@@ -7,7 +7,7 @@ configs.line = function(build) {
     "depth": 0,
     "id": "test",
     "x": "year",
-    "y": "trade"
+    "y": "trade",
     "ui": [
       {"method":share(build), "value":["Share"], "type":"button"},
       {"method":download(container), "value":["Download"], "type":"button"}

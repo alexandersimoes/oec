@@ -95,7 +95,7 @@ configs.default = function(build) {
       "value": build.trade_flow+"_val",
       "threshold": false
     },
-    "text": ["name", "display_id"],
+    "text": {"nest":"name", "id":["name", "display_id"]},
     "time": {"value": "year", "solo": build.year },
     "tooltip": { "small": 225 },
     "tooltip": tooltip,
