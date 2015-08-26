@@ -8,6 +8,9 @@ configs.scatter = function(build) {
       "scale": "log",
       "value": build.trade_flow
     },
-    "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
+    "ui": [
+      {"method":share(build), "value":["Share"], "type":"button"},
+      {"method":download(container), "value":["Download"], "type":"button"}
+    ]
   }
 }

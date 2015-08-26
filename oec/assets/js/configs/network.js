@@ -5,7 +5,8 @@ function change_layout(new_layout){
     return network.nodes;
   }).draw();
 }
-configs.network = function(build) {
+
+configs.network = function(build, container) {
   return {
     "active": {
       "value": function(d){
@@ -36,7 +37,6 @@ configs.network = function(build) {
     // },
     "size": "export_val",
     "ui": [
-      {"method":share(build), "value":["Share"], "type":"button"},
       {"method":change_layout, "label":"Layout", "value":[
         {"Force Directed":"network_hs4"}, 
         {"Circular Spring":"network_hs4_circular_spring"},
@@ -44,7 +44,9 @@ configs.network = function(build) {
         {"Complexity Circles":"network_hs4_complexity_circles"},
         {"Community Circles":"network_hs4_community_circles"},
         {"Community Rectangles":"network_hs4_community_rectangles"},
-      ]}
+      ]},
+      {"method":share(build), "value":["Share"], "type":"button"},
+      {"method":download(container), "value":["Download"], "type":"button"},
     ]
   }
 }

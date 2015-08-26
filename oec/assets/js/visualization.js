@@ -4,7 +4,7 @@ var visualization = function(build, container) {
 
   var trade_flow = build.trade_flow,
       default_config = configs["default"](build),
-      viz_config = configs[build.viz.slug](build);
+      viz_config = configs[build.viz.slug](build, container);
 
   var viz = d3plus.viz()
               .container(container)

@@ -7,7 +7,7 @@ var visualization = function(build, container) {
 
   var trade_flow = build.trade_flow,
       default_config = configs["default"](build),
-      viz_config = configs[build.viz.slug](build);
+      viz_config = configs[build.viz.slug](build, container);
 
   var viz = d3plus.viz()
               .container(container)
@@ -243,7 +243,8 @@ function change_layout(new_layout){
     return network.nodes;
   }).draw();
 }
-configs.network = function(build) {
+
+configs.network = function(build, container) {
   return {
     "active": {
       "value": function(d){
@@ -274,7 +275,6 @@ configs.network = function(build) {
     // },
     "size": "export_val",
     "ui": [
-      {"method":share(build), "value":["Share"], "type":"button"},
       {"method":change_layout, "label":"Layout", "value":[
         {"Force Directed":"network_hs4"}, 
         {"Circular Spring":"network_hs4_circular_spring"},
@@ -282,7 +282,9 @@ configs.network = function(build) {
         {"Complexity Circles":"network_hs4_complexity_circles"},
         {"Community Circles":"network_hs4_community_circles"},
         {"Community Rectangles":"network_hs4_community_rectangles"},
-      ]}
+      ]},
+      {"method":share(build), "value":["Share"], "type":"button"},
+      {"method":download(container), "value":["Download"], "type":"button"},
     ]
   }
 }
@@ -378,7 +380,8 @@ function show_all_years(){
     });
 
 }
-configs.tree_map = function(build) {
+
+configs.tree_map = function(build, container) {
   if(build.attr_type == "dest" || build.attr_type == "origin"){
     var depth_ui = {"method":"depth", "value":[{"Continent": 0}, {"Country":1}], "label":"Depth"}
   }
@@ -402,7 +405,8 @@ configs.tree_map = function(build) {
         {"Growth Value (1 year)": build.trade_flow+"_growth_val"},
         {"Growth Value (5 year)": build.trade_flow+"_growth_val_5"},
       ]},
-      {"method":share(build), "value":["Share"], "type":"button"}
+      {"method":share(build), "value":["Share"], "type":"button"},
+      {"method":download(container), "value":["Download"], "type":"button"},
     ]
   }
 }
@@ -486,6 +490,41 @@ function format_attrs(raw_attrs, build){
   }
   
   return attrs;
+}
+function download(container){
+  return function(){
+  
+    d3.selectAll(".modal#download").classed("active", true)
+    d3.selectAll(".modal#download a.download_button").on("click", function(){
+      
+      var format = d3.select(this).attr("id");
+      
+      var title = window.location.pathname.split("/")
+      title.splice(0, 1)
+      title.splice(0, 1)
+      title.splice(title.length-1, 1)
+      title = title.join("_").replace("embed", "explore")
+      
+      var svg = d3.select(container).select("svg")
+        .attr("title", title)
+        .attr("version", 1.1)
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+
+      // Add this content as the value of input
+      var svg_xml = (new XMLSerializer).serializeToString(svg.node());
+      
+      var form = d3.select("body").append("form").attr("id", "download").attr("action", "/en/explore/download/").attr("method", "post");
+      form.append("input").attr("type", "text").attr("name", "content").attr("value", svg_xml);
+      form.append("input").attr("type", "text").attr("name", "format").attr("value", format);
+      form.append("input").attr("type", "text").attr("name", "title").attr("value", title);
+      
+      form.node().submit();
+      
+      d3.event.preventDefault();
+      
+    })
+  }
+  
 }
 var load = function(url, callback) {
 

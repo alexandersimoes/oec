@@ -30,7 +30,8 @@ function show_all_years(){
     });
 
 }
-configs.tree_map = function(build) {
+
+configs.tree_map = function(build, container) {
   if(build.attr_type == "dest" || build.attr_type == "origin"){
     var depth_ui = {"method":"depth", "value":[{"Continent": 0}, {"Country":1}], "label":"Depth"}
   }
@@ -54,7 +55,8 @@ configs.tree_map = function(build) {
         {"Growth Value (1 year)": build.trade_flow+"_growth_val"},
         {"Growth Value (5 year)": build.trade_flow+"_growth_val_5"},
       ]},
-      {"method":share(build), "value":["Share"], "type":"button"}
+      {"method":share(build), "value":["Share"], "type":"button"},
+      {"method":download(container), "value":["Download"], "type":"button"},
     ]
   }
 }

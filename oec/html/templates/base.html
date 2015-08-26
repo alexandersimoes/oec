@@ -103,6 +103,26 @@
       </div>
     </div>
     
+    <div class="modal" id="download">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <h2>{{ _('Download') }}</h2>
+          <a href="#close" class="btn-close">×</a>
+        </div>
+        <div class="modal-body">
+          <a href="#svg" class="download_button" id="svg">
+            SVG <i class="fa fa-file-image-o"></i>
+          </a>
+          <a href="#png" class="download_button" id="png">
+            PNG <i class="fa fa-file-image-o"></i>
+          </a>
+          <a href="#csv" class="download_button" id="csv">
+            CSV <i class="fa fa-file-code-o"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
 
     {% for category, msg in get_flashed_messages(with_categories=true) %}
     <div id="server_message" class="flash-{{ category }}">
