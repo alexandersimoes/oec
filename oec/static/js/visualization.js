@@ -30,11 +30,16 @@ var visualization = function(build, container) {
 
   /* Need to set text formatting in HTML for translations */
   viz.format({"text": function(text, key, vars){
+
       if(key){
-        if(key.key == "display_id"){ return text.toUpperCase(); }
+        if(key.key === "display_id"){
+          return text.toUpperCase();
+        }
       }
+
       if(text){
-        if(text == "display_id"){
+
+        if(text === "display_id"){
           if(build.attr_type == "origin" || build.attr_type == "dest"){
             return oec.translations["id"];
           }
@@ -45,6 +50,10 @@ var visualization = function(build, container) {
 
         if(d3.keys(oec.translations).indexOf(text) > -1){
           return oec.translations[text];
+        }
+
+        if (text === "trade") {
+          return "Trade in USD";
         }
 
         if(text.indexOf("Values") >= 0 && !key){
@@ -178,7 +187,21 @@ configs.default = function(build) {
     "time": {"value": "year", "solo": build.year },
     "tooltip": { "small": 225 },
     "tooltip": tooltip,
-    "type": build.viz.slug
+    "type": build.viz.slug,
+    "x": {
+      "label": {
+        "font": {
+          "size": 16
+        }
+      }
+    },
+    "y": {
+      "label": {
+        "font": {
+          "size": 16
+        }
+      }
+    }
   }
 
 }

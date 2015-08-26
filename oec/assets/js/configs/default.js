@@ -99,7 +99,21 @@ configs.default = function(build) {
     "time": {"value": "year", "solo": build.year },
     "tooltip": { "small": 225 },
     "tooltip": tooltip,
-    "type": build.viz.slug
+    "type": build.viz.slug,
+    "x": {
+      "label": {
+        "font": {
+          "size": 16
+        }
+      }
+    },
+    "y": {
+      "label": {
+        "font": {
+          "size": 16
+        }
+      }
+    }
   }
 
 }
