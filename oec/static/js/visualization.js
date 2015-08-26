@@ -183,7 +183,7 @@ configs.default = function(build) {
 
 }
 
-configs.geo_map = function(build) {
+configs.geo_map = function(build, container) {
   return {
     "color": build.trade_flow+"_val",
     "coords": {
@@ -214,7 +214,7 @@ configs.geo_map = function(build) {
   }
 }
 
-configs.line = function(build) {
+configs.line = function(build, container) {
   return {
     "color": function(d){ 
       if(d.name=="Exports"){ return "#0b1097" } 
@@ -284,7 +284,7 @@ configs.network = function(build, container) {
   }
 }
 
-configs.rings = function(build) {
+configs.rings = function(build, container) {
   return {
     "active": {
       "value": function(d){
@@ -304,7 +304,7 @@ configs.rings = function(build) {
   }
 }
 
-configs.scatter = function(build) {
+configs.scatter = function(build, container) {
   return {
     "color": "color",
     "depth": 1,
@@ -321,7 +321,7 @@ configs.scatter = function(build) {
   }
 }
 
-configs.stacked = function(build) {
+configs.stacked = function(build, container) {
   function change_layout(new_layout){
     viz.y({"scale": new_layout}).draw();
   }

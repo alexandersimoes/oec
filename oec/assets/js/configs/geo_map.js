@@ -1,4 +1,4 @@
-configs.geo_map = function(build) {
+configs.geo_map = function(build, container) {
   return {
     "color": build.trade_flow+"_val",
     "coords": {

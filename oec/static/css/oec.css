@@ -578,7 +578,7 @@ body.home #hamburger {
             width: 100%; }
             #container #content section aside #topojson {
               display: block;
-              height: 200px;
+              height: 250px;
               margin-top: 10px;
               width: 100%; }
               @media all and (max-width: 768px) {

@@ -1,4 +1,4 @@
-configs.line = function(build) {
+configs.line = function(build, container) {
   return {
     "color": function(d){ 
       if(d.name=="Exports"){ return "#0b1097" } 

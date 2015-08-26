@@ -1,4 +1,4 @@
-configs.scatter = function(build) {
+configs.scatter = function(build, container) {
   return {
     "color": "color",
     "depth": 1,

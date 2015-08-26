@@ -1,4 +1,4 @@
-configs.rings = function(build) {
+configs.rings = function(build, container) {
   return {
     "active": {
       "value": function(d){

@@ -1,4 +1,4 @@
-configs.stacked = function(build) {
+configs.stacked = function(build, container) {
   function change_layout(new_layout){
     viz.y({"scale": new_layout}).draw();
   }
