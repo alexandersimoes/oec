@@ -64,7 +64,7 @@ var visualization = function(build, container) {
     d3.json(build.data_url, function(error, raw_data){
       var data = format_data(raw_data, attrs, build);
 
-      viz.data(raw_data.data).attrs(attrs).error(false).draw();
+      viz.data(data).attrs(attrs).error(false).draw();
 
       d3.select("#viz")
         .style("display", "block");
@@ -215,14 +215,27 @@ configs.geo_map = function(build) {
 
 configs.line = function(build) {
   return {
-    "color": "id",
-    "depth": 1,
+    "color": function(d){ 
+      if(d.name=="Exports"){ return "#0b1097" } 
+      else{ return "#c8140a" } 
+    },
+    "depth": 0,
+    "id": "test",
     "x": "year",
-    "y": "trade",
-    "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
+    "y": "trade"
+    // "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
   }
 }
 
+
+"As of 2013 Brazil had a positive trade balance of USD 54 M in net exports."
+"As compared to 1995 when Brazil still had a positive trade balance, though at the time it was only USD 13 M in net exports."
+"As compared to 1995 when Brazil still had a positive trade balance, though at that time it had a higher value of USD 60 M in net exports."
+
+"As compared to 1995 when Brazil had a negative trade balance of 13 M in net imports."
+
+"As of 2013 Brazil had a negative trade balance of USD 54 M in net imports."
+"As compared to 1995 when Brazil still had a positive trade balance, though at the time it was only USD 13 M in net exports."
 configs.network = function(build) {
   return {
     "active": {
@@ -399,21 +412,32 @@ function format_data(raw_data, attrs, build){
   
   // special case for line chart of trade balance (need to duplicate data)
   if(build.viz.slug == "line"){
+    // data = data.map(function(d){
+    //   d.trade = d.export_val - d.import_val;
+    //   // d.id = d.id + "_export";
+    //   d.name = "Exports";
+    //   return d;
+    // })
     data = data.map(function(d){
       d.trade = d.export_val;
-      d.id = d.id + "_export";
+      // d.id = d.id + "_export";
+      d.test = d.id + "_export";
       d.name = "Exports";
       return d;
     })
-    var clones = data.map(function(d){
-      var x = JSON.parse(JSON.stringify(d));
+    var clones = d3plus.util.copy(data);
+    var clones = clones.map(function(d){
+      // var x = JSON.parse(JSON.stringify(d));
+      var x = d
       x.trade = x.import_val;
-      x.id = x.id + "_import";
+      // x.id = x.id + "_import";
+      d.test = d.id + "_import";
       x.name = "Imports"
       return x;
     })
     data = data.concat(clones);
   }
+  console.log(data)
   
   return data;
   

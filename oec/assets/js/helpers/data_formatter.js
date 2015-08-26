@@ -20,21 +20,32 @@ function format_data(raw_data, attrs, build){
   
   // special case for line chart of trade balance (need to duplicate data)
   if(build.viz.slug == "line"){
+    // data = data.map(function(d){
+    //   d.trade = d.export_val - d.import_val;
+    //   // d.id = d.id + "_export";
+    //   d.name = "Exports";
+    //   return d;
+    // })
     data = data.map(function(d){
       d.trade = d.export_val;
-      d.id = d.id + "_export";
+      // d.id = d.id + "_export";
+      d.test = d.id + "_export";
       d.name = "Exports";
       return d;
     })
-    var clones = data.map(function(d){
-      var x = JSON.parse(JSON.stringify(d));
+    var clones = d3plus.util.copy(data);
+    var clones = clones.map(function(d){
+      // var x = JSON.parse(JSON.stringify(d));
+      var x = d
       x.trade = x.import_val;
-      x.id = x.id + "_import";
+      // x.id = x.id + "_import";
+      d.test = d.id + "_import";
       x.name = "Imports"
       return x;
     })
     data = data.concat(clones);
   }
+  console.log(data)
   
   return data;
   

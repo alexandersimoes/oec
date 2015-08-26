@@ -61,7 +61,7 @@ var visualization = function(build, container) {
     d3.json(build.data_url, function(error, raw_data){
       var data = format_data(raw_data, attrs, build);
 
-      viz.data(raw_data.data).attrs(attrs).error(false).draw();
+      viz.data(data).attrs(attrs).error(false).draw();
 
       d3.select("#viz")
         .style("display", "block");

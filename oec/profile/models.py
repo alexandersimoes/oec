@@ -212,11 +212,29 @@ class Country(Profile):
         if yod_imp:
             origin_list = self.stringify_items(yod_imp, "export_val", "origin")
             origin_subtitle = u"The top import origins of {} are {}.".format(self.attr.get_name(), origin_list)
+        
+        # trade balance viz --
+        first_yo = self.models.Yo.query.filter_by(year = available_years["hs92"][-1], country = self.attr).first()
+        net_trade = this_yo.export_val - this_yo.import_val
+        trade_balance = "positive" if net_trade >= 0 else "negative"
+        trade_direction = "exports" if net_trade >= 0 else "imports"
+        tb_subtitle = "As of {} {} had a {} trade balance of USD {} in net {}." \
+                        .format(self.year, self.attr.get_name(), trade_balance, num_format(abs(net_trade)), trade_direction)
+        old_yo = self.models.Yo.query.filter_by(year = available_years["hs92"][0], country = self.attr).first()
+        old_net_trade = old_yo.export_val - old_yo.import_val
+        old_trade_balance = "positive" if old_net_trade >= 0 else "negative"
+        old_trade_direction = "exports" if old_net_trade >= 0 else "imports"
+        is_diff = True if old_trade_balance != trade_balance else False
+        still_or_not = "still" if old_trade_balance == trade_balance else ""
+        tb_subtitle += " As compared to their trade balance in {} when they {} had a {} trade balance of USD {} in net {}." \
+                        .format(available_years["hs92"][0], still_or_not, old_trade_balance, num_format(abs(old_net_trade)), old_trade_direction)
+        tb_build = Build("line", "hs92", "show", self.attr, "all", "all", available_years["hs92"])
 
         trade_section = {
             "builds": [
                 {"title": u"Exports", "build": export_tmap, "subtitle": export_subtitle},
                 {"title": u"Imports", "build": import_tmap, "subtitle": import_subtitle},
+                {"title": u"Trade Balance", "build": tb_build, "subtitle": tb_subtitle},
                 {"title": u"Destinations", "build": dests_tmap, "subtitle": dest_subtitle},
                 {"title": u"Origins", "build": origins_tmap, "subtitle": origin_subtitle},
             ]
