@@ -17,6 +17,26 @@
     opacity: 1;
   }
 
+  #search_close {
+    @include transition(opacity 0.1s);
+    color: $color;
+    font-size: 40px;
+    font-weight: 100;
+    opacity: 0.8;
+    position: absolute;
+    right: 30px;
+    text-align: center;
+    top: 20px;
+    width: 40px;
+
+    &:hover {
+      border: 0;
+      cursor: pointer;
+      opacity: 1;
+    }
+
+  }
+
   #search_div {
     height: 15vh;
     margin: 5vh auto;

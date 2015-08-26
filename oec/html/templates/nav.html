@@ -176,6 +176,7 @@
   </footer>
 
   <div id="search">
+    <a id="search_close">x</a>
     <div id="search_div">
       <i class="fa fa-search"></i>
       <input id="search_input" type="text" placeholder="{{ _('Search') }}" />
@@ -621,6 +622,8 @@
   d3.select("#search_button").on("click", function(){
     search("all");
   });
+
+  d3.select("#search_close").on("click", close_search);
 
   // search();
   // search_term("unit");

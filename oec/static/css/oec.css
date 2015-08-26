@@ -352,32 +352,50 @@ body.home #hamburger {
   z-index: 2000; }
   #search.visible {
     opacity: 1; }
-    #search #search_div {
-      height: 15vh;
-      margin: 5vh auto;
-      position: relative;
-      text-align: center; }
-      #search #search_div i {
-        color: #0085BF;
+    #search #search_close {
+      -webkit-transition: opacity 0.1s;
+      -moz-transition: opacity 0.1s;
+      -o-transition: opacity 0.1s;
+      transition: opacity 0.1s;
+      color: #0085BF;
+      font-size: 40px;
+      font-weight: 100;
+      opacity: 0.8;
+      position: absolute;
+      right: 30px;
+      text-align: center;
+      top: 20px;
+      width: 40px; }
+      #search #search_close:hover {
+        border: 0;
+        cursor: pointer;
+        opacity: 1; }
+  #search #search_div {
+    height: 15vh;
+    margin: 5vh auto;
+    position: relative;
+    text-align: center; }
+    #search #search_div i {
+      color: #0085BF;
+      font-size: 3vh;
+      left: 1vh;
+      position: absolute;
+      top: 1vh; }
+      #search #search_div #search_input {
+        background-color: transparent;
+        border: 0;
+        border-bottom: 1px solid #0085BF;
+        display: inline-block;
         font-size: 3vh;
-        left: 1vh;
-        position: absolute;
-        top: 1vh; }
-        #search #search_div #search_input {
-          background-color: transparent;
-          border: 0;
-          border-bottom: 1px solid #0085BF;
-          display: inline-block;
-          font-size: 3vh;
-          height: 5vh;
-          margin-bottom: 5px;
-          padding-left: 5vh;
-          width: auto; }
-          #search #search_div #search_input:focus {
-            -webkit-box-shadow: none;
-            -moz-box-shadow: none;
-            box-shadow: none;
-            outline: none; }
+        height: 5vh;
+        margin-bottom: 5px;
+        padding-left: 5vh;
+        width: auto; }
+        #search #search_div #search_input:focus {
+          -webkit-box-shadow: none;
+          -moz-box-shadow: none;
+          box-shadow: none;
+          outline: none; }
   #search #search_results {
     -webkit-justify-content: center;
     -moz-justify-content: center;
