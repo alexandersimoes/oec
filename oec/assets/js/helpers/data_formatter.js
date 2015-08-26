@@ -45,7 +45,6 @@ function format_data(raw_data, attrs, build){
     })
     data = data.concat(clones);
   }
-  console.log(data)
   
   return data;
   

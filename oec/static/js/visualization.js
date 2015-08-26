@@ -18,7 +18,7 @@ var visualization = function(build, container) {
 
   /* need to grab json network file for rings and product space */
   if(build.viz.slug == "network" || build.viz.slug == "rings"){
-    var network_file = "/static/json/network_hs.json";
+    var network_file = "/static/json/network_hs4.json";
     if(build.viz.slug == "rings" && build.prod.id.length == 8){
       network_file = "/static/json/network_hs6.json";
     }
@@ -236,6 +236,13 @@ configs.line = function(build) {
 
 "As of 2013 Brazil had a negative trade balance of USD 54 M in net imports."
 "As compared to 1995 when Brazil still had a positive trade balance, though at the time it was only USD 13 M in net exports."
+function change_layout(new_layout){
+  var network_file = "/static/json/"+new_layout+".json";
+  viz.nodes(network_file, function(network){
+    viz.edges(network.edges);
+    return network.nodes;
+  }).draw();
+}
 configs.network = function(build) {
   return {
     "active": {
@@ -266,7 +273,17 @@ configs.network = function(build) {
     //   }
     // },
     "size": "export_val",
-    "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
+    "ui": [
+      {"method":share(build), "value":["Share"], "type":"button"},
+      {"method":change_layout, "label":"Layout", "value":[
+        {"Force Directed":"network_hs4"}, 
+        {"Circular Spring":"network_hs4_circular_spring"},
+        {"FR":"network_hs4_fr"},
+        {"Complexity Circles":"network_hs4_complexity_circles"},
+        {"Community Circles":"network_hs4_community_circles"},
+        {"Community Rectangles":"network_hs4_community_rectangles"},
+      ]}
+    ]
   }
 }
 
@@ -437,7 +454,6 @@ function format_data(raw_data, attrs, build){
     })
     data = data.concat(clones);
   }
-  console.log(data)
   
   return data;
   

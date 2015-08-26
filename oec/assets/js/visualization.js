@@ -15,7 +15,7 @@ var visualization = function(build, container) {
 
   /* need to grab json network file for rings and product space */
   if(build.viz.slug == "network" || build.viz.slug == "rings"){
-    var network_file = "/static/json/network_hs.json";
+    var network_file = "/static/json/network_hs4.json";
     if(build.viz.slug == "rings" && build.prod.id.length == 8){
       network_file = "/static/json/network_hs6.json";
     }
