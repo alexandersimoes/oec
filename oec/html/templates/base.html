@@ -77,7 +77,7 @@
 
   </head>
   <body class="{% if g.page_type %}{{g.page_type}}{% endif %}{% if g.locale == 'ar' or g.locale == 'he' %} rtl{% endif %}">
-    
+
     <div class="modal" id="share">
       <div class="modal-dialog">
         <div class="modal-header">
@@ -102,7 +102,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="modal" id="download">
       <div class="modal-dialog">
         <div class="modal-header">
@@ -111,18 +111,18 @@
         </div>
         <div class="modal-body">
           <a href="#svg" class="download_button" id="svg">
-            SVG <i class="fa fa-file-image-o"></i>
+            <i class="fa fa-file-code-o"></i> SVG
           </a>
           <a href="#png" class="download_button" id="png">
-            PNG <i class="fa fa-file-image-o"></i>
+            <i class="fa fa-file-image-o"></i> PNG
           </a>
           <a href="#csv" class="download_button" id="csv">
-            CSV <i class="fa fa-file-code-o"></i>
+            <i class="fa fa-file-excel-o"></i> CSV
           </a>
         </div>
       </div>
     </div>
-    
+
 
     {% for category, msg in get_flashed_messages(with_categories=true) %}
     <div id="server_message" class="flash-{{ category }}">

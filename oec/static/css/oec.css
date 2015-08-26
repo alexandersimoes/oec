@@ -751,10 +751,10 @@ body.home #hamburger {
           #container #content .profile_header h1 sub a:hover {
             border-color: transparent; }
 #container #content section p img {
-  border: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+  border: none;
   margin: 10px 0 0 0;
   width: 100%; }
   #container #content section .profile_button {
@@ -1117,104 +1117,108 @@ code {
   td.code {
     width: 120px; }
 #share a.share_button {
-  color: #000;
+  -webkit-transition: opacity 0.1s;
+  -moz-transition: opacity 0.1s;
+  -o-transition: opacity 0.1s;
+  transition: opacity 0.1s;
+  color: #0085BF;
   display: inline-block;
-  margin: 0 20px 0 0;
+  margin: 10px 20px 0 0;
+  opacity: 0.8;
   text-align: center;
   width: 20px; }
+  #share a.share_button:hover {
+    opacity: 1; }
+#share i {
+  display: inline-block;
+  font-size: 20px; }
 
-  #share a.share_button:last-child {
-    margin: 0 0 0 0; }
+#short {
+  display: none; }
 
-    #share i {
-      display: inline-block;
-      font-size: 20px; }
+  .btn-close {
+    color: #aaaaaa;
+    font-size: 30px;
+    font-weight: 100;
+    text-decoration: none;
+    position: absolute;
+    right: 10px;
+    top: 2px; }
+    .btn-close:hover {
+      color: #919191; }
 
-      #short {
-        display: none; }
+.modal#download .modal-body {
+  text-align: center; }
+.modal:before {
+  content: "";
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10; }
+  .modal .modal-dialog {
+    -webkit-transform: translate(0, -500%);
+    -ms-transform: translate(0, -500%);
+    transform: translate(0, -500%);
+    -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    background-color: white;
+    left: 50%;
+    margin-left: -200px;
+    position: fixed;
+    top: -100%;
+    width: 360px;
+    z-index: 11;
+    -webkit-transition: -webkit-transform 0.3s ease-out;
+    -moz-transition: -moz-transform 0.3s ease-out;
+    -o-transition: -o-transform 0.3s ease-out;
+    transition: transform 0.3s ease-out; }
+    .modal.active:before {
+      display: block; }
+      .modal.active .modal-dialog {
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        transform: translate(0, 0);
+        top: 20%; }
 
-        .btn-close {
-          color: #aaaaaa;
-          font-size: 30px;
-          text-decoration: none;
-          position: absolute;
-          right: 5px;
-          top: 0; }
+.modal-header {
+  padding: 10px 20px 0 20px; }
+  .modal-header h2 {
+    color: #0085BF; }
 
-          .btn-close:hover {
-            color: #919191; }
-
-            .modal:before {
-              content: "";
-              display: none;
-              background: rgba(0, 0, 0, 0.6);
-              position: fixed;
-              top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              z-index: 10; }
-
-              .modal.active:before {
-                display: block; }
-
-                .modal.active .modal-dialog {
-                  -webkit-transform: translate(0, 0);
-                  -ms-transform: translate(0, 0);
-                  transform: translate(0, 0);
-                  top: 20%; }
-
-                  .modal-dialog {
-                    background: #fefefe;
-                    border: #333333 solid 1px;
-                    border-radius: 5px;
-                    margin-left: -200px;
-                    position: fixed;
-                    left: 50%;
-                    top: -100%;
-                    z-index: 11;
-                    width: 360px;
-                    -webkit-transform: translate(0, -500%);
-                    -ms-transform: translate(0, -500%);
-                    transform: translate(0, -500%);
-                    -webkit-transition: -webkit-transform 0.3s ease-out;
-                    -moz-transition: -moz-transform 0.3s ease-out;
-                    -o-transition: -o-transform 0.3s ease-out;
-                    transition: transform 0.3s ease-out; }
-
-                    .modal-body {
-                      padding: 20px; }
-
-                      .modal-body h3 {
-                        font-size: 16px;
-                        margin: 10px 0 5px 0; }
-
-                        .modal-body h3:first-child {
-                          margin: 0; }
-
-                          .modal-body input {
-                            border: solid 1px #ececec;
-                            color: #888;
-                            font-size: 12px;
-                            letter-spacing: 1px;
-                            margin: 0px;
-                            overflow: hidden;
-                            padding: 3px;
-                            width: 100%; }
-
-                            .modal-body input:focus {
-                              color: #444;
-                              outline: 0; }
-
-                              .modal-header, .modal-footer {
-                                padding: 10px 20px; }
-
-                                .modal-header {
-                                  border-bottom: #eeeeee solid 1px; }
-
-                                  .modal-header h2 {
-                                    font-size: 20px; }
-
-                                    .modal-footer {
-                                      border-top: #eeeeee solid 1px;
-                                      text-align: right; }
+.modal-body {
+  padding: 10px 20px 20px 20px; }
+  .modal-body h3 {
+    font-size: 16px;
+    margin: 10px 0 5px 0; }
+    .modal-body h3:first-child {
+      margin: 0; }
+  .modal-body input {
+    border: solid 1px #ececec;
+    color: #888;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin: 5px 0;
+    overflow: hidden;
+    padding: 3px;
+    width: 100%; }
+    .modal-body input:focus {
+      color: #444;
+      outline: 0; }
+  .modal-body .download_button {
+    -webkit-transition: opacity 0.1s;
+    -moz-transition: opacity 0.1s;
+    -o-transition: opacity 0.1s;
+    transition: opacity 0.1s;
+    color: black;
+    display: inline-block;
+    font-size: 20px;
+    margin: 20px 20px 10px 16px;
+    opacity: 0.8;
+    text-decoration: none; }
+    .modal-body .download_button:hover {
+      opacity: 1; }

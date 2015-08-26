@@ -87,12 +87,10 @@
     }
 
     section {
-      
+
       p img {
+        @include shadow(none);
         border: none;
-        -webkit-box-shadow: none;
-           -moz-box-shadow: none;
-                box-shadow: none;
         margin: 10px 0 0 0;
         width: 100%;
       }
