@@ -8,7 +8,7 @@ var visualization = function(build, container) {
   var trade_flow = build.trade_flow,
       default_config = configs["default"](build),
       viz_config = configs[build.viz.slug](build, container);
-
+  
   var viz = d3plus.viz()
               .container(container)
               .config(default_config)
@@ -77,8 +77,14 @@ var visualization = function(build, container) {
        they return execute the go() func */
     d3.json(build.data_url, function(error, raw_data){
       var data = format_data(raw_data, attrs, build);
+      
+      var csv_data = format_csv_data(data, attrs, build);
 
-      viz.data(data).attrs(attrs).error(false).draw();
+      viz.data(data)
+        .attrs(attrs)
+        .error(false)
+        .ui(viz.ui().concat([{"method":download(container, csv_data), "value":["Download"], "type":"button"}]))
+        .draw();
 
       d3.select("#viz")
         .style("display", "block");
@@ -139,7 +145,6 @@ configs.default = function(build) {
         "url": function(focus_id){
           var display_id = focus_id.substring(2);
           var attr_type = build.attr_type.indexOf("hs") >= 0 ? "prod_id" : build.attr_type+"_id";
-          console.log("/en/explore/builds/?classification="+build.classification+"&"+attr_type+"="+display_id)
           return "/en/explore/builds/?classification="+build.classification+"&"+attr_type+"="+display_id;
         },
         "callback":function(data){
@@ -179,7 +184,6 @@ configs.default = function(build) {
   if(window.parent.location.host == window.location.host){
     background = "#eeeeee";
   }
-  console.log(tooltip)
 
   return {
     "aggs": {
@@ -475,8 +479,7 @@ configs.tree_map = function(build, container) {
         {"Growth Value (1 year)": build.trade_flow+"_growth_val"},
         {"Growth Value (5 year)": build.trade_flow+"_growth_val_5"},
       ]},
-      {"method":share(build), "value":["Share"], "type":"button"},
-      {"method":download(container), "value":["Download"], "type":"button"},
+      {"method":share(build), "value":["Share"], "type":"button"}
     ]
   }
 }
@@ -562,7 +565,43 @@ function format_attrs(raw_attrs, build){
   
   return attrs;
 }
-function download(container){
+
+function format_csv_data(data, attrs, build){
+  csv_data = [];
+  ccp = ["origin", "dest", "prod"]
+  
+  // format columns
+  var show_id = build.attr_type + "_id";
+  var trade_flow = build.trade_flow + "_val";
+  csv_data.push(['year', 'country_origin_id', 'country_destination_id', build.classification+'_product_id', trade_flow, trade_flow+"_pct"])
+  
+  // format data
+  var total_val = d3.sum(data, function(d){ return d[trade_flow]; });
+  data.forEach(function(d){
+    if(d[trade_flow]){
+      var attr = attrs[d[show_id]]
+      datum = [d['year']]
+      ccp.forEach(function(x){
+        if(build[x] == "show"){
+          datum.push(attr["display_id"] ? attr["display_id"].toUpperCase() : attr["id"].substring(2).toUpperCase())
+        }
+        else if(build[x] == "all"){
+          datum.push("ALL")
+        }
+        else {
+          datum.push(build[x].display_id.toUpperCase())
+        }
+      })
+      var this_pct = (d[trade_flow]/total_val)*100
+      datum.push(d[trade_flow])
+      datum.push(d3.format(",.2g")(this_pct)+"%")
+      csv_data.push(datum)
+    }
+  })
+  
+  return csv_data;
+}
+function download(container, csv_data){
   return function(){
   
     d3.selectAll(".modal#download").classed("active", true)
@@ -586,11 +625,13 @@ function download(container){
         var content = (new XMLSerializer).serializeToString(svg.node());
       }
       else if(format == "csv"){
-        contet = "[[1, 2, 3], [4, 5, 6], [7, 8, 9]]"
+        // var content = d3.csv.format(csv_data);
+        var content = JSON.stringify(csv_data);
+        console.log(content);
       }
       
       var form = d3.select("body").append("form").attr("id", "download").attr("action", "/en/explore/download/").attr("method", "post");
-      form.append("input").attr("type", "text").attr("name", "content").attr("value", svg_xml);
+      form.append("input").attr("type", "text").attr("name", "content").attr("value", content);
       form.append("input").attr("type", "text").attr("name", "format").attr("value", format);
       form.append("input").attr("type", "text").attr("name", "title").attr("value", title);
       

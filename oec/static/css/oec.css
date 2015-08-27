@@ -1010,6 +1010,19 @@ iframe.viz {
 
         .d3plus_tooltip_html a.related:hover {
           opacity: 1; }
+
+          .d3plus_tooltip_html a.related:after {
+            bottom: 8px;
+            content: "\f105";
+            display: block;
+            font-family: FontAwesome;
+            font-size: 20px;
+            -webkit-font-smoothing: antialiased;
+            font-style: normal;
+            font-weight: normal;
+            position: absolute;
+            right: 12px;
+            text-decoration: inherit; }
 body.rankings #container {
   margin-top: 0; }
   body.rankings #container content {

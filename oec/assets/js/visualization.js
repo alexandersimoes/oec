@@ -5,7 +5,7 @@ var visualization = function(build, container) {
   var trade_flow = build.trade_flow,
       default_config = configs["default"](build),
       viz_config = configs[build.viz.slug](build, container);
-
+  
   var viz = d3plus.viz()
               .container(container)
               .config(default_config)
@@ -74,8 +74,14 @@ var visualization = function(build, container) {
        they return execute the go() func */
     d3.json(build.data_url, function(error, raw_data){
       var data = format_data(raw_data, attrs, build);
+      
+      var csv_data = format_csv_data(data, attrs, build);
 
-      viz.data(data).attrs(attrs).error(false).draw();
+      viz.data(data)
+        .attrs(attrs)
+        .error(false)
+        .ui(viz.ui().concat([{"method":download(container, csv_data), "value":["Download"], "type":"button"}]))
+        .draw();
 
       d3.select("#viz")
         .style("display", "block");

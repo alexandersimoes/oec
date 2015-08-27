@@ -1,4 +1,4 @@
-function download(container){
+function download(container, csv_data){
   return function(){
   
     d3.selectAll(".modal#download").classed("active", true)
@@ -22,11 +22,12 @@ function download(container){
         var content = (new XMLSerializer).serializeToString(svg.node());
       }
       else if(format == "csv"){
-        contet = "[[1, 2, 3], [4, 5, 6], [7, 8, 9]]"
+        // var content = d3.csv.format(csv_data);
+        var content = JSON.stringify(csv_data);
       }
       
       var form = d3.select("body").append("form").attr("id", "download").attr("action", "/en/explore/download/").attr("method", "post");
-      form.append("input").attr("type", "text").attr("name", "content").attr("value", svg_xml);
+      form.append("input").attr("type", "text").attr("name", "content").attr("value", content);
       form.append("input").attr("type", "text").attr("name", "format").attr("value", format);
       form.append("input").attr("type", "text").attr("name", "title").attr("value", title);
       

@@ -1,8 +1,8 @@
-import os, time, urllib, urllib2, json
-
+import os, time, urllib, urllib2, json, csv, io
+import tempfile, subprocess
 from werkzeug.routing import ValidationError, BaseConverter
 from flask import Blueprint, render_template, g, request, session, redirect, \
-                    url_for, flash, jsonify, Response, abort
+                    url_for, flash, jsonify, Response, abort, make_response
 from flask.ext.babel import gettext
 
 from oec import app, db, babel, view_cache, random_countries, available_years, oec_dir
@@ -241,8 +241,6 @@ def shorten_url():
 
 @mod.route('/download/', methods=['GET', 'POST'])
 def download():
-    import tempfile, subprocess
-
     data = request.form.get("content", None) or request.json.get("content", None)
     format = request.form.get("format", None) or request.json.get("format", None)
     title = request.form.get("title", None) or request.json.get("title", None)
@@ -278,7 +276,11 @@ def download():
             out, err = p.communicate()
             response_data = out
     else:
-        response_data = data.encode("utf-8")
+        output = io.BytesIO()
+        response_data = json.loads(data.encode("utf-8"))
+        writer = csv.writer(output)
+        writer.writerows(response_data)
+        response_data = output.getvalue()
 
     if save:
         return jsonify({"file_name":os.path.basename(new_file.name), "new":True})

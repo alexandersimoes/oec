@@ -79,3 +79,39 @@ function format_attrs(raw_attrs, build){
   
   return attrs;
 }
+
+function format_csv_data(data, attrs, build){
+  csv_data = [];
+  ccp = ["origin", "dest", "prod"]
+  
+  // format columns
+  var show_id = build.attr_type + "_id";
+  var trade_flow = build.trade_flow + "_val";
+  csv_data.push(['year', 'country_origin_id', 'country_destination_id', build.classification+'_product_id', trade_flow, trade_flow+"_pct"])
+  
+  // format data
+  var total_val = d3.sum(data, function(d){ return d[trade_flow]; });
+  data.forEach(function(d){
+    if(d[trade_flow]){
+      var attr = attrs[d[show_id]]
+      datum = [d['year']]
+      ccp.forEach(function(x){
+        if(build[x] == "show"){
+          datum.push(attr["display_id"] ? attr["display_id"].toUpperCase() : attr["id"].substring(2).toUpperCase())
+        }
+        else if(build[x] == "all"){
+          datum.push("ALL")
+        }
+        else {
+          datum.push(build[x].display_id.toUpperCase())
+        }
+      })
+      var this_pct = (d[trade_flow]/total_val)*100
+      datum.push(d[trade_flow])
+      datum.push(d3.format(",.2g")(this_pct)+"%")
+      csv_data.push(datum)
+    }
+  })
+  
+  return csv_data;
+}
