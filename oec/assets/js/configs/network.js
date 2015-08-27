@@ -45,8 +45,7 @@ configs.network = function(build, container) {
         {"Community Circles":"network_hs4_community_circles"},
         {"Community Rectangles":"network_hs4_community_rectangles"},
       ]},
-      {"method":share(build), "value":["Share"], "type":"button"},
-      {"method":download(container), "value":["Download"], "type":"button"},
+      {"method":share(build), "value":["Share"], "type":"button"}
     ]
   }
 }

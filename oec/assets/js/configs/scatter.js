@@ -9,8 +9,7 @@ configs.scatter = function(build, container) {
       "value": build.trade_flow
     },
     "ui": [
-      {"method":share(build), "value":["Share"], "type":"button"},
-      {"method":download(container), "value":["Download"], "type":"button"}
+      {"method":share(build), "value":["Share"], "type":"button"}
     ]
   }
 }

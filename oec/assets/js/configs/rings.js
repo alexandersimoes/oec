@@ -12,8 +12,7 @@ configs.rings = function(build, container) {
     "depth": 1,
     "size": "export_val",
     "ui": [
-      {"method":share(build), "value":["Share"], "type":"button"},
-      {"method":download(container), "value":["Download"], "type":"button"}
+      {"method":share(build), "value":["Share"], "type":"button"}
     ]
   }
 }

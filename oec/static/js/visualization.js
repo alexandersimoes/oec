@@ -139,29 +139,21 @@ configs.default = function(build) {
   if(build.attr_type == "dest" || build.attr_type == "origin"){
     var icon = {"value":"icon", "style":{"nest":"knockout","id":"default"}};
     var id_nesting = ["nest", "id"];
-    var tooltip = ["display_id", build.trade_flow+"_val"];
-    var tooltip = {
-      "html": {
-        "url": function(focus_id){
-          var display_id = focus_id.substring(2);
-          var attr_type = build.attr_type.indexOf("hs") >= 0 ? "prod_id" : build.attr_type+"_id";
-          return "/en/explore/builds/?classification="+build.classification+"&"+attr_type+"="+display_id;
-        },
-        "callback":function(data){
-          var html_str = '<h3>Related Visualizations</h3>'
-          data.builds.forEach(function(b){
-            html_str += "<a target='_top' href='/en/explore/"+b.url+"' class='related'>"+b.title+"</a>";
-          })
-          return html_str;
-        }
-      },
-      "value": ["display_id", build.trade_flow+"_val"]
-    }
+    var tooltip_data = ["display_id", build.trade_flow+"_val"];
   }
   else {
     var icon = {"value":"icon", "style":"knockout"};
     var id_nesting = ["nest", "nest_mid", "id"];
-    var tooltip = {
+    var tooltip_data = ["display_id", build.trade_flow+"_val", build.trade_flow+"_rca"]
+  }
+  
+  
+  
+  
+  
+  
+  
+  var tooltip = {
       "html": {
         "url": function(focus_id){
           var display_id = focus_id.substring(2);
@@ -173,12 +165,17 @@ configs.default = function(build) {
           data.builds.forEach(function(b){
             html_str += "<a target='_top' href='/en/explore/"+b.url+"' class='related'>"+b.title+"</a>";
           })
+          html_str += "<hr />";
+          html_str += "<a style='background-color:"+data.profile.color+";color:"+d3plus.color.text(data.profile.color)+";' target='_top' href='"+data.profile.url+"' class='profile'><img src='"+data.profile.icon+"' />"+data.profile.title+"</a>";
           return html_str;
         }
       },
-      "value": ["display_id", build.trade_flow+"_val", build.trade_flow+"_rca"]
+      "value": tooltip_data
     }
-  }
+  
+  
+  
+  
 
   var background = "none";
   if(window.parent.location.host == window.location.host){
@@ -280,8 +277,7 @@ configs.geo_map = function(build, container) {
         {"Growth Value (1 year)": build.trade_flow+"_val_growth_val"},
         {"Growth Value (5 year)": build.trade_flow+"_val_growth_val_5"},
       ]},
-      {"method":share(build), "value":["Share"], "type":"button"},
-      {"method":download(container), "value":["Download"], "type":"button"}
+      {"method":share(build), "value":["Share"], "type":"button"}
     ]
   }
 }
@@ -297,8 +293,7 @@ configs.line = function(build, container) {
     "x": "year",
     "y": "trade",
     "ui": [
-      {"method":share(build), "value":["Share"], "type":"button"},
-      {"method":download(container), "value":["Download"], "type":"button"}
+      {"method":share(build), "value":["Share"], "type":"button"}
     ]
   }
 }
@@ -350,8 +345,7 @@ configs.network = function(build, container) {
         {"Community Circles":"network_hs4_community_circles"},
         {"Community Rectangles":"network_hs4_community_rectangles"},
       ]},
-      {"method":share(build), "value":["Share"], "type":"button"},
-      {"method":download(container), "value":["Download"], "type":"button"},
+      {"method":share(build), "value":["Share"], "type":"button"}
     ]
   }
 }
@@ -370,8 +364,7 @@ configs.rings = function(build, container) {
     "depth": 1,
     "size": "export_val",
     "ui": [
-      {"method":share(build), "value":["Share"], "type":"button"},
-      {"method":download(container), "value":["Download"], "type":"button"}
+      {"method":share(build), "value":["Share"], "type":"button"}
     ]
   }
 }
@@ -387,8 +380,7 @@ configs.scatter = function(build, container) {
       "value": build.trade_flow
     },
     "ui": [
-      {"method":share(build), "value":["Share"], "type":"button"},
-      {"method":download(container), "value":["Download"], "type":"button"}
+      {"method":share(build), "value":["Share"], "type":"button"}
     ]
   }
 }
@@ -415,8 +407,7 @@ configs.stacked = function(build, container) {
     "ui": [
       depth_ui,
       {"method":change_layout, "value":[{"Value": "linear"}, {"Share": "share"}], "label":"Layout"},
-      {"method":share(build), "value":["Share"], "type":"button"},
-      {"method":download(container), "value":["Download"], "type":"button"}
+      {"method":share(build), "value":["Share"], "type":"button"}
     ]
   }
 }
@@ -627,7 +618,6 @@ function download(container, csv_data){
       else if(format == "csv"){
         // var content = d3.csv.format(csv_data);
         var content = JSON.stringify(csv_data);
-        console.log(content);
       }
       
       var form = d3.select("body").append("form").attr("id", "download").attr("action", "/en/explore/download/").attr("method", "post");

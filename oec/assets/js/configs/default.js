@@ -40,29 +40,15 @@ configs.default = function(build) {
   if(build.attr_type == "dest" || build.attr_type == "origin"){
     var icon = {"value":"icon", "style":{"nest":"knockout","id":"default"}};
     var id_nesting = ["nest", "id"];
-    var tooltip = ["display_id", build.trade_flow+"_val"];
-    var tooltip = {
-      "html": {
-        "url": function(focus_id){
-          var display_id = focus_id.substring(2);
-          var attr_type = build.attr_type.indexOf("hs") >= 0 ? "prod_id" : build.attr_type+"_id";
-          return "/en/explore/builds/?classification="+build.classification+"&"+attr_type+"="+display_id;
-        },
-        "callback":function(data){
-          var html_str = '<h3>Related Visualizations</h3>'
-          data.builds.forEach(function(b){
-            html_str += "<a target='_top' href='/en/explore/"+b.url+"' class='related'>"+b.title+"</a>";
-          })
-          return html_str;
-        }
-      },
-      "value": ["display_id", build.trade_flow+"_val"]
-    }
+    var tooltip_data = ["display_id", build.trade_flow+"_val"];
   }
   else {
     var icon = {"value":"icon", "style":"knockout"};
     var id_nesting = ["nest", "nest_mid", "id"];
-    var tooltip = {
+    var tooltip_data = ["display_id", build.trade_flow+"_val", build.trade_flow+"_rca"]
+  }
+    
+  var tooltip = {
       "html": {
         "url": function(focus_id){
           var display_id = focus_id.substring(2);
@@ -74,13 +60,14 @@ configs.default = function(build) {
           data.builds.forEach(function(b){
             html_str += "<a target='_top' href='/en/explore/"+b.url+"' class='related'>"+b.title+"</a>";
           })
+          html_str += "<hr />";
+          html_str += "<a style='background-color:"+data.profile.color+";color:"+d3plus.color.text(data.profile.color)+";' target='_top' href='"+data.profile.url+"' class='profile'><img src='"+data.profile.icon+"' />"+data.profile.title+"</a>";
           return html_str;
         }
       },
-      "value": ["display_id", build.trade_flow+"_val", build.trade_flow+"_rca"]
+      "value": tooltip_data
     }
-  }
-
+  
   var background = "none";
   if(window.parent.location.host == window.location.host){
     background = "#eeeeee";

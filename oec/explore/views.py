@@ -275,12 +275,14 @@ def download():
             p = subprocess.Popen(["rsvg-convert", "-z", zoom, "-f", format, "--background-color={0}".format(background), temp.name], stdout=subprocess.PIPE)
             out, err = p.communicate()
             response_data = out
-    else:
+    elif format == "csv":
         output = io.BytesIO()
         response_data = json.loads(data.encode("utf-8"))
         writer = csv.writer(output)
         writer.writerows(response_data)
         response_data = output.getvalue()
+    else:
+        response_data = data.encode("utf-8")
 
     if save:
         return jsonify({"file_name":os.path.basename(new_file.name), "new":True})
@@ -430,12 +432,25 @@ def embed(app_name, classification, trade_flow, origin_id, dest_id, \
 def builds():
     build_args = {}
     build_args["classification"] = request.args.get('classification', 'hs92')
-    build_args["origin_id"] = request.args.get('origin_id')
-    build_args["dest_id"] = request.args.get('dest_id')
+    build_args["origin_id"] = request.args.get('origin_id') or request.args.get('dest_id')
+    build_args["dest_id"] = None
     build_args["prod_id"] = request.args.get('prod_id')
     build_args["year"] = request.args.get('year', available_years[build_args["classification"]][-1])
     build_args["defaults"] = {"origin":"nausa", "dest":"aschn", "prod":"010101"}
     build_args["viz"] = "tree_map"
-    
     all_builds = get_all_builds(**build_args)
-    return jsonify(builds=[{"title": b.question(), "url": b.url()} for b in all_builds])
+    
+    if build_args["origin_id"]:
+        attr = Country.query.filter_by(id_3char=build_args["origin_id"]).first()
+    elif build_args["prod_id"]:
+        tbl = globals()[build_args["classification"].title()]
+        c = build_args["classification"]
+        attr = tbl.query.filter(getattr(tbl,c)==build_args["prod_id"]).first()
+    profile = {
+        "title":gettext("Profile for {}".format(attr.get_name())), 
+        "url":attr.get_profile_url(),
+        "icon":attr.get_icon(),
+        "color":attr.color
+    }
+    
+    return jsonify(profile=profile, builds=[{"title": b.question(), "url": b.url()} for b in all_builds])

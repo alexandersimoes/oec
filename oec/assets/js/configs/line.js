@@ -9,8 +9,7 @@ configs.line = function(build, container) {
     "x": "year",
     "y": "trade",
     "ui": [
-      {"method":share(build), "value":["Share"], "type":"button"},
-      {"method":download(container), "value":["Download"], "type":"button"}
+      {"method":share(build), "value":["Share"], "type":"button"}
     ]
   }
 }
