@@ -243,6 +243,22 @@
         });
 
       }
+      // List of countries that should take the largest two land masses.
+      else if (["asmys"].indexOf(id) >= 0) {
+
+        var areas = [], test = d3plus.util.copy(country);
+        country.geometry.coordinates.forEach(function(c, i){
+          test.geometry.coordinates = [c];
+          areas.push(path.area(test))
+        })
+
+        var sorted = areas.slice().sort(function(a, b){ return b-a; });
+        var maxArea = sorted[1];
+        country.geometry.coordinates = country.geometry.coordinates.filter(function(c, i){
+          return areas[i] >= maxArea;
+        });
+
+      }
       else {
 
         // Logic for removing small/far away geometries.
