@@ -134,17 +134,52 @@ configs.default = function(build) {
     var icon = {"value":"icon", "style":{"nest":"knockout","id":"default"}};
     var id_nesting = ["nest", "id"];
     var tooltip = ["display_id", build.trade_flow+"_val"];
+    var tooltip = {
+      "html": {
+        "url": function(focus_id){
+          var display_id = focus_id.substring(2);
+          var attr_type = build.attr_type.indexOf("hs") >= 0 ? "prod_id" : build.attr_type+"_id";
+          console.log("/en/explore/builds/?classification="+build.classification+"&"+attr_type+"="+display_id)
+          return "/en/explore/builds/?classification="+build.classification+"&"+attr_type+"="+display_id;
+        },
+        "callback":function(data){
+          var html_str = '<h3>Related Visualizations</h3>'
+          data.builds.forEach(function(b){
+            html_str += "<a target='_top' href='/en/explore/"+b.url+"' class='related'>"+b.title+"</a>";
+          })
+          return html_str;
+        }
+      },
+      "value": ["display_id", build.trade_flow+"_val"]
+    }
   }
   else {
     var icon = {"value":"icon", "style":"knockout"};
     var id_nesting = ["nest", "nest_mid", "id"];
-    var tooltip = ["display_id", build.trade_flow+"_val", build.trade_flow+"_rca"]
+    var tooltip = {
+      "html": {
+        "url": function(focus_id){
+          var display_id = focus_id.substring(2);
+          var attr_type = build.attr_type.indexOf("hs") >= 0 ? "prod_id" : build.attr_type+"_id";
+          return "/en/explore/builds/?classification="+build.classification+"&"+attr_type+"="+display_id;
+        },
+        "callback":function(data){
+          var html_str = '<h3>Related Visualizations</h3>'
+          data.builds.forEach(function(b){
+            html_str += "<a target='_top' href='/en/explore/"+b.url+"' class='related'>"+b.title+"</a>";
+          })
+          return html_str;
+        }
+      },
+      "value": ["display_id", build.trade_flow+"_val", build.trade_flow+"_rca"]
+    }
   }
 
   var background = "none";
   if(window.parent.location.host == window.location.host){
     background = "#eeeeee";
   }
+  console.log(tooltip)
 
   return {
     "aggs": {
@@ -190,12 +225,16 @@ configs.default = function(build) {
     },
     "text": {"nest":"name", "id":["name", "display_id"]},
     "time": {"value": "year", "solo": build.year },
+<<<<<<< dfaa79bf2b41c282c663394d7828e13ef8ddd6a0
     "title": {
       "font": {
         "weight": 800
       }
     },
     "tooltip": { "small": 225 },
+=======
+    // "tooltip": {"small": 225},
+>>>>>>> related viz on click for tree map squares
     "tooltip": tooltip,
     "type": build.viz.slug,
     "x": {

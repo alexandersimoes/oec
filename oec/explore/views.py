@@ -423,3 +423,17 @@ def embed(app_name, classification, trade_flow, origin_id, dest_id, \
         build = b,
         global_vars = json.dumps(global_vars),
         facebook_id = FACEBOOK_ID)
+
+@mod.route('/builds/')
+def builds():
+    build_args = {}
+    build_args["classification"] = request.args.get('classification', 'hs92')
+    build_args["origin_id"] = request.args.get('origin_id')
+    build_args["dest_id"] = request.args.get('dest_id')
+    build_args["prod_id"] = request.args.get('prod_id')
+    build_args["year"] = request.args.get('year', available_years[build_args["classification"]][-1])
+    build_args["defaults"] = {"origin":"nausa", "dest":"aschn", "prod":"010101"}
+    build_args["viz"] = "tree_map"
+    
+    all_builds = get_all_builds(**build_args)
+    return jsonify(builds=[{"title": b.question(), "url": b.url()} for b in all_builds])

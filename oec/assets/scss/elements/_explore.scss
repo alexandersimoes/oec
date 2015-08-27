@@ -121,3 +121,43 @@ $timing: 0.5s;
 iframe.viz {
   margin: 5px 15px 0;
 }
+
+.d3plus_tooltip_html h3 {
+  font-size: 24px;
+  margin: 0 0 10px 0;
+}
+.d3plus_tooltip_html a.related:before {
+    background-image: url("http://dataviva.info/static/img/icons/app/app_tree_map_black.png");
+    font-size: 12px;
+    line-height: 27px;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    top: 0px;
+    width: 38px;
+}
+.d3plus_tooltip_html a.related {
+  display: block;
+  margin: 10px 0 0 0;
+  padding: 6px 24px 6px 40px;
+  color: #888;
+  display: block;
+  opacity: 0.9;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 28px;
+  margin: 0px 0px 6px 0px;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.25)
+}
+.d3plus_tooltip_html a.related:hover {
+  opacity: 1;
+}

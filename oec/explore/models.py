@@ -365,10 +365,8 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
         origin_id = defaults["origin"] if any(x in origin_id for x in ["show", "all"]) else origin_id
     if dest_id:
         dest_id = defaults["dest"] if any(x in dest_id for x in ["show", "all"]) else dest_id
-    try:
+    if prod_id:
         prod_id = defaults["prod"] if any(x in prod_id for x in ["show", "all"]) else prod_id
-    except:
-        raise Exception(classification, origin_id, dest_id, prod_id, year, defaults, viz)
 
     build_types = [
         {"origin": origin_id, "dest": "all", "prod": "show"},
