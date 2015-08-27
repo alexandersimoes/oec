@@ -225,16 +225,12 @@ configs.default = function(build) {
     },
     "text": {"nest":"name", "id":["name", "display_id"]},
     "time": {"value": "year", "solo": build.year },
-<<<<<<< dfaa79bf2b41c282c663394d7828e13ef8ddd6a0
     "title": {
       "font": {
         "weight": 800
       }
     },
     "tooltip": { "small": 225 },
-=======
-    // "tooltip": {"small": 225},
->>>>>>> related viz on click for tree map squares
     "tooltip": tooltip,
     "type": build.viz.slug,
     "x": {
