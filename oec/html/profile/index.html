@@ -182,14 +182,16 @@
   var palette = "{{ profile.palette()|safe }}",
       color;
 
-  if (palette.length) {
-    palette = JSON.parse(palette.replace(/'/g, '"'));
-    color = analyze_palette(palette);
-    if (!color) color = palette[1];
-  }
-  else {
-    color = d3plus.color.legible("{{ profile.attr.color }}");
-  }
+  // This is the old logic of using the image's palette to define color.
+  // if (palette.length) {
+  //   palette = JSON.parse(palette.replace(/'/g, '"'));
+  //   color = analyze_palette(palette);
+  //   if (!color) color = palette[1];
+  // }
+  // else {
+  //   color = d3plus.color.legible("{{ profile.attr.color }}");
+  // }
+  color = d3plus.color.legible("{{ profile.attr.color }}");
 
   // If it's a country page, create the map!
   var map = d3.select("#topojson");

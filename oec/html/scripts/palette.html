@@ -21,6 +21,7 @@ var Colibri=function(){var floor=function(n){return Math.floor(n)};var abs=funct
 //     for (var attr_type in data.attrs) {
 //
 //       data.attrs[attr_type].forEach(function(a){
+//         a.attr_type = attr_type;
 //
 //         var img = new Image();
 //         img.onload = function() {
@@ -34,7 +35,7 @@ var Colibri=function(){var floor=function(n){return Math.floor(n)};var abs=funct
 //             .header("X-Requested-With", "XMLHttpRequest")
 //             .header("Content-Type","application/json")
 //             .send("POST", JSON.stringify({
-//               "attr_type": attr_type,
+//               "attr_type": a.attr_type,
 //               "id": a.id,
 //               "palette": JSON.stringify(this_cols)
 //             }));
