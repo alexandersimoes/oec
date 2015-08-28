@@ -47,8 +47,14 @@ configs.default = function(build) {
     var id_nesting = ["nest", "nest_mid", "id"];
     var tooltip_data = ["display_id", build.trade_flow+"_val", build.trade_flow+"_rca"]
   }
-    
+
+  var background = "none", curtain = "black";
+  if(window.parent.location.host == window.location.host){
+    background = "#eeeeee", curtain = background;
+  }
+
   var tooltip = {
+      "curtain": {"color": curtain},
       "html": {
         "url": function(focus_id){
           var display_id = focus_id.substring(2);
@@ -65,13 +71,9 @@ configs.default = function(build) {
           return html_str;
         }
       },
+      "small": 225,
       "value": tooltip_data
     }
-  
-  var background = "none";
-  if(window.parent.location.host == window.location.host){
-    background = "#eeeeee";
-  }
 
   return {
     "aggs": {
@@ -122,7 +124,6 @@ configs.default = function(build) {
         "weight": 800
       }
     },
-    "tooltip": { "small": 225 },
     "tooltip": tooltip,
     "type": build.viz.slug,
     "x": {

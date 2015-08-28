@@ -15248,7 +15248,7 @@ module.exports = function() {
           vars.focus.value = vars.data.viz[0][vars.id.value];
         }
 
-        if ( vars.dev.value && vars.focus.value ) print.log("\"value\" set to \""+vars.focus.value+"\"");
+        if (vars.dev.value && vars.focus.value !== false) print.log("\"value\" set to \""+vars.focus.value+"\"");
 
       }
 
@@ -16564,7 +16564,7 @@ module.exports = function(elem, vars, color) {
       return d3.select(this).style("cursor", "auto").transition().duration(vars.timing.mouseevents).call(color, vars);
     }
   }).on(events.click, function(d) {
-    if (vars.focus.value) {
+    if (vars.focus.value !== false) {
       return vars.self.focus(d[vars.id.value]).draw();
     } else if (vars.focus.callback) {
       return vars.focus.callback(d, vars.self);
@@ -18488,7 +18488,7 @@ module.exports = d3plus;
  * @static
  */
 
-d3plus.version = "1.8.0 - Cerulean";
+d3plus.version = "1.8.1 - Cerulean (pre-release)";
 
 
 /**
@@ -26076,7 +26076,7 @@ module.exports = function(params) {
         var width = vars.tooltip.small
       }
 
-      var parent = params.length !== "long" ? d3.select("body") : vars.container.value;
+      var parent = (!fullscreen && params.length !== "long") || (fullscreen && vars.tooltip.fullscreen.value) ? d3.select("body") : vars.container.value;
 
       if (!params.description && d && vars.tooltip.sub.value) {
         params.description = fetchValue(vars, d, vars.tooltip.sub.value);
@@ -29873,6 +29873,10 @@ module.exports = {
     size: 12,
     transform: transform(),
     weight: 200
+  },
+  fullscreen: {
+    accepted: [Boolean],
+    value: false
   },
   html: {
     accepted: [false, Function, Object, String],
