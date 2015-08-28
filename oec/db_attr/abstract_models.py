@@ -37,9 +37,45 @@ class ProdAttr(db.Model, AutoSerialize):
             return name.keywords
         return ""
 
+    def get_author(self):
+        if hasattr(self, "image_link"):
+            obj = None
+            if self.image_link:
+                obj = self
+
+            if obj == None and len(self.id) >= 8:
+                parent = self.__class__.query.get(self.id[:6])
+                if parent.image_link:
+                    obj = parent
+
+            if obj == None and len(self.id) >= 4:
+                parent = self.__class__.query.get(self.id[:2])
+                if parent.image_link:
+                    obj = parent
+
+            if obj:
+                obj = {
+                    "link": obj.image_link,
+                    "name": obj.image_author
+                }
+            return obj
+        else:
+            return None
+
     def get_image(self):
-        if hasattr(self, "image_link") and self.image_link:
-            return "/static/img/headers/hs/{}.jpg".format(self.id)
+        if hasattr(self, "image_link"):
+            if self.image_link:
+                return "/static/img/headers/hs/{}.jpg".format(self.id)
+
+            if len(self.id) >= 8:
+                parent = self.__class__.query.get(self.id[:6])
+                if parent.image_link:
+                    return "/static/img/headers/hs/{}.jpg".format(self.id[:6])
+
+            if len(self.id) >= 4:
+                parent = self.__class__.query.get(self.id[:2])
+                if parent.image_link:
+                    return "/static/img/headers/hs/{}.jpg".format(self.id[:2])
         else:
             return None
 
@@ -71,7 +107,7 @@ class ProdAttr(db.Model, AutoSerialize):
 
     def get_profile_url(self):
         return "/{}/profile/{}/{}/".format(g.locale, self.classification, getattr(self, self.classification))
-    
+
     def get_profile_link(self):
         url = self.get_profile_url()
         name = self.get_name()

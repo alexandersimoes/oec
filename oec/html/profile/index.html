@@ -13,9 +13,10 @@
   <img class="icon" src="{{ profile.attr.get_icon() }}">
   <h1>
     {{ title }}
-    {% if profile.attr.image_author %}
-    <sub class="author"><a href="{{ profile.attr.image_link }}" target="_blank">
-      <i class="fa fa-camera"></i>{{ _("Photo by") }} {{ profile.attr.image_author }}
+    {% set author = profile.attr.get_author() %}
+    {% if author %}
+    <sub class="author"><a href="{{ author.link }}" target="_blank">
+      <i class="fa fa-camera"></i>{{ _("Photo by") }} {{ author.name }}
     </a></sub>
     {% endif %}
   </h1>
