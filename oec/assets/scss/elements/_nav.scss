@@ -1,3 +1,25 @@
+#server_message {
+  @include shadow();
+  background-color: $color;
+  color: white;
+  font-size: 13px;
+  position: fixed;
+  left: 0;
+  padding: 10px 0;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  .close_message {
+    cursor: pointer;
+    position: absolute;
+    right: 11px;
+    top: 11px;
+  }
+
+}
+
 nav {
   @include shadow(0 2px 6px rgba(0,0,0,0.5));
   @include transition(left 0.1s);
