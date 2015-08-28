@@ -160,6 +160,10 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
             c = Country.query.filter_by(id_3char=dest).first()
             dest = "blx"
             msg = "{0} reports their trade under Belgium-Luxembourg in the HS classification. ".format(c.get_name())
+    '''Check that stacked has given year range'''
+    if app_name in ["stacked", "line"] and len(year) < 2:
+        msg = "Need to specify a range of years"
+        year = [available_years[classification][0], available_years[classification][-1]]
 
     if msg:
         redirect_url = url_for('.explore', lang=g.locale, app_name=app_name, \
