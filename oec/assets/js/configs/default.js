@@ -53,6 +53,11 @@ configs.default = function(build) {
     background = "#eeeeee", curtain = background;
   }
 
+  var large_tooltip_width = 150;
+  if (window.location.href.indexOf("/explore/") > 0 && window.innerWidth > 400) {
+    large_tooltip_width = 250;
+  }
+
   var tooltip = {
       "curtain": {"color": curtain},
       "html": {
@@ -71,7 +76,8 @@ configs.default = function(build) {
           return html_str;
         }
       },
-      "small": 225,
+      "small": 200,
+      "large": large_tooltip_width,
       "value": tooltip_data
     }
 
