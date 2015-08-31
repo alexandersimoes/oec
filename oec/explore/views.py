@@ -121,7 +121,7 @@ def explore_redirect(app_name='tree_map'):
 def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
     msg = None
     classifications = ['sitc', 'hs92', 'hs96', 'hs02', 'hs07']
-    
+
     '''Check classification'''
     # support for legacy URLs that use hs not hs92
     if classification not in classifications:
@@ -322,20 +322,28 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, prod_id, y
     if isinstance(build.origin, Country):
         country = {
             "id": "origin",
-            "name": gettext("Origin"),
+            "name": gettext("Country"),
             "data": [build.origin.serialize()],
             "url": url_for('attr.attrs', attr='country', lang=g.locale)
         }
         ui.append(country)
 
     if isinstance(build.dest, Country):
-        country = {
-            "id": "destination",
-            "name": gettext("Destination"),
-            "data": [build.dest.serialize()],
-            "url": url_for('attr.attrs', attr='country', lang=g.locale)
+        dest_country = build.dest.serialize()
+    else:
+        dest_country = {
+            "color": "#333333",
+            "display_id": "all",
+            "id": "all",
+            "name": "All"
         }
-        ui.append(country)
+    country = {
+        "id": "destination",
+        "name": gettext("Partner"),
+        "data": [dest_country],
+        "url": url_for('attr.attrs', attr='country', lang=g.locale)
+    }
+    ui.append(country)
 
     if isinstance(build.prod, (Sitc, Hs92, Hs96, Hs02, Hs07)):
         product = {
@@ -393,7 +401,7 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, prod_id, y
         ui.append({
             "id": "end_year",
             "name": gettext("End Year"),
-            "current": build.year[1],
+            "current": build.year[-1],
             "data": years
         })
     else:
@@ -443,7 +451,7 @@ def builds():
     build_args["defaults"] = {"origin":"nausa", "dest":"aschn", "prod":"010101"}
     build_args["viz"] = "tree_map"
     all_builds = get_all_builds(**build_args)
-    
+
     if build_args["origin_id"]:
         attr = Country.query.filter_by(id_3char=build_args["origin_id"]).first()
     elif build_args["prod_id"]:
@@ -451,10 +459,10 @@ def builds():
         c = build_args["classification"]
         attr = tbl.query.filter(getattr(tbl,c)==build_args["prod_id"]).first()
     profile = {
-        "title":gettext("Profile for {}".format(attr.get_name())), 
+        "title":gettext("Profile for {}".format(attr.get_name())),
         "url":attr.get_profile_url(),
         "icon":attr.get_icon(),
         "color":attr.color
     }
-    
+
     return jsonify(profile=profile, builds=[{"title": b.question(), "url": b.url()} for b in all_builds])

@@ -235,13 +235,30 @@
             product_match = this.id == "product" && ["hs_id","sitc_id"].indexOf(attr_id) >= 0,
             icon_style = this.id == "product" ? "knockout" : "default";
 
-        var url = this.getAttribute("data-url");
-        load(url, function(d){
+        var url = this.getAttribute("data-url"), dests = this.id === "destination";
+        load(url, function(d, v){
 
           d = d.data.filter(function(a){
             a.style = icon_style;
             return a.id.length !== 2;
           });
+
+          d.sort(function(a, b) {
+            a = a.name.toLowerCase();
+            b = b.name.toLowerCase();
+            return a < b ? -1 : a > b ? 1 : 0;
+          });
+
+          if (dests) {
+            d.unshift({
+              "display_id": "all",
+              "id": "all",
+              "name": "All",
+              "keywords": "world",
+              "icon": false,
+              "color": "#333333"
+            })
+          }
 
           ui.data(d).draw();
 
