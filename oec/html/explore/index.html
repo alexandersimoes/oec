@@ -280,7 +280,8 @@
     var n = window.innerWidth <= 1024 ? 0 : navWidth,
         p = parseFloat(iframe.style("margin-left"), 10),
         w = window.innerWidth - n - p * 2,
-        h = window.innerHeight - explorer.node().offsetHeight - p,
+        m = window.innerHeight < window.innerWidth ? explorer.node().offsetHeight : p * 2,
+        h = window.innerHeight - m - p * 2,
         viz = iframe.node().contentWindow.viz;
 
     if (viz) {

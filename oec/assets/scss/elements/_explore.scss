@@ -28,6 +28,11 @@ $timing: 0.5s;
   h1 {
     @include transition(font-size $timing);
     padding: 0 100px;
+
+    @media all and (max-width: 768px) {
+      padding: 20px 0 0;
+    }
+
   }
 
   #collapse {
@@ -53,6 +58,11 @@ $timing: 0.5s;
     font-size: 12px;
     position: absolute;
     top: 34px;
+
+    @media all and (max-width: 768px) {
+      top: 13px;
+    }
+
   }
 
   #prev {
