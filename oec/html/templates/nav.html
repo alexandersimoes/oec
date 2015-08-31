@@ -428,6 +428,8 @@
         data[search_mode] = attrs[search_mode].slice(0, default_cutoff);
       }
     }
+    console.log(search_mode)
+    console.log(data)
 
     var titles = {
       "country": "Countries",
@@ -508,9 +510,9 @@
 
     d3.select("#search_results").selectAll("*").remove();
 
-      d3.select("#search_results").append("h1")
-        .style("text-align", "center")
-        .text("Loading...");
+    d3.select("#search_results").append("h1")
+      .style("text-align", "center")
+      .text("Loading...");
 
     var m = search_mode === "all" ? "" : "&mode=" + search_mode;
 
@@ -595,7 +597,7 @@
 
   function clear_search(mode) {
     search_mode = mode;
-    search_results();
+    search_term("");
     d3.select("#search_input").node().value = "";
     d3.select("#search_input").node().focus();
   }
