@@ -1,11 +1,11 @@
 from oec.db_data.abstract_models import BaseProd
 from oec.db_data.abstract_models import OriginId, DestId, Hs92Id
-from oec.db_data.abstract_models import TopTrade, TopTrader, Rca, Pci
+from oec.db_data.abstract_models import HsTopTrade, TopTrader, Rca, Pci
 
 class Yd(BaseProd, DestId):
     __tablename__ = 'hs92_yd'
 
-class Yo(BaseProd, OriginId, TopTrade):
+class Yo(BaseProd, OriginId, HsTopTrade):
     __tablename__ = 'hs92_yo'
 
 class Yp(BaseProd, Hs92Id, TopTrader, Pci):

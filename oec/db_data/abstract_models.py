@@ -62,8 +62,19 @@ class SitcId(object):
     def sitc_id(cls):
         return db.Column(db.String(8), db.ForeignKey(Sitc.id), primary_key=True)
 
+class SitcTopTrade(object):
+    top_export_dest = db.Column(db.String(5))
+    top_import_dest = db.Column(db.String(5))
+    
+    @declared_attr
+    def top_export(cls):
+        return db.Column(db.String(6), db.ForeignKey(Sitc.id))
+    
+    @declared_attr
+    def top_import(cls):
+        return db.Column(db.String(6), db.ForeignKey(Sitc.id))
 
-class TopTrade(object):
+class HsTopTrade(object):
     top_export_dest = db.Column(db.String(5))
     top_import_dest = db.Column(db.String(5))
     
