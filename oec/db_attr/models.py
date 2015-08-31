@@ -165,6 +165,15 @@ class Country(db.Model, AutoSerialize):
         else:
             return None
 
+    def get_author(self):
+        if self.image_link:
+            return {
+                "link": self.image_link,
+                "name": self.image_author
+            }
+        else:
+            return None
+
     def get_top(self, limit=10, year=None):
         from oec.db_data.hs92_models import Yp
         year = year or available_years["country"][-1]
@@ -213,7 +222,7 @@ class Country_name(db.Model, AutoSerialize):
 
     def __repr__(self):
         return '<Country Name %s:%s>' % (self.origin_id, self.lang)
-    
+
     @hybrid_property
     def id(self):
         return self.origin_id
