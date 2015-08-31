@@ -7,6 +7,7 @@ from oec.db_data import hs92_models
 from oec.db_data import hs96_models
 from oec.db_data import hs02_models
 from oec.db_data import hs07_models
+from oec.db_data import sitc_models
 from oec.decorators import crossdomain
 
 mod = Blueprint('data', __name__, url_prefix='/<any("sitc","hs","hs92","hs96","hs02","hs07"):classification>')
@@ -24,6 +25,8 @@ def get_product_classification_models(endpoint, values):
         g.prod_models = hs02_models
     elif classification == "hs07":
         g.prod_models = hs07_models
+    elif classification == "sitc":
+        g.prod_models = sitc_models
     g.output_depth = request.args.get("output_depth")
 
 ############################################################
