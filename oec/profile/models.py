@@ -66,7 +66,7 @@ class Country(Profile):
                 for stat_type in ["export_val", "import_val"]:
                     res = yo_base_q.order_by(desc(stat_type)).all()
                     self.cached_stats[stat_type] = {"rank":res.index(this_yo)+1, "total":len(res), "val":getattr(this_yo, stat_type)}
-            
+
             attr_yo_base_q = attrs.Yo.query.filter_by(year=self.year)
             this_attr_yo = attr_yo_base_q.filter_by(country=self.attr).first()
             if this_attr_yo:
@@ -75,7 +75,7 @@ class Country(Profile):
                     val = getattr(this_attr_yo, stat_type)
                     if val:
                         self.cached_stats[stat_type] = {"rank":res.index(this_attr_yo)+1, "total":len(res), "val":val}
-            
+
         return self.cached_stats
 
     def intro(self):
@@ -162,7 +162,7 @@ class Country(Profile):
 
         export_tmap = Build("tree_map", "hs92", "export", self.attr, "all", "show", self.year)
         import_tmap = Build("tree_map", "hs92", "import", self.attr, "all", "show", self.year)
-        
+
         yop_base = self.models.Yop.query.filter_by(year = self.year, origin = self.attr, hs92_id_len=6)
         # get growth
         past_yr = self.year - 5
@@ -212,7 +212,7 @@ class Country(Profile):
         if yod_imp:
             origin_list = self.stringify_items(yod_imp, "export_val", "origin")
             origin_subtitle = u"The top import origins of {} are {}.".format(self.attr.get_name(), origin_list)
-        
+
         # trade balance viz --
         first_yo = self.models.Yo.query.filter_by(year = available_years["hs92"][-1], country = self.attr).first()
         net_trade = this_yo.export_val - this_yo.import_val
@@ -357,11 +357,6 @@ class Product(Profile):
 
     def intro(self):
         all_paragraphs = []
-        ''' Paragraph #1
-        '''
-        p1 = u"{} is a {} digit {} product." \
-                .format(self.attr.get_name(), len(self.attr.get_display_id()), self.classification.upper())
-        all_paragraphs.append(p1)
 
         ''' Paragraph #2
         '''
@@ -424,6 +419,12 @@ class Product(Profile):
         keywords = self.attr.get_keywords()
         if keywords:
             all_paragraphs.append(u"{} is also known as {}.".format(self.attr.get_name(), keywords))
+
+        ''' Paragraph #1
+        '''
+        p1 = u"{} is a {} digit {} product." \
+                .format(self.attr.get_name(), len(self.attr.get_display_id()), self.classification.upper())
+        all_paragraphs.append(p1)
 
         return all_paragraphs
 
