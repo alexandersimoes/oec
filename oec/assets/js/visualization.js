@@ -5,12 +5,12 @@ var visualization = function(build, container) {
   var trade_flow = build.trade_flow,
       default_config = configs["default"](build),
       viz_config = configs[build.viz.slug](build, container);
-  
+
   var viz = d3plus.viz()
               .container(container)
               .config(default_config)
               .config(viz_config)
-              .error("Loading Visualiation")
+              .error("Loading Visualization")
               .draw();
 
   /* need to grab json network file for rings and product space */
@@ -74,7 +74,7 @@ var visualization = function(build, container) {
        they return execute the go() func */
     d3.json(build.data_url, function(error, raw_data){
       var data = format_data(raw_data, attrs, build);
-      
+
       var csv_data = format_csv_data(data, attrs, build);
 
       viz.data(data)

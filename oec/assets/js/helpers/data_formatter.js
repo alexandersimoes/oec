@@ -1,9 +1,9 @@
 function format_data(raw_data, attrs, build){
-  
+
   var data = raw_data.data;
   var opposite_trade_flow = build.trade_flow == "export" ? "import" : "export";
   var attr_id = attr_id = build.attr_type + "_id";
-  
+
   // go through raw data and set each items nest and id vars properly
   // also calculate net values
   data.forEach(function(d){
@@ -17,7 +17,7 @@ function format_data(raw_data, attrs, build){
       d["net_"+build.trade_flow+"_val"] = net_val;
     }
   })
-  
+
   // special case for line chart of trade balance (need to duplicate data)
   if(build.viz.slug == "line"){
     // data = data.map(function(d){
@@ -45,15 +45,15 @@ function format_data(raw_data, attrs, build){
     })
     data = data.concat(clones);
   }
-  
+
   return data;
-  
+
 }
 
 function format_attrs(raw_attrs, build){
   var attrs = {};
   var attr_id = attr_id = build.attr_type + "_id";
-  
+
   raw_attrs.data.forEach(function(d){
     d.nest = d.id.substr(0, 2);
     attrs[d.id] = d
@@ -67,7 +67,7 @@ function format_attrs(raw_attrs, build){
       attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
     }
   })
-  
+
   // for geo map, get rid of small island nations that don't exist
   // in geography
   if(build.viz.slug == "geo_map"){
@@ -76,19 +76,19 @@ function format_attrs(raw_attrs, build){
     delete attrs["ocwlf"]
     delete attrs["ocwsm"]
   }
-  
+
   return attrs;
 }
 
 function format_csv_data(data, attrs, build){
   csv_data = [];
   ccp = ["origin", "dest", "prod"]
-  
+
   // format columns
   var show_id = build.attr_type + "_id";
   var trade_flow = build.trade_flow + "_val";
   csv_data.push(['year', 'country_origin_id', 'country_destination_id', build.classification+'_product_id', trade_flow, trade_flow+"_pct"])
-  
+
   // format data
   var total_val = d3.sum(data, function(d){ return d[trade_flow]; });
   data.forEach(function(d){
@@ -112,6 +112,6 @@ function format_csv_data(data, attrs, build){
       csv_data.push(datum)
     }
   })
-  
+
   return csv_data;
 }
