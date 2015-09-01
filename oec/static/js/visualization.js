@@ -82,8 +82,10 @@ var visualization = function(build, container) {
        they return execute the go() func */
     d3.json(build.data_url, function(error, raw_data){
       var data = format_data(raw_data, attrs, build);
+      // data = []
 
       var csv_data = format_csv_data(data, attrs, build);
+      csv_data = []
 
       viz.data(data)
         .attrs(attrs)
