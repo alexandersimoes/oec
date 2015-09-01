@@ -5,19 +5,15 @@
 
 <nav>
 
-  <content>
-    <a id="logo" href="{{ url_for('general.home', lang=g.locale) }}">
-      <img src="/static/img/nav/oec.png">
-    </a>
+  <a id="logo" href="{{ url_for('general.home', lang=g.locale) }}">
+    OEC
+  </a>
 
-    <div id="search_button">
-      <i class="fa fa-search"></i>{{ _('Search') }}
-    </div>
+  <ul>
 
-    <ul>
-
-      <li class="profile clicker">{{ _('Profiles') }}</li>
-      <div class="accordion profile">
+    <li id="profile">
+      {{ _('Profiles') }}
+      <div class="sub_menu profile">
         <ul>
           <li class="country">
             <a href="{{ url_for('profile.profile_country_redirect', lang=g.locale) }}">{{ _('Country') }}</a>
@@ -27,74 +23,15 @@
           </li>
         </ul>
       </div>
+    </li>
 
-      <li class="explore clicker">{{ _('Visualize') }}</li>
-      <div class="accordion explore">
-        {% if all_builds %}
-          <ul>
-          {% set current_url = current_build.url() %}
-          {% set pre_app = None %}
-          {% for build in all_builds %}
+    <li id="explore">
+      {{ _('Visualize') }}
+    </li>
 
-            {% if pre_app != build.viz.slug %}
-
-              {% if pre_app != None %}
-                    </ul>
-                  </div>
-              {% endif %}
-
-              {% set pre_app = build.viz.slug %}
-
-              <li class="{{ pre_app }} clicker">{{ build.viz.name }}</li>
-                <div class="accordion {{ pre_app }}">
-                  <ul>
-              {% set pre_cat = "init" %}
-
-            {% endif %}
-
-            {% if pre_cat != build.category() and build.category() != "init" %}
-              {% if pre_cat != "init" %}</ul>{% endif %}
-              <ul class="sub_menu">
-              {% if build.category() != None %}
-              <h5>{{ build.category() }}</h5>
-              {% endif %}
-            {% endif %}
-
-            {% set pre_cat = build.category() %}
-
-            {% set url = build.url() %}
-            <li{% if url == current_url %} class="active"{% endif %}>
-              <a href="/{{ g.locale }}/explore/{{ url }}">{{ build.short_name() }}</a>
-            </li>
-
-          {% endfor %}
-          </ul></div></ul>
-        {% else %}
-          <ul>
-            <li class="tree_map">
-              <a href="{{ url_for('explore.explore_redirect', app_name='tree_map', lang=g.locale) }}">{{ _('Tree Map') }}</a>
-            </li>
-            <li class="stacked">
-              <a href="{{ url_for('explore.explore_redirect', app_name='stacked', lang=g.locale) }}">{{ _('Stacked') }}</a>
-            </li>
-            <li class="network">
-              <a href="{{ url_for('explore.explore_redirect', app_name='network', lang=g.locale) }}">{{ _('Network') }}</a>
-            </li>
-            <li class="rings">
-              <a href="{{ url_for('explore.explore_redirect', app_name='rings', lang=g.locale) }}">{{ _('Rings') }}</a>
-            </li>
-            <li class="scatter">
-              <a href="{{ url_for('explore.explore_redirect', app_name='scatter', lang=g.locale) }}">{{ _('Scatter') }}</a>
-            </li>
-            <li class="geo_map">
-              <a href="{{ url_for('explore.explore_redirect', app_name='geo_map', lang=g.locale) }}">{{ _('Geo Map') }}</a>
-            </li>
-          </ul>
-        {% endif %}
-      </div>
-
-      <li class="rankings clicker">{{ _('Rankings') }}</li>
-      <div class="accordion rankings">
+    <li id="rankings">
+      {{ _('Rankings') }}
+      <div class="sub_menu rankings">
         <ul>
           <li class="country">
             <a href="{{ url_for('rankings.rankings', lang=g.locale, category='country') }}">{{ _('Countries') }}</a>
@@ -104,9 +41,11 @@
           </li>
         </ul>
       </div>
+    </li>
 
-      <li class="publications clicker">{{ _('Publications') }}</li>
-      <div class="accordion publications">
+    <li id="publications">
+      {{ _('Publications') }}
+      <div class="sub_menu publications">
         <ul>
           <li class="books">
             <a href="{{ url_for('publications.books', lang=g.locale) }}">{{ _('Books') }}</a>
@@ -116,10 +55,15 @@
           </li>
         </ul>
       </div>
+    </li>
 
-      <li class="resources clicker">{{ _('Resources') }}</li>
-      <div class="accordion resources">
+    <li id="resources">
+      {{ _('Resources') }}
+      <div class="sub_menu resources">
         <ul>
+          <li class="about">
+            <a href="{{ url_for('about.about') }}">{{ _('About the Site') }}</a>
+          </li>
           <li class="faqs">
             <a href="{{ url_for('resources.faqs', lang=g.locale) }}">{{ _('FAQs') }}</a>
           </li>
@@ -129,22 +73,18 @@
           <li class="api">
             <a href="{{ url_for('resources.api', lang=g.locale) }}">{{ _('API') }}</a>
           </li>
+          <li class="permissions">
+            <a href="{{ url_for('general.permissions') }}">{{ _('Permissions') }}</a>
+          </li>
         </ul>
       </div>
+    </li>
 
-    </ul>
+  </ul>
 
-    <div id="nav_footer">
-
-      <a id="mc" href="http://macroconnections.media.mit.edu/" target="_blank">
-        <img src="/static/img/nav/mc.png" width=148 height=60>
-      </a>
-
-      <a class="about" href="{{ url_for('about.about') }}">{{ _('About the Site') }}</a> – <a class="data" href="{{ url_for('general.permissions') }}">{{ _('Permissions') }}</a>
-
-    </div>
-
-  </content>
+  <div id="search_button">
+    <img src="/static/img/nav/search.png">
+  </div>
 
 </nav>
 
@@ -162,6 +102,11 @@
   </div>
 
   <footer>
+
+    <a id="mc" href="http://macroconnections.media.mit.edu/" target="_blank">
+      <img src="/static/img/nav/mc.png" width=148 height=60>
+    </a>
+
     <div>
       <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
         <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/80x15.png" />
@@ -175,23 +120,23 @@
     </div>
   </footer>
 
-  <div id="search">
-    <a id="search_close">x</a>
-    <div id="search_div">
-      <i class="fa fa-search"></i>
-      <input id="search_input" type="text" placeholder="{{ _('Search') }}" />
-      <div id="search_modes">
-        <select id="search_mode_selector">
-          <option value="all" selected>No Filter</option>
-          <option value="country">Countries</option>
-          <option value="hs92">Products</option>
-          <option value="explore">Visualizations</option>
-        </select>
-      </div>
-    </div>
-    <div id="search_results"></div>
-  </div>
+</div>
 
+<div id="search">
+  <a id="search_close">x</a>
+  <div id="search_div">
+    <i class="fa fa-search"></i>
+    <input id="search_input" type="text" placeholder="{{ _('Search') }}" />
+    <div id="search_modes">
+      <select id="search_mode_selector">
+        <option value="all" selected>No Filter</option>
+        <option value="country">Countries</option>
+        <option value="hs92">Products</option>
+        <option value="explore">Visualizations</option>
+      </select>
+    </div>
+  </div>
+  <div id="search_results"></div>
 </div>
 
 <script>
@@ -201,24 +146,24 @@
   if (!color) var color = "#0085BF";
 
   // Sets the logo, header, and stats background color.
-  d3.selectAll("#logo, header, #stats").style("background-color", color);
+  // d3.selectAll("#logo, header, #stats").style("background-color", color);
 
   // Sets the H2 colors
   d3.selectAll("h2").style("color", color);
 
   // Sets the search box background color.
-  var rgb = d3.rgb(color);
-  d3.select("#search_button").style("background-color", "rgba("+rgb.r+", "+rgb.g+", "+rgb.b+", 0.1)");
+  // var rgb = d3.rgb(color);
+  // d3.select("#search_button").style("background-color", "rgba("+rgb.r+", "+rgb.g+", "+rgb.b+", 0.1)");
 
   // Sets paragraph link styles
-  d3.selectAll("aside a, p a, h2 a")
-    .style("color", color)
-    .on(d3plus.client.pointer.over, function(){
-      d3.select(this).style("border-bottom", "2px solid " + color);
-    })
-    .on(d3plus.client.pointer.out, function(){
-      d3.select(this).style("border-bottom", "2px solid transparent");
-    })
+  // d3.selectAll("aside a, p a, h2 a")
+  //   .style("color", color)
+  //   .on(d3plus.client.pointer.over, function(){
+  //     d3.select(this).style("border-bottom", "2px solid " + color);
+  //   })
+  //   .on(d3plus.client.pointer.out, function(){
+  //     d3.select(this).style("border-bottom", "2px solid transparent");
+  //   })
 
   // Styles the header, if present.
   var header = d3.select("header"), img;
@@ -235,45 +180,12 @@
     }
   }
 
-  // Closes all sub-menus and stores their individual heights.
-  d3.selectAll("div.accordion > ul")
-    .style("margin-top", function(){
-      return -this.offsetHeight+"px";
-    });
-
-  // Opens the current accordion and styles the current page link.
-  d3.select(".accordion."+page+" ul")
-    .style("margin-top", "0px")
-    .selectAll("li."+sub_page+", li."+sub_page+" a")
-      .style("font-weight", 600);
-
-  d3.selectAll(".accordion > ul > li, .accordion > ul > li > a")
-    .style("color", color);
-
-  d3.select("li.clicker."+page).classed("open", true);
-  d3.select("li.clicker."+sub_page).classed("open", true);
-
-  var sub_accordion = d3.select(".accordion."+sub_page);
-  if (!sub_accordion.empty()) {
-    sub_accordion.select("ul").style("margin-top", "0px");
-  }
-
-  // Click event for each accordion menu.
-  d3.selectAll("li.clicker").on("click", function(){
-    var sub = d3.select("div.accordion."+this.className.split(" ")[0]+" ul")
-        h = sub.node().offsetHeight,
-        open = sub.style("margin-top") !== "0px"
-        t = !open ? "-"+h : 0;
-    d3.select(this).classed("open", open);
-    sub.transition().duration(h).ease("linear").style("margin-top", t+"px");
-  });
-
   // Hamburger menu logic.
   d3.selectAll("#hamburger, #mask").on("click", function(){
     var open = d3.select("nav").classed("open");
     d3.select("nav").classed("open", !open);
-    d3.select("#mask").classed("open", !open);
-    d3.select("body").classed("open", !open);
+    d3.select("#mask").classed("visible", !open);
+    d3.select("body").classed("frozen", !open);
   });
 
   // Logic for resizing the header, if present.
@@ -428,8 +340,6 @@
         data[search_mode] = attrs[search_mode].slice(0, default_cutoff);
       }
     }
-    console.log(search_mode)
-    console.log(data)
 
     var titles = {
       "country": "Countries",
@@ -626,9 +536,6 @@
   });
 
   d3.select("#search_close").on("click", close_search);
-
-  // search();
-  // search_term("unit");
 
 </script>
 
