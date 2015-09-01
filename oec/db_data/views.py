@@ -39,7 +39,7 @@ def get_product_classification_models(endpoint, values):
 @mod.route('/<trade_flow>/<year>/<origin_id>/all/all/')
 @mod.route('/<trade_flow>/<year>/show/all/all/')
 @crossdomain(origin='*')
-def hs_yo(**kwargs):
+def yo(**kwargs):
     q = db.session.query(Attr_yo, getattr(g.prod_models, "Yo")) \
             .filter(Attr_yo.origin_id == getattr(g.prod_models, "Yo").origin_id) \
             .filter(Attr_yo.year == getattr(g.prod_models, "Yo").year)
@@ -49,14 +49,14 @@ def hs_yo(**kwargs):
 @mod.route('/<trade_flow>/<year>/all/<dest_id>/all/')
 @mod.route('/<trade_flow>/<year>/all/show/all/')
 @crossdomain(origin='*')
-def hs_yd(**kwargs):
+def yd(**kwargs):
     return make_response(make_query(getattr(g.prod_models, "Yd"), request.args, g.locale, **kwargs))
 
-@mod.route('/<trade_flow>/all/all/all/<hs_id>/')
-@mod.route('/<trade_flow>/<year>/all/all/<hs_id>/')
+@mod.route('/<trade_flow>/all/all/all/<prod_id>/')
+@mod.route('/<trade_flow>/<year>/all/all/<prod_id>/')
 @mod.route('/<trade_flow>/<year>/all/all/show/')
 @crossdomain(origin='*')
-def hs_yp(**kwargs):
+def yp(**kwargs):
     return make_response(make_query(getattr(g.prod_models, "Yp"), \
         request.args, g.locale, classification=g.prod_classification, \
         output_depth=g.output_depth, **kwargs))
@@ -70,28 +70,28 @@ def hs_yp(**kwargs):
 @mod.route('/<trade_flow>/all/<origin_id>/show/all/')
 @mod.route('/<trade_flow>/<year>/<origin_id>/show/all/')
 @crossdomain(origin='*')
-def hs_yod(**kwargs):
+def yod(**kwargs):
     return make_response(make_query(getattr(g.prod_models, "Yod"), request.args, g.locale, **kwargs))
 
 @mod.route('/<trade_flow>/all/<origin_id>/all/show/')
 @mod.route('/<trade_flow>/<year>/<origin_id>/all/show/')
 @crossdomain(origin='*')
-def hs_yop(**kwargs):
+def yop(**kwargs):
     return make_response(make_query(getattr(g.prod_models, "Yop"), \
         request.args, g.locale, classification=g.prod_classification, \
         output_depth=g.output_depth, **kwargs))
 
-@mod.route('/<trade_flow>/all/show/all/<hs_id>/')
-@mod.route('/<trade_flow>/<year>/show/all/<hs_id>/')
+@mod.route('/<trade_flow>/all/show/all/<prod_id>/')
+@mod.route('/<trade_flow>/<year>/show/all/<prod_id>/')
 @crossdomain(origin='*')
-def hs_yop_dest(**kwargs):
+def yop_dest(**kwargs):
     return make_response(make_query(getattr(g.prod_models, "Yop"), \
         request.args, g.locale, classification=g.prod_classification, **kwargs))
 
 @mod.route('/<trade_flow>/all/all/<dest_id>/show/')
 @mod.route('/<trade_flow>/<year>/all/<dest_id>/show/')
 @crossdomain(origin='*')
-def hs_ydp(**kwargs):
+def ydp(**kwargs):
     return make_response(make_query(getattr(g.prod_models, "Ydp"), \
         request.args, g.locale, classification=g.prod_classification, \
         output_depth=g.output_depth, **kwargs))
@@ -105,14 +105,14 @@ def hs_ydp(**kwargs):
 @mod.route('/<trade_flow>/all/<origin_id>/<dest_id>/show/')
 @mod.route('/<trade_flow>/<year>/<origin_id>/<dest_id>/show/')
 @crossdomain(origin='*')
-def hs_yodp(**kwargs):
+def yodp(**kwargs):
     return make_response(make_query(getattr(g.prod_models, "Yodp"), \
         request.args, g.locale, classification=g.prod_classification, \
         output_depth=g.output_depth, **kwargs))
 
-@mod.route('/<trade_flow>/all/<origin_id>/show/<hs_id>/')
-@mod.route('/<trade_flow>/<year>/<origin_id>/show/<hs_id>/')
+@mod.route('/<trade_flow>/all/<origin_id>/show/<prod_id>/')
+@mod.route('/<trade_flow>/<year>/<origin_id>/show/<prod_id>/')
 @crossdomain(origin='*')
-def hs_yodp_dest(**kwargs):
+def yodp_dest(**kwargs):
     return make_response(make_query(getattr(g.prod_models, "Yodp"), \
         request.args, g.locale, classification=g.prod_classification, **kwargs))

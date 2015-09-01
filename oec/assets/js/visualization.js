@@ -25,7 +25,6 @@ var visualization = function(build, container) {
       }
     }
     viz.nodes(network_file, function(network){
-      console.log(network)
       viz.edges(network.edges);
       return network.nodes;
     })

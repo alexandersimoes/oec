@@ -28,7 +28,6 @@ var visualization = function(build, container) {
       }
     }
     viz.nodes(network_file, function(network){
-      console.log(network)
       viz.edges(network.edges);
       return network.nodes;
     })
@@ -586,7 +585,9 @@ function format_csv_data(data, attrs, build){
       datum = [d['year']]
       ccp.forEach(function(x){
         if(build[x] == "show"){
-          datum.push(attr["display_id"] ? attr["display_id"].toUpperCase() : attr["id"].substring(2).toUpperCase())
+          if(attr){
+            datum.push(attr["display_id"] ? attr["display_id"].toUpperCase() : attr["id"].substring(2).toUpperCase())
+          }
         }
         else if(build[x] == "all"){
           datum.push("ALL")
