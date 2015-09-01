@@ -44,8 +44,11 @@ configs.default = function(build) {
   }
   else {
     var icon = {"value":"icon", "style":"knockout"};
-    var id_nesting = ["nest", "nest_mid", "id"];
     var tooltip_data = ["display_id", build.trade_flow+"_val", build.trade_flow+"_rca"]
+    var id_nesting = ["nest", "nest_mid", "id"];
+    if(build.attr_type == "sitc"){
+      var id_nesting = ["nest","id"];
+    }
   }
 
   var background = "none", curtain = "black";

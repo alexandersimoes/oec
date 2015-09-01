@@ -57,7 +57,7 @@ class Hs07Id(object):
         return db.Column(db.String(8), db.ForeignKey(Hs07.id), primary_key=True)
 
 class SitcId(object):
-    # sitc_id_len = db.Column(db.Integer())
+    sitc_id_len = db.Column(db.Integer())
     @declared_attr
     def sitc_id(cls):
         return db.Column(db.String(8), db.ForeignKey(Sitc.id), primary_key=True)
