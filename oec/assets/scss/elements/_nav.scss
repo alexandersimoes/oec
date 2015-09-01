@@ -23,7 +23,7 @@
 nav {
   @include shadow(0 2px 6px rgba(0,0,0,0.5));
   @include transition(left 0.1s);
-  background-color: #fff;
+  background-color: rgba(0,0,0,0);
   color: #868686;
   height: 100vh;
   left: 0;
@@ -88,7 +88,7 @@ nav {
       text-align: left;
 
       li {
-        background-color: #fff;
+        background-color: rgba(0,0,0,0);
         cursor: pointer;
         display: block;
         font-weight: 700;

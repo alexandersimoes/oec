@@ -4,14 +4,42 @@
 
 {% block body %}
 
+<div id="ring-pulse"></div>
+<div id="ring"></div>
+
 <section>
   <content>
+    <div class="earth-orbit">
+        <img class="earth" src="http://goo.gl/41IWnf">
+    </div>
 
-    <img id="big_logo" src="/static/img/home/logo.png" alt="The Observatory of Economic Complexity">
+    <img id="big_logo" src="/static/img/home/logo_i.png" alt="The Observatory of Economic Complexity">
 
     <p>
       {{ _('The Observatory of Economic Complexity makes international trade data and economic complexity indicators available through millions of interactive visualizations.') }}
     </p>
+
+    <div id="macro">
+      <h3>Other projects by Macro Connections<br>@ the MIT Media Lab</h3>
+      <a class="link" href="http://pantheon.media.mit.edu/" target="_blank">
+        <img src="/static/img/home/sites/pantheon.png">
+        Mapping global cultural production
+      </a>
+      <a class="link" href="http://pulse.media.mit.edu/" target="_blank">
+        <img src="/static/img/home/sites/placepulse.png">
+        Mapping of urban perception
+      </a>
+      <a class="link" href="https://immersion.media.mit.edu/" target="_blank">
+        <img src="/static/img/home/sites/immersion.png">
+        Dive visually into your e-mail metadata
+      </a>
+    </div><div id="d3plus">
+      <h3>Other projects<br>powered by D3plus</h3>
+      <a class="link" href="http://www.dataviva.info/" target="_blank">
+        <img src="/static/img/home/sites/dataviva.png">
+        Opening the data of the Brazilian economy
+      </a>
+    </div>
 
   </section>
 </content>
