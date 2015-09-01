@@ -108,15 +108,15 @@
     </a>
 
     <div>
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
-        <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/80x15.png" />
-      </a>
-      The Observatory of Economic Complexity by <a xmlns:cc="http://creativecommons.org/ns#" href="http://alexandersimoes.com/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Permissions beyond the scope of this license may be available <a xmlns:cc="http://creativecommons.org/ns#" href="/permissions/" rel="cc:morePermissions">here</a>.
       <ul class="lang">
         {% for lang_id, lang_name in g.supported_langs.iteritems() %}
         <li><a href="{{ request.path|langify(lang_id) }}">{{ lang_name }}</a></li>
         {% endfor %}
       </ul>
+      The Observatory of Economic Complexity by <a xmlns:cc="http://creativecommons.org/ns#" href="http://alexandersimoes.com/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Permissions beyond the scope of this license may be available <a xmlns:cc="http://creativecommons.org/ns#" href="/permissions/" rel="cc:morePermissions">here</a>.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
+        <img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-sa/3.0/80x15.png" />
+      </a>
     </div>
   </footer>
 

@@ -127,15 +127,15 @@ def compile_query(query):
 
 def make_query(data_table, url_args, lang, join_table=None, classification=None, output_depth=None, **kwargs):
     # from oec.db_attr.models import Country, Hs, Sitc
-    from oec.db_attr.models import Country, Hs92, Hs96, Hs02, Hs07
-    prod_attr_tbl_lookup = {"hs92":Hs92, "hs96":Hs96, "hs02":Hs02, "hs07":Hs07}
+    from oec.db_attr.models import Country, Hs92, Hs96, Hs02, Hs07, Sitc
+    prod_attr_tbl_lookup = {"hs92":Hs92, "hs96":Hs96, "hs02":Hs02, "hs07":Hs07, "sitc":Sitc}
     query = getattr(data_table, "query", None) or data_table
     data_table = join_table or data_table
     ret = {}
     
     '''Go through each of the filters from the URL and apply them to
         the query'''
-    for filter in ["year", "origin_id", "dest_id", "hs_id", "sitc_id"]:
+    for filter in ["year", "origin_id", "dest_id", "prod_id"]:
         if filter in kwargs:
             
             '''Dealing with year is a special case where we have to check for 
@@ -158,7 +158,7 @@ def make_query(data_table, url_args, lang, join_table=None, classification=None,
                 id = Country.query.filter_by(id_3char=kwargs[filter]).first().id
                 query = query.filter(getattr(data_table, filter) == id)
             
-            elif filter == "hs_id":
+            elif filter == "prod_id":
                 hs_tbl = prod_attr_tbl_lookup[classification]
                 hs_attr_col = getattr(hs_tbl, classification)
                 data_tbl_col = getattr(data_table, "{}_id".format(classification))

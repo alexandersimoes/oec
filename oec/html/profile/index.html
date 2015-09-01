@@ -119,6 +119,7 @@
 {% for section in profile.sections() %}
 {% if section.title or section.subtitle %}
 <section>
+  <hr/>
   <aside></aside>
   <content>
     {% if section.title %}
@@ -133,7 +134,7 @@
 {% for build in section.builds %}
 <section>
   <aside>
-    <h2>{{ build.title }}</h2>
+    <h3>{{ build.title }}</h3>
     {% if build.subtitle %}
     <p>{{ build.subtitle|safe }}</p>
     {% endif %}

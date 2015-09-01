@@ -35,6 +35,9 @@ configs.tree_map = function(build, container) {
   if(build.attr_type == "dest" || build.attr_type == "origin"){
     var depth_ui = {"method":"depth", "value":[{"Continent": 0}, {"Country":1}], "label":"Depth"}
   }
+  else if(build.attr_type == "sitc"){
+    var depth_ui = {"method":"depth", "value":[{"SITC2": 0}, {"SITC4":1}], "label":"Depth"}
+  }
   else {
     var depth_ui = {"method":"depth", "value":[{"HS2": 0}, {"HS4":1}, {"HS6":2}], "label":"Depth"}
   }

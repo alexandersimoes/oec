@@ -308,6 +308,8 @@ class Build(object):
             year = available_years[self.classification][-1]
         origin, dest, prod = [self.origin, self.dest, self.prod]
         xtra_args = ""
+        if self.classification == "sitc":
+            output_depth = 6
 
         if (isinstance(prod, (Sitc, Hs92, Hs96, Hs02, Hs07)) and dest == "all" and isinstance(origin, Country)):
             prod = "show"

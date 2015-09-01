@@ -18,9 +18,14 @@ var visualization = function(build, container) {
 
   /* need to grab json network file for rings and product space */
   if(build.viz.slug == "network" || build.viz.slug == "rings"){
-    var network_file = "/static/json/network_hs4.json";
-    if(build.viz.slug == "rings" && build.prod.id.length == 8){
-      network_file = "/static/json/network_hs6.json";
+    if(build.attr_type == "sitc"){
+      var network_file = "/static/json/network_sitc.json";
+    }
+    else {
+      var network_file = "/static/json/network_hs4.json";
+      if(build.viz.slug == "rings" && build.prod.id.length == 8){
+        network_file = "/static/json/network_hs6.json";
+      }
     }
     viz.nodes(network_file, function(network){
       viz.edges(network.edges);
@@ -143,8 +148,11 @@ configs.default = function(build) {
   }
   else {
     var icon = {"value":"icon", "style":"knockout"};
-    var id_nesting = ["nest", "nest_mid", "id"];
     var tooltip_data = ["display_id", build.trade_flow+"_val", build.trade_flow+"_rca"]
+    var id_nesting = ["nest", "nest_mid", "id"];
+    if(build.attr_type == "sitc"){
+      var id_nesting = ["nest","id"];
+    }
   }
 
   var background = "none", curtain = "black";
@@ -390,6 +398,9 @@ configs.stacked = function(build, container) {
   if(build.attr_type == "dest" || build.attr_type == "origin"){
     var depth_ui = {"method":"depth", "value":[{"Continent": 0}, {"Country":1}], "label":"Depth"}
   }
+  else if(build.attr_type == "sitc"){
+    var depth_ui = {"method":"depth", "value":[{"SITC2": 0}, {"SITC4":1}], "label":"Depth"}
+  }
   else {
     var depth_ui = {"method":"depth", "value":[{"HS2": 0}, {"HS4":1}], "label":"Depth"}
   }
@@ -446,6 +457,9 @@ function show_all_years(){
 configs.tree_map = function(build, container) {
   if(build.attr_type == "dest" || build.attr_type == "origin"){
     var depth_ui = {"method":"depth", "value":[{"Continent": 0}, {"Country":1}], "label":"Depth"}
+  }
+  else if(build.attr_type == "sitc"){
+    var depth_ui = {"method":"depth", "value":[{"SITC2": 0}, {"SITC4":1}], "label":"Depth"}
   }
   else {
     var depth_ui = {"method":"depth", "value":[{"HS2": 0}, {"HS4":1}, {"HS6":2}], "label":"Depth"}
@@ -571,7 +585,9 @@ function format_csv_data(data, attrs, build){
       datum = [d['year']]
       ccp.forEach(function(x){
         if(build[x] == "show"){
-          datum.push(attr["display_id"] ? attr["display_id"].toUpperCase() : attr["id"].substring(2).toUpperCase())
+          if(attr){
+            datum.push(attr["display_id"] ? attr["display_id"].toUpperCase() : attr["id"].substring(2).toUpperCase())
+          }
         }
         else if(build[x] == "all"){
           datum.push("ALL")
