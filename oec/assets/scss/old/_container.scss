@@ -1,15 +1,41 @@
 #container {
+  @include flex;
+  @include flex-direction(column);
+  @include justify(flex-start);
+  @include transition(margin-left 0.1s);
+  margin-left: $sidebar;
+  margin-top: $header;
+
+  @media all and (max-width: 1024px) {
+    margin-left: 0;
+  }
+
+  a {
+    @include transition(border-bottom 0.1s);
+    color: $blue;
+    text-decoration: none;
+    &:hover {
+      border-bottom: 1px solid $blue;
+    }
+  }
 
   #content {
+    @include flex-size(1);
 
     header {
       @include flex;
       @include align-items(center);
       @include justify(center);
+      height: $header;
+      left: $sidebar;
       padding: 0 50px;
       position: fixed;
       right: 0;
       top: 0;
+
+      @media all and (max-width: 1024px) {
+        left: 0;
+      }
 
       @media all and (max-width: 768px) {
         @include flex-direction(column);
@@ -41,14 +67,18 @@
     section {
       @include flex;
 
+      h4 {
+        margin: 10px 0;
+      }
+
       aside {
-        margin: 35px;
+        margin: 50px 0 0 50px;
         width: $sidebar;
 
-        // img {
-        //   @include shadow;
-        //   width: 100%;
-        // }
+        img {
+          @include shadow;
+          width: 100%;
+        }
 
         #topojson {
           display: block;
@@ -95,14 +125,17 @@
   }
 
   footer {
-    font-size: 10px;
+    @include flex-size(none);
+    @include transition(margin-left 0.1s);
+    font-family: $lora;
+    font-size: 11px;
+    line-height: 18px;
+    padding: 20px 50px;
+    margin-top: 20px;
+    text-align: center;
 
-    ul {
-      margin-top: 10px;
-      li {
-        display: inline-block;
-        margin: 1px 5px;
-      }
+    @media all and (max-width: 768px) {
+      padding: 20px;
     }
 
     div {
@@ -110,6 +143,14 @@
       max-width: 650px;
     }
 
+    ul {
+      margin-top: 10px;
+      text-align: center;
+      li {
+        display: inline-block;
+        margin: 1px 5px;
+      }
+    }
   }
 
 }

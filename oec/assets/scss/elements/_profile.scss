@@ -7,7 +7,7 @@
       @include align-items(center);
       @include justify(center);
       @include transition(box-shadow 0.1s);
-      height: $header;
+      height: 150px;
       overflow: hidden;
       -webkit-transform: translateZ(0);
       z-index: 5;
@@ -183,7 +183,7 @@
 
 ul.heirarchy {
 
-  font-family: $sans-serif;
+  font-family: $lato;
   font-size: 14px;
   line-height: 18px;
   list-style-type: none;

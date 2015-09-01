@@ -41,6 +41,10 @@ var visualization = function(build, container) {
 
       if(text){
 
+        if (text.indexOf("HS") === 0 || text.indexOf("SITC") === 0) {
+          return text;
+        }
+
         if(text === "display_id"){
           if(build.attr_type == "origin" || build.attr_type == "dest"){
             return oec.translations["id"];
@@ -69,7 +73,7 @@ var visualization = function(build, container) {
 
   /* If not on the explore page, show the title! */
   if (window.parent.location.href.indexOf("/explore/") < 0 || window.parent.location.href.indexOf("/embed/") > 0) {
-    viz.title(build.title);
+    viz.title(build.title.toUpperCase());
   }
 
   load(build.attr_url, function(raw_attrs){

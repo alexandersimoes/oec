@@ -5,19 +5,80 @@ nav {
   @include align-items(center);
 
   #logo {
+    color: white;
+    font-family: $open-sans;
+    font-size: 33px;
+    font-weight: 800;
+    margin: 9px 17px;
     text-decoration: none;
   }
 
   ul {
     @include flex();
     @include flex-direction(row);
+    @include transition(left 0.5s);
     list-style: none;
 
+    @media all and (max-width: 768px) {
+      @include flex-direction(column);
+      background-color: $darkblue;
+      left: -$sidebar;
+      position: absolute;
+      width: $sidebar;
+      z-index: 2000;
+
+      &.open {
+        left: 0;
+      }
+
+    }
+
     li {
-      padding: 0 10px;
+      font-family: $lato;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      opacity: 0.7;
+      padding: 5px 10px;
+      position: relative;
+      text-transform: uppercase;
+
+      &.active {
+        opacity: 1;
+      }
+
+      &:hover {
+        cursor: pointer;
+        opacity: 1;
+      }
+
+      a {
+        color: white;
+      }
 
       .sub_menu {
         display: none;
+        left: 0;
+        position: absolute;
+        top: 25px;
+        width: 100%;
+        z-index: 1000;
+
+        &.open {
+          display: block;
+        }
+
+        ul {
+          display: block;
+
+          li {
+            display: block;
+            font-size: 11px;
+            padding: 5px 10px;
+          }
+
+        }
+
       }
 
     }
@@ -25,7 +86,7 @@ nav {
   }
 
   #search_button {
-    padding: 10px 15px;
+    padding: 0 15px;
 
     img {
       height: 30px;

@@ -34,7 +34,7 @@ build_metadata = { \
             "title": "Products exported by {origin}",
             "question": "What does {origin} export?",
             "short_name": "Exports",
-            "category": "Country"
+            "category": "Country",
         },
         "import": {
             "title":"Products imported by {origin}",
@@ -290,7 +290,12 @@ class Build(object):
         if isinstance(self.prod, (Hs92, Hs96, Hs02, Hs07, Sitc)):
             prod=self.prod.get_name()
 
-        return question.format(origin=origin, dest=dest, prod=prod)
+        question = question.format(origin=origin, dest=dest, prod=prod)
+        if len(self.year) == 1:
+            years = self.year[0]
+        else:
+            years = "{}-{}".format(self.year[0], self.year[-1])
+        return "{} ({})".format(question, years)
 
     def short_name(self):
         return build_metadata[self.id][self.trade_flow]["short_name"]

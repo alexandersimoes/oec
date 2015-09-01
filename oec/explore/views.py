@@ -335,6 +335,7 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, prod_id, y
             "color": "#333333",
             "display_id": "all",
             "id": "all",
+            "icon": "/static/img/icons/app/app_geo_map.png",
             "name": "All"
         }
     country = {
@@ -382,7 +383,7 @@ def explore(app_name, classification, trade_flow, origin_id, dest_id, prod_id, y
 
     ui.append({
         "id": "classification",
-        "name": gettext("Classification"),
+        "name": gettext("Dataset"),
         "current": build.classification,
         "data": ["HS92", "HS96", "HS02", "HS07", "SITC"]
     })

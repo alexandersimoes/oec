@@ -23,7 +23,7 @@
 
   #search_close {
     @include transition(opacity 0.1s);
-    color: $color;
+    color: $blue;
     font-size: 40px;
     font-weight: 100;
     opacity: 0.8;
@@ -53,7 +53,7 @@
     text-align: center;
 
     i {
-      color: $color;
+      color: $blue;
       font-size: 3vh;
       left: 1vh;
       position: absolute;
@@ -63,7 +63,7 @@
     #search_input {
       background-color: transparent;
       border: 0;
-      border-bottom: 1px solid $color;
+      border-bottom: 1px solid $blue;
       display: inline-block;
       font-size: 3vh;
       height: 5vh;

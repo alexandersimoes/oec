@@ -44,6 +44,10 @@ var visualization = function(build, container) {
 
       if(text){
 
+        if (text.indexOf("HS") === 0 || text.indexOf("SITC") === 0) {
+          return text;
+        }
+
         if(text === "display_id"){
           if(build.attr_type == "origin" || build.attr_type == "dest"){
             return oec.translations["id"];
@@ -72,7 +76,7 @@ var visualization = function(build, container) {
 
   /* If not on the explore page, show the title! */
   if (window.parent.location.href.indexOf("/explore/") < 0 || window.parent.location.href.indexOf("/embed/") > 0) {
-    viz.title(build.title);
+    viz.title(build.title.toUpperCase());
   }
 
   load(build.attr_url, function(raw_attrs){
@@ -155,9 +159,16 @@ configs.default = function(build) {
     }
   }
 
-  var background = "none", curtain = "black";
+  var background = "none", curtain = "black", text = "#444";
   if(window.parent.location.host == window.location.host){
-    background = "#eeeeee", curtain = background;
+    if (window.location.href.indexOf("/profile/") > 0) {
+      background = "#eeeeee";
+    }
+    else {
+      background = "#212831";
+      text = "white";
+    }
+    curtain = background;
   }
 
   var large_tooltip_width = 150;
@@ -224,8 +235,19 @@ configs.default = function(build) {
     },
     "icon": icon,
     "id": id_nesting,
+    "labels": {
+      "font": {
+        "family": ["HelveticaNeue-CondensedBold", "HelveticaNeue-Condensed", "Helvetica-Condensed", "Arial Narrow", "sans-serif"],
+        "weight": 800
+      },
+      "padding": 15
+    },
     "legend": {"filters":true},
-    "messages": {"branding": true, "style": "large"},
+    "messages": {
+      "branding": true,
+      "font": {"color": text},
+      "style": "large"
+    },
     "size": {
       "value": build.trade_flow+"_val",
       "threshold": false
@@ -234,11 +256,25 @@ configs.default = function(build) {
     "time": {"value": "year", "solo": build.year },
     "title": {
       "font": {
-        "weight": 800
+        "color": text,
+        "family": ["Montserrat", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+        "weight": 400
       }
     },
     "tooltip": tooltip,
     "type": build.viz.slug,
+    "ui": {
+      "color": {
+        "primary": "#63636a"
+      },
+      "font": {
+        "color": text,
+        "family": ["Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+        "size": 13
+      },
+      "margin": 0,
+      "padding": 4
+    },
     "x": {
       "label": {
         "font": {

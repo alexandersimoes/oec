@@ -1,6 +1,8 @@
-@mixin animation($style: 2s blink infinite) {
-  -webkit-animation: $style;
-  -moz-animation: $style;
+@mixin animation($animation) {
+  -webkit-animation: $animation;
+  -moz-animation: $animation;
+  -o-animation: $animation;
+  animation: $animation;
 }
 
 @mixin box($style: border-box) {
@@ -33,6 +35,21 @@
       background-image: url($hd);
     }
   }
+}
+
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
 }
 
 @mixin rounded($size: 5px, $corner: "none") {
@@ -73,22 +90,22 @@
   transition: $animation;
 }
 
-@mixin placeholder($color) {
+@mixin placeholder($blue) {
 
   &::-webkit-input-placeholder {
-    color: $color;
+    color: $blue;
   }
 
   &:-moz-placeholder {
-    color: $color;
+    color: $blue;
   }
 
   &::-moz-placeholder {
-    color: $color;
+    color: $blue;
   }
 
   &:-ms-input-placeholder {
-    color: $color;
+    color: $blue;
   }
 
 }

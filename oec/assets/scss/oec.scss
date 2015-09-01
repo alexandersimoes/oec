@@ -4,34 +4,38 @@
 @import "helpers/vendor";
 
 body {
-  background-color: #eee;
-  color: #333;
-  font-family: $sans-serif;
+  background-color: $darkblue;
+  color: white;
+  font-family: $lato;
 
-  &.open {
+  &.frozen {
     overflow: hidden;
   }
 
 }
 
+h1, h2, h3, h4 {
+  font-family: $montserrat;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 27px;
+}
+
 h2 {
-  font-size: 30px;
+  font-size: 15px;
 }
 
 h3 {
-  font-size: 20px;
-}
-
-h4 {
-  color: #878787;
-  font-family: $serif;
-  font-size: 17px;
-  font-weight: 400;
-  margin: 2px 0 5px;
+  font-size: 12px;
+  margin: 15px 0 5px !important;
 }
 
 p {
-  font-family: $serif;
+  color: white;
+  font-family: $lora;
   font-size: 14px;
   line-height: 20px;
   margin: 10px 0 20px;
@@ -46,6 +50,20 @@ p {
     margin-top: -5px;
   }
 
+  a {
+    @include transition(border-bottom 0.1s);
+    color: $blue;
+    text-decoration: none;
+    &:hover {
+      border-bottom: 1px solid $blue;
+    }
+  }
+
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }
 
 table {
@@ -56,7 +74,7 @@ table {
 
   tr {
     border-bottom: 1px solid #ddd;
-    font-family: $sans-serif;
+    font-family: $lato;
 
     &:last-child {
       border-bottom: none;
@@ -78,7 +96,7 @@ table {
 }
 
 ol {
-  font-family: $serif;
+  font-family: $lora;
   font-size: 14px;
   line-height: 20px;
   margin-left: 35px;
@@ -100,7 +118,7 @@ pre {
 }
 
 blockquote {
-  font-family: $serif;
+  font-family: $lora;
   font-style: italic;
   padding: 0px 30px;
   margin-bottom: 20px;

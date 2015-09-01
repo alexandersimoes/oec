@@ -5,75 +5,79 @@
 
 <nav>
 
+  <a id="hamburger">
+    <i class="fa fa-bars"></i>
+  </a>
+
   <a id="logo" href="{{ url_for('general.home', lang=g.locale) }}">
     OEC
   </a>
 
   <ul>
 
-    <li id="profile">
+    <li id="profile"{% if g.page_type == "profile" %} class="active"{% endif %}>
       {{ _('Profiles') }}
-      <div class="sub_menu profile">
+      <div class="sub_menu">
         <ul>
-          <li class="country">
+          <li class="country{% if g.page_sub_type == 'country' %} active{% endif %}">
             <a href="{{ url_for('profile.profile_country_redirect', lang=g.locale) }}">{{ _('Country') }}</a>
           </li>
-          <li class="product">
+          <li class="product{% if g.page_sub_type == 'product' %} active{% endif %}">
             <a href="{{ url_for('profile.profile_product_redirect', lang=g.locale, attr_type='hs92') }}">{{ _('Product') }}</a>
           </li>
         </ul>
       </div>
     </li>
 
-    <li id="explore">
-      {{ _('Visualize') }}
+    <li id="explore"{% if g.page_type == "explore" %} class="active"{% endif %}>
+      <a href="{{ url_for('explore.explore_redirect', app_name='tree_map', lang=g.locale) }}">{{ _('Visualize') }}</a>
     </li>
 
-    <li id="rankings">
+    <li id="rankings"{% if g.page_type == "rankings" %} class="active"{% endif %}>
       {{ _('Rankings') }}
-      <div class="sub_menu rankings">
+      <div class="sub_menu">
         <ul>
-          <li class="country">
+          <li class="country{% if g.page_sub_type == 'country' %} active{% endif %}">
             <a href="{{ url_for('rankings.rankings', lang=g.locale, category='country') }}">{{ _('Countries') }}</a>
           </li>
-          <li class="product">
+          <li class="product{% if g.page_sub_type == 'product' %} active{% endif %}">
             <a href="{{ url_for('rankings.rankings', lang=g.locale, category='hs92') }}">{{ _('Products') }}</a>
           </li>
         </ul>
       </div>
     </li>
 
-    <li id="publications">
+    <li id="publications"{% if g.page_type == "publications" %} class="active"{% endif %}>
       {{ _('Publications') }}
-      <div class="sub_menu publications">
+      <div class="sub_menu">
         <ul>
-          <li class="books">
+          <li class="books{% if g.page_sub_type == 'books' %} active{% endif %}">
             <a href="{{ url_for('publications.books', lang=g.locale) }}">{{ _('Books') }}</a>
           </li>
-          <li class="papers">
+          <li class="papers{% if g.page_sub_type == 'papers' %} active{% endif %}">
             <a href="{{ url_for('publications.papers', lang=g.locale) }}">{{ _('Papers') }}</a>
           </li>
         </ul>
       </div>
     </li>
 
-    <li id="resources">
+    <li id="resources"{% if g.page_type == "resources" %} class="active"{% endif %}>
       {{ _('Resources') }}
-      <div class="sub_menu resources">
+      <div class="sub_menu">
         <ul>
-          <li class="about">
+          <li class="about{% if g.page_sub_type == 'about' %} active{% endif %}">
             <a href="{{ url_for('about.about') }}">{{ _('About the Site') }}</a>
           </li>
-          <li class="faqs">
+          <li class="faqs{% if g.page_sub_type == 'faqs' %} active{% endif %}">
             <a href="{{ url_for('resources.faqs', lang=g.locale) }}">{{ _('FAQs') }}</a>
           </li>
-          <li class="data">
+          <li class="data{% if g.page_sub_type == 'data' %} active{% endif %}">
             <a href="{{ url_for('resources.data', lang=g.locale) }}">{{ _('Data Sources') }}</a>
           </li>
-          <li class="api">
+          <li class="api{% if g.page_sub_type == 'api' %} active{% endif %}">
             <a href="{{ url_for('resources.api', lang=g.locale) }}">{{ _('API') }}</a>
           </li>
-          <li class="permissions">
+          <li class="permissions{% if g.page_sub_type == 'permissions' %} active{% endif %}">
             <a href="{{ url_for('general.permissions') }}">{{ _('Permissions') }}</a>
           </li>
         </ul>
@@ -87,10 +91,6 @@
   </div>
 
 </nav>
-
-<a id="hamburger">
-  <i class="fa fa-bars"></i>
-</a>
 
 <div id="mask"></div>
 
@@ -145,11 +145,19 @@
 
   if (!color) var color = "#0085BF";
 
+  d3.selectAll("nav ul li")
+    .on(d3plus.client.pointer.over, function(){
+      d3.select(this).select(".sub_menu").classed("open", true);
+    })
+    .on(d3plus.client.pointer.out, function(){
+      d3.select(this).select(".sub_menu").classed("open", false);
+    });
+
   // Sets the logo, header, and stats background color.
   // d3.selectAll("#logo, header, #stats").style("background-color", color);
 
   // Sets the H2 colors
-  d3.selectAll("h2").style("color", color);
+  // d3.selectAll("h2").style("color", color);
 
   // Sets the search box background color.
   // var rgb = d3.rgb(color);
@@ -182,8 +190,8 @@
 
   // Hamburger menu logic.
   d3.selectAll("#hamburger, #mask").on("click", function(){
-    var open = d3.select("nav").classed("open");
-    d3.select("nav").classed("open", !open);
+    var open = d3.select("nav ul").classed("open");
+    d3.select("nav ul").classed("open", !open);
     d3.select("#mask").classed("visible", !open);
     d3.select("body").classed("frozen", !open);
   });

@@ -10,7 +10,7 @@ $image_size: 150px;
   &:before {
     @include shadow();
     @include rounded($image_size);
-    background-color: $color;
+    background-color: $blue;
     background-position: center;
     background-repeat: no-repeat;
     background-size: $image_size - 12;

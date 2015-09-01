@@ -30,10 +30,13 @@
 
 {% block body %}
 
-<div id="explorer">
-  <a id="collapse"><i class="fa fa-cog"></i></a>
+<section>
 
-  {% if current_build.viz.slug != "stacked" %}
+<aside id="explorer">
+
+  <!-- <a id="collapse"><i class="fa fa-cog"></i></a> -->
+
+  {% if false and current_build.viz.slug != "stacked" %}
   {% if current_build.year_str|int > g.available_years['sitc'][0] %}
   <a id="prev" href="/{{ g.locale }}/explore/{{ current_build.url(year=current_build.year_str|int-1) }}">
     <i class="fa fa-arrow-left"></i>
@@ -48,12 +51,61 @@
   {% endif %}
   {% endif %}
 
-  <h1>{{ current_build.title()|safe }}</h1>
-  <div id="changers">
+  {% set pre_app = None %}
+  {% for build in all_builds %}
 
+    {% if pre_app != build.viz.slug %}
+
+      {% set pre_app = build.viz.slug %}
+      <div class="{{ pre_app }} app_button">
+        <img src="/static/img/icons/app/app_{{ pre_app }}.png">{{ build.viz.name }}
+      </div>
+
+    {% endif %}
+
+  {% endfor %}
+
+  {% set current_url = current_build.url() %}
+  {% set current_app = current_build.viz.slug %}
+  {% set pre_app = None %}
+  {% set pre_cat = "init" %}
+  {% for build in all_builds %}
+
+    {% if pre_app != build.viz.slug %}
+
+      {% if pre_app != None %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% set pre_app = build.viz.slug %}
+      {% set pre_cat = "init" %}
+
+      <div class="app_menu {{ pre_app }}{% if pre_app == current_build.viz.slug %} open{% endif %}">
+
+    {% endif %}
+
+    {% if pre_cat != build.category() %}
+      {% if pre_cat != "init" %}</div>{% endif %}
+      <div class="build">
+      {% if build.category() != None %}
+        <div class="build_title">{{ build.category() }}</div>
+      {% endif %}
+    {% endif %}
+
+    {% set pre_cat = build.category() %}
+
+    {% set build_url = build.url() %}
+    <a class="build_link{% if build_url == current_url %} active{% endif %}" href="/{{ g.locale }}/explore/{{ build.url() }}">{{ build.short_name() }}</a>
+
+  {% endfor %}
+  </div></div>
+
+  <div id="changers">
+    <h2>Filter Visualization</h2>
     {% for ui in build_ui %}
-    <div class="dropdown_container" id="{{ ui.id }}"{% if ui.url %} data-url="{{ui.url}}"{% endif %}>
-      <legend for="{{ ui.id }}_selector">{{ ui.name }}</legend>
+    <div class="ui" id="{{ ui.id }}"{% if ui.url %} data-url="{{ui.url}}"{% endif %}>
+      <h3>{{ ui.name }}</h3>
       <select id="{{ ui.id }}_selector">
         {% if ui.data %}
           {% for option in ui.data %}
@@ -79,13 +131,18 @@
     </div>
     {% endfor %}
 
-    <button id="build">{{ _('Build') }}</button>
+    <button id="build">{{ _('Build Visualization') }}</button>
 
   </div>
-</div>
+</aside>
 
 <!-- Container for the visualization -->
-<iframe class="viz" scrolling="no" frameborder="0"></iframe>
+<content>
+  <h1>{{ current_build.question()|safe }}</h1>
+  <iframe class="viz" scrolling="no" frameborder="0"></iframe>
+</content>
+
+</section>
 
 {% endblock %}
 
@@ -183,7 +240,7 @@
   })
 
   // Style control dropdowns
-  d3.selectAll(".dropdown_container")
+  d3.selectAll(".ui")
     .each(function(d,i){
 
       var element = d3.select(this).select("select");
@@ -191,16 +248,16 @@
       var ui = d3plus.form()
         .focus(false, activate_build_button)
         .data(element)
-        // .font({
-        //   "size": 12,
-        //   "spacing": 1,
-        //   "align": "left"
-        // })
-        // .ui({
-        //   "margin": 0,
-        //   "padding": 5
-        // })
-        // .width(180)
+        .font({
+          "family": ["Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+          "size": 13
+        })
+        .ui({
+          "color": {"primary": "#63636a"},
+          "margin": 0,
+          "padding": 4
+        })
+        .width(d3.select(this).node().offsetWidth)
 
       if (this.id.indexOf("year") >= 0) {
         ui.search(false).order({"sort": "desc"}).data({"sort": true});
@@ -228,7 +285,6 @@
           .id("display_id")
           .keywords("keywords")
           .text("name")
-          .width(200)
           .draw();
 
         var country_match = ["origin","destination"].indexOf(this.id) >= 0 && ["origin_id","dest_id"].indexOf(attr_id) >= 0,
@@ -254,8 +310,9 @@
               "display_id": "all",
               "id": "all",
               "name": "All",
+              "icon": "/static/img/icons/app/app_geo_map.png",
               "keywords": "world",
-              "icon": false,
+              "style": "default",
               "color": "#333333"
             })
           }
@@ -274,22 +331,23 @@
   var url = "{{ current_build.url() }}",
       explorer = d3.select("#explorer"),
       iframe = d3.select("iframe.viz"),
-      navWidth = d3.select("nav").node().offsetWidth;
+      p = parseFloat(d3.select("content").style("margin-right"), 10),
+      navWidth = d3.select("#explorer").node().offsetWidth + p;
 
   function resizeIframe() {
+
     var n = window.innerWidth <= 1024 ? 0 : navWidth,
-        p = parseFloat(iframe.style("margin-left"), 10),
         w = window.innerWidth - n - p * 2,
-        m = window.innerHeight < window.innerWidth ? explorer.node().offsetHeight : p * 2,
+        m = window.innerHeight < window.innerWidth ? iframe.node().offsetTop : p * 2,
         h = window.innerHeight - m - p * 2,
         viz = iframe.node().contentWindow.viz;
 
     if (viz) {
-      iframe.transition().duration(500).attr("height", h + "px").attr("width", w + "px");
+      iframe.transition().duration(500).style("height", h + "px").style("width", w + "px");
       viz.height(h).width(w).draw();
     }
     else {
-      iframe.attr("height", h + "px").attr("width", w + "px");
+      iframe.style("height", h + "px").style("width", w + "px");
     }
 
   }

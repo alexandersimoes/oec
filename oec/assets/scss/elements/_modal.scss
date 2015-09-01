@@ -2,7 +2,7 @@
 
   a.share_button {
     @include transition(opacity 0.1s);
-    color: $color;
+    color: $blue;
     display: inline-block;
     margin: 10px 20px 0 0;
     opacity: 0.8;
@@ -95,7 +95,7 @@
 .modal-header {
   padding: 10px 20px 0 20px;
   h2 {
-    color: $color;
+    color: $blue;
   }
 }
 

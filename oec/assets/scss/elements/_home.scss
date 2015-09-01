@@ -1,10 +1,8 @@
 body.home {
 
-  background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
-  color: #fff;
-  // 6c7481
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
   height: 100vh;
-  
+
   #ring {
     background-color: #222931;
     border: 1px solid #fff;
@@ -17,8 +15,7 @@ body.home {
   }
 
   #ring-pulse {
-    -webkit-animation: pulse ease-in-out 4s infinite;
-    animation: pulse ease-in-out 4s infinite;
+    @include animation(pulse ease-in-out 4s infinite);
     border: 1px solid #fff;
     border-radius: 50%;
     margin: 5% 10% 0;
@@ -30,8 +27,7 @@ body.home {
   }
 
   .earth-orbit {
-    -webkit-animation: spin-right 4s linear infinite;
-    animation: spin-right 4s linear infinite;
+    @include animation(spin-right 4s linear infinite);
     border-radius: 50%;
     border: 1px dotted rgba(255,255,255,0.5);
     left: 70%;
@@ -54,21 +50,7 @@ body.home {
     width: 8px;
   }
 
-  #hamburger {
-    color: $color;
-    display: none;
-  }
-
   #container {
-    margin-top: 0;
-
-    a {
-      color: #908393;
-      &:hover {
-        border-bottom: 1px solid #1d2328;
-        text-shadow: 3px 5px 2px #1d2328;
-      }
-    }
 
     content {
       text-align: center;
@@ -80,54 +62,12 @@ body.home {
       }
 
       p {
-        font-family: $sans-serif;
+        font-family: $lato;
         line-height: 1.5;
         font-size: 20px;
         font-weight: 300;
         margin: 50px auto;
         max-width: 67%;
-      }
-
-      #macro, #d3plus {
-        bottom: 7px;
-        display: inline-block;
-        position: absolute;
-        text-align: left;
-
-        h3 {
-          font-family: $sans-serif;
-          font-size: 14px;
-          line-height: 1.5;
-        }
-
-        .link {
-          color: #333;
-          display: inline-block;
-          font-size: 13px;
-          margin: 10px 20px 10px 0;
-          width: 130px;
-
-          &:hover {
-            border-bottom: 0;
-            img {
-              @include shadow();
-            }
-          }
-
-          img {
-            @include rounded(50px);
-            display: block;
-            margin-bottom: 10px;
-          }
-        }
-      }
-
-      #macro {
-        left: 10%;
-      }
-
-      #d3plus {
-        right: 10%;
       }
 
     }
@@ -136,35 +76,23 @@ body.home {
 
 }
 
-@-webkit-keyframes pulse {
-  0% { -webkit-transform: scale(1); opacity: 0.7 }
-  50% { -webkit-transform: scale(1.1); opacity: 0.1 }
-  100% { -webkit-transform: scale(1); opacity: 0.7 }
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.7 }
-  50% { transform: scale(1.1); opacity: 0.1 }
-  100% { transform: scale(1); opacity: 0.7 }
-}
-
-
-@-webkit-keyframes spin-right {
+@include keyframes(pulse) {
+  0% {
+    @include transform(scale(1));
+    opacity: 0.7
+  }
+  50% {
+    @include transform(scale(1.1));
+    opacity: 0.1
+  }
   100% {
-    -webkit-transform: rotate(360deg);
-       -moz-transform: rotate(360deg);
-        -ms-transform: rotate(360deg);
-         -o-transform: rotate(360deg);
-            transform: rotate(360deg);
+    @include transform(scale(1));
+    opacity: 0.7
   }
 }
 
-@keyframes spin-right {
+@include keyframes(spin-right) {
   100% {
-    -webkit-transform: rotate(360deg);
-       -moz-transform: rotate(360deg);
-        -ms-transform: rotate(360deg);
-         -o-transform: rotate(360deg);
-            transform: rotate(360deg);
+    @include transform(rotate(360deg));
   }
 }

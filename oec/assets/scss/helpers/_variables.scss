@@ -1,36 +1,15 @@
-$nav: 250px;
-$header: 150px;
-$color: #0085BF;
+$sidebar: 250px;
+
+$blue: #0085BF;
+$darkblue: #212831;
 
 $shadow: 0 2px 2px rgba(0,0,0,0.5);
 
-$sans-serif: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-$serif: "Lora", "Times", serif;
-
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Lora'), local('Lora-Regular'), url('./fonts/Lora-Regular.ttf') format('opentype');
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Lora Bold'), local('Lora-Bold'), url('./fonts/Lora-Bold.ttf') format('opentype');
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Lora Italic'), local('Lora-Italic'), url('./fonts/Lora-Italic.ttf') format('opentype');
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: italic;
-  font-weight: 700;
-  src: local('Lora Bold Italic'), local('Lora-BoldItalic'), url('./fonts/Lora-BoldItalic.ttf') format('opentype');
-}
+$lato: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$lora: "Lora", "Times", serif;
+$montserrat: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$open-sans: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$source-sans: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 
 /* download Lato */
-@import url(https://fonts.googleapis.com/css?family=Lato:300);
+@import url(https://fonts.googleapis.com/css?family=Lato:900|Lora:400,700,400italic,700italic|Montserrat:400|Open+Sans:800|Source+Sans+Pro:400,700);

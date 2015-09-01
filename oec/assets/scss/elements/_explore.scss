@@ -1,60 +1,19 @@
 body.explore {
 
-  #container {
-    margin-top: 0;
+  content {
+    margin: 35px 35px 35px 0 !important;
+
+    h1 {
+      text-align: center;
+    }
+
   }
 
-  #hamburger {
-    color: $color;
-  }
-
-}
-
-$timing: 0.5s;
-
-@-webkit-keyframes blink
-{
-  0%  { background-color: $color; }
-  50% { background-color: #00a9f2; }
-  100%{ background-color: $color; }
 }
 
 #explorer {
-  @include transition(padding $timing);
-  padding: 20px 50px 10px;
-  position: relative;
-  text-align: center;
-
-  h1 {
-    @include transition(font-size $timing);
-    padding: 0 100px;
-
-    @media all and (max-width: 768px) {
-      padding: 20px 0 0;
-    }
-
-  }
-
-  #collapse {
-    @include transition(transform $timing, opacity 0.1s);
-    cursor: pointer;
-    font-size: 19px;
-    height: 19px;
-    margin: 10px;
-    opacity: 0.75;
-    position: absolute;
-    right: 4px;
-    text-align: center;
-    top: 0;
-    width: 16px;
-    &:hover {
-      border-bottom: none;
-      opacity: 1;
-    }
-  }
 
   #prev, #next {
-    @include transition(top $timing);
     font-size: 12px;
     position: absolute;
     top: 34px;
@@ -73,71 +32,89 @@ $timing: 0.5s;
     right: 50px;
   }
 
-  #changers {
-    display: block;
-    margin-top: 10px;
+  .app_button {
+    display: inline-block;
+    font-family: $lato;
+    font-size: 12px;
+    margin: 5px 0;
+    text-transform: uppercase;
+    width: $sidebar / 2 - 5;
 
-    .dropdown_container {
-      display: inline-block;
+    img {
+      margin-right: 3px;
+      width: 15px;
     }
 
-    #build {
-      @include transition(background-color 0.5s);
-      border: none;
-      background-color: #cccccc;
-      color: white;
-      cursor: pointer;
-      font-size: 12px;
-      height: 25px;
-      margin: 6px 0;
-      padding: 5;
-      position: relative;
-      // text-align: left;
-      // visibility: hidden;
+  }
 
-      &.active {
-        @include shadow();
-        @include animation();
-        background-color: $color;
+  .app_menu {
+    display: none;
+    margin: 10px 20px;
+
+    &.open {
+      display: block;
+    }
+
+    .build {
+      font-family: $source-sans;
+      font-size: 12px;
+      font-weight: 400;
+
+      .build_title, .build_link {
+        display: inline-block;
+
+        &.active {
+          font-weight: 700;
+        }
+
+      }
+
+      .build_title {
+        width: 75px;
       }
 
     }
 
   }
 
-  &.small {
-    padding: 10px 0 5px;
+  #changers {
 
-    h1 {
-      font-size: 16px;
+    .ui {
+      margin-left: 10px;
     }
 
-    #next, #prev {
-      top: 14px;
-    }
+    #build {
+      border: 1px solid white;
+      background-color: $darkblue;
+      color: white;
+      cursor: pointer;
+      display: block;
+      font-family: $montserrat;
+      font-size: 13px;
+      margin: 20px 0;
+      padding: 6px 10px;
+      text-align: right;
+      text-transform: uppercase;
+      width: 100%;
 
-    #collapse {
-      @include transform(rotate(180deg));
-    }
+      &.active {
+        // @include shadow();
+        // background-color: $blue;
+      }
 
-    #changers {
-      display: none;
     }
 
   }
 
 }
 
-iframe.viz {
-  margin: 5px 15px 0;
-}
-
 .d3plus_tooltip_html h3 {
   font-size: 24px;
   margin: 0 0 10px 0;
 }
+
 .d3plus_tooltip_html a.related:before {
-    background-image: url("http://dataviva.info/static/img/icons/app/app_tree_map_black.png");
+    background-image: url("/static/img/icons/app/app_tree_map_black.png");
     font-size: 12px;
     line-height: 27px;
     background-position: 50%;
@@ -153,6 +130,7 @@ iframe.viz {
     top: 0px;
     width: 38px;
 }
+
 .d3plus_tooltip_html a.related {
   display: block;
   margin: 10px 0 0 0;
@@ -171,6 +149,7 @@ iframe.viz {
 .d3plus_tooltip_html a.related:hover {
   opacity: 1;
 }
+
 .d3plus_tooltip_html a.related:after,
 .d3plus_tooltip_html a.profile:after {
     bottom: 8px;
@@ -193,6 +172,7 @@ iframe.viz {
   height: 1px;
   display: block;
 }
+
 .d3plus_tooltip_html a.profile {
   display: block;
   margin: 10px 0 0 0;
@@ -209,6 +189,7 @@ iframe.viz {
   box-shadow: 0px 1px 3px rgba(0,0,0,0.25);
   background-color: #330000;
 }
+
 .d3plus_tooltip_html a.profile img {
   width: 30px;
   margin: 0 10px 0 0;

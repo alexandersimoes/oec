@@ -26533,10 +26533,18 @@ module.exports = function( vars ) {
       .data(data)
       .font(font)
       .format(vars.format.locale.language)
+      .format({
+        "number": vars.format.number.value,
+        "text": vars.format.text.value
+      })
       .title(vars.format.value(title))
       .type(d.type || "auto")
       .ui({
         "align": vars.ui.align.value,
+        "color": {
+          "primary": vars.ui.color.primary.value,
+          "secondary": vars.ui.color.secondary.value
+        },
         "padding": vars.ui.padding,
         "margin": 0
       })
