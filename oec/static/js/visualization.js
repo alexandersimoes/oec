@@ -182,7 +182,15 @@ configs.default = function(build) {
         "url": function(focus_id){
           var display_id = focus_id.substring(2);
           var attr_type = build.attr_type.indexOf("hs") >= 0 ? "prod_id" : build.attr_type+"_id";
-          return "/en/explore/builds/?classification="+build.classification+"&"+attr_type+"="+display_id;
+          console.log(build)
+          var url_args = "?classification="+build.classification+"&"+attr_type+"="+display_id+"&focus="+attr_type;
+          ['origin', 'dest', 'prod'].forEach(function(filter){
+            if(typeof build[filter] != "string"){
+              url_args += "&"+filter+"_id="+build[filter].display_id;
+            }
+          })
+          console.log("/en/explore/builds/"+url_args)
+          return "/en/explore/builds/"+url_args;
         },
         "callback":function(data){
           var html_str = '<h3>Related Visualizations</h3>'

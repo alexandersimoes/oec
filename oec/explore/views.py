@@ -443,6 +443,7 @@ def embed(app_name, classification, trade_flow, origin_id, dest_id, \
 
 @mod.route('/builds/')
 def builds():
+    focus = request.args.get('focus')
     build_args = {}
     build_args["classification"] = request.args.get('classification', 'hs92')
     build_args["origin_id"] = request.args.get('origin_id') or request.args.get('dest_id')
@@ -453,9 +454,9 @@ def builds():
     build_args["viz"] = "tree_map"
     all_builds = get_all_builds(**build_args)
 
-    if build_args["origin_id"]:
+    if focus == "origin_id":
         attr = Country.query.filter_by(id_3char=build_args["origin_id"]).first()
-    elif build_args["prod_id"]:
+    elif focus == "prod_id":
         tbl = globals()[build_args["classification"].title()]
         c = build_args["classification"]
         attr = tbl.query.filter(getattr(tbl,c)==build_args["prod_id"]).first()
