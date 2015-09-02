@@ -284,8 +284,8 @@ class Country(Profile):
         dv_section = {
             "title": "Additional data on {} from other sites created by members of our team:".format(self.attr.get_name()),
             "builds": [
-                {"title": u"Brazilian Municipalities that import from {}".format(self.attr.get_name()), "iframe": dv_munic_dest_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that imported products from {}.<br />{}".format(self.attr.get_name(), dv_munic_dest_link)},
-                {"title": u"Brazilian Municipalities that export to {}".format(self.attr.get_name()), "iframe": dv_munic_origin_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that exported products to {}.<br />{}".format(self.attr.get_name(), dv_munic_origin_link)},
+                {"source": "dataviva", "title": u"Brazilian Municipalities that import from {}".format(self.attr.get_name()), "iframe": dv_munic_dest_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that imported products from {}.<br />{}".format(self.attr.get_name(), dv_munic_dest_link)},
+                {"source": "dataviva", "title": u"Brazilian Municipalities that export to {}".format(self.attr.get_name()), "iframe": dv_munic_origin_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that exported products to {}.<br />{}".format(self.attr.get_name(), dv_munic_origin_link)},
             ]
         }
         sections.append(dv_section)
@@ -298,7 +298,7 @@ class Country(Profile):
             pantheon_section = {
                 "title": "Pantheon",
                 "builds": [
-                    {"title": u"Cultural Production of {}".format(self.attr.get_name()), "iframe": pantheon_iframe, "subtitle": u"This treemap shows the cultural exports of {}, as proxied by the production of globally famous historical characters.<br />{}".format(self.attr.get_name(), pantheon_link)},
+                    {"source": "pantheon", "title": u"Cultural Production of {}".format(self.attr.get_name()), "iframe": pantheon_iframe, "subtitle": u"This treemap shows the cultural exports of {}, as proxied by the production of globally famous historical characters.<br />{}".format(self.attr.get_name(), pantheon_link)},
                 ]
             }
             sections.append(pantheon_section)
@@ -465,8 +465,8 @@ class Product(Profile):
             dv_section = {
                 "title": "Additional data on {} from other sites created by members of our team:".format(self.attr.get_name()),
                 "builds": [
-                    {"title": u"{} exporters in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_exporters_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that export {}.<br />{}".format(dv_hs.get_name(), dv_munic_exporters_link)},
-                    {"title": u"{} importers in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_importers_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that import {}.<br />{}".format(dv_hs.get_name(), dv_munic_importers_link)},
+                    {"source": "dataviva", "title": u"{} exporters in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_exporters_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that export {}.<br />{}".format(dv_hs.get_name(), dv_munic_exporters_link)},
+                    {"source": "dataviva", "title": u"{} importers in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_importers_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that import {}.<br />{}".format(dv_hs.get_name(), dv_munic_importers_link)},
                 ]
             }
             sections.append(dv_section)

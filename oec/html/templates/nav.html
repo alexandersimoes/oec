@@ -143,8 +143,6 @@
 
   var page = "{{ g.page_type }}", sub_page = "{{ g.page_sub_type }}" || "none";
 
-  if (!color) var color = "#0085BF";
-
   d3.selectAll("nav ul li")
     .on(d3plus.client.pointer.over, function(){
       d3.select(this).select(".sub_menu").classed("open", true);
@@ -179,11 +177,10 @@
     header.attr("data-height", header.node().offsetHeight);
     var icon = header.select(".icon");
     if (!icon.empty()) {
-      icon.attr("data-height", icon.node().offsetWidth)
+      icon.attr("data-height", icon.node().offsetWidth);
     }
-    img = header.select(".header");
+    img = header.select(".header_image > img");
     if (!img.empty()) {
-      header.style("background-color", "black");
       resizeCanvas();
     }
   }
@@ -260,39 +257,37 @@
 
         var w = header.node().offsetWidth, h = parseFloat(header.attr("data-height")), r = w/h;
         var iw = img.node().offsetWidth, ih = img.node().offsetHeight, ir = iw/ih;
-        var blur = 80;
         if (r > ir) {
-          var cw = w+blur, ch = w/ir+blur/ir, rw = w, rh = w/ir;
+          var cw = w, ch = w/ir, l = 0, t = 0;
         }
         else {
-          var ch = h+blur, cw = h*r+blur*r, rh = h, rw = h*r;
+          var ch = h, cw = h*r, l = 0, t = 0;
         }
         if (!img.classed("loaded")) {
           img.classed("loaded", true)
             .style("width", cw+"px")
             .style("height", ch+"px")
-            .style("margin-left", -cw/2+"px")
-            .style("margin-top", -ch/2+"px")
-            .style("-webkit-filter", "blur(3px) contrast(1.1) brightness(0.8)");
+            .style("left", l+"px")
+            .style("top", t+"px")
         }
         else {
           img.transition().duration(250)
             .style("width", cw+"px")
             .style("height", ch+"px")
-            .style("margin-left", -cw/2+"px")
-            .style("margin-top", -ch/2+"px");
+            .style("left", l+"px")
+            .style("top", t+"px");
         }
 
       }, 1000);
 
     }
 
-    resizeHeader();
+    // resizeHeader();
 
   }
 
   resizeFunctions.push(resizeCanvas);
-  scrollFunctions.push(resizeHeader);
+  // scrollFunctions.push(resizeHeader);
 
   function add_results(container, data) {
 

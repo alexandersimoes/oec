@@ -1,15 +1,15 @@
 #container {
+  margin-top: $header;
 
   #content {
 
     header {
-      @include flex;
-      @include align-items(center);
-      @include justify(center);
-      padding: 0 50px;
-      position: fixed;
-      right: 0;
-      top: 0;
+      min-height: 150px;
+      overflow: hidden;
+      position: relative;
+      -webkit-transform: translateZ(0);
+      width: 100%;
+      z-index: 5;
 
       @media all and (max-width: 768px) {
         @include flex-direction(column);
@@ -29,11 +29,21 @@
 
       }
 
-      .header {
-        -webkit-transition: -webkit-filter 1s;
-        left: 50%;
-        top: 50%;
-        -webkit-filter: blur(50px) contrast(1.1) brightness(0);
+      .header_image {
+        @include gradient($darkblue, rgba(33, 40, 49, 0));
+        left: 0;
+        position: absolute;
+        top: 0;
+        min-height: 150px;
+        width: 100%;
+
+        img {
+          display: block;
+          position: relative;
+          z-index: -1;
+          // -webkit-filter: brightness(0);
+        }
+
       }
 
     }
@@ -50,13 +60,6 @@
         //   width: 100%;
         // }
 
-        #topojson {
-          display: block;
-          height: 250px;
-          margin-top: 10px;
-          width: 100%;
-        }
-
         @media all and (max-width: 768px) {
           margin: 20px 20px 0 20px;
           width: auto;
@@ -66,11 +69,7 @@
 
       content {
         @include flex-size(1);
-        margin: 50px 50px 0 50px;
-
-        @media all and (max-width: 768px) {
-          margin: 20px 20px 0 20px;
-        }
+        margin: 35px 35px 35px 0;
 
         ul {
           margin: 20px 0;

@@ -21,24 +21,30 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  font-size: 27px;
+  font-size: 60px;
 }
 
 h2 {
-  font-size: 15px;
+  font-size: 28px;
+  margin-bottom: 28px !important;
 }
 
 h3 {
+  font-size: 15px;
+}
+
+h4 {
   font-size: 12px;
-  margin: 15px 0 5px !important;
 }
 
 p {
   color: white;
-  font-family: $lora;
-  font-size: 14px;
-  line-height: 20px;
-  margin: 10px 0 20px;
+  font-family: $source-sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 25px;
+  margin: 0 0 35px !important;
+  text-align: justify;
 
   &:last-child {
     margin-bottom: 0;
@@ -52,10 +58,10 @@ p {
 
   a {
     @include transition(border-bottom 0.1s);
-    color: $blue;
+    color: $darklinkcolor;
     text-decoration: none;
     &:hover {
-      border-bottom: 1px solid $blue;
+      border-bottom: 1px solid $darklinkcolor;
     }
   }
 
@@ -129,6 +135,50 @@ blockquote {
     margin-top: 5px;
     text-align: right;
   }
+
+}
+
+section {
+
+    &:nth-of-type(odd) {
+      background-color: white;
+      color: $black;
+
+      p {
+        color: $black;
+
+        a {
+          color: $darklinkcolor;
+          &:hover {
+            border-bottom: 1px solid $darklinkcolor;
+          }
+        }
+
+      }
+
+    }
+
+    &:nth-of-type(even) {
+      background-color: $darkblue;
+      color: white;
+
+      p {
+        color: white;
+
+        a {
+          color: $lightlinkcolor;
+          &:hover {
+            border-bottom: 1px solid $lightlinkcolor;
+          }
+        }
+
+      }
+
+    }
+
+    .columns {
+      @include column-count(2);
+    }
 
 }
 

@@ -1,7 +1,12 @@
+$header: 63px;
 $sidebar: 250px;
 
 $blue: #0085BF;
 $darkblue: #212831;
+$black: #333;
+
+$darklinkcolor: #265273;
+$lightlinkcolor: #A1BAC6;
 
 $shadow: 0 2px 2px rgba(0,0,0,0.5);
 
@@ -12,4 +17,4 @@ $open-sans: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 $source-sans: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 
 /* download Lato */
-@import url(https://fonts.googleapis.com/css?family=Lato:900|Lora:400,700,400italic,700italic|Montserrat:400|Open+Sans:800|Source+Sans+Pro:400,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:900|Lora:400,700,400italic,700italic|Montserrat:400,700|Open+Sans:800|Source+Sans+Pro:300,400,700);

@@ -54,6 +54,8 @@
       oec.translations = {{ g.translations|safe }};
       oec.locale = "{{ g.locale }}";
 
+      var color = "#212831";
+
       function analyze_palette(palette) {
         if (!palette) return;
         if (palette.constructor === String) {

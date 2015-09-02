@@ -5,85 +5,94 @@
 
 {% block body %}
 
-<header class="profile_header">
+<header class="profile_header {{ g.page_sub_type }}">
   {% set image = profile.attr.get_image() %}
   {% if image %}
-  <img class="header" src="{{ image }}"></img>
+  <div class="header_image">
+    <img src="{{ image }}">
+  </div>
   {% endif %}
-  <img class="icon" src="{{ profile.attr.get_icon() }}">
-  <h1>
-    {{ title }}
-    {% set author = profile.attr.get_author() %}
-    {% if author %}
-    <sub class="author"><a href="{{ author.link }}" target="_blank">
-      <i class="fa fa-camera"></i>{{ _("Photo by") }} {{ author.name }}
-    </a></sub>
+  <div id="title">
+    <img class="icon" src="{{ profile.attr.get_icon() }}">
+    <h1>
+      {{ title }}
+    </h1>
+  </div>
+
+  {% set stats = profile.stats() %}
+  <div id="stats">
+    {% if g.page_sub_type == "product" %}
+    <div class="stat">
+      <h3>{% if "exports" in stats %}${{ stats['exports']|num_format }}{% else %}&mdash;{% endif %}</h3>
+      <sub>{{ _("Exports") }}</sub>
+    </div>
+    <div class="stat">
+      <h3>{% if "pci" in stats and stats['pci'] %}{{ stats['pci']|num_format }}{% else %}&mdash;{% endif %}</h3>
+      <sub>{{ _("Product Complexity") }}</sub>
+    </div>
+    <div class="stat">
+      <h3>{% if "top_exporter" in stats %}{{ stats['top_exporter'][2:]|upper }}{% else %}&mdash;{% endif %}</h3>
+      <sub>{{ _("Top Exporter") }}</sub>
+    </div>
+    <div class="stat">
+      <h3>{% if "top_importer" in stats %}{{ stats['top_importer'][2:]|upper }}{% else %}&mdash;{% endif %}</h3>
+      <sub>{{ _("Top Importer") }}</sub>
+    </div>
+    {% else %}
+    <div class="stat">
+      <h3>{% if "export_val" in stats %}${{ stats['export_val']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
+      <sub>
+        {{ _("Exports") }}
+        {% if "export_val" in stats %}
+        <span class="rank">{{ stats['export_val']['rank']|num_format('ordinal') }} of {{ stats['export_val']['total'] }}</span>
+        {% endif %}
+      </sub>
+    </div>
+    <div class="stat">
+      <h3>{% if "import_val" in stats %}${{ stats['import_val']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
+      <sub>
+        {{ _("Imports") }}
+        {% if "import_val" in stats %}
+        <span class="rank">{{ stats['import_val']['rank']|num_format('ordinal') }} of {{ stats['import_val']['total'] }}</span>
+        {% endif %}
+      </sub>
+    </div>
+    <div class="stat">
+      <h3>{% if "population" in stats %}{{ stats['population']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
+      <sub>
+        {{ _("Population") }}
+        {% if "population" in stats %}
+        <span class="rank">{{ stats['population']['rank']|num_format('ordinal') }} of {{ stats['population']['total'] }}</span>
+        {% endif %}
+      </sub>
+    </div>
+    <div class="stat">
+      <h3>{% if "gdp" in stats %}{{ stats['gdp']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
+      <sub>
+        {{ _("GDP") }}
+        {% if "gdp" in stats %}
+        <span class="rank">{{ stats['gdp']['rank']|num_format('ordinal') }} of {{ stats['gdp']['total'] }}</span>
+        {% endif %}
+      </sub>
+    </div>
+
     {% endif %}
-  </h1>
+  </div>
+
+  {% set author = profile.attr.get_author() %}
+  {% if author %}
+  <div class="author">
+    <a href="{{ author.link }}" target="_blank">
+      <i class="fa fa-camera"></i>{{ _("Photo by") }} {{ author.name }}
+    </a>
+  </div>
+  {% endif %}
+
 </header>
 
-{% set stats = profile.stats() %}
-<section id="stats">
-  {% if g.page_sub_type == "product" %}
-  <div class="stat">
-    <sub>{{ _("Exports") }}</sub>
-    <h3>{% if "exports" in stats %}${{ stats['exports']|num_format }}{% else %}&mdash;{% endif %}</h3>
-  </div>
-  <div class="stat">
-    <sub>{{ _("Imports") }}</sub>
-    <h3>{% if "imports" in stats %}${{ stats['imports']|num_format }}{% else %}&mdash;{% endif %}</h3>
-  </div>
-  <div class="stat">
-    <sub>{{ _("Product Complexity") }}</sub>
-    <h3>{% if "pci" in stats and stats['pci'] %}{{ stats['pci']|num_format }}{% else %}&mdash;{% endif %}</h3>
-  </div>
-  <div class="stat">
-    <sub>{{ _("Top Exporter") }}</sub>
-    <h3>{% if "top_exporter" in stats %}{{ stats['top_exporter'][2:]|upper }}{% else %}&mdash;{% endif %}</h3>
-  </div>
-  <div class="stat">
-    <sub>{{ _("Top Importer") }}</sub>
-    <h3>{% if "top_importer" in stats %}{{ stats['top_importer'][2:]|upper }}{% else %}&mdash;{% endif %}</h3>
-  </div>
-  {% else %}
-  <div class="stat">
-    <sub>{{ _("Exports") }}</sub>
-    <h3>{% if "export_val" in stats %}${{ stats['export_val']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
-    {% if "export_val" in stats %}
-    <sub>Rank: {{ stats['export_val']['rank'] }} of {{ stats['export_val']['total'] }}</sub>
-    {% endif %}
-  </div>
-  <div class="stat">
-    <sub>{{ _("Imports") }}</sub>
-    <h3>{% if "import_val" in stats %}${{ stats['import_val']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
-    {% if "import_val" in stats %}
-    <sub>Rank: {{ stats['import_val']['rank'] }} of {{ stats['import_val']['total'] }}</sub>
-    {% endif %}
-  </div>
-  <div class="stat">
-    <sub>{{ _("Economic Complexity") }}</sub>
-    <h3>{% if "eci" in stats %}{{ stats['eci']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
-    {% if "eci" in stats %}
-    <sub>Rank: {{ stats['eci']['rank'] }} of {{ stats['eci']['total'] }}</sub>
-    {% endif %}
-  </div>
-  <div class="stat">
-    <sub>{{ _("Population") }}</sub>
-    <h3>{% if "population" in stats %}{{ stats['population']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
-    {% if "population" in stats %}
-    <sub>Rank: {{ stats['population']['rank'] }} of {{ stats['population']['total'] }}</sub>
-    {% endif %}
-  </div>
-  <div class="stat">
-    <sub>{{ _("GDP") }}</sub>
-    <h3>{% if "gdp" in stats %}{{ stats['gdp']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
-    {% if "gdp" in stats %}
-    <sub>Rank: {{ stats['gdp']['rank'] }} of {{ stats['gdp']['total'] }}</sub>
-    {% endif %}
-  </div>
-
-  {% endif %}
-</section>
+{% if g.page_sub_type == "country" %}
+<div id="topojson"></div>
+{% endif %}
 
 <section>
 
@@ -103,14 +112,24 @@
       {% endfor %}
     </ul>
     {% else %}
-    <div id="topojson"></div>
+    <div id="eci">
+      <h3>{% if "eci" in stats %}{{ stats['eci']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
+      <sub>
+        {{ _("Economic Complexity") }}
+        {% if "eci" in stats %}
+        <span class="rank">{{ stats['eci']['rank'] }} of {{ stats['eci']['total'] }}</span>
+        {% endif %}
+      </sub>
+    </div>
     {% endif %}
   </aside>
 
   <content>
+    <div class="columns">
     {% for p in profile.intro() %}
       <p>{{ p|safe }}</p>
     {% endfor %}
+    </div>
   </content>
 
 </section>
@@ -119,7 +138,6 @@
 {% for section in profile.sections() %}
 {% if section.title or section.subtitle %}
 <section>
-  <hr/>
   <aside></aside>
   <content>
     {% if section.title %}
@@ -132,9 +150,9 @@
 </section>
 {% endif %}
 {% for build in section.builds %}
-<section>
+<section{% if build.source %} class="{{ build.source }}"{% endif %}>
   <aside>
-    <h3>{{ build.title }}</h3>
+    <h2>{{ build.title }}</h2>
     {% if build.subtitle %}
     <p>{{ build.subtitle|safe }}</p>
     {% endif %}
@@ -181,9 +199,7 @@
 
 <script>
 
-  var palette = "{{ profile.palette()|safe }}",
-      color;
-
+  // var palette = "{{ profile.palette()|safe }}";
   // This is the old logic of using the image's palette to define color.
   // if (palette.length) {
   //   palette = JSON.parse(palette.replace(/'/g, '"'));
@@ -193,7 +209,7 @@
   // else {
   //   color = d3plus.color.legible("{{ profile.attr.color }}");
   // }
-  color = d3plus.color.legible("{{ profile.attr.color }}");
+  // color = d3plus.color.legible("{{ profile.attr.color }}");
 
   // If it's a country page, create the map!
   var map = d3.select("#topojson");
@@ -203,7 +219,7 @@
 
       var key = d3.keys(coords.objects)[0],
           id = "{{ profile.attr.id }}",
-          width = map.node().parentNode.offsetWidth,
+          width = 250,
           height = width;
 
       if (!coords.objects[key].lookup) {
@@ -315,25 +331,22 @@
 
       svg.attr("opacity", 0).append("rect")
         .attr("opacity", 0.1)
-        .attr("fill", color)
+        .attr("fill", "#ffffff")
         .attr("width", "100%")
         .attr("height", "100%");
 
       svg.append("rect")
         .attr("fill", "none")
-        .attr("stroke", color)
+        .attr("stroke", "#aaa")
         .attr("width", "100%")
         .attr("height", "100%");
 
       svg.selectAll("path").data(countries.features)
         .enter().append("path")
         .attr("d", path)
-        .attr("fill", color)
+        .attr("fill", "#ffffff")
         .attr("stroke", color)
-        .attr("fill-opacity", function(d){
-          return geo_ids.indexOf(d.id) >= 0 ? 1 : 0.25;
-        })
-        .attr("stroke-opacity", function(d){
+        .attr("opacity", function(d){
           return geo_ids.indexOf(d.id) >= 0 ? 1 : 0.25;
         });
 

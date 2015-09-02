@@ -3,6 +3,11 @@ nav {
   @include flex-direction(row);
   @include justify(space-between);
   @include align-items(center);
+  background-color: $darkblue;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50;
 
   #logo {
     color: white;
