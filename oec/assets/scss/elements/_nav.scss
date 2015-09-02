@@ -9,12 +9,14 @@ nav {
   width: 100%;
   z-index: 50;
 
+  padding: 20px 0;
+
   #logo {
     color: white;
     font-family: $open-sans;
-    font-size: 33px;
+    font-size: 25px;
     font-weight: 800;
-    margin: 9px 17px;
+    margin: 0px 17px;
     text-decoration: none;
   }
 
@@ -66,7 +68,7 @@ nav {
         left: 0;
         position: absolute;
         top: 25px;
-        width: 100%;
+        width: 140%;
         z-index: 1000;
 
         &.open {
@@ -94,10 +96,15 @@ nav {
     padding: 0 15px;
 
     img {
+      @include transition(opacity 0.1s);
+      opacity: 0.8;
       height: 30px;
       width: 30px;
     }
 
+    :hover {
+      cursor: pointer;
+    }
   }
-
+  
 }
