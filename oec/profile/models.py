@@ -17,6 +17,7 @@ class Profile(object):
         self.models = getattr(db_data, "{}_models".format(self.classification))
         self.id = id
         self.year = available_years[self.classification][-1]
+        self.year_series = range(self.year-15, self.year+1, 5)
 
     def title(self):
         return self.attr.get_attr_name()
@@ -60,13 +61,16 @@ class Country(Profile):
 
     def stats(self):
         if not self.cached_stats:
+            yo_historic = self.models.Yo.query.filter_by(country=self.attr).filter(self.models.Yo.year.in_(self.year_series)).all()
             yo_base_q = self.models.Yo.query.filter_by(year=self.year)
             this_yo = yo_base_q.filter_by(country=self.attr).first()
             if this_yo:
                 for stat_type in ["export_val", "import_val"]:
                     res = yo_base_q.order_by(desc(stat_type)).all()
-                    self.cached_stats[stat_type] = {"rank":res.index(this_yo)+1, "total":len(res), "val":getattr(this_yo, stat_type)}
+                    self.cached_stats[stat_type] = {"rank":res.index(this_yo)+1, "total":len(res), \
+                                                    "val":getattr(this_yo, stat_type), "sparkline":[getattr(yh, stat_type) for yh in yo_historic]}
 
+            attr_yo_historic = attrs.Yo.query.filter_by(country=self.attr).filter(self.models.Yo.year.in_(self.year_series)).all()
             attr_yo_base_q = attrs.Yo.query.filter_by(year=self.year)
             this_attr_yo = attr_yo_base_q.filter_by(country=self.attr).first()
             if this_attr_yo:
@@ -74,7 +78,8 @@ class Country(Profile):
                     res = attr_yo_base_q.order_by(desc(stat_type)).all()
                     val = getattr(this_attr_yo, stat_type)
                     if val:
-                        self.cached_stats[stat_type] = {"rank":res.index(this_attr_yo)+1, "total":len(res), "val":val}
+                        self.cached_stats[stat_type] = {"rank":res.index(this_attr_yo)+1, "total":len(res), \
+                                                        "val":val, "sparkline":[getattr(yh, stat_type) for yh in attr_yo_historic]}
 
         return self.cached_stats
 
