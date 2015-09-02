@@ -30,7 +30,7 @@ function share(build){
   }
 }
 
-configs.default = function(build) {
+configs.default = function(build, container) {
 
   /*  If we're looking at countries their icons are flags and we don't
       want to show the colored background because the flags don't take up
@@ -54,12 +54,12 @@ configs.default = function(build) {
   var background = "none", curtain = "black", text = "#444";
   if(window.parent.location.host == window.location.host){
     if (window.location.href.indexOf("/profile/") > 0) {
-      background = "#eeeeee";
+      background = d3.select(container.node().parentNode.parentNode).style("background-color");
     }
     else {
       background = "#212831";
-      text = "white";
     }
+    text = d3plus.color.text(background);
     curtain = background;
   }
 
@@ -111,6 +111,9 @@ configs.default = function(build) {
     "background": background,
     "color": { "heatmap": ["#cccccc","#0085BF"] },
     "focus": {"tooltip": false},
+    "font": {
+      "color": text
+    },
     "format": {
       "number": function( number , key , vars ){
         var key = key.key;

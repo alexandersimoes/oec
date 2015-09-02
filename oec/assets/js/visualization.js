@@ -3,7 +3,7 @@ var configs = {};
 var visualization = function(build, container) {
 
   var trade_flow = build.trade_flow,
-      default_config = configs["default"](build),
+      default_config = configs["default"](build, container),
       viz_config = configs[build.viz.slug](build, container);
 
   var viz = d3plus.viz()
@@ -72,7 +72,7 @@ var visualization = function(build, container) {
   })
 
   /* If not on the explore page, show the title! */
-  if (window.parent.location.href.indexOf("/explore/") < 0 || window.parent.location.href.indexOf("/embed/") > 0) {
+  if (window.parent.location.href.indexOf("/embed/") > 0) {
     viz.title(build.title.toUpperCase());
   }
 
