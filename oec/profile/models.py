@@ -65,7 +65,7 @@ class Country(Profile):
             if this_yo:
                 for stat_type in ["export_val", "import_val"]:
                     res = yo_base_q.order_by(desc(stat_type)).all()
-                    self.cached_stats[stat_type] = {"rank":num_format(res.index(this_yo)+1, "ordinal"), "total":len(res), "val":getattr(this_yo, stat_type)}
+                    self.cached_stats[stat_type] = {"rank":res.index(this_yo)+1, "total":len(res), "val":getattr(this_yo, stat_type)}
 
             attr_yo_base_q = attrs.Yo.query.filter_by(year=self.year)
             this_attr_yo = attr_yo_base_q.filter_by(country=self.attr).first()
@@ -74,7 +74,7 @@ class Country(Profile):
                     res = attr_yo_base_q.order_by(desc(stat_type)).all()
                     val = getattr(this_attr_yo, stat_type)
                     if val:
-                        self.cached_stats[stat_type] = {"rank":num_format(res.index(this_attr_yo)+1, "ordinal"), "total":len(res), "val":val}
+                        self.cached_stats[stat_type] = {"rank":res.index(this_attr_yo)+1, "total":len(res), "val":val}
 
         return self.cached_stats
 
@@ -169,7 +169,7 @@ class Country(Profile):
         past_yo = self.models.Yo.query.filter_by(year = past_yr, country = self.attr).first()
         this_yo = self.models.Yo.query.filter_by(year = self.year, country = self.attr).first()
         if self.stats().get("export_val"):
-            exp_rank = self.stats()["export_val"]["rank"] if self.stats()["export_val"]["rank"] > 1 else ""
+            exp_rank = num_format(self.stats()["export_val"]["rank"], "ordinal") if self.stats()["export_val"]["rank"] > 1 else ""
             export_subtitle = u"In {} {} exported {}, making it the {} largest exporter in the world. " \
                                 .format(self.year, self.attr.get_name(), num_format(self.stats()["export_val"]["val"]), exp_rank)
             if past_yo:
@@ -186,7 +186,7 @@ class Country(Profile):
                                         self.attr.get_name(), top_exports[1].product.get_profile_link(), num_format((top_exports[1].export_val/self.stats()["export_val"]["val"])*100))
 
         if self.stats().get("import_val"):
-            imp_rank = self.stats()["import_val"]["rank"] if self.stats()["import_val"]["rank"] > 1 else ""
+            imp_rank = num_format(self.stats()["import_val"]["rank"], "ordinal") if self.stats()["import_val"]["rank"] > 1 else ""
             import_subtitle = u"In {} {} imported {}, making it the {} largest importer in the world. " \
                                 .format(self.year, self.attr.get_name(), num_format(self.stats()["import_val"]["val"]), imp_rank)
             if past_yo:
