@@ -417,7 +417,9 @@
       });
     }
     else {
-      return attrs[a].slice(0, default_cutoff);
+      return attrs[a].filter(function(d){
+        return a !== "country" ? d.id.length === 6 : d.id.length === 5;
+      }).slice(0, default_cutoff);
     }
   }
 
