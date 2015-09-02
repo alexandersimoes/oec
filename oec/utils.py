@@ -12,7 +12,7 @@ from sqlalchemy import func, and_, or_, asc, desc, not_
 ############################################################
 # ----------------------------------------------------------
 # Utility methods for entire site
-# 
+#
 ############################################################
 
 ''' A Mixin class for retrieving public fields from a model
@@ -21,16 +21,16 @@ class AutoSerialize(object):
     __public__ = None
 
     def serialize(self):
-        
+
         data = self.__dict__
         allowed = []
-        
+
         for key, value in data.iteritems():
-            
+
             if isinstance(value,Decimal) or \
                 isinstance(value,long):
                 value = float(value)
-            
+
             if isinstance(value,unicode) or \
                 isinstance(value,float) or \
                 isinstance(value,int) or \
@@ -38,14 +38,14 @@ class AutoSerialize(object):
                 allowed.append((key,value))
 
         data = dict(allowed)
-        
+
         return data
 
 ''' A helper class for dealing with injecting times into the page using moment.js'''
 class Momentjs:
     def __init__(self, timestamp):
         self.timestamp = timestamp
-        
+
     def __call__(self, *args):
         return self.format(*args)
 
@@ -60,20 +60,20 @@ class Momentjs:
 
     def fromNow(self):
         return self.render("fromNow()")
-        
+
 class formatter:
     def __init__(self, text):
         self.text = text
-        
+
     def __call__(self, *args):
         return self.format(*args)
-        
+
     def render(self, type, lang):
         if isinstance(self.text,unicode) or isinstance(self.text,str):
             format = "text"
         else:
             format = "number"
-            
+
         return Markup("<script>\ndocument.write(dataviva.format.%s(\"%s\",\"%s\",\"%s\"))\n</script>" % (format, self.text, type, str(lang)))
 
 ''' A helper funciton for stripping out html tags for showing snippets of user submitted content'''
@@ -132,15 +132,15 @@ def make_query(data_table, url_args, lang, join_table=None, classification=None,
     query = getattr(data_table, "query", None) or data_table
     data_table = join_table or data_table
     ret = {}
-    
+
     '''Go through each of the filters from the URL and apply them to
         the query'''
     for filter in ["year", "origin_id", "dest_id", "prod_id"]:
         if filter in kwargs:
-            
-            '''Dealing with year is a special case where we have to check for 
-                periods which allow users to select "periods" of data in the 
-                format start.end.interval i.e. 2000.2004.2 would return data 
+
+            '''Dealing with year is a special case where we have to check for
+                periods which allow users to select "periods" of data in the
+                format start.end.interval i.e. 2000.2004.2 would return data
                 for the years 2000, 2002, and 2004'''
             if filter == "year":
                 if kwargs[filter] != "all":
@@ -153,29 +153,29 @@ def make_query(data_table, url_args, lang, join_table=None, classification=None,
                     else:
                         years = [kwargs[filter]]
                     query = query.filter(getattr(data_table, filter).in_(years))
-            
+
             elif filter == "origin_id" or filter == "dest_id":
                 id = Country.query.filter_by(id_3char=kwargs[filter]).first().id
                 query = query.filter(getattr(data_table, filter) == id)
-            
+
             elif filter == "prod_id":
                 hs_tbl = prod_attr_tbl_lookup[classification]
                 hs_attr_col = getattr(hs_tbl, classification)
                 data_tbl_col = getattr(data_table, "{}_id".format(classification))
                 id = hs_tbl.query.filter(hs_attr_col == kwargs[filter]).first().id
                 query = query.filter(data_tbl_col == id)
-            
+
             elif filter == "sitc_id":
                 id = Sitc.query.filter_by(sitc=kwargs[filter]).first().id
                 query = query.filter(getattr(data_table, filter) == id)
-            
+
             else:
                 query = query.filter(getattr(data_table, filter) == kwargs[filter])
-    
+
     if output_depth:
         col, depth = output_depth.split(".")
         query = query.filter(getattr(data_table, col) == depth)
-    
+
     # raise Exception(compile_query(query))
     if join_table:
         ret["data"] = []
@@ -186,7 +186,7 @@ def make_query(data_table, url_args, lang, join_table=None, classification=None,
             ret["data"].append(d)
     else:
         ret["data"] = [row.serialize() for row in query.all()]
-    
+
     '''jsonify result'''
     return jsonify(ret)
 
@@ -194,11 +194,11 @@ def make_cache_key(*args, **kwargs):
     path = request.path
     lang = g.locale
     cache_key = (path + lang).encode('utf-8')
-    
+
     if get_flashed_messages():
         msgs = "|".join([msg[0] for msg in get_flashed_messages(with_categories=True)])
         cache_key += "/"+msgs
-    
+
     return cache_key
 
 def num_format(number, key = None, labels = True):
@@ -252,7 +252,7 @@ def num_format(number, key = None, labels = True):
     if suffix:
         if g.locale != "en":
             suffix = u" {0}".format(plurals(key=suffix, n=n))
-        n = u"{0} {1}".format(n,suffix)
+        n = u"{0}{1}".format(n,suffix)
 
     if key and labels:
         affix = affixes(key)
