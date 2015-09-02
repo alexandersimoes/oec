@@ -2,7 +2,7 @@
 import ast
 from abc import ABCMeta
 from sqlalchemy import desc, func
-from flask.ext.babel import gettext, pgettext
+from flask.ext.babel import gettext as _
 from oec import db, db_data, available_years
 from oec.utils import num_format
 from oec.db_attr import models as attrs
@@ -46,7 +46,7 @@ class Profile(object):
                 str_item = u"<a href='{}'>{}</a>".format(this_attr.get_profile_url(), this_attr.get_name())
             str_items.append(str_item)
         if len(items) > 1:
-            str_items = u"{0} {1} {2}".format(", ".join(str_items[:-1]), gettext("and"), str_items[-1])
+            str_items = u"{0} {1} {2}".format(", ".join(str_items[:-1]), _("and"), str_items[-1])
         else:
             str_items = str_items[0]
         return str_items
@@ -65,20 +65,20 @@ class Country(Profile):
             yo_base_q = self.models.Yo.query.filter_by(year=self.year)
             this_yo = yo_base_q.filter_by(country=self.attr).first()
             if this_yo:
-                for stat_type in ["export_val", "import_val"]:
+                for stat_type, stat_title in [("export_val", _('Exports')), ("import_val", _('Importers'))]:
                     res = yo_base_q.order_by(desc(stat_type)).all()
-                    self.cached_stats[stat_type] = {"rank":res.index(this_yo)+1, "total":len(res), \
+                    self.cached_stats[stat_type] = {"rank":res.index(this_yo)+1, "total":len(res), "title":stat_title, \
                                                     "val":getattr(this_yo, stat_type), "sparkline":[getattr(yh, stat_type) for yh in yo_historic]}
 
             attr_yo_historic = attrs.Yo.query.filter_by(country=self.attr).filter(self.models.Yo.year.in_(self.year_series)).all()
             attr_yo_base_q = attrs.Yo.query.filter_by(year=self.year)
             this_attr_yo = attr_yo_base_q.filter_by(country=self.attr).first()
             if this_attr_yo:
-                for stat_type in ["eci", "population", "gdp"]:
+                for stat_type, stat_title in [("eci", _('ECI')), ("population", _('Population')), ("gdp", _('GDP'))]:
                     res = attr_yo_base_q.order_by(desc(stat_type)).all()
                     val = getattr(this_attr_yo, stat_type)
                     if val:
-                        self.cached_stats[stat_type] = {"rank":res.index(this_attr_yo)+1, "total":len(res), \
+                        self.cached_stats[stat_type] = {"rank":res.index(this_attr_yo)+1, "total":len(res), "title":stat_title, \
                                                         "val":val, "sparkline":[getattr(yh, stat_type) for yh in attr_yo_historic]}
 
         return self.cached_stats
@@ -317,18 +317,26 @@ class Product(Profile):
         self.classification = classification
         self.attr_cls = getattr(attrs, classification.capitalize())
         self.attr = self.attr_cls.query.filter(getattr(self.attr_cls, classification) == self.id).first()
+        self.depth = len(self.attr.id)
+        self.cached_stats = {}
 
     def stats(self):
-        stats = {}
-        this_yp = self.models.Yp.query.filter_by(year = self.year, product = self.attr).first()
-        if this_yp:
-            stats["exports"] = this_yp.export_val
-            stats["imports"] = this_yp.import_val
-            # raise Exception(this_yp.pci)
-            stats["pci"] = this_yp.pci
-            stats["top_exporter"] = this_yp.top_exporter
-            stats["top_importer"] = this_yp.top_importer
-        return stats
+        if not self.cached_stats:
+            all_stats = [("export_val", _('Exports')), ("pci", _('Product Complexity')), ("top_exporter", _('Top Exporter')), ("top_importer", _('Top Importer'))]
+            yp_historic = self.models.Yp.query.filter_by(product=self.attr).filter(self.models.Yp.year.in_(self.year_series)).all()
+            yp_base_q = self.models.Yp.query.filter_by(year=self.year).filter(getattr(self.models.Yp, "{}_id_len".format(self.classification)) == self.depth)
+            this_yp = yp_base_q.filter_by(product=self.attr).first()
+            if this_yp:
+                for stat_type, stat_title in all_stats:
+                    self.cached_stats[stat_type] = {}
+                    if "top" not in stat_type:
+                        res = yp_base_q.order_by(desc(stat_type)).all()
+                        self.cached_stats[stat_type] = {"rank": res.index(this_yp)+1, \
+                                                        "total": len(res), \
+                                                        "sparkline": [getattr(yh, stat_type) for yh in yp_historic]}
+                    self.cached_stats[stat_type]["val"] = getattr(this_yp, stat_type)
+                    self.cached_stats[stat_type]["title"] = stat_title
+        return self.cached_stats
 
     def heirarchy(self):
         prods = []
