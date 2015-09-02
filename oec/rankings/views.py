@@ -99,7 +99,6 @@ def rankings(category=None, year=None):
                 .filter(getattr(Attr_data, attr_id) == Attr.id) \
                 .filter(Attr_name.lang == g.locale) \
                 .filter(getattr(Attr_data, index) != None)
-    raise Exception(rankings)
 
     if category != "country":
         x = depth+2
