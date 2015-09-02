@@ -4,22 +4,23 @@
 
 {% block body %}
 
-<div id="ring-pulse"></div>
-<div id="ring"></div>
-
 <section>
-  <content>
-    <div class="earth-orbit">
-        <img class="earth" src="http://goo.gl/41IWnf">
+  <div class="bg-frame">
+    <div id="ring-pulse"></div>
+    <div id="ring">
+        <img src="/static/img/home/star-test.png" class="star-rotate">
     </div>
+    <div id="observatory">
+        <p>
+          {{ _('We are the world’s<br/>leading visualization engine<br/>for international trade data.') }}
+        </p>
+    </div>
+  </div>
 
-    <img id="big_logo" src="/static/img/home/logo_i.png" alt="The Observatory of Economic Complexity">
-
-    <p>
-      {{ _('We are the world’s leading visualization engine for international trade data.') }}
-    </p>
-
-  </section>
-</content>
+  <content>
+    <img id="big_logo" src="/static/img/home/logo_alt.png" alt="The Observatory of Economic Complexity">
+    
+    </content>
+</section>
 
 {% endblock %}
