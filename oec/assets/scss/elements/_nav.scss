@@ -3,7 +3,7 @@ nav {
   @include flex-direction(row);
   @include justify(space-between);
   @include align-items(center);
-  background-color: $darkblue;
+  background-color: $darkbackground;
   position: fixed;
   top: 0;
   width: 100%;
@@ -28,7 +28,7 @@ nav {
 
     @media all and (max-width: 768px) {
       @include flex-direction(column);
-      background-color: $darkblue;
+      background-color: $darkbackground;
       left: -$sidebar;
       position: absolute;
       width: $sidebar;
@@ -106,5 +106,5 @@ nav {
       cursor: pointer;
     }
   }
-  
+
 }

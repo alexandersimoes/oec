@@ -19,7 +19,6 @@
         color: #fff;
         font-size: 50px;
         position: relative;
-        text-shadow: $shadow;
         width: 100%;
 
         @media all and (max-width: 768px) {
@@ -30,7 +29,7 @@
       }
 
       .header_image {
-        @include gradient($darkblue, rgba(33, 40, 49, 0));
+        @include gradient($darkbackground, rgba(33, 40, 49, 0));
         left: 0;
         position: absolute;
         top: 0;
@@ -95,6 +94,8 @@
 
   footer {
     font-size: 10px;
+    margin: 35px;
+    text-align: center;
 
     ul {
       margin-top: 10px;
@@ -102,11 +103,6 @@
         display: inline-block;
         margin: 1px 5px;
       }
-    }
-
-    div {
-      margin: 0 auto;
-      max-width: 650px;
     }
 
   }

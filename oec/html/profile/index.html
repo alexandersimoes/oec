@@ -90,10 +90,6 @@
 
 </header>
 
-{% if g.page_sub_type == "country" %}
-<div id="topojson"></div>
-{% endif %}
-
 <section>
 
   <aside>
@@ -112,6 +108,7 @@
       {% endfor %}
     </ul>
     {% else %}
+    <div id="topojson"></div>
     <div id="eci">
       <h3>{% if "eci" in stats %}{{ stats['eci']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
       <sub>
@@ -214,6 +211,9 @@
   // If it's a country page, create the map!
   var map = d3.select("#topojson");
   if (!map.empty()) {
+
+    var header_height = d3.select("header").node().offsetHeight;
+    map.style("margin-top",-header_height+"px");
 
     load("/static/json/country_coords.json", function(coords){
 
@@ -355,6 +355,16 @@
 
     });
 
+  }
+
+  var heirarchy = d3.select("ul.heirarchy");
+  if (!heirarchy.empty()) {
+    function heirarchyHeight() {
+      var ch = d3.select(".columns").node().offsetHeight;
+      heirarchy.style("max-height", ch - 25 + "px");
+    }
+    heirarchyHeight();
+    resizeFunctions.push(heirarchyHeight);
   }
 
   var builds = [];

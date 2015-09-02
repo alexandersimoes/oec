@@ -4,7 +4,7 @@
 @import "helpers/vendor";
 
 body {
-  background-color: $darkblue;
+  background-color: $darkbackground;
   color: white;
   font-family: $lato;
 
@@ -16,7 +16,7 @@ body {
 
 h1, h2, h3, h4 {
   font-family: $montserrat;
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -159,7 +159,7 @@ section {
     }
 
     &:nth-of-type(even) {
-      background-color: $darkblue;
+      background-color: $darkbackground;
       color: white;
 
       p {

@@ -51,7 +51,7 @@ configs.default = function(build, container) {
     }
   }
 
-  var background = "none", curtain = "black", text = "#444";
+  var background = "none", curtain = "black", text = "#333333";
   if(window.parent.location.host == window.location.host){
     if (window.location.href.indexOf("/profile/") > 0) {
       background = d3.select(container.node().parentNode.parentNode).style("background-color");

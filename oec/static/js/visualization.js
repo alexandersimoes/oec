@@ -6,7 +6,7 @@ var configs = {};
 var visualization = function(build, container) {
 
   var trade_flow = build.trade_flow,
-      default_config = configs["default"](build),
+      default_config = configs["default"](build, container),
       viz_config = configs[build.viz.slug](build, container);
 
   var viz = d3plus.viz()
@@ -75,7 +75,7 @@ var visualization = function(build, container) {
   })
 
   /* If not on the explore page, show the title! */
-  if (window.parent.location.href.indexOf("/explore/") < 0 || window.parent.location.href.indexOf("/embed/") > 0) {
+  if (window.parent.location.href.indexOf("/embed/") > 0) {
     viz.title(build.title.toUpperCase());
   }
 
@@ -138,7 +138,7 @@ function share(build){
   }
 }
 
-configs.default = function(build) {
+configs.default = function(build, container) {
 
   /*  If we're looking at countries their icons are flags and we don't
       want to show the colored background because the flags don't take up
@@ -159,15 +159,15 @@ configs.default = function(build) {
     }
   }
 
-  var background = "none", curtain = "black", text = "#444";
+  var background = "none", curtain = "black", text = "#333333";
   if(window.parent.location.host == window.location.host){
     if (window.location.href.indexOf("/profile/") > 0) {
-      background = "#eeeeee";
+      background = d3.select(container.node().parentNode.parentNode).style("background-color");
     }
     else {
       background = "#212831";
-      text = "white";
     }
+    text = d3plus.color.text(background);
     curtain = background;
   }
 
@@ -227,6 +227,9 @@ configs.default = function(build) {
     "background": background,
     "color": { "heatmap": ["#cccccc","#0085BF"] },
     "focus": {"tooltip": false},
+    "font": {
+      "color": text
+    },
     "format": {
       "number": function( number , key , vars ){
         var key = key.key;

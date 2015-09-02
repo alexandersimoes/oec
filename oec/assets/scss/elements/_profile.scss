@@ -9,11 +9,11 @@ body.profile {
     #topojson {
       @include flex-size(none);
       height: 250px;
-      left: 35px;
-      position: absolute;
-      top: $header + 35px;
+      // left: 35px;
+      position: relative;
+      // top: $header + 35px;
       width: 250px;
-      z-index: 500;
+      z-index: 10;
     }
 
     .profile_header {
@@ -22,14 +22,13 @@ body.profile {
         @include flex;
         @include align-items(center);
         @include flex-direction(row);
+        margin: 20px 0 10px;
 
         .icon {
           @include flex-size(none);
           height: 80px;
           margin: 0 20px 0 0;
           width: 80px;
-          -webkit-filter: drop-shadow($shadow);
-          filter: drop-shadow($shadow);
 
           @media all and (max-width: 768px) {
             margin: 0;
@@ -38,10 +37,6 @@ body.profile {
 
 
         h1 {
-          color: #fff;
-          position: relative;
-          text-shadow: $shadow;
-          width: 100%;
 
           i {
             // font-size: 35px;
@@ -62,6 +57,11 @@ body.profile {
 
         }
 
+      }
+
+      #title, #stats {
+        margin-left: 35px;
+        margin-right: 35px;
       }
 
       &.country {
@@ -105,9 +105,10 @@ body.profile {
         @include flex;
         @include flex-direction(row);
         @include justify(space-between);
+        margin-bottom: 20px;
         position: relative;
 
-        $stat_width: 200px;
+        $stat_width: 250px;
 
         .stat {
           @include flex-size(1);
@@ -116,8 +117,8 @@ body.profile {
           @include align-items(center);
           @include justify(flex-start);
           color: white;
-          min-width: $stat_width;
-          max-width: $stat_width;
+          // min-width: $stat_width;
+          // max-width: $stat_width;
           width: $stat_width;
 
           h3 {
@@ -137,6 +138,7 @@ body.profile {
               display: block;
               font-size: 10px;
               font-weight: 400;
+              white-space: nowrap;
             }
 
           }
@@ -157,7 +159,6 @@ body.profile {
           @include align-items(center);
           @include justify(center);
           color: $black;
-          margin-top: 110px;
 
           h3 {
             @include flex-size(none);
@@ -261,23 +262,31 @@ body.profile {
 }
 
 ul.heirarchy {
-
-  font-family: $lato;
+  border: 1px solid #BBBDC0;
+  color: $darkbackground;
+  display: block;
+  font-family: $source-sans;
   font-size: 14px;
-  line-height: 18px;
+  font-weight: 400;
+  line-height: 17px;
   list-style-type: none;
+  overflow: scroll;
+  padding: 5px 15px 15px;
 
   li {
     padding: 3px 0;
+    a {
+      color: $darkbackground;
+    }
   }
 
   .active {
-    font-weight: 700;
+    // font-weight: 700;
   }
 
   .depth2 {
-    font-weight: 700;
-    list-style-type: none;
+    font-size: 30px;
+    line-height: 33px;
   }
 
   .depth6 {
