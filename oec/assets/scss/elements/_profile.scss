@@ -1,7 +1,7 @@
 body.profile {
   background-color: white;
 
-  section {
+  article {
 
     &:nth-of-type(odd) {
       background-color: white;
@@ -37,6 +37,25 @@ body.profile {
 
       }
 
+    }
+
+    &.dataviva {
+      background-color: white;
+      color: $black;
+
+      p {
+        color: $black;
+      }
+
+    }
+
+    &.pantheon {
+      background-color: #F9F6E3;
+      color: $black;
+
+      p {
+        color: $black;
+      }
     }
 
   }
@@ -253,25 +272,6 @@ body.profile {
 
         }
 
-      }
-
-      &.dataviva {
-        background-color: white;
-        color: $black;
-
-        p {
-          color: $black;
-        }
-
-      }
-
-      &.pantheon {
-        background-color: #F9F6E3;
-        color: $black;
-
-        p {
-          color: $black;
-        }
       }
 
       p img {
