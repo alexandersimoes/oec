@@ -45,6 +45,14 @@ body.profile {
 
       p {
         color: $black;
+
+        a {
+          color: $darklinkcolor;
+          &:hover {
+            border-bottom: 1px solid $darklinkcolor;
+          }
+        }
+
       }
 
     }
@@ -55,7 +63,16 @@ body.profile {
 
       p {
         color: $black;
+
+        a {
+          color: $darklinkcolor;
+          &:hover {
+            border-bottom: 1px solid $darklinkcolor;
+          }
+        }
+
       }
+
     }
 
   }
