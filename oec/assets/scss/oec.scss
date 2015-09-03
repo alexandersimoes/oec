@@ -15,9 +15,16 @@ body {
 
 }
 
-h1, h2, h3, h4 {
+h1, h2, h4 {
+  font-family: $source-sans;
+  font-weight: 300;
+}
+
+h3 {
   font-family: $montserrat;
   font-weight: 700;
+  font-size: 28px;
+  line-height: 1.15;
   text-transform: uppercase;
 }
 
@@ -31,7 +38,6 @@ h2 {
 }
 
 h3 {
-  font-size: 15px;
   margin: 15px 0 5px !important;
 }
 
