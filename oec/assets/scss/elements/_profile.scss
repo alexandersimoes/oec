@@ -29,6 +29,7 @@ body.profile {
           height: 80px;
           margin: 0 20px 0 0;
           width: 80px;
+          z-index: 10;
 
           @media all and (max-width: 768px) {
             margin: 0;

@@ -823,7 +823,8 @@ body.profile {
         flex: none;
         height: 80px;
         margin: 0 20px 0 0;
-        width: 80px; }
+        width: 80px;
+        z-index: 10; }
         @media all and (max-width: 768px) {
           #container #content .profile_header #title .icon {
             margin: 0;   }
