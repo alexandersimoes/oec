@@ -63,6 +63,17 @@ configs.default = function(build, container) {
     curtain = background;
   }
 
+  var edges = "#f7f7f7";
+  if (background !== "none") {
+    edges = d3.hsl(background);
+    if (edges.l < 0.5) {
+      edges = d3plus.color.lighter(edges, 0.15);
+    }
+    else {
+      edges = "#f7f7f7";
+    }
+  }
+
   var large_tooltip_width = 150;
   if (window.location.href.indexOf("/explore/") > 0 && window.innerWidth > 400) {
     large_tooltip_width = 250;
@@ -118,6 +129,7 @@ configs.default = function(build, container) {
     },
     "background": background,
     "color": { "heatmap": ["#cccccc","#0085BF"] },
+    "edges": {"color": edges},
     "focus": {"tooltip": false},
     "font": {
       "color": text
