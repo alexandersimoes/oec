@@ -1,4 +1,154 @@
-.book {
-  margin-left: 10%; 
-  width: 80% !important;
+body.publications {
+  background-color: $darkbackground;
+
+  article {
+    padding: 70px 5%;
+    color: $black;
+    
+    section {
+      padding: 30px;
+      max-width: 1054px;
+      min-width: 890px;
+      margin: 0 auto;
+    
+      content {
+        margin: 0 !important;
+
+        h2 {
+            letter-spacing: -1px;
+        }
+
+        h3 {
+          font-size: 40px;
+          margin-bottom: 20px;
+        }
+
+        h4 {
+            line-height: 1.4;
+            margin-top: 20px;
+        }
+     
+        div {
+          display: inline-block;
+          overflow: hidden;
+        }
+      }
+    }
+
+    &.why-info-grows {
+      background: $green url('/static/img/headers/pages/grows.jpg') repeat 50% 50%;
+
+      section {
+        background-color: #fff;
+
+        content {
+            div:first-child {
+                display: block;
+                width: 100%;
+
+                h3, h4 {
+                    display: inline-block;
+                }
+
+                h4 {
+                    float: right;
+                    margin-top: 10px;
+                }
+            }
+
+            div:nth-child(2) {
+                width: 16%;
+                margin-right: 5%;
+            }
+
+            div:nth-child(3) {
+                width: 60%;
+            }
+
+            div:last-child {
+                width: 13%;
+                margin-left: 5%;
+            }
+        }
+      }
+
+      h2, h3 a, h4 {
+        color: $green;
+      }
+
+      p {
+        color: $black;
+
+        a {
+          color: $darklinkcolor;
+          &:hover {
+            border-bottom: 1px solid $darklinkcolor;
+          }
+        }
+      }
+    }
+
+    &.atlas {
+      background: $darkbackground url('/static/img/publications/books/atlas-bg.png') no-repeat 50% 50%;
+    
+      section {
+        background-color: rgba(255,255,255,0.9);
+        
+        content {
+          div:nth-child(2) {
+            width: 55%;
+          }
+
+          div:last-child {
+            width: 44%;
+          }
+
+          img.book {
+            width: 40%;
+            border: 1px solid $black;
+            margin: 0 0 0 9%;
+          }
+        }
+      }
+
+      h3 a {
+        color: $black;
+      }
+
+      p {
+        color: $black;
+
+        a {
+          color: $darklinkcolor;
+          &:hover {
+            border-bottom: 1px solid $darklinkcolor;
+          }
+        }
+      }
+    }
+
+    &.papers {
+      background: #d1d2d4;
+
+      img.book {
+        display: none;
+      }
+
+      p {
+        color: $black;
+
+        a {
+          color: $darklinkcolor;
+          &:hover {
+            border-bottom: 1px solid $darklinkcolor;
+          }
+        }
+      }
+    }
+  }
 }
+
+.book {
+    width:100%;
+}
+

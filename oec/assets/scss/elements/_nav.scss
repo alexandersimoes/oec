@@ -85,6 +85,14 @@ nav {
             display: block;
             font-size: 11px;
             padding: 5px 10px;
+          
+            &.active:before {
+              content: "\f0da";
+              font-family: FontAwesome;
+              position: absolute;
+              margin-top: 3px;
+              margin-left: -10px;
+            }
           }
 
         }
