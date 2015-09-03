@@ -174,10 +174,12 @@ class Country(Profile):
         past_yr = self.year - 5
         past_yo = self.models.Yo.query.filter_by(year = past_yr, country = self.attr).first()
         this_yo = self.models.Yo.query.filter_by(year = self.year, country = self.attr).first()
-        if self.stats().get("export_val"):
-            exp_rank = num_format(self.stats()["export_val"]["rank"], "ordinal") if self.stats()["export_val"]["rank"] > 1 else ""
+        exp_val_stat = filter(lambda s: s["key"] == "export_val", self.stats())
+        if exp_val_stat:
+            exp_val_stat = exp_val_stat.pop()
+            exp_rank = num_format(exp_val_stat["rank"], "ordinal") if exp_val_stat["rank"] > 1 else ""
             export_subtitle = u"In {} {} exported {}, making it the {} largest exporter in the world. " \
-                                .format(self.year, self.attr.get_name(), num_format(self.stats()["export_val"]["val"]), exp_rank)
+                                .format(self.year, self.attr.get_name(), num_format(exp_val_stat["val"]), exp_rank)
             if past_yo:
                 chg = "increased" if this_yo.export_val_growth_pct_5 >= 0 else "decreased"
                 export_subtitle += u"During the last five years the exports of {} have {} at an annualized rate of {}%, " \
@@ -188,13 +190,14 @@ class Country(Profile):
             if top_exports:
                 export_subtitle += u"The most recent exports are lead by {}, which represent {}% of the total exports of {}, " \
                                     u"followed by {}, which account for {}%." \
-                                    .format(top_exports[0].product.get_profile_link(), num_format((top_exports[0].export_val/self.stats()["export_val"]["val"])*100), \
-                                        self.attr.get_name(), top_exports[1].product.get_profile_link(), num_format((top_exports[1].export_val/self.stats()["export_val"]["val"])*100))
-
-        if self.stats().get("import_val"):
-            imp_rank = num_format(self.stats()["import_val"]["rank"], "ordinal") if self.stats()["import_val"]["rank"] > 1 else ""
+                                    .format(top_exports[0].product.get_profile_link(), num_format((top_exports[0].export_val/exp_val_stat["val"])*100), \
+                                        self.attr.get_name(), top_exports[1].product.get_profile_link(), num_format((top_exports[1].export_val/exp_val_stat["val"])*100))
+        imp_val_stat = filter(lambda s: s["key"] == "import_val", self.stats())
+        if imp_val_stat:
+            imp_val_stat = imp_val_stat.pop()
+            imp_rank = num_format(imp_val_stat["rank"], "ordinal") if imp_val_stat["rank"] > 1 else ""
             import_subtitle = u"In {} {} imported {}, making it the {} largest importer in the world. " \
-                                .format(self.year, self.attr.get_name(), num_format(self.stats()["import_val"]["val"]), imp_rank)
+                                .format(self.year, self.attr.get_name(), num_format(imp_val_stat["val"]), imp_rank)
             if past_yo:
                 chg = "increased" if this_yo.import_val_growth_pct_5 >= 0 else "decreased"
                 import_subtitle += u"During the last five years the imports of {} have {} at an annualized rate of {}%, " \
@@ -204,8 +207,8 @@ class Country(Profile):
             if top_imports:
                 import_subtitle += u"The most recent imports are lead by {}, which represent {}% of the total imports of {}, " \
                                     u"followed by {}, which account for {}%." \
-                                    .format(top_imports[0].product.get_profile_link(), num_format((top_imports[0].import_val/self.stats()["import_val"]["val"])*100), \
-                                        self.attr.get_name(), top_imports[1].product.get_profile_link(), num_format((top_imports[1].import_val/self.stats()["import_val"]["val"])*100))
+                                    .format(top_imports[0].product.get_profile_link(), num_format((top_imports[0].import_val/imp_val_stat["val"])*100), \
+                                        self.attr.get_name(), top_imports[1].product.get_profile_link(), num_format((top_imports[1].import_val/imp_val_stat["val"])*100))
 
         dests_tmap = Build("tree_map", "hs92", "export", self.attr, "show", "all", self.year)
         yod_exp = self.models.Yod.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
