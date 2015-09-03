@@ -17,7 +17,7 @@ class Profile(object):
         self.models = getattr(db_data, "{}_models".format(self.classification))
         self.id = id
         self.year = available_years[self.classification][-1]
-        self.year_series = range(self.year-15, self.year+1, 5)
+        self.year_series = range(available_years[self.classification][0], self.year+1)
 
     def title(self):
         return self.attr.get_attr_name()
@@ -70,7 +70,7 @@ class Country(Profile):
                 else:
                     yo_historic = attrs.Yo.query.filter_by(country=self.attr).filter(attrs.Yo.year.in_(self.year_series)).all()
                     yo_base_q = attrs.Yo.query.filter_by(year=self.year)
-                    this_yo = yo_base_q.filter_by(country=self.attr).first()                    
+                    this_yo = yo_base_q.filter_by(country=self.attr).first()
 
                 res = yo_base_q.order_by(desc(s)).all()
                 val = getattr(this_yo, s)
