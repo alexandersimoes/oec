@@ -214,13 +214,16 @@ nav {
         nav ul li.active {
           opacity: 1; }
           nav ul li:hover {
+            background-color: #212831;
             cursor: pointer;
             opacity: 1; }
             nav ul li a {
               color: white; }
               nav ul li .sub_menu {
+                background-color: #212831;
                 display: none;
                 left: 0;
+                padding-bottom: 5px;
                 position: absolute;
                 top: 25px;
                 width: 140%;
