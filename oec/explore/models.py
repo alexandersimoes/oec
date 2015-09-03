@@ -73,13 +73,13 @@ build_metadata = { \
     },
     3: {
         "export": {
-            "title": "Products that {origin} imports from {dest}",
+            "title": "Products that {origin} exports to {dest}",
             "question": "What does {origin} export to {dest}?",
             "short_name": "Exports to Destination",
             "category": "Bilateral"
         },
         "import": {
-            "title": "Products that {origin} exports to {dest}",
+            "title": "Products that {origin} imports from {dest}",
             "question": "What does {origin} import from {dest}?",
             "short_name": "Imports from Origin",
             "category": "Bilateral"
@@ -394,8 +394,8 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
         if any(x in v["slug"] for x in ["tree_map", "stacked"]):
             '''tree_map/stacked has all permutations of builds'''
 
-            for tf in ["export", "import"]:
-                for b in build_types:
+            for b in build_types:
+                for tf in ["export", "import"]:
                     build = Build(
                         viz = v["slug"],
                         classification = classification,

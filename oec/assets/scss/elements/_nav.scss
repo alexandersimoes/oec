@@ -55,6 +55,7 @@ nav {
       }
 
       &:hover {
+        background-color: $darkbackground;
         cursor: pointer;
         opacity: 1;
       }
@@ -64,8 +65,10 @@ nav {
       }
 
       .sub_menu {
+        background-color: $darkbackground;
         display: none;
         left: 0;
+        padding-bottom: 5px;
         position: absolute;
         top: 25px;
         width: 140%;

@@ -5,6 +5,7 @@
 
 {% block body %}
 
+<article>
 <header class="profile_header {{ g.page_sub_type }}">
   {% set image = profile.attr.get_image() %}
   {% if image %}
@@ -59,7 +60,9 @@
   {% endif %}
 
 </header>
+</article>
 
+<article>
 <section>
 
   <aside>
@@ -114,16 +117,23 @@
   </content>
 
 </section>
+<article>
 
 <script>var build_data = [];</script>
+{% set title = None %}
 {% for section in profile.sections() %}
-{% if section.title or section.subtitle %}
+{% if section.title %}
+{% if title != section.title %}
+  {% if title != None %}
+  </article>
+  {% endif %}
+  <article{% if section.source %} class="{{ section.source }}"{% endif %}>
+  {% set title = section.title %}
+{% endif %}
 <section>
   <aside></aside>
   <content>
-    {% if section.title %}
     <h2>{{ section.title }}</h2>
-    {% endif %}
     {% if section.subtitle %}
     <p>{{ section.subtitle|safe }}</p>
     {% endif %}
@@ -131,7 +141,7 @@
 </section>
 {% endif %}
 {% for build in section.builds %}
-<section{% if build.source %} class="{{ build.source }}"{% endif %}>
+<section>
   <aside>
     <h2>{{ build.title }}</h2>
     {% if build.subtitle %}
@@ -151,6 +161,7 @@
 </section>
 {% endfor %}
 {% endfor %}
+</article>
 
 <section>
   {% set prev = profile.attr.prev() %}

@@ -214,13 +214,16 @@ nav {
         nav ul li.active {
           opacity: 1; }
           nav ul li:hover {
+            background-color: #212831;
             cursor: pointer;
             opacity: 1; }
             nav ul li a {
               color: white; }
               nav ul li .sub_menu {
+                background-color: #212831;
                 display: none;
                 left: 0;
+                padding-bottom: 5px;
                 position: absolute;
                 top: 25px;
                 width: 140%;
@@ -708,7 +711,7 @@ body.home {
     display: -webkit-flex;
     display: flex; }
     #container #content section aside {
-      margin: 35px 35px 0 35px;
+      margin: 35px;
       width: 250px; }
       @media all and (max-width: 768px) {
         #container #content section aside {
@@ -721,7 +724,7 @@ body.home {
       -webkit-flex: 1;
       -ms-flex: 1;
       flex: 1;
-      margin: 35px 35px 0 0; }
+      margin: 35px 35px 35px 0; }
       #container #content section content ul {
         margin: 20px 0; }
         #container #content section content ul li {
@@ -777,24 +780,42 @@ body.home {
 }
 body.profile {
   background-color: white; }
-  body.profile section:nth-of-type(odd) {
+  body.profile article:nth-of-type(odd) {
     background-color: white;
     color: #333; }
-    body.profile section:nth-of-type(odd) p {
+    body.profile article:nth-of-type(odd) p {
       color: #333; }
-      body.profile section:nth-of-type(odd) p a {
+      body.profile article:nth-of-type(odd) p a {
         color: #265273; }
-        body.profile section:nth-of-type(odd) p a:hover {
+        body.profile article:nth-of-type(odd) p a:hover {
           border-bottom: 1px solid #265273; }
-  body.profile section:nth-of-type(even) {
+  body.profile article:nth-of-type(even) {
     background-color: #212831;
     color: white; }
-    body.profile section:nth-of-type(even) p {
+    body.profile article:nth-of-type(even) p {
       color: white; }
-      body.profile section:nth-of-type(even) p a {
+      body.profile article:nth-of-type(even) p a {
         color: #A1BAC6; }
-        body.profile section:nth-of-type(even) p a:hover {
+        body.profile article:nth-of-type(even) p a:hover {
           border-bottom: 1px solid #A1BAC6; }
+  body.profile article.dataviva {
+    background-color: white;
+    color: #333; }
+    body.profile article.dataviva p {
+      color: #333; }
+      body.profile article.dataviva p a {
+        color: #265273; }
+        body.profile article.dataviva p a:hover {
+          border-bottom: 1px solid #265273; }
+  body.profile article.pantheon {
+    background-color: #F9F6E3;
+    color: #333; }
+    body.profile article.pantheon p {
+      color: #333; }
+      body.profile article.pantheon p a {
+        color: #265273; }
+        body.profile article.pantheon p a:hover {
+          border-bottom: 1px solid #265273; }
 
 #container #content #topojson {
   -webkit-box-flex: none;
@@ -988,16 +1009,6 @@ body.profile {
       fill: none;
       stroke: #212831;
       stroke-width: 2px; }
-#container #content section.dataviva {
-  background-color: white;
-  color: #333; }
-  #container #content section.dataviva p {
-    color: #333; }
-#container #content section.pantheon {
-  background-color: #F9F6E3;
-  color: #333; }
-  #container #content section.pantheon p {
-    color: #333; }
 #container #content section p img {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
