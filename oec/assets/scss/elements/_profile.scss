@@ -98,6 +98,19 @@ body.profile {
           }
 
         }
+        
+        h1:after {
+          position: relative;
+          opacity: 0;
+          margin-left: 10px;
+          top: 7px;
+          @include transition(opacity 2s);
+        }
+
+        h1:hover:after {
+          content: url('/static/img/nav/search.png');
+          opacity: 1;
+        }
 
       }
 
