@@ -43,7 +43,11 @@
         </sub>
       </div>
       {% if stat.sparkline %}
-      <div class="sparkline" data-array="{{ stat.sparkline }}"></div>
+      <div class="sparkline" data-array="{{ stat.sparkline.val }}"></div>
+      <div class="years">
+        <div class="year">{{ stat.sparkline.start }}</div>
+        <div class="year">{{ stat.sparkline.end }}</div>
+      </div>
       {% endif %}
     </div>
     {% endif %}
@@ -101,7 +105,11 @@
         </sub>
       </div>
       {% if stat.sparkline %}
-      <div class="sparkline" data-array="{{ stat.sparkline }}"></div>
+      <div class="sparkline" data-array="{{ stat.sparkline.val }}"></div>
+      <div class="years">
+        <div class="year">{{ stat.sparkline.start }}</div>
+        <div class="year">{{ stat.sparkline.end }}</div>
+      </div>
       {% endif %}
     </div>
     {% endif %}
@@ -298,7 +306,7 @@
 
       }
       // List of countries that should take the largest two land masses.
-      else if (["asmys"].indexOf(id) >= 0) {
+      else if (["asmys", "eugbr"].indexOf(id) >= 0) {
 
         var areas = [], test = d3plus.util.copy(country);
         country.geometry.coordinates.forEach(function(c, i){

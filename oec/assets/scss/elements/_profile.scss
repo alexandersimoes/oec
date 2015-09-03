@@ -134,7 +134,7 @@ body.profile {
           }
 
         }
-        
+
         h1:after {
           position: relative;
           opacity: 0;
@@ -255,6 +255,21 @@ body.profile {
 
       }
 
+      .years {
+        @include flex;
+        @include flex-direction(row);
+        @include justify(space-between);
+        opacity: 0.7;
+        width: 90%;
+
+        .year {
+          font-family: $montserrat;
+          font-size: 10px;
+          font-weight: 400;
+        }
+
+      }
+
     }
 
     section {
@@ -298,6 +313,10 @@ body.profile {
               stroke-width: 2px;
             }
 
+          }
+
+          .years {
+            width: 100%;
           }
 
         }

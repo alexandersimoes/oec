@@ -80,6 +80,7 @@ configs.default = function(build, container) {
   }
 
   var tooltip = {
+      "children": false,
       "curtain": {"color": curtain},
       "html": {
         "url": function(focus_id){
