@@ -3,7 +3,7 @@ body.profile {
 
   article {
 
-    &:nth-of-type(odd) {
+    &:nth-of-type(even) {
       background-color: white;
       color: $black;
 
@@ -21,7 +21,7 @@ body.profile {
 
     }
 
-    &:nth-of-type(even) {
+    &:nth-of-type(odd) {
       background-color: $darkbackground;
       color: white;
 
