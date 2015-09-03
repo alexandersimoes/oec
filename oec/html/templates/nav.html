@@ -48,17 +48,7 @@
     </li>
 
     <li id="publications"{% if g.page_type == "publications" %} class="active"{% endif %}>
-      {{ _('Publications') }}
-      <div class="sub_menu">
-        <ul>
-          <li class="books{% if g.page_sub_type == 'books' %} active{% endif %}">
-            <a href="{{ url_for('publications.books', lang=g.locale) }}">{{ _('Books') }}</a>
-          </li>
-          <li class="papers{% if g.page_sub_type == 'papers' %} active{% endif %}">
-            <a href="{{ url_for('publications.papers', lang=g.locale) }}">{{ _('Papers') }}</a>
-          </li>
-        </ul>
-      </div>
+      <a href="{{ url_for('general.publications') }}">{{ _('Publications') }}</a>
     </li>
 
     <li id="resources"{% if g.page_type == "resources" %} class="active"{% endif %}>
@@ -74,14 +64,15 @@
           <li class="data{% if g.page_sub_type == 'data' %} active{% endif %}">
             <a href="{{ url_for('resources.data', lang=g.locale) }}">{{ _('Data Sources') }}</a>
           </li>
-          <li class="api{% if g.page_sub_type == 'api' %} active{% endif %}">
-            <a href="{{ url_for('resources.api', lang=g.locale) }}">{{ _('API') }}</a>
-          </li>
           <li class="permissions{% if g.page_sub_type == 'permissions' %} active{% endif %}">
             <a href="{{ url_for('general.permissions') }}">{{ _('Permissions') }}</a>
           </li>
         </ul>
       </div>
+    </li>
+
+    <li id="api"{% if g.page_type == "api" %} class="active"{% endif %}>
+      <a href="{{ url_for('general.api') }}">{{ _('API') }}</a>
     </li>
 
   </ul>

@@ -130,21 +130,28 @@ def search():
     search_results = Search(**search_args).results()
     return jsonify(search_results)
 
-###############################
-# API views
-# ---------------------------
-@mod.route('atlas/')
-def atlas():
-    return redirect(url_for("publications.books", lang="en"))
-
 @mod.route('permissions/')
 def permissions():
     g.page_type = "permissions"
     return render_template("general/permissions.html")
 
+@mod.route('api/')
+def api():
+    g.page_type = "api"
+    return render_template("general/api.html")
+
+@mod.route("publications/")
+def publications():
+    g.page_type = "publications"
+    return render_template("general/publications.html")
+
 ###############################
 # Legacy support views
 # ---------------------------
+@mod.route('atlas/')
+def atlas():
+    return redirect(url_for("publications.books", lang="en"))
+
 @mod.route('embed/<app_name>/<trade_flow>/<origin>/<dest>/<product>/')
 @mod.route('embed/<app_name>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
 def embed_legacy(app_name, trade_flow, origin, dest, product, year=2012):

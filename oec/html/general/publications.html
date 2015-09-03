@@ -1,18 +1,91 @@
 {% extends "templates/nav.html" %}
 
-{% block title %} - {{ _("Papers") }}{% endblock %}
+{% block title %} - {{ _("Books") }}{% endblock %}
 
 {% block body %}
 
 <header class="profile_header">
-  <img class="header" src="/static/img/headers/pages/classroom.jpg"></img>
+  <img class="header" src="/static/img/headers/pages/grows.jpg"></img>
   <h1>
-    {{ _("Papers") }}
-    <sub class="author"><a href="https://flic.kr/p/nm2s5h" target="_blank">
-      <i class="fa fa-camera"></i>{{ _("Photo by") }} Ryan Tyler Smith
+    {{ _("Books") }}
+    <sub class="author"><a href="https://flic.kr/p/sC7tjy" target="_blank">
+      <i class="fa fa-camera"></i>{{ _("Photo by") }} Dauro Veras
     </a></sub>
   </h1>
 </header>
+
+<section>
+  <aside>
+    <img class="book" src="/static/img/publications/books/information.png">
+  </aside>
+  <content>
+    <h2>
+      <a target="_blank" href="http://www.amazon.com/Why-Information-Grows-Evolution-Economies/dp/0465048994/ref=sr_1_1?ie=UTF8&qid=1435945119&sr=8-1&keywords=why+information+grows">
+        Why Information Grows
+      </a>
+    </h2>
+    <h3>The Evolution of Order, from Atoms to Economies</h3>
+    <h4>Cesar Hidalgo</h4>
+
+    <p>What is economic growth? And why, historically, has it occurred in only a few places? Previous efforts to answer these questions have focused on institutions, geography, finances, and psychology. But according to MIT's antidisciplinarian César Hidalgo, understanding the nature of economic growth demands transcending the social sciences and including the natural sciences of information, networks, and complexity. To understand the growth of economies, Hidalgo argues, we first need to understand the growth of order.</p>
+
+  </content>
+</section>
+
+<section>
+  <aside>
+    <img class="book" src="/static/img/publications/books/atlas2014.jpg">
+  </aside>
+  <content>
+    <h2>
+      <a target="_blank" href="http://www.amazon.com/Atlas-Economic-Complexity-Mapping-Prosperity/dp/0262525429/ref=sr_1_1?s=books&ie=UTF8&qid=1440535970&sr=1-1&keywords=atlas+of+economic+complexity&pebp=1440535985572&perid=0HN41KMX8PH1JSFPDB35">
+        The Atlas of Economic Complexity
+      </a>
+    </h2>
+    <h3>Mapping Paths to Prosperity (Revised 2014)</h3>
+    <h4>Ricardo Hausmann, César A. Hidalgo, Sebastián Bustos, Michele Coscia, Sarah Chung, Juan Jimenez, Alexander Simoes, Muhammed A. Yildirim</h4>
+    <p></p>
+    <blockquote>
+      "Emphasizing that not all products are the same for development is a significant departure from the establishment."
+      <p>&mdash;Changyong Rhee, Chief Economist<br>Asian Development Bank (Cambridge, MA 2011)</p>
+    </blockquote>
+    <blockquote>
+      "The ECI can play a very important role. It can help identify the role of developing countries."
+      <p>&mdash;Justin Lin, Chief Economist<br>World Bank (Cambridge, MA 2011)</p>
+    </blockquote>
+
+  </content>
+</section>
+
+<section>
+  <aside>
+    <img class="book" src="/static/img/publications/books/atlas.png">
+  </aside>
+  <content>
+    <h2>The Atlas of Economic Complexity</h2>
+    <h3>Mapping Paths to Prosperity (Original 2011)</h3>
+    <h4>Ricardo Hausmann, César A. Hidalgo, Sebastián Bustos, Michele Coscia, Sarah Chung, Juan Jimenez, Alexander Simoes, Muhammed A. Yildirim</h4>
+
+    <ul><h3>Downloads</h3>
+      <li>
+        <a href="/static/pdf/atlas/AtlasOfEconomicComplexity.pdf">
+          Full Version
+        </a> – 364 pages (85.7 MB)
+      </li>
+      <li>
+        <a href="/static/pdf/atlas/AtlasOfEconomicComplexity_Part_I.pdf">
+          Part I: Why, What and How &amp; Rankings
+        </a> – 91 pages (8.2 MB)
+      </li>
+      <li>
+        <a href="/static/pdf/atlas/AtlasOfEconomicComplexity_Part_II.pdf">
+          Part II: Country Pages
+        </a> – 271 pages (75.4 MB)
+      </li>
+    </ul>
+
+  </content>
+</section>
 
 <section>
   <aside>
@@ -222,7 +295,5 @@ use of information visualization “apps”.</p>
 
   </content>
 </section>
-
-<script>var color = "#856747";</script>
 
 {% endblock %}

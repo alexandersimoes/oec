@@ -14,11 +14,6 @@ def get_profile_owner(endpoint, values):
 def before_request():
     g.page_type = mod.name
 
-@mod.route("/api/")
-def api():
-    g.page_sub_type = "api"
-    return render_template("resources/api.html")
-
 @mod.route("/data/")
 def data():
     g.page_sub_type = "data"

@@ -167,7 +167,7 @@ def updates():
 @mod.route('api/embed/')
 @mod.route('api/data/')
 def api():
-    return redirect(url_for("resources.api"))
+    return redirect(url_for("general.api"))
 
 @mod.route('data/')
 @mod.route('data/sources/')
