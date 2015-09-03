@@ -5,14 +5,24 @@
 
 body {
   background-color: $darkbackground;
-  color: white;
-  font-family: $lato;
+  color: #fff;
+  font-family: $source-sans;
   height: 100vh;
 
   &.frozen {
     overflow: hidden;
   }
 
+  &.error {
+    text-align: center;
+    padding-top: 40%;
+    overflow: hidden;
+  }
+}
+
+h1,h2,h3,h4 {
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
 }
 
 h1, h2, h4 {
@@ -30,6 +40,7 @@ h3 {
 
 h1 {
   font-size: 40px;
+  line-height: 45px;
 }
 
 h2 {
@@ -115,7 +126,7 @@ table {
 }
 
 ol {
-  font-family: $lora;
+  font-family: $source-sans;
   font-size: 14px;
   line-height: 20px;
   margin-left: 35px;
@@ -124,6 +135,11 @@ ol {
   li {
     padding: 5px 0;
   }
+}
+
+ul {
+  list-style-type: none;
+  padding: 0px;
 }
 
 pre {
@@ -137,13 +153,14 @@ pre {
 }
 
 blockquote {
-  font-family: $lora;
+  font-family: $source-sans;
   font-style: italic;
   padding: 0px 30px;
   margin-bottom: 20px;
 
   p {
     font-size: 13px;
+    font-style: normal;
     line-height: 15px;
     margin-top: 5px;
     text-align: right;
