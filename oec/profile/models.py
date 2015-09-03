@@ -72,10 +72,14 @@ class Country(Profile):
                     this_yo = yo_base_q.filter_by(country=self.attr).first()
 
                 res = yo_base_q.order_by(desc(s)).all()
-                val = getattr(this_yo, s)
+                val = getattr(this_yo, s, None)
                 if val:
                     my_stat = {"key":s, "rank":res.index(this_yo)+1, "total":len(res), "title":s_title, \
-                                "val":val, "sparkline":[float(getattr(yh, s)) if getattr(yh, s) is not None else 0 for yh in yo_historic]}
+                                "val":val, "sparkline":{
+                                    "start": 1980, "end": available_years["sitc"][-1], \
+                                    "val": [float(getattr(yh, s)) if getattr(yh, s) is not None else 0 for yh in yo_historic]
+                                }
+                              }
                     self.cached_stats.append(my_stat)
         return self.cached_stats
 
@@ -333,7 +337,10 @@ class Product(Profile):
                     if "top" not in stat_type:
                         res = yp_base_q.order_by(desc(stat_type)).all()
                         this_stat = {"rank": res.index(this_yp)+1, "total": len(res), \
-                                        "sparkline": [float(getattr(yh, stat_type)) for yh in yp_historic]}
+                                        "sparkline": {
+                                            "val": [float(getattr(yh, stat_type)) for yh in yp_historic], \
+                                            "start":available_years[self.classification][0], "end":available_years[self.classification][-1]}
+                                    }
                     this_stat["val"] = getattr(this_yp, stat_type)
                     this_stat["title"] = stat_title
                     this_stat["key"] = stat_type
