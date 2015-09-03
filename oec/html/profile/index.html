@@ -21,62 +21,32 @@
 
   {% set stats = profile.stats() %}
   <div id="stats">
-    {% if g.page_sub_type == "product" %}
+    {% for stat in stats %}
+    {% if stat.key != "eci" %}
     <div class="stat">
-      <h3>{% if "exports" in stats %}${{ stats['exports']|num_format }}{% else %}&mdash;{% endif %}</h3>
-      <sub>{{ _("Exports") }}</sub>
+      <div class="stat_text">
+        <h3>
+          {% if "top" in stat.key %}
+            {{ stat.val[2:]|upper }}
+          {% elif stat.val %}
+            {{ stat.val|num_format(stat.key) }}
+          {% else %}
+            &mdash;
+          {% endif %}
+        </h3>
+        <sub>
+          {{ stat.title }}
+          {% if stat.rank %}
+          <span class="rank">{{ stat.rank|num_format('ordinal') }} of {{ stat.total }}</span>
+          {% endif %}
+        </sub>
+      </div>
+      {% if stat.sparkline %}
+      <div class="sparkline" data-array="{{ stat.sparkline }}"></div>
+      {% endif %}
     </div>
-    <div class="stat">
-      <h3>{% if "pci" in stats and stats['pci'] %}{{ stats['pci']|num_format }}{% else %}&mdash;{% endif %}</h3>
-      <sub>{{ _("Product Complexity") }}</sub>
-    </div>
-    <div class="stat">
-      <h3>{% if "top_exporter" in stats %}{{ stats['top_exporter'][2:]|upper }}{% else %}&mdash;{% endif %}</h3>
-      <sub>{{ _("Top Exporter") }}</sub>
-    </div>
-    <div class="stat">
-      <h3>{% if "top_importer" in stats %}{{ stats['top_importer'][2:]|upper }}{% else %}&mdash;{% endif %}</h3>
-      <sub>{{ _("Top Importer") }}</sub>
-    </div>
-    {% else %}
-    <div class="stat">
-      <h3>{% if "export_val" in stats %}${{ stats['export_val']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
-      <sub>
-        {{ _("Exports") }}
-        {% if "export_val" in stats %}
-        <span class="rank">{{ stats['export_val']['rank']|num_format('ordinal') }} of {{ stats['export_val']['total'] }}</span>
-        {% endif %}
-      </sub>
-    </div>
-    <div class="stat">
-      <h3>{% if "import_val" in stats %}${{ stats['import_val']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
-      <sub>
-        {{ _("Imports") }}
-        {% if "import_val" in stats %}
-        <span class="rank">{{ stats['import_val']['rank']|num_format('ordinal') }} of {{ stats['import_val']['total'] }}</span>
-        {% endif %}
-      </sub>
-    </div>
-    <div class="stat">
-      <h3>{% if "population" in stats %}{{ stats['population']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
-      <sub>
-        {{ _("Population") }}
-        {% if "population" in stats %}
-        <span class="rank">{{ stats['population']['rank']|num_format('ordinal') }} of {{ stats['population']['total'] }}</span>
-        {% endif %}
-      </sub>
-    </div>
-    <div class="stat">
-      <h3>{% if "gdp" in stats %}{{ stats['gdp']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
-      <sub>
-        {{ _("GDP") }}
-        {% if "gdp" in stats %}
-        <span class="rank">{{ stats['gdp']['rank']|num_format('ordinal') }} of {{ stats['gdp']['total'] }}</span>
-        {% endif %}
-      </sub>
-    </div>
-
     {% endif %}
+    {% endfor %}
   </div>
 
   {% set author = profile.attr.get_author() %}
@@ -109,16 +79,30 @@
     </ul>
     {% else %}
     <div id="topojson"></div>
-    <div id="eci">
-      <h3>{% if "eci" in stats %}{{ stats['eci']['val']|num_format }}{% else %}&mdash;{% endif %}</h3>
-      <sub>
-        {{ _("Economic Complexity") }}
-        {% if "eci" in stats %}
-        <span class="rank">{{ stats['eci']['rank'] }} of {{ stats['eci']['total'] }}</span>
-        {% endif %}
-      </sub>
+
+    {% set stat = stats[0] %}
+    <div class="stat" id="eci">
+      <div class="stat_text">
+        <h3>
+          {% if stat.val %}
+            {{ stat.val|num_format(stat.key) }}
+          {% else %}
+            &mdash;
+          {% endif %}
+        </h3>
+        <sub>
+          {{ stat.title }}
+          {% if stat.rank %}
+          <span class="rank">{{ stat.rank|num_format('ordinal') }} of {{ stat.total }}</span>
+          {% endif %}
+        </sub>
+      </div>
+      {% if stat.sparkline %}
+      <div class="sparkline" data-array="{{ stat.sparkline }}"></div>
+      {% endif %}
     </div>
     {% endif %}
+
   </aside>
 
   <content>
@@ -207,6 +191,45 @@
   //   color = d3plus.color.legible("{{ profile.attr.color }}");
   // }
   // color = d3plus.color.legible("{{ profile.attr.color }}");
+
+  d3.selectAll(".sparkline").each(function(){
+    var w = d3.select(this).node().offsetWidth;
+    d3.select(this).attr("data-width", w);
+    var a = JSON.parse(d3.select(this).attr("data-array"));
+    // var a = [1.171, 1.088, 1.275, 0.882, 1.171, 1.088, 1.275, 0.882, 1.171, 1.088, 1.275, 0.882];
+    var y = d3.scale.linear()
+      .domain([d3.min(a), d3.max(a)])
+      .range([d3.select(this).node().offsetHeight, 0]);
+
+    var x = d3.scale.linear()
+      .domain([0, a.length - 1])
+      .range([0, w]);
+
+    var line = d3.svg.line()
+      .x(function(d, i){ return x(i); })
+      .y(function(d){ return y(d); });
+
+    var svg = d3.select(this).append("svg")
+      .append("g")
+        .attr("class", "sparkgroup")
+        .attr("transform", "scale(1,1)");
+
+    svg.append("path")
+      .datum(a)
+      .attr("class", "sparkpath")
+      .attr("d", line);
+
+  });
+
+  function resizeSparklines() {
+    d3.selectAll(".sparkline").each(function(){
+      var div = d3.select(this),
+          w = parseFloat(div.attr("data-width"), 10),
+          r = div.node().offsetWidth/w;
+      div.select(".sparkgroup").attr("transform", "scale(" + r + ",1)");
+    })
+  }
+  resizeFunctions.push(resizeSparklines);
 
   // If it's a country page, create the map!
   var map = d3.select("#topojson");

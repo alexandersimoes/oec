@@ -814,7 +814,7 @@ body.profile {
       -webkit-flex-direction: row;
       -moz-flex-direction: row;
       flex-direction: row;
-      margin: 20px 0 10px; }
+      margin: 20px 35px 10px 0; }
       #container #content .profile_header #title .icon {
         -webkit-box-flex: none;
         -moz-box-flex: none;
@@ -838,8 +838,7 @@ body.profile {
         text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5); }
     #container #content .profile_header #title,
     #container #content .profile_header #stats {
-      margin-left: 35px;
-      margin-right: 35px; }
+      margin-left: 35px; }
       #container #content .profile_header.country #title,
       #container #content .profile_header.country #stats {
         margin-left: 320px; }
@@ -878,51 +877,19 @@ body.profile {
       -webkit-flex-direction: row;
       -moz-flex-direction: row;
       flex-direction: row;
+      -webkit-align-items: flex-start;
+      align-items: flex-start;
       -webkit-justify-content: space-between;
       -moz-justify-content: space-between;
       justify-content: space-between;
       margin-bottom: 20px;
       position: relative; }
-      #container #content .profile_header #stats .stat {
-        -webkit-box-flex: 1;
-        -moz-box-flex: 1;
-        -webkit-flex: 1;
-        -ms-flex: 1;
-        flex: 1;
-        -webkit-justify-content: center;
-        -moz-justify-content: center;
-        justify-content: center;
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-flex-direction: row;
-        -moz-flex-direction: row;
-        flex-direction: row;
-        -webkit-align-items: center;
-        align-items: center;
-        -webkit-justify-content: flex-start;
-        -moz-justify-content: flex-start;
-        justify-content: flex-start;
-        color: white;
-        width: 250px; }
-        #container #content .profile_header #stats .stat h3 {
-          font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-          font-size: 32px;
-          font-weight: 400;
-          margin: 0 10px 0 0 !important; }
-          #container #content .profile_header #stats .stat sub {
-            font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase; }
-            #container #content .profile_header #stats .stat sub .rank {
-              display: block;
-              font-size: 10px;
-              font-weight: 400;
-              white-space: nowrap; }
-  #container #content section aside #eci {
+  #container #content .stat {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
     -webkit-justify-content: center;
     -moz-justify-content: center;
     justify-content: center;
@@ -931,36 +898,78 @@ body.profile {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-    -webkit-flex-direction: row;
-    -moz-flex-direction: row;
-    flex-direction: row;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    -moz-justify-content: center;
-    justify-content: center;
-    color: #333; }
-    #container #content section aside #eci h3 {
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    flex-direction: column;
+    color: white;
+    margin-right: 35px;
+    width: 250px; }
+    #container #content .stat .stat_text {
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      justify-content: center;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: row;
+      -moz-flex-direction: row;
+      flex-direction: row;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-justify-content: flex-start;
+      -moz-justify-content: flex-start;
+      justify-content: flex-start; }
+      #container #content .stat .stat_text h3 {
+        font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-size: 32px;
+        font-weight: 400;
+        margin: 0 10px 0 0 !important; }
+        #container #content .stat .stat_text sub {
+          font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+          font-size: 14px;
+          font-weight: 700;
+          text-transform: uppercase; }
+          #container #content .stat .stat_text sub .rank {
+            display: block;
+            font-size: 10px;
+            font-weight: 400;
+            white-space: nowrap; }
+    #container #content .stat .sparkline {
+      height: 35px;
+      margin: 10px 0;
+      width: 90%; }
+      #container #content .stat .sparkline .sparkpath {
+        fill: none;
+        stroke: white;
+        stroke-width: 2px; }
+  #container #content section aside #eci {
+    color: #333;
+    margin: 0;
+    width: 100%; }
+    #container #content section aside #eci .stat_text h3 {
       -webkit-box-flex: none;
       -moz-box-flex: none;
       -webkit-flex: none;
       -ms-flex: none;
       flex: none;
-      font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
       font-size: 70px;
-      font-weight: 300;
-      margin: 0 10px 0 0 !important; }
-      #container #content section aside #eci sub {
-        font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+      font-weight: 300; }
+      #container #content section aside #eci .stat_text sub {
         font-size: 15px;
-        font-weight: 700;
         line-height: 18px;
-        margin-top: 3px;
-        text-transform: uppercase; }
-        #container #content section aside #eci sub .rank {
-          display: block;
-          font-size: 12px;
-          font-weight: 400; }
+        margin-top: 3px; }
+        #container #content section aside #eci .stat_text sub .rank {
+          font-size: 12px; }
+    #container #content section aside #eci .sparkline {
+      height: 50px;
+      margin: 10px 0;
+      width: 100%; }
+      #container #content section aside #eci .sparkline .sparkpath {
+        fill: none;
+        stroke: #212831;
+        stroke-width: 2px; }
   #container #content section.dataviva {
     background-color: white;
     color: #333; }
@@ -1173,47 +1182,40 @@ body.explore content {
               .d3plus_tooltip_html a.profile img {
                 width: 30px;
                 margin: 0 10px 0 0; }
-body.rankings #container {
-  margin-top: 0; }
-  body.rankings #container content {
-    margin-top: 10px !important; }
-    body.rankings #container content .Rank {
-      font-weight: bold;
-      text-align: center;
-      width: 40px; }
-      body.rankings #container content .Delta {
-        text-align: center;
-        width: 50px; }
-        body.rankings #container content .Delta .fa {
-          font-size: 13px; }
-          body.rankings #container content .Delta .fa-arrow-up {
-            color: #00cc00; }
-            body.rankings #container content .Delta .fa-arrow-down {
-              color: #cc0000; }
-    body.rankings #container content .ID {
-      width: 50px; }
-      body.rankings #container content .Country img,
-      body.rankings #container content .Product img {
-        margin-right: 5px;
-        width: 20px; }
-    body.rankings #container content .ECI, body.rankings #container content .PCI {
-      width: 50px; }
-body.rankings #hamburger {
-  color: #0085BF; }
-  body.rankings .download {
-    background-color: white;
-    border: 1px solid #c3c3c3;
-    color: #444 !important;
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 200;
-    margin: 0;
-    padding: 6px; }
-    body.rankings .download:hover {
-      border-color: #c3c3c3; }
-      body.rankings .download i {
-        margin-right: 2px;
-        margin-top: 1px; }
+body.rankings #container .Rank {
+  font-weight: bold;
+  text-align: center;
+  width: 40px; }
+  body.rankings #container .Delta {
+    text-align: center;
+    width: 50px; }
+    body.rankings #container .Delta .fa {
+      font-size: 13px; }
+      body.rankings #container .Delta .fa-arrow-up {
+        color: #00cc00; }
+        body.rankings #container .Delta .fa-arrow-down {
+          color: #cc0000; }
+body.rankings #container .ID {
+  width: 50px; }
+  body.rankings #container .Country img, body.rankings #container .Product img {
+    margin-right: 5px;
+    width: 20px; }
+body.rankings #container .ECI, body.rankings #container .PCI {
+  width: 50px; }
+body.rankings .download {
+  background-color: white;
+  border: 1px solid #c3c3c3;
+  color: #444 !important;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 200;
+  margin: 0;
+  padding: 6px; }
+  body.rankings .download:hover {
+    border-color: #c3c3c3; }
+    body.rankings .download i {
+      margin-right: 2px;
+      margin-top: 1px; }
 body.rankings .change_dataset {
   margin-bottom: 15px; }
   body.rankings .change_dataset .active {
