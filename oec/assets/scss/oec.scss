@@ -62,10 +62,10 @@ p {
   a {
     @include transition(border-bottom 0.1s);
     border-bottom: 1px solid transparent;
-    color: $darklinkcolor;
+    color: $lightlinkcolor;
     text-decoration: none;
     &:hover {
-      border-bottom: 1px solid $darklinkcolor;
+      border-bottom: 1px solid $lightlinkcolor;
     }
   }
 
