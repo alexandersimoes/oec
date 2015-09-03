@@ -244,8 +244,8 @@ nav {
       -o-transition: opacity 0.1s;
       transition: opacity 0.1s;
       opacity: 0.8;
-      height: 30px;
-      width: 30px; }
+      height: 22px;
+      width: 22px; }
       nav #search_button :hover {
         cursor: pointer; }
 body.home {
@@ -529,7 +529,7 @@ body.home {
           width: 22px;
           position: absolute;
           right: 17px;
-          top: 22px; }
+          top: 28px; }
           #search #search_close :hover {
             cursor: pointer; }
     #search #search_div {
@@ -691,7 +691,7 @@ body.home {
       background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
       background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
       background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-      background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
+      background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
       left: 0;
       position: absolute;
       top: 0;
@@ -863,6 +863,18 @@ body.profile {
       display: block;
       font-size: 11px;
       text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5); }
+    #container #content .profile_header #title h1:after {
+      position: relative;
+      opacity: 0;
+      margin-left: 10px;
+      top: 7px;
+      -webkit-transition: opacity 2s;
+      -moz-transition: opacity 2s;
+      -o-transition: opacity 2s;
+      transition: opacity 2s; }
+      #container #content .profile_header #title h1:hover:after {
+        content: url('/static/img/nav/search.png');
+        opacity: 1; }
   #container #content .profile_header #title,
   #container #content .profile_header #stats {
     margin-left: 35px; }
