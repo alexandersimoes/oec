@@ -43,7 +43,8 @@ def profile_country_redirect():
 @mod.route('/<any("sitc","hs92","hs96","hs02","hs07"):attr_type>/')
 def profile_product_redirect(attr_type):
     '''fetch random product'''
-    p = getattr(attr_models, attr_type.capitalize()).query.order_by(func.random()).first_or_404()
+    tbl = getattr(attr_models, attr_type.capitalize())
+    p = tbl.query.filter(func.char_length(tbl.id)==6).order_by(func.random()).first_or_404()
     return redirect(url_for(".profile_product", lang=g.locale, attr_type=attr_type, attr_id=p.get_display_id()))
 
 def sanitize(id_3char):
