@@ -57,12 +57,10 @@ class Country(Profile):
     def __init__(self, classification, id):
         super(Country, self).__init__(classification, id)
         self.attr = attrs.Country.query.filter_by(id_3char = self.id).first()
-        self.cached_stats = {}
-        self.stat_list = []
+        self.cached_stats = []
 
     def stats(self):
-        if not self.stat_list:
-            stat_list = []
+        if not self.cached_stats:
             all_stats = [("eci", _('Economic Complexity')), ("export_val", _('Exports')), ("import_val", _('Imports')), ("population", _('Population')), ("gdp", _('GDP'))]
             for s, s_title in all_stats:
                 if "val" in s:
@@ -79,10 +77,8 @@ class Country(Profile):
                 if val:
                     my_stat = {"key":s, "rank":res.index(this_yo)+1, "total":len(res), "title":s_title, \
                                 "val":val, "sparkline":[float(getattr(yh, s)) for yh in yo_historic]}
-                    self.cached_stats[s] = my_stat
-                    stat_list.append(my_stat)
-            self.stat_list = stat_list
-        return self.stat_list
+                    self.cached_stats.append(my_stat)
+        return self.cached_stats
 
     def intro(self):
         all_paragraphs = []
@@ -322,7 +318,7 @@ class Product(Profile):
         self.attr_cls = getattr(attrs, classification.capitalize())
         self.attr = self.attr_cls.query.filter(getattr(self.attr_cls, classification) == self.id).first()
         self.depth = len(self.attr.id)
-        self.cached_stats = {}
+        self.cached_stats = []
 
     def stats(self):
         if not self.cached_stats:
@@ -332,14 +328,15 @@ class Product(Profile):
             this_yp = yp_base_q.filter_by(product=self.attr).first()
             if this_yp:
                 for stat_type, stat_title in all_stats:
-                    self.cached_stats[stat_type] = {}
+                    this_stat = {}
                     if "top" not in stat_type:
                         res = yp_base_q.order_by(desc(stat_type)).all()
-                        self.cached_stats[stat_type] = {"rank": res.index(this_yp)+1, \
-                                                        "total": len(res), \
-                                                        "sparkline": [getattr(yh, stat_type) for yh in yp_historic]}
-                    self.cached_stats[stat_type]["val"] = getattr(this_yp, stat_type)
-                    self.cached_stats[stat_type]["title"] = stat_title
+                        this_stat = {"rank": res.index(this_yp)+1, "total": len(res), \
+                                        "sparkline": [getattr(yh, stat_type) for yh in yp_historic]}
+                    this_stat["val"] = getattr(this_yp, stat_type)
+                    this_stat["title"] = stat_title
+                    this_stat["key"] = stat_type
+                    self.cached_stats.append(this_stat)
         return self.cached_stats
 
     def heirarchy(self):
