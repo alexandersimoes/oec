@@ -7,6 +7,7 @@ body {
   background-color: $darkbackground;
   color: white;
   font-family: $lato;
+  height: 100vh;
 
   &.frozen {
     overflow: hidden;
@@ -58,6 +59,7 @@ p {
 
   a {
     @include transition(border-bottom 0.1s);
+    border-bottom: 1px solid transparent;
     color: $darklinkcolor;
     text-decoration: none;
     &:hover {

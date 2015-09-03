@@ -1,99 +1,138 @@
 body.home {
 
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
-  
 
-  #container {
-    min-height: 100vh;
-  
-    #content section {
-      padding: 50px 0;
+  nav {
+    background: none;
+    opacity: 0;
+    position: static;
 
-      content {
-        margin: 0;
-        width: 100%;
-        border: 1px solid blue;
-        
-        #big_logo {
-          border: 1px solid red;
-          margin: 10% 15% 0;
-          min-width: 181px;
-          max-width: 600px;
-          width: 30%;
-        }
-      }
-    }
-  }
-
-  .bg-frame {
-    border: 1px solid red;
-    width: 70%;
-    margin: 0 15%;
-    padding-bottom: 70%;
-    position: absolute;
-    overflow: hidden;
-    
-    #ring {
-      background-color: #222931;
-      border: 1px solid #fff;
-      border-radius: 50%;
-      height: 100%;
-      overflow: hidden;
-      position: absolute;
-      width: 100%;
-      z-index: -4;
-    }
-
-    #ring-pulse {
-      @include animation(pulse ease-in-out 4s infinite);
-      border: 1px solid #fff;
-      border-radius: 50%;
-      overflow: hidden;
-      height: 100%;
-      position: absolute;
-      width: 100%;
-      z-index: -5;
-    }
-
-    #observatory {
-      background: rgba(25,50,75,0.2) url('/static/img/home/observatory.png') no-repeat 75% 90%;
-      border-radius: 50%;
-      border: 1px solid white;
-      height: 100%;
-      position: absolute;
-      width: 100%;
-      z-index: -1;
-
-      p {
-        font-family: $source-sans;
-        line-height: 1.4;
-        font-size: 20px;
-        font-weight: 300;
-        margin-right: 15%;
-        position: absolute;
-        text-align: center;
-        max-width: 275px;
-        bottom: 22%;
-        right: 10%;
-      }
-    }
-    
-    .star-rotate {
-      @include animation(spin-right 50s ease-in-out infinite);
-      margin: -22% -13% 0;
-      overflow: hidden;
-      position: absolute;
-      width: 160%;
-      z-index: -3;
+    #logo, #search_button {
+      visibility: hidden;
     }
 
   }
 
   footer {
-    bottom: 0;
+    opacity: 0;
+  }
+
+}
+
+$default_size: 600px;
+
+.bg-frame {
+  height: $default_size;
+  margin: 35px auto;
+  opacity: 0;
+  position: relative;
+  width: $default_size;
+
+  #ring-pulse {
+    @include animation(pulse ease-in-out 4s infinite);
+    border: 1px solid #fff;
+    border-radius: 50%;
+    height: 100%;
     position: absolute;
-    padding: 20px 0;
     width: 100%;
+    z-index: -5;
+  }
+
+  #ring {
+    @include rounded(50%);
+    background-color: $darkbackground;
+    border: 1px solid #ffffff;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+
+    // this next line fixes a weird clipping bug in Chrome
+    // http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera
+    -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+
+    $star_size: 150%;
+
+    .star-rotate {
+      @include animation(spin-right 50s linear infinite);
+      left: 68%;
+      margin-left: -$star_size/2;
+      margin-top: -$star_size/2;
+      position: absolute;
+      top: 64%;
+      width: $star_size;
+      z-index: -1;
+    }
+
+    #big_logo {
+      left: 12%;
+      position: absolute;
+      top: 23%;
+      width: 38%;
+    }
+
+    #observatory {
+      left: 8%;
+      position: absolute;
+      top: 14%;
+      width: 100%;
+    }
+
+    #info {
+      display: block;
+      font-family: $source-sans;
+      font-size: $default_size/30;
+      font-weight: 300;
+      line-height: 1.4;
+      position: absolute;
+      text-align: center;
+      bottom: 7%;
+      right: 16%;
+
+      a {
+        border-bottom: 1px solid transparent;
+        color: $lightlinkcolor;
+        display: inline-block;
+        font-family: $montserrat;
+        font-size: 70%;
+        margin: 2%;
+        text-transform: uppercase;
+
+        i {
+          font-size: 70%;
+          margin-top: 5%;
+        }
+
+        &:hover {
+          border-bottom: 1px solid $lightlinkcolor;
+        }
+      }
+
+    }
+
+    #search_home {
+      border-bottom: 1px solid $lightlinkcolor;
+      bottom: 47%;
+      color: $lightlinkcolor;
+      display: block;
+      font-family: $source-sans;
+      font-size: $default_size/30;
+      font-weight: 300;
+      left: 8%;
+      position: absolute;
+      width: 27%;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      img {
+        margin-left: -15%;
+        margin-top: -3%;
+        width: 15%;
+      }
+    }
+
   }
 
 }

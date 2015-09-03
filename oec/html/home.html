@@ -4,23 +4,77 @@
 
 {% block body %}
 
-<section>
-  <div class="bg-frame">
-    <div id="ring-pulse"></div>
-    <div id="ring">
-        <img src="/static/img/home/star-test.png" class="star-rotate">
-    </div>
-    <div id="observatory">
-        <p>
-          {{ _('We are the world’s<br/>leading visualization engine<br/>for international trade data.') }}
-        </p>
+<div class="bg-frame">
+  <div id="ring-pulse"></div>
+  <div id="ring">
+    <img src="/static/img/home/star-test.png" class="star-rotate">
+    <img id="big_logo" src="/static/img/home/logo_alt.png" alt="The Observatory of Economic Complexity">
+    <img id="observatory" src="/static/img/home/observatory.png">
+    <p id="info">
+      {{ _('We are the world’s<br/>leading visualization engine<br/>for international trade data.') }}
+      <br>
+      <a href="{{ url_for('about.about') }}">{{ _("Learn More") }} <i class="fa fa-chevron-right"></i></a>
+    </p>
+    <div id="search_home">
+      <img src="/static/img/nav/search.png">
+      {{ _("Search the observatory") }}
     </div>
   </div>
+</div>
 
-  <content>
-    <img id="big_logo" src="/static/img/home/logo_alt.png" alt="The Observatory of Economic Complexity">
-    
-    </content>
-</section>
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+  var timing = 0;
+  function bgresize() {
+
+    var n = d3.select("nav").node().offsetHeight,
+        f = d3.select("footer").node().offsetHeight + 70,
+        p = 100,
+        w = window.innerWidth,
+        h = window.innerHeight - n - f,
+        s = d3.min([w - p, h - p]);
+
+    if (timing) {
+      d3.select(".bg-frame").transition().duration(timing)
+        .style("width", s + "px")
+        .style("height", s + "px");
+      d3.select("#info").transition().duration(timing)
+        .style("font-size", s/30 + "px");
+      d3.select("#search_home").transition().duration(timing)
+        .style("font-size", s/40 + "px");
+    }
+    else {
+
+      timing = 600;
+
+      d3.select(".bg-frame")
+        .style("width", s + "px")
+        .style("height", s + "px");
+
+      d3.select("#info").style("font-size", s/30 + "px");
+      d3.select("#search_home").style("font-size", s/40 + "px");
+
+      d3.select(".bg-frame").transition().duration(timing * 2)
+        .style("opacity", 1);
+
+      d3.selectAll("nav, footer").transition().duration(timing * 2)
+        .delay(timing * 3)
+        .style("opacity", 1);
+
+    }
+
+  }
+
+  bgresize();
+
+  resizeFunctions.push(bgresize);
+
+  d3.select("#search_home").on("click", search);
+
+</script>
 
 {% endblock %}

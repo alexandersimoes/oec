@@ -2,7 +2,8 @@
   body {
     background-color: #212831;
     color: white;
-    font-family: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif; }
+    font-family: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    height: 100vh; }
     body.frozen {
       overflow: hidden; }
 
@@ -43,6 +44,7 @@
                     -moz-transition: border-bottom 0.1s;
                     -o-transition: border-bottom 0.1s;
                     transition: border-bottom 0.1s;
+                    border-bottom: 1px solid transparent;
                     color: #265273;
                     text-decoration: none; }
                     p a:hover {
@@ -213,9 +215,9 @@ nav {
             left: 0;   }
 }
       nav ul li {
-        font-family: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
         font-size: 12px;
-        font-weight: 900;
+        font-weight: 700;
         letter-spacing: 1px;
         opacity: 0.7;
         padding: 5px 10px;
@@ -257,82 +259,105 @@ nav {
         cursor: pointer; }
 body.home {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931; }
-  body.home #container {
-    min-height: 100vh; }
-    body.home #container #content section {
-      padding: 50px 0; }
-      body.home #container #content section content {
-        margin: 0;
-        width: 100%;
-        border: 1px solid blue; }
-        body.home #container #content section content #big_logo {
-          border: 1px solid red;
-          margin: 10% 15% 0;
-          min-width: 181px;
-          max-width: 600px;
-          width: 30%; }
-  body.home .bg-frame {
-    border: 1px solid red;
-    width: 70%;
-    margin: 0 15%;
-    padding-bottom: 70%;
+  body.home nav {
+    background: none;
+    opacity: 0;
+    position: static; }
+    body.home nav #logo, body.home nav #search_button {
+      visibility: hidden; }
+  body.home footer {
+    opacity: 0; }
+
+.bg-frame {
+  height: 600px;
+  margin: 35px auto;
+  opacity: 0;
+  position: relative;
+  width: 600px; }
+  .bg-frame #ring-pulse {
+    -webkit-animation: pulse ease-in-out 4s infinite;
+    -moz-animation: pulse ease-in-out 4s infinite;
+    -o-animation: pulse ease-in-out 4s infinite;
+    animation: pulse ease-in-out 4s infinite;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    height: 100%;
     position: absolute;
-    overflow: hidden; }
-    body.home .bg-frame #ring {
-      background-color: #222931;
-      border: 1px solid #fff;
+    width: 100%;
+    z-index: -5; }
+    .bg-frame #ring {
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
       border-radius: 50%;
+      background-color: #212831;
+      border: 1px solid #ffffff;
       height: 100%;
       overflow: hidden;
-      position: absolute;
+      position: relative;
       width: 100%;
-      z-index: -4; }
-      body.home .bg-frame #ring-pulse {
-        -webkit-animation: pulse ease-in-out 4s infinite;
-        -moz-animation: pulse ease-in-out 4s infinite;
-        -o-animation: pulse ease-in-out 4s infinite;
-        animation: pulse ease-in-out 4s infinite;
-        border: 1px solid #fff;
-        border-radius: 50%;
-        overflow: hidden;
-        height: 100%;
+      -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); }
+      .bg-frame #ring .star-rotate {
+        -webkit-animation: spin-right 50s linear infinite;
+        -moz-animation: spin-right 50s linear infinite;
+        -o-animation: spin-right 50s linear infinite;
+        animation: spin-right 50s linear infinite;
+        left: 68%;
+        margin-left: -75%;
+        margin-top: -75%;
         position: absolute;
-        width: 100%;
-        z-index: -5; }
-        body.home .bg-frame #observatory {
-          background: rgba(25, 50, 75, 0.2) url('/static/img/home/observatory.png') no-repeat 75% 90%;
-          border-radius: 50%;
-          border: 1px solid white;
-          height: 100%;
+        top: 64%;
+        width: 150%;
+        z-index: -1; }
+        .bg-frame #ring #big_logo {
+          left: 12%;
           position: absolute;
-          width: 100%;
-          z-index: -1; }
-          body.home .bg-frame #observatory p {
-            font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-            line-height: 1.4;
-            font-size: 20px;
-            font-weight: 300;
-            margin-right: 15%;
+          top: 23%;
+          width: 38%; }
+          .bg-frame #ring #observatory {
+            left: 8%;
             position: absolute;
-            text-align: center;
-            max-width: 275px;
-            bottom: 22%;
-            right: 10%; }
-    body.home .bg-frame .star-rotate {
-      -webkit-animation: spin-right 50s ease-in-out infinite;
-      -moz-animation: spin-right 50s ease-in-out infinite;
-      -o-animation: spin-right 50s ease-in-out infinite;
-      animation: spin-right 50s ease-in-out infinite;
-      margin: -22% -13% 0;
-      overflow: hidden;
-      position: absolute;
-      width: 160%;
-      z-index: -3; }
-  body.home footer {
-    bottom: 0;
-    position: absolute;
-    padding: 20px 0;
-    width: 100%; }
+            top: 14%;
+            width: 100%; }
+            .bg-frame #ring #info {
+              display: block;
+              font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+              font-size: 20px;
+              font-weight: 300;
+              line-height: 1.4;
+              position: absolute;
+              text-align: center;
+              bottom: 7%;
+              right: 16%; }
+              .bg-frame #ring #info a {
+                border-bottom: 1px solid transparent;
+                color: #A1BAC6;
+                display: inline-block;
+                font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+                font-size: 70%;
+                margin: 2%;
+                text-transform: uppercase; }
+                .bg-frame #ring #info a i {
+                  font-size: 70%;
+                  margin-top: 5%; }
+                  .bg-frame #ring #info a:hover {
+                    border-bottom: 1px solid #A1BAC6; }
+      .bg-frame #ring #search_home {
+        border-bottom: 1px solid #A1BAC6;
+        bottom: 47%;
+        color: #A1BAC6;
+        display: block;
+        font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-size: 20px;
+        font-weight: 300;
+        left: 8%;
+        position: absolute;
+        width: 27%; }
+        .bg-frame #ring #search_home:hover {
+          cursor: pointer; }
+          .bg-frame #ring #search_home img {
+            margin-left: -15%;
+            margin-top: -3%;
+            width: 15%; }
 
 @-webkit-keyframes pulse {
   0% {

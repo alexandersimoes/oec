@@ -249,7 +249,7 @@
           country = topojson.feature(coords, coords.objects[key]).features[0];
 
       // List of countries to only take largest land mass.
-      if (["nausa"].indexOf(id) >= 0) {
+      if (["nausa", "saecu"].indexOf(id) >= 0) {
 
         var areas = [], test = d3plus.util.copy(country);
         country.geometry.coordinates.forEach(function(c, i){
