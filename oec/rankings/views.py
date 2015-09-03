@@ -48,9 +48,9 @@ def rankings_redirect():
 # @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
 def rankings(category=None, year=None):
     if category == "country":
-        g.page_sub_type = category
+        g.page_sub_type = "countries"
     else:
-        g.page_sub_type = "product"
+        g.page_sub_type = "products"
     try:
         depth = int(request.args.get('depth', 4))
     except:
