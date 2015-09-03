@@ -439,7 +439,7 @@
         if (!attrs[a]) {
           load("/attr/" + a, function(d){
             attrs[a] = d.data.filter(function(d){
-                return d.display_id && d.id.length > 2;
+                return d.weight && d.display_id && d.id.length > 2;
               }).sort(function(a, b){
                 return b.weight - a.weight;
               });
