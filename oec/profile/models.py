@@ -58,30 +58,31 @@ class Country(Profile):
         super(Country, self).__init__(classification, id)
         self.attr = attrs.Country.query.filter_by(id_3char = self.id).first()
         self.cached_stats = {}
+        self.stat_list = []
 
     def stats(self):
-        if not self.cached_stats:
-            yo_historic = self.models.Yo.query.filter_by(country=self.attr).filter(self.models.Yo.year.in_(self.year_series)).all()
-            yo_base_q = self.models.Yo.query.filter_by(year=self.year)
-            this_yo = yo_base_q.filter_by(country=self.attr).first()
-            if this_yo:
-                for stat_type, stat_title in [("export_val", _('Exports')), ("import_val", _('Imports'))]:
-                    res = yo_base_q.order_by(desc(stat_type)).all()
-                    self.cached_stats[stat_type] = {"rank":res.index(this_yo)+1, "total":len(res), "title":stat_title, \
-                                                    "val":getattr(this_yo, stat_type), "sparkline":[getattr(yh, stat_type) for yh in yo_historic]}
+        if not self.stat_list:
+            stat_list = []
+            all_stats = [("export_val", _('Exports')), ("import_val", _('Importers')), ("eci", _('ECI')), ("population", _('Population')), ("gdp", _('GDP'))]
+            for s, s_title in all_stats:
+                if "val" in s:
+                    yo_historic = self.models.Yo.query.filter_by(country=self.attr).filter(self.models.Yo.year.in_(self.year_series)).all()
+                    yo_base_q = self.models.Yo.query.filter_by(year=self.year)
+                    this_yo = yo_base_q.filter_by(country=self.attr).first()
+                else:
+                    yo_historic = attrs.Yo.query.filter_by(country=self.attr).filter(attrs.Yo.year.in_(self.year_series)).all()
+                    yo_base_q = attrs.Yo.query.filter_by(year=self.year)
+                    this_yo = yo_base_q.filter_by(country=self.attr).first()                    
 
-            attr_yo_historic = attrs.Yo.query.filter_by(country=self.attr).filter(self.models.Yo.year.in_(self.year_series)).all()
-            attr_yo_base_q = attrs.Yo.query.filter_by(year=self.year)
-            this_attr_yo = attr_yo_base_q.filter_by(country=self.attr).first()
-            if this_attr_yo:
-                for stat_type, stat_title in [("eci", _('Economic Complexity')), ("population", _('Population')), ("gdp", _('GDP'))]:
-                    res = attr_yo_base_q.order_by(desc(stat_type)).all()
-                    val = getattr(this_attr_yo, stat_type)
-                    if val:
-                        self.cached_stats[stat_type] = {"rank":res.index(this_attr_yo)+1, "total":len(res), "title":stat_title, \
-                                                        "val":val, "sparkline":[getattr(yh, stat_type) for yh in attr_yo_historic]}
-
-        return self.cached_stats
+                res = yo_base_q.order_by(desc(s)).all()
+                val = getattr(this_yo, s)
+                if val:
+                    my_stat = {"key":s, "rank":res.index(this_yo)+1, "total":len(res), "title":s_title, \
+                                "val":val, "sparkline":[float(getattr(yh, s)) for yh in yo_historic]}
+                    self.cached_stats[s] = my_stat
+                    stat_list.append(my_stat)
+            self.stat_list = stat_list
+        return self.stat_list
 
     def intro(self):
         all_paragraphs = []
