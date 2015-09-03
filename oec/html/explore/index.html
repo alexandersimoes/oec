@@ -57,7 +57,7 @@
     {% if pre_app != build.viz.slug %}
 
       {% set pre_app = build.viz.slug %}
-      <div class="{{ pre_app }} app_button">
+      <div class="{{ pre_app }} app_button{% if pre_app == current_build.viz.slug %} open{% endif %}" data-app="{{ pre_app }}">
         <img src="/static/img/icons/app/app_{{ pre_app }}.png">{{ build.viz.name }}
       </div>
 
@@ -74,6 +74,7 @@
     {% if pre_app != build.viz.slug %}
 
       {% if pre_app != None %}
+            </div>
           </div>
         </div>
       {% endif %}
@@ -81,16 +82,23 @@
       {% set pre_app = build.viz.slug %}
       {% set pre_cat = "init" %}
 
-      <div class="app_menu {{ pre_app }}{% if pre_app == current_build.viz.slug %} open{% endif %}">
+      <div class="app_menu{% if pre_app == current_build.viz.slug %} open{% endif %}" data-app="{{ pre_app }}">
+        {% set name = build.viz.name %}
+        {% if name[-1] != "s" %}
+          <h3>All {{ name }}s</h3>
+        {% else %}
+          <h3>All {{ name }}</h3>
+        {% endif %}
 
     {% endif %}
 
     {% if pre_cat != build.category() %}
-      {% if pre_cat != "init" %}</div>{% endif %}
+      {% if pre_cat != "init" %}</div></div>{% endif %}
       <div class="build">
       {% if build.category() != None %}
         <div class="build_title">{{ build.category() }}</div>
       {% endif %}
+      <div class="build_list">
     {% endif %}
 
     {% set pre_cat = build.category() %}
@@ -99,13 +107,13 @@
     <a class="build_link{% if build_url == current_url %} active{% endif %}" href="/{{ g.locale }}/explore/{{ build.url() }}">{{ build.short_name() }}</a>
 
   {% endfor %}
-  </div></div>
+  </div></div></div>
 
   <div id="changers">
-    <h2>Filter Visualization</h2>
+    <h3>Filter Visualization</h3>
     {% for ui in build_ui %}
     <div class="ui" id="{{ ui.id }}"{% if ui.url %} data-url="{{ui.url}}"{% endif %}>
-      <h3>{{ ui.name }}</h3>
+      <h4>{{ ui.name }}</h4>
       <select id="{{ ui.id }}_selector">
         {% if ui.data %}
           {% for option in ui.data %}
@@ -148,6 +156,17 @@
 
 {% block js %}
 <script>
+
+  d3.selectAll(".app_button").on(d3plus.client.pointer.click, function(){
+    var app = d3.select(this).attr("data-app");
+    d3.selectAll(".app_menu, .app_button")
+      .classed("open", function(){
+        return app == d3.select(this).attr("data-app");
+      })
+  });
+
+  var active = d3.select(".build_link.active");
+  d3.select(active.node().parentNode.parentNode).select(".build_title").classed("active", true);
 
   var attr_id = "{{ current_build.attr_type() }}_id",
       app_type = "{{ current_build.viz.slug }}";

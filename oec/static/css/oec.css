@@ -24,7 +24,8 @@
           margin: 15px 0 5px !important; }
 
           h4 {
-            font-size: 12px; }
+            font-size: 12px;
+            margin: 10px 0 5px !important; }
 
             p {
               color: white;
@@ -691,7 +692,7 @@ body.home {
       background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
       background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
       background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-      background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+      background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
       left: 0;
       position: absolute;
       top: 0;
@@ -780,23 +781,23 @@ body.home {
 }
 body.profile {
   background-color: white; }
-  body.profile article:nth-of-type(odd) {
+  body.profile article:nth-of-type(even) {
     background-color: white;
     color: #333; }
-    body.profile article:nth-of-type(odd) p {
+    body.profile article:nth-of-type(even) p {
       color: #333; }
-      body.profile article:nth-of-type(odd) p a {
+      body.profile article:nth-of-type(even) p a {
         color: #265273; }
-        body.profile article:nth-of-type(odd) p a:hover {
+        body.profile article:nth-of-type(even) p a:hover {
           border-bottom: 1px solid #265273; }
-  body.profile article:nth-of-type(even) {
+  body.profile article:nth-of-type(odd) {
     background-color: #212831;
     color: white; }
-    body.profile article:nth-of-type(even) p {
+    body.profile article:nth-of-type(odd) p {
       color: white; }
-      body.profile article:nth-of-type(even) p a {
+      body.profile article:nth-of-type(odd) p a {
         color: #A1BAC6; }
-        body.profile article:nth-of-type(even) p a:hover {
+        body.profile article:nth-of-type(odd) p a:hover {
           border-bottom: 1px solid #A1BAC6; }
   body.profile article.dataviva {
     background-color: white;
@@ -1092,31 +1093,56 @@ body.explore content {
   #explorer #next {
     right: 50px; }
     #explorer .app_button {
+      -webkit-transition: opacity 0.5s;
+      -moz-transition: opacity 0.5s;
+      -o-transition: opacity 0.5s;
+      transition: opacity 0.5s;
       display: inline-block;
-      font-family: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+      font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
       font-size: 12px;
       margin: 5px 0;
+      opacity: 0.7;
       text-transform: uppercase;
       width: 120px; }
       #explorer .app_button img {
         margin-right: 3px;
         width: 15px; }
+        #explorer .app_button:hover {
+          cursor: pointer; }
+          #explorer .app_button.open {
+            opacity: 1; }
 #explorer .app_menu {
   display: none;
-  margin: 10px 20px; }
+  margin: 10px 20px 20px 0; }
   #explorer .app_menu.open {
     display: block; }
     #explorer .app_menu .build {
+      -webkit-transition: opacity 0.1s;
+      -moz-transition: opacity 0.1s;
+      -o-transition: opacity 0.1s;
+      transition: opacity 0.1s;
       font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
       font-size: 12px;
-      font-weight: 400; }
-      #explorer .app_menu .build .build_title, #explorer .app_menu .build .build_link {
-        display: inline-block; }
-        #explorer .app_menu .build .build_title.active,
-        #explorer .app_menu .build .build_link.active {
-          font-weight: 700; }
+      font-weight: 400;
+      margin: 10px 0; }
       #explorer .app_menu .build .build_title {
+        display: inline-block;
+        margin-left: 10px;
+        opacity: 0.7;
         width: 75px; }
+        #explorer .app_menu .build .build_title.active {
+          font-weight: 700;
+          opacity: 1; }
+      #explorer .app_menu .build .build_list {
+        display: inline-block; }
+        #explorer .app_menu .build .build_list .build_link {
+          display: block;
+          opacity: 0.7; }
+          #explorer .app_menu .build .build_list .build_link.active {
+            font-weight: 700;
+            opacity: 1; }
+            #explorer .app_menu .build .build_list .build_link:hover {
+              text-decoration: underline; }
 #explorer #changers .ui {
   margin-left: 10px; }
   #explorer #changers #build {
