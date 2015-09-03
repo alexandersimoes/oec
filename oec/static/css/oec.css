@@ -47,10 +47,10 @@
                     -o-transition: border-bottom 0.1s;
                     transition: border-bottom 0.1s;
                     border-bottom: 1px solid transparent;
-                    color: #265273;
+                    color: #A1BAC6;
                     text-decoration: none; }
                     p a:hover {
-                      border-bottom: 1px solid #265273; }
+                      border-bottom: 1px solid #A1BAC6; }
 
   a {
     color: white;
@@ -984,6 +984,27 @@ body.profile {
       fill: none;
       stroke: white;
       stroke-width: 2px; }
+  #container #content .stat .years {
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: space-between;
+    -moz-justify-content: space-between;
+    justify-content: space-between;
+    opacity: 0.7;
+    width: 90%; }
+    #container #content .stat .years .year {
+      font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+      font-size: 10px;
+      font-weight: 400; }
 #container #content section aside #eci {
   color: #333;
   margin: 0;
@@ -1010,6 +1031,8 @@ body.profile {
       fill: none;
       stroke: #212831;
       stroke-width: 2px; }
+  #container #content section aside #eci .years {
+    width: 100%; }
 #container #content section p img {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -1292,16 +1315,13 @@ body.rankings .change_dataset {
   padding-top: 0;
   position: relative; }
   .member:before {
-    -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
     -webkit-border-radius: 150px;
     -moz-border-radius: 150px;
     border-radius: 150px;
-    background-color: #0085BF;
+    border: 2px solid white;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 138px;
+    background-size: 150px;
     content: "";
     display: block;
     height: 150px;
@@ -1342,7 +1362,6 @@ body.rankings .change_dataset {
   flex-wrap: wrap; }
   #past .member {
     margin: 30px 0 0;
-    max-width: 50%;
     min-height: 100px;
     padding-left: 130px;
     padding-right: 15px; }
@@ -1350,7 +1369,7 @@ body.rankings .change_dataset {
       -webkit-border-radius: 100px;
       -moz-border-radius: 100px;
       border-radius: 100px;
-      background-size: 88px;
+      background-size: 100px;
       height: 100px;
       left: 15px;
       width: 100px; }
