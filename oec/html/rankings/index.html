@@ -13,77 +13,83 @@
 
 {% block body %}
 
-<div id="explorer">
-
-  {% if year > g.available_years[category][0]  %}
-  <a id="prev" href="/{{ g.locale }}/rankings/{{ category }}/{{ year-1 }}/">
-    <i class="fa fa-arrow-left"></i>
-    {{ _('Previous Year') }}
-  </a>
-  {% endif %}
-
-  {% if category == "country" %}
-    <h1>{{ _('Economic Complexity Rankings') }} ({{ year }})</h1>
-  {% else %}
-    <h1>{{ _('Product Complexity Rankings') }} ({{ year }})</h1>
-  {% endif %}
-
-  {% if year < g.available_years[category][-1]  %}
-  <a id="next" href="/{{ g.locale }}/rankings/{{ category }}/{{ year+1 }}/">
-    {{ _('Next Year') }}
-    <i class="fa fa-arrow-right"></i>
-  </a>
-  {% endif %}
-
-  <div id="changers">
-
-    {% if category != "country" %}
-    <div class="dropdown_container">
-      <legend for="change_dataset">{{ _("Classification") }}</legend>
-      <select id="change_dataset">
-        <option value="hs07" {% if category == 'hs07' %} selected="selected"{% endif %}>HS07</option>
-        <option value="hs02" {% if category == 'hs02' %} selected="selected"{% endif %}>HS02</option>
-        <option value="hs96" {% if category == 'hs96' %} selected="selected"{% endif %}>HS96</option>
-        <option value="hs92" {% if category == 'hs92' %} selected="selected"{% endif %}>HS92</option>
-        <option value="sitc" {% if category == 'sitc' %} selected="selected"{% endif %}>SITC</option>
-      </select>
-    </div>
+<section>
+  <aside></aside>
+  <content>
+    {% if category == "country" %}
+      <h1>{{ _('Economic Complexity Rankings') }} ({{ year }})</h1>
+    {% else %}
+      <h1>{{ _('Product Complexity Rankings') }} ({{ year }})</h1>
     {% endif %}
-
-    <div class="dropdown_container">
-      <legend for="change_year">{{ _("Year") }}</legend>
-      <select id="change_year">
-        {% for y in years %}
-        <option value="{{ y }}" {% if y == year %}selected="selected"{% endif %}>{{ y }}</option>
-        {% endfor %}
-      </select>
-    </div>
-
-    {% if category != "country" %}
-    <div class="dropdown_container">
-      <legend for="change_depth">{{ _('Depth') }}</legend>
-      <select id="change_depth">
-        <option value="4" {% if depth == 4 %}selected="selected"{% endif %}>4 Digit</option>
-        <option value="6" {% if depth == 6 %}selected="selected"{% endif %}>6 Digit</option>
-      </select>
-    </div>
-    {% endif %}
-
-    <a class="download" href="/{{ g.locale }}/rankings/{{ category }}/{{ year }}/?download=true">
-      <i class="fa fa-save"></i>
-      {{ _("Download Current Year") }}
-    </a>
-    </li>
-    <a class="download" href="/{{ g.locale }}/rankings/{{ category }}/?download=true">
-      <i class="fa fa-save"></i>
-      {{ _('Download All Years') }}
-    </a>
-
-  </div>
-
-</div>
+  </content>
+</section>
 
 <section>
+
+  <aside id="explorer">
+
+    {% if year > g.available_years[category][0]  %}
+    <a id="prev" href="/{{ g.locale }}/rankings/{{ category }}/{{ year-1 }}/">
+      <i class="fa fa-arrow-left"></i>
+      {{ _('Previous Year') }}
+    </a>
+    {% endif %}
+
+    {% if year < g.available_years[category][-1]  %}
+    <a id="next" href="/{{ g.locale }}/rankings/{{ category }}/{{ year+1 }}/">
+      {{ _('Next Year') }}
+      <i class="fa fa-arrow-right"></i>
+    </a>
+    {% endif %}
+
+    <div id="changers">
+
+      {% if category != "country" %}
+      <div class="dropdown_container">
+        <h3>{{ _("Dataset") }}</h3>
+        <select id="change_dataset">
+          <option value="hs07" {% if category == 'hs07' %} selected="selected"{% endif %}>HS07</option>
+          <option value="hs02" {% if category == 'hs02' %} selected="selected"{% endif %}>HS02</option>
+          <option value="hs96" {% if category == 'hs96' %} selected="selected"{% endif %}>HS96</option>
+          <option value="hs92" {% if category == 'hs92' %} selected="selected"{% endif %}>HS92</option>
+          <option value="sitc" {% if category == 'sitc' %} selected="selected"{% endif %}>SITC</option>
+        </select>
+      </div>
+      {% endif %}
+
+      <div class="dropdown_container">
+        <h3>{{ _("Year") }}</h3>
+        <select id="change_year">
+          {% for y in years %}
+          <option value="{{ y }}" {% if y == year %}selected="selected"{% endif %}>{{ y }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      {% if category != "country" and category != "sitc" %}
+      <div class="dropdown_container">
+        <h3>{{ _('Depth') }}</h3>
+        <select id="change_depth">
+          <option value="4" {% if depth == 4 %}selected="selected"{% endif %}>4 Digit</option>
+          <option value="6" {% if depth == 6 %}selected="selected"{% endif %}>6 Digit</option>
+        </select>
+      </div>
+      {% endif %}
+
+      <a class="download" href="/{{ g.locale }}/rankings/{{ category }}/{{ year }}/?download=true">
+        <i class="fa fa-save"></i>
+        {{ _("Download Current Year") }}
+      </a>
+      </li>
+      <a class="download" href="/{{ g.locale }}/rankings/{{ category }}/?download=true">
+        <i class="fa fa-save"></i>
+        {{ _('Download All Years') }}
+      </a>
+
+    </div>
+
+  </aside>
+
   <content>
 
     <table>
@@ -176,10 +182,8 @@
             window.location = "/" + oec.locale + "/rankings/" + c;
           }
         })
-        .ui({
-          "margin": 0,
-          "padding": 6
-        })
+        .config(oec.style)
+        .width(d3.select("aside").node().offsetWidth)
         .search(false)
         .draw();
 
@@ -193,32 +197,32 @@
       .order({
         "sort": "desc"
       })
-      .ui({
-        "margin": 0,
-        "padding": 6
-      })
+      .config(oec.style)
+      .width(d3.select("aside").node().offsetWidth)
       .search(false)
       .draw()
 
-    var depth_form = d3plus.form()
-      .type("drop")
-      .data("#change_depth")
-      .data({"sort": true})
-      .focus(4, function(selected_depth){
-        if(!depth_first_time){
-          window.location = window.location.pathname + "?depth=" + selected_depth;
-        }
-        depth_first_time = false;
-      })
-      .order({
-        "sort": "asc"
-      })
-      .ui({
-        "margin": 0,
-        "padding": 6
-      })
-      .search(false)
-      .draw()
+    if (!d3.select("#change_depth").empty()) {
+
+      var depth_form = d3plus.form()
+        .type("toggle")
+        .data("#change_depth")
+        .data({"sort": true})
+        .focus(4, function(selected_depth){
+          if(!depth_first_time){
+            window.location = window.location.pathname + "?depth=" + selected_depth;
+          }
+          depth_first_time = false;
+        })
+        .order({
+          "sort": "asc"
+        })
+        .config(oec.style)
+        .width(d3.select("aside").node().offsetWidth)
+        .search(false)
+        .draw();
+
+    }
 
 
     // var total = d3.selectAll("tbody tr")[0].length

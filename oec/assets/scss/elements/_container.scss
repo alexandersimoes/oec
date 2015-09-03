@@ -51,7 +51,7 @@
       @include flex;
 
       aside {
-        margin: 35px;
+        margin: 35px 35px 0 35px;
         width: $sidebar;
 
         // img {
@@ -68,7 +68,7 @@
 
       content {
         @include flex-size(1);
-        margin: 35px 35px 35px 0;
+        margin: 35px 35px 0 0;
 
         ul {
           margin: 20px 0;

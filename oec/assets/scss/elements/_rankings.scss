@@ -1,10 +1,14 @@
+$rank_sidebar: 150px;
+
 body.rankings {
 
   #container {
-    margin-top: 0;
 
-    content {
-      margin-top: 10px !important;
+    aside {
+      width: $rank_sidebar !important;
+    }
+
+    table {
 
       .Rank {
         font-weight: bold;
@@ -13,7 +17,7 @@ body.rankings {
       }
 
       .Delta {
-        text-align: center;
+        text-align: left;
         width: 50px;
         .fa {
           font-size: 13px;
@@ -27,6 +31,7 @@ body.rankings {
       }
 
       .ID {
+        text-align: center;
         width: 50px;
       }
 
@@ -45,10 +50,6 @@ body.rankings {
 
   }
 
-  #hamburger {
-    color: $blue;
-  }
-
   .download {
     background-color: white;
     border: 1px solid rgb(195, 195, 195);
@@ -56,8 +57,9 @@ body.rankings {
     display: inline-block;
     font-size: 12px;
     font-weight: 200;
-    margin: 0;
+    margin: 15px 0 0;
     padding: 6px;
+    width: $rank_sidebar - 12px;
     &:hover {
       border-color: rgb(195, 195, 195);
     }

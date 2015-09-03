@@ -248,15 +248,7 @@
       var ui = d3plus.form()
         .focus(false, activate_build_button)
         .data(element)
-        .font({
-          "family": ["Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
-          "size": 13
-        })
-        .ui({
-          "color": {"primary": "#63636a"},
-          "margin": 0,
-          "padding": 4
-        })
+        .config(oec.style)
         .width(d3.select(this).node().offsetWidth)
 
       if (this.id.indexOf("year") >= 0) {

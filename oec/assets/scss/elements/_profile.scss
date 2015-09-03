@@ -1,5 +1,46 @@
 body.profile {
   background-color: white;
+
+  section {
+
+    &:nth-of-type(odd) {
+      background-color: white;
+      color: $black;
+
+      p {
+        color: $black;
+
+        a {
+          color: $darklinkcolor;
+          &:hover {
+            border-bottom: 1px solid $darklinkcolor;
+          }
+        }
+
+      }
+
+    }
+
+    &:nth-of-type(even) {
+      background-color: $darkbackground;
+      color: white;
+
+      p {
+        color: white;
+
+        a {
+          color: $lightlinkcolor;
+          &:hover {
+            border-bottom: 1px solid $lightlinkcolor;
+          }
+        }
+
+      }
+
+    }
+
+  }
+
 }
 
 #container {

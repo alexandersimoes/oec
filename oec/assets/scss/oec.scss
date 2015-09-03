@@ -22,7 +22,7 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  font-size: 60px;
+  font-size: 40px;
 }
 
 h2 {
@@ -32,6 +32,7 @@ h2 {
 
 h3 {
   font-size: 15px;
+  margin: 15px 0 5px !important;
 }
 
 h4 {
@@ -77,6 +78,7 @@ a {
 table {
   @include shadow();
   background-color: white;
+  color: $black;
   margin-bottom: 20px;
   width: 100%;
 
@@ -97,6 +99,13 @@ table {
 
     th {
       text-align: left;
+    }
+
+    a {
+      color: $darkbackground;
+      &:hover {
+        border-bottom: 1px solid $darkbackground;
+      }
     }
 
   }
@@ -141,42 +150,6 @@ blockquote {
 }
 
 section {
-
-    &:nth-of-type(odd) {
-      background-color: white;
-      color: $black;
-
-      p {
-        color: $black;
-
-        a {
-          color: $darklinkcolor;
-          &:hover {
-            border-bottom: 1px solid $darklinkcolor;
-          }
-        }
-
-      }
-
-    }
-
-    &:nth-of-type(even) {
-      background-color: $darkbackground;
-      color: white;
-
-      p {
-        color: white;
-
-        a {
-          color: $lightlinkcolor;
-          &:hover {
-            border-bottom: 1px solid $lightlinkcolor;
-          }
-        }
-
-      }
-
-    }
 
     .columns {
       @include column-count(2);

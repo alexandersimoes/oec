@@ -53,6 +53,17 @@
       var oec = {};
       oec.translations = {{ g.translations|safe }};
       oec.locale = "{{ g.locale }}";
+      oec.style = {
+        "font": {
+          "family": ["Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+          "size": 13
+        },
+        "ui": {
+          "color": {"primary": "#63636a"},
+          "margin": 0,
+          "padding": 4
+        }
+      };
 
       var color = "#212831";
 
