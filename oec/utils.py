@@ -201,6 +201,17 @@ def make_cache_key(*args, **kwargs):
 
     return cache_key
 
+def affixes(key):
+    lookup = {
+        "export_val": ["$", ""],
+        "import_val": ["$", ""],
+        "gdp": ["$", ""]
+    }
+    if key in lookup:
+        return lookup[key]
+    else:
+        return False
+
 def num_format(number, key = None, labels = True):
 
     if key == "ordinal":
