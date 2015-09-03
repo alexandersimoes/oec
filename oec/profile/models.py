@@ -63,7 +63,7 @@ class Country(Profile):
     def stats(self):
         if not self.stat_list:
             stat_list = []
-            all_stats = [("export_val", _('Exports')), ("import_val", _('Importers')), ("eci", _('ECI')), ("population", _('Population')), ("gdp", _('GDP'))]
+            all_stats = [("eci", _('Economic Complexity')), ("export_val", _('Exports')), ("import_val", _('Imports')), ("population", _('Population')), ("gdp", _('GDP'))]
             for s, s_title in all_stats:
                 if "val" in s:
                     yo_historic = self.models.Yo.query.filter_by(country=self.attr).filter(self.models.Yo.year.in_(self.year_series)).all()
