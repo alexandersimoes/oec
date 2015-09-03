@@ -322,7 +322,7 @@ class Product(Profile):
         self.classification = classification
         self.attr_cls = getattr(attrs, classification.capitalize())
         self.attr = self.attr_cls.query.filter(getattr(self.attr_cls, classification) == self.id).first()
-        self.depth = len(self.attr.id)
+        self.depth = len(self.attr.id) if self.attr else None
         self.cached_stats = []
 
     def stats(self):

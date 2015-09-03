@@ -1330,16 +1330,13 @@ body.rankings .change_dataset {
   padding-top: 0;
   position: relative; }
   .member:before {
-    -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
     -webkit-border-radius: 150px;
     -moz-border-radius: 150px;
     border-radius: 150px;
-    background-color: #0085BF;
+    border: 2px solid white;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 138px;
+    background-size: 150px;
     content: "";
     display: block;
     height: 150px;
@@ -1380,7 +1377,6 @@ body.rankings .change_dataset {
   flex-wrap: wrap; }
   #past .member {
     margin: 30px 0 0;
-    max-width: 50%;
     min-height: 100px;
     padding-left: 130px;
     padding-right: 15px; }
@@ -1388,7 +1384,7 @@ body.rankings .change_dataset {
       -webkit-border-radius: 100px;
       -moz-border-radius: 100px;
       border-radius: 100px;
-      background-size: 88px;
+      background-size: 100px;
       height: 100px;
       left: 15px;
       width: 100px; }

@@ -4,10 +4,10 @@
 
 {% block body %}
 
-<header><h1>{{ _("Frequently Asked Questions") }}</h1></header>
-
 <section>
+  <aside></aside>
   <content>
+    <h1>{{ _("Frequently Asked Questions") }}</h1>
     <h3>Where does the data come from?</h3>
     <p>The observatory provides access to bilateral trade data for roughly 200 countries, 50 years and 1000 different products of the SITC4 revision 2 classification. For historical SITC classification data, we use data from <a href="http://cid.econ.ucdavis.edu/">The Center for International Data from Robert Feenstra</a>. For up to data HS classification data, we use data provided by <a href="http://comtrade.un.org/">UN COMTRADE</a>.</p>
 
@@ -29,5 +29,6 @@
     <h3>I found a bug on the site! What should I do?</h3>
     <p>Wooops! Sorry about that... please <a href="https://github.com/alexandersimoes/oec/issues">file an issue here</a> with a link and details on how to recreate it and we'll do our best to resolve it ASAP.</p>
   </content>
+  <aside></aside>
 </section>
 {% endblock %}

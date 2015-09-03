@@ -8,12 +8,11 @@ $image_size: 150px;
   position: relative;
 
   &:before {
-    @include shadow();
     @include rounded($image_size);
-    background-color: $blue;
+    border: 2px solid white;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: $image_size - 12;
+    background-size: $image_size;
     content: "";
     display: block;
     height: $image_size;
@@ -54,14 +53,14 @@ $image_size: 150px;
   $past_size: 100px;
   .member {
     margin: 30px 0 0;
-    max-width: 50%;
+    // max-width: 50%;
     min-height: $past_size;
     padding-left: $past_size + 30;
     padding-right: 15px;
 
     &:before {
       @include rounded($past_size);
-      background-size: $past_size - 12;
+      background-size: $past_size;
       height: $past_size;
       left: 15px;
       width: $past_size;

@@ -6,12 +6,10 @@
 
 {% block body %}
 
-<header>
-  <h1>{{ _('About the Site') }}</h1>
-</header>
-
 <section>
+  <aside></aside>
   <content>
+    <h1>{{ _('About the Site') }}</h1>
     <p>
       The Observatory of Economic Complexity is a tool that allows users to quickly compose a visual narrative about countries and the products they exchange. It was Alexander Simoes' Master Thesis in Media Arts and Sciences at the MIT Media Lab, which you can read <a href="http://macroconnections.media.mit.edu/papers/SimoesMasterThesis.pdf" alt="Alex Simoes' MIT Master's Thesis on Observatory of Economic Complexity">here</a>.
     </p>
@@ -22,9 +20,11 @@
       For a history of the contributions to The Observatory of Economic Complexity, you can <a href="https://github.com/alexandersimoes/atlas_economic_complexity/network">view the project’s contributions timeline on Github</a>. A predecessor of the Observatory of Economic Complexity is the <a href="http://chidalgo.com/productspace/index.htm">product space site</a>, built by César Hidalgo as a graduate student at Notre Dame in 2007.
     </p>
   </content>
+  <aside></aside>
 </section>
 
 <section>
+  <aside></aside>
   <content>
 
     {% macro member_list(team) -%}
@@ -55,6 +55,7 @@
     </div>
 
   </content>
+  <aside></aside>
 </section>
 
 {% endblock %}

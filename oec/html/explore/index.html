@@ -307,10 +307,8 @@
 
           d = d.data.filter(function(a){
             a.style = icon_style;
-            return a.id.length !== 2;
-          });
-
-          d.sort(function(a, b) {
+            return a.weight && a.id.length !== 2;
+          }).sort(function(a, b) {
             a = a.name.toLowerCase();
             b = b.name.toLowerCase();
             return a < b ? -1 : a > b ? 1 : 0;

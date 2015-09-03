@@ -36,7 +36,7 @@
         p = 100,
         w = window.innerWidth,
         h = window.innerHeight - n - f,
-        s = d3.min([w - p, h - p]);
+        s = d3.max([Math.floor(d3.min([w - p, h - p])), 400]);
 
     if (timing) {
       d3.select(".bg-frame").transition().duration(timing)
