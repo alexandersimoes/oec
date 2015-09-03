@@ -65,7 +65,7 @@ class Country(Profile):
             yo_base_q = self.models.Yo.query.filter_by(year=self.year)
             this_yo = yo_base_q.filter_by(country=self.attr).first()
             if this_yo:
-                for stat_type, stat_title in [("export_val", _('Exports')), ("import_val", _('Importers'))]:
+                for stat_type, stat_title in [("export_val", _('Exports')), ("import_val", _('Imports'))]:
                     res = yo_base_q.order_by(desc(stat_type)).all()
                     self.cached_stats[stat_type] = {"rank":res.index(this_yo)+1, "total":len(res), "title":stat_title, \
                                                     "val":getattr(this_yo, stat_type), "sparkline":[getattr(yh, stat_type) for yh in yo_historic]}
@@ -74,7 +74,7 @@ class Country(Profile):
             attr_yo_base_q = attrs.Yo.query.filter_by(year=self.year)
             this_attr_yo = attr_yo_base_q.filter_by(country=self.attr).first()
             if this_attr_yo:
-                for stat_type, stat_title in [("eci", _('ECI')), ("population", _('Population')), ("gdp", _('GDP'))]:
+                for stat_type, stat_title in [("eci", _('Economic Complexity')), ("population", _('Population')), ("gdp", _('GDP'))]:
                     res = attr_yo_base_q.order_by(desc(stat_type)).all()
                     val = getattr(this_attr_yo, stat_type)
                     if val:
