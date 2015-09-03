@@ -127,7 +127,7 @@ class Country(Profile):
             yop_imp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr, hs92_id_len=6).order_by(desc("import_val")).limit(5).all()
             imports_list = self.stringify_items(yop_imp, "import_val", "product")
             p2 = u"The top exports of {} are {}, using the 1992 " \
-                    u"revision of the HS (harmonized system) classification. " \
+                    u"revision of the HS (Harmonized System) classification. " \
                     u"Its top imports are {}." \
                     .format(self.attr.get_name(), exports_list, imports_list)
             all_paragraphs.append(p2)
@@ -187,7 +187,7 @@ class Country(Profile):
                                         num_format(past_yo.export_val), past_yr, num_format(this_yo.export_val), self.year)
             top_exports = yop_base.order_by(desc("export_val")).limit(2).all()
             if top_exports:
-                export_subtitle += u"The most recent exports are lead by {}, which represent {}% of the total exports of {}, " \
+                export_subtitle += u"The most recent exports are led by {}, which represent {}% of the total exports of {}, " \
                                     u"followed by {}, which account for {}%." \
                                     .format(top_exports[0].product.get_profile_link(), num_format((top_exports[0].export_val/exp_val_stat["val"])*100), \
                                         self.attr.get_name(), top_exports[1].product.get_profile_link(), num_format((top_exports[1].export_val/exp_val_stat["val"])*100))
@@ -204,7 +204,7 @@ class Country(Profile):
                                     .format(self.attr.get_name(), chg, num_format(this_yo.import_val_growth_pct_5*100), num_format(past_yo.import_val), past_yr, num_format(this_yo.import_val), self.year)
             top_imports = yop_base.order_by(desc("import_val")).limit(2).all()
             if top_imports:
-                import_subtitle += u"The most recent imports are lead by {}, which represent {}% of the total imports of {}, " \
+                import_subtitle += u"The most recent imports are led by {}, which represent {}% of the total imports of {}, " \
                                     u"followed by {}, which account for {}%." \
                                     .format(top_imports[0].product.get_profile_link(), num_format((top_imports[0].import_val/imp_val_stat["val"])*100), \
                                         self.attr.get_name(), top_imports[1].product.get_profile_link(), num_format((top_imports[1].import_val/imp_val_stat["val"])*100))

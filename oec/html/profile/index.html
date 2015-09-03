@@ -155,6 +155,9 @@
     {% if build.subtitle %}
     <p>{{ build.subtitle|safe }}</p>
     {% endif %}
+    {% if not build.iframe %}
+    <p><a href="/{{ g.locale }}/explore/{{ build.build.url() }}">View Full Visualization &raquo;</a>
+    {% endif %}
   </aside>
 
   <content>
