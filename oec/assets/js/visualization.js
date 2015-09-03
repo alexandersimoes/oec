@@ -11,6 +11,7 @@ var visualization = function(build, container) {
               .config(default_config)
               .config(viz_config)
               .error("Loading Visualization")
+              .edges({"color": default_config.edges.color})
               .draw();
 
   /* need to grab json network file for rings and product space */
