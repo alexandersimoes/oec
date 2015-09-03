@@ -17,7 +17,6 @@ class Profile(object):
         self.models = getattr(db_data, "{}_models".format(self.classification))
         self.id = id
         self.year = available_years[self.classification][-1]
-        self.year_series = range(available_years[self.classification][0], self.year+1)
 
     def title(self):
         return self.attr.get_attr_name()
@@ -64,11 +63,11 @@ class Country(Profile):
             all_stats = [("eci", _('Economic Complexity')), ("export_val", _('Exports')), ("import_val", _('Imports')), ("population", _('Population')), ("gdp", _('GDP'))]
             for s, s_title in all_stats:
                 if "val" in s:
-                    yo_historic = self.models.Yo.query.filter_by(country=self.attr).filter(self.models.Yo.year.in_(self.year_series)).all()
+                    yo_historic = db_data.sitc_models.Yo.query.filter_by(country=self.attr).filter(db_data.sitc_models.Yo.year >= 1980).all()
                     yo_base_q = self.models.Yo.query.filter_by(year=self.year)
                     this_yo = yo_base_q.filter_by(country=self.attr).first()
                 else:
-                    yo_historic = attrs.Yo.query.filter_by(country=self.attr).filter(attrs.Yo.year.in_(self.year_series)).all()
+                    yo_historic = attrs.Yo.query.filter_by(country=self.attr).filter(attrs.Yo.year >= 1980).all()
                     yo_base_q = attrs.Yo.query.filter_by(year=self.year)
                     this_yo = yo_base_q.filter_by(country=self.attr).first()
 
@@ -76,7 +75,7 @@ class Country(Profile):
                 val = getattr(this_yo, s)
                 if val:
                     my_stat = {"key":s, "rank":res.index(this_yo)+1, "total":len(res), "title":s_title, \
-                                "val":val, "sparkline":[float(getattr(yh, s)) for yh in yo_historic]}
+                                "val":val, "sparkline":[float(getattr(yh, s)) if getattr(yh, s) is not None else 0 for yh in yo_historic]}
                     self.cached_stats.append(my_stat)
         return self.cached_stats
 
@@ -323,7 +322,7 @@ class Product(Profile):
     def stats(self):
         if not self.cached_stats:
             all_stats = [("export_val", _('Exports')), ("pci", _('Product Complexity')), ("top_exporter", _('Top Exporter')), ("top_importer", _('Top Importer'))]
-            yp_historic = self.models.Yp.query.filter_by(product=self.attr).filter(self.models.Yp.year.in_(self.year_series)).all()
+            yp_historic = self.models.Yp.query.filter_by(product=self.attr).all()
             yp_base_q = self.models.Yp.query.filter_by(year=self.year).filter(getattr(self.models.Yp, "{}_id_len".format(self.classification)) == self.depth)
             this_yp = yp_base_q.filter_by(product=self.attr).first()
             if this_yp:
@@ -332,7 +331,7 @@ class Product(Profile):
                     if "top" not in stat_type:
                         res = yp_base_q.order_by(desc(stat_type)).all()
                         this_stat = {"rank": res.index(this_yp)+1, "total": len(res), \
-                                        "sparkline": [getattr(yh, stat_type) for yh in yp_historic]}
+                                        "sparkline": [float(getattr(yh, stat_type)) for yh in yp_historic]}
                     this_stat["val"] = getattr(this_yp, stat_type)
                     this_stat["title"] = stat_title
                     this_stat["key"] = stat_type

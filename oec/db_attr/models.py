@@ -31,7 +31,7 @@ class Country(db.Model, AutoSerialize):
     hs96_yo = db.relationship("db_data.hs96_models.Yo", backref = 'country', lazy = 'dynamic')
     hs02_yo = db.relationship("db_data.hs02_models.Yo", backref = 'country', lazy = 'dynamic')
     hs07_yo = db.relationship("db_data.hs07_models.Yo", backref = 'country', lazy = 'dynamic')
-    # sitc_yo = db.relationship("db_data.sitc_models.Yo", backref = 'country', lazy = 'dynamic')
+    sitc_yo = db.relationship("db_data.sitc_models.Yo", backref = 'country', lazy = 'dynamic')
 
     hs92_yodp_origin = db.relationship("db_data.hs92_models.Yodp", primaryjoin = ('db_data.hs92_models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     hs92_yodp_dest = db.relationship("db_data.hs92_models.Yodp", primaryjoin = ('db_data.hs92_models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
