@@ -6,7 +6,6 @@ body.explore {
     h1 {
       text-align: center;
     }
-
   }
 
 }
@@ -49,6 +48,7 @@ body.explore {
 
     &:hover {
       cursor: pointer;
+      opacity: 0.9;
     }
 
     &.open {
@@ -59,10 +59,15 @@ body.explore {
 
   .app_menu {
     display: none;
-    margin: 10px 20px 20px 0;
+    margin: 10px 0 20px 0;
 
     &.open {
       display: block;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin: 35px 0 20px;
     }
 
     .build {
@@ -74,9 +79,12 @@ body.explore {
 
       .build_title {
         display: inline-block;
+        font-family: $montserrat;
+        font-size: 14px;
         margin-left: 10px;
         opacity: 0.7;
-        width: 75px;
+        text-transform: uppercase;
+        width: 115px;
 
         &.active {
           font-weight: 700;
@@ -87,6 +95,7 @@ body.explore {
 
       .build_list {
         display: inline-block;
+        line-height: 1.5;
 
         .build_link {
           display: block;
@@ -95,10 +104,27 @@ body.explore {
           &.active {
             font-weight: 700;
             opacity: 1;
+
+            &:before {
+              content: "\f0da";
+              font-family: FontAwesome;
+              position: absolute;
+              margin-top: 0px;
+              margin-left: -10px;
+            }
           }
 
           &:hover {
-            text-decoration: underline;
+            opacity: 0.9;
+            
+            &:before {
+              content: "\f0da";
+              font-family: FontAwesome;
+              opacity: 0.7;
+              position: absolute;
+              margin-top: 0px;
+              margin-left: -10px;
+            }
           }
 
         }
@@ -110,9 +136,26 @@ body.explore {
   }
 
   #changers {
+    
+    h2 {
+      font-size: 28px;
+      margin-bottom: 28px;
+    }
+    
+    h3 {
+      font-size: 16px;
+      margin: 25px 0 5px;
+    }
+
+    h4 {
+      font-family: $montserrat;
+      font-size: 12px;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
 
     .ui {
-      margin-left: 10px;
+      margin: 12px 0 0 10px;
     }
 
     #build {
@@ -123,7 +166,7 @@ body.explore {
       display: block;
       font-family: $montserrat;
       font-size: 13px;
-      margin: 20px 0;
+      margin: 20px 0 20px 10px;
       padding: 6px 10px;
       text-align: right;
       text-transform: uppercase;

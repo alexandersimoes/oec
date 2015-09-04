@@ -7,7 +7,6 @@
 {% block body %}
 
 <section>
-  <aside></aside>
   <content>
     <h1>{{ _('About the Site') }}</h1>
     <p>
@@ -20,42 +19,39 @@
       For a history of the contributions to The Observatory of Economic Complexity, you can <a href="https://github.com/alexandersimoes/atlas_economic_complexity/network">view the project’s contributions timeline on Github</a>. A predecessor of the Observatory of Economic Complexity is the <a href="http://chidalgo.com/productspace/index.htm">product space site</a>, built by César Hidalgo as a graduate student at Notre Dame in 2007.
     </p>
   </content>
-  <aside></aside>
 </section>
 
 <section>
-  <aside></aside>
   <content>
 
     {% macro member_list(team) -%}
       {% for member in team %}
       <div class="member" id="{{ member.slug }}">
-        <h3>
+        <h2>
           {{ member.name }}
           {% for slug, link in member.links.iteritems() %}
           <a href="{{ link }}" alt="{{ slug }}" target="_blank">
             <i class="fa fa-{{ slug }}"></i>
           </a>
           {% endfor %}
-        </h3>
+        </h2>
         <h4>{{ member.time }}</h4>
         <p>{{ member.text|safe }}</p>
       </div>
       {% endfor %}
     {%- endmacro %}
 
-    <h2>{{ _("Current Team") }}</h2>
+    <h3>{{ _("Current Team") }}</h3>
 
     {{ member_list(current) }}
 
-    <h2>{{ _("Past Contributors") }}</h2>
+    <h3>{{ _("Past Contributors") }}</h3>
 
     <div id="past">
       {{ member_list(past) }}
     </div>
 
   </content>
-  <aside></aside>
 </section>
 
 {% endblock %}

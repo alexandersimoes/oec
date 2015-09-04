@@ -1,14 +1,32 @@
 body.profile {
-  background-color: white;
+  background-color: $darkbackground;
 
   article {
+
+    h3 {
+      margin-bottom: 20px;
+    }
+    
+    div.columns p {
+      text-align: justify;
+    }
+
+    content {
+      margin: 0 35px 0 0 !important;
+      padding: 35px 0;
+    }
 
     &:nth-of-type(even) {
       background-color: white;
       color: $black;
 
+      // content {
+      //   border-bottom: 1px solid $lightbordercolor;
+      // }
+
       p {
         color: $black;
+        text-align: left;
 
         a {
           color: $darklinkcolor;
@@ -16,63 +34,59 @@ body.profile {
             border-bottom: 1px solid $darklinkcolor;
           }
         }
-
       }
-
     }
 
     &:nth-of-type(odd) {
       background-color: $darkbackground;
       color: white;
+      
+      // content {
+      //   border-bottom: 1px solid $darkbordercolor;
+      // }
 
       p {
         color: white;
-
         a {
           color: $lightlinkcolor;
           &:hover {
             border-bottom: 1px solid $lightlinkcolor;
           }
         }
-
       }
 
     }
 
     &.dataviva {
-      background-color: white;
+      background: white url('/static/img/dataviva.png') repeat-x 0 0;
       color: $black;
+
+      // content {
+      //   border-bottom: 0;
+      // }
 
       p {
         color: $black;
-
-        a {
-          color: $darklinkcolor;
-          &:hover {
-            border-bottom: 1px solid $darklinkcolor;
-          }
+        a:hover {
+          border-bottom: 0;
         }
-
       }
-
     }
 
     &.pantheon {
       background-color: #F9F6E3;
       color: $black;
 
+      // content {
+      //   border-bottom: 0;
+      // }
+
       p {
         color: $black;
-
-        a {
-          color: $darklinkcolor;
-          &:hover {
-            border-bottom: 1px solid $darklinkcolor;
-          }
+        a:hover {
+          border-bottom: 0;
         }
-
       }
-
     }
 
   }
@@ -84,6 +98,8 @@ body.profile {
   #content {
 
     #topojson {
+      border: 1px solid #aaa;
+      @include box(border-box);
       @include flex-size(none);
       height: 250px;
       // left: 35px;
@@ -115,14 +131,11 @@ body.profile {
 
 
         h1 {
+          font-size: 65px;
 
           i {
-            // font-size: 35px;
-            // margin-top: 20px;
             opacity: 0.5;
             @media all and (max-width: 768px) {
-              // font-size: 20px;
-              // margin-top: 16px;
             }
           }
 
@@ -134,12 +147,12 @@ body.profile {
           }
 
         }
-
+        
         h1:after {
-          position: relative;
+          position: absolute;
           opacity: 0;
-          margin-left: 10px;
-          top: 7px;
+          margin-left: 15px;
+          top: 2px;
           @include transition(opacity 2s);
         }
 
@@ -211,6 +224,7 @@ body.profile {
       @include flex-direction(column);
       color: white;
       margin-right: 35px;
+      margin-top: 20px;
       width: $stat_width;
 
       .stat_text {
@@ -222,7 +236,7 @@ body.profile {
         h3 {
           font-family: $source-sans;
           font-size: 32px;
-          font-weight: 400;
+          font-weight: 300;
           margin: 0 10px 0 0 !important;
         }
 
@@ -252,22 +266,17 @@ body.profile {
           stroke: white;
           stroke-width: 2px;
         }
-
+      }
+      
+      .year {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        opacity: 0.9;
       }
 
-      .years {
-        @include flex;
-        @include flex-direction(row);
-        @include justify(space-between);
-        opacity: 0.7;
-        width: 90%;
-
-        .year {
-          font-family: $montserrat;
-          font-size: 10px;
-          font-weight: 400;
-        }
-
+      .year:last-child {
+        float: right;
       }
 
     }
@@ -278,7 +287,7 @@ body.profile {
 
         #eci {
           color: $black;
-          margin: 0;
+          // margin: 0;
           width: 100%;
 
           .stat_text {
@@ -315,10 +324,6 @@ body.profile {
 
           }
 
-          .years {
-            width: 100%;
-          }
-
         }
 
       }
@@ -330,47 +335,72 @@ body.profile {
         width: 100%;
       }
 
-      .profile_button {
-        @include flex-size(1);
-        background-color: black;
-        margin-top: 50px;
-
-        .header {
-          height: 110%;
-          margin-left: -5px;
-          margin-top: -5px;
-          position: absolute;
-          width: 110%;
-          z-index: -1;
-          -webkit-filter: blur(3px) contrast(1.1) brightness(0.8);
-        }
-
-        .icon {
-          margin: 0 25px;
-        }
-
-        h1 {
-          font-size: 25px;
-        }
-
-        &:first-child {
-          margin-right: 1px;
-        }
-
-        &:last-child {
-          margin-left: 1px;
-          text-align: right;
-        }
-
-      }
-
       @media all and (max-width: 768px) {
         @include flex-direction(column);
         &#stats {
           @include flex-direction(row);
         }
       }
+    }
 
+    section.page-nav {
+        height: 150px;
+        overflow: hidden;
+        padding-top: 6px;
+        width: 100vw;
+
+      div.header {
+        background-position: 50% 80%;
+        height: 150px;
+        position: absolute;
+        width: 50vw;
+        @include filter(saturate(90%) brightness(0.9) contrast(1.1));
+
+        &.prev { left: 0; }
+
+        &.next{ right: 0; }
+      }
+
+      a.profile_button {
+        @include gradient(rgba(0,0,0,0), $darkbackground);
+        display: inline-block;
+        height: 150px;
+        width: 50vw;
+        z-index: 1;
+
+        &.prev { text-align: left;
+          h1 { padding-left: 20px; }
+        }
+
+        &.next { text-align: right;
+          h1 { padding-right: 20px; }
+        }
+        
+        h1 {
+          display: inline-block;
+          font-size: 50px;
+          line-height: 50px;
+          margin-top: 35px;
+          opacity: 0.9;
+          text-shadow: 1px 1px 6px $darkbackground;
+          vertical-align: bottom;
+
+          &:hover {
+            opacity: 1;
+            text-shadow: 0px 0px 1px white, 1px 1px 6px $darkbackground;
+          }
+          
+          i {
+            font-size: 35px;
+            margin: 10px 10px 0;
+          }
+        }
+
+        .icon {
+          margin: 3px 10px 0;
+          max-height: 50px;
+        }
+      }
     }
 
   }

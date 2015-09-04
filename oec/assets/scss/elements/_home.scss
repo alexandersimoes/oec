@@ -28,14 +28,18 @@ $default_size: 600px;
   position: relative;
   width: $default_size;
 
-  #ring-pulse {
-    @include animation(pulse ease-in-out 4s infinite);
+  .ring-pulse {
+    @include animation(pulse 8s ease-in infinite);
     border: 1px solid #fff;
     border-radius: 50%;
     height: 100%;
     position: absolute;
     width: 100%;
     z-index: -5;
+  }
+
+  .echo-ring {
+    @include animation(pulse 8s ease-in 4s infinite);
   }
 
   #ring {
@@ -54,7 +58,7 @@ $default_size: 600px;
     $star_size: 150%;
 
     .star-rotate {
-      @include animation(spin-right 50s linear infinite);
+      @include animation(spin-right 60s linear infinite);
       left: 68%;
       margin-left: -$star_size/2;
       margin-top: -$star_size/2;
@@ -81,21 +85,22 @@ $default_size: 600px;
     #info {
       display: block;
       font-family: $source-sans;
-      font-size: $default_size/30;
+      font-size: $default_size/35;
       font-weight: 300;
       line-height: 1.4;
       position: absolute;
       text-align: center;
-      bottom: 7%;
-      right: 16%;
+      bottom: 16%;
+      right: 18%;
 
       a {
         border-bottom: 1px solid transparent;
-        color: $lightlinkcolor;
+        color: $brightlinkcolor;
         display: inline-block;
         font-family: $montserrat;
-        font-size: 70%;
+        font-size: 75%;
         margin: 2%;
+        opacity: 0.7;
         text-transform: uppercase;
 
         i {
@@ -104,7 +109,9 @@ $default_size: 600px;
         }
 
         &:hover {
-          border-bottom: 1px solid $lightlinkcolor;
+          opacity: 1;
+          color: #fff;
+          @include transition(color 3s);
         }
       }
 
@@ -112,23 +119,32 @@ $default_size: 600px;
 
     #search_home {
       border-bottom: 1px solid $lightlinkcolor;
-      bottom: 47%;
+      bottom: 12%;
       color: $lightlinkcolor;
       display: block;
       font-family: $source-sans;
-      font-size: $default_size/30;
+      font-size: $default_size/45;
       font-weight: 300;
-      left: 8%;
+      left: 38%;
+      opacity: 0.8;
       position: absolute;
-      width: 27%;
+      width: 32%;
 
       &:hover {
-        cursor: pointer;
+        cursor: text;
+        @include transition(color 1.5s, border-bottom 1.5s);
+        color: #fff;
+        border-bottom: 1px solid #fff;
+        opacity: 1;
       }
 
       img {
-        margin-left: -15%;
-        margin-top: -3%;
+        margin-bottom: -10px;
+        margin-left: -17%;
+        margin-right: 0;
+        padding: 0 0 0 3px;
+        position: relative;
+        top: -2px;
         width: 15%;
       }
     }
@@ -140,16 +156,16 @@ $default_size: 600px;
 @include keyframes(pulse) {
   0% {
     @include transform(scale(1));
-    opacity: 0.7;
-  }
-  50% {
-    @include transform(scale(1.1));
-    opacity: 0.1;
+    opacity: 0.3;
   }
   100% {
-    @include transform(scale(1));
-    opacity: 0.7;
+    @include transform(scale(2));
+    opacity: 0;
   }
+  // 100% {
+  //   @include transform(scale(1));
+  //   opacity: 0.7;
+  // }
 }
 
 @include keyframes(spin-right) {

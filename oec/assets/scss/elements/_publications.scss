@@ -1,4 +1,199 @@
-.book {
-  margin-left: 10%; 
-  width: 80% !important;
+body.publications {
+  background-color: $darkbackground;
+  
+  p, h3 a {
+    color: $black;
+    margin: 0 !important;
+  }
+
+  article {
+    padding: 70px 5%;
+    color: $black;
+    
+    section {
+      padding: 30px;
+      max-width: 1054px;
+      min-width: 900px;
+      margin: 0 auto;
+    
+      content {
+        margin: 0 !important;
+
+        h2 {
+            letter-spacing: -1px;
+        }
+
+        h3 {
+          font-size: 40px;
+          margin-bottom: 20px;
+          letter-spacing: 0;
+          font-weight: 700;
+
+          a:hover {
+              opacity: 0.7;
+          }
+        }
+
+        h4 {
+            line-height: 1.3;
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+     
+        div {
+          display: inline-block;
+          overflow: hidden;
+        }
+      }
+    }
+
+    &.why-info-grows {
+      background: $green url('/static/img/headers/pages/grows.jpg') repeat 50% 50%;
+
+      section {
+        background-color: #fff;
+
+        content {
+            div:first-child {
+                display: block;
+                width: 100%;
+
+                h3, h4 {
+                    display: inline-block;
+                }
+
+                h4 {
+                    margin-left: 8px;
+                    margin-top: 10px;
+                }
+            }
+
+            div:nth-child(2) {
+                width: 16%;
+                margin-right: 5%;
+            }
+
+            div:nth-child(3) {
+                width: 60%;
+            }
+
+            div:last-child {
+                width: 13%;
+                margin-left: 5%;
+            }
+        }
+      }
+
+      h2, h3 a, h4 {
+        color: $green;
+      }
+    }
+
+    &.atlas {
+      background: $darkbackground url('/static/img/publications/books/atlas-bg.png') no-repeat 50% 50%;
+      
+      section {
+        background-color: rgba(255,255,255,0.9);
+        
+        content {
+          div:nth-child(2) {
+            width: 55%;
+            
+            blockquote {
+                font-size: 18px;
+                margin-top: 20px;
+            }
+          }
+
+          div:last-child {
+            width: 40%;
+            margin-left: 4%;
+
+            h4 {
+                margin-top: 0;
+            }
+            
+            ul {
+            
+              li {
+                padding-left: 0 !important;
+                margin-left: 0 !important;
+                color: $darklinkcolor;
+
+                a {
+                  color: $darklinkcolor;
+                  font-weight: 700;
+                  &:hover {
+                    opacity: 0.7;
+                  }
+                }
+              }
+            }
+          }
+
+          img.book {
+            width: 99%;
+            border: 1px solid $black;
+          }
+        }
+      }
+    }
+
+    &.papers {
+      background: $lightbackground;
+      padding: 40px 5%;
+    
+      aside {
+        display: none;
+      }
+
+      section {
+        padding: 30px 0;
+
+        content {
+          div:nth-child(2) {
+            width: 39%;
+          }
+
+          div:last-child {
+            width: 60%;
+          }
+        }
+      }
+
+      h3 {
+        font-size: 28px;
+        line-height: 1.2;
+        margin-bottom: 0;
+        
+        a {
+            color: #6d6e70;
+        }
+      }
+
+      h4 {
+        margin-top: 10px;
+      }
+      
+      p {
+        color: $black;
+
+        a {
+          color: $darklinkcolor;
+          &:hover {
+            border-bottom: 1px solid $darklinkcolor;
+          }
+        }
+      }
+    }
+  }
 }
+
+.book {
+    width:100%;
+}
+

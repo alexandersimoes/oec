@@ -5,39 +5,53 @@
 
 body {
   background-color: $darkbackground;
-  color: white;
-  font-family: $lato;
+  color: #fff;
+  font-family: $source-sans;
   height: 100vh;
 
   &.frozen {
     overflow: hidden;
   }
 
+  &.error {
+    text-align: center;
+    padding-top: 40%;
+    overflow: hidden;
+  }
 }
 
-h1, h2, h3, h4 {
+h1,h2,h3,h4 {
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+}
+
+h1, h2, h4 {
+  font-family: $source-sans;
+  font-weight: 300;
+}
+
+h3 {
   font-family: $montserrat;
-  font-weight: 700;
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: 1px;
+  line-height: 1.15;
   text-transform: uppercase;
 }
 
 h1 {
   font-size: 40px;
+  line-height: 60px;
 }
 
 h2 {
-  font-size: 28px;
-  margin-bottom: 28px !important;
-}
-
-h3 {
-  font-size: 15px;
-  margin: 15px 0 5px !important;
+  font-size: 30px;
+  line-height: 40px;
 }
 
 h4 {
-  font-size: 12px;
-  margin: 10px 0 5px !important;
+  font-size: 25px;
+  line-height: 1.4;
 }
 
 p {
@@ -45,7 +59,7 @@ p {
   font-family: $source-sans;
   font-size: 16px;
   font-weight: 400;
-  line-height: 25px;
+  line-height: 26px;
   margin: 0 0 25px !important;
   text-align: justify;
 
@@ -85,7 +99,7 @@ table {
 
   tr {
     border-bottom: 1px solid #ddd;
-    font-family: $lato;
+    font-family: $source-sans;
 
     &:last-child {
       border-bottom: none;
@@ -114,7 +128,7 @@ table {
 }
 
 ol {
-  font-family: $lora;
+  font-family: $source-sans;
   font-size: 14px;
   line-height: 20px;
   margin-left: 35px;
@@ -136,13 +150,14 @@ pre {
 }
 
 blockquote {
-  font-family: $lora;
+  font-family: $source-sans;
   font-style: italic;
   padding: 0px 30px;
   margin-bottom: 20px;
 
   p {
     font-size: 13px;
+    font-style: normal;
     line-height: 15px;
     margin-top: 5px;
     text-align: right;

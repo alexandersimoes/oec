@@ -1,20 +1,25 @@
 $header: 74px;
 $sidebar: 250px;
+$footer: 100px;
 
 $blue: #0085BF;
 $darkbackground: #212831;
+$lightbackground: #d1d2d4;
 $black: #333;
+$green: #3b9343;
 
-$darklinkcolor: #265273;
+$darklinkcolor: #5b87af;
 $lightlinkcolor: #A1BAC6;
+$brightlinkcolor: #6297cb;
+
+$darkbordercolor: #546470;
+$lightbordercolor: #bbbdc0;
 
 $shadow: 0 2px 2px rgba(0,0,0,0.5);
 
-$lato: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-$lora: "Lora", "Times", serif;
 $montserrat: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 $open-sans: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 $source-sans: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 
 /* download Lato */
-@import url(https://fonts.googleapis.com/css?family=Lato:300,900|Lora:400,700,400italic,700italic|Montserrat:400,700|Open+Sans:800|Source+Sans+Pro:300,400,700);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:800|Source+Sans+Pro:300,400,700);

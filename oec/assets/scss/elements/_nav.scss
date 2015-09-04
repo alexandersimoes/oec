@@ -43,7 +43,7 @@ nav {
     li {
       font-family: $montserrat;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 400;
       letter-spacing: 1px;
       opacity: 0.7;
       padding: 5px 10px;
@@ -55,7 +55,6 @@ nav {
       }
 
       &:hover {
-        background-color: $darkbackground;
         cursor: pointer;
         opacity: 1;
       }
@@ -67,11 +66,11 @@ nav {
       .sub_menu {
         background-color: $darkbackground;
         display: none;
-        left: 0;
-        padding-bottom: 5px;
+        left: -5px;
+        padding: 0 0 5px 5px;
         position: absolute;
         top: 25px;
-        width: 140%;
+        width: 125%;
         z-index: 1000;
 
         &.open {
@@ -85,6 +84,27 @@ nav {
             display: block;
             font-size: 11px;
             padding: 5px 10px;
+
+            &:hover {
+              opacity: 0.9;
+            }
+
+            &:hover:before {
+              content: "\f0da";
+              font-family: FontAwesome;
+              opacity: 0.7;
+              position: absolute;
+              margin-top: 3px;
+              margin-left: -10px;
+            }
+          
+            &.active:before {
+              content: "\f0da";
+              font-family: FontAwesome;
+              position: absolute;
+              margin-top: 3px;
+              margin-left: -10px;
+            }
           }
 
         }

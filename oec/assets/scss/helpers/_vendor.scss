@@ -20,6 +20,13 @@
   // filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='#{$radius}');
 }
 
+@mixin filter($filter) {
+  -webkit-filter: $filter;
+  -moz-filter: $filter;
+  -o-filter: $filter;
+  filter: $filter;
+}
+
 @mixin column-count($num: 2) {
   -webkit-column-count: $num;
   -moz-column-count: $num;
