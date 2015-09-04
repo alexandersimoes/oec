@@ -1,11 +1,14 @@
 configs.line = function(build, container) {
   return {
-    "color": function(d){ 
-      if(d.name=="Exports"){ return "#0b1097" } 
-      else{ return "#c8140a" } 
+    "color": function(d){
+      if(d.name=="Exports"){ return "#0b1097" }
+      else{ return "#c8140a" }
     },
     "depth": 0,
     "id": "test",
+    "timeline": {
+      "play": false
+    },
     "x": "year",
     "y": "trade",
     "ui": [

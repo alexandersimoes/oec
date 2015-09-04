@@ -366,12 +366,15 @@ configs.geo_map = function(build, container) {
 
 configs.line = function(build, container) {
   return {
-    "color": function(d){ 
-      if(d.name=="Exports"){ return "#0b1097" } 
-      else{ return "#c8140a" } 
+    "color": function(d){
+      if(d.name=="Exports"){ return "#0b1097" }
+      else{ return "#c8140a" }
     },
     "depth": 0,
     "id": "test",
+    "timeline": {
+      "play": false
+    },
     "x": "year",
     "y": "trade",
     "ui": [
@@ -478,7 +481,7 @@ configs.stacked = function(build, container) {
   function change_layout(new_layout){
     viz.y({"scale": new_layout}).draw();
   }
-  
+
   if(build.attr_type == "dest" || build.attr_type == "origin"){
     var depth_ui = {"method":"depth", "value":[{"Continent": 0}, {"Country":1}], "label":"Depth"}
   }
@@ -488,7 +491,7 @@ configs.stacked = function(build, container) {
   else {
     var depth_ui = {"method":"depth", "value":[{"HS2": 0}, {"HS4":1}], "label":"Depth"}
   }
-  
+
   return {
     "depth": 1,
     "shape": "area",
@@ -496,6 +499,9 @@ configs.stacked = function(build, container) {
     "y": {"scale": "linear"},
     "color": "color",
     "order": "nest",
+    "timeline": {
+      "play": false
+    },
     "ui": [
       depth_ui,
       {"method":change_layout, "value":[{"Value": "linear"}, {"Share": "share"}], "label":"Layout"},
@@ -503,7 +509,6 @@ configs.stacked = function(build, container) {
     ]
   }
 }
-
 
 function show_all_years(){
   // remove show all years ui element
