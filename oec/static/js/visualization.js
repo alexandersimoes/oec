@@ -172,15 +172,11 @@ configs.default = function(build, container) {
     curtain = background;
   }
 
-  var edges = "#f7f7f7";
-  if (background !== "none") {
-    edges = d3.hsl(background);
-    if (edges.l < 0.5) {
-      edges = d3plus.color.lighter(edges, 0.3);
-    }
-    else {
-      edges = "#f7f7f7";
-    }
+  var edges = "#f7f7f7", grid = "#ccc", chart = background;
+  if (background !== "none" && d3.hsl(background).l < 0.5) {
+    edges = d3plus.color.lighter(background, 0.3);
+    grid = background;
+    chart = d3plus.color.lighter(background, 0.1);
   }
 
   var large_tooltip_width = 150;
@@ -236,6 +232,14 @@ configs.default = function(build, container) {
       "eci": "mean",
       "export_rca": "mean",
       "import_rca": "mean"
+    },
+    "axes": {
+      "background": {
+        "color": chart,
+        "stroke": {
+          "color": grid
+        }
+      }
     },
     "background": background,
     "color": { "heatmap": ["#cccccc","#0085BF"] },
@@ -301,17 +305,29 @@ configs.default = function(build, container) {
       "padding": 4
     },
     "x": {
+      "grid": {
+        "color": grid
+      },
       "label": {
         "font": {
           "size": 16
         }
+      },
+      "ticks": {
+        "color": grid
       }
     },
     "y": {
+      "grid": {
+        "color": grid
+      },
       "label": {
         "font": {
           "size": 16
         }
+      },
+      "ticks": {
+        "color": grid
       }
     }
   }
