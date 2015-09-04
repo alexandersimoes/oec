@@ -200,7 +200,7 @@ body.profile {
       @include flex;
       @include flex-direction(row);
       @include align-items(center);
-      @include justify(flex-start);
+      @include justify(center);
 
       h3 {
         font-family: $source-sans;
@@ -227,7 +227,7 @@ body.profile {
     .sparkline {
       height: 35px;
       margin: 10px 0;
-      width: 90%;
+      width: 100%;
 
       .sparkpath {
         fill: none;
@@ -240,13 +240,20 @@ body.profile {
       @include flex;
       @include flex-direction(row);
       @include justify(space-between);
-      width: 90%;
     }
 
     .year {
       font-size: 11px;
       font-weight: 700;
       opacity: 0.9;
+    }
+
+    .stat_flag {
+      text-align: center;
+      img {
+        height: 60px;
+        width: 60px;
+      }
     }
 
     &#eci {
