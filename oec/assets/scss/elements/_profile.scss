@@ -6,7 +6,7 @@ body.profile {
     h3 {
       margin-bottom: 20px;
     }
-    
+
     div.columns p {
       text-align: justify;
     }
@@ -40,7 +40,7 @@ body.profile {
     &:nth-of-type(odd) {
       background-color: $darkbackground;
       color: white;
-      
+
       // content {
       //   border-bottom: 1px solid $darkbordercolor;
       // }
@@ -147,7 +147,7 @@ body.profile {
           }
 
         }
-        
+
         h1:after {
           position: absolute;
           opacity: 0;
@@ -267,7 +267,7 @@ body.profile {
           stroke-width: 2px;
         }
       }
-      
+
       .year {
         display: inline-block;
         font-size: 11px;
@@ -362,41 +362,51 @@ body.profile {
       }
 
       a.profile_button {
+        @include flex;
+        @include flex-direction(row);
+        @include align-items(center);
         @include gradient(rgba(0,0,0,0), $darkbackground);
-        display: inline-block;
+        // display: inline-block;
         height: 150px;
         width: 50vw;
         z-index: 1;
 
-        &.prev { text-align: left;
-          h1 { padding-left: 20px; }
+        &.prev {
+          @include justify(flex-start);
+          text-align: left;
+          i { padding-left: 20px; }
         }
 
-        &.next { text-align: right;
-          h1 { padding-right: 20px; }
+        &.next {
+          @include justify(flex-end);
+          text-align: right;
+          i { padding-right: 20px; }
         }
-        
+
+        i {
+          @include flex-size(none);
+          font-size: 35px;
+          margin: 10px 10px 0;
+        }
+
         h1 {
-          display: inline-block;
+          // display: inline-block;
           font-size: 50px;
           line-height: 50px;
-          margin-top: 35px;
+          // margin-top: 35px;
           opacity: 0.9;
           text-shadow: 1px 1px 6px $darkbackground;
-          vertical-align: bottom;
+          // vertical-align: bottom;
 
           &:hover {
             opacity: 1;
             text-shadow: 0px 0px 1px white, 1px 1px 6px $darkbackground;
           }
-          
-          i {
-            font-size: 35px;
-            margin: 10px 10px 0;
-          }
+
         }
 
         .icon {
+          @include flex-size(none);
           margin: 3px 10px 0;
           max-height: 50px;
         }

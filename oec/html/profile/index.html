@@ -181,12 +181,14 @@
 
   {% if image %}
   <div class="header prev" style="background-image: url('{{ image }}');"></div>
+  {% endif %}
   <a href="{{ prev.get_profile_url() }}" class="profile_header profile_button prev"{% if not image %} style="background-color: {{ prev.color }};"{% endif %}>
+    <i class="fa fa-caret-left"></i>
     <h1>
-      <i class="fa fa-caret-left"></i>
       {{ prev.get_name() }}
-      <img class="icon" src="{{ prev.get_icon() }}">
     </h1>
+    {% if image %}
+    <img class="icon" src="{{ prev.get_icon() }}">
     {% endif %}
   </a>
   {% endif %}
@@ -197,13 +199,15 @@
 
   {% if image %}
   <div class="header next" style="background-image: url('{{ image }}');"></div>
+  {% endif %}
   <a href="{{ next.get_profile_url() }}" class="profile_header profile_button next"{% if not image %} style="background-color: {{ prev.color }};"{% endif %}>
-    <h1>
-      <img class="icon" src="{{ next.get_icon() }}">
-      {{ next.get_name() }}
-      <i class="fa fa-caret-right"></i>
-    </h1>
+    {% if image %}
+    <img class="icon" src="{{ next.get_icon() }}">
     {% endif %}
+    <h1>
+      {{ next.get_name() }}
+    </h1>
+    <i class="fa fa-caret-right"></i>
   </a>
   {% endif %}
 </section>

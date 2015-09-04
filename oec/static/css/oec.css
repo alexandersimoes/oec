@@ -256,14 +256,14 @@ nav {
                       nav ul li .sub_menu ul li:hover {
                         opacity: 0.9; }
                         nav ul li .sub_menu ul li:hover:before {
-                          content: "";
+                          content: "\f0da";
                           font-family: FontAwesome;
                           opacity: 0.7;
                           position: absolute;
                           margin-top: 3px;
                           margin-left: -10px; }
                           nav ul li .sub_menu ul li.active:before {
-                            content: "";
+                            content: "\f0da";
                             font-family: FontAwesome;
                             position: absolute;
                             margin-top: 3px;
@@ -726,7 +726,7 @@ body.home {
       background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
       background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
       background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-      background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+      background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
       left: 0;
       position: absolute;
       top: 0;
@@ -1101,40 +1101,65 @@ body.profile {
       #container #content section.page-nav div.header.next {
         right: 0; }
   #container #content section.page-nav a.profile_button {
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    align-items: center;
     background: -moz-linear-gradient(top, transparent 0%, #212831 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, transparent),
         color-stop(100%, #212831));
     background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
     background: -o-linear-gradient(top, transparent 0%, #212831 100%);
     background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-    background: linear-gradient(to bottom, transparent 0%, #212831 100%);
-    display: inline-block;
+    background: linear-gradient(to bottom, transparent, #212831);
     height: 150px;
     width: 50vw;
     z-index: 1; }
     #container #content section.page-nav a.profile_button.prev {
+      -webkit-justify-content: flex-start;
+      -moz-justify-content: flex-start;
+      justify-content: flex-start;
       text-align: left; }
-      #container #content section.page-nav a.profile_button.prev h1 {
+      #container #content section.page-nav a.profile_button.prev i {
         padding-left: 20px; }
     #container #content section.page-nav a.profile_button.next {
+      -webkit-justify-content: flex-end;
+      -moz-justify-content: flex-end;
+      justify-content: flex-end;
       text-align: right; }
-      #container #content section.page-nav a.profile_button.next h1 {
+      #container #content section.page-nav a.profile_button.next i {
         padding-right: 20px; }
-    #container #content section.page-nav a.profile_button h1 {
-      display: inline-block;
-      font-size: 50px;
-      line-height: 50px;
-      margin-top: 35px;
-      opacity: 0.9;
-      text-shadow: 1px 1px 6px #212831;
-      vertical-align: bottom; }
-      #container #content section.page-nav a.profile_button h1:hover {
-        opacity: 1;
-        text-shadow: 0px 0px 1px white, 1px 1px 6px #212831; }
-        #container #content section.page-nav a.profile_button h1 i {
-          font-size: 35px;
-          margin: 10px 10px 0; }
+    #container #content section.page-nav a.profile_button i {
+      -webkit-box-flex: none;
+      -moz-box-flex: none;
+      -webkit-flex: none;
+      -ms-flex: none;
+      flex: none;
+      font-size: 35px;
+      margin: 10px 10px 0; }
+      #container #content section.page-nav a.profile_button h1 {
+        font-size: 50px;
+        line-height: 50px;
+        opacity: 0.9;
+        text-shadow: 1px 1px 6px #212831; }
+        #container #content section.page-nav a.profile_button h1:hover {
+          opacity: 1;
+          text-shadow: 0px 0px 1px white, 1px 1px 6px #212831; }
     #container #content section.page-nav a.profile_button .icon {
+      -webkit-box-flex: none;
+      -moz-box-flex: none;
+      -webkit-flex: none;
+      -ms-flex: none;
+      flex: none;
       margin: 3px 10px 0;
       max-height: 50px; }
 
@@ -1235,7 +1260,7 @@ body.explore content {
               font-weight: 700;
               opacity: 1; }
               #explorer .app_menu .build .build_list .build_link.active:before {
-                content: "";
+                content: "\f0da";
                 font-family: FontAwesome;
                 position: absolute;
                 margin-top: 0px;
@@ -1243,7 +1268,7 @@ body.explore content {
             #explorer .app_menu .build .build_list .build_link:hover {
               opacity: 0.9; }
               #explorer .app_menu .build .build_list .build_link:hover:before {
-                content: "";
+                content: "\f0da";
                 font-family: FontAwesome;
                 opacity: 0.7;
                 position: absolute;

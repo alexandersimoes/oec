@@ -90,16 +90,16 @@ nav {
             }
 
             &:hover:before {
-              content: "\f0da";
+              content: unicode("f0da");
               font-family: FontAwesome;
               opacity: 0.7;
               position: absolute;
               margin-top: 3px;
               margin-left: -10px;
             }
-          
+
             &.active:before {
-              content: "\f0da";
+              content: unicode("f0da");
               font-family: FontAwesome;
               position: absolute;
               margin-top: 3px;

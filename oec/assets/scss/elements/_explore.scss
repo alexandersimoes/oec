@@ -106,7 +106,7 @@ body.explore {
             opacity: 1;
 
             &:before {
-              content: "\f0da";
+              content: unicode("f0da");
               font-family: FontAwesome;
               position: absolute;
               margin-top: 0px;
@@ -116,9 +116,9 @@ body.explore {
 
           &:hover {
             opacity: 0.9;
-            
+
             &:before {
-              content: "\f0da";
+              content: unicode("f0da");
               font-family: FontAwesome;
               opacity: 0.7;
               position: absolute;
@@ -136,12 +136,12 @@ body.explore {
   }
 
   #changers {
-    
+
     h2 {
       font-size: 28px;
       margin-bottom: 28px;
     }
-    
+
     h3 {
       font-size: 16px;
       margin: 25px 0 5px;
