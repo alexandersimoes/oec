@@ -5,6 +5,7 @@ configs.line = function(build, container) {
       else{ return "#c8140a" }
     },
     "depth": 0,
+    "icon": {"style": "knockout"},
     "id": "test",
     "timeline": {
       "play": false

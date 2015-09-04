@@ -20,30 +20,25 @@ function format_data(raw_data, attrs, build){
 
   // special case for line chart of trade balance (need to duplicate data)
   if(build.viz.slug == "line"){
-    // data = data.map(function(d){
-    //   d.trade = d.export_val - d.import_val;
-    //   // d.id = d.id + "_export";
-    //   d.name = "Exports";
-    //   return d;
-    // })
+
     data = data.map(function(d){
       d.trade = d.export_val;
-      // d.id = d.id + "_export";
       d.test = d.id + "_export";
       d.name = "Exports";
+      d.icon = "/static/img/icons/balance/export_val.png";
       return d;
-    })
-    var clones = d3plus.util.copy(data);
-    var clones = clones.map(function(d){
-      // var x = JSON.parse(JSON.stringify(d));
-      var x = d
-      x.trade = x.import_val;
-      // x.id = x.id + "_import";
+    });
+
+    var clones = d3plus.util.copy(data).map(function(d){
+      d.trade = d.import_val;
       d.test = d.id + "_import";
-      x.name = "Imports"
-      return x;
-    })
+      d.name = "Imports";
+      d.icon = "/static/img/icons/balance/import_val.png";
+      return d;
+    });
+
     data = data.concat(clones);
+
   }
 
   return data;
