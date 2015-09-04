@@ -1,21 +1,7 @@
 body.profile {
   background-color: $darkbackground;
-
+  
   article {
-
-    h3 {
-      margin-bottom: 20px;
-    }
-
-    div.columns p {
-      text-align: justify;
-    }
-
-    content {
-      margin: 0 35px 0 0 !important;
-      padding: 35px 0;
-    }
-
     &:nth-of-type(even) {
       background-color: white;
       color: $black;
@@ -89,13 +75,20 @@ body.profile {
       }
     }
 
+    h3 {
+      margin-bottom: 20px;
+    }
+
+    content {
+      margin-bottom: 35px;
+      padding: 35px 0;
+    }
   }
-
-}
-
-#container {
-
-  #content {
+  
+  article .intro-article {
+    div.columns p {
+      text-align: justify;
+    }
 
     #topojson {
       @include transition(opacity 1s);
@@ -128,92 +121,128 @@ body.profile {
 
     }
 
-    .profile_header {
+    #eci {
+      color: $black;
+      // margin: 0;
+      width: 100%;
 
-      #title {
-        @include flex;
-        @include align-items(center);
-        @include flex-direction(row);
-        margin: 20px 35px 10px 0;
-
-        .icon {
+      .stat_text {
+        h3 {
           @include flex-size(none);
-          height: 80px;
-          margin: 0 20px 0 0;
-          width: 80px;
-          z-index: 10;
-
-          @media all and (max-width: 768px) {
-            margin: 0;
-          }
+          font-size: 70px;
+          font-weight: 300;
         }
 
+        sub {
+          font-size: 15px;
+          line-height: 18px;
+          margin-top: 3px;
 
-        h1 {
-          font-size: 65px;
-
-          i {
-            opacity: 0.5;
-            @media all and (max-width: 768px) {
-            }
+          .rank {
+            font-size: 12px;
           }
+        }
+      }
 
-          sub {
-            color: white;
-            display: block;
-            font-size: 11px;
-            text-shadow: $shadow;
-          }
+      .sparkline {
+        height: 50px;
+        margin: 10px 0;
+        width: 100%;
 
+        .sparkpath {
+          fill: none;
+          stroke: $darkbackground;
+          stroke-width: 2px;
+        }
+      }
+    }
+  }
+
+  article .profile_header {
+
+    p img {
+      @include shadow(none);
+      border: none;
+      margin: 10px 0 0 0;
+      width: 100%;
+    }
+
+    @media all and (max-width: 768px) {
+      @include flex-direction(column);
+      &#stats {
+        @include flex-direction(row);
+      }
+    }
+
+    #title {
+      @include flex;
+      @include align-items(center);
+      @include flex-direction(row);
+      margin: 20px 35px 10px 0;
+
+      .icon {
+        @include flex-size(none);
+        height: 80px;
+        margin: 0 20px 0 0;
+        width: 80px;
+        z-index: 10;
+
+        @media all and (max-width: 768px) {
+          margin: 0;
+        }
+      }
+
+      h1 {
+        font-size: 65px;
+
+        i {
+          opacity: 0.5;
+          // @media all and (max-width: 768px) {
+          // }
         }
 
-        h1:after {
+        sub {
+          color: white;
+          display: block;
+          font-size: 11px;
+          text-shadow: $shadow;
+        }
+
+        &:after {
           position: absolute;
           opacity: 0;
           margin-left: 15px;
           top: 2px;
           @include transition(opacity 2s);
-        }
 
-        h1:hover:after {
-          content: url('/static/img/nav/search.png');
-          opacity: 1;
-        }
-
-      }
-
-      #title, #stats {
-        margin-left: 35px;
-      }
-
-      &.country {
-        #title, #stats {
-          margin-left: 320px;
-        }
-      }
-
-      .author {
-        @include transition(opacity 0.5s);
-        bottom: 5px;
-        color: white;
-        font-size: 11px;
-        opacity: 0;
-        position: absolute;
-        right: 10px;
-        text-shadow: $shadow;
-
-        i {
-          display: inline-block;
-          margin: 2px 5px 0;
-        }
-
-        a {
-          color: white;
           &:hover {
-            border-color: transparent;
+            content: url('/static/img/nav/search.png');
+            opacity: 1;
           }
         }
+      }
+    }
 
+    .author {
+      @include transition(opacity 0.5s);
+      bottom: 5px;
+      color: white;
+      font-size: 11px;
+      opacity: 0;
+      position: absolute;
+      right: 10px;
+      text-shadow: $shadow;
+
+      i {
+        display: inline-block;
+        margin: 2px 5px 0;
+      }
+
+      a {
+        color: white;
+        &:hover {
+          border-color: transparent;
+        }
       }
 
       &:hover {
@@ -222,17 +251,25 @@ body.profile {
           opacity: 1;
         }
       }
+    }
 
-      #stats {
-        @include flex;
-        @include flex-direction(row);
-        @include align-items(flex-start);
-        @include justify(space-between);
-        margin-bottom: 20px;
-        position: relative;
+    #stats {
+      @include flex;
+      @include flex-direction(row);
+      @include align-items(flex-start);
+      @include justify(space-between);
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    #title, #stats {
+      margin-left: 35px;
+    }
 
+    &.country {
+      #title, #stats {
+        margin-left: 320px;
       }
-
     }
 
     $stat_width: 250px;
@@ -271,10 +308,9 @@ body.profile {
             font-weight: 400;
             white-space: nowrap;
           }
-
         }
       }
-
+      
       .sparkline {
         height: 35px;
         margin: 10px 0;
@@ -301,179 +337,128 @@ body.profile {
       .year:last-child {
         float: right;
       }
-
     }
+  }
+  
+  article.viz-article {
+    h1 {
+      padding: 20px 35px 35px;
+    
+      &~ section {
+        content {
+          padding: 0;
 
-    section {
-
-      aside {
-
-        #eci {
-          color: $black;
-          // margin: 0;
-          width: 100%;
-
-          .stat_text {
-
-            h3 {
-              @include flex-size(none);
-              font-size: 70px;
-              font-weight: 300;
-            }
-
-            sub {
-              font-size: 15px;
-              line-height: 18px;
-              margin-top: 3px;
-
-              .rank {
-                font-size: 12px;
-              }
-
-            }
-
+          p {
+            margin-bottom: 0 !important;
           }
-
-          .sparkline {
-            height: 50px;
-            margin: 10px 0;
-            width: 100%;
-
-            .sparkpath {
-              fill: none;
-              stroke: $darkbackground;
-              stroke-width: 2px;
-            }
-
-          }
-
         }
-
       }
 
-      p img {
-        @include shadow(none);
-        border: none;
-        margin: 10px 0 0 0;
-        width: 100%;
-      }
-
-      @media all and (max-width: 768px) {
-        @include flex-direction(column);
-        &#stats {
-          @include flex-direction(row);
-        }
+      &~ aside {
+        margin: 20px 35px;
       }
     }
-
-    section.page-nav {
-        height: 150px;
-        overflow: hidden;
-        padding-top: 6px;
-        width: 100vw;
-
-      div.header {
-        background-position: 50% 80%;
-        height: 150px;
-        position: absolute;
-        width: 50vw;
-        @include filter(saturate(90%) brightness(0.9) contrast(1.1));
-
-        &.prev { left: 0; }
-
-        &.next{ right: 0; }
-      }
-
-      a.profile_button {
-        @include flex;
-        @include flex-direction(row);
-        @include align-items(center);
-        @include gradient(rgba(0,0,0,0), $darkbackground);
-        // display: inline-block;
-        height: 150px;
-        width: 50vw;
-        z-index: 1;
-
-        &.prev {
-          @include justify(flex-start);
-          text-align: left;
-          i { padding-left: 20px; }
-        }
-
-        &.next {
-          @include justify(flex-end);
-          text-align: right;
-          i { padding-right: 20px; }
-        }
-
-        i {
-          @include flex-size(none);
-          font-size: 35px;
-          margin: 10px 10px 0;
-        }
-
-        h1 {
-          // display: inline-block;
-          font-size: 50px;
-          line-height: 50px;
-          // margin-top: 35px;
-          opacity: 0.9;
-          text-shadow: 1px 1px 6px $darkbackground;
-          // vertical-align: bottom;
-
-          &:hover {
-            opacity: 1;
-            text-shadow: 0px 0px 1px white, 1px 1px 6px $darkbackground;
-          }
-
-        }
-
-        .icon {
-          @include flex-size(none);
-          margin: 3px 10px 0;
-          max-height: 50px;
-        }
-      }
-    }
-
   }
 
-}
+  article .prof-nav {
+    height: 150px;
+    overflow: hidden;
+    padding-top: 6px;
+    width: 100vw;
 
-ul.heirarchy {
-  border: 1px solid #BBBDC0;
-  color: $darkbackground;
-  display: block;
-  font-family: $source-sans;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 17px;
-  list-style-type: none;
-  overflow: scroll;
-  padding: 5px 15px 15px;
+    div.header {
+      background-position: 50% 80%;
+      height: 150px;
+      position: absolute;
+      width: 50vw;
+      @include filter(saturate(90%) brightness(0.9) contrast(1.1));
 
-  li {
-    padding: 3px 0;
-    a {
-      color: $darkbackground;
+      &.prev { left: 0; }
+
+      &.next{ right: 0; }
+    }
+
+    a.profile_button {
+      @include flex;
+      @include flex-direction(row);
+      @include align-items(center);
+      @include gradient(rgba(0,0,0,0), $darkbackground);
+      height: 150px;
+      width: 50vw;
+      z-index: 1;
+
+      &.prev {
+        @include justify(flex-start);
+        text-align: left;
+        i { padding-left: 20px; }
+      }
+
+      &.next {
+        @include justify(flex-end);
+        text-align: right;
+        i { padding-right: 20px; }
+      }
+
+      i {
+        @include flex-size(none);
+        font-size: 35px;
+        margin: 10px 10px 0;
+      }
+
+      h1 {
+        font-size: 50px;
+        line-height: 50px;
+        opacity: 0.9;
+        text-shadow: 1px 1px 6px $darkbackground;
+
+        &:hover {
+          opacity: 1;
+          text-shadow: 0px 0px 1px white, 1px 1px 6px $darkbackground;
+        }
+      }
+
+      .icon {
+        @include flex-size(none);
+        margin: 3px 10px 0;
+        max-height: 50px;
+      }
     }
   }
 
-  .active {
-    // font-weight: 700;
-  }
+  ul.heirarchy {
+    border: 1px solid #BBBDC0;
+    color: $darkbackground;
+    display: block;
+    font-family: $source-sans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    list-style-type: none;
+    overflow: scroll;
+    padding: 5px 15px 15px;
 
-  .depth2 {
-    font-size: 30px;
-    line-height: 33px;
-  }
+    li {
+      padding: 3px 0;
+      a {
+        color: $darkbackground;
+      }
+    }
 
-  .depth6 {
-    margin-left: 10px;
-  }
+    .active {
+      // font-weight: 700;
+    }
 
-  .depth8 {
-    margin-left: 20px;
-  }
+    .depth2 {
+      font-size: 30px;
+      line-height: 33px;
+    }
 
+    .depth6 {
+      margin-left: 10px;
+    }
+
+    .depth8 {
+      margin-left: 20px;
+    }
+  }
 }
