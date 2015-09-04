@@ -143,7 +143,7 @@
   <h1>{{ section.title }}</h1>
   <section>
     <aside></aside>
-    <content> 
+    <content>
       {% if section.subtitle %}
       <p>{{ section.subtitle|safe }}</p>
       {% endif %}
@@ -247,6 +247,7 @@
       .y(function(d){ return y(d); });
 
     var svg = d3.select(this).append("svg")
+      .attr("width", "100%")
       .append("g")
         .attr("class", "sparkgroup")
         .attr("transform", "scale(1,1)");
