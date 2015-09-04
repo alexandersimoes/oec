@@ -290,7 +290,7 @@
     if (g === "search_results") g = search_mode;
 
     var results = container.selectAll(".result")
-      .data(data, function(d){ return d.id; });
+      .data(data, function(d, i){ return d.id || i; });
 
     var enter = results.enter().append("a")
       .attr("class", "result")
@@ -324,6 +324,15 @@
     results.exit().remove();
 
   }
+
+  var explore_default = [
+    {"name": "tree_map", "value": "Tree Map"},
+    {"name": "stacked", "value": "Stacked"},
+    {"name": "network", "value": "Network"},
+    {"name": "rings", "value": "Rings"},
+    {"name": "scatter", "value": "Scatter"},
+    {"name": "geo_map", "value": "Geo Map"}
+  ];
 
   function search_results(data) {
     if (!data) {
@@ -426,12 +435,12 @@
 
     var m = search_mode === "all" ? "" : "&mode=" + search_mode;
 
-    var categories = search_mode;
-    if (categories === "all") {
+    var categories = [];
+    if (search_mode === "all") {
       categories = ["country", "hs92"];
     }
-    else {
-      categories = [categories];
+    else if (search_mode !== "explore") {
+      categories = [search_mode];
     }
 
     var data = {};
@@ -466,6 +475,9 @@
         });
       }
       else {
+        if (["all", "explore"].indexOf(search_mode) >= 0) {
+          data.explore = explore_default;
+        }
         search_results(data);
       }
     }
