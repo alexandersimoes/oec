@@ -448,7 +448,7 @@ configs.rings = function(build, container) {
   return {
     "active": {
       "value": function(d){
-        return d.export_rca >= 1;
+        return build.origin === "all" ? true : d.export_rca >= 1;
       },
       "spotlight":true
     },

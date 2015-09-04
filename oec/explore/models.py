@@ -112,7 +112,7 @@ build_metadata = { \
             "title": "Connections of {prod} in {origin}",
             "question": "Where does {origin} export {prod} to?",
             "short_name": "Product Connections",
-            "category": None
+            "category": "Country"
         }
     },
     7: {
@@ -152,9 +152,17 @@ build_metadata = { \
             "title": "Trade balance of {origin}",
             "question": "What is the trade balance for {origin}?",
             "short_name": "Trade Balance",
-            "category": None
+            "category": "Product"
         }
     },
+    9: {
+        "export": {
+            "title": "Connections of {prod}",
+            "question": "What products are {prod} connected to?",
+            "short_name": "Product Connections",
+            "category": "Product"
+        }
+    }
 }
 
 class Build(object):
@@ -230,6 +238,8 @@ class Build(object):
             return 3
         if dest == "show":
             return 4
+        if origin == "all":
+            return 9
         if dest == "all":
             return 6
 
@@ -316,12 +326,13 @@ class Build(object):
         if self.classification == "sitc":
             output_depth = 6
 
-        if (isinstance(prod, (Sitc, Hs92, Hs96, Hs02, Hs07)) and dest == "all" and isinstance(origin, Country)):
+        if self.viz["slug"] == "rings" or (isinstance(prod, (Sitc, Hs92, Hs96, Hs02, Hs07)) and dest == "all" and isinstance(origin, Country)):
             prod = "show"
             xtra_args = "?output_depth={}_id_len.{}".format(self.classification, output_depth)
         elif isinstance(prod, (Sitc, Hs92, Hs96, Hs02, Hs07)):
             xtra_args = "?output_depth={}_id_len.{}".format(self.classification, len(prod.id))
             prod = getattr(prod, self.classification)
+
         if isinstance(origin, Country):
             origin = origin.id_3char
             xtra_args = "?output_depth={}_id_len.{}".format(self.classification, output_depth)
@@ -420,7 +431,17 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
             all_builds.append(build)
 
         elif v["slug"] == "rings":
-            '''rings only has 1 build'''
+            '''rings has 2 builds'''
+
+            build = Build(
+                viz = v["slug"],
+                classification = classification,
+                trade_flow = "export",
+                origin = "all",
+                dest = "all",
+                prod = prod_id,
+                year = year)
+            all_builds.append(build)
 
             build = Build(
                 viz = v["slug"],
