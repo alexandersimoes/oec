@@ -3,7 +3,7 @@ import ast
 from abc import ABCMeta
 from sqlalchemy import desc, func
 from flask.ext.babel import gettext as _
-from oec import db, db_data, available_years
+from oec import db, db_data, available_years, earliest_data
 from oec.utils import num_format
 from oec.db_attr import models as attrs
 from oec.explore.models import Build
@@ -60,14 +60,15 @@ class Country(Profile):
 
     def stats(self):
         if not self.cached_stats:
+            start_year = earliest_data.get(self.attr.id, 1980)
             all_stats = [("eci", _('Economic Complexity')), ("export_val", _('Exports')), ("import_val", _('Imports')), ("population", _('Population')), ("gdp", _('GDP'))]
             for s, s_title in all_stats:
                 if "val" in s:
-                    yo_historic = db_data.sitc_models.Yo.query.filter_by(country=self.attr).filter(db_data.sitc_models.Yo.year >= 1980).all()
+                    yo_historic = db_data.sitc_models.Yo.query.filter_by(country=self.attr).filter(db_data.sitc_models.Yo.year >= start_year).all()
                     yo_base_q = self.models.Yo.query.filter_by(year=self.year)
                     this_yo = yo_base_q.filter_by(country=self.attr).first()
                 else:
-                    yo_historic = attrs.Yo.query.filter_by(country=self.attr).filter(attrs.Yo.year >= 1980).all()
+                    yo_historic = attrs.Yo.query.filter_by(country=self.attr).filter(attrs.Yo.year >= start_year).all()
                     yo_base_q = attrs.Yo.query.filter_by(year=self.year)
                     this_yo = yo_base_q.filter_by(country=self.attr).first()
 
@@ -76,7 +77,7 @@ class Country(Profile):
                 if val:
                     my_stat = {"key":s, "rank":res.index(this_yo)+1, "total":len(res), "title":s_title, \
                                 "val":val, "sparkline":{
-                                    "start": 1980, "end": available_years["sitc"][-1], \
+                                    "start": start_year, "end": available_years["sitc"][-1], \
                                     "val": [float(getattr(yh, s)) if getattr(yh, s) is not None else 0 for yh in yo_historic]
                                 }
                               }
