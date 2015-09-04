@@ -31231,7 +31231,7 @@ module.exports = function(vars, axis, buffer) {
 
 
 },{"../../../../../util/buckets.coffee":203,"../../../../../util/closest.coffee":205}],311:[function(require,module,exports){
-var copy, events, fetchColor, fetchValue, legible;
+var copy, events, fetchColor, fetchValue, legible, textColor;
 
 copy = require("../../../../../util/copy.coffee");
 
@@ -31242,6 +31242,8 @@ fetchColor = require("../../../../../core/fetch/color.coffee");
 fetchValue = require("../../../../../core/fetch/value.coffee");
 
 legible = require("../../../../../color/legible.coffee");
+
+textColor = require("../../../../../color/text.coffee");
 
 module.exports = function(node, vars) {
   var clickRemove, color, create, graph, lineData, lineInit, lineStyle, lineUpdate, lines, r, rectStyle, rects, s, textStyle, texts, timing, x, y;
@@ -31346,8 +31348,6 @@ module.exports = function(node, vars) {
   textStyle = function(text) {
     return text.attr("font-size", function(d) {
       return vars[d].ticks.font.size + "px";
-    }).attr("fill", function(d) {
-      return vars[d].ticks.font.color;
     }).attr("font-family", function(d) {
       return vars[d].ticks.font.family.value;
     }).attr("font-weight", function(d) {
@@ -31368,7 +31368,7 @@ module.exports = function(node, vars) {
           return graph.height + graph.margin.top + 5 + vars[d].ticks.size;
         }
       }
-    }).attr("fill", vars.shape.value === "area" ? "white" : color);
+    }).attr("fill", vars.shape.value === "area" ? "white" : textColor(color));
   };
   texts = vars.g.labels.selectAll("text.d3plus_mouse_axis_label").data(lineData);
   texts.enter().append("text").attr("class", "d3plus_mouse_axis_label").attr("id", function(d) {
@@ -31432,7 +31432,7 @@ module.exports = function(node, vars) {
       return getText(d).width + 10;
     }).attr("height", function(d) {
       return getText(d).height + 10;
-    }).style("stroke", vars.shape.value === "area" ? "transparent" : color).attr("fill", vars.shape.value === "area" ? color : vars.background.value).attr("shape-rendering", function(d) {
+    }).style("stroke", vars.shape.value === "area" ? "transparent" : color).attr("fill", color).attr("shape-rendering", function(d) {
       return vars[d].mouse.rendering.value;
     }).style("stroke-width", function(d) {
       return vars[d].mouse.width;
@@ -31451,7 +31451,7 @@ module.exports = function(node, vars) {
 };
 
 
-},{"../../../../../client/pointer.coffee":40,"../../../../../color/legible.coffee":45,"../../../../../core/fetch/color.coffee":64,"../../../../../core/fetch/value.coffee":68,"../../../../../util/copy.coffee":206}],312:[function(require,module,exports){
+},{"../../../../../client/pointer.coffee":40,"../../../../../color/legible.coffee":45,"../../../../../color/text.coffee":51,"../../../../../core/fetch/color.coffee":64,"../../../../../core/fetch/value.coffee":68,"../../../../../util/copy.coffee":206}],312:[function(require,module,exports){
 var buckets, buffer, createAxis, fetchValue, fontSizes, formatPower, labelPadding, resetMargins, superscript, textwrap, timeDetect, uniques;
 
 buckets = require("../../../../../util/buckets.coffee");
