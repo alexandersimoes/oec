@@ -78,6 +78,9 @@ configs.default = function(build, container) {
   var tooltip = {
       "children": false,
       "curtain": {"color": curtain},
+      "font": {
+        "color": "#333"
+      },
       "html": {
         "url": function(focus_id){
           var display_id = focus_id.substring(2);
@@ -93,13 +96,12 @@ configs.default = function(build, container) {
           return "/en/explore/builds/"+url_args;
         },
         "callback":function(data){
-          var html_str = '<h3>Related Visualizations</h3>'
+          var buttons = [];
           data.builds.forEach(function(b){
-            html_str += "<a target='_top' href='/en/explore/"+b.url+"' class='related'>"+b.title+"</a>";
-          })
-          html_str += "<hr />";
-          html_str += "<a style='background-color:"+data.profile.color+";color:"+d3plus.color.text(data.profile.color)+";' target='_top' href='"+data.profile.url+"' class='profile'><img src='"+data.profile.icon+"' />"+data.profile.title+"</a>";
-          return html_str;
+            buttons.push("<a target='_top' href='/en/explore/"+b.url+"' class='related'>"+b.title+"</a>");
+          });
+          buttons.push("<a style='background-color:"+d3plus.color.legible(data.profile.color)+";' target='_top' href='"+data.profile.url+"' class='profile'><img src='"+data.profile.icon+"' />"+data.profile.title+"</a>");
+          return buttons.join("");
         }
       },
       "small": 200,
