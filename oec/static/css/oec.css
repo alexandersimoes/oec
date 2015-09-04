@@ -1330,10 +1330,53 @@ body.explore content {
           text-transform: uppercase;
           width: 100%; }
 
-.d3plus_tooltip_html h3 {
-  font-size: 24px;
-  margin: 0 0 10px 0; }
+.d3plus_tooltip {
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
+  font-weight: 400 !important; }
+  .d3plus_tooltip .d3plus_tooltip_data_value {
+    font-weight: 700 !important; }
 
+.d3plus_tooltip_title, .d3plus_tooltip_footer {
+  font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important; }
+
+  .d3plus_tooltip_html {
+    font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
+    font-weight: 400 !important;
+    text-transform: uppercase !important; }
+
+    .d3plus_tooltip_html a.related, .d3plus_tooltip_html a.profile {
+      -webkit-transition: opacity 0.1s;
+      -moz-transition: opacity 0.1s;
+      -o-transition: opacity 0.1s;
+      transition: opacity 0.1s;
+      color: #333;
+      display: block;
+      margin: 10px 0 0 0;
+      opacity: 0.75;
+      padding: 6px 24px 6px 4px;
+      position: relative;
+      text-decoration: none;
+      font-size: 18px;
+      line-height: 28px; }
+      .d3plus_tooltip_html a.related:hover, .d3plus_tooltip_html a.profile:hover {
+        opacity: 1; }
+        .d3plus_tooltip_html a.related:after, .d3plus_tooltip_html a.profile:after {
+          bottom: 8px;
+          content: "\f105";
+          display: block;
+          font-family: FontAwesome;
+          font-size: 30px;
+          -webkit-font-smoothing: antialiased;
+          font-style: normal;
+          font-weight: normal;
+          position: absolute;
+          right: 12px;
+          text-decoration: inherit; }
+
+.d3plus_tooltip_html a.related {
+  padding: 6px 24px 6px 40px; }
   .d3plus_tooltip_html a.related:before {
     background-image: url("/static/img/icons/app/app_tree_map_black.png");
     font-size: 12px;
@@ -1351,63 +1394,12 @@ body.explore content {
     top: 0px;
     width: 38px; }
 
-    .d3plus_tooltip_html a.related {
-      display: block;
-      margin: 10px 0 0 0;
-      padding: 6px 24px 6px 40px;
-      color: #888;
-      display: block;
-      opacity: 0.9;
-      position: relative;
-      text-align: left;
-      text-decoration: none;
-      font-size: 18px;
-      line-height: 28px;
-      margin: 0px 0px 6px 0px;
-      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25); }
+.d3plus_tooltip_html a.profile {
+  color: white !important; }
 
-      .d3plus_tooltip_html a.related:hover {
-        opacity: 1; }
-
-        .d3plus_tooltip_html a.related:after, .d3plus_tooltip_html a.profile:after {
-          bottom: 8px;
-          content: "\f105";
-          display: block;
-          font-family: FontAwesome;
-          font-size: 20px;
-          -webkit-font-smoothing: antialiased;
-          font-style: normal;
-          font-weight: normal;
-          position: absolute;
-          right: 12px;
-          text-decoration: inherit; }
-
-          .d3plus_tooltip_html hr {
-            margin: 20px 40px;
-            padding: 0;
-            border: solid #ccc 1px;
-            height: 1px;
-            display: block; }
-
-            .d3plus_tooltip_html a.profile {
-              display: block;
-              margin: 10px 0 0 0;
-              color: #888;
-              display: block;
-              opacity: 0.9;
-              padding: 6px;
-              position: relative;
-              text-align: left;
-              text-decoration: none;
-              font-size: 18px;
-              line-height: 29px;
-              margin: 0px 0px 6px 0px;
-              box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-              background-color: #330000; }
-
-              .d3plus_tooltip_html a.profile img {
-                width: 30px;
-                margin: 0 10px 0 0; }
+  .d3plus_tooltip_html a.profile img {
+    width: 30px;
+    margin: 0 6px 0 0; }
 body.rankings #container aside {
   width: 150px !important; }
   body.rankings #container table .Rank {
