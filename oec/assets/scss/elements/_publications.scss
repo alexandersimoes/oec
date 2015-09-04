@@ -26,6 +26,8 @@ body.publications {
         h3 {
           font-size: 40px;
           margin-bottom: 20px;
+          letter-spacing: 0;
+          font-weight: 700;
 
           a:hover {
               opacity: 0.7;
@@ -103,6 +105,7 @@ body.publications {
             
             blockquote {
                 font-size: 18px;
+                margin-top: 20px;
             }
           }
 
@@ -141,7 +144,7 @@ body.publications {
     }
 
     &.papers {
-      background: #d1d2d4;
+      background: $lightbackground;
       padding: 40px 5%;
     
       aside {

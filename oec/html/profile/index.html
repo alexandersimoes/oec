@@ -151,7 +151,7 @@
 {% for build in section.builds %}
 <section>
   <aside>
-    <h2>{{ build.title }}</h2>
+    <h3>{{ build.title }}</h3>
     {% if build.subtitle %}
     <p>{{ build.subtitle|safe }}</p>
     {% endif %}
@@ -174,28 +174,36 @@
 {% endfor %}
 </article>
 
-<section>
+<section class="page-nav">
   {% set prev = profile.attr.prev() %}
   {% if prev %}
   {% set image = prev.get_image() %}
-  <a href="{{ prev.get_profile_url() }}" class="profile_header profile_button"{% if not image %} style="background-color: {{ prev.color }};"{% endif %}>
-    {% if image %}
-    <img class="header" src="{{ image }}"></img>
+
+  {% if image %}
+  <div class="header prev" style="background-image: url('{{ image }}');"></div>
+  <a href="{{ prev.get_profile_url() }}" class="profile_header profile_button prev"{% if not image %} style="background-color: {{ prev.color }};"{% endif %}>
+    <h1>
+      <i class="fa fa-caret-left"></i>
+      {{ prev.get_name() }}
+      <img class="icon" src="{{ prev.get_icon() }}">
+    </h1>
     {% endif %}
-    <img class="icon" src="{{ prev.get_icon() }}">
-    <h1>{{ prev.get_name() }}<sub><i class="fa fa-arrow-left"></i>{{ _("Previous Profile") }}</sub></h1>
   </a>
   {% endif %}
 
   {% set next = profile.attr.next() %}
   {% if next %}
   {% set image = next.get_image() %}
-  <a href="{{ next.get_profile_url() }}" class="profile_header profile_button"{% if not image %} style="background-color: {{ prev.color }};"{% endif %}>
-    {% if image %}
-    <img class="header" src="{{ image }}"></img>
+
+  {% if image %}
+  <div class="header next" style="background-image: url('{{ image }}');"></div>
+  <a href="{{ next.get_profile_url() }}" class="profile_header profile_button next"{% if not image %} style="background-color: {{ prev.color }};"{% endif %}>
+    <h1>
+      <img class="icon" src="{{ next.get_icon() }}">
+      {{ next.get_name() }}
+      <i class="fa fa-caret-right"></i>
+    </h1>
     {% endif %}
-    <h1>{{ next.get_name() }}<sub>{{ _("Next Profile") }}<i class="fa fa-arrow-right"></i></sub></h1>
-    <img class="icon" src="{{ next.get_icon() }}">
   </a>
   {% endif %}
 </section>
