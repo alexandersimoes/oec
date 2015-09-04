@@ -168,7 +168,17 @@ blockquote {
 section {
 
     .columns {
-      @include column-count(2);
+      @include column-count(3);
+      max-width: 1600px;
+
+      @media all and (max-width: 1400px) {
+        @include column-count(2);
+      }
+
+      @media all and (max-width: 1000px) {
+        @include column-count(1);
+      }
+
     }
 
 }
