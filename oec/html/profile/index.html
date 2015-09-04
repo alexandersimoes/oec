@@ -248,10 +248,18 @@
         .attr("class", "sparkgroup")
         .attr("transform", "scale(1,1)");
 
-    svg.append("path")
+    var path = svg.append("path")
       .datum(a)
       .attr("class", "sparkpath")
       .attr("d", line);
+
+    var length = path.node().getTotalLength();
+
+    path
+      .attr("stroke-dasharray", length + " " + length)
+      .attr("stroke-dashoffset", length)
+      .transition().duration(2500).delay(500)
+        .attr("stroke-dashoffset", 0)
 
   });
 
@@ -279,6 +287,10 @@
           width = 250,
           height = width;
 
+      var svg = map.append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
       if (!coords.objects[key].lookup) {
         coords.objects[key].lookup = coords.objects[key].geometries.reduce(function(obj, d){
           obj[d.id] = d;
@@ -296,10 +308,6 @@
       geo_ids.forEach(function(g){
         coords.objects[key].geometries.push(coords.objects[key].lookup[g]);
       })
-
-      var svg = map.append("svg")
-        .attr("width", width)
-        .attr("height", height);
 
       var projection = d3.geo.mercator().scale(1).translate([0, 0]),
           path = d3.geo.path().projection(projection),
@@ -386,28 +394,22 @@
         .scale(s)
         .translate(t);
 
-      svg.attr("opacity", 0).append("rect")
-        .attr("opacity", 0.1)
-        .attr("fill", "#ffffff")
-        .attr("width", "100%")
-        .attr("height", "100%");
+      var scale = 0.5;
+      var group = svg.append("g")
+        .attr("transform", "translate("+(width*(scale/2))+","+(height*(scale/2))+")scale("+scale+","+scale+")");
 
-      svg.append("rect")
-        .attr("fill", "none")
-        .attr("stroke", "#aaa")
-        .attr("width", "100%")
-        .attr("height", "100%");
-
-      svg.selectAll("path").data(countries.features)
+      group.selectAll("path").data(countries.features)
         .enter().append("path")
         .attr("d", path)
-        .attr("fill", "#ffffff")
-        .attr("stroke", color)
-        .attr("opacity", function(d){
-          return geo_ids.indexOf(d.id) >= 0 ? 1 : 0.25;
+        .attr("class", "coords")
+        .classed("focus", function(d){
+          return geo_ids.indexOf(d.id) >= 0 ? true : false;
         });
 
-      svg.transition().duration(1000).attr("opacity", 1);
+      map.classed("loaded", true);
+
+      group.transition().duration(1000)
+        .attr("transform", "translate(0,0).scale(1,1)");
 
 
     });

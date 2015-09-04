@@ -98,15 +98,34 @@ body.profile {
   #content {
 
     #topojson {
-      border: 1px solid #aaa;
+      @include transition(opacity 1s);
       @include box(border-box);
       @include flex-size(none);
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid #aaa;
       height: 250px;
       // left: 35px;
+      opacity: 0;
       position: relative;
       // top: $header + 35px;
       width: 250px;
       z-index: 10;
+
+      &.loaded {
+        opacity: 1;
+      }
+
+      .coords {
+        fill: white;
+        opacity: 0.25;
+        stroke: $darkbackground;
+
+        &.focus {
+          opacity: 1;
+        }
+
+      }
+
     }
 
     .profile_header {
@@ -266,6 +285,10 @@ body.profile {
           stroke: white;
           stroke-width: 2px;
         }
+      }
+
+      .years {
+        width: 90%;
       }
 
       .year {

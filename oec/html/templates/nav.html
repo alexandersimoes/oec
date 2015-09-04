@@ -258,11 +258,12 @@
           var ch = h, cw = h*r, l = -(cw/2-w/2), t = 0;
         }
         if (!img.classed("loaded")) {
-          img.classed("loaded", true)
+          img
             .style("width", cw+"px")
             .style("height", ch+"px")
             .style("left", l+"px")
             .style("top", t+"px")
+            .classed("loaded", true);
         }
         else {
           img.transition().duration(250)
