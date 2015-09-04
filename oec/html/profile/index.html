@@ -67,7 +67,7 @@
 </article>
 
 <article>
-<section>
+<section class="intro-article">
 
   <aside>
     {% if g.page_sub_type == "product" %}
@@ -123,58 +123,60 @@
     {% endfor %}
     </div>
   </content>
-
 </section>
-<article>
+</article>
 
+<article>
 <script>var build_data = [];</script>
 {% set title = None %}
 {% for section in profile.sections() %}
 {% if section.title %}
 {% if title != section.title %}
-  {% if title != None %}
-  </article>
-  {% endif %}
-  <article{% if section.source %} class="{{ section.source }}"{% endif %}>
+{% if title != None %}
+
+</article>
+{% endif %}
+
+<article{% if section.source %} class="viz-article {{ section.source }}"{% endif %}>
   {% set title = section.title %}
-{% endif %}
-<section>
-  <aside></aside>
-  <content>
-    <h2>{{ section.title }}</h2>
-    {% if section.subtitle %}
-    <p>{{ section.subtitle|safe }}</p>
-    {% endif %}
-  <content>
-</section>
-{% endif %}
-{% for build in section.builds %}
-<section>
-  <aside>
-    <h3>{{ build.title }}</h3>
-    {% if build.subtitle %}
-    <p>{{ build.subtitle|safe }}</p>
-    {% endif %}
-    {% if not build.iframe %}
-    <p><a href="/{{ g.locale }}/explore/{{ build.build.url() }}">View Full Visualization &raquo;</a>
-    {% endif %}
-  </aside>
+  {% endif %}
+  <h1>{{ section.title }}</h1>
+  <section>
+    <aside></aside>
+    <content> 
+      {% if section.subtitle %}
+      <p>{{ section.subtitle|safe }}</p>
+      {% endif %}
+    <content>
+  </section>
+  {% endif %}
+  {% for build in section.builds %}
+  <section>
+    <aside>
+      <h3>{{ build.title }}</h3>
+      {% if build.subtitle %}
+      <p>{{ build.subtitle|safe }}</p>
+      {% endif %}
+      {% if not build.iframe %}
+      <p><a href="/{{ g.locale }}/explore/{{ build.build.url() }}">View Full Visualization &raquo;</a>
+      {% endif %}
+    </aside>
+    <content>
+      {% if build.iframe %}
+      <iframe class="viz" data-url="{{ build.iframe }}"></iframe>
+      {% else %}
+      <div class="viz" data-title="{{ build.title }}"></div>
+      <script>build_data.push({{ build.build.serialize()|safe }});</script>
+      {% endif %}
+    </content>
 
-  <content>
-    {% if build.iframe %}
-    <iframe class="viz" data-url="{{ build.iframe }}"></iframe>
-    {% else %}
-    <div class="viz" data-title="{{ build.title }}"></div>
-    <script>build_data.push({{ build.build.serialize()|safe }});</script>
-    {% endif %}
-  </content>
-
-</section>
-{% endfor %}
-{% endfor %}
+  </section>
+  {% endfor %}
+  {% endfor %}
 </article>
 
-<section class="page-nav">
+<article>
+  <section class="prof-nav">
   {% set prev = profile.attr.prev() %}
   {% if prev %}
   {% set image = prev.get_image() %}
@@ -210,7 +212,8 @@
     <i class="fa fa-caret-right"></i>
   </a>
   {% endif %}
-</section>
+  </section>
+</article>
 
 <script>
 
