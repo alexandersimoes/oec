@@ -29392,6 +29392,10 @@ module.exports = {
     },
     value: "middle"
   },
+  color: {
+    accepted: [false, String],
+    value: false
+  },
   font: {
     decoration: decoration(),
     family: family(),
@@ -32916,6 +32920,7 @@ var arraySort     = require("../../array/sort.coffee"),
     legible       = require("../../color/legible.coffee"),
     removeTooltip = require("../../tooltip/remove.coffee"),
     smallestGap   = require("../../network/smallestGap.coffee"),
+    textColor     = require("../../color/text.coffee"),
     uniqueValues  = require("../../util/uniques.coffee")
 
 var rings = function(vars) {
@@ -33270,6 +33275,13 @@ var rings = function(vars) {
 
   })
 
+  var labelColor = false;
+  if (vars.background.value &&
+      ["transparent", "none"].indexOf(vars.background.value) < 0 &&
+      d3.hsl(vars.background.value).l < 0.5) {
+    labelColor = textColor(vars.background.value);
+  }
+
   nodes.forEach(function(n) {
 
     if (!vars.small && vars.labels.value) {
@@ -33303,7 +33315,7 @@ var rings = function(vars) {
           "angle": angle,
           "anchor": anchor,
           "valign": "center",
-          "color": legible(fetchColor(vars,n)),
+          "color": labelColor || legible(fetchColor(vars,n)),
           "resize": [8, vars.labels.font.size],
           "background": background,
           "mouse": true
@@ -33319,7 +33331,7 @@ var rings = function(vars) {
           "y": n.d3plus.r+height/2,
           "w": primaryRing,
           "h": height,
-          "color": legible(fetchColor(vars,n)),
+          "color": labelColor || legible(fetchColor(vars,n)),
           "resize": [10,40],
           "background": true,
           "mouse": true
@@ -33395,7 +33407,7 @@ rings.tooltip      = "static"
 
 module.exports = rings
 
-},{"../../array/sort.coffee":36,"../../client/pointer.coffee":40,"../../color/legible.coffee":45,"../../core/fetch/color.coffee":64,"../../core/fetch/value.coffee":68,"../../network/smallestGap.coffee":167,"../../tooltip/remove.coffee":202,"../../util/uniques.coffee":209}],321:[function(require,module,exports){
+},{"../../array/sort.coffee":36,"../../client/pointer.coffee":40,"../../color/legible.coffee":45,"../../color/text.coffee":51,"../../core/fetch/color.coffee":64,"../../core/fetch/value.coffee":68,"../../network/smallestGap.coffee":167,"../../tooltip/remove.coffee":202,"../../util/uniques.coffee":209}],321:[function(require,module,exports){
 var fetchValue, graph, print, scatter, sort, ticks;
 
 fetchValue = require("../../core/fetch/value.coffee");
