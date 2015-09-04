@@ -67,7 +67,7 @@ configs.default = function(build, container) {
   if (background !== "none") {
     edges = d3.hsl(background);
     if (edges.l < 0.5) {
-      edges = d3plus.color.lighter(edges, 0.15);
+      edges = d3plus.color.lighter(edges, 0.3);
     }
     else {
       edges = "#f7f7f7";
