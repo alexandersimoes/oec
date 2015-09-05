@@ -98,6 +98,205 @@ body.profile {
       .author {
         opacity: 1;
       }
+
+      .coords {
+        fill: white;
+        opacity: 0.25;
+        stroke: $darkbackground;
+
+        &.focus {
+          opacity: 1;
+        }
+
+      }
+
+    }
+
+    $stat_width: 250px;
+
+    .stat {
+      @include flex-size(1);
+      @include flex;
+      @include flex-direction(column);
+      color: white;
+      margin-right: 35px;
+      margin-top: 20px;
+      width: $stat_width;
+
+      .stat_text {
+        @include flex;
+        @include flex-direction(row);
+        @include align-items(center);
+        @include justify(flex-start);
+
+        h3 {
+          font-family: $source-sans;
+          font-size: 32px;
+          font-weight: 300;
+          margin: 0 10px 0 0 !important;
+        }
+
+        sub {
+          font-family: $montserrat;
+          font-size: 14px;
+          font-weight: 700;
+          text-transform: uppercase;
+
+          .rank {
+            display: block;
+            font-size: 10px;
+            font-weight: 400;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      .sparkline {
+        height: 35px;
+        margin: 10px 0;
+        width: 90%;
+
+        .sparkpath {
+          fill: none;
+          stroke: white;
+          stroke-width: 2px;
+        }
+      }
+
+      .years {
+        @include flex;
+        @include flex-direction(row);
+        @include justify(space-between);
+        width: 90%;
+      }
+
+      .year {
+        font-size: 11px;
+        font-weight: 700;
+        opacity: 0.9;
+      }
+
+    }
+  }
+
+  .stat {
+    @include flex-size(1);
+    @include flex;
+    @include flex-direction(column);
+    color: white;
+    margin-right: 35px;
+    margin-top: 20px;
+
+    .stat_text {
+      @include flex;
+      @include flex-direction(row);
+      @include align-items(center);
+      @include justify(center);
+
+      h3 {
+        font-family: $source-sans;
+        font-size: 32px;
+        font-weight: 300;
+        margin: 0 10px 0 0 !important;
+      }
+
+      sub {
+        font-family: $montserrat;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+
+        .rank {
+          display: block;
+          font-size: 10px;
+          font-weight: 400;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    .sparkline {
+      height: 35px;
+      margin: 10px 0;
+      width: 100%;
+
+      .sparkpath {
+        fill: none;
+        stroke: white;
+        stroke-width: 2px;
+      }
+    }
+
+    .years {
+      @include flex;
+      @include flex-direction(row);
+      @include justify(space-between);
+    }
+
+    .year {
+      font-size: 11px;
+      font-weight: 700;
+      opacity: 0.9;
+    }
+
+    .stat_flag {
+      text-align: center;
+      img {
+        height: 60px;
+        width: 60px;
+      }
+    }
+
+    &#eci {
+      color: $black;
+      // margin: 0;
+      width: 100%;
+
+      .stat_text {
+        h3 {
+          @include flex-size(none);
+          font-size: 70px;
+          font-weight: 300;
+        }
+
+        sub {
+          font-size: 15px;
+          line-height: 18px;
+          margin-top: 3px;
+
+          .rank {
+            font-size: 12px;
+          }
+        }
+      }
+
+      .sparkline {
+        height: 50px;
+        margin: 10px 0;
+        width: 100%;
+
+        .sparkpath {
+          fill: none;
+          stroke: $darkbackground;
+          stroke-width: 2px;
+        }
+      }
+
+      .years {
+        width: 100%;
+      }
+
+    }
+
+  }
+
+  article .profile_header {
+
+    p img {
+      @include shadow(none);
+      border: none;
+      margin: 10px 0 0 0;
+      width: 100%;
     }
 
     @media all and (max-width: 768px) {
@@ -333,6 +532,7 @@ body.profile {
   }
 
   article .prof-nav {
+    background-color: $darkbackground;
     height: 150px;
     overflow: hidden;
     padding-top: 6px;

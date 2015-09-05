@@ -48,6 +48,10 @@
         <div class="year">{{ stat.sparkline.start }}</div>
         <div class="year">{{ stat.sparkline.end }}</div>
       </div>
+      {% elif "top" in stat.key %}
+      <a class="stat_flag" href="{{ url_for('profile.profile_country', lang=g.locale, attr_id=stat.val[2:]) }}">
+        <img src="/static/img/icons/country/country_{{ stat.val }}.png">
+      </a>
       {% endif %}
     </div>
     {% endif %}
@@ -486,7 +490,7 @@
 
   var classification = "{{ g.page_sub_type }}";
   if (classification === "product") classification = "hs92";
-  d3.select("header").on("click", function(){
+  d3.select("header #title").on("click", function(){
     search(classification);
   })
 

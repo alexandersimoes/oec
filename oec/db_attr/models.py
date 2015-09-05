@@ -163,7 +163,7 @@ class Country(db.Model, AutoSerialize):
         if self.image_link:
             return "/static/img/headers/country/{}.jpg".format(self.id)
         else:
-            return None
+            return "/static/img/headers/country/{}.jpg".format(self.id[:2])
 
     def get_author(self):
         if self.image_link:
@@ -172,7 +172,11 @@ class Country(db.Model, AutoSerialize):
                 "name": self.image_author
             }
         else:
-            return None
+            parent = self.__class__.query.get(self.id[:2])
+            return {
+                "link": parent.image_link,
+                "name": parent.image_author
+            }
 
     def get_top(self, limit=10, year=None):
         from oec.db_data.hs92_models import Yp

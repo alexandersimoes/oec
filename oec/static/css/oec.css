@@ -125,12 +125,31 @@
         text-align: right; }
 
   section .columns {
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    column-count: 2;
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
     -webkit-column-gap: 35px;
     -moz-column-gap: 35px;
-    column-gap: 35px; }
+    column-gap: 35px;
+    max-width: 1600px; }
+    @media all and (max-width: 1400px) {
+      section .columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+        -webkit-column-gap: 35px;
+        -moz-column-gap: 35px;
+        column-gap: 35px;   }
+}
+      @media all and (max-width: 1000px) {
+        section .columns {
+          -webkit-column-count: 1;
+          -moz-column-count: 1;
+          column-count: 1;
+          -webkit-column-gap: 35px;
+          -moz-column-gap: 35px;
+          column-gap: 35px;   }
+}
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6,
 p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
 em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
@@ -1009,9 +1028,9 @@ body.profile {
       flex-direction: row;
       -webkit-align-items: center;
       align-items: center;
-      -webkit-justify-content: flex-start;
-      -moz-justify-content: flex-start;
-      justify-content: flex-start; }
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      justify-content: center; }
       body.profile .stat .stat_text h3 {
         font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
         font-size: 32px;
@@ -1030,7 +1049,7 @@ body.profile {
     body.profile .stat .sparkline {
       height: 35px;
       margin: 10px 0;
-      width: 90%; }
+      width: 100%; }
       body.profile .stat .sparkline .sparkpath {
         fill: none;
         stroke: white;
@@ -1049,39 +1068,43 @@ body.profile {
       flex-direction: row;
       -webkit-justify-content: space-between;
       -moz-justify-content: space-between;
-      justify-content: space-between;
-      width: 90%; }
+      justify-content: space-between; }
       body.profile .stat .year {
         font-size: 11px;
         font-weight: 700;
         opacity: 0.9; }
-        body.profile .stat#eci {
-          color: #333;
-          width: 100%; }
-          body.profile .stat#eci .stat_text h3 {
-            -webkit-box-flex: none;
-            -moz-box-flex: none;
-            -webkit-flex: none;
-            -ms-flex: none;
-            flex: none;
-            font-size: 70px;
-            font-weight: 300; }
-            body.profile .stat#eci .stat_text sub {
-              font-size: 15px;
-              line-height: 18px;
-              margin-top: 3px; }
-              body.profile .stat#eci .stat_text sub .rank {
-                font-size: 12px; }
-          body.profile .stat#eci .sparkline {
-            height: 50px;
-            margin: 10px 0;
-            width: 100%; }
-            body.profile .stat#eci .sparkline .sparkpath {
-              fill: none;
-              stroke: #212831;
-              stroke-width: 2px; }
-          body.profile .stat#eci .years {
-            width: 100%; }
+        body.profile .stat .stat_flag {
+          text-align: center; }
+          body.profile .stat .stat_flag img {
+            height: 60px;
+            width: 60px; }
+    body.profile .stat#eci {
+      color: #333;
+      width: 100%; }
+      body.profile .stat#eci .stat_text h3 {
+        -webkit-box-flex: none;
+        -moz-box-flex: none;
+        -webkit-flex: none;
+        -ms-flex: none;
+        flex: none;
+        font-size: 70px;
+        font-weight: 300; }
+        body.profile .stat#eci .stat_text sub {
+          font-size: 15px;
+          line-height: 18px;
+          margin-top: 3px; }
+          body.profile .stat#eci .stat_text sub .rank {
+            font-size: 12px; }
+      body.profile .stat#eci .sparkline {
+        height: 50px;
+        margin: 10px 0;
+        width: 100%; }
+        body.profile .stat#eci .sparkline .sparkpath {
+          fill: none;
+          stroke: #212831;
+          stroke-width: 2px; }
+      body.profile .stat#eci .years {
+        width: 100%; }
   body.profile article .profile_header p img {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
