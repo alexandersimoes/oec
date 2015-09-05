@@ -291,7 +291,7 @@ class Country(Profile):
         dv_munic_origin_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false".format(self.attr.id)
         dv_munic_origin_link = "<a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>".format(self.attr.id)
         dv_section = {
-            "title": "Additional data on {} from other sites created by members of our team:".format(self.attr.get_name()),
+            "title": "Additional data on {} from our team".format(self.attr.get_name()),
             "source": "dataviva",
             "builds": [
                 {"title": u"Brazilian Municipalities that import from {}".format(self.attr.get_name()), "iframe": dv_munic_dest_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that imported products from {}.<br />{}".format(self.attr.get_name(), dv_munic_dest_link)},
@@ -486,7 +486,7 @@ class Product(Profile):
             dv_munic_exporters_link = "<a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>".format(self.attr.id)
             dv_munic_importers_link = "<a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>".format(self.attr.id)
             dv_section = {
-                "title": "Additional data on {} from other sites created by members of our team:".format(self.attr.get_name()),
+                "title": "Additional data on {} from our team".format(self.attr.get_name()),
                 "source": "dataviva",
                 "builds": [
                     {"title": u"{} exporters in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_exporters_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that export {}.<br />{}".format(dv_hs.get_name(), dv_munic_exporters_link)},

@@ -5,10 +5,12 @@ body.profile {
     &:nth-of-type(even) {
       background-color: white;
       color: $black;
-
-      // content {
-      //   border-bottom: 1px solid $lightbordercolor;
-      // }
+      
+      &.viz-article {
+        aside {
+          border-bottom: 1px dotted $lightbordercolor;
+        }
+      }
 
       p {
         color: $black;
@@ -23,13 +25,15 @@ body.profile {
       }
     }
 
-    &:nth-of-type(odd) {
+    &:nth-of-type(odd), &.titled-section {
       background-color: $darkbackground;
       color: white;
 
-      // content {
-      //   border-bottom: 1px solid $darkbordercolor;
-      // }
+      &.viz-article {
+        aside {
+          border-bottom: 1px dotted $darkbordercolor;
+        }
+      }
 
       p {
         color: white;
@@ -47,9 +51,19 @@ body.profile {
       background: white url('/static/img/dataviva.png') repeat-x 0 0;
       color: $black;
 
-      // content {
-      //   border-bottom: 0;
-      // }
+      aside {
+        border-bottom: 1px dotted $lightbordercolor;
+      }
+
+      section:last-child aside {
+        border-bottom: 0;
+      }
+
+      h1 {
+        border-top: 0;
+        margin: 0px 60px;
+        padding-top: 30px;
+      }
 
       p {
         color: $black;
@@ -63,9 +77,11 @@ body.profile {
       background-color: #F9F6E3;
       color: $black;
 
-      // content {
-      //   border-bottom: 0;
-      // }
+      h1 {
+        border-top: 0 !important;
+        margin: 0px 60px !important;
+        padding-top: 30px !important;
+      }
 
       p {
         color: $black;
@@ -76,20 +92,147 @@ body.profile {
     }
   }
 
-  article .intro-article {
+  article .profile_header {
+
+    &:hover {
+      .author {
+        opacity: 1;
+      }
+    }
+
+    @media all and (max-width: 768px) {
+      @include flex-direction(column);
+      &#stats {
+        @include flex-direction(row);
+      }
+    }
+
+    #title {
+      @include flex;
+      @include align-items(center);
+      @include flex-direction(row);
+      margin: 20px 35px 10px 0;
+
+      .icon {
+        @include flex-size(none);
+        height: 80px;
+        margin: 0 20px 0 0;
+        width: 80px;
+        z-index: 10;
+
+        @media all and (max-width: 768px) {
+          margin: 0;
+        }
+      }
+
+      h1 {
+        font-size: 65px;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        i {
+          opacity: 0.5;
+        }
+
+        sub {
+          color: white;
+          display: block;
+          font-size: 11px;
+          text-shadow: $shadow;
+        }
+
+        &:after {
+          content: url('/static/img/nav/search.png');
+          @include transition(opacity 1s);
+          opacity: 0;
+          position: absolute;
+          margin-left: 15px;
+          margin-top: 2px;
+          cursor: pointer;
+        }
+
+        &:hover:after {          
+          opacity: 0.9;
+        }
+      }
+    }
+
+    .author {
+      @include transition(opacity 0.5s);
+      bottom: 3px;
+      color: white;
+      font-size: 9px;
+      font-weight: 300;
+      opacity: 0;
+      position: absolute;
+      right: 7px;
+      text-shadow: $shadow;
+
+      i {
+        display: inline-block;
+        margin: 2px 5px 0;
+      }
+
+      a {
+        color: white;
+        &:hover {
+          border-color: transparent;
+        }
+      }
+    }
+
+    #stats {
+      @include flex;
+      @include flex-direction(row);
+      @include align-items(flex-start);
+      @include justify(space-between);
+      margin-bottom: 17px;
+      position: relative;
+    }
+
+    #title, #stats {
+      margin-left: 60px;
+    }
+    
+    &.country {
+      #title, #stats {
+        margin-left: 350px;
+      }
+    }
+
+    &.product {
+      #stats {
+        margin: 25px 60px;
+      }
+    }
+
+  }
+
+  article.intro-article {
+    
+    content {
+      margin: 45px 60px 45px 0 !important;
+    }
+
+    aside {
+      margin-top: 45px !important;
+    }
+    
     div.columns p {
       text-align: justify;
     }
 
     #topojson {
-      @include transition(opacity 1s);
-      @include box(border-box);
+      // @include transition(opacity 1s);
       @include flex-size(none);
       background-color: rgba(255, 255, 255, 0.2);
       border: 1px solid #aaa;
       height: 250px;
       // left: 35px;
-      opacity: 0;
+      // opacity: 0;
+      opacity: 1;
       position: relative;
       // top: $header + 35px;
       width: 250px;
@@ -102,7 +245,7 @@ body.profile {
       .coords {
         fill: white;
         opacity: 0.25;
-        stroke: $darkbackground;
+        stroke: $darkbordercolor;
 
         &.focus {
           opacity: 1;
@@ -111,71 +254,146 @@ body.profile {
       }
 
     }
+  
+  }
+  
+  article.product ~ article.titled-section {
+    h1 {
+      border-top: 0;
+      margin: 0 60px -15px;
+      padding-top: 15px;
+    }
+  }
 
-    $stat_width: 250px;
+  article.viz-article {
+    margin-top: 15px;
 
-    .stat {
-      @include flex-size(1);
+    p {
+      text-align: left;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+    
+    aside {
+      padding: 40px 0;
+      margin: 0 40px 0 60px !important;
+    }
+
+    content {
+      margin: 40px 60px 40px 0 !important;
+    }
+
+    section:last-child aside {
+      border-bottom: 0;
+    }
+  }
+
+  article.titled-section {
+    h1 {
+      border-top: 1px solid $darkbordercolor;
+      margin: 30px 60px -15px;
+      padding-top: 30px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    p {
+      text-align: left;
+    }
+
+    p img {
+      @include shadow(none);
+      border: none;
+      margin: 20px 0 0 0;
+      width: 100%;
+    }
+
+    section.subtitle-section {
+
+      content {
+        margin: 30px 40px 0 0 !important;
+        padding: 0;
+
+        p {
+          margin-bottom: 0 !important;
+        }
+      }
+
+      aside {
+        margin: 0 40px !important;
+        border-bottom: 0;
+      }
+    }
+  }
+
+  article .prof-nav {
+    height: 150px;
+    overflow: hidden;
+    padding-top: 6px;
+    width: 100vw;
+
+    div.header {
+      background-position: 50% 80%;
+      height: 150px;
+      position: absolute;
+      width: 50vw;
+      @include filter(saturate(90%) brightness(0.9) contrast(1.1));
+
+      &.prev { left: -3px; }
+
+      &.next{ right: -3px; }
+    }
+
+    a.profile_button {
       @include flex;
-      @include flex-direction(column);
-      color: white;
-      margin-right: 35px;
-      margin-top: 20px;
-      width: $stat_width;
+      @include flex-direction(row);
+      @include align-items(center);
+      @include gradient(rgba(0,0,0,0), $darkbackground);
+      height: 150px;
+      width: 50vw;
+      z-index: 1;
 
-      .stat_text {
-        @include flex;
-        @include flex-direction(row);
-        @include align-items(center);
+      &.prev {
         @include justify(flex-start);
-
-        h3 {
-          font-family: $source-sans;
-          font-size: 32px;
-          font-weight: 300;
-          margin: 0 10px 0 0 !important;
-        }
-
-        sub {
-          font-family: $montserrat;
-          font-size: 14px;
-          font-weight: 700;
-          text-transform: uppercase;
-
-          .rank {
-            display: block;
-            font-size: 10px;
-            font-weight: 400;
-            white-space: nowrap;
-          }
-        }
+        text-align: left;
+        i { padding-left: 20px; }
       }
 
-      .sparkline {
-        height: 35px;
-        margin: 10px 0;
-        width: 90%;
+      &.next {
+        @include justify(flex-end);
+        text-align: right;
+        i { padding-right: 20px; }
+      }
 
-        .sparkpath {
-          fill: none;
-          stroke: white;
-          stroke-width: 2px;
+      i {
+        @include flex-size(none);
+        font-size: 35px;
+        margin: 6px 10px 0;
+      }
+
+      h1 {
+        font-size: 50px;
+        line-height: 50px;
+        opacity: 0.8;
+        text-shadow: 1px 1px 6px $darkbackground;
+
+        &:hover {
+          opacity: 1;
+          text-shadow: 0px 0px 1px white, 1px 1px 6px $darkbackground;
         }
       }
 
-      .years {
-        @include flex;
-        @include flex-direction(row);
-        @include justify(space-between);
-        width: 90%;
+      .icon {
+        @include flex-size(none);
+        margin: 3px 15px 0;
+        max-height: 50px;
       }
-
-      .year {
-        font-size: 11px;
-        font-weight: 700;
-        opacity: 0.9;
-      }
-
     }
   }
 
@@ -185,7 +403,7 @@ body.profile {
     @include flex-direction(column);
     color: white;
     margin-right: 35px;
-    margin-top: 20px;
+    margin-top: 5px;
 
     .stat_text {
       @include flex;
@@ -242,20 +460,22 @@ body.profile {
 
     &#eci {
       color: $black;
-      // margin: 0;
       width: 100%;
+      margin-top: 35px;
+
+      // $stat_width: 250px;
 
       .stat_text {
         h3 {
           @include flex-size(none);
-          font-size: 70px;
+          font-size: 55px;
           font-weight: 300;
         }
 
         sub {
-          font-size: 15px;
-          line-height: 18px;
-          margin-top: 3px;
+          font-size: 14px;
+          line-height: 14px;
+          margin-top: 5px;
 
           .rank {
             font-size: 12px;
@@ -283,216 +503,6 @@ body.profile {
 
   }
 
-  article .profile_header {
-
-    p img {
-      @include shadow(none);
-      border: none;
-      margin: 10px 0 0 0;
-      width: 100%;
-    }
-
-    @media all and (max-width: 768px) {
-      @include flex-direction(column);
-      &#stats {
-        @include flex-direction(row);
-      }
-    }
-
-    #title {
-      @include flex;
-      @include align-items(center);
-      @include flex-direction(row);
-      margin: 20px 35px 10px 0;
-
-      .icon {
-        @include flex-size(none);
-        height: 80px;
-        margin: 0 20px 0 0;
-        width: 80px;
-        z-index: 10;
-
-        @media all and (max-width: 768px) {
-          margin: 0;
-        }
-      }
-
-      h1 {
-        font-size: 65px;
-
-        &:hover {
-          cursor: default;
-        }
-
-        i {
-          opacity: 0.5;
-        }
-
-        sub {
-          color: white;
-          display: block;
-          font-size: 11px;
-          text-shadow: $shadow;
-        }
-
-        &:after {
-          position: absolute;
-          margin-left: 15px;
-          margin-top: 2px;
-          cursor: pointer;
-        }
-
-        &:hover:after {
-          content: url('/static/img/nav/search.png');
-          opacity: 0.9;
-        }
-      }
-    }
-
-    .author {
-      @include transition(opacity 0.5s);
-      bottom: 5px;
-      color: white;
-      font-size: 11px;
-      opacity: 0;
-      position: absolute;
-      right: 10px;
-      text-shadow: $shadow;
-
-      i {
-        display: inline-block;
-        margin: 2px 5px 0;
-      }
-
-      a {
-        color: white;
-        &:hover {
-          border-color: transparent;
-        }
-      }
-
-      &:hover {
-        cursor: pointer;
-        .author {
-          opacity: 1;
-        }
-      }
-    }
-
-    #stats {
-      @include flex;
-      @include flex-direction(row);
-      @include align-items(flex-start);
-      @include justify(space-between);
-      margin-bottom: 20px;
-      position: relative;
-    }
-
-    #title, #stats {
-      margin-left: 35px;
-    }
-
-    &.country {
-      #title, #stats {
-        margin-left: 320px;
-      }
-    }
-
-  }
-
-  article.viz-article {
-    p {
-      text-align: left;
-    }
-
-    h3 {
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      padding: 20px 35px 35px;
-
-      &~ section {
-        content {
-          padding: 0;
-
-          p {
-            margin-bottom: 0 !important;
-          }
-        }
-      }
-
-      &~ aside {
-        margin: 20px 35px;
-      }
-    }
-  }
-
-  article .prof-nav {
-    height: 150px;
-    overflow: hidden;
-    padding-top: 6px;
-    width: 100vw;
-
-    div.header {
-      background-position: 50% 80%;
-      height: 150px;
-      position: absolute;
-      width: 50vw;
-      @include filter(saturate(90%) brightness(0.9) contrast(1.1));
-
-      &.prev { left: 0; }
-
-      &.next{ right: 0; }
-    }
-
-    a.profile_button {
-      @include flex;
-      @include flex-direction(row);
-      @include align-items(center);
-      @include gradient(rgba(0,0,0,0), $darkbackground);
-      height: 150px;
-      width: 50vw;
-      z-index: 1;
-
-      &.prev {
-        @include justify(flex-start);
-        text-align: left;
-        i { padding-left: 20px; }
-      }
-
-      &.next {
-        @include justify(flex-end);
-        text-align: right;
-        i { padding-right: 20px; }
-      }
-
-      i {
-        @include flex-size(none);
-        font-size: 35px;
-        margin: 10px 10px 0;
-      }
-
-      h1 {
-        font-size: 50px;
-        line-height: 50px;
-        opacity: 0.9;
-        text-shadow: 1px 1px 6px $darkbackground;
-
-        &:hover {
-          opacity: 1;
-          text-shadow: 0px 0px 1px white, 1px 1px 6px $darkbackground;
-        }
-      }
-
-      .icon {
-        @include flex-size(none);
-        margin: 3px 10px 0;
-        max-height: 50px;
-      }
-    }
-  }
-
   ul.heirarchy {
     border: 1px solid #BBBDC0;
     color: $darkbackground;
@@ -502,13 +512,23 @@ body.profile {
     font-weight: 400;
     line-height: 17px;
     list-style-type: none;
+    margin-bottom: 45px;
     overflow: scroll;
-    padding: 5px 15px 15px;
+    padding: 5px 20px 15px 15px;
 
     li {
       padding: 3px 0;
       a {
-        color: $darkbackground;
+        color: $darklinkcolor;
+        font-size: 16px;
+        line-height: 1.3;
+        &:hover {
+          opacity: 0.7;
+        }
+
+        span {
+          font-weight: 700;
+        }
       }
     }
 
@@ -517,8 +537,8 @@ body.profile {
     }
 
     .depth2 {
-      font-size: 30px;
-      line-height: 33px;
+      font-size: 22px;
+      line-height: 35px;
     }
 
     .depth6 {
@@ -527,6 +547,17 @@ body.profile {
 
     .depth8 {
       margin-left: 20px;
+    }
+  }
+
+   .viz #d3plus_drawer {
+    margin-bottom: -15px;
+
+    .d3plus_title {
+      font-family: $montserrat !important;
+      font-size: 12px !important;
+      font-weight: 400 !important;
+      text-transform: uppercase;
     }
   }
 }

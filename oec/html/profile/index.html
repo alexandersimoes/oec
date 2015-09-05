@@ -5,7 +5,7 @@
 
 {% block body %}
 
-<article>
+<article class="{{ g.page_sub_type }}">
 <header class="profile_header {{ g.page_sub_type }}">
   {% set image = profile.attr.get_image() %}
   {% if image %}
@@ -66,8 +66,8 @@
 </header>
 </article>
 
-<article>
-<section class="intro-article">
+<article class="intro-article">
+<section>
 
   <aside>
     {% if g.page_sub_type == "product" %}
@@ -76,7 +76,7 @@
       <li class="depth{{ attr.id|length }}{% if attr.id == profile.attr.id %} active{% endif %}">
         {% if attr.id|length != 2 %}
         <a href="{{ attr.get_profile_url() }}">
-          {{ attr.get_display_id() }}. {{ attr.get_attr_name() }}
+          <span>{{ attr.get_display_id() }}.</span> {{ attr.get_attr_name() }}
         </a>
         {% else %}
         {{ attr.get_attr_name() }}
@@ -127,33 +127,35 @@
 </article>
 
 <article class="viz-article">
-<script>var build_data = [];</script>
-{% set title = None %}
-{% for section in profile.sections() %}
-{% if section.title %}
-{% if title != section.title %}
-{% if title != None %}
+  <script>var build_data = [];</script>
+  {% set title = None %}
+  {% for section in profile.sections() %}
+  {% if section.title %}
+  {% if title != section.title %}
+  {% if title != None %}
 
+  {% endif %}
 </article>
-{% endif %}
 
-<article{% if section.source %} class="viz-article {{ section.source }}"{% endif %}>
+<!-- <article{% if section.source %} class="{{ section.source }}"{% endif %}> -->
+
+<article class="titled-section{% if section.source %} {{ section.source }}{% endif %}">
   {% set title = section.title %}
   {% endif %}
   <h1>{{ section.title }}</h1>
-  <section>
+  {% if section.subtitle %}
+  <section class="subtitle-section">
     <aside></aside>
     <content>
-      {% if section.subtitle %}
       <p>{{ section.subtitle|safe }}</p>
-      {% endif %}
-    <content>
+    </content>
   </section>
+  {% endif %}
   {% endif %}
   {% for build in section.builds %}
   <section>
     <aside>
-      <h3>{{ build.title }}</h3>
+      <h2>{{ build.title }}</h2>
       {% if build.subtitle %}
       <p>{{ build.subtitle|safe }}</p>
       {% endif %}
@@ -185,7 +187,7 @@
   <div class="header prev" style="background-image: url('{{ image }}');"></div>
   {% endif %}
   <a href="{{ prev.get_profile_url() }}" class="profile_header profile_button prev"{% if not image %} style="background-color: {{ prev.color }};"{% endif %}>
-    <i class="fa fa-caret-left"></i>
+    <i class="fa fa-angle-left"></i>
     <h1>
       {{ prev.get_name() }}
     </h1>
@@ -209,7 +211,7 @@
     <h1>
       {{ next.get_name() }}
     </h1>
-    <i class="fa fa-caret-right"></i>
+    <i class="fa fa-angle-right"></i>
   </a>
   {% endif %}
   </section>
@@ -282,7 +284,7 @@
   if (!map.empty()) {
 
     var header_height = d3.select("header").node().offsetHeight;
-    map.style("margin-top",-header_height+"px");
+    map.style("margin-top",-header_height-10 +"px");
 
     load("/static/json/country_coords.json", function(coords){
 
@@ -387,7 +389,7 @@
       }
 
       var b = path.bounds(country),
-          zoom = 0.75,
+          zoom = 0.70,
           s = zoom / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
           t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
 
@@ -398,7 +400,7 @@
         .scale(s)
         .translate(t);
 
-      var scale = 0.5;
+      var scale = 1;
       var group = svg.append("g")
         .attr("transform", "translate("+(width*(scale/2))+","+(height*(scale/2))+")scale("+scale+","+scale+")");
 
@@ -412,9 +414,10 @@
 
       map.classed("loaded", true);
 
-      group.transition().duration(1000)
-        .attr("transform", "translate(0,0).scale(1,1)");
+      group.attr("transform", "translate(0,0).scale(1,1)");
 
+      // group.transition().duration(180)
+      //   .attr("transform", "translate(0,0).scale(1,1)");
 
     });
 
@@ -424,7 +427,7 @@
   if (!heirarchy.empty()) {
     function heirarchyHeight() {
       var ch = d3.select(".columns").node().offsetHeight;
-      heirarchy.style("max-height", ch - 25 + "px");
+      heirarchy.style("max-height", ch + 60 + "px");
     }
     heirarchyHeight();
     resizeFunctions.push(heirarchyHeight);
