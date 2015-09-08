@@ -22438,7 +22438,7 @@ module.exports = function(d, vars, stroke) {
   if ((!vars.active.value && !vars.temp.value) || active === true || (active && total && active >= total && !temp) || (active && !total)) {
     return fetchColor(vars, d);
   } else if (vars.active.spotlight.value) {
-    return "#eee";
+    return vars.color.missing;
   } else {
     return lighter(fetchColor(vars, d), .75);
   }

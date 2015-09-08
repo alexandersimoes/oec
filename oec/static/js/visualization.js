@@ -169,7 +169,8 @@ configs.default = function(build, container) {
       background = "#212831";
     }
     else {
-      background = "#fff";
+      background = "#212831";
+      // background = "#fff";
     }
     text = d3plus.color.text(background);
     curtain = background;
@@ -177,13 +178,15 @@ configs.default = function(build, container) {
 
   var edges = "#ddd",
       grid = "#ccc",
+      missing = "#eee",
       chart = background,
       ui_color = {
         "primary": "#eee"
       };
 
   if (background !== "none" && d3.hsl(background).l < 0.5) {
-    edges = d3plus.color.lighter(background, 0.3);
+    missing = d3plus.color.lighter(background, 0.5);
+    edges = d3plus.color.lighter(background, 0.2);
     grid = background;
     chart = d3plus.color.lighter(background, 0.1);
     // grid = "#a9a9a9";
@@ -257,7 +260,10 @@ configs.default = function(build, container) {
       }
     },
     "background": background,
-    "color": { "heatmap": ["#cccccc","#0085BF"] },
+    "color": {
+      "heatmap": ["#cccccc","#0085BF"],
+      "missing": missing
+    },
     "edges": {"color": edges},
     "focus": {"tooltip": false},
     "font": {
