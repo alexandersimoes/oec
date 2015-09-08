@@ -123,18 +123,18 @@
 
   <div class="control_container">
     <h3>{{ _('Embed') }}</h3>
-    <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://atlas.media.mit.edu/{{ g.locale }}/explore/embed/{{ current_build.url() }}?controls=false&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
+    <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://atlas.media.mit.edu/{{ g.locale }}/visualize/embed/{{ current_build.url() }}?controls=false&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
   </div>
 
   <div class="control_container" id="share">
     <h3>{{ _('Share') }}</h3>
-    <a href="http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&display=popup&app_id={{facebook_id}}&name={{ current_build.get_name()|striptags|safe }} ({{ current_build.get_year() }})&link=http://atlas.media.mit.edu/{{ g.locale }}/explore/{{ current_build.url() }}&redirect_uri=http://atlas.media.mit.edu/close/&picture=http://atlas.media.mit.edu/static/img/touchicon.png" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=300')" id="Facebook" title="Facebook">
+    <a href="http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&display=popup&app_id={{facebook_id}}&name={{ current_build.get_name()|striptags|safe }} ({{ current_build.get_year() }})&link=http://atlas.media.mit.edu/{{ g.locale }}/visualize/{{ current_build.url() }}&redirect_uri=http://atlas.media.mit.edu/close/&picture=http://atlas.media.mit.edu/static/img/touchicon.png" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=300')" id="Facebook" title="Facebook">
       <i class="fa fa-facebook"></i>
     </a>
-    <a href="https://twitter.com/share?url=http://atlas.media.mit.edu/{{ g.locale }}/explore/{{ current_build.url() }}{% if g.locale != 'en' %}?lang={{ g.locale }}{% endif %}&text={{ current_build.get_name()|striptags|safe }} ({{ current_build.get_year() }})&hashtags=oec" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=300')" id="Twitter" title="Tweet" data-lang="{{ g.locale }}"  xml:lang="{{ g.locale }}">
+    <a href="https://twitter.com/share?url=http://atlas.media.mit.edu/{{ g.locale }}/visualize/{{ current_build.url() }}{% if g.locale != 'en' %}?lang={{ g.locale }}{% endif %}&text={{ current_build.get_name()|striptags|safe }} ({{ current_build.get_year() }})&hashtags=oec" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=300')" id="Twitter" title="Tweet" data-lang="{{ g.locale }}"  xml:lang="{{ g.locale }}">
       <i class="fa fa-twitter"></i>
     </a>
-    <a href="https://plus.google.com/share?url=http://atlas.media.mit.edu/{{ g.locale }}/explore/{{ current_build.url() }}&hl={{ g.locale }}" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Google+', 'width=640,height=300')" id="Google" title="Google+">
+    <a href="https://plus.google.com/share?url=http://atlas.media.mit.edu/{{ g.locale }}/visualize/{{ current_build.url() }}&hl={{ g.locale }}" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Google+', 'width=640,height=300')" id="Google" title="Google+">
       <i class="fa fa-google-plus"></i>
     </a>
     <a href="#" id="shorten">
@@ -149,7 +149,7 @@
 
   <!-- Hidden <FORM> to submit the SVG data to the server, which will convert it
          to SVG/PDF/PNG downloadable file. -->
-  <form id="download" action="/{{ g.locale }}/explore/download/" method="post">
+  <form id="download" action="/{{ g.locale }}/visualize/download/" method="post">
     <input type="hidden" name="url" value="" />
     <input type="hidden" name="title" value="" />
     <input type="hidden" name="format" value="svg" />
@@ -390,7 +390,7 @@ if(!in_explore_page){
 
 if (in_the_wild) {
   viz.footer("{{ _('Brought to you by') }}: The Observatory of Economic Complexity")
-  viz.footer({"link": window.location.origin+"/{{ g.locale }}/explore/{{ current_build.url() }}"})
+  viz.footer({"link": window.location.origin+"/{{ g.locale }}/visualize/{{ current_build.url() }}"})
 }
 
 if(vars.controls == "false"){
@@ -907,9 +907,9 @@ d3.selectAll("button#build").on("click", function(){
     }
   }
 
-  var new_url =  "/{{ g.locale }}/explore/"
+  var new_url =  "/{{ g.locale }}/visualize/"
   if(curr_window.location.pathname.indexOf("embed") > -1){
-    new_url = "/{{ g.locale }}/explore/embed/"
+    new_url = "/{{ g.locale }}/visualize/embed/"
   }
   new_url += "{{ current_build.app.type }}/"
   new_url += classification + "/"
@@ -956,7 +956,7 @@ d3.select("#share #shorten").on("click", function(){
     }
   }
 
-  d3.json("/{{ g.locale }}/explore/shorten/")
+  d3.json("/{{ g.locale }}/visualize/shorten/")
     .header("Content-type","application/x-www-form-urlencoded")
     .post("url="+url, function(error,data) {
       if (data.error) {
@@ -998,7 +998,7 @@ d3.selectAll("#view_as_text a.text").on("click", function(){
 
 // View fullscreen
 d3.selectAll("#view_as_text a.fullscreen").on("click", function(){
-  newwindow=window.open("/explore/embed/{{ current_build.url() }}", "name", "height=600, width=800");
+  newwindow=window.open("/visualize/embed/{{ current_build.url() }}", "name", "height=600, width=800");
   if (window.focus) {newwindow.focus()}
   return false;
   d3.event.preventDefault();
@@ -1054,7 +1054,7 @@ d3.selectAll("#download a").on("click", function(format, save, callback){
   // POST request and prompts the user to download the file
   if(save){
 
-    d3.json("/{{ g.locale }}/explore/download/")
+    d3.json("/{{ g.locale }}/visualize/download/")
         .header("Content-Type", "application/json")
         .post(JSON.stringify({"title":title, "format":format, "save":save, "content": svg_xml}), function(error, data) {
           if(callback) { callback() }

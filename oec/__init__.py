@@ -79,7 +79,7 @@ app.jinja_env.filters['langify'] = langify
 app.jinja_env.filters['num_format'] = num_format
 
 # Load the modules for each different section of the site
-for view in ["about", "db_attr", "db_data", "general", "explore", "profile", "rankings", "resources"]:
+for view in ["about", "db_attr", "db_data", "general", "explore", "profile", "rankings", "resources", "visualize"]:
     mod = __import__("oec.{}.views".format(view), fromlist=["mod"])
     mod = getattr(mod, "mod")
     app.register_blueprint(mod)

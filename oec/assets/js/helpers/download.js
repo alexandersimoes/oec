@@ -26,7 +26,7 @@ function download(container, csv_data){
         var content = JSON.stringify(csv_data);
       }
       
-      var form = d3.select("body").append("form").attr("id", "download").attr("action", "/en/explore/download/").attr("method", "post");
+      var form = d3.select("body").append("form").attr("id", "download").attr("action", "/en/visualize/download/").attr("method", "post");
       form.append("input").attr("type", "text").attr("name", "content").attr("value", content);
       form.append("input").attr("type", "text").attr("name", "format").attr("value", format);
       form.append("input").attr("type", "text").attr("name", "title").attr("value", title);

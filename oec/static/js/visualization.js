@@ -119,7 +119,7 @@ function share(build){
       }
     }
     // make post request to server for short URL
-    d3.json("/"+lang+"/explore/shorten/")
+    d3.json("/"+lang+"/visualize/shorten/")
       .header("Content-type","application/x-www-form-urlencoded")
       .post("url="+url, function(error, data) {
         if (data.error) {
@@ -179,6 +179,7 @@ configs.default = function(build, container) {
       ui_color = {
         "primary": "#eee"
       };
+
   if (background !== "none" && d3.hsl(background).l < 0.5) {
     edges = d3plus.color.lighter(background, 0.3);
     grid = background;
@@ -190,7 +191,7 @@ configs.default = function(build, container) {
   }
 
   var large_tooltip_width = 150;
-  if (window.location.href.indexOf("/explore/") > 0 && window.innerWidth > 400) {
+  if (window.location.href.indexOf("/visualize/") > 0 && window.innerWidth > 400) {
     large_tooltip_width = 250;
   }
 
@@ -211,13 +212,13 @@ configs.default = function(build, container) {
               url_args += "&"+filter+"_id="+build[filter].display_id;
             }
           })
-          console.log("/en/explore/builds/"+url_args)
-          return "/en/explore/builds/"+url_args;
+          console.log("/en/visualize/builds/"+url_args)
+          return "/en/visualize/builds/"+url_args;
         },
         "callback":function(data){
           var buttons = [];
           data.builds.forEach(function(b){
-            buttons.push("<a target='_top' href='/en/explore/"+b.url+"' class='related'>"+b.title+"</a>");
+            buttons.push("<a target='_top' href='/en/visualize/"+b.url+"' class='related'>"+b.title+"</a>");
           });
           buttons.push("<a style='background-color:"+d3plus.color.legible(data.profile.color)+";' target='_top' href='"+data.profile.url+"' class='profile'><img src='"+data.profile.icon+"' />"+data.profile.title+"</a>");
           return buttons.join("");
@@ -729,7 +730,7 @@ function download(container, csv_data){
         var content = JSON.stringify(csv_data);
       }
       
-      var form = d3.select("body").append("form").attr("id", "download").attr("action", "/en/explore/download/").attr("method", "post");
+      var form = d3.select("body").append("form").attr("id", "download").attr("action", "/en/visualize/download/").attr("method", "post");
       form.append("input").attr("type", "text").attr("name", "content").attr("value", content);
       form.append("input").attr("type", "text").attr("name", "format").attr("value", format);
       form.append("input").attr("type", "text").attr("name", "title").attr("value", title);

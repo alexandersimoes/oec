@@ -255,19 +255,19 @@ class Build(object):
         )
 
     def facebook_url(self):
-        link = "http://atlas.media.mit.edu/{}/explore/{}".format(g.locale, self.url())
+        link = "http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
         return "http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
                 "display=popup&app_id={}&name={} ({})&link={}&" \
                 "redirect_uri=http://atlas.media.mit.edu/close/&" \
                 "picture=http://atlas.media.mit.edu/static/img/touchicon.png" \
                 .format(FACEBOOK_ID, self.title(), self.year_str, link)
     def twitter_url(self):
-        link = "http://atlas.media.mit.edu/{}/explore/{}".format(g.locale, self.url())
+        link = "http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
         lang_txt = "&lang={}".format(g.locale) if g.locale != "en" else ""
         return "https://twitter.com/share?url={}{}&text={} ({})&hashtags=oec" \
                 .format(link, lang_txt, self.title(), self.year_str)
     def google_url(self):
-        link = "http://atlas.media.mit.edu/{}/explore/{}".format(g.locale, self.url())
+        link = "http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
         return "https://plus.google.com/share?url={}&hl={}" \
                 .format(link, g.locale)
 

@@ -5,7 +5,7 @@ from flask import g
 from oec.db_attr.models import Country, Country_name, Sitc, Sitc_name, Hs92, Hs92_name, \
                                 Hs96, Hs96_name, Hs02, Hs02_name, Hs07, Hs07_name
 from oec import db, db_data
-from oec.explore import models
+from oec.visualize import models
 from oec import db_data, available_years
 
 class Search():
