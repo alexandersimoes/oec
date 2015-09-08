@@ -163,20 +163,30 @@ configs.default = function(build, container) {
   var background = "none", curtain = "black", text = "#333333";
   if(window.parent.location.host == window.location.host){
     if (window.location.href.indexOf("/profile/") > 0) {
-      background = d3.select(container.node().parentNode.parentNode).style("background-color");
+      background = d3.select(container.node().parentNode.parentNode.parentNode).style("background-color");
     }
     else {
-      background = "#212831";
+      // background = "#212831";
+      background = "#fff";
     }
     text = d3plus.color.text(background);
     curtain = background;
   }
 
-  var edges = "#f7f7f7", grid = "#ccc", chart = background;
+  var edges = "#f7f7f7",
+      grid = "#ccc",
+      chart = background,
+      ui_color = {
+        "primary": "#eee"
+      };
   if (background !== "none" && d3.hsl(background).l < 0.5) {
     edges = d3plus.color.lighter(background, 0.3);
     grid = background;
     chart = d3plus.color.lighter(background, 0.1);
+    // grid = "#a9a9a9";
+    // chart = "#c3c3c3";
+
+    ui_color.primary = "#63636a";
   }
 
   var large_tooltip_width = 150;
@@ -295,9 +305,7 @@ configs.default = function(build, container) {
     "tooltip": tooltip,
     "type": build.viz.slug,
     "ui": {
-      "color": {
-        "primary": "#63636a"
-      },
+      "color": ui_color,
       "font": {
         "color": text,
         "family": ["Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
@@ -368,16 +376,11 @@ configs.geo_map = function(build, container) {
 
 configs.line = function(build, container) {
   return {
-    "color": function(d){
-      if(d.name=="Exports"){ return "#0b1097" }
-      else{ return "#c8140a" }
-    },
+    "color": "color",
     "depth": 0,
     "icon": {"style": "knockout"},
     "id": "test",
-    "timeline": {
-      "play": false
-    },
+    "timeline": false,
     "x": "year",
     "y": "trade",
     "ui": [
@@ -608,6 +611,7 @@ function format_data(raw_data, attrs, build){
       d.trade = d.export_val;
       d.test = d.id + "_export";
       d.name = "Exports";
+      d.color = "#17bcef";
       d.icon = "/static/img/icons/balance/export_val.png";
       return d;
     });
@@ -616,6 +620,7 @@ function format_data(raw_data, attrs, build){
       d.trade = d.import_val;
       d.test = d.id + "_import";
       d.name = "Imports";
+      d.color = "#c8140a";
       d.icon = "/static/img/icons/balance/import_val.png";
       return d;
     });

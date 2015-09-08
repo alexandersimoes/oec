@@ -25,6 +25,7 @@ function format_data(raw_data, attrs, build){
       d.trade = d.export_val;
       d.test = d.id + "_export";
       d.name = "Exports";
+      d.color = "#17bcef";
       d.icon = "/static/img/icons/balance/export_val.png";
       return d;
     });
@@ -33,6 +34,7 @@ function format_data(raw_data, attrs, build){
       d.trade = d.import_val;
       d.test = d.id + "_import";
       d.name = "Imports";
+      d.color = "#c8140a";
       d.icon = "/static/img/icons/balance/import_val.png";
       return d;
     });
