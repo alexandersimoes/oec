@@ -3,6 +3,10 @@
 
 {% block content %}
 
+<div id="mobileNav">
+  {% include "includes/nav.html" %}
+</div>
+
 <nav>
 
   <a id="hamburger">
@@ -13,63 +17,7 @@
     OEC
   </a>
 
-  <ul>
-
-    <li id="country"{% if g.page_sub_type == 'country' %} class="active"{% endif %}>
-      <a href="{{ url_for('profile.profile_country_redirect', lang=g.locale) }}">{{ _('Country') }}</a>
-    </li>
-
-    <li id="product"{% if g.page_sub_type == 'product' %} class="active"{% endif %}>
-      <a href="{{ url_for('profile.profile_product_redirect', lang=g.locale, attr_type='hs92') }}">{{ _('Product') }}</a>
-    </li>
-
-    <li id="explore"{% if g.page_type == "visualize" %} class="active"{% endif %}>
-      <a href="{{ url_for('visualize.visualize_redirect', app_name='tree_map', lang=g.locale) }}">{{ _('Visualize') }}</a>
-    </li>
-
-    <li id="rankings"{% if g.page_type == "rankings" %} class="active"{% endif %}>
-      <a href="{{ url_for('rankings.rankings', lang=g.locale, category='country') }}">{{ _('Rankings') }}</a>
-      <div class="sub_menu">
-        <ul>
-          <li class="country{% if g.page_sub_type == 'countries' %} active{% endif %}">
-            <a href="{{ url_for('rankings.rankings', lang=g.locale, category='country') }}">{{ _('Countries') }}</a>
-          </li>
-          <li class="product{% if g.page_sub_type == 'products' %} active{% endif %}">
-            <a href="{{ url_for('rankings.rankings', lang=g.locale, category='hs92') }}">{{ _('Products') }}</a>
-          </li>
-        </ul>
-      </div>
-    </li>
-
-    <li id="publications"{% if g.page_type == "publications" %} class="active"{% endif %}>
-      <a href="{{ url_for('general.publications') }}">{{ _('Publications') }}</a>
-    </li>
-
-    <li id="resources"{% if g.page_type == "resources" %} class="active"{% endif %}>
-      <a href="{{ url_for('about.about') }}">{{ _('Resources') }}</a>
-      <div class="sub_menu">
-        <ul>
-          <li class="about{% if g.page_sub_type == 'about' %} active{% endif %}">
-            <a href="{{ url_for('about.about') }}">{{ _('About the Site') }}</a>
-          </li>
-          <li class="faqs{% if g.page_sub_type == 'faqs' %} active{% endif %}">
-            <a href="{{ url_for('resources.faqs', lang=g.locale) }}">{{ _('FAQs') }}</a>
-          </li>
-          <li class="data{% if g.page_sub_type == 'data' %} active{% endif %}">
-            <a href="{{ url_for('resources.data', lang=g.locale) }}">{{ _('Data Sources') }}</a>
-          </li>
-          <li class="permissions{% if g.page_sub_type == 'permissions' %} active{% endif %}">
-            <a href="{{ url_for('general.permissions') }}">{{ _('Permissions') }}</a>
-          </li>
-        </ul>
-      </div>
-    </li>
-
-    <li id="api"{% if g.page_type == "api" %} class="active"{% endif %}>
-      <a href="{{ url_for('general.api') }}">{{ _('API') }}</a>
-    </li>
-
-  </ul>
+  {% include "includes/nav.html" %}
 
   <div id="search_button">
     <img src="/static/img/nav/search.png">
@@ -172,8 +120,8 @@
 
   // Hamburger menu logic.
   d3.select("#hamburger").on("click", function(){
-    var open = d3.select("nav ul").classed("open");
-    d3.select("nav ul").classed("open", !open);
+    var open = d3.select("#mobileNav").classed("open");
+    d3.select("#mobileNav").classed("open", !open);
     d3.select("#mask").classed("visible", !open);
     d3.select("body").classed("frozen", !open);
   });
