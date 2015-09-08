@@ -205,7 +205,7 @@ configs.default = function(build, container) {
       },
       "html": {
         "url": function(focus_id){
-          var display_id = focus_id.substring(2, 5);
+          var display_id = focus_id.substring(2).replace("_export", "").replace("_import", "");
           var attr_type = build.attr_type.indexOf("hs") >= 0 ? "prod_id" : build.attr_type+"_id";
           var url_args = "?classification="+build.classification+"&"+attr_type+"="+display_id+"&focus="+attr_type;
           ['origin', 'dest', 'prod'].forEach(function(filter){
@@ -213,7 +213,7 @@ configs.default = function(build, container) {
               url_args += "&"+filter+"_id="+build[filter].display_id;
             }
           })
-          console.log("/en/visualize/builds/"+url_args)
+          // console.log("/en/visualize/builds/"+url_args)
           return "/en/visualize/builds/"+url_args;
         },
         "callback":function(data){
@@ -581,10 +581,10 @@ configs.tree_map = function(build, container) {
       {"method":show_all_years, "value":["Show all years"], "type":"button"},
       {"method":"color", "value": [
         {"Category": "color"},
-        {"Annual Growth Rate (1 year)": build.trade_flow+"_growth_pct"},
-        {"Annual Growth Rate (5 year)": build.trade_flow+"_growth_pct_5"},
-        {"Growth Value (1 year)": build.trade_flow+"_growth_val"},
-        {"Growth Value (5 year)": build.trade_flow+"_growth_val_5"},
+        {"Annual Growth Rate (1 year)": build.trade_flow+"_val_growth_pct"},
+        {"Annual Growth Rate (5 year)": build.trade_flow+"_val_growth_pct_5"},
+        {"Growth Value (1 year)": build.trade_flow+"_val_growth_val"},
+        {"Growth Value (5 year)": build.trade_flow+"_val_growth_val_5"},
       ]},
       {"method":share(build), "value":["Share"], "type":"button"}
     ]
