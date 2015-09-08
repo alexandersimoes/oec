@@ -30,6 +30,7 @@
 @mixin font-smoothing($font-smoothing) {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
+  font-smoothing: antialiased;
 }
 
 @mixin column-count($num: 2) {
