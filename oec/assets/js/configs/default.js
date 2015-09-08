@@ -1,14 +1,9 @@
 function share(build){
   return function(){
-    // var lang = build.lang;
-    var lang = "en";
+    var lang = build.lang;
     var same_origin = window.parent.location.host == window.location.host;
-    var url = encodeURIComponent(window.location.pathname + "?lang="+lang)
-    if(same_origin){
-      if(window.location != window.parent.location){
-        var url = encodeURIComponent(window.parent.location.pathname + "?lang="+lang)
-      }
-    }
+    var url = encodeURIComponent("/"+lang+"/visualize/"+build.url)
+    
     // make post request to server for short URL
     d3.json("/"+lang+"/visualize/shorten/")
       .header("Content-type","application/x-www-form-urlencoded")
@@ -21,6 +16,8 @@ function share(build){
           d3.selectAll(".modal#share input.short_url").property("value", "http://"+location.host+"/"+data.slug)
         }
       })
+    // set embed link
+    d3.select(".modal-body input.embed_code").property("value", '<iframe width="560" height="315" src="http://atlas.media.mit.edu/'+lang+'/visualize/embed/'+build.url+'?controls=false" frameborder="0" ></iframe>')
     // set social media link URLs
     d3.selectAll(".modal-body a#Facebook").attr("href", build.social.facebook)
     d3.selectAll(".modal-body a#Twitter").attr("href", build.social.twitter)
