@@ -10,6 +10,7 @@ def before_request():
 
 @mod.route('/')
 def about():
+    g.page_sub_type = "about"
 
     current = [
         {
