@@ -168,8 +168,8 @@ configs.default = function(build, container) {
       background = "#212831";
     }
     else {
-      background = "#212831";
-      // background = "#fff";
+      // background = "#212831";
+      background = "#fff";
     }
     text = d3plus.color.text(background);
     curtain = background;
