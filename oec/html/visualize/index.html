@@ -3,10 +3,10 @@
 {% block head %}
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.explore.css" />
     {% if current_build.year_str|int > g.available_years[current_build.classification][0]  %}
-    <link rel="prev" href="/{{ g.locale }}/explore/{{ current_build.url(year=current_build.year_str|int-1) }}" />
+    <link rel="prev" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int-1) }}" />
     {% endif %}
     {% if current_build.year_str|int < g.available_years[current_build.classification][-1]  %}
-    <link rel="next" href="/{{ g.locale }}/explore/{{ current_build.url(year=current_build.year_str|int+1) }}" />
+    <link rel="next" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int+1) }}" />
     {% endif %}
 
     <!-- Twitter "photo card" -->
@@ -38,13 +38,13 @@
 
   {% if false and current_build.viz.slug != "stacked" %}
   {% if current_build.year_str|int > g.available_years['sitc'][0] %}
-  <a id="prev" href="/{{ g.locale }}/explore/{{ current_build.url(year=current_build.year_str|int-1) }}">
+  <a id="prev" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int-1) }}">
     <i class="fa fa-arrow-left"></i>
     {{ _('Previous Year') }}
   </a>
   {% endif %}
   {% if current_build.year_str|int < g.available_years['sitc'][-1] %}
-  <a id="next" href="/{{ g.locale }}/explore/{{ current_build.url(year=current_build.year_str|int+1) }}">
+  <a id="next" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int+1) }}">
     {{ _('Next Year') }}
     <i class="fa fa-arrow-right"></i>
   </a>
@@ -104,7 +104,7 @@
     {% set pre_cat = build.category() %}
 
     {% set build_url = build.url() %}
-    <a class="build_link{% if build_url == current_url %} active{% endif %}" href="/{{ g.locale }}/explore/{{ build.url() }}">{{ build.short_name() }}</a>
+    <a class="build_link{% if build_url == current_url %} active{% endif %}" href="/{{ g.locale }}/visualize/{{ build.url() }}">{{ build.short_name() }}</a>
 
   {% endfor %}
   </div></div></div>
@@ -243,7 +243,7 @@
       }
     }
 
-    var new_url =  "/" + oec.locale + "/explore/";
+    var new_url =  "/" + oec.locale + "/visualize/";
     new_url += app_type + "/";
     new_url += classification + "/";
     new_url += tf + "/";
@@ -364,7 +364,7 @@
 
   d3.select("iframe.viz")
     // .style("background-color", "red")
-    .attr("src", "/"+oec.locale+"/explore/embed/"+url);
+    .attr("src", "/"+oec.locale+"/visualize/embed/"+url);
 
   d3.select("#collapse").on("click", function(){
     explorer.classed("small", explorer.node().className !== "small");

@@ -6,7 +6,7 @@ from flask.ext.babel import gettext as _
 from oec import db, db_data, available_years, earliest_data
 from oec.utils import num_format
 from oec.db_attr import models as attrs
-from oec.explore.models import Build
+from oec.visualize.models import Build
 
 class Profile(object):
 

@@ -23,8 +23,8 @@
       <a href="{{ url_for('profile.profile_product_redirect', lang=g.locale, attr_type='hs92') }}">{{ _('Product') }}</a>
     </li>
 
-    <li id="explore"{% if g.page_type == "explore" %} class="active"{% endif %}>
-      <a href="{{ url_for('explore.explore_redirect', app_name='tree_map', lang=g.locale) }}">{{ _('Visualize') }}</a>
+    <li id="explore"{% if g.page_type == "visualize" %} class="active"{% endif %}>
+      <a href="{{ url_for('visualize.visualize_redirect', app_name='tree_map', lang=g.locale) }}">{{ _('Visualize') }}</a>
     </li>
 
     <li id="rankings"{% if g.page_type == "rankings" %} class="active"{% endif %}>
