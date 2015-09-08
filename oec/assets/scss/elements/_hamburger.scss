@@ -28,12 +28,10 @@
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 10;
+  z-index: 30;
 
-  @media all and (max-width: 1024px) {
-    &.visible {
-      display: block;
-    }
+  &.visible {
+    display: block;
   }
 
 }

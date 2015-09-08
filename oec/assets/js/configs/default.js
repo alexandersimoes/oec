@@ -3,7 +3,7 @@ function share(build){
     var lang = build.lang;
     var same_origin = window.parent.location.host == window.location.host;
     var url = encodeURIComponent("/"+lang+"/visualize/"+build.url)
-    
+
     // make post request to server for short URL
     d3.json("/"+lang+"/visualize/shorten/")
       .header("Content-type","application/x-www-form-urlencoded")
@@ -23,7 +23,9 @@ function share(build){
     d3.selectAll(".modal-body a#Twitter").attr("href", build.social.twitter)
     d3.selectAll(".modal-body a#Google").attr("href", build.social.google)
     // open modal window
-    d3.selectAll(".modal#share").classed("active", true)
+    d3.selectAll(".modal#share").classed("active", true);
+    d3.selectAll("#mask").classed("visible", true);
+    d3.selectAll("body").classed("frozen", true);
   }
 }
 
