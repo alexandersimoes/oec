@@ -38,7 +38,7 @@ def about():
             "name": u"César Hidalgo",
             "slug": u"cesar_hidalgo",
             "time": u"2010 – Present",
-            "text": u"César is the Asahi Broadcast Corporation Career Development Professor and an Assistant Professor at the MIT Media Lab. His work focuses on improving the understanding of systems using and developing concepts of complexity, evolution and network science.",
+            "text": u"César is the Asahi Broadcast Corporation Career Development Professor and an Associate Professor at the MIT Media Lab. His work focuses on improving the understanding of systems using and developing concepts of complexity, evolution and network science.",
             "links": {
                 "twitter": "https://twitter.com/cesifoti",
                 "linkedin-square": "http://www.linkedin.com/pub/cesar-a-hidalgo/5/30a/a61"

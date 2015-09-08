@@ -27,6 +27,11 @@
   filter: $filter;
 }
 
+@mixin font-smoothing($font-smoothing) {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+}
+
 @mixin column-count($num: 2) {
   -webkit-column-count: $num;
   -moz-column-count: $num;
