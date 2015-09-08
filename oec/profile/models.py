@@ -278,7 +278,7 @@ class Country(Profile):
             subtitle = ""
         product_space = Build("network", "hs92", "export", self.attr, "all", "show", self.year)
         ps_section = {
-            "title": u"Export Opportunity in {}".format(self.attr.get_name()),
+            "title": u"Product Space of {}".format(self.attr.get_name()),
             "subtitle": subtitle,
             "builds": [
                 {"title": u"Network", "build": product_space, "subtitle": u"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure."},
