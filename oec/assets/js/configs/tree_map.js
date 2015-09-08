@@ -53,10 +53,10 @@ configs.tree_map = function(build, container) {
       {"method":show_all_years, "value":["Show all years"], "type":"button"},
       {"method":"color", "value": [
         {"Category": "color"},
-        {"Annual Growth Rate (1 year)": build.trade_flow+"_growth_pct"},
-        {"Annual Growth Rate (5 year)": build.trade_flow+"_growth_pct_5"},
-        {"Growth Value (1 year)": build.trade_flow+"_growth_val"},
-        {"Growth Value (5 year)": build.trade_flow+"_growth_val_5"},
+        {"Annual Growth Rate (1 year)": build.trade_flow+"_val_growth_pct"},
+        {"Annual Growth Rate (5 year)": build.trade_flow+"_val_growth_pct_5"},
+        {"Growth Value (1 year)": build.trade_flow+"_val_growth_val"},
+        {"Growth Value (5 year)": build.trade_flow+"_val_growth_val_5"},
       ]},
       {"method":share(build), "value":["Share"], "type":"button"}
     ]

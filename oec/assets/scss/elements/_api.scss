@@ -1,28 +1,23 @@
 body.api {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
-  background-attachment: fixed;
-  @include font-smoothing(antialiased);
 
-  nav {
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
-    background-attachment: fixed;
-  }
+  @include font-smoothing(antialiased);
 
   #container #content { 
     background-color: $darkbackground;
-    border: 1px solid $lightbordercolor;
-    margin: 100px 7%;
-    padding: 45px 3% 45px 0;
+    margin: 100px auto;
+    padding: 20px 3% 20px 0;
+    max-width: 1200px;
 
     content {
       margin: 0 auto !important;
     }
 
     a {
-      color: $brightlinkcolor;
+      color: #a4b500;
       text-decoration: none;
       &:hover {
-        border-bottom: 1px solid $lightlinkcolor;
+        padding-bottom: 2px;
+        border-bottom: 1px dotted #a4b500;
       }
     }
 
@@ -34,8 +29,8 @@ body.api {
       margin-bottom: 30px;
 
       aside {
-        margin: 0 35px;
-        width: 200px;
+        margin: 0 20px;
+        width: 180px;
 
         p {
           text-align: left;
@@ -43,41 +38,65 @@ body.api {
       }
     }
   }
-  
-  h1 {
-    line-height: 1;
-  }
 
   h2 {
     line-height: 1.1;
-    margin-bottom: 20px;
+    margin: 20px 0;
   }
 
   h3 {
-    font-size: 24px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    opacity: 0.8;
+    color: #a4b500;
   }
 
   h4 {
     line-height: 1.3;
   }
 
-}
+  table {
+    border: 1px solid $darkbordercolor;
+    margin-bottom: 20px;
+    background-color: #272f38;
+    color: #ddd;
 
+    input {
+      padding: 5px 7px;
+      background-color: #353c45;
+      color: white;
+      border: 0;
+    }
+
+    a {
+      color: $lightlinkcolor !important;
+      &:hover {
+        border-bottom: 1px dotted $lightlinkcolor !important;
+      }
+    }
+  }
+
+  pre {
+    padding: 7px 0;
+    margin-bottom: 7px;
+  }
   
+  code {
+    // background-color: rgba(0, 133, 191, 0.25);
+    // background-color: #f9f2f4;
+    background-color: #3f464f;
+    color: #ff50a8;
+    display: inline-block;
+    font-size: 13px;
+    margin-top: 0px;
+    margin-bottom: 7px;
+    padding: 1px 4px;
+    white-space: nowrap;
 
-code {
-  // background-color: rgba(0, 133, 191, 0.25);
-  background-color: #f9f2f4;
-  color: #c7254e;
-  display: inline-block;
-  font-size: 13px;
-  margin-top: 0px;
-  padding: 1px 4px;
-  white-space: nowrap;
+  }
 
-}
-
-td.code {
-  // text-align: center;
-  width: 120px;
+  td.code {
+    // text-align: center;
+    width: 120px;
+  }
 }
