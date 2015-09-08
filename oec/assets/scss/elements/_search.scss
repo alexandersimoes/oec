@@ -21,7 +21,8 @@
     padding: 0 15px;
 
     img {
-      @include transition(opacity 0.1s);
+      @include transition(opacity 0.1s, transform 0.5s);
+      @include transform(rotate(-180deg));
       opacity: 1;
       height: 22px;
       width: 22px;
@@ -38,6 +39,11 @@
     :hover {
       cursor: pointer;
     }
+
+    &.open img {
+      @include transform(rotate(0deg));
+    }
+
   }
 
   #search_div {

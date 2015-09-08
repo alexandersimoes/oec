@@ -120,6 +120,7 @@
 @mixin transition($animation) {
   -webkit-transition: $animation;
   -moz-transition: $animation;
+  -ms-transition: $animation;
   -o-transition: $animation;
   transition: $animation;
 }

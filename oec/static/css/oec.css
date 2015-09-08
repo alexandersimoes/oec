@@ -57,6 +57,7 @@
                     p a {
                       -webkit-transition: border-bottom 0.1s;
                       -moz-transition: border-bottom 0.1s;
+                      -ms-transition: border-bottom 0.1s;
                       -o-transition: border-bottom 0.1s;
                       transition: border-bottom 0.1s;
                       border-bottom: 1px solid transparent;
@@ -224,6 +225,7 @@ nav {
       flex-direction: row;
       -webkit-transition: left 0.5s;
       -moz-transition: left 0.5s;
+      -ms-transition: left 0.5s;
       -o-transition: left 0.5s;
       transition: left 0.5s;
       list-style: none; }
@@ -289,17 +291,23 @@ nav {
                             margin-top: 2px;
                             margin-left: -10px; }
   nav #search_button {
-    padding: 0 15px; }
+    margin-right: 15px; }
     nav #search_button img {
-      -webkit-transition: opacity 0.1s;
-      -moz-transition: opacity 0.1s;
-      -o-transition: opacity 0.1s;
-      transition: opacity 0.1s;
-      opacity: 0.8;
+      -webkit-transition: opacity 0.1s, transform 0.5s;
+      -moz-transition: opacity 0.1s, transform 0.5s;
+      -ms-transition: opacity 0.1s, transform 0.5s;
+      -o-transition: opacity 0.1s, transform 0.5s;
+      transition: opacity 0.1s, transform 0.5s;
+      opacity: 0.7;
       height: 22px;
       width: 22px; }
       nav #search_button :hover {
-        cursor: pointer; }
+        cursor: pointer;
+        opacity: 1; }
+        nav #search_button.open img {
+          -webkit-transform: rotate(180deg);
+          -ms-transform: rotate(180deg);
+          transform: rotate(180deg); }
 body.home {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
   -webkit-font-smoothing: antialiased;
@@ -391,6 +399,7 @@ body.home {
                       color: #fff;
                       -webkit-transition: color 3s;
                       -moz-transition: color 3s;
+                      -ms-transition: color 3s;
                       -o-transition: color 3s;
                       transition: color 3s; }
         .bg-frame #ring #search_home {
@@ -409,6 +418,7 @@ body.home {
             cursor: text;
             -webkit-transition: color 1.5s, border-bottom 1.5s;
             -moz-transition: color 1.5s, border-bottom 1.5s;
+            -ms-transition: color 1.5s, border-bottom 1.5s;
             -o-transition: color 1.5s, border-bottom 1.5s;
             transition: color 1.5s, border-bottom 1.5s;
             color: #fff;
@@ -554,6 +564,7 @@ body.home {
   align-items: center;
   -webkit-transition: opacity 0.5s;
   -moz-transition: opacity 0.5s;
+  -ms-transition: opacity 0.5s;
   -o-transition: opacity 0.5s;
   transition: opacity 0.5s;
   background-color: rgba(33, 40, 49, 0.95);
@@ -570,10 +581,14 @@ body.home {
     #search #search_close {
       padding: 0 15px; }
       #search #search_close img {
-        -webkit-transition: opacity 0.1s;
-        -moz-transition: opacity 0.1s;
-        -o-transition: opacity 0.1s;
-        transition: opacity 0.1s;
+        -webkit-transition: opacity 0.1s, transform 0.5s;
+        -moz-transition: opacity 0.1s, transform 0.5s;
+        -ms-transition: opacity 0.1s, transform 0.5s;
+        -o-transition: opacity 0.1s, transform 0.5s;
+        transition: opacity 0.1s, transform 0.5s;
+        -webkit-transform: rotate(-180deg);
+        -ms-transform: rotate(-180deg);
+        transform: rotate(-180deg);
         opacity: 1;
         height: 22px;
         width: 22px;
@@ -585,6 +600,10 @@ body.home {
         top: 0; }
         #search #search_close :hover {
           cursor: pointer; }
+          #search #search_close.open img {
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            transform: rotate(0deg); }
   #search #search_div {
     padding: 20px 35px 0;
     text-align: left;
@@ -794,6 +813,7 @@ body.home {
       #container #content header .header_image img {
         -webkit-transition: opacity 0.25s;
         -moz-transition: opacity 0.25s;
+        -ms-transition: opacity 0.25s;
         -o-transition: opacity 0.25s;
         transition: opacity 0.25s;
         display: block;
@@ -852,6 +872,7 @@ body.home {
 #hamburger {
   -webkit-transition: opacity 0.1s;
   -moz-transition: opacity 0.1s;
+  -ms-transition: opacity 0.1s;
   -o-transition: opacity 0.1s;
   transition: opacity 0.1s;
   color: white;
@@ -1197,6 +1218,7 @@ body.profile {
               content: url('/static/img/nav/search.png');
               -webkit-transition: opacity 1s;
               -moz-transition: opacity 1s;
+              -ms-transition: opacity 1s;
               -o-transition: opacity 1s;
               transition: opacity 1s;
               opacity: 0;
@@ -1209,6 +1231,7 @@ body.profile {
   body.profile article .profile_header .author {
     -webkit-transition: opacity 0.5s;
     -moz-transition: opacity 0.5s;
+    -ms-transition: opacity 0.5s;
     -o-transition: opacity 0.5s;
     transition: opacity 0.5s;
     bottom: 3px;
@@ -1567,6 +1590,7 @@ body.visualize content {
     #explorer .app_button {
       -webkit-transition: opacity 0.5s;
       -moz-transition: opacity 0.5s;
+      -ms-transition: opacity 0.5s;
       -o-transition: opacity 0.5s;
       transition: opacity 0.5s;
       display: inline-block;
@@ -1595,6 +1619,7 @@ body.visualize content {
       #explorer .app_menu .build {
         -webkit-transition: opacity 0.1s;
         -moz-transition: opacity 0.1s;
+        -ms-transition: opacity 0.1s;
         -o-transition: opacity 0.1s;
         transition: opacity 0.1s;
         font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
@@ -1682,6 +1707,7 @@ body.visualize content {
     .d3plus_tooltip_html a.related, .d3plus_tooltip_html a.profile {
       -webkit-transition: opacity 0.1s;
       -moz-transition: opacity 0.1s;
+      -ms-transition: opacity 0.1s;
       -o-transition: opacity 0.1s;
       transition: opacity 0.1s;
       color: #333;
@@ -1830,6 +1856,7 @@ body.about, body.resources, body.permissions {
   .member h2 a i {
     -webkit-transition: text-shadow 0.1s;
     -moz-transition: text-shadow 0.1s;
+    -ms-transition: text-shadow 0.1s;
     -o-transition: text-shadow 0.1s;
     transition: text-shadow 0.1s;
     font-size: 24px;
@@ -2028,6 +2055,7 @@ code {
 #share a.share_button {
   -webkit-transition: opacity 0.1s;
   -moz-transition: opacity 0.1s;
+  -ms-transition: opacity 0.1s;
   -o-transition: opacity 0.1s;
   transition: opacity 0.1s;
   color: #0085BF;
@@ -2121,6 +2149,7 @@ code {
   .modal-body .download_button {
     -webkit-transition: opacity 0.1s;
     -moz-transition: opacity 0.1s;
+    -ms-transition: opacity 0.1s;
     -o-transition: opacity 0.1s;
     transition: opacity 0.1s;
     color: black;
