@@ -46,7 +46,7 @@
     </li>
 
     <li id="resources"{% if g.page_type == "resources" %} class="active"{% endif %}>
-      {{ _('Resources') }}
+      <a href="{{ url_for('about.about') }}">{{ _('Resources') }}</a>
       <div class="sub_menu">
         <ul>
           <li class="about{% if g.page_sub_type == 'about' %} active{% endif %}">
