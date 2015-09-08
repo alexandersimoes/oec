@@ -15,18 +15,12 @@
 
   <ul>
 
-    <li id="profile"{% if g.page_type == "profile" %} class="active"{% endif %}>
-      {{ _('Profiles') }}
-      <div class="sub_menu">
-        <ul>
-          <li class="country{% if g.page_sub_type == 'country' %} active{% endif %}">
-            <a href="{{ url_for('profile.profile_country_redirect', lang=g.locale) }}">{{ _('Country') }}</a>
-          </li>
-          <li class="product{% if g.page_sub_type == 'product' %} active{% endif %}">
-            <a href="{{ url_for('profile.profile_product_redirect', lang=g.locale, attr_type='hs92') }}">{{ _('Product') }}</a>
-          </li>
-        </ul>
-      </div>
+    <li id="country"{% if g.page_sub_type == 'country' %} class="active"{% endif %}>
+      <a href="{{ url_for('profile.profile_country_redirect', lang=g.locale) }}">{{ _('Country') }}</a>
+    </li>
+
+    <li id="product"{% if g.page_sub_type == 'product' %} class="active"{% endif %}>
+      <a href="{{ url_for('profile.profile_product_redirect', lang=g.locale, attr_type='hs92') }}">{{ _('Product') }}</a>
     </li>
 
     <li id="explore"{% if g.page_type == "explore" %} class="active"{% endif %}>
@@ -34,7 +28,7 @@
     </li>
 
     <li id="rankings"{% if g.page_type == "rankings" %} class="active"{% endif %}>
-      {{ _('Rankings') }}
+      <a href="{{ url_for('rankings.rankings', lang=g.locale, category='country') }}">{{ _('Rankings') }}</a>
       <div class="sub_menu">
         <ul>
           <li class="country{% if g.page_sub_type == 'countries' %} active{% endif %}">
