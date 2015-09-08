@@ -271,7 +271,9 @@ nav {
     font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
     font-size: 25px;
     font-weight: 800;
-    margin: 0px 17px;
+    margin: 0px;
+    position: relative;
+    left: 17px;
     text-decoration: none; }
     nav .navLinks {
       -webkit-flex-direction: row;
@@ -310,7 +312,7 @@ nav {
   display: block;
   height: 100vh;
   left: -250px;
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 250px;
   z-index: 31; }
@@ -896,17 +898,25 @@ body.home {
         width: 100%; }
   #container footer {
     font-size: 10px;
-    margin: 35px;
+    margin: 45px 15px 0;
     text-align: center; }
-    #container footer img, #container footer a {
-      opacity: 0.7; }
-      #container footer img :hover, #container footer a :hover {
-        opacity: 1; }
-    #container footer ul {
-      margin-top: 10px; }
-      #container footer ul li {
-        display: inline-block;
-        margin: 1px 5px; }
+    #container footer a:hover {
+      text-decoration: underline; }
+    #container footer #mc {
+      position: relative;
+      bottom: -20px; }
+      #container footer img, #container footer a {
+        opacity: 0.7; }
+        #container footer img :hover, #container footer a :hover {
+          opacity: 1; }
+    #container footer div {
+      max-width: 760px;
+      margin: 0 auto; }
+      #container footer ul {
+        margin-top: 10px; }
+        #container footer ul li {
+          display: inline-block;
+          margin: 1px 5px; }
 #hamburger {
   -webkit-transition: opacity 0.1s;
   -moz-transition: opacity 0.1s;
@@ -1933,31 +1943,25 @@ body.rankings .change_dataset {
     body.rankings .change_dataset .active:hover {
       border-color: #333 !important; }
 body.about, body.resources, body.permissions {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
-  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased; }
-  body.about nav, body.resources nav, body.permissions nav {
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
-    background-attachment: fixed; }
-    body.about #content, body.resources #content, body.permissions #content {
-      background-color: #212831;
-      border: 1px solid #bbbdc0;
-      margin: 100px 12%;
-      padding: 45px 7%; }
-      body.about #content a, body.resources #content a, body.permissions #content a {
-        color: #A1BAC6;
-        text-decoration: none; }
-        body.about #content a:hover, body.resources #content a:hover,
-        body.permissions #content a:hover {
-          border-bottom: 1px solid #A1BAC6; }
-          body.about #content a.contact, body.resources #content a.contact,
-          body.permissions #content a.contact {
-            color: #6297cb; }
-            body.about #content a.contact:hover, body.resources #content a.contact:hover,
-            body.permissions #content a.contact:hover {
-              border-bottom: 1px solid #6297cb; }
+  body.about #content, body.resources #content, body.permissions #content {
+    background-color: #212831;
+    margin: 100px 12%;
+    padding: 20px 7%; }
+    body.about #content a, body.resources #content a, body.permissions #content a {
+      color: #A1BAC6;
+      text-decoration: none; }
+      body.about #content a:hover, body.resources #content a:hover,
+      body.permissions #content a:hover {
+        border-bottom: 1px solid #A1BAC6; }
+        body.about #content a.contact, body.resources #content a.contact,
+        body.permissions #content a.contact {
+          color: #6297cb; }
+          body.about #content a.contact:hover, body.resources #content a.contact:hover,
+          body.permissions #content a.contact:hover {
+            border-bottom: 1px solid #6297cb; }
   body.about h1, body.resources h1, body.permissions h1 {
     line-height: 1;
     margin-bottom: 20px; }
@@ -1967,7 +1971,8 @@ body.about, body.resources, body.permissions {
       body.about h3, body.resources h3, body.permissions h3 {
         line-height: 1.3;
         margin: 20px 0;
-        font-size: 24px; }
+        font-size: 24px;
+        opacity: 0.8; }
         body.about h4, body.resources h4, body.permissions h4 {
           line-height: 1.3;
           margin: 15px 0; }
@@ -2205,56 +2210,69 @@ body.publications {
 .book {
   width: 100%; }
 body.api {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
-  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased; }
-  body.api nav {
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
-    background-attachment: fixed; }
-    body.api #container #content {
-      background-color: #212831;
-      border: 1px solid #bbbdc0;
-      margin: 100px 7%;
-      padding: 45px 3% 45px 0; }
-      body.api #container #content content {
-        margin: 0 auto !important; }
-        body.api #container #content a {
-          color: #6297cb;
-          text-decoration: none; }
-          body.api #container #content a:hover {
-            border-bottom: 1px solid #A1BAC6; }
-      body.api #container #content p {
-        margin: 5px 0; }
-        body.api #container #content section {
-          margin-bottom: 30px; }
-          body.api #container #content section aside {
-            margin: 0 35px;
-            width: 200px; }
-            body.api #container #content section aside p {
-              text-align: left; }
-  body.api h1 {
-    line-height: 1; }
-    body.api h2 {
-      line-height: 1.1;
-      margin-bottom: 20px; }
-      body.api h3 {
-        font-size: 24px; }
-        body.api h4 {
-          line-height: 1.3; }
-
-code {
-  background-color: #f9f2f4;
-  color: #c7254e;
-  display: inline-block;
-  font-size: 13px;
-  margin-top: 0px;
-  padding: 1px 4px;
-  white-space: nowrap; }
-
-  td.code {
-    width: 120px; }
+  body.api #container #content {
+    background-color: #212831;
+    margin: 100px auto;
+    padding: 20px 3% 20px 0;
+    max-width: 1200px; }
+    body.api #container #content content {
+      margin: 0 auto !important; }
+      body.api #container #content a {
+        color: #a4b500;
+        text-decoration: none; }
+        body.api #container #content a:hover {
+          padding-bottom: 2px;
+          border-bottom: 1px dotted #a4b500; }
+    body.api #container #content p {
+      margin: 5px 0; }
+      body.api #container #content section {
+        margin-bottom: 30px; }
+        body.api #container #content section aside {
+          margin: 0 20px;
+          width: 180px; }
+          body.api #container #content section aside p {
+            text-align: left; }
+  body.api h2 {
+    line-height: 1.1;
+    margin: 20px 0; }
+    body.api h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      opacity: 0.8;
+      color: #a4b500; }
+      body.api h4 {
+        line-height: 1.3; }
+        body.api table {
+          border: 1px solid #546470;
+          margin-bottom: 20px;
+          background-color: #272f38;
+          color: #ddd; }
+          body.api table input {
+            padding: 5px 7px;
+            background-color: #353c45;
+            color: white;
+            border: 0; }
+            body.api table a {
+              color: #A1BAC6 !important; }
+              body.api table a:hover {
+                border-bottom: 1px dotted #A1BAC6 !important; }
+  body.api pre {
+    padding: 7px 0;
+    margin-bottom: 7px; }
+    body.api code {
+      background-color: #3f464f;
+      color: #ff50a8;
+      display: inline-block;
+      font-size: 13px;
+      margin-top: 0px;
+      margin-bottom: 7px;
+      padding: 1px 4px;
+      white-space: nowrap; }
+      body.api td.code {
+        width: 120px; }
 #share a.share_button {
   -webkit-transition: opacity 0.1s;
   -moz-transition: opacity 0.1s;

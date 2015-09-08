@@ -139,7 +139,7 @@ nav {
   display: block;
   height: 100vh;
   left: -$sidebar;
-  position: absolute;
+  position: fixed;
   top: 0;
   width: $sidebar;
   z-index: 31;
