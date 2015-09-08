@@ -1,5 +1,12 @@
+function get_container(container){
+  if (d3plus.util.d3selection(container)) {
+      return container.node();
+  }
+  return container;
+}
 function download(container, csv_data){
   return function(){
+    var this_container = get_container(container);
 
     d3.selectAll(".modal#download").classed("active", true);
     d3.selectAll("#mask").classed("visible", true);
@@ -16,7 +23,7 @@ function download(container, csv_data){
       title = title.join("_").replace("embed", "explore")
 
       if(format == "svg" || format == "png"){
-        var svg = d3.select(container).select("svg")
+        var svg = d3.select(this_container).select("svg")
           .attr("title", title)
           .attr("version", 1.1)
           .attr("xmlns", "http://www.w3.org/2000/svg")
