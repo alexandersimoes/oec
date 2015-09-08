@@ -1547,9 +1547,9 @@ body.profile {
       font-size: 12px !important;
       font-weight: 400 !important;
       text-transform: uppercase; }
-body.explore content {
+body.visualize content {
   margin: 35px 35px 35px 0 !important; }
-  body.explore content h1 {
+  body.visualize content h1 {
     text-align: center; }
 
 #explorer #prev, #explorer #next {
