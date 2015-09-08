@@ -346,7 +346,7 @@
   function resizeIframe() {
 
     var n = window.innerWidth <= 1024 ? 0 : navWidth,
-        w = window.innerWidth - n - p * 2,
+        w = window.innerWidth - n - p * 3,
         m = window.innerHeight < window.innerWidth ? iframe.node().offsetTop : p * 2,
         h = window.innerHeight - m - p * 2,
         viz = iframe.node().contentWindow.viz;

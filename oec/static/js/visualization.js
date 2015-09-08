@@ -165,8 +165,10 @@ configs.default = function(build, container) {
     if (window.location.href.indexOf("/profile/") > 0) {
       background = d3.select(container.node().parentNode.parentNode.parentNode).style("background-color");
     }
+    else if (window.parent.location !== window.location) {
+      background = "#212831";
+    }
     else {
-      // background = "#212831";
       background = "#fff";
     }
     text = d3plus.color.text(background);
