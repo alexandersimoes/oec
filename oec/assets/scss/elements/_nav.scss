@@ -1,5 +1,84 @@
-nav {
+ul.navLinks {
   @include font-smoothing(antialiased);
+  @include flex();
+  list-style: none;
+
+  li {
+    font-family: $montserrat;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    padding: 5px 10px;
+    position: relative;
+    text-transform: uppercase;
+
+    &.active {
+      opacity: 1;
+    }
+
+    &:hover {
+      cursor: pointer;
+      opacity: 1;
+    }
+
+    a {
+      color: white;
+    }
+
+    .sub_menu {
+      background-color: $darkbackground;
+      display: none;
+      left: -5px;
+      padding: 0 0 5px 5px;
+      position: absolute;
+      top: 25px;
+      width: 125%;
+      z-index: 1000;
+
+      &.open {
+        display: block;
+      }
+
+      ul {
+        display: block;
+
+        li {
+          display: block;
+          font-size: 11px;
+          padding: 5px 10px;
+
+          &:hover {
+            opacity: 0.9;
+          }
+
+          &:hover:before {
+            content: unicode("f0da");
+            font-family: FontAwesome;
+            opacity: 0.4;
+            position: absolute;
+            margin-top: 2px;
+            margin-left: -10px;
+          }
+
+          &.active:before {
+            content: unicode("f0da");
+            font-family: FontAwesome;
+            position: absolute;
+            margin-top: 2px;
+            margin-left: -10px;
+          }
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+nav {
   @include flex();
   @include flex-direction(row);
   @include justify(space-between);
@@ -22,97 +101,11 @@ nav {
     text-decoration: none;
   }
 
-  ul {
-    @include flex();
+  .navLinks {
     @include flex-direction(row);
-    @include transition(left 0.5s);
-    list-style: none;
 
     @media all and (max-width: 768px) {
-      @include flex-direction(column);
-      background-color: $darkbackground;
-      left: -$sidebar;
-      position: absolute;
-      width: $sidebar;
-      z-index: 2000;
-
-      &.open {
-        left: 0;
-      }
-
-    }
-
-    li {
-      font-family: $montserrat;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 1px;
-      opacity: 0.7;
-      padding: 5px 10px;
-      position: relative;
-      text-transform: uppercase;
-
-      &.active {
-        opacity: 1;
-      }
-
-      &:hover {
-        cursor: pointer;
-        opacity: 1;
-      }
-
-      a {
-        color: white;
-      }
-
-      .sub_menu {
-        background-color: $darkbackground;
-        display: none;
-        left: -5px;
-        padding: 0 0 5px 5px;
-        position: absolute;
-        top: 25px;
-        width: 125%;
-        z-index: 1000;
-
-        &.open {
-          display: block;
-        }
-
-        ul {
-          display: block;
-
-          li {
-            display: block;
-            font-size: 11px;
-            padding: 5px 10px;
-
-            &:hover {
-              opacity: 0.9;
-            }
-
-            &:hover:before {
-              content: unicode("f0da");
-              font-family: FontAwesome;
-              opacity: 0.4;
-              position: absolute;
-              margin-top: 2px;
-              margin-left: -10px;
-            }
-
-            &.active:before {
-              content: unicode("f0da");
-              font-family: FontAwesome;
-              position: absolute;
-              margin-top: 2px;
-              margin-left: -10px;
-            }
-          }
-
-        }
-
-      }
-
+      display: none !important;
     }
 
   }
@@ -134,6 +127,48 @@ nav {
 
     &.open img {
       @include transform(rotate(180deg));
+    }
+
+  }
+
+}
+
+#mobileNav {
+  @include transition(left 0.25s);
+  background-color: $darkbackground;
+  display: block;
+  height: 100vh;
+  left: -$sidebar;
+  position: absolute;
+  top: 0;
+  width: $sidebar;
+  z-index: 31;
+
+  &.open {
+    left: 0;
+  }
+
+  .navLinks {
+    @include flex-direction(column);
+    padding: 35px;
+
+    li {
+      margin: 5px 0;
+
+      .sub_menu {
+        background-color: none;
+        display: block;
+        margin: 5px 0 0;
+        position: static;
+        width: 100%;
+
+        li:last-child {
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+
+      }
+
     }
 
   }

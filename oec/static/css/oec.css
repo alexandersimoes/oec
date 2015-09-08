@@ -181,10 +181,69 @@ output, ruby, section, summary, time, mark, audio, video {
           ul {
             list-style-type: none;
             padding: 0px; }
-nav {
+ul.navLinks {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  list-style: none; }
+  ul.navLinks li {
+    font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    padding: 5px 10px;
+    position: relative;
+    text-transform: uppercase; }
+    ul.navLinks li.active {
+      opacity: 1; }
+      ul.navLinks li:hover {
+        cursor: pointer;
+        opacity: 1; }
+        ul.navLinks li a {
+          color: white; }
+          ul.navLinks li .sub_menu {
+            background-color: #212831;
+            display: none;
+            left: -5px;
+            padding: 0 0 5px 5px;
+            position: absolute;
+            top: 25px;
+            width: 125%;
+            z-index: 1000; }
+            ul.navLinks li .sub_menu.open {
+              display: block; }
+              ul.navLinks li .sub_menu ul {
+                display: block; }
+                ul.navLinks li .sub_menu ul li {
+                  display: block;
+                  font-size: 11px;
+                  padding: 5px 10px; }
+                  ul.navLinks li .sub_menu ul li:hover {
+                    opacity: 0.9; }
+                    ul.navLinks li .sub_menu ul li:hover:before {
+                      content: "\f0da";
+                      font-family: FontAwesome;
+                      opacity: 0.4;
+                      position: absolute;
+                      margin-top: 2px;
+                      margin-left: -10px; }
+                      ul.navLinks li .sub_menu ul li.active:before {
+                        content: "\f0da";
+                        font-family: FontAwesome;
+                        position: absolute;
+                        margin-top: 2px;
+                        margin-left: -10px; }
+
+nav {
   -webkit-justify-content: center;
   -moz-justify-content: center;
   justify-content: center;
@@ -214,85 +273,14 @@ nav {
     font-weight: 800;
     margin: 0px 17px;
     text-decoration: none; }
-    nav ul {
-      -webkit-justify-content: center;
-      -moz-justify-content: center;
-      justify-content: center;
-      display: -webkit-box;
-      display: -moz-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
+    nav .navLinks {
       -webkit-flex-direction: row;
       -moz-flex-direction: row;
-      flex-direction: row;
-      -webkit-transition: left 0.5s;
-      -moz-transition: left 0.5s;
-      -ms-transition: left 0.5s;
-      -o-transition: left 0.5s;
-      transition: left 0.5s;
-      list-style: none; }
+      flex-direction: row; }
       @media all and (max-width: 768px) {
-        nav ul {
-          -webkit-flex-direction: column;
-          -moz-flex-direction: column;
-          flex-direction: column;
-          background-color: #212831;
-          left: -250px;
-          position: absolute;
-          width: 250px;
-          z-index: 2000;   }
-          nav ul.open {
-            left: 0;   }
+        nav .navLinks {
+          display: none !important;   }
 }
-      nav ul li {
-        font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-        font-size: 12px;
-        font-weight: 400;
-        letter-spacing: 1px;
-        opacity: 0.7;
-        padding: 5px 10px;
-        position: relative;
-        text-transform: uppercase; }
-        nav ul li.active {
-          opacity: 1; }
-          nav ul li:hover {
-            cursor: pointer;
-            opacity: 1; }
-            nav ul li a {
-              color: white; }
-              nav ul li .sub_menu {
-                background-color: #212831;
-                display: none;
-                left: -5px;
-                padding: 0 0 5px 5px;
-                position: absolute;
-                top: 25px;
-                width: 125%;
-                z-index: 1000; }
-                nav ul li .sub_menu.open {
-                  display: block; }
-                  nav ul li .sub_menu ul {
-                    display: block; }
-                    nav ul li .sub_menu ul li {
-                      display: block;
-                      font-size: 11px;
-                      padding: 5px 10px; }
-                      nav ul li .sub_menu ul li:hover {
-                        opacity: 0.9; }
-                        nav ul li .sub_menu ul li:hover:before {
-                          content: "\f0da";
-                          font-family: FontAwesome;
-                          opacity: 0.4;
-                          position: absolute;
-                          margin-top: 2px;
-                          margin-left: -10px; }
-                          nav ul li .sub_menu ul li.active:before {
-                            content: "\f0da";
-                            font-family: FontAwesome;
-                            position: absolute;
-                            margin-top: 2px;
-                            margin-left: -10px; }
   nav #search_button {
     margin-right: 15px; }
     nav #search_button img {
@@ -311,6 +299,39 @@ nav {
           -webkit-transform: rotate(180deg);
           -ms-transform: rotate(180deg);
           transform: rotate(180deg); }
+
+#mobileNav {
+  -webkit-transition: left 0.25s;
+  -moz-transition: left 0.25s;
+  -ms-transition: left 0.25s;
+  -o-transition: left 0.25s;
+  transition: left 0.25s;
+  background-color: #212831;
+  display: block;
+  height: 100vh;
+  left: -250px;
+  position: absolute;
+  top: 0;
+  width: 250px;
+  z-index: 31; }
+  #mobileNav.open {
+    left: 0; }
+    #mobileNav .navLinks {
+      -webkit-flex-direction: column;
+      -moz-flex-direction: column;
+      flex-direction: column;
+      padding: 35px; }
+      #mobileNav .navLinks li {
+        margin: 5px 0; }
+        #mobileNav .navLinks li .sub_menu {
+          background-color: none;
+          display: block;
+          margin: 5px 0 0;
+          position: static;
+          width: 100%; }
+          #mobileNav .navLinks li .sub_menu li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0; }
 body.home {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
   -webkit-font-smoothing: antialiased;
