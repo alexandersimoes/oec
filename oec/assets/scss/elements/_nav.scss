@@ -1,4 +1,5 @@
 nav {
+  @include font-smoothing(antialiased);
   @include flex();
   @include flex-direction(row);
   @include justify(space-between);

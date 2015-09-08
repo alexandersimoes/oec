@@ -455,6 +455,10 @@ body.profile {
     }
   
   }
+
+  article.viz-article, article.viz-article + article.titled-section, article .profile_header {
+    @include font-smoothing(antialiased);
+  }
   
   article.product ~ article.titled-section {
     h1 {

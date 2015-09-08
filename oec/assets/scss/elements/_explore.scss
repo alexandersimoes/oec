@@ -1,4 +1,5 @@
 body.visualize {
+  @include font-smoothing(antialiased);
 
   content {
     margin: 35px 35px 35px 0 !important;

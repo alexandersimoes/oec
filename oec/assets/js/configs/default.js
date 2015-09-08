@@ -99,9 +99,8 @@ configs.default = function(build, container) {
       },
       "html": {
         "url": function(focus_id){
-          var display_id = focus_id.substring(2);
+          var display_id = focus_id.substring(2, 5);
           var attr_type = build.attr_type.indexOf("hs") >= 0 ? "prod_id" : build.attr_type+"_id";
-          console.log(build)
           var url_args = "?classification="+build.classification+"&"+attr_type+"="+display_id+"&focus="+attr_type;
           ['origin', 'dest', 'prod'].forEach(function(filter){
             if(typeof build[filter] != "string"){

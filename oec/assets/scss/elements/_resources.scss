@@ -1,6 +1,7 @@
 body.about, body.resources, body.permissions {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
   background-attachment: fixed;
+  @include font-smoothing(antialiased);
 
   nav {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
@@ -11,14 +12,19 @@ body.about, body.resources, body.permissions {
     background-color: $darkbackground;
     border: 1px solid $lightbordercolor;
     margin: 100px 12%;
-    padding: 50px 100px;
+    padding: 45px 7%;
 
     h1 {
-      line-height: 60px;
+      line-height: 1;
+      margin-bottom: 20px;
     }
 
     h3 {
       line-height: 24px;
+    }
+
+    content {
+      margin: 0 auto !important;
     }
   }
 }

@@ -28,9 +28,9 @@
       width: 22px;
       position: absolute;
       // right: 17px;
-      right: 12px;
+      right: 10px;
       // margin-top: 28px;
-      margin-top: 23px;
+      margin-top: 21px;
       padding: 5px;
       background-color: $darkbackground;
       top: 0;
@@ -111,7 +111,7 @@
     @include flex-wrap();
     @include align-content(flex-start);
     overflow: scroll;
-    margin-top: 20px;
+    margin-top: 35px;
     width: 93%;
     height: 100%;
 
@@ -158,7 +158,7 @@
       @include justify(flex-start);
       @include align-items(center);
       margin: 25px;
-      height: 150px;
+      height: 90px;
       min-width: 250px;
       max-width: 500px;
       overflow: hidden;
@@ -200,7 +200,7 @@
       }
 
       &:hover {
-        @include shadow();
+        @include shadow(0 2px 0 rgba(255, 255, 255, 0.9));
         border-bottom: none;
       }
 
