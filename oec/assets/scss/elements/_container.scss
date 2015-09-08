@@ -23,7 +23,8 @@
 
         @media all and (max-width: 768px) {
           font-size: 35px;
-          text-align: center;
+          width: auto;
+          // text-align: center;
         }
 
       }
@@ -56,13 +57,18 @@
 
     section {
       @include flex;
+      @include flex-direction(row);
+
+      @media all and (max-width: 768px) {
+        @include flex-direction(column);
+      }
 
       aside {
         margin: 35px 40px 0 60px;
         width: $sidebar;
 
         @media all and (max-width: 768px) {
-          margin: 20px 20px 0 20px;
+          margin: 20px;
           width: auto;
         }
 
@@ -71,6 +77,10 @@
       content {
         @include flex-size(1);
         margin: 35px 60px 35px 0;
+
+        @media all and (max-width: 768px) {
+          margin: 20px;
+        }
 
         ul {
           margin: 20px 0;
