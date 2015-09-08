@@ -267,7 +267,7 @@
       var ui = d3plus.form()
         .focus(false, activate_build_button)
         .data(element)
-        .config(oec.style)
+        .ui(oec.darkUI)
         .width(d3.select(this).node().offsetWidth)
 
       if (this.id.indexOf("year") >= 0) {
@@ -296,6 +296,7 @@
           .id("display_id")
           .keywords("keywords")
           .text("name")
+          .height({"secondary": 300})
           .draw();
 
         var country_match = ["origin","destination"].indexOf(this.id) >= 0 && ["origin_id","dest_id"].indexOf(attr_id) >= 0,

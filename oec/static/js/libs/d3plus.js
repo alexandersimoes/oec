@@ -16316,6 +16316,9 @@ module.exports = function(vars) {
   if (vars.dev.value) {
     print.time("update");
   }
+  updatedButtons.classed("d3plus_button_active", function(d) {
+    return vars.focus.value === d[vars.id.value];
+  });
   if (vars.draw.timing) {
     updatedButtons.transition().duration(vars.draw.timing).call(color, vars).call(style, vars);
   } else {
@@ -16763,6 +16766,7 @@ module.exports = function ( vars ) {
       "ui": vars.draw.timing
     })
     .ui({
+      "border": vars.ui.border,
       "color": vars.ui.color,
       "padding": vars.ui.padding.css
     })
@@ -26541,6 +26545,7 @@ module.exports = function( vars ) {
       .type(d.type || "auto")
       .ui({
         "align": vars.ui.align.value,
+        "border": vars.ui.border,
         "color": {
           "primary": vars.ui.color.primary.value,
           "secondary": vars.ui.color.secondary.value

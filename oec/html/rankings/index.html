@@ -156,18 +156,27 @@
 
     function change_year(new_year) {
 
-      var url = window.location.pathname.split("/")
+      if (!year_first_time) {
 
-      if(url.length == 6){
-        url.splice(4, 1, new_year)
-      }
-      else {
-        url.splice(4, 0, new_year)
+        var url = window.location.pathname.split("/");
+
+        if(url.length == 6){
+          url.splice(4, 1, new_year);
+        }
+        else {
+          url.splice(4, 0, new_year);
+        }
+
+        url = url.join("/");
+
+        if (depth_form) {
+          url = url + "?depth=" + depth_form.focus();
+        }
+
+        window.location = url;
+
       }
 
-      if(!year_first_time){
-        window.location = url.join("/") + "?depth=" + depth_form.focus();
-      }
       year_first_time = false;
 
     }
@@ -182,9 +191,12 @@
             window.location = "/" + oec.locale + "/rankings/" + c;
           }
         })
-        .config(oec.style)
+        .format({"text": function(d){
+          return d.toUpperCase();
+        }})
         .width(d3.select("aside").node().offsetWidth)
         .search(false)
+        .ui(oec.darkUI)
         .draw();
 
     }
@@ -197,9 +209,9 @@
       .order({
         "sort": "desc"
       })
-      .config(oec.style)
       .width(d3.select("aside").node().offsetWidth)
       .search(false)
+      .ui(oec.darkUI)
       .draw()
 
     if (!d3.select("#change_depth").empty()) {
@@ -217,9 +229,9 @@
         .order({
           "sort": "asc"
         })
-        .config(oec.style)
         .width(d3.select("aside").node().offsetWidth)
         .search(false)
+        .ui(oec.darkUI)
         .draw();
 
     }
