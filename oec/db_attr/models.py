@@ -71,11 +71,17 @@ class Country(db.Model, AutoSerialize):
 
     def next(self):
         c = self.__class__
-        return self.query.filter(c.id > self.id).filter(func.char_length(c.id)==len(self.id)).order_by(c.id).first()
+        return self.query.filter(c.id > self.id) \
+                        .filter(c.id_3char != None) \
+                        .filter(func.char_length(c.id)==len(self.id)) \
+                        .order_by(c.id).first()
 
     def prev(self):
         c = self.__class__
-        return self.query.filter(c.id < self.id).filter(func.char_length(c.id)==len(self.id)).order_by(c.id.desc()).first()
+        return self.query.filter(c.id < self.id) \
+                        .filter(c.id_3char != None) \
+                        .filter(func.char_length(c.id)==len(self.id)) \
+                        .order_by(c.id.desc()).first()
 
     def get_attr_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
