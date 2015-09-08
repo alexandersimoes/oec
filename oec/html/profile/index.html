@@ -439,13 +439,36 @@
   d3.selectAll(".viz").each(function(d, i){
     builds.push({
       "container": d3.select(this),
-      "height": this.offsetHeight,
+      "data": build_data[i],
       "index": i,
       "loaded": false,
-      "timer": false,
-      "top": this.offsetTop
+      "timer": false
     })
   })
+
+  function resizeApps() {
+    var w = d3.select("content").node().offsetWidth,
+        h = window.innerHeight * 0.7;
+    builds.forEach(function(b, i){
+      var height = b.data && b.data.viz.slug === "network" ? w * 0.7 : h;
+      b.container.style("height", height + "px");
+      b.top = b.container.node().offsetTop;
+      if (w !== b.width || h !== b.height) {
+        if (b.loaded) {
+          if (b.viz) {
+            b.viz.width(w).height(height).draw();
+          }
+          else {
+            b.container.style("width", w + "px");
+          }
+        }
+        b.width = w;
+        b.height = height;
+      }
+    })
+  }
+  resizeApps();
+  resizeFunctions.push(resizeApps);
 
   function buildInView(b) {
     var top = window.scrollY, height = window.innerHeight;
@@ -477,7 +500,7 @@
       build.container.attr("src", url);
     }
     else {
-      visualization(build_data[build.index], build.container);
+      build.viz = visualization(build_data[build.index], build.container);
     }
     build.loaded = true;
   }
@@ -490,7 +513,7 @@
   if (classification === "product") classification = "hs92";
   d3.select("header #title").on("click", function(){
     search(classification);
-  })
+  });
 
   // Demo Mode
   // setTimeout(function(){
