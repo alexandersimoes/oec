@@ -31,3 +31,7 @@ Flask-Assets
 
 # SCSS compiler
 Flask-Scss
+
+# Cache helper scripts
+selenium
+click
