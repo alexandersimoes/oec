@@ -5,11 +5,26 @@ body.profile {
     &:nth-of-type(even) {
       background-color: white;
       color: $black;
-      
+
       &.viz-article {
         aside {
           border-bottom: 1px dotted $lightbordercolor;
+
+          @media all and (max-width: 768px) {
+            border-bottom: none;
+          }
+
         }
+
+        content {
+          border-bottom: none;
+
+          @media all and (max-width: 768px) {
+            border-bottom: 1px dotted $lightbordercolor;
+          }
+
+        }
+
       }
 
       p {
@@ -32,6 +47,20 @@ body.profile {
       &.viz-article {
         aside {
           border-bottom: 1px dotted $darkbordercolor;
+
+          @media all and (max-width: 768px) {
+            border-bottom: none;
+          }
+
+        }
+
+        content {
+          border-bottom: none;
+
+          @media all and (max-width: 768px) {
+            border-bottom: 1px dotted $darkbordercolor;
+          }
+
         }
       }
 
@@ -94,6 +123,120 @@ body.profile {
 
   article .profile_header {
 
+    p img {
+      @include shadow(none);
+      border: none;
+      margin: 10px 0 0 0;
+      width: 100%;
+    }
+
+    #title {
+      @include flex;
+      @include align-items(center);
+      @include flex-direction(row);
+      margin: 20px 35px 10px 0;
+
+      @media all and (max-width: 768px) {
+        @include justify(center);
+      }
+
+      .icon {
+        @include flex-size(none);
+        height: 80px;
+        margin: 0 20px 0 0;
+        width: 80px;
+        z-index: 10;
+      }
+
+      h1 {
+        font-size: 65px;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        i {
+          opacity: 0.5;
+        }
+
+        sub {
+          color: white;
+          display: block;
+          font-size: 11px;
+          text-shadow: $shadow;
+        }
+
+        &:after {
+          content: url('/static/img/nav/search.png');
+          @include transition(opacity 1s);
+          opacity: 0;
+          position: absolute;
+          margin-left: 15px;
+          margin-top: 2px;
+          cursor: pointer;
+        }
+
+        &:hover:after {
+          opacity: 0.9;
+        }
+      }
+    }
+
+    .author {
+      @include transition(opacity 0.5s);
+      bottom: 3px;
+      color: white;
+      font-size: 9px;
+      font-weight: 300;
+      opacity: 0;
+      position: absolute;
+      right: 7px;
+      text-shadow: $shadow;
+
+      i {
+        display: inline-block;
+        margin: 2px 5px 0;
+      }
+
+      a {
+        color: white;
+        &:hover {
+          border-color: transparent;
+        }
+      }
+    }
+
+    #stats {
+      @include flex;
+      @include flex-direction(row);
+      @include align-items(flex-start);
+      @include justify(space-between);
+      @include flex-wrap(wrap);
+      margin-bottom: 17px;
+      position: relative;
+    }
+
+    #title, #stats {
+      margin-left: 60px;
+    }
+
+    &.country {
+      #title, #stats {
+        margin-left: 350px;
+
+        @media all and (max-width: 768px) {
+          margin-left: 35px;
+        }
+
+      }
+    }
+
+    &.product {
+      #stats {
+        margin: 25px 60px;
+      }
+    }
+
     &:hover {
       .author {
         opacity: 1;
@@ -112,7 +255,7 @@ body.profile {
 
     }
 
-    $stat_width: 250px;
+    $stat_width: 160px;
 
     .stat {
       @include flex-size(1);
@@ -121,13 +264,33 @@ body.profile {
       color: white;
       margin-right: 35px;
       margin-top: 20px;
-      width: $stat_width;
+      // min-width: $stat_width;
+
+      @media all and (max-width: 768px) {
+        margin: 10px;
+      }
+
+      @media all and (max-width: 600px) {
+        min-width: 40%;
+      }
 
       .stat_text {
         @include flex;
         @include flex-direction(row);
         @include align-items(center);
         @include justify(flex-start);
+
+        @media all and (max-width: 1024px) {
+          @include flex-direction(column);
+          @include justify(center);
+          text-align: center;
+        }
+
+        @media all and (max-width: 600px) {
+          @include flex-direction(row);
+          @include justify(flex-start);
+          text-align: left;
+        }
 
         h3 {
           font-family: $source-sans;
@@ -290,135 +453,26 @@ body.profile {
 
   }
 
-  article .profile_header {
-
-    p img {
-      @include shadow(none);
-      border: none;
-      margin: 10px 0 0 0;
-      width: 100%;
-    }
-
-    @media all and (max-width: 768px) {
-      @include flex-direction(column);
-      &#stats {
-        @include flex-direction(row);
-      }
-    }
-
-    #title {
-      @include flex;
-      @include align-items(center);
-      @include flex-direction(row);
-      margin: 20px 35px 10px 0;
-
-      .icon {
-        @include flex-size(none);
-        height: 80px;
-        margin: 0 20px 0 0;
-        width: 80px;
-        z-index: 10;
-
-        @media all and (max-width: 768px) {
-          margin: 0;
-        }
-      }
-
-      h1 {
-        font-size: 65px;
-
-        &:hover {
-          cursor: pointer;
-        }
-
-        i {
-          opacity: 0.5;
-        }
-
-        sub {
-          color: white;
-          display: block;
-          font-size: 11px;
-          text-shadow: $shadow;
-        }
-
-        &:after {
-          content: url('/static/img/nav/search.png');
-          @include transition(opacity 1s);
-          opacity: 0;
-          position: absolute;
-          margin-left: 15px;
-          margin-top: 2px;
-          cursor: pointer;
-        }
-
-        &:hover:after {          
-          opacity: 0.9;
-        }
-      }
-    }
-
-    .author {
-      @include transition(opacity 0.5s);
-      bottom: 3px;
-      color: white;
-      font-size: 9px;
-      font-weight: 300;
-      opacity: 0;
-      position: absolute;
-      right: 7px;
-      text-shadow: $shadow;
-
-      i {
-        display: inline-block;
-        margin: 2px 5px 0;
-      }
-
-      a {
-        color: white;
-        &:hover {
-          border-color: transparent;
-        }
-      }
-    }
-
-    #stats {
-      @include flex;
-      @include flex-direction(row);
-      @include align-items(flex-start);
-      @include justify(space-between);
-      margin-bottom: 17px;
-      position: relative;
-    }
-
-    #title, #stats {
-      margin-left: 60px;
-    }
-    
-    &.country {
-      #title, #stats {
-        margin-left: 350px;
-      }
-    }
-
-    &.product {
-      #stats {
-        margin: 25px 60px;
-      }
-    }
-
-  }
-
   article.intro-article {
-    
+
     content {
       margin: 45px 60px 45px 0 !important;
+
+      @media all and (max-width: 768px) {
+        margin: 20px !important;
+      }
+
     }
 
     aside {
       margin-top: 45px !important;
+
+      @media all and (max-width: 768px) {
+        margin: 20px !important;
+      }
+
     }
-    
+
     div.columns p {
       text-align: justify;
     }
@@ -452,14 +506,18 @@ body.profile {
 
       }
 
+      @media all and (max-width: 768px) {
+        display: none;
+      }
+
     }
-  
+
   }
 
   article.viz-article, article.viz-article + article.titled-section, article .profile_header {
     @include font-smoothing(antialiased);
   }
-  
+
   article.product ~ article.titled-section {
     h1 {
       border-top: 0;
@@ -479,7 +537,7 @@ body.profile {
       margin-bottom: 20px;
       line-height: 1.1;
     }
-    
+
     aside {
       padding: 40px 0;
       margin: 0 40px 0 60px !important;
@@ -533,6 +591,24 @@ body.profile {
         border-bottom: 0;
       }
     }
+  }
+
+  article {
+
+    aside {
+      @media all and (max-width: 768px) {
+        margin: 20px 20px 0 20px !important;
+        padding: 0 !important;
+      }
+    }
+
+    content {
+      @media all and (max-width: 768px) {
+        margin: 0 20px 20px 20px !important;
+        padding-bottom: 50px !important;
+      }
+    }
+
   }
 
   article .prof-nav {
@@ -667,6 +743,10 @@ body.profile {
       width: 100%;
       margin-top: 35px;
 
+      @media all and (max-width: 768px) {
+        margin-top: 0;
+      }
+
       // $stat_width: 250px;
 
       .stat_text {
@@ -719,6 +799,10 @@ body.profile {
     margin-bottom: 45px;
     overflow: scroll;
     padding: 5px 20px 15px 15px;
+
+    @media all and (max-width: 768px) {
+      margin-bottom: 0;
+    }
 
     li {
       padding: 3px 0;

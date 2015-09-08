@@ -188,7 +188,7 @@
 
       setTimeout(function(){
 
-        var w = header.node().offsetWidth, h = parseFloat(header.attr("data-height")), r = w/h;
+        var w = header.node().offsetWidth, h = header.node().offsetHeight, r = w/h;
         var iw = img.node().offsetWidth, ih = img.node().offsetHeight, ir = iw/ih;
         if (r > ir) {
           var cw = w, ch = w/ir, l = 0, t = -(ch/2-h/2);
