@@ -77,8 +77,6 @@
 
 </nav>
 
-<div id="mask"></div>
-
 <div id="container">
 
   <div id="content">
@@ -173,7 +171,7 @@
   }
 
   // Hamburger menu logic.
-  d3.selectAll("#hamburger, #mask").on("click", function(){
+  d3.select("#hamburger").on("click", function(){
     var open = d3.select("nav ul").classed("open");
     d3.select("nav ul").classed("open", !open);
     d3.select("#mask").classed("visible", !open);

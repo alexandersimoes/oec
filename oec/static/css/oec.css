@@ -903,11 +903,9 @@ body.home {
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 10; }
-  @media all and (max-width: 1024px) {
-    #mask.visible {
-      display: block;   }
-}
+  z-index: 30; }
+  #mask.visible {
+    display: block; }
 body.profile {
   background-color: #212831; }
   body.profile article:nth-of-type(even) {
@@ -2107,41 +2105,31 @@ code {
 
 .modal#download .modal-body {
   text-align: center; }
-.modal:before {
-  content: "";
-  display: none;
-  background: rgba(33, 40, 49, 0.6);
+.modal .modal-dialog {
+  -webkit-transform: translate(0, -500%);
+  -ms-transform: translate(0, -500%);
+  transform: translate(0, -500%);
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+  background-color: white;
+  left: 50%;
+  margin-left: -130px;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 10; }
-  .modal .modal-dialog {
-    -webkit-transform: translate(0, -500%);
-    -ms-transform: translate(0, -500%);
-    transform: translate(0, -500%);
-    -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
-    background-color: white;
-    left: 50%;
-    margin-left: -130px;
-    position: fixed;
-    top: -100%;
-    width: 360px;
-    z-index: 11;
-    -webkit-transition: -webkit-transform 0.3s ease-out;
-    -moz-transition: -moz-transform 0.3s ease-out;
-    -o-transition: -o-transform 0.3s ease-out;
-    transition: transform 0.3s ease-out; }
-    .modal.active:before {
-      display: block; }
-      .modal.active .modal-dialog {
-        -webkit-transform: translate(0, 0);
-        -ms-transform: translate(0, 0);
-        transform: translate(0, 0);
-        top: 30%; }
+  top: -100%;
+  width: 360px;
+  z-index: 31;
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -moz-transition: -moz-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out; }
+  .modal.active:before {
+    display: block; }
+    .modal.active .modal-dialog {
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+      transform: translate(0, 0);
+      top: 30%; }
 
 .modal-header {
   padding: 10px 20px 0 20px; }

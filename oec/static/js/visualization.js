@@ -112,7 +112,7 @@ function share(build){
     var lang = build.lang;
     var same_origin = window.parent.location.host == window.location.host;
     var url = encodeURIComponent("/"+lang+"/visualize/"+build.url)
-    
+
     // make post request to server for short URL
     d3.json("/"+lang+"/visualize/shorten/")
       .header("Content-type","application/x-www-form-urlencoded")
@@ -132,7 +132,9 @@ function share(build){
     d3.selectAll(".modal-body a#Twitter").attr("href", build.social.twitter)
     d3.selectAll(".modal-body a#Google").attr("href", build.social.google)
     // open modal window
-    d3.selectAll(".modal#share").classed("active", true)
+    d3.selectAll(".modal#share").classed("active", true);
+    d3.selectAll("#mask").classed("visible", true);
+    d3.selectAll("body").classed("frozen", true);
   }
 }
 
@@ -708,18 +710,21 @@ function format_csv_data(data, attrs, build){
 
 function download(container, csv_data){
   return function(){
-  
-    d3.selectAll(".modal#download").classed("active", true)
+
+    d3.selectAll(".modal#download").classed("active", true);
+    d3.selectAll("#mask").classed("visible", true);
+    d3.selectAll("body").classed("frozen", true);
+
     d3.selectAll(".modal#download a.download_button").on("click", function(){
-      
+
       var format = d3.select(this).attr("id");
-      
+
       var title = window.location.pathname.split("/")
       title.splice(0, 1)
       title.splice(0, 1)
       title.splice(title.length-1, 1)
       title = title.join("_").replace("embed", "explore")
-      
+
       if(format == "svg" || format == "png"){
         var svg = d3.select(container).select("svg")
           .attr("title", title)
@@ -733,20 +738,22 @@ function download(container, csv_data){
         // var content = d3.csv.format(csv_data);
         var content = JSON.stringify(csv_data);
       }
-      
+
       var form = d3.select("body").append("form").attr("id", "download").attr("action", "/en/visualize/download/").attr("method", "post");
       form.append("input").attr("type", "text").attr("name", "content").attr("value", content);
       form.append("input").attr("type", "text").attr("name", "format").attr("value", format);
       form.append("input").attr("type", "text").attr("name", "title").attr("value", title);
-      
+
       form.node().submit();
-      
+
       d3.event.preventDefault();
-      
-    })
+
+    });
+
   }
-  
+
 }
+
 var load = function(url, callback) {
 
   localforage.getItem("cache_version", function(error, c){

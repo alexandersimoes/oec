@@ -91,6 +91,8 @@
   </head>
   <body class="{% if g.page_type %}{{g.page_type}}{% endif %}{% if g.locale == 'ar' or g.locale == 'he' %} rtl{% endif %}">
 
+    <div id="mask"></div>
+
     <div class="modal" id="share">
       <div class="modal-dialog">
         <div class="modal-header">
@@ -206,8 +208,19 @@
       // close modal windows
       d3.selectAll(".modal .btn-close").on("click", function(){
         d3.selectAll(".modal").classed("active", false);
+        d3.select("#mask").classed("visible", false);
+        d3.select("body").classed("frozen", false);
         d3.event.preventDefault();
       });
+
+      d3.select("#mask").on("click", function(){
+        d3.select("#mask").classed("visible", false);
+
+        d3.selectAll(".modal").classed("active", false);
+
+        d3.select("nav ul").classed("open", false);
+        d3.select("body").classed("frozen", false);
+      })
 
     </script>
 
