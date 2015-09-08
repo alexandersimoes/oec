@@ -168,7 +168,7 @@ $default_size: 600px;
     opacity: 0.2;
   }
   20% {
-    opacity: 0.4;
+    opacity: 0.6;
   }
   50% {
     opacity: 0.3;
@@ -178,6 +178,6 @@ $default_size: 600px;
   }
   100% {
     @include transform(rotate(360deg));
-    opacity: 0.3;
+    opacity: 0.2;
   }
 }
