@@ -404,9 +404,9 @@
         .scale(s)
         .translate(t);
 
-      var scale = 1;
+      var scale = 0.5;
       var group = svg.append("g")
-        .attr("transform", "translate("+(width*(scale/2))+","+(height*(scale/2))+")scale("+scale+","+scale+")");
+        // .attr("transform", "translate("+(width*(scale/2))+","+(height*(scale/2))+")scale("+scale+","+scale+")");
 
       group.selectAll("path").data(countries.features)
         .enter().append("path")
@@ -418,10 +418,8 @@
 
       map.classed("loaded", true);
 
-      group.attr("transform", "translate(0,0).scale(1,1)");
-
-      // group.transition().duration(180)
-      //   .attr("transform", "translate(0,0).scale(1,1)");
+      // group.transition().duration(1000)
+      //   .attr("transform", "translate(0,0)scale(1,1)");
 
     });
 
