@@ -2,7 +2,7 @@ import ast
 from flask import g
 from sqlalchemy import func
 from sqlalchemy.ext.hybrid import hybrid_property
-from oec import db, available_years
+from oec import db, available_years, excluded_countries
 from oec.utils import AutoSerialize, exist_or_404
 from oec.db_attr.abstract_models import ProdAttr, ProdNameAttr
 
@@ -72,6 +72,7 @@ class Country(db.Model, AutoSerialize):
     def next(self):
         c = self.__class__
         return self.query.filter(c.id > self.id) \
+                        .filter(~c.id.in_(excluded_countries)) \
                         .filter(c.id_3char != None) \
                         .filter(func.char_length(c.id)==len(self.id)) \
                         .order_by(c.id).first()
@@ -79,6 +80,7 @@ class Country(db.Model, AutoSerialize):
     def prev(self):
         c = self.__class__
         return self.query.filter(c.id < self.id) \
+                        .filter(~c.id.in_(excluded_countries)) \
                         .filter(c.id_3char != None) \
                         .filter(func.char_length(c.id)==len(self.id)) \
                         .order_by(c.id.desc()).first()
