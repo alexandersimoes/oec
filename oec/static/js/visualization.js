@@ -175,7 +175,7 @@ configs.default = function(build, container) {
     curtain = background;
   }
 
-  var edges = "#f7f7f7",
+  var edges = "#ddd",
       grid = "#ccc",
       chart = background,
       ui_color = {
