@@ -96,14 +96,31 @@
 
   footer {
     font-size: 10px;
-    margin: 35px;
+    margin: 45px 15px 0;
     text-align: center;
+    
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    #mc {
+      position: relative;
+      bottom: -20px;
+    }
 
     img, a {
       opacity: 0.7;
+
       :hover {
         opacity: 1;
       }
+    }
+
+    div {
+      max-width: 760px;
+      margin: 0 auto;
     }
 
     ul {
