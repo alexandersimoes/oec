@@ -53,17 +53,29 @@
       var oec = {};
       oec.translations = {{ g.translations|safe }};
       oec.locale = "{{ g.locale }}";
-      oec.style = {
+      oec.ui = {
+        "border": 1,
         "font": {
           "family": ["Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
-          "size": 13
+          "size": 13,
+          "weight": 200
         },
-        "ui": {
-          "color": {"primary": "#63636a"},
-          "margin": 0,
-          "padding": 4
-        }
+        "dark": {
+          "primary": "#63636a",
+          // "secondary": "red"
+        },
+        "light": {
+          "primary": "#eeeeee",
+          // "secondary": "red"
+        },
+        "margin": 0,
+        "padding": 4
       };
+
+      oec.darkUI = oec.ui
+      oec.darkUI.color = oec.ui.dark;
+      delete oec.darkUI.dark;
+      delete oec.darkUI.light;
 
       var color = "#212831";
 

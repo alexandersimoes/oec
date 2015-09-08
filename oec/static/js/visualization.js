@@ -168,8 +168,8 @@ configs.default = function(build, container) {
       background = "#212831";
     }
     else {
-      background = "#212831";
-      // background = "#fff";
+      // background = "#212831";
+      background = "#fff";
     }
     text = d3plus.color.text(background);
     curtain = background;
@@ -179,9 +179,7 @@ configs.default = function(build, container) {
       grid = "#ccc",
       missing = "#eee",
       chart = background,
-      ui_color = {
-        "primary": "#eee"
-      };
+      ui_color = oec.ui.light;
 
   if (background !== "none" && d3.hsl(background).l < 0.5) {
     missing = d3plus.color.lighter(background, 0.5);
@@ -191,7 +189,7 @@ configs.default = function(build, container) {
     // grid = "#a9a9a9";
     // chart = "#c3c3c3";
 
-    ui_color.primary = "#63636a";
+    ui_color = oec.ui.dark;
   }
 
   var large_tooltip_width = 150;
@@ -312,14 +310,16 @@ configs.default = function(build, container) {
     "tooltip": tooltip,
     "type": build.viz.slug,
     "ui": {
+      "border": oec.ui.border,
       "color": ui_color,
       "font": {
         "color": text,
-        "family": ["Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
-        "size": 13
+        "family": oec.ui.font.family,
+        "size": oec.ui.font.size,
+        "weight": oec.ui.font.weight
       },
-      "margin": 0,
-      "padding": 4
+      "margin": oec.ui.margin,
+      "padding": oec.ui.padding
     },
     "x": {
       "grid": {
