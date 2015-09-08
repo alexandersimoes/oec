@@ -524,6 +524,8 @@
     }
 
     d3.select("#search").style("visibility", "visible").classed("visible", true);
+    d3.select("body").classed("frozen", true);
+    d3.selectAll("#search_button, #search_close").classed("open", true);
     d3.select("#search_input").node().focus();
     search_term(search_query);
 
@@ -531,6 +533,8 @@
 
   function close_search() {
     d3.select("#search").classed("visible", false);
+    d3.select("body").classed("frozen", false);
+    d3.selectAll("#search_button, #search_close").classed("open", false);
     setTimeout(function(){
       d3.select("#search").style("visibility", "hidden");
     }, 500);

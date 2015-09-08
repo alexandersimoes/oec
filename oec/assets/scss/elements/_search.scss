@@ -1,8 +1,4 @@
-
-
-@media all and (max-width: 1024px) {
-  margin-left: 0;
-}#search {
+#search {
   @include flex();
   @include flex-direction(column);
   @include align-items(center);
@@ -13,7 +9,7 @@
   opacity: 0;
   position: fixed;
   right: 0;
-  top: 74px;
+  top: 0;
   visibility: hidden;
   z-index: 40;
 
@@ -36,7 +32,7 @@
       margin-top: 23px;
       padding: 5px;
       background-color: $darkbackground;
-      top: -74px;
+      top: 0;
     }
 
     :hover {
@@ -59,7 +55,7 @@
       color: #fff;
       margin-bottom: 15px;
       width: 100%;
-      
+
       &:focus {
         @include shadow(none);
         outline: none;
@@ -75,7 +71,7 @@
 
     #search_modes {
       text-align: center;
-      
+
       .d3plus_toggle > * {
         margin: 0 3px !important;
       }
