@@ -90,8 +90,8 @@ $default_size: 600px;
       line-height: 1.4;
       position: absolute;
       text-align: center;
-      bottom: 16%;
-      right: 18%;
+      bottom: 14%;
+      right: 16%;
 
       a {
         border-bottom: 1px solid transparent;
@@ -123,7 +123,7 @@ $default_size: 600px;
       color: $lightlinkcolor;
       display: block;
       font-family: $source-sans;
-      font-size: $default_size/45;
+      font-size: $default_size/43;
       font-weight: 300;
       left: 38%;
       opacity: 0.8;
@@ -139,12 +139,12 @@ $default_size: 600px;
       }
 
       img {
-        margin-bottom: -10px;
+        margin-bottom: -5px;
         margin-left: -17%;
         margin-right: 0;
-        padding: 0 0 0 3px;
+        padding: 0;
         position: relative;
-        top: -2px;
+        top: 0;
         width: 15%;
       }
     }

@@ -49,6 +49,10 @@ body.publications {
           overflow: hidden;
         }
       }
+
+      .columns {
+        @include column-count(2);
+      }
     }
 
     &.why-info-grows {

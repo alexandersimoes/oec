@@ -18,7 +18,7 @@
     </p>
     <div id="search_home">
       <img src="/static/img/nav/search.png">
-      {{ _("Search the observatory") }}
+      {{ _("Search the Observatory") }}
     </div>
   </div>
 </div>
@@ -37,7 +37,7 @@
         p = 100,
         w = window.innerWidth,
         h = window.innerHeight - n - f,
-        min = 350,
+        min = 375,
         max = 850,
         s = d3.min([max, d3.max([Math.floor(d3.min([w - p, h - p])), min])]);
 
@@ -48,7 +48,7 @@
       d3.select("#info").transition().duration(timing)
         .style("font-size", s/35 + "px");
       d3.select("#search_home").transition().duration(timing)
-        .style("font-size", s/45 + "px");
+        .style("font-size", s/43 + "px");
     }
     else {
 
@@ -59,7 +59,7 @@
         .style("height", s + "px");
 
       d3.select("#info").style("font-size", s/35 + "px");
-      d3.select("#search_home").style("font-size", s/45 + "px");
+      d3.select("#search_home").style("font-size", s/43 + "px");
 
       d3.select(".bg-frame").transition().duration(timing * 2)
         .style("opacity", 1);

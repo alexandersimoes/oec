@@ -13,9 +13,9 @@
   opacity: 0;
   position: fixed;
   right: 0;
-  top: 0;
+  top: 74px;
   visibility: hidden;
-  z-index: 2000;
+  z-index: 40;
 
   &.visible {
     opacity: 1;
@@ -26,12 +26,17 @@
 
     img {
       @include transition(opacity 0.1s);
-      opacity: 0.8;
+      opacity: 1;
       height: 22px;
       width: 22px;
       position: absolute;
-      right: 17px;
-      top: 28px;
+      // right: 17px;
+      right: 12px;
+      // margin-top: 28px;
+      margin-top: 23px;
+      padding: 5px;
+      background-color: $darkbackground;
+      top: -74px;
     }
 
     :hover {
@@ -40,35 +45,60 @@
   }
 
   #search_div {
-    height: 12vh;
-    margin: 3vh auto 0;
-    position: relative;
-    text-align: center;
-
-    i {
-      color: $blue;
-      font-size: 3vh;
-      left: 1vh;
-      position: absolute;
-      top: 1vh;
-    }
+    padding: 20px 35px 0;
+    text-align: left;
+    width: 93%;
 
     #search_input {
       background-color: transparent;
       border: 0;
-      border-bottom: 1px solid $blue;
-      display: inline-block;
-      font-size: 3vh;
-      height: 5vh;
-      margin-bottom: 5px;
-      padding-left: 5vh;
-      width: auto;
-
+      border-bottom: 1px solid $darkbordercolor;
+      font-family: $source-sans;
+      font-size: 30px;
+      font-weight: 300;
+      color: #fff;
+      margin-bottom: 15px;
+      width: 100%;
+      
       &:focus {
         @include shadow(none);
         outline: none;
       }
 
+      @include placeholder {
+        font-family: $source-sans;
+        font-weight: 300;
+        color: $darkbordercolor;
+      }
+
+    }
+
+    #search_modes {
+      text-align: center;
+      
+      .d3plus_toggle > * {
+        margin: 0 3px !important;
+      }
+
+      .d3plus_node {
+        background-color: rgba(0,0,0,0) !important;
+        border-left: 0 !important;
+        border-right: 0 !important;
+        border-top: 0 !important;
+      }
+
+      .d3plus_button_label {
+        font-family: $montserrat;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 1px;
+        padding: 5px 10px !important;
+        text-transform: uppercase;
+
+        &:hover {
+          opacity: 0.4 !important;
+        }
+      }
     }
 
   }
@@ -79,17 +109,35 @@
     @include flex-wrap();
     @include align-content(flex-start);
     overflow: scroll;
-    height: 75vh;
-    width: 90%;
+    margin-top: 20px;
+    width: 93%;
+    height: 100%;
 
     h1 {
       @include flex-size(1);
+    }
+
+    .search-loading, .search-error {
+      font-size: 30px;
+      line-height: 30px;
+      text-align: center;
+      padding-top: 21vh;
     }
 
     .search_group {
       @include flex-size(1);
       margin: 0 10px;
       text-align: center;
+
+      & > h1 {
+        font-family: $montserrat;
+        font-weight: 400;
+        font-size: 20px;
+        letter-spacing: 1px;
+        line-height: 1.15;
+        margin-bottom: -10px;
+        text-transform: uppercase;
+      }
 
       @media all and (max-width: 768px) {
         @include flex-size(initial);
@@ -143,6 +191,7 @@
       h1 {
         color: white;
         font-size: 22px;
+        line-height: 25px;
         margin-right: 15px;
         text-shadow: $shadow;
         z-index: 2;

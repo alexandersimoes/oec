@@ -119,8 +119,7 @@
     <img src="/static/img/nav/x.png">
   </div>
   <div id="search_div">
-    <i class="fa fa-search"></i>
-    <input id="search_input" type="text" placeholder="{{ _('Search') }}" />
+    <input id="search_input" type="text" placeholder="{{ _('Search the Observatory') }}" />
     <div id="search_modes">
       <select id="search_mode_selector">
         <option value="all" selected>No Filter</option>
@@ -387,8 +386,8 @@
     else if (search_query.length) {
 
       d3.select("#search_results").append("h1")
-        .style("text-align", "center")
-        .text("No Results");
+        .classed("search-error", true)
+        .text("We couldn’t find any results.");
 
     }
 
@@ -404,7 +403,7 @@
       }
     })
     .font({
-      "size": 14
+      "size": 12
     })
     .ui({"padding": 8})
     .draw()
@@ -430,7 +429,7 @@
     d3.select("#search_results").selectAll("*").remove();
 
     d3.select("#search_results").append("h1")
-      .style("text-align", "center")
+      .classed("search-loading", true)
       .text("Loading...");
 
     var m = search_mode === "all" ? "" : "&mode=" + search_mode;

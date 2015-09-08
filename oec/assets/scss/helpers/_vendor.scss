@@ -119,22 +119,22 @@
   transition: $animation;
 }
 
-@mixin placeholder($blue) {
+@mixin placeholder {
 
   &::-webkit-input-placeholder {
-    color: $blue;
+    @content;
   }
 
   &:-moz-placeholder {
-    color: $blue;
+    @content;
   }
 
   &::-moz-placeholder {
-    color: $blue;
+    @content;
   }
 
   &:-ms-input-placeholder {
-    color: $blue;
+    @content;
   }
 
 }

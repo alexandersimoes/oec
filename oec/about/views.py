@@ -90,8 +90,8 @@ def about():
 
     return render_template("about/index.html", current=current, past=past)
 
-@mod.route('team/')
-def team():
+@mod.route('resources/')
+def resources():
     return redirect(url_for('.about'))
 
 def data_redirect():

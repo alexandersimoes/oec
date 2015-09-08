@@ -1,14 +1,23 @@
-body.about #content {
-  border: 1px solid $lightbordercolor;
-  margin: 100px 12%;
-  padding: 50px 100px;
+body.about, body.resources, body.permissions {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
 
-  h1 {
-    line-height: 60px;
+  nav {
+    background: none;
   }
 
-  h3 {
-    line-height: 24px;
+  #content { 
+    background-color: $darkbackground;
+    border: 1px solid $lightbordercolor;
+    margin: 100px 12%;
+    padding: 50px 100px;
+
+    h1 {
+      line-height: 60px;
+    }
+
+    h3 {
+      line-height: 24px;
+    }
   }
 }
 
