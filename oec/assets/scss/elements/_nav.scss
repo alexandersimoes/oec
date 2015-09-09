@@ -78,6 +78,17 @@ ul.navLinks {
 
 }
 
+#logo {
+  color: white;
+  font-family: $open-sans;
+  font-size: 25px;
+  font-weight: 800;
+  margin: 0px;
+  position: relative;
+  left: 17px;
+  text-decoration: none;
+}
+
 nav {
   @include flex();
   @include flex-direction(row);
@@ -90,17 +101,6 @@ nav {
   z-index: 20;
   padding: 20px 0;
 
-  #logo {
-    color: white;
-    font-family: $open-sans;
-    font-size: 25px;
-    font-weight: 800;
-    margin: 0px;
-    position: relative;
-    left: 17px;
-    text-decoration: none;
-  }
-
   .navLinks {
     @include flex-direction(row);
 
@@ -111,7 +111,7 @@ nav {
   }
 
   #search_button {
-    margin-right: 15px;
+    margin: 0 15px 0 20px;
 
     img {
       @include transition(opacity 0.1s, transform 0.5s);
@@ -148,9 +148,14 @@ nav {
     left: 0;
   }
 
+  #logo {
+    display: block;
+    margin: 20px 27px 10px !important;
+  }
+
   .navLinks {
     @include flex-direction(column);
-    padding: 35px;
+    padding: 0 35px;
 
     li {
       margin: 5px 0;
