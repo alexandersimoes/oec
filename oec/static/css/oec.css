@@ -29,7 +29,7 @@
 
         h1 {
           font-size: 40px;
-          line-height: 60px; }
+          line-height: 50px; }
 
           h2 {
             font-size: 30px;
@@ -1776,57 +1776,85 @@ body.visualize {
   left: 50px; }
   #explorer #next {
     right: 50px; }
-    #explorer .app_button {
-      -webkit-transition: opacity 0.5s;
-      -moz-transition: opacity 0.5s;
-      -ms-transition: opacity 0.5s;
-      -o-transition: opacity 0.5s;
-      transition: opacity 0.5s;
-      display: inline-block;
-      font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-      font-size: 12px;
-      margin: 5px 0;
-      opacity: 0.7;
-      text-transform: uppercase;
-      width: 120px; }
-      #explorer .app_button img {
-        margin-right: 3px;
-        width: 15px; }
-        #explorer .app_button:hover {
-          cursor: pointer;
-          opacity: 0.9; }
-          #explorer .app_button.open {
-            opacity: 1; }
+    #explorer .app_button_group {
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      justify-content: center;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex; }
+      #explorer .app_button_group .app_button {
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        -webkit-transition: opacity 0.5s;
+        -moz-transition: opacity 0.5s;
+        -ms-transition: opacity 0.5s;
+        -o-transition: opacity 0.5s;
+        transition: opacity 0.5s;
+        display: inline-block;
+        font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-size: 12px;
+        padding: 5px;
+        opacity: 0.7;
+        text-transform: uppercase; }
+        #explorer .app_button_group .app_button img {
+          margin-right: 3px;
+          width: 15px; }
+          #explorer .app_button_group .app_button:hover {
+            cursor: pointer;
+            opacity: 0.9; }
+            #explorer .app_button_group .app_button.open {
+              background-color: #63737f;
+              opacity: 1; }
 #explorer .app_menu {
+  background-color: #63737f;
   display: none;
-  margin: 10px 0 20px 0; }
+  padding: 10px; }
   #explorer .app_menu.open {
     display: block; }
     #explorer .app_menu h3 {
       font-size: 16px;
       margin: 35px 0 20px; }
       #explorer .app_menu .build {
-        -webkit-transition: opacity 0.1s;
-        -moz-transition: opacity 0.1s;
-        -ms-transition: opacity 0.1s;
-        -o-transition: opacity 0.1s;
-        transition: opacity 0.1s;
+        -webkit-justify-content: center;
+        -moz-justify-content: center;
+        justify-content: center;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
         font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
         font-size: 12px;
         font-weight: 400;
-        margin: 10px 0; }
-        #explorer .app_menu .build .build_title {
-          display: inline-block;
-          font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-          font-size: 14px;
-          margin-left: 10px;
-          opacity: 0.7;
-          text-transform: uppercase;
-          width: 115px; }
-          #explorer .app_menu .build .build_title.active {
-            font-weight: 700;
-            opacity: 1; }
+        margin: 0 0 10px; }
+        #explorer .app_menu .build:last-child {
+          margin-bottom: 0; }
+          #explorer .app_menu .build .build_title {
+            -webkit-box-flex: 1;
+            -moz-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            display: inline-block;
+            font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            opacity: 0.7;
+            text-transform: uppercase; }
+            #explorer .app_menu .build .build_title.active {
+              font-weight: 700;
+              opacity: 1; }
         #explorer .app_menu .build .build_list {
+          -webkit-box-flex: 1;
+          -moz-box-flex: 1;
+          -webkit-flex: 1;
+          -ms-flex: 1;
+          flex: 1;
           display: inline-block;
           line-height: 1.5; }
           #explorer .app_menu .build .build_list .build_link {
@@ -1850,32 +1878,53 @@ body.visualize {
                 position: absolute;
                 margin-top: 0px;
                 margin-left: -10px; }
-#explorer #changers h2 {
-  font-size: 28px;
-  margin-bottom: 28px; }
-  #explorer #changers h3 {
-    font-size: 16px;
-    margin: 25px 0 5px; }
-    #explorer #changers h4 {
-      font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-      font-size: 12px;
-      margin-bottom: 5px;
-      text-transform: uppercase; }
-      #explorer #changers .ui {
-        margin: 12px 0 0 0; }
-        #explorer #changers #build {
-          border: 1px solid white;
-          background-color: #212831;
-          color: white;
-          cursor: pointer;
-          display: block;
-          font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-          font-size: 13px;
-          margin: 20px 0;
-          padding: 6px 10px;
-          text-align: right;
-          text-transform: uppercase;
-          width: 100%; }
+#explorer #changers {
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap; }
+  #explorer #changers h2 {
+    font-size: 28px;
+    margin-bottom: 28px; }
+    #explorer #changers h3 {
+      font-size: 16px;
+      margin: 25px 0 5px; }
+      #explorer #changers h4 {
+        font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-size: 12px;
+        margin-bottom: 5px;
+        text-transform: uppercase; }
+        #explorer #changers .ui {
+          margin: 12px 0 0 0; }
+          #explorer #changers #build {
+            -webkit-transition: background-color 1s;
+            -moz-transition: background-color 1s;
+            -ms-transition: background-color 1s;
+            -o-transition: background-color 1s;
+            transition: background-color 1s;
+            border: 1px solid white;
+            background-color: #212831;
+            color: white;
+            cursor: pointer;
+            display: block;
+            font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            font-size: 13px;
+            margin: 20px 0;
+            padding: 6px 10px;
+            text-align: right;
+            text-transform: uppercase;
+            width: 100%; }
+            #explorer #changers #build.hover {
+              background-color: #63737f; }
 
 .d3plus_tooltip {
   font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
@@ -1889,9 +1938,8 @@ body.visualize {
   text-transform: uppercase !important; }
 
   .d3plus_tooltip_html {
-    font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
-    font-weight: 400 !important;
-    text-transform: uppercase !important; }
+    font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
+    font-weight: 400 !important; }
 
     .d3plus_tooltip_html a.related, .d3plus_tooltip_html a.profile {
       -webkit-transition: opacity 0.1s;
@@ -1903,22 +1951,23 @@ body.visualize {
       display: block;
       margin: 10px 0 0 0;
       opacity: 0.75;
-      padding: 6px 24px 6px 4px;
+      padding: 14px 24px 6px 4px;
       position: relative;
       text-decoration: none;
-      font-size: 18px;
-      line-height: 28px; }
+      font-size: 13px;
+      line-height: 1.3; }
       .d3plus_tooltip_html a.related:hover, .d3plus_tooltip_html a.profile:hover {
         opacity: 1; }
         .d3plus_tooltip_html a.related:after, .d3plus_tooltip_html a.profile:after {
-          bottom: 8px;
+          bottom: 2px;
           content: "\f105";
           display: block;
           font-family: FontAwesome;
-          font-size: 30px;
+          font-size: 20px;
           -webkit-font-smoothing: antialiased;
           font-style: normal;
           font-weight: normal;
+          line-height: 38px;
           position: absolute;
           right: 12px;
           text-decoration: inherit; }
@@ -1928,7 +1977,7 @@ body.visualize {
   .d3plus_tooltip_html a.related:before {
     background-image: url("/static/img/icons/app/app_tree_map_black.png");
     font-size: 12px;
-    line-height: 27px;
+    line-height: 38px;
     background-position: 50%;
     background-repeat: no-repeat;
     background-size: 80%;
@@ -1947,7 +1996,7 @@ body.visualize {
 
   .d3plus_tooltip_html a.profile img {
     width: 30px;
-    margin: 0 6px 0 0; }
+    margin: -8px 6px 0 0; }
 body.rankings #container aside {
   width: 150px !important; }
   body.rankings #container table .rank {
