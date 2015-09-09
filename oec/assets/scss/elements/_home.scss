@@ -85,8 +85,8 @@ $default_size: 600px;
       line-height: 1.4;
       position: absolute;
       text-align: center;
-      bottom: 13%;
-      right: 15%;
+      bottom: 7%;
+      right: 18%;
 
       a {
         border-bottom: 1px solid transparent;
@@ -113,23 +113,22 @@ $default_size: 600px;
     }
 
     #search_home {
-      border-bottom: 1px solid $lightlinkcolor;
-      bottom: 12%;
-      color: $brightlinkcolor;
+      // border-bottom: 1px solid #eee;
+      top: 45%;
+      color: #eee;
       display: block;
       font-family: $source-sans;
-      font-size: $default_size/40;
-      font-weight: 300;
-      left: 38%;
+      font-weight: 400;
+      left: 17%;
       opacity: 0.8;
       position: absolute;
-      width: 32%;
+      width: 25%;
 
       &:hover {
-        cursor: text;
+        cursor: pointer;
         @include transition(color 1.5s, border-bottom 1.5s);
         color: #fff;
-        border-bottom: 1px solid #fff;
+        // border-bottom: 1px solid #fff;
         opacity: 1;
       }
 
@@ -137,6 +136,7 @@ $default_size: 600px;
         margin-bottom: -5px;
         margin-left: -17%;
         margin-right: 0;
+        margin-top: 4px;
         padding: 0;
         position: relative;
         top: 0;

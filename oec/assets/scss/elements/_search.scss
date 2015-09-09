@@ -188,6 +188,7 @@
 
       .background {
         // @include blur(1);
+        @include filter(saturate(35%) brightness(0.6));
         display: block;
         height: 100%;
         left: 0;
