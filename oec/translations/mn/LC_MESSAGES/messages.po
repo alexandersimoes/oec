@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-03-25 21:10-0400\n"
+"POT-Creation-Date: 2015-09-09 13:16-0400\n"
 "PO-Revision-Date: 2015-03-25 23:22-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: mn <LL@li.org>\n"
@@ -18,440 +18,670 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/explore/models.py:362
+#: oec/utils.py:219
+msgctxt "0"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:220
+msgctxt "1"
+msgid "st"
+msgstr ""
+
+#: oec/utils.py:221
+#, fuzzy
+msgctxt "2"
+msgid "nd"
+msgstr "болон"
+
+#: oec/utils.py:222
+msgctxt "3"
+msgid "rd"
+msgstr ""
+
+#: oec/utils.py:223
+msgctxt "4"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:224
+msgctxt "5"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:225
+msgctxt "6"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:226
+msgctxt "7"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:227
+msgctxt "8"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:228
+msgctxt "9"
+msgid "th"
+msgstr ""
+
+#: oec/explore/models_old.py:362
 msgid "Origin Country"
 msgstr "Гарал үүслийн улс"
 
-#: oec/explore/models.py:363 oec/explore/models.py:366
-#: oec/html/explore/embed.html:338
+#: oec/explore/models_old.py:363 oec/explore/models_old.py:366
+#: oec/html/visualize/embed.html:339 oec/translations/lookup.py:23
 msgid "ID"
 msgstr "ID"
 
-#: oec/explore/models.py:365
+#: oec/explore/models_old.py:365
 msgid "Destination Country"
 msgstr "Шилжин ажиллаж буй улс"
 
-#: oec/explore/models.py:368
+#: oec/explore/models_old.py:368
 msgid "Product Name"
 msgstr "Бүтээгдэхүүний нэр"
 
-#: oec/explore/models.py:411
+#: oec/explore/models_old.py:406
 msgid "Origin"
 msgstr "Гарал үүсэл"
 
-#: oec/explore/models.py:426
+#: oec/explore/models_old.py:416
 msgid "Destination"
 msgstr "очих"
 
-#: oec/explore/models.py:444 oec/html/profile/product.html:20
-#: oec/html/profile/product.html:24 oec/html/templates/nav.html:26
-#: oec/rankings/views.py:64 oec/rankings/views.py:68
+#: oec/explore/models_old.py:426 oec/html/includes/nav.html:8
+#: oec/rankings/views.py:94 oec/visualize/views.py:325
 msgid "Product"
 msgstr "Бүтээгдэхүүний"
 
-#: oec/explore/models.py:453
+#: oec/explore/models_old.py:435 oec/visualize/views.py:347
 msgid "Trade Flow"
 msgstr "Худалдааны урсгал"
 
-#: oec/explore/models.py:456 oec/html/explore/embed.html:344
+#: oec/explore/models_old.py:438 oec/html/visualize/embed.html:345
+#: oec/translations/lookup.py:15 oec/visualize/views.py:350
 msgid "Export"
 msgstr "Экспортын"
 
-#: oec/explore/models.py:457 oec/html/explore/embed.html:345
+#: oec/explore/models_old.py:439 oec/html/visualize/embed.html:346
+#: oec/translations/lookup.py:16 oec/visualize/views.py:351
 msgid "Import"
 msgstr "Импортын"
 
-#: oec/explore/models.py:466
+#: oec/explore/models_old.py:448 oec/visualize/views.py:334
 msgid "Y Axis"
 msgstr "Y тэнхлэг"
 
-#: oec/explore/models.py:469 oec/html/explore/embed.html:346
+#: oec/explore/models_old.py:451 oec/html/visualize/embed.html:347
+#: oec/profile/models.py:64 oec/translations/lookup.py:17
+#: oec/visualize/views.py:337
 msgid "GDP"
 msgstr "ДНБ-ий хэмжээ"
 
-#: oec/explore/models.py:470 oec/html/explore/embed.html:347
+#: oec/explore/models_old.py:452 oec/html/visualize/embed.html:348
+#: oec/translations/lookup.py:18 oec/visualize/views.py:338
 msgid "GDPpc (constant '05 US$)"
 msgstr "GDPpc (тогтмол '05 ам.доллар)"
 
-#: oec/explore/models.py:471 oec/html/explore/embed.html:348
+#: oec/explore/models_old.py:453 oec/html/visualize/embed.html:349
+#: oec/translations/lookup.py:19 oec/visualize/views.py:339
 msgid "GDPpc (current US$)"
 msgstr "GDPpc (одоогийн US $)"
 
-#: oec/explore/models.py:472 oec/html/explore/embed.html:349
+#: oec/explore/models_old.py:454 oec/html/visualize/embed.html:350
+#: oec/translations/lookup.py:20 oec/visualize/views.py:340
 msgid "GDPpc PPP (constant '11)"
 msgstr "GDPpc PPP (тогтмол '11)"
 
-#: oec/explore/models.py:473 oec/html/explore/embed.html:350
+#: oec/explore/models_old.py:455 oec/html/visualize/embed.html:351
+#: oec/translations/lookup.py:21 oec/visualize/views.py:341
 msgid "GDPpc PPP (current)"
 msgstr "GDPpc PPP (одоогийн)"
 
-#: oec/explore/models.py:479
+#: oec/explore/models_old.py:461
 msgid "Classification"
 msgstr "Ангилал"
 
-#: oec/explore/models.py:493
+#: oec/explore/models_old.py:475 oec/visualize/views.py:371
 msgid "Start Year"
 msgstr "Эхэлсэн он"
 
-#: oec/explore/models.py:499
+#: oec/explore/models_old.py:481 oec/visualize/views.py:377
 msgid "End Year"
 msgstr "Жилийн эцсийн"
 
-#: oec/explore/models.py:507 oec/rankings/views.py:90
+#: oec/explore/models_old.py:489 oec/html/rankings/index.html:61
+#: oec/rankings/views.py:119 oec/visualize/views.py:384
 msgid "Year"
 msgstr "Жил"
 
-#: oec/html/home.html:25
-msgid ""
-"The Observatory of Economic Complexity makes international trade data and"
-" economic complexity indicators available through millions of interactive"
-" visualizations."
-msgstr "Эдийн засгийн нарийн төвөгтэй байдлыг ажиглалтын олон улсын худалдааны мэдээлэл, интерактив гэж төсөөлөх нь сая сая дамжуулан авах боломжтой, эдийн засгийн нарийн төвөгтэй үзүүлэлтийг гаргадаг."
+#: oec/html/home.html:3 oec/html/home.html:12
+msgid "The Observatory of Economic Complexity"
+msgstr ""
 
-#: oec/html/home.html:34
-msgid "New!"
-msgstr "Шинэ!"
-
-#: oec/html/about/api_data.html:7
+#: oec/html/home.html:15
 msgid ""
-"Application programming interface (API) for querying the raw data used "
-"throughout The Observatory of Economic Complexity."
-msgstr "Эдийн засгийн нарийн төвөгтэй байдлыг ажиглах хэрэглэсэн түүхий өгөгдлийг асууж нь Application Programming Interface (API)."
+"We are the world's<br/>leading visualization engine<br/>for international"
+" trade data."
+msgstr ""
 
-#: oec/html/about/api_embed.html:8
-msgid ""
-"Application programming interface (API) for emedding an iframe of the "
-"visualizations used througout The Observatory of Economic Complexity on "
-"your own website."
-msgstr "Өөрийн вэб сайт, эдийн засгийн нарийн төвөгтэй байдлыг ажиглах througout ашигласан гэж төсөөлөх нь iframe оруулах Application Programming Interface (API)."
+#: oec/html/home.html:17
+msgid "Learn More"
+msgstr ""
+
+#: oec/html/home.html:21 oec/html/templates/nav.html:62
+msgid "Search the Observatory"
+msgstr ""
 
 #: oec/html/about/data.html:4
 msgid ""
 "HS, SITC, and Country classification with their corresponding IDs and "
 "values."
-msgstr "Тэдгээрийн харгалзах иргэний үнэмлэхгүй, үнэт зүйлс нь HS, SITC болон Улс ангилал."
+msgstr ""
+"Тэдгээрийн харгалзах иргэний үнэмлэхгүй, үнэт зүйлс нь HS, SITC болон Улс"
+" ангилал."
 
-#: oec/html/about/team.html:4
+#: oec/html/about/index.html:3 oec/html/includes/nav.html:38
+msgid "About the Site"
+msgstr ""
+
+#: oec/html/about/index.html:5
 msgid ""
 "Photos and descriptions of the team members involved in the creation of "
 "The Observatory."
-msgstr "Ажиглалтын Төвийг бүтээхэд оролцсон багийн гишүүдийн зураг болон тайлбарууд"
+msgstr ""
+"Ажиглалтын Төвийг бүтээхэд оролцсон багийн гишүүдийн зураг болон "
+"тайлбарууд"
+
+#: oec/html/about/index.html:11
+msgid "About the Observatory"
+msgstr ""
+
+#: oec/html/about/index.html:29
+msgid "What is Economic Complexity?"
+msgstr ""
+
+#: oec/html/about/index.html:61
+#, fuzzy
+msgid "Current Team"
+msgstr "Одоогийн жил"
+
+#: oec/html/about/index.html:65
+msgid "Past Contributors"
+msgstr ""
 
 #: oec/html/about/updates.html:4
 msgid "A Development blog of updates to the site."
 msgstr "Сайтыг сайжруулах Хөгжлийн блог"
 
-#: oec/html/atlas/index.html:4
+#: oec/html/general/api.html:4
 msgid ""
-"A book of complexity economics attempting to explain why some countries "
-"grow and others do not. The book uses many of the visualizations seen "
-"throughout this site."
-msgstr "Нарийн төвөгтэй байдал нь зарим улс оронд ургадаг яагаад тайлбарлах оролдлого эдийн засгийн болон бусад ном байхгүй. ном сайтын харсан гэж төсөөлөх нь олон ашигладаг."
+"Application programming interface (API) for querying the raw data used "
+"throughout The Observatory of Economic Complexity."
+msgstr ""
+"Эдийн засгийн нарийн төвөгтэй байдлыг ажиглах хэрэглэсэн түүхий өгөгдлийг"
+" асууж нь Application Programming Interface (API)."
 
-#: oec/html/explore/embed.html:7
-msgid "An emedded visualization."
-msgstr "Дотор нь харуулах"
+#: oec/html/general/permissions.html:3 oec/html/general/permissions.html:10
+#: oec/html/includes/nav.html:47
+msgid "Permissions"
+msgstr ""
 
-#: oec/html/explore/embed.html:12 oec/html/explore/embed.html:788
-msgid "Loading"
-msgstr "Ачаалж байна"
+#: oec/html/general/publications.html:3 oec/html/general/publications.html:11
+msgid "Books"
+msgstr ""
 
-#: oec/html/explore/embed.html:19 oec/html/explore/embed.html:49
-#: oec/html/explore/embed.html:340 oec/html/explore/embed.html:342
-msgid "Value"
-msgstr "Утга"
+#: oec/html/general/publications.html:13 oec/html/profile/index.html:65
+msgid "Photo by"
+msgstr ""
 
-#: oec/html/explore/embed.html:20 oec/html/explore/embed.html:337
-msgid "Percent"
-msgstr "Хувь"
-
-#: oec/html/explore/embed.html:27
-msgid "Continent"
-msgstr "Тив"
-
-#: oec/html/explore/embed.html:28 oec/html/explore/embed.html:51
-msgid "Category"
-msgstr "Бүлэг"
-
-#: oec/html/explore/embed.html:33 oec/html/profile/country.html:22
-#: oec/html/profile/country.html:26 oec/html/templates/nav.html:26
-#: oec/rankings/views.py:72
+#: oec/html/includes/nav.html:4 oec/html/visualize/embed.html:30
+#: oec/rankings/views.py:87 oec/visualize/views.py:298
 msgid "Country"
 msgstr "Улс"
 
-#: oec/html/explore/embed.html:34
-msgid "Full"
-msgstr "Бүтэн"
+#: oec/html/includes/nav.html:12
+msgid "Visualize"
+msgstr ""
 
-#: oec/html/explore/embed.html:41
-msgid "Gross"
-msgstr "Бохир"
-
-#: oec/html/explore/embed.html:42
-msgid "Net"
-msgstr "Цэвэр"
-
-#: oec/html/explore/embed.html:53 oec/html/explore/embed.html:353
-msgid "Annual Growth Rate (1 year)"
-msgstr "Жилийн өсөлт (1 жил)"
-
-#: oec/html/explore/embed.html:54 oec/html/explore/embed.html:354
-msgid "Annual Growth Rate (5 year)"
-msgstr "Жилийн өсөлт (5 жил)"
-
-#: oec/html/explore/embed.html:55 oec/html/explore/embed.html:355
-msgid "Growth Value (1 year)"
-msgstr "Өсөлтийн үнэ цэнэ (1 жил)"
-
-#: oec/html/explore/embed.html:56 oec/html/explore/embed.html:356
-msgid "Growth Value (5 year)"
-msgstr "Өсөлтийн үнэ цэнэ (5 жил)"
-
-#: oec/html/explore/embed.html:61 oec/html/rankings/index.html:64
-msgid "All Years"
-msgstr "Бүх жилийн турш"
-
-#: oec/html/explore/embed.html:72 oec/html/explore/embed.html:955
-msgid "View as Text"
-msgstr "Текст харах"
-
-#: oec/html/explore/embed.html:73
-msgid "Fullscreen"
-msgstr "Бүтэн дэлгэц"
-
-#: oec/html/explore/embed.html:111
-msgid "Build Visualization"
-msgstr "Нүдэнд харагдах барих"
-
-#: oec/html/explore/embed.html:114 oec/html/rankings/index.html:59
-msgid "Download"
-msgstr "Татаж авах"
-
-#: oec/html/explore/embed.html:122
-msgid "Embed"
-msgstr "хавсарга байдлаар"
-
-#: oec/html/explore/embed.html:127
-msgid "Share"
-msgstr "Эзлэх хувь"
-
-#: oec/html/explore/embed.html:143
-msgid "Short URL"
-msgstr "Богино URL"
-
-#: oec/html/explore/embed.html:339
-msgid "Export Value"
-msgstr "Экспортын үнэ цэнэ"
-
-#: oec/html/explore/embed.html:340
-msgid "Net Export"
-msgstr "Цэвэр экспорт"
-
-#: oec/html/explore/embed.html:341
-msgid "Import Value"
-msgstr "Импортын үнэ цэнэ"
-
-#: oec/html/explore/embed.html:342
-msgid "Net Import"
-msgstr "Цэвэр импортын"
-
-#: oec/html/explore/embed.html:343
-msgid "Market Value"
-msgstr "Зах зээлийн үнэ цэнэ"
-
-#: oec/html/explore/embed.html:351
-msgid "ECI"
-msgstr "ECI"
-
-#: oec/html/explore/embed.html:360
-msgid "value"
-msgstr "утга"
-
-#: oec/html/explore/embed.html:361
-msgid "percentage"
-msgstr "хувь"
-
-#: oec/html/explore/embed.html:382
-msgid "Brought to you by"
-msgstr "Танд хүргэсэн"
-
-#: oec/html/explore/embed.html:463
-msgid "Total World Trade"
-msgstr "Нийт Дэлхийн худалдааны"
-
-#: oec/html/explore/embed.html:466
-msgid "Total Country Trade"
-msgstr "Нийт Улсын худалдааны"
-
-#: oec/html/explore/embed.html:950
-msgid "View as App"
-msgstr "Нүдэнд харагдах шиг үзэх"
-
-#: oec/html/explore/index.html:30
-msgid "Data visualization of economic trade"
-msgstr "Эдийн засгийн худалдааны мэдээлэл нүдэнд харагдах"
-
-#: oec/html/explore/index.html:36 oec/html/rankings/index.html:20
-msgid "Previous Year"
-msgstr "Өмнөх жил"
-
-#: oec/html/explore/index.html:40 oec/html/rankings/index.html:30
-msgid "Next Year"
-msgstr "Дараа жил"
-
-#: oec/html/explore/index.html:97
-msgid "Total"
-msgstr "Нийт"
-
-#: oec/html/profile/country.html:16
-#, python-format
-msgid ""
-"%(country)s (%(country_abbrv)s) Profile of Exports, Imports and Trade "
-"Partners"
-msgstr "%(country)s (%(country_abbrv)s) Экспорт, импорт, худалдаа Partners-ийн мэдээллийг vзэх"
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid ""
-"List of major leading exports, imports and complexity economic indicator "
-"statistics of %(country)s."
-msgstr "Гол тэргүүлэх экспорт, импорт, нарийн төвөгтэй байдал, эдийн засгийн үзүүлэлт статистик жагсаалт %(country)s."
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid "Economy of %(country)s."
-msgstr "%(country)s-н эдийн засаг"
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid "Principle trade partners of %(country)s."
-msgstr "Үндсэн зарчим худалдааны түншүүд %(country)s."
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid "Goods and resources of %(country)s."
-msgstr "Бараа, ажил, нөөцийн %(country)s."
-
-#: oec/html/profile/country.html:22 oec/html/profile/product.html:20
-msgid "Previous"
-msgstr "Өмнөх"
-
-#: oec/html/profile/country.html:24
-#, python-format
-msgid "Learn More About Trade in <strong>%(country)s</strong>"
-msgstr "Худалдааны талаар илүү ихийг мэдэхийг <strong>%(country)s</strong>"
-
-#: oec/html/profile/country.html:26 oec/html/profile/product.html:24
-msgid "Next"
-msgstr "Дараа нь"
-
-#: oec/html/profile/country.html:41 oec/html/profile/product.html:39
-msgid "Top 5"
-msgstr "Топ 5"
-
-#: oec/html/profile/country.html:54
-#, python-format
-msgid ""
-"%(country)s %(ranked)s %(rank_val)s with an Economic Complexity Index "
-"(ECI) of %(eci)s"
-msgstr "%(country)s %(ranked)s %(rank_val)s нь эдийн засгийн иж бүрэн индекс (БОНЗ) -тай %(eci)s"
-
-#: oec/html/profile/country.html:54 oec/html/profile/product.html:52
-msgid "is ranked"
-msgstr "нь чансаанд ороогүй байна"
-
-#: oec/html/profile/country.html:60
-#, python-format
-msgid "%(country)s is the top exporter of"
-msgstr "%(country)s дээд экспортлогч юм"
-
-#: oec/html/profile/country.html:60 oec/html/profile/product.html:58
-msgid "and"
-msgstr "болон"
-
-#: oec/html/profile/country.html:87 oec/html/profile/product.html:90
-#: oec/html/templates/nav.html:18
-msgid "Explore"
-msgstr "Судлах"
-
-#: oec/html/profile/product.html:14
-#, python-format
-msgid ""
-"%(prod)s (%(prod_abbrv)s) Profile of Export Destinations and Import "
-"Origins"
-msgstr "%(prod)s (%(prod_abbrv)s) Экспортын чиглэл, импорт анхдагчдыг Profile"
-
-#: oec/html/profile/product.html:15
-#, python-format
-msgid ""
-"List of major leading origin and destination countries with economic "
-"indicator statistics of %(prod)s."
-msgstr "Эдийн засгийн үзүүлэлт статистик томоохон тэргүүлэх гарал, очих орнуудын жагсаалт %(prod)s."
-
-#: oec/html/profile/product.html:15
-#, python-format
-msgid "Principle trade partners that export %(prod)s."
-msgstr "Зарчим экспортлох худалдааны түншүүд %(prod)s."
-
-#: oec/html/profile/product.html:15
-#, python-format
-msgid "Countries that import %(prod)s."
-msgstr "Улс орнууд импортын %(prod)s."
-
-#: oec/html/profile/product.html:22
-#, python-format
-msgid "Learn More About Trade of <strong>%(prod)s</strong>"
-msgstr "Худалдааны талаар илүү ихийг мэдэхийг <strong>%(prod)s</strong>"
-
-#: oec/html/profile/product.html:52
-#, python-format
-msgid ""
-"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
-"with a Product Complexity Index (PCI) of %(pci)s"
-msgstr "%(prod)s %(ranked)s %(rank_val)s Бүтээгдэхүүн нь иж бүрэн индекс (PCI) нь %(pci)s"
-
-#: oec/html/profile/product.html:58
-#, python-format
-msgid "%(prod)s is the top export of"
-msgstr "%(prod)s дээд экспортын байна"
-
-#: oec/html/rankings/index.html:23 oec/html/rankings/index.html:40
-msgid "Country Rankings"
-msgstr "Улс зэрэглэл"
-
-#: oec/html/rankings/index.html:25 oec/html/rankings/index.html:43
-msgid "HS Product Rankings"
-msgstr "ТАРХИ Бүтээгдэхүүний зэрэглэл"
-
-#: oec/html/rankings/index.html:27 oec/html/rankings/index.html:46
-msgid "SITC Product Rankings"
-msgstr "SITC Бүтээгдэхүүний зэрэглэл"
-
-#: oec/html/rankings/index.html:51
-msgid "Change Year"
-msgstr "Өөрчлөлтийн жил"
-
-#: oec/html/rankings/index.html:61
-msgid "Current Year"
-msgstr "Одоогийн жил"
-
-#: oec/html/templates/nav.html:19
-msgid "Profiles"
-msgstr "Хувийн тохиргоонууд"
-
-#: oec/html/templates/nav.html:20
-msgid "Atlas"
-msgstr "Ном"
-
-#: oec/html/templates/nav.html:21
+#: oec/html/includes/nav.html:16
 msgid "Rankings"
 msgstr "Зэрэглэл"
 
-#: oec/html/templates/nav.html:22
-msgid "About"
-msgstr "Тухай"
+#: oec/html/includes/nav.html:20
+#, fuzzy
+msgid "Countries"
+msgstr "Улс"
 
-#: oec/rankings/views.py:64 oec/rankings/views.py:68 oec/rankings/views.py:72
+#: oec/html/includes/nav.html:23
+#, fuzzy
+msgid "Products"
+msgstr "Бүтээгдэхүүний"
+
+#: oec/html/includes/nav.html:30
+#, fuzzy
+msgid "Publications"
+msgstr "Ангилал"
+
+#: oec/html/includes/nav.html:34
+msgid "Resources"
+msgstr ""
+
+#: oec/html/includes/nav.html:41
+msgid "FAQs"
+msgstr ""
+
+#: oec/html/includes/nav.html:44 oec/html/resources/data.html:10
+msgid "Data Sources"
+msgstr ""
+
+#: oec/html/includes/nav.html:54
+msgid "API"
+msgstr ""
+
+#: oec/html/rankings/index.html:20
+msgid "Economic Complexity Rankings"
+msgstr ""
+
+#: oec/html/rankings/index.html:22
+#, fuzzy
+msgid "Product Complexity Rankings"
+msgstr "ТАРХИ Бүтээгдэхүүний зэрэглэл"
+
+#: oec/html/rankings/index.html:34 oec/html/visualize/index.html:43
+#: oec/html/visualize/index_old.html:36
+msgid "Previous Year"
+msgstr "Өмнөх жил"
+
+#: oec/html/rankings/index.html:40 oec/html/visualize/index.html:48
+#: oec/html/visualize/index_old.html:40
+msgid "Next Year"
+msgstr "Дараа жил"
+
+#: oec/html/rankings/index.html:49 oec/visualize/views.py:359
+msgid "Dataset"
+msgstr ""
+
+#: oec/html/rankings/index.html:71
+msgid "Depth"
+msgstr ""
+
+#: oec/html/rankings/index.html:81
+#, fuzzy
+msgid "Download Current Year"
+msgstr "Одоогийн жил"
+
+#: oec/html/rankings/index.html:86
+msgid "Download All Years"
+msgstr ""
+
+#: oec/html/resources/faqs.html:10
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: oec/html/visualize/embed.html:7 oec/html/visualize/embed_new.html:3
+msgid "An emedded visualization."
+msgstr "Дотор нь харуулах"
+
+#: oec/html/visualize/embed.html:12 oec/html/visualize/embed.html:811
+msgid "Loading"
+msgstr "Ачаалж байна"
+
+#: oec/html/visualize/embed.html:19 oec/html/visualize/embed.html:52
+#: oec/html/visualize/embed.html:341 oec/html/visualize/embed.html:343
+msgid "Value"
+msgstr "Утга"
+
+#: oec/html/visualize/embed.html:20 oec/html/visualize/embed.html:338
+#: oec/translations/lookup.py:9
+msgid "Percent"
+msgstr "Хувь"
+
+#: oec/html/visualize/embed.html:28
+msgid "Continent"
+msgstr "Тив"
+
+#: oec/html/visualize/embed.html:33 oec/html/visualize/embed.html:54
+msgid "Category"
+msgstr "Бүлэг"
+
+#: oec/html/visualize/embed.html:35
+msgid "4 Digit"
+msgstr ""
+
+#: oec/html/visualize/embed.html:37
+msgid "6 Digit"
+msgstr ""
+
+#: oec/html/visualize/embed.html:44
+msgid "Gross"
+msgstr "Бохир"
+
+#: oec/html/visualize/embed.html:45
+msgid "Net"
+msgstr "Цэвэр"
+
+#: oec/html/visualize/embed.html:56 oec/html/visualize/embed.html:354
+#: oec/translations/lookup.py:24 oec/translations/lookup.py:28
+msgid "Annual Growth Rate (1 year)"
+msgstr "Жилийн өсөлт (1 жил)"
+
+#: oec/html/visualize/embed.html:57 oec/html/visualize/embed.html:355
+#: oec/translations/lookup.py:25 oec/translations/lookup.py:29
+msgid "Annual Growth Rate (5 year)"
+msgstr "Жилийн өсөлт (5 жил)"
+
+#: oec/html/visualize/embed.html:58 oec/html/visualize/embed.html:356
+#: oec/translations/lookup.py:26 oec/translations/lookup.py:30
+msgid "Growth Value (1 year)"
+msgstr "Өсөлтийн үнэ цэнэ (1 жил)"
+
+#: oec/html/visualize/embed.html:59 oec/html/visualize/embed.html:357
+#: oec/translations/lookup.py:27 oec/translations/lookup.py:31
+msgid "Growth Value (5 year)"
+msgstr "Өсөлтийн үнэ цэнэ (5 жил)"
+
+#: oec/html/visualize/embed.html:64
+msgid "All Years"
+msgstr "Бүх жилийн турш"
+
+#: oec/html/visualize/embed.html:75 oec/html/visualize/embed.html:985
+msgid "View as Text"
+msgstr "Текст харах"
+
+#: oec/html/visualize/embed.html:76
+msgid "Fullscreen"
+msgstr "Бүтэн дэлгэц"
+
+#: oec/html/visualize/embed.html:114 oec/html/visualize/index.html:142
+msgid "Build Visualization"
+msgstr "Нүдэнд харагдах барих"
+
+#: oec/html/visualize/embed.html:117
+msgid "Download"
+msgstr "Татаж авах"
+
+#: oec/html/visualize/embed.html:125
+msgid "Embed"
+msgstr "хавсарга байдлаар"
+
+#: oec/html/visualize/embed.html:130
+msgid "Share"
+msgstr "Эзлэх хувь"
+
+#: oec/html/visualize/embed.html:146
+msgid "Short URL"
+msgstr "Богино URL"
+
+#: oec/html/visualize/embed.html:340 oec/translations/lookup.py:10
+msgid "Export Value"
+msgstr "Экспортын үнэ цэнэ"
+
+#: oec/html/visualize/embed.html:341
+msgid "Net Export"
+msgstr "Цэвэр экспорт"
+
+#: oec/html/visualize/embed.html:342 oec/translations/lookup.py:12
+msgid "Import Value"
+msgstr "Импортын үнэ цэнэ"
+
+#: oec/html/visualize/embed.html:343
+msgid "Net Import"
+msgstr "Цэвэр импортын"
+
+#: oec/html/visualize/embed.html:344 oec/translations/lookup.py:14
+msgid "Market Value"
+msgstr "Зах зээлийн үнэ цэнэ"
+
+#: oec/html/visualize/embed.html:352 oec/translations/lookup.py:22
+msgid "ECI"
+msgstr "ECI"
+
+#: oec/html/visualize/embed.html:361
+msgid "value"
+msgstr "утга"
+
+#: oec/html/visualize/embed.html:362
+msgid "percentage"
+msgstr "хувь"
+
+#: oec/html/visualize/embed.html:392
+msgid "Brought to you by"
+msgstr "Танд хүргэсэн"
+
+#: oec/html/visualize/embed.html:479
+msgid "Total World Trade"
+msgstr "Нийт Дэлхийн худалдааны"
+
+#: oec/html/visualize/embed.html:482
+msgid "Total Country Trade"
+msgstr "Нийт Улсын худалдааны"
+
+#: oec/html/visualize/embed.html:980
+msgid "View as App"
+msgstr "Нүдэнд харагдах шиг үзэх"
+
+#: oec/html/visualize/index.html:29 oec/html/visualize/index_old.html:30
+msgid "Data visualization of economic trade"
+msgstr "Эдийн засгийн худалдааны мэдээлэл нүдэнд харагдах"
+
+#: oec/html/visualize/index_old.html:97
+msgid "Total"
+msgstr "Нийт"
+
+#: oec/profile/models.py:48
+msgid "and"
+msgstr "болон"
+
+#: oec/profile/models.py:64
+msgid "Economic Complexity"
+msgstr ""
+
+#: oec/profile/models.py:64 oec/profile/models.py:333
+#, fuzzy
+msgid "Exports"
+msgstr "Экспортын"
+
+#: oec/profile/models.py:64
+#, fuzzy
+msgid "Imports"
+msgstr "Импортын"
+
+#: oec/profile/models.py:64
+msgid "Population"
+msgstr ""
+
+#: oec/profile/models.py:333
+#, fuzzy
+msgid "Product Complexity"
+msgstr "Бүтээгдэхүүний нэр"
+
+#: oec/profile/models.py:333
+msgid "Top Exporter"
+msgstr ""
+
+#: oec/profile/models.py:333
+#, fuzzy
+msgid "Top Importer"
+msgstr "Цэвэр импортын"
+
+#: oec/rankings/views.py:87 oec/rankings/views.py:94
 msgid "Rank"
 msgstr "Чансаа"
+
+#: oec/translations/lookup.py:11
+#, fuzzy
+msgid "Net Export Value"
+msgstr "Экспортын үнэ цэнэ"
+
+#: oec/translations/lookup.py:13
+#, fuzzy
+msgid "Net Import Value"
+msgstr "Импортын үнэ цэнэ"
+
+#: oec/visualize/views.py:316
+msgid "Partner"
+msgstr ""
+
+#: oec/visualize/views.py:437
+#, python-format
+msgid "Profile for %(attr)s"
+msgstr ""
+
+#~ msgid ""
+#~ "The Observatory of Economic Complexity "
+#~ "makes international trade data and "
+#~ "economic complexity indicators available "
+#~ "through millions of interactive "
+#~ "visualizations."
+#~ msgstr ""
+#~ "Эдийн засгийн нарийн төвөгтэй байдлыг "
+#~ "ажиглалтын олон улсын худалдааны мэдээлэл, "
+#~ "интерактив гэж төсөөлөх нь сая сая "
+#~ "дамжуулан авах боломжтой, эдийн засгийн "
+#~ "нарийн төвөгтэй үзүүлэлтийг гаргадаг."
+
+#~ msgid "New!"
+#~ msgstr "Шинэ!"
+
+#~ msgid ""
+#~ "Application programming interface (API) for"
+#~ " emedding an iframe of the "
+#~ "visualizations used througout The Observatory"
+#~ " of Economic Complexity on your own"
+#~ " website."
+#~ msgstr ""
+#~ "Өөрийн вэб сайт, эдийн засгийн нарийн"
+#~ " төвөгтэй байдлыг ажиглах througout "
+#~ "ашигласан гэж төсөөлөх нь iframe оруулах"
+#~ " Application Programming Interface (API)."
+
+#~ msgid ""
+#~ "A book of complexity economics "
+#~ "attempting to explain why some countries"
+#~ " grow and others do not. The "
+#~ "book uses many of the visualizations "
+#~ "seen throughout this site."
+#~ msgstr ""
+#~ "Нарийн төвөгтэй байдал нь зарим улс "
+#~ "оронд ургадаг яагаад тайлбарлах оролдлого "
+#~ "эдийн засгийн болон бусад ном байхгүй."
+#~ " ном сайтын харсан гэж төсөөлөх нь"
+#~ " олон ашигладаг."
+
+#~ msgid "Full"
+#~ msgstr "Бүтэн"
+
+#~ msgid ""
+#~ "%(country)s (%(country_abbrv)s) Profile of "
+#~ "Exports, Imports and Trade Partners"
+#~ msgstr ""
+#~ "%(country)s (%(country_abbrv)s) Экспорт, импорт, "
+#~ "худалдаа Partners-ийн мэдээллийг vзэх"
+
+#~ msgid ""
+#~ "List of major leading exports, imports"
+#~ " and complexity economic indicator "
+#~ "statistics of %(country)s."
+#~ msgstr ""
+#~ "Гол тэргүүлэх экспорт, импорт, нарийн "
+#~ "төвөгтэй байдал, эдийн засгийн үзүүлэлт "
+#~ "статистик жагсаалт %(country)s."
+
+#~ msgid "Economy of %(country)s."
+#~ msgstr "%(country)s-н эдийн засаг"
+
+#~ msgid "Principle trade partners of %(country)s."
+#~ msgstr "Үндсэн зарчим худалдааны түншүүд %(country)s."
+
+#~ msgid "Goods and resources of %(country)s."
+#~ msgstr "Бараа, ажил, нөөцийн %(country)s."
+
+#~ msgid "Previous"
+#~ msgstr "Өмнөх"
+
+#~ msgid "Learn More About Trade in <strong>%(country)s</strong>"
+#~ msgstr "Худалдааны талаар илүү ихийг мэдэхийг <strong>%(country)s</strong>"
+
+#~ msgid "Next"
+#~ msgstr "Дараа нь"
+
+#~ msgid "Top 5"
+#~ msgstr "Топ 5"
+
+#~ msgid ""
+#~ "%(country)s %(ranked)s %(rank_val)s with an"
+#~ " Economic Complexity Index (ECI) of "
+#~ "%(eci)s"
+#~ msgstr ""
+#~ "%(country)s %(ranked)s %(rank_val)s нь эдийн"
+#~ " засгийн иж бүрэн индекс (БОНЗ) -тай"
+#~ " %(eci)s"
+
+#~ msgid "is ranked"
+#~ msgstr "нь чансаанд ороогүй байна"
+
+#~ msgid "%(country)s is the top exporter of"
+#~ msgstr "%(country)s дээд экспортлогч юм"
+
+#~ msgid "Explore"
+#~ msgstr "Судлах"
+
+#~ msgid ""
+#~ "%(prod)s (%(prod_abbrv)s) Profile of Export"
+#~ " Destinations and Import Origins"
+#~ msgstr "%(prod)s (%(prod_abbrv)s) Экспортын чиглэл, импорт анхдагчдыг Profile"
+
+#~ msgid ""
+#~ "List of major leading origin and "
+#~ "destination countries with economic indicator"
+#~ " statistics of %(prod)s."
+#~ msgstr ""
+#~ "Эдийн засгийн үзүүлэлт статистик томоохон "
+#~ "тэргүүлэх гарал, очих орнуудын жагсаалт "
+#~ "%(prod)s."
+
+#~ msgid "Principle trade partners that export %(prod)s."
+#~ msgstr "Зарчим экспортлох худалдааны түншүүд %(prod)s."
+
+#~ msgid "Countries that import %(prod)s."
+#~ msgstr "Улс орнууд импортын %(prod)s."
+
+#~ msgid "Learn More About Trade of <strong>%(prod)s</strong>"
+#~ msgstr "Худалдааны талаар илүү ихийг мэдэхийг <strong>%(prod)s</strong>"
+
+#~ msgid ""
+#~ "%(prod)s (%(classification)s: %(prod_abbrv)s) "
+#~ "%(ranked)s %(rank_val)s with a Product "
+#~ "Complexity Index (PCI) of %(pci)s"
+#~ msgstr ""
+#~ "%(prod)s %(ranked)s %(rank_val)s Бүтээгдэхүүн "
+#~ "нь иж бүрэн индекс (PCI) нь "
+#~ "%(pci)s"
+
+#~ msgid "%(prod)s is the top export of"
+#~ msgstr "%(prod)s дээд экспортын байна"
+
+#~ msgid "Country Rankings"
+#~ msgstr "Улс зэрэглэл"
+
+#~ msgid "SITC Product Rankings"
+#~ msgstr "SITC Бүтээгдэхүүний зэрэглэл"
+
+#~ msgid "Change Year"
+#~ msgstr "Өөрчлөлтийн жил"
+
+#~ msgid "Profiles"
+#~ msgstr "Хувийн тохиргоонууд"
+
+#~ msgid "Atlas"
+#~ msgstr "Ном"
+
+#~ msgid "About"
+#~ msgstr "Тухай"
 

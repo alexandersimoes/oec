@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-03-26 18:49-0400\n"
+"POT-Creation-Date: 2015-09-09 13:16-0400\n"
 "PO-Revision-Date: 2013-12-27 15:29-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh_Hans_CN <LL@li.org>\n"
@@ -18,116 +18,165 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/explore/models.py:362
+#: oec/utils.py:219
+msgctxt "0"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:220
+msgctxt "1"
+msgid "st"
+msgstr ""
+
+#: oec/utils.py:221
+#, fuzzy
+msgctxt "2"
+msgid "nd"
+msgstr "和"
+
+#: oec/utils.py:222
+msgctxt "3"
+msgid "rd"
+msgstr ""
+
+#: oec/utils.py:223
+msgctxt "4"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:224
+msgctxt "5"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:225
+msgctxt "6"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:226
+msgctxt "7"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:227
+msgctxt "8"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:228
+msgctxt "9"
+msgid "th"
+msgstr ""
+
+#: oec/explore/models_old.py:362
 msgid "Origin Country"
 msgstr "原产地"
 
-#: oec/explore/models.py:363 oec/explore/models.py:366
-#: oec/html/explore/embed.html:338
+#: oec/explore/models_old.py:363 oec/explore/models_old.py:366
+#: oec/html/visualize/embed.html:339 oec/translations/lookup.py:23
 msgid "ID"
 msgstr "ID"
 
-#: oec/explore/models.py:365
+#: oec/explore/models_old.py:365
 msgid "Destination Country"
 msgstr "目的地国家"
 
-#: oec/explore/models.py:368
+#: oec/explore/models_old.py:368
 msgid "Product Name"
 msgstr "产品名称"
 
-#: oec/explore/models.py:411
+#: oec/explore/models_old.py:406
 msgid "Origin"
 msgstr "产地"
 
-#: oec/explore/models.py:426
+#: oec/explore/models_old.py:416
 msgid "Destination"
 msgstr "目的地"
 
-#: oec/explore/models.py:444 oec/html/profile/product.html:20
-#: oec/html/profile/product.html:24 oec/html/templates/nav.html:26
-#: oec/rankings/views.py:64 oec/rankings/views.py:68
+#: oec/explore/models_old.py:426 oec/html/includes/nav.html:8
+#: oec/rankings/views.py:94 oec/visualize/views.py:325
 msgid "Product"
 msgstr "产品"
 
-#: oec/explore/models.py:453
+#: oec/explore/models_old.py:435 oec/visualize/views.py:347
 msgid "Trade Flow"
 msgstr "贸易流"
 
-#: oec/explore/models.py:456 oec/html/explore/embed.html:344
+#: oec/explore/models_old.py:438 oec/html/visualize/embed.html:345
+#: oec/translations/lookup.py:15 oec/visualize/views.py:350
 msgid "Export"
 msgstr "出口"
 
-#: oec/explore/models.py:457 oec/html/explore/embed.html:345
+#: oec/explore/models_old.py:439 oec/html/visualize/embed.html:346
+#: oec/translations/lookup.py:16 oec/visualize/views.py:351
 msgid "Import"
 msgstr "进口"
 
-#: oec/explore/models.py:466
+#: oec/explore/models_old.py:448 oec/visualize/views.py:334
 msgid "Y Axis"
 msgstr "Y轴"
 
-#: oec/explore/models.py:469 oec/html/explore/embed.html:346
+#: oec/explore/models_old.py:451 oec/html/visualize/embed.html:347
+#: oec/profile/models.py:64 oec/translations/lookup.py:17
+#: oec/visualize/views.py:337
 msgid "GDP"
 msgstr "GDP"
 
-#: oec/explore/models.py:470 oec/html/explore/embed.html:347
+#: oec/explore/models_old.py:452 oec/html/visualize/embed.html:348
+#: oec/translations/lookup.py:18 oec/visualize/views.py:338
 msgid "GDPpc (constant '05 US$)"
 msgstr "人均 GDP（2005年不变价美元）"
 
-#: oec/explore/models.py:471 oec/html/explore/embed.html:348
+#: oec/explore/models_old.py:453 oec/html/visualize/embed.html:349
+#: oec/translations/lookup.py:19 oec/visualize/views.py:339
 msgid "GDPpc (current US$)"
 msgstr "人均 GDP（现价美元）"
 
-#: oec/explore/models.py:472 oec/html/explore/embed.html:349
+#: oec/explore/models_old.py:454 oec/html/visualize/embed.html:350
+#: oec/translations/lookup.py:20 oec/visualize/views.py:340
 msgid "GDPpc PPP (constant '11)"
 msgstr "按购买力平价 (PPP) 衡量的人均 GDP（2011 年不变价国际元）"
 
-#: oec/explore/models.py:473 oec/html/explore/embed.html:350
+#: oec/explore/models_old.py:455 oec/html/visualize/embed.html:351
+#: oec/translations/lookup.py:21 oec/visualize/views.py:341
 msgid "GDPpc PPP (current)"
 msgstr "按购买力平价 (PPP)计算的人均 GDP（现价国际元）"
 
-#: oec/explore/models.py:479
+#: oec/explore/models_old.py:461
 msgid "Classification"
 msgstr "分类"
 
-#: oec/explore/models.py:493
+#: oec/explore/models_old.py:475 oec/visualize/views.py:371
 msgid "Start Year"
 msgstr "开始年份"
 
-#: oec/explore/models.py:499
+#: oec/explore/models_old.py:481 oec/visualize/views.py:377
 msgid "End Year"
 msgstr "结束年份"
 
-#: oec/explore/models.py:507 oec/rankings/views.py:90
+#: oec/explore/models_old.py:489 oec/html/rankings/index.html:61
+#: oec/rankings/views.py:119 oec/visualize/views.py:384
 msgid "Year"
 msgstr "年"
 
-#: oec/general/views.py:315 oec/html/templates/nav.html:19
-msgid "Profiles"
-msgstr "简介"
+#: oec/html/home.html:3 oec/html/home.html:12
+msgid "The Observatory of Economic Complexity"
+msgstr ""
 
-#: oec/html/home.html:25
+#: oec/html/home.html:15
 msgid ""
-"The Observatory of Economic Complexity makes international trade data and"
-" economic complexity indicators available through millions of interactive"
-" visualizations."
-msgstr "通过数以百万计的交互的可视化，经济复杂性可以通过国际贸易数据和经济复杂性指数来观测。"
+"We are the world's<br/>leading visualization engine<br/>for international"
+" trade data."
+msgstr ""
 
-#: oec/html/home.html:34
-msgid "New!"
-msgstr "新！"
+#: oec/html/home.html:17
+msgid "Learn More"
+msgstr ""
 
-#: oec/html/about/api_data.html:7
-msgid ""
-"Application programming interface (API) for querying the raw data used "
-"throughout The Observatory of Economic Complexity."
-msgstr "查询经济复杂性的原始观测数据的应用程序编程接口"
-
-#: oec/html/about/api_embed.html:8
-msgid ""
-"Application programming interface (API) for emedding an iframe of the "
-"visualizations used througout The Observatory of Economic Complexity on "
-"your own website."
-msgstr "嵌入查询经济复杂性的浮动框架的应用程序编程借"
+#: oec/html/home.html:21 oec/html/templates/nav.html:62
+msgid "Search the Observatory"
+msgstr ""
 
 #: oec/html/about/data.html:4
 msgid ""
@@ -135,327 +184,348 @@ msgid ""
 "values."
 msgstr "HS,SITC和国家分类及编号与价"
 
-#: oec/html/about/team.html:4
+#: oec/html/about/index.html:3 oec/html/includes/nav.html:38
+msgid "About the Site"
+msgstr ""
+
+#: oec/html/about/index.html:5
 msgid ""
 "Photos and descriptions of the team members involved in the creation of "
 "The Observatory."
 msgstr "参与建立观测的成员"
 
+#: oec/html/about/index.html:11
+msgid "About the Observatory"
+msgstr ""
+
+#: oec/html/about/index.html:29
+msgid "What is Economic Complexity?"
+msgstr ""
+
+#: oec/html/about/index.html:61
+#, fuzzy
+msgid "Current Team"
+msgstr "本年度"
+
+#: oec/html/about/index.html:65
+msgid "Past Contributors"
+msgstr ""
+
 #: oec/html/about/updates.html:4
 msgid "A Development blog of updates to the site."
 msgstr "更新说明的博客"
 
-#: oec/html/atlas/index.html:4
+#: oec/html/general/api.html:4
 msgid ""
-"A book of complexity economics attempting to explain why some countries "
-"grow and others do not. The book uses many of the visualizations seen "
-"throughout this site."
-msgstr "经济复杂性如何解释经济增长。这本书从本网站引用了大量的可视化数据"
+"Application programming interface (API) for querying the raw data used "
+"throughout The Observatory of Economic Complexity."
+msgstr "查询经济复杂性的原始观测数据的应用程序编程接口"
 
-#: oec/html/explore/embed.html:7
-msgid "An emedded visualization."
-msgstr "嵌入式可视化"
+#: oec/html/general/permissions.html:3 oec/html/general/permissions.html:10
+#: oec/html/includes/nav.html:47
+msgid "Permissions"
+msgstr ""
 
-#: oec/html/explore/embed.html:12 oec/html/explore/embed.html:788
-msgid "Loading"
-msgstr "载入中"
+#: oec/html/general/publications.html:3 oec/html/general/publications.html:11
+msgid "Books"
+msgstr ""
 
-#: oec/html/explore/embed.html:19 oec/html/explore/embed.html:49
-#: oec/html/explore/embed.html:340 oec/html/explore/embed.html:342
-msgid "Value"
-msgstr "值"
+#: oec/html/general/publications.html:13 oec/html/profile/index.html:65
+msgid "Photo by"
+msgstr ""
 
-#: oec/html/explore/embed.html:20 oec/html/explore/embed.html:337
-msgid "Percent"
-msgstr "百分之"
-
-#: oec/html/explore/embed.html:27
-msgid "Continent"
-msgstr "大陆"
-
-#: oec/html/explore/embed.html:28 oec/html/explore/embed.html:51
-msgid "Category"
-msgstr "种类"
-
-#: oec/html/explore/embed.html:33 oec/html/profile/country.html:22
-#: oec/html/profile/country.html:26 oec/html/templates/nav.html:26
-#: oec/rankings/views.py:72
+#: oec/html/includes/nav.html:4 oec/html/visualize/embed.html:30
+#: oec/rankings/views.py:87 oec/visualize/views.py:298
 msgid "Country"
 msgstr "国家"
 
-#: oec/html/explore/embed.html:34
-msgid "Full"
-msgstr "满"
-
-#: oec/html/explore/embed.html:41
-msgid "Gross"
-msgstr "总额"
-
-#: oec/html/explore/embed.html:42
-msgid "Net"
-msgstr "净"
-
-#: oec/html/explore/embed.html:53 oec/html/explore/embed.html:353
-msgid "Annual Growth Rate (1 year)"
-msgstr "年成长率（1年）"
-
-#: oec/html/explore/embed.html:54 oec/html/explore/embed.html:354
-msgid "Annual Growth Rate (5 year)"
-msgstr "年度增长率（5年）"
-
-#: oec/html/explore/embed.html:55 oec/html/explore/embed.html:355
-msgid "Growth Value (1 year)"
-msgstr "成长值（1年）"
-
-#: oec/html/explore/embed.html:56 oec/html/explore/embed.html:356
-msgid "Growth Value (5 year)"
-msgstr "成长价值（5年）"
-
-#: oec/html/explore/embed.html:61 oec/html/rankings/index.html:64
-msgid "All Years"
-msgstr "所有年"
-
-#: oec/html/explore/embed.html:72 oec/html/explore/embed.html:955
-msgid "View as Text"
-msgstr "查看文本"
-
-#: oec/html/explore/embed.html:73
-msgid "Fullscreen"
-msgstr "全屏"
-
-#: oec/html/explore/embed.html:111
-msgid "Build Visualization"
-msgstr "建立可视化"
-
-#: oec/html/explore/embed.html:114 oec/html/rankings/index.html:59
-msgid "Download"
-msgstr "下载"
-
-#: oec/html/explore/embed.html:122
-msgid "Embed"
-msgstr "嵌入"
-
-#: oec/html/explore/embed.html:127
-msgid "Share"
-msgstr "共享"
-
-#: oec/html/explore/embed.html:143
-msgid "Short URL"
-msgstr "短网址"
-
-#: oec/html/explore/embed.html:339
-msgid "Export Value"
-msgstr "出口交货值"
-
-#: oec/html/explore/embed.html:340
-msgid "Net Export"
-msgstr "净出口"
-
-#: oec/html/explore/embed.html:341
-msgid "Import Value"
-msgstr "进口值"
-
-#: oec/html/explore/embed.html:342
-msgid "Net Import"
-msgstr "净进口"
-
-#: oec/html/explore/embed.html:343
-msgid "Market Value"
-msgstr "市场价值"
-
-#: oec/html/explore/embed.html:351
-msgid "ECI"
-msgstr "ECI"
-
-#: oec/html/explore/embed.html:360
-msgid "value"
-msgstr "值"
-
-#: oec/html/explore/embed.html:361
-msgid "percentage"
-msgstr "百分比"
-
-#: oec/html/explore/embed.html:382
-msgid "Brought to you by"
-msgstr "供货商"
-
-#: oec/html/explore/embed.html:463
-msgid "Total World Trade"
-msgstr "世界贸易总额"
-
-#: oec/html/explore/embed.html:466
-msgid "Total Country Trade"
-msgstr "合计国家贸易"
-
-#: oec/html/explore/embed.html:950
-msgid "View as App"
-msgstr "查看应用程序"
-
-#: oec/html/explore/index.html:30
-msgid "Data visualization of economic trade"
-msgstr "经济贸易的数据可视化"
-
-#: oec/html/explore/index.html:36 oec/html/rankings/index.html:20
-msgid "Previous Year"
-msgstr "上一年度"
-
-#: oec/html/explore/index.html:40 oec/html/rankings/index.html:30
-msgid "Next Year"
-msgstr "下一年度"
-
-#: oec/html/explore/index.html:97
-msgid "Total"
-msgstr "总"
-
-#: oec/html/profile/country.html:16
-#, python-format
-msgid ""
-"%(country)s (%(country_abbrv)s) Profile of Exports, Imports and Trade "
-"Partners"
-msgstr "%(country)s (%(country_abbrv)s) 出口，进口和贸易伙伴个人"
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid ""
-"List of major leading exports, imports and complexity economic indicator "
-"statistics of %(country)s."
-msgstr "主要领导出口，进口和复杂的经济指标统计一览表 %(country)s."
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid "Economy of %(country)s."
-msgstr "经济 %(country)s."
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid "Principle trade partners of %(country)s."
-msgstr "原理贸易伙伴 %(country)s."
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid "Goods and resources of %(country)s."
-msgstr "商品及资源 %(country)s."
-
-#: oec/html/profile/country.html:22 oec/html/profile/product.html:20
-msgid "Previous"
-msgstr "前"
-
-#: oec/html/profile/country.html:24
-#, python-format
-msgid "Learn More About Trade in <strong>%(country)s</strong>"
-msgstr "了解更多关于贸易 <strong>%(country)s</strong>"
-
-#: oec/html/profile/country.html:26 oec/html/profile/product.html:24
-msgid "Next"
-msgstr "下一个"
-
-#: oec/html/profile/country.html:41 oec/html/profile/product.html:39
-msgid "Top 5"
-msgstr "前5"
-
-#: oec/html/profile/country.html:54
-#, python-format
-msgid ""
-"%(country)s %(ranked)s %(rank_val)s with an Economic Complexity Index "
-"(ECI) of %(eci)s"
-msgstr "%(country)s %(ranked)s %(rank_val)s 随着经济的复杂性指数（ECI） %(eci)s"
-
-#: oec/html/profile/country.html:54 oec/html/profile/product.html:52
-msgid "is ranked"
-msgstr "排名"
-
-#: oec/html/profile/country.html:60
-#, python-format
-msgid "%(country)s is the top exporter of"
-msgstr "%(country)s 是全球最大出口国"
-
-#: oec/html/profile/country.html:60 oec/html/profile/product.html:58
-msgid "and"
-msgstr "和"
-
-#: oec/html/profile/country.html:87 oec/html/profile/product.html:90
-#: oec/html/templates/nav.html:18
-msgid "Explore"
-msgstr "探索"
-
-#: oec/html/profile/product.html:14
-#, python-format
-msgid ""
-"%(prod)s (%(prod_abbrv)s) Profile of Export Destinations and Import "
-"Origins"
-msgstr "%(prod)s (%(prod_abbrv)s) 出口目的地和进口来源简介"
-
-#: oec/html/profile/product.html:15
-#, python-format
-msgid ""
-"List of major leading origin and destination countries with economic "
-"indicator statistics of %(prod)s."
-msgstr "主要领导始发地和目的地国家的经济指标统计一览表 %(prod)s."
-
-#: oec/html/profile/product.html:15
-#, python-format
-msgid "Principle trade partners that export %(prod)s."
-msgstr "原理贸易伙伴的出口 %(prod)s."
-
-#: oec/html/profile/product.html:15
-#, python-format
-msgid "Countries that import %(prod)s."
-msgstr "国家的进口 %(prod)s."
-
-#: oec/html/profile/product.html:22
-#, python-format
-msgid "Learn More About Trade of <strong>%(prod)s</strong>"
-msgstr "了解更多关于贸易 <strong>%(prod)s</strong>"
-
-#: oec/html/profile/product.html:52
-#, python-format
-msgid ""
-"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
-"with a Product Complexity Index (PCI) of %(pci)s"
-msgstr ""
-"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
-"与产品复杂性指数（PCI）的 %(pci)s"
-
-#: oec/html/profile/product.html:58
-#, python-format
-msgid "%(prod)s is the top export of"
-msgstr "%(prod)s 是的顶部出口"
-
-#: oec/html/rankings/index.html:23 oec/html/rankings/index.html:40
-msgid "Country Rankings"
-msgstr "国家排名"
-
-#: oec/html/rankings/index.html:25 oec/html/rankings/index.html:43
-msgid "HS Product Rankings"
-msgstr "HS产品排行榜"
-
-#: oec/html/rankings/index.html:27 oec/html/rankings/index.html:46
-msgid "SITC Product Rankings"
-msgstr "SITC产品排行榜"
-
-#: oec/html/rankings/index.html:51
-msgid "Change Year"
-msgstr "年变化"
-
-#: oec/html/rankings/index.html:61
-msgid "Current Year"
-msgstr "本年度"
-
-#: oec/html/templates/nav.html:20
-msgid "Atlas"
+#: oec/html/includes/nav.html:12
+msgid "Visualize"
 msgstr ""
 
-#: oec/html/templates/nav.html:21
+#: oec/html/includes/nav.html:16
 msgid "Rankings"
 msgstr "排行榜"
 
-#: oec/html/templates/nav.html:22
-msgid "About"
-msgstr "关于"
+#: oec/html/includes/nav.html:20
+#, fuzzy
+msgid "Countries"
+msgstr "国家"
 
-#: oec/rankings/views.py:64 oec/rankings/views.py:68 oec/rankings/views.py:72
+#: oec/html/includes/nav.html:23
+#, fuzzy
+msgid "Products"
+msgstr "产品"
+
+#: oec/html/includes/nav.html:30
+#, fuzzy
+msgid "Publications"
+msgstr "分类"
+
+#: oec/html/includes/nav.html:34
+msgid "Resources"
+msgstr ""
+
+#: oec/html/includes/nav.html:41
+msgid "FAQs"
+msgstr ""
+
+#: oec/html/includes/nav.html:44 oec/html/resources/data.html:10
+msgid "Data Sources"
+msgstr ""
+
+#: oec/html/includes/nav.html:54
+msgid "API"
+msgstr ""
+
+#: oec/html/rankings/index.html:20
+msgid "Economic Complexity Rankings"
+msgstr ""
+
+#: oec/html/rankings/index.html:22
+#, fuzzy
+msgid "Product Complexity Rankings"
+msgstr "HS产品排行榜"
+
+#: oec/html/rankings/index.html:34 oec/html/visualize/index.html:43
+#: oec/html/visualize/index_old.html:36
+msgid "Previous Year"
+msgstr "上一年度"
+
+#: oec/html/rankings/index.html:40 oec/html/visualize/index.html:48
+#: oec/html/visualize/index_old.html:40
+msgid "Next Year"
+msgstr "下一年度"
+
+#: oec/html/rankings/index.html:49 oec/visualize/views.py:359
+msgid "Dataset"
+msgstr ""
+
+#: oec/html/rankings/index.html:71
+msgid "Depth"
+msgstr ""
+
+#: oec/html/rankings/index.html:81
+#, fuzzy
+msgid "Download Current Year"
+msgstr "本年度"
+
+#: oec/html/rankings/index.html:86
+msgid "Download All Years"
+msgstr ""
+
+#: oec/html/resources/faqs.html:10
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: oec/html/visualize/embed.html:7 oec/html/visualize/embed_new.html:3
+msgid "An emedded visualization."
+msgstr "嵌入式可视化"
+
+#: oec/html/visualize/embed.html:12 oec/html/visualize/embed.html:811
+msgid "Loading"
+msgstr "载入中"
+
+#: oec/html/visualize/embed.html:19 oec/html/visualize/embed.html:52
+#: oec/html/visualize/embed.html:341 oec/html/visualize/embed.html:343
+msgid "Value"
+msgstr "值"
+
+#: oec/html/visualize/embed.html:20 oec/html/visualize/embed.html:338
+#: oec/translations/lookup.py:9
+msgid "Percent"
+msgstr "百分之"
+
+#: oec/html/visualize/embed.html:28
+msgid "Continent"
+msgstr "大陆"
+
+#: oec/html/visualize/embed.html:33 oec/html/visualize/embed.html:54
+msgid "Category"
+msgstr "种类"
+
+#: oec/html/visualize/embed.html:35
+msgid "4 Digit"
+msgstr ""
+
+#: oec/html/visualize/embed.html:37
+msgid "6 Digit"
+msgstr ""
+
+#: oec/html/visualize/embed.html:44
+msgid "Gross"
+msgstr "总额"
+
+#: oec/html/visualize/embed.html:45
+msgid "Net"
+msgstr "净"
+
+#: oec/html/visualize/embed.html:56 oec/html/visualize/embed.html:354
+#: oec/translations/lookup.py:24 oec/translations/lookup.py:28
+msgid "Annual Growth Rate (1 year)"
+msgstr "年成长率（1年）"
+
+#: oec/html/visualize/embed.html:57 oec/html/visualize/embed.html:355
+#: oec/translations/lookup.py:25 oec/translations/lookup.py:29
+msgid "Annual Growth Rate (5 year)"
+msgstr "年度增长率（5年）"
+
+#: oec/html/visualize/embed.html:58 oec/html/visualize/embed.html:356
+#: oec/translations/lookup.py:26 oec/translations/lookup.py:30
+msgid "Growth Value (1 year)"
+msgstr "成长值（1年）"
+
+#: oec/html/visualize/embed.html:59 oec/html/visualize/embed.html:357
+#: oec/translations/lookup.py:27 oec/translations/lookup.py:31
+msgid "Growth Value (5 year)"
+msgstr "成长价值（5年）"
+
+#: oec/html/visualize/embed.html:64
+msgid "All Years"
+msgstr "所有年"
+
+#: oec/html/visualize/embed.html:75 oec/html/visualize/embed.html:985
+msgid "View as Text"
+msgstr "查看文本"
+
+#: oec/html/visualize/embed.html:76
+msgid "Fullscreen"
+msgstr "全屏"
+
+#: oec/html/visualize/embed.html:114 oec/html/visualize/index.html:142
+msgid "Build Visualization"
+msgstr "建立可视化"
+
+#: oec/html/visualize/embed.html:117
+msgid "Download"
+msgstr "下载"
+
+#: oec/html/visualize/embed.html:125
+msgid "Embed"
+msgstr "嵌入"
+
+#: oec/html/visualize/embed.html:130
+msgid "Share"
+msgstr "共享"
+
+#: oec/html/visualize/embed.html:146
+msgid "Short URL"
+msgstr "短网址"
+
+#: oec/html/visualize/embed.html:340 oec/translations/lookup.py:10
+msgid "Export Value"
+msgstr "出口交货值"
+
+#: oec/html/visualize/embed.html:341
+msgid "Net Export"
+msgstr "净出口"
+
+#: oec/html/visualize/embed.html:342 oec/translations/lookup.py:12
+msgid "Import Value"
+msgstr "进口值"
+
+#: oec/html/visualize/embed.html:343
+msgid "Net Import"
+msgstr "净进口"
+
+#: oec/html/visualize/embed.html:344 oec/translations/lookup.py:14
+msgid "Market Value"
+msgstr "市场价值"
+
+#: oec/html/visualize/embed.html:352 oec/translations/lookup.py:22
+msgid "ECI"
+msgstr "ECI"
+
+#: oec/html/visualize/embed.html:361
+msgid "value"
+msgstr "值"
+
+#: oec/html/visualize/embed.html:362
+msgid "percentage"
+msgstr "百分比"
+
+#: oec/html/visualize/embed.html:392
+msgid "Brought to you by"
+msgstr "供货商"
+
+#: oec/html/visualize/embed.html:479
+msgid "Total World Trade"
+msgstr "世界贸易总额"
+
+#: oec/html/visualize/embed.html:482
+msgid "Total Country Trade"
+msgstr "合计国家贸易"
+
+#: oec/html/visualize/embed.html:980
+msgid "View as App"
+msgstr "查看应用程序"
+
+#: oec/html/visualize/index.html:29 oec/html/visualize/index_old.html:30
+msgid "Data visualization of economic trade"
+msgstr "经济贸易的数据可视化"
+
+#: oec/html/visualize/index_old.html:97
+msgid "Total"
+msgstr "总"
+
+#: oec/profile/models.py:48
+msgid "and"
+msgstr "和"
+
+#: oec/profile/models.py:64
+msgid "Economic Complexity"
+msgstr ""
+
+#: oec/profile/models.py:64 oec/profile/models.py:333
+#, fuzzy
+msgid "Exports"
+msgstr "出口"
+
+#: oec/profile/models.py:64
+#, fuzzy
+msgid "Imports"
+msgstr "进口"
+
+#: oec/profile/models.py:64
+msgid "Population"
+msgstr ""
+
+#: oec/profile/models.py:333
+#, fuzzy
+msgid "Product Complexity"
+msgstr "产品名称"
+
+#: oec/profile/models.py:333
+msgid "Top Exporter"
+msgstr ""
+
+#: oec/profile/models.py:333
+#, fuzzy
+msgid "Top Importer"
+msgstr "净进口"
+
+#: oec/rankings/views.py:87 oec/rankings/views.py:94
 msgid "Rank"
 msgstr "排名"
+
+#: oec/translations/lookup.py:11
+#, fuzzy
+msgid "Net Export Value"
+msgstr "出口交货值"
+
+#: oec/translations/lookup.py:13
+#, fuzzy
+msgid "Net Import Value"
+msgstr "进口值"
+
+#: oec/visualize/views.py:316
+msgid "Partner"
+msgstr ""
+
+#: oec/visualize/views.py:437
+#, python-format
+msgid "Profile for %(attr)s"
+msgstr ""
 
 #~ msgid "Book"
 #~ msgstr "书"
@@ -489,4 +559,130 @@ msgstr "排名"
 
 #~ msgid "Flag of %(country)s"
 #~ msgstr "标志 %(country)s"
+
+#~ msgid "Profiles"
+#~ msgstr "简介"
+
+#~ msgid ""
+#~ "The Observatory of Economic Complexity "
+#~ "makes international trade data and "
+#~ "economic complexity indicators available "
+#~ "through millions of interactive "
+#~ "visualizations."
+#~ msgstr "通过数以百万计的交互的可视化，经济复杂性可以通过国际贸易数据和经济复杂性指数来观测。"
+
+#~ msgid "New!"
+#~ msgstr "新！"
+
+#~ msgid ""
+#~ "Application programming interface (API) for"
+#~ " emedding an iframe of the "
+#~ "visualizations used througout The Observatory"
+#~ " of Economic Complexity on your own"
+#~ " website."
+#~ msgstr "嵌入查询经济复杂性的浮动框架的应用程序编程借"
+
+#~ msgid ""
+#~ "A book of complexity economics "
+#~ "attempting to explain why some countries"
+#~ " grow and others do not. The "
+#~ "book uses many of the visualizations "
+#~ "seen throughout this site."
+#~ msgstr "经济复杂性如何解释经济增长。这本书从本网站引用了大量的可视化数据"
+
+#~ msgid "Full"
+#~ msgstr "满"
+
+#~ msgid ""
+#~ "%(country)s (%(country_abbrv)s) Profile of "
+#~ "Exports, Imports and Trade Partners"
+#~ msgstr "%(country)s (%(country_abbrv)s) 出口，进口和贸易伙伴个人"
+
+#~ msgid ""
+#~ "List of major leading exports, imports"
+#~ " and complexity economic indicator "
+#~ "statistics of %(country)s."
+#~ msgstr "主要领导出口，进口和复杂的经济指标统计一览表 %(country)s."
+
+#~ msgid "Economy of %(country)s."
+#~ msgstr "经济 %(country)s."
+
+#~ msgid "Principle trade partners of %(country)s."
+#~ msgstr "原理贸易伙伴 %(country)s."
+
+#~ msgid "Goods and resources of %(country)s."
+#~ msgstr "商品及资源 %(country)s."
+
+#~ msgid "Previous"
+#~ msgstr "前"
+
+#~ msgid "Learn More About Trade in <strong>%(country)s</strong>"
+#~ msgstr "了解更多关于贸易 <strong>%(country)s</strong>"
+
+#~ msgid "Next"
+#~ msgstr "下一个"
+
+#~ msgid "Top 5"
+#~ msgstr "前5"
+
+#~ msgid ""
+#~ "%(country)s %(ranked)s %(rank_val)s with an"
+#~ " Economic Complexity Index (ECI) of "
+#~ "%(eci)s"
+#~ msgstr "%(country)s %(ranked)s %(rank_val)s 随着经济的复杂性指数（ECI） %(eci)s"
+
+#~ msgid "is ranked"
+#~ msgstr "排名"
+
+#~ msgid "%(country)s is the top exporter of"
+#~ msgstr "%(country)s 是全球最大出口国"
+
+#~ msgid "Explore"
+#~ msgstr "探索"
+
+#~ msgid ""
+#~ "%(prod)s (%(prod_abbrv)s) Profile of Export"
+#~ " Destinations and Import Origins"
+#~ msgstr "%(prod)s (%(prod_abbrv)s) 出口目的地和进口来源简介"
+
+#~ msgid ""
+#~ "List of major leading origin and "
+#~ "destination countries with economic indicator"
+#~ " statistics of %(prod)s."
+#~ msgstr "主要领导始发地和目的地国家的经济指标统计一览表 %(prod)s."
+
+#~ msgid "Principle trade partners that export %(prod)s."
+#~ msgstr "原理贸易伙伴的出口 %(prod)s."
+
+#~ msgid "Countries that import %(prod)s."
+#~ msgstr "国家的进口 %(prod)s."
+
+#~ msgid "Learn More About Trade of <strong>%(prod)s</strong>"
+#~ msgstr "了解更多关于贸易 <strong>%(prod)s</strong>"
+
+#~ msgid ""
+#~ "%(prod)s (%(classification)s: %(prod_abbrv)s) "
+#~ "%(ranked)s %(rank_val)s with a Product "
+#~ "Complexity Index (PCI) of %(pci)s"
+#~ msgstr ""
+#~ "%(prod)s (%(classification)s: %(prod_abbrv)s) "
+#~ "%(ranked)s %(rank_val)s 与产品复杂性指数（PCI）的 %(pci)s"
+
+#~ msgid "%(prod)s is the top export of"
+#~ msgstr "%(prod)s 是的顶部出口"
+
+#~ msgid "Country Rankings"
+#~ msgstr "国家排名"
+
+#~ msgid "SITC Product Rankings"
+#~ msgstr "SITC产品排行榜"
+
+#~ msgid "Change Year"
+#~ msgstr "年变化"
+
+#~ msgid "Atlas"
+#~ msgstr ""
+
+#~ msgid "About"
+#~ msgstr "关于"
 
