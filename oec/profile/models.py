@@ -278,10 +278,10 @@ class Country(Profile):
             subtitle = ""
         product_space = Build("network", "hs92", "export", self.attr, "all", "show", self.year)
         ps_section = {
-            "title": u"Product Space of {}".format(self.attr.get_name()),
+            "title": u"Economic Complexity of {}".format(self.attr.get_name()),
             "subtitle": subtitle,
             "builds": [
-                {"title": u"Network", "build": product_space, "subtitle": u"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure."},
+                {"title": u"Product Space", "build": product_space, "subtitle": u"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure."},
             ]
         }
         sections.append(ps_section)
@@ -472,7 +472,7 @@ class Product(Profile):
         trade_section["builds"].append({"title": u"Importers", "build": importers, "subtitle": importers_subtitle})
 
         rings = Build("rings", self.classification, "export", "all", "all", self.attr, self.year)
-        rings_subtitle = u"The rings visualization shows the primary and secondary network connections for {} in the Product Space.".format(self.attr.get_name())
+        rings_subtitle = u"This visualization shows products that are likely to be exported by countries that export {}.".format(self.attr.get_name())
         trade_section["builds"].append({"title": u"Rings", "build": rings, "subtitle": rings_subtitle})
 
         sections.append(trade_section)

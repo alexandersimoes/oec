@@ -173,6 +173,10 @@ body.profile {
           margin-left: 15px;
           margin-top: 2px;
           cursor: pointer;
+
+          @media all and (max-width: 768px) {
+            display: none;
+          }
         }
 
         &:hover:after {
