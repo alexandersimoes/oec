@@ -20,6 +20,19 @@
   // filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='#{$radius}');
 }
 
+@mixin column-count($num: 2) {
+  -webkit-column-count: $num;
+  -moz-column-count: $num;
+  column-count: $num;
+  @include column-gap();
+}
+
+@mixin column-gap($num: 20px) {
+  -webkit-column-gap: $num;
+  -moz-column-gap: $num;
+  column-gap: $num;
+}
+
 @mixin filter($filter) {
   -webkit-filter: $filter;
   -moz-filter: $filter;
@@ -31,19 +44,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased;
-}
-
-@mixin column-count($num: 2) {
-  -webkit-column-count: $num;
-  -moz-column-count: $num;
-  column-count: $num;
-  @include column-gap();
-}
-
-@mixin column-gap($num: 35px) {
-  -webkit-column-gap: $num;
-  -moz-column-gap: $num;
-  column-gap: $num;
 }
 
 @mixin image($image, $width, $height, $hd: none) {
