@@ -1158,13 +1158,18 @@ body.profile {
     body.profile article .profile_header #title,
     body.profile article .profile_header #stats {
       margin: 20px; }
+      @media all and (max-width: 600px) {
+        body.profile article .profile_header #title,
+        body.profile article .profile_header #stats {
+          margin: 10px 0 !important;   }
+}
+  body.profile article .profile_header.country #title,
+  body.profile article .profile_header.country #stats {
+    margin-left: 290px; }
+    @media all and (max-width: 768px) {
       body.profile article .profile_header.country #title,
       body.profile article .profile_header.country #stats {
-        margin-left: 290px; }
-        @media all and (max-width: 768px) {
-          body.profile article .profile_header.country #title,
-          body.profile article .profile_header.country #stats {
-            margin-left: 20px;   }
+        margin-left: 20px;   }
 }
   body.profile article .profile_header:hover .author {
     opacity: 1; }
@@ -1202,6 +1207,7 @@ body.profile {
 }
         @media all and (max-width: 600px) {
           body.profile article .profile_header .stat {
+            margin: 10px 0 !important;
             min-width: 40%;   }
 }
           body.profile article .profile_header .stat .stat_text {
@@ -1243,13 +1249,27 @@ body.profile {
                 justify-content: flex-start;
                 text-align: left;   }
                 body.profile article .profile_header .stat .stat_text h3 {
+                  font-size: 24px !important;
                   margin: 0 10px 0 0 !important;   }
+                  body.profile article .profile_header .stat .stat_text sub {
+                    font-size: 12px !important;   }
 }
             body.profile article .profile_header .stat .stat_text h3 {
+              -webkit-box-flex: 1;
+              -moz-box-flex: 1;
+              -webkit-flex: 1;
+              -ms-flex: 1;
+              flex: 1;
               font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
               font-size: 32px;
-              font-weight: 300; }
+              font-weight: 300;
+              text-align: right; }
               body.profile article .profile_header .stat .stat_text sub {
+                -webkit-box-flex: 1;
+                -moz-box-flex: 1;
+                -webkit-flex: 1;
+                -ms-flex: 1;
+                flex: 1;
                 font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
                 font-size: 14px;
                 font-weight: 700;
