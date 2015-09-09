@@ -21,12 +21,15 @@ class ProdAttr(db.Model, AutoSerialize):
         lang = lang or getattr(g, "locale", "en")
         return self.name.filter_by(lang=lang).first().name
 
-    def get_name(self, lang=None, article=None):
+    def get_name(self, lang=None, article=None, verb=None):
         lang = lang or getattr(g, "locale", "en")
         name = self.name.filter_by(lang=lang).first()
         if name:
             if lang == "en" and name.article and article:
-                return "The {0}".format(name.name)
+                return "The {}".format(name.name)
+            if lang == "en" and verb:
+                verb = "are" if name.plural else "is"
+                return "{} {}".format(name.name, verb)
             return name.name
         return ""
 

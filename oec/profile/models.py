@@ -391,18 +391,16 @@ class Product(Profile):
                     .filter(func.char_length(getattr(self.models.Yp, "{}_id".format(self.classification))) == len(self.attr.id)) \
                     .order_by(desc("export_val")).all()
         if this_yp:
-            econ_rank = num_format(all_yp.index(this_yp) + 1, "ordinal")
+            econ_rank = num_format(all_yp.index(this_yp) + 1, "ordinal") if all_yp.index(this_yp) else ""
             # get PCI ranking
             pci_rank = this_yp.pci_rank
             if pci_rank:
-                pci_rank = u" and {} most complex by PCI ranking".format(num_format(pci_rank, "ordinal"))
+                pci_rank = num_format(pci_rank, "ordinal") if pci_rank > 1 else ""
+                pci_rank = u" and {} most complex product according to the <a href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>".format(pci_rank)
             else:
                 pci_rank = u""
-            p2 = u"{} are the {} largest product by world trade{}. In {}, ${} " \
-                    "worth of {} were exported and ${} imported." \
-                    .format(self.attr.get_name(), econ_rank, pci_rank, self.year,
-                        num_format(this_yp.export_val), self.attr.get_name(),
-                        num_format(this_yp.import_val))
+            p2 = u"{} the {} most traded product{}." \
+                    .format(self.attr.get_name(verb=True), econ_rank, pci_rank)
             all_paragraphs.append(p2)
 
         ''' Paragraph #3
@@ -432,10 +430,10 @@ class Product(Profile):
         countries_top_import = countries_top_import.all()
         if countries_top_export:
             countries_top_export = self.stringify_items(countries_top_export, None, "country")
-            p4.append(u"{} is the top export of {}.".format(self.attr.get_name(), countries_top_export))
+            p4.append(u"{} the top export of {}.".format(self.attr.get_name(verb=True), countries_top_export))
         if countries_top_import:
             countries_top_import = self.stringify_items(countries_top_import, None, "country")
-            p4.append(u"{} is the top import of {}.".format(self.attr.get_name(), countries_top_import))
+            p4.append(u"{} the top import of {}.".format(self.attr.get_name(verb=True), countries_top_import))
         if p4:
             all_paragraphs = all_paragraphs + p4
 
@@ -443,12 +441,12 @@ class Product(Profile):
         '''
         keywords = self.attr.get_keywords()
         if keywords:
-            all_paragraphs.append(u"{} is also known as {}.".format(self.attr.get_name(), keywords))
+            all_paragraphs.append(u"{} also known as {}.".format(self.attr.get_name(verb=True), keywords))
 
         ''' Paragraph #1
         '''
-        p1 = u"{} is a {} digit {} product." \
-                .format(self.attr.get_name(), len(self.attr.get_display_id()), self.classification.upper())
+        p1 = u"{} a {} digit {} product." \
+                .format(self.attr.get_name(verb=True), len(self.attr.get_display_id()), self.classification.upper())
         all_paragraphs.append(p1)
 
         return all_paragraphs
@@ -485,14 +483,22 @@ class Product(Profile):
                 dv_hs = self.attr_cls.query.get(self.attr.id[:6])
             dv_munic_exporters_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val".format(dv_hs.id)
             dv_munic_importers_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val".format(dv_hs.id)
-            dv_munic_exporters_link = "<a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>".format(self.attr.id)
-            dv_munic_importers_link = "<a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>".format(self.attr.id)
+            dv_munic_exporters_subtitle = u"""
+                This treemap shows the municipalities in Brazil that export {}.<br /><br /> 
+                DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
+                <a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
+                """.format(dv_hs.get_name(), self.attr.id)
+            dv_munic_importers_subtitle = u"""
+                This treemap shows the municipalities in Brazil that import {}.<br />.<br />
+                DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
+                <a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
+                """.format(dv_hs.get_name(), self.attr.id)
             dv_section = {
                 "title": "More on {} from our sister sites".format(self.attr.get_name()),
                 "source": "dataviva",
                 "builds": [
-                    {"title": u"{} exporters in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_exporters_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that export {}.<br />{}".format(dv_hs.get_name(), dv_munic_exporters_link)},
-                    {"title": u"{} importers in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_importers_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that import {}.<br />{}".format(dv_hs.get_name(), dv_munic_importers_link)},
+                    {"title": u"{} exporters in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_exporters_iframe, "subtitle": dv_munic_exporters_subtitle},
+                    {"title": u"{} importers in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_importers_iframe, "subtitle": dv_munic_importers_subtitle},
                 ]
             }
             sections.append(dv_section)
