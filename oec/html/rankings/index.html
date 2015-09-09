@@ -118,7 +118,7 @@
           </td>
           <td class="id">{{ r[0]["id_3char"]|upper }}</td>
           <td class="country"><img class="icon" src="/static/img/icons/country/country_{{ r[0].id }}.png" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
-          <td class="eci">{{ r[2]["eci"] }}</td>
+          <td class="eci">{{ r[2]["eci"]|num_format("eci") }}</td>
           {% else %}
           <td class="rank"><span>{{ r[2]["pci_rank"] }}</span></td>
           <td class="delta">
@@ -130,7 +130,7 @@
           </td>
           <td class="id">{{ r[0].get_display_id() }}</td>
           <td class="product"><img class="icon" style="background-color: {{ r[0].color }};" src="{{ r[0].get_icon() }}" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
-          <td class="pci">{{ r[2]["pci"] }}</td>
+          <td class="pci">{{ r[2]["pci"]|num_format("pci") }}</td>
           {% endif %}
         </tr>
         {% endfor %}
