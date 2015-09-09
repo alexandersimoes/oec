@@ -29,11 +29,11 @@
 
         h1 {
           font-size: 40px;
-          line-height: 50px; }
+          line-height: 1.25; }
 
           h2 {
             font-size: 30px;
-            line-height: 40px; }
+            line-height: 1.3; }
 
             h4 {
               font-size: 25px;
@@ -2118,14 +2118,6 @@ body.about, body.resources, body.permissions {
       body.about #container #content a:hover, body.resources #container #content a:hover,
       body.permissions #container #content a:hover {
         border-bottom: 1px solid #A1BAC6; }
-        body.about #container #content a.contact,
-        body.resources #container #content a.contact,
-        body.permissions #container #content a.contact {
-          color: #6297cb; }
-          body.about #container #content a.contact:hover,
-          body.resources #container #content a.contact:hover,
-          body.permissions #container #content a.contact:hover {
-            border-bottom: 1px solid #6297cb; }
   body.about h1, body.resources h1, body.permissions h1 {
     line-height: 1;
     margin-bottom: 20px; }
@@ -2266,7 +2258,6 @@ body.publications {
       body.publications article section {
         padding: 30px;
         max-width: 1054px;
-        min-width: 900px;
         margin: 0 auto; }
         body.publications article section content {
           margin: 0 !important; }
@@ -2274,7 +2265,6 @@ body.publications {
             letter-spacing: -1px; }
             body.publications article section content h3 {
               font-size: 40px;
-              margin-bottom: 20px;
               letter-spacing: 0;
               font-weight: 700; }
               body.publications article section content h3 a:hover {
@@ -2295,6 +2285,22 @@ body.publications {
           -webkit-column-gap: 20px;
           -moz-column-gap: 20px;
           column-gap: 20px; }
+      @media all and (max-width: 768px) {
+        body.publications article h2 {
+          font-size: 24px;   }
+          body.publications article h3 {
+            font-size: 30px !important;   }
+            body.publications article h4 {
+              font-size: 20px;   }
+              body.publications article p {
+                font-size: 13px;   }
+}
+      @media all and (min-width: 769px) and (max-width: 1024px) {
+        body.publications article h2 {
+          font-size: 26px;   }
+          body.publications article p {
+            font-size: 16px;   }
+}
       body.publications article.why-info-grows {
         background: #3b9343 url('/static/img/headers/pages/grows.jpg') repeat 50% 50%; }
         body.publications article.why-info-grows section {
@@ -2305,17 +2311,59 @@ body.publications {
             body.publications article.why-info-grows section content div:first-child h3,
             body.publications article.why-info-grows section content div:first-child h4 {
               display: inline-block; }
-              body.publications article.why-info-grows section content div:first-child h4 {
-                margin-left: 8px;
-                margin-top: 10px; }
+              body.publications article.why-info-grows section content div:first-child h3 {
+                margin-right: 8px; }
+                body.publications article.why-info-grows section content div:first-child h4 {
+                  margin-top: 10px;
+                  margin-bottom: 20px; }
+                  @media all and (max-width: 768px) {
+                    body.publications article.why-info-grows section content div:first-child h4 {
+                      margin-top: 5px;
+                      margin-bottom: 10px;   }
+}
           body.publications article.why-info-grows section content div:nth-child(2) {
+            float: left;
             width: 16%;
             margin-right: 5%; }
-            body.publications article.why-info-grows section content div:nth-child(3) {
-              width: 60%; }
+            @media all and (min-width: 769px) and (max-width: 1024px) {
+              body.publications article.why-info-grows section content div:nth-child(2) {
+                margin-right: 3%;   }
+                body.publications article.why-info-grows section content div:nth-child(2) h2 {
+                  font-size: 26px;   }
+}
+            @media all and (max-width: 768px) {
+              body.publications article.why-info-grows section content div:nth-child(2) {
+                margin-right: 0;
+                width: 100%;   }
+                body.publications article.why-info-grows section content div:nth-child(2) h2 {
+                  font-size: 24px;
+                  margin-bottom: 10px;   }
+}
+          body.publications article.why-info-grows section content div:last-child {
+            width: 60%; }
+            @media all and (min-width: 769px) and (max-width: 1024px) {
               body.publications article.why-info-grows section content div:last-child {
-                width: 13%;
-                margin-left: 5%; }
+                width: 64%;   }
+                body.publications article.why-info-grows section content div:last-child p {
+                  font-size: 16px;   }
+}
+            @media all and (max-width: 768px) {
+              body.publications article.why-info-grows section content div:last-child {
+                width: 78%;   }
+                body.publications article.why-info-grows section content div:last-child p {
+                  font-size: 13px;   }
+}
+          body.publications article.why-info-grows section content div:nth-child(3) {
+            width: 13%;
+            float: right;
+            margin-left: 3%; }
+            @media all and (max-width: 768px) {
+              body.publications article.why-info-grows section content div:nth-child(3) {
+                width: 17%;
+                float: left;
+                margin-left: 0;
+                margin-right: 4%;   }
+}
         body.publications article.why-info-grows h2,
         body.publications article.why-info-grows h3 a,
         body.publications article.why-info-grows h4,
@@ -2337,6 +2385,10 @@ body.publications {
             body.publications article.atlas section content div:nth-child(2) blockquote {
               font-size: 18px;
               margin-top: 20px; }
+              @media all and (max-width: 768px) {
+                body.publications article.atlas section content div:nth-child(2) {
+                  width: 100%;   }
+}
           body.publications article.atlas section content div:last-child {
             width: 40%;
             margin-left: 4%; }
@@ -2351,6 +2403,12 @@ body.publications {
                   font-weight: 700; }
                   body.publications article.atlas section content div:last-child ul li a:hover {
                     opacity: 0.7; }
+            @media all and (max-width: 768px) {
+              body.publications article.atlas section content div:last-child {
+                width: 100%;
+                margin-top: 4%;
+                margin-left: 0;   }
+}
           body.publications article.atlas section content img.book {
             width: 99%;
             border: 1px solid #333; }
@@ -2363,8 +2421,16 @@ body.publications {
             padding: 30px 0; }
             body.publications article.papers section content div:nth-child(2) {
               width: 39%; }
-              body.publications article.papers section content div:last-child {
-                width: 60%; }
+              @media all and (max-width: 768px) {
+                body.publications article.papers section content div:nth-child(2) {
+                  width: 100%;   }
+}
+            body.publications article.papers section content div:last-child {
+              width: 60%; }
+              @media all and (max-width: 768px) {
+                body.publications article.papers section content div:last-child {
+                  width: 100%;   }
+}
         body.publications article.papers h3 {
           font-size: 28px;
           line-height: 1.2;
