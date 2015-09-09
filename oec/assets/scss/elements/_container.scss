@@ -2,6 +2,7 @@
   margin-top: $header;
 
   #content {
+    margin: 0 auto;
 
     header {
       min-height: 150px;
@@ -58,28 +59,28 @@
     section {
       @include flex;
       @include flex-direction(row);
+      margin-bottom: 30px;
 
       @media all and (max-width: 768px) {
         @include flex-direction(column);
       }
 
       aside {
-        margin: 35px 40px 0 60px;
+        margin: 0 20px;
         width: $sidebar;
 
         @media all and (max-width: 768px) {
-          margin: 20px;
-          width: auto;
+          width: auto !important;
         }
 
       }
 
       content {
         @include flex-size(1);
-        margin: 35px 60px 35px 0;
+        margin: 0 20px 0 0;
 
         @media all and (max-width: 768px) {
-          margin: 20px;
+          margin: 0 20px;
         }
 
         ul {
@@ -106,9 +107,9 @@
 
   footer {
     font-size: 10px;
-    margin: 45px 15px 0;
+    margin: 20px auto;
     text-align: center;
-    
+
     a {
       &:hover {
         text-decoration: underline;
@@ -116,8 +117,8 @@
     }
 
     #mc {
-      position: relative;
-      bottom: -20px;
+      display: block;
+      margin-bottom: -20px;
     }
 
     img, a {

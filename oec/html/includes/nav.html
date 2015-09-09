@@ -1,11 +1,11 @@
 <ul class="navLinks">
 
   <li id="country"{% if g.page_sub_type == 'country' %} class="active"{% endif %}>
-    <a href="{{ url_for('profile.profile_country_redirect', lang=g.locale) }}">{{ _('Country') }}</a>
+    <a href="{{ url_for('profile.profile_country_redirect', lang=g.locale) }}">{{ _('Countries') }}</a>
   </li>
 
   <li id="product"{% if g.page_sub_type == 'product' %} class="active"{% endif %}>
-    <a href="{{ url_for('profile.profile_product_redirect', lang=g.locale, attr_type='hs92') }}">{{ _('Product') }}</a>
+    <a href="{{ url_for('profile.profile_product_redirect', lang=g.locale, attr_type='hs92') }}">{{ _('Products') }}</a>
   </li>
 
   <li id="explore"{% if g.page_type == "visualize" %} class="active"{% endif %}>

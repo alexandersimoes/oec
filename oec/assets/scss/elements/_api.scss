@@ -2,15 +2,8 @@ body.api {
 
   @include font-smoothing(antialiased);
 
-  #container #content { 
-    background-color: $darkbackground;
-    margin: 100px auto;
-    padding: 20px 3% 20px 0;
+  #container #content {
     max-width: 1200px;
-
-    content {
-      margin: 0 auto !important;
-    }
 
     a {
       color: #a4b500;
@@ -26,17 +19,17 @@ body.api {
     }
 
     section {
-      margin-bottom: 30px;
 
       aside {
-        margin: 0 20px;
         width: 180px;
 
         p {
           text-align: left;
         }
       }
+
     }
+
   }
 
   h2 {
@@ -80,7 +73,7 @@ body.api {
     padding: 7px 0;
     margin-bottom: 7px;
   }
-  
+
   code {
     // background-color: rgba(0, 133, 191, 0.25);
     // background-color: #f9f2f4;

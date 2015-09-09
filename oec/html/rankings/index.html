@@ -97,7 +97,7 @@
         <tr>
 
           {% for c in cols %}
-          <th class="{{ c }}">{{ c }}</th>
+          <th class="{{ c[0] }}">{{ c[1] }}</th>
           {% endfor %}
 
         </tr>
@@ -108,29 +108,29 @@
         {% for r in rankings %}
         <tr>
           {% if category == "country" %}
-          <td class="Rank"><span>{{ r[2]["eci_rank"] }}</span></td>
-          <td class="Delta">
+          <td class="rank"><span>{{ r[2]["eci_rank"] }}</span></td>
+          <td class="delta">
             {% if r[2]["eci_rank_delta"] > 0 %}
               <i class="fa fa-arrow-up fa-lg"></i> {{ r[2]["eci_rank_delta"] }}
             {% elif r[2]["eci_rank_delta"] < 0 and r[2]["eci_rank_delta"] %}
               <i class="fa fa-arrow-down fa-lg"></i> {{ r[2]["eci_rank_delta"]|abs }}
             {% endif %}
           </td>
-          <td class="ID">{{ r[0]["id_3char"]|upper }}</td>
-          <td class="Country"><img class="icon" src="/static/img/icons/country/country_{{ r[0].id }}.png" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
-          <td class="ECI">{{ r[2]["eci"] }}</td>
+          <td class="id">{{ r[0]["id_3char"]|upper }}</td>
+          <td class="country"><img class="icon" src="/static/img/icons/country/country_{{ r[0].id }}.png" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
+          <td class="eci">{{ r[2]["eci"] }}</td>
           {% else %}
-          <td class="Rank"><span>{{ r[2]["pci_rank"] }}</span></td>
-          <td class="Delta">
+          <td class="rank"><span>{{ r[2]["pci_rank"] }}</span></td>
+          <td class="delta">
             {% if r[2]["pci_rank_delta"] > 0 %}
               <i class="fa fa-arrow-up fa-lg"></i> {{ r[2]["pci_rank_delta"] }}
             {% elif r[2]["pci_rank_delta"] < 0 and r[2]["pci_rank_delta"] %}
               <i class="fa fa-arrow-down fa-lg"></i> {{ r[2]["pci_rank_delta"]|abs }}
             {% endif %}
           </td>
-          <td class="ID">{{ r[0].get_display_id() }}</td>
-          <td class="Product"><img class="icon" style="background-color: {{ r[0].color }};" src="{{ r[0].get_icon() }}" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
-          <td class="PCI">{{ r[2]["pci"] }}</td>
+          <td class="id">{{ r[0].get_display_id() }}</td>
+          <td class="product"><img class="icon" style="background-color: {{ r[0].color }};" src="{{ r[0].get_icon() }}" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
+          <td class="pci">{{ r[2]["pci"] }}</td>
           {% endif %}
         </tr>
         {% endfor %}

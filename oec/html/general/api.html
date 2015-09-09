@@ -311,7 +311,7 @@
   <content>
     <pre>
   &lt;iframe src="/en/visualize/embed/tree_map/hs92/export/usa/all/show/2010/" width=600 height=400&gt;&lt;/iframe&gt;  </pre>
-    <iframe src="/en/visualize/embed/tree_map/hs92/export/usa/all/show/2010/" width=600 height=400></iframe>
+    <iframe src="" data-url="/en/visualize/embed/tree_map/hs92/export/usa/all/show/2010/" width=600 height=400></iframe>
   </content>
 </section>
 
@@ -504,5 +504,17 @@
   }</pre>
   </content>
 </section>
+
+<script>
+  var iframe = d3.select("iframe"),
+      pre = d3.select(iframe.node().parentNode).select("pre"),
+      width = d3.select("content").node().offsetWidth;
+
+  iframe.attr("width", width + "px")
+    .attr("src", iframe.attr("data-url"));
+
+  pre.html(pre.html().replace("width=600", "width=" + width));
+
+</script>
 
 {% endblock %}

@@ -84,14 +84,14 @@ def rankings(category=None, year=None):
 
     if category == "country":
         Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Country, Country_name, Yo, "origin_id", "eci", "eci_rank", "eci_rank_delta"]
-        cols = [gettext("Rank"), "", "ID", gettext("Country"), "ECI"]
+        cols = [["rank", gettext("Rank")], ["delta", ""], ["id", "ID"], ["country", gettext("Country")], ["eci", "ECI"]]
     else:
         Attr_data = getattr(db_data, "{}_models".format(category)).Yp
         Attr = globals()[category.title()]
         Attr_name = globals()["{}_name".format(category.title())]
         attr_id = "{}_id".format(category)
         index, rank, delta = ["pci", "pci_rank", "pci_rank_delta"]
-        cols = [gettext("Rank"), "", "ID", gettext("Product"), "PCI"]
+        cols = [["rank", gettext("Rank")], ["delta", ""], ["id", "ID"], ["product", gettext("Product")], ["pci", "PCI"]]
 
 
     rankings = db.session.query(Attr, Attr_name, Attr_data) \
@@ -116,14 +116,14 @@ def rankings(category=None, year=None):
     rankings = rankings.all()
 
     if download:
-        cols = [gettext("Year")] + cols
-        writer.writerow([unicode(c).encode("utf-8") for c in cols])
+        cols = [["year", gettext("Year")]] + cols
+        writer.writerow([[c[0], unicode(c[1]).encode("utf-8")] for c in cols])
         for r in rankings:
             writer.writerow([r[2].year, \
-                                getattr(r[2], rank), \
-                                r[0].get_display_id(), \
-                                unicode(r[1].name).encode("utf-8"), \
-                                getattr(r[2], index)])
+                            getattr(r[2], rank), \
+                            r[0].get_display_id(), \
+                            unicode(r[1].name).encode("utf-8"), \
+                            getattr(r[2], index)])
         content_disposition = "attachment;filename={0}.csv".format(title)
         content_disposition = content_disposition.replace(",", "_")
         return Response(s.getvalue(),

@@ -1,19 +1,9 @@
 body.about, body.resources, body.permissions {
-  // background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
-  // background-attachment: fixed;
-  // @include font-smoothing(antialiased);
 
-  // nav {
-  //   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
-  //   background-attachment: fixed;
-  // }
-  
   @include font-smoothing(antialiased);
 
-  #content { 
-    background-color: $darkbackground;
-    margin: 100px 12%;
-    padding: 20px 7%;
+  #container #content {
+    max-width: 600px;
 
     a {
       color: $lightlinkcolor;
@@ -54,10 +44,6 @@ body.about, body.resources, body.permissions {
 
   ol {
     margin-left: 20px;
-  }
-
-  content {
-    margin: 0 auto !important;
   }
 
   blockquote {

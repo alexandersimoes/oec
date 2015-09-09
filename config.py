@@ -48,23 +48,23 @@ if "OEC_PRODUCTION" in os.environ:
 
 ''' Available languages '''
 LANGUAGES = {
-    'ar': u'العربية',
-    'de': u'Deutsch',
-    'el': u'ελληνικά',
-    'en': u'English',
-    'es': u'español',
-    'fr': u'français',
-    'he': u'עברית',
-    'hi': u'हिन्दी',
-    'it': u'italiano',
-    'ja': u'日本語',
-    'ko': u'한국어',
-    'mn': u'Монгол',
-    'nl': u'Nederlands',
+    # 'ar': u'العربية',
+    # 'de': u'Deutsch',
+    # 'el': u'ελληνικά',
+    # 'en': u'English',
+    # 'es': u'español',
+    # 'fr': u'français',
+    # 'he': u'עברית',
+    # 'hi': u'हिन्दी',
+    # 'it': u'italiano',
+    # 'ja': u'日本語',
+    # 'ko': u'한국어',
+    # 'mn': u'Монгол',
+    # 'nl': u'Nederlands',
     'ru': u'Pyccĸий',
-    'pt': u'português',
-    'tr': u'Tϋrkçe',
-    'zh': u'简化中国'
+    # 'pt': u'português',
+    # 'tr': u'Tϋrkçe',
+    # 'zh': u'简化中国'
 }
 
 ''' 
