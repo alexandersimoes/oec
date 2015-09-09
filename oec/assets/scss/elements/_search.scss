@@ -3,7 +3,7 @@
   @include flex-direction(column);
   @include align-items(center);
   @include transition(opacity 0.5s);
-  background-color: rgba(33, 40, 49, 0.95);
+  background-color: rgba(33, 40, 49, 1);
   bottom: 0;
   left: 0;
   opacity: 0;
@@ -47,7 +47,7 @@
   }
 
   #search_div {
-    padding: 20px 35px 0;
+    padding: 50px 35px 0;
     text-align: left;
     width: 93%;
 
@@ -77,30 +77,48 @@
 
     #search_modes {
       text-align: center;
+      @include font-smoothing(antialiased);
 
       .d3plus_toggle > * {
-        margin: 0 3px !important;
+        margin: 0 5px !important;
       }
 
       .d3plus_node {
         background-color: rgba(0,0,0,0) !important;
-        border-left: 0 !important;
-        border-right: 0 !important;
-        border-top: 0 !important;
+        border: 0 !important;
+        color: $darkbordercolor !important;
+        border-bottom: 1px solid $darkbordercolor !important;
+
+        &.d3plus_button_active {
+          color: #fff !important;
+          border-bottom: 1px solid #fff !important;
+
+          .d3plus_button_label {
+            opacity: 1;
+            padding: 6px 10px !important;
+            text-transform: uppercase;
+
+            &:hover {
+              opacity: 0.7 !important;
+            }
+          }
+        }
       }
 
       .d3plus_button_label {
         font-family: $montserrat;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 400;
         letter-spacing: 1px;
-        padding: 5px 10px !important;
+        opacity: 1;
+        padding: 6px 10px !important;
         text-transform: uppercase;
 
         &:hover {
-          opacity: 0.4 !important;
+          opacity: 0.7 !important;
         }
       }
+
     }
 
   }
@@ -111,7 +129,7 @@
     @include flex-wrap();
     @include align-content(flex-start);
     overflow: scroll;
-    margin-top: 35px;
+    padding-top: 35px;
     width: 93%;
     height: 100%;
 
