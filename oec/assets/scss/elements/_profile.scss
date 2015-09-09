@@ -220,6 +220,11 @@ body.profile {
 
     #title, #stats {
       margin: 20px;
+
+      @media all and (max-width: 600px) {
+        margin: 10px 0 !important;
+      }
+
     }
 
     &.country {
@@ -271,6 +276,7 @@ body.profile {
       }
 
       @media all and (max-width: 600px) {
+        margin: 10px 0 !important;
         min-width: 40%;
       }
 
@@ -294,17 +300,25 @@ body.profile {
           @include justify(flex-start);
           text-align: left;
           h3 {
+            font-size: 24px !important;
             margin: 0 10px 0 0 !important;
+          }
+
+          sub {
+            font-size: 12px !important;
           }
         }
 
         h3 {
+          @include flex-size(1);
           font-family: $source-sans;
           font-size: 32px;
           font-weight: 300;
+          text-align: right;
         }
 
         sub {
+          @include flex-size(1);
           font-family: $montserrat;
           font-size: 14px;
           font-weight: 700;

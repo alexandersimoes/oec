@@ -42,6 +42,9 @@ body.visualize {
     .app_button {
       @include flex-size(1);
       @include transition(opacity 0.5s);
+      border-color: transparent;
+      border-style: solid;
+      border-width: 1px;
       display: inline-block;
       font-family: $montserrat;
       font-size: 12px;
@@ -60,7 +63,8 @@ body.visualize {
       }
 
       &.open {
-        background-color: $darkbordercolor;
+        background-color: $darkbackground;
+        border-color: white white transparent white;
         opacity: 1;
       }
 
@@ -69,8 +73,12 @@ body.visualize {
   }
 
   .app_menu {
-    background-color: $darkbordercolor;
+    border-color: white;
+    border-style: solid;
+    border-width: 1px;
     display: none;
+    margin-top: -1px;
+    margin-bottom: 5px;
     padding: 10px;
 
     &.open {
@@ -200,6 +208,15 @@ body.visualize {
 
   }
 
+}
+
+.d3plus_drop_search input {
+  background-color: #3f464f !important;
+  color: white;
+}
+
+.d3plus_button_active {
+  font-weight: 700 !important;
 }
 
 .d3plus_tooltip {
