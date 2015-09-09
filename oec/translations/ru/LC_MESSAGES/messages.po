@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-09-09 13:16-0400\n"
-"PO-Revision-Date: 2013-12-27 15:28-0500\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-09-09 14:33-0400\n"
 "Language-Team: ru <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+"Last-Translator: \n"
+"Language: ru\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: oec/utils.py:219
 msgctxt "0"
@@ -166,35 +167,27 @@ msgid "The Observatory of Economic Complexity"
 msgstr ""
 
 #: oec/html/home.html:15
-msgid ""
-"We are the world's<br/>leading visualization engine<br/>for international"
-" trade data."
+msgid "We are the world's<br/>leading visualization engine<br/>for international trade data."
 msgstr ""
 
 #: oec/html/home.html:17
 msgid "Learn More"
-msgstr ""
+msgstr "Узнать больше"
 
 #: oec/html/home.html:21 oec/html/templates/nav.html:62
 msgid "Search the Observatory"
 msgstr ""
 
 #: oec/html/about/data.html:4
-msgid ""
-"HS, SITC, and Country classification with their corresponding IDs and "
-"values."
-msgstr ""
-"УГ, МСТК, и Классификация стран с соответствующими идентификаторами и "
-"ценностей."
+msgid "HS, SITC, and Country classification with their corresponding IDs and values."
+msgstr "УГ, МСТК, и Классификация стран с соответствующими идентификаторами и ценностей."
 
 #: oec/html/about/index.html:3 oec/html/includes/nav.html:38
 msgid "About the Site"
 msgstr ""
 
 #: oec/html/about/index.html:5
-msgid ""
-"Photos and descriptions of the team members involved in the creation of "
-"The Observatory."
+msgid "Photos and descriptions of the team members involved in the creation of The Observatory."
 msgstr "Фотографии и описания членов команды, участвующих в создании обсерватории."
 
 #: oec/html/about/index.html:11
@@ -219,12 +212,8 @@ msgid "A Development blog of updates to the site."
 msgstr "Блог Развитие новинках сайте"
 
 #: oec/html/general/api.html:4
-msgid ""
-"Application programming interface (API) for querying the raw data used "
-"throughout The Observatory of Economic Complexity."
-msgstr ""
-"Интерфейс прикладного программирования (API) для запросов необработанные "
-"данные, используемые во всей обсерватории экономического сложности."
+msgid "Application programming interface (API) for querying the raw data used throughout The Observatory of Economic Complexity."
+msgstr "Интерфейс прикладного программирования (API) для запросов необработанные данные, используемые во всей обсерватории экономического сложности."
 
 #: oec/html/general/permissions.html:3 oec/html/general/permissions.html:10
 #: oec/html/includes/nav.html:47
@@ -423,7 +412,7 @@ msgstr "Стоимость экспорта"
 
 #: oec/html/visualize/embed.html:341
 msgid "Net Export"
-msgstr "Чистый экспорт"
+msgstr ""
 
 #: oec/html/visualize/embed.html:342 oec/translations/lookup.py:12
 msgid "Import Value"
@@ -431,7 +420,7 @@ msgstr "Цена импорта"
 
 #: oec/html/visualize/embed.html:343
 msgid "Net Import"
-msgstr "Чистая Импорт"
+msgstr ""
 
 #: oec/html/visualize/embed.html:344 oec/translations/lookup.py:14
 msgid "Market Value"
@@ -531,188 +520,3 @@ msgstr ""
 #, python-format
 msgid "Profile for %(attr)s"
 msgstr ""
-
-#~ msgid "Language"
-#~ msgstr "Язык"
-
-#~ msgid "Net Export"
-#~ msgstr "Чистый экспорт"
-
-#~ msgid "Net Import"
-#~ msgstr "Чистая Импорт"
-
-#~ msgid "Interval"
-#~ msgstr "Интервал"
-
-#~ msgid "Click to view more years"
-#~ msgstr "Нажмите, чтобы посмотреть более лет"
-
-#~ msgid "View graphic"
-#~ msgstr "Посмотреть графический"
-
-#~ msgid "View as Visualization"
-#~ msgstr "Просмотреть как визуализация"
-
-#~ msgid "Download this year's data"
-#~ msgstr "Скачать данные в этом году"
-
-#~ msgid "Download all years data"
-#~ msgstr "Скачать все годы данные"
-
-#~ msgid "Flag of %(country)s"
-#~ msgstr "Флаг %(country)s"
-
-#~ msgid ""
-#~ "The Observatory of Economic Complexity "
-#~ "makes international trade data and "
-#~ "economic complexity indicators available "
-#~ "through millions of interactive "
-#~ "visualizations."
-#~ msgstr ""
-#~ "Обсерватория экономического сложности делает "
-#~ "международная торговля данные и показатели "
-#~ "экономической сложности, доступные через "
-#~ "миллионы интерактивных визуализаций."
-
-#~ msgid "New!"
-#~ msgstr "новый!"
-
-#~ msgid ""
-#~ "Application programming interface (API) for"
-#~ " emedding an iframe of the "
-#~ "visualizations used througout The Observatory"
-#~ " of Economic Complexity on your own"
-#~ " website."
-#~ msgstr ""
-#~ "Интерфейс прикладного программирования (API) "
-#~ "для emedding встроенный фрейм из "
-#~ "визуализаций, используемых всюду по "
-#~ "обсерватории экономического сложности на "
-#~ "собственном веб-сайте."
-
-#~ msgid ""
-#~ "A book of complexity economics "
-#~ "attempting to explain why some countries"
-#~ " grow and others do not. The "
-#~ "book uses many of the visualizations "
-#~ "seen throughout this site."
-#~ msgstr ""
-#~ "Книга сложности экономики пытаясь объяснить,"
-#~ " почему некоторые страны растут, а "
-#~ "другие нет. Книга использует многие из"
-#~ " тех визуализации видел на этом "
-#~ "сайте."
-
-#~ msgid "Full"
-#~ msgstr "Полный"
-
-#~ msgid ""
-#~ "%(country)s (%(country_abbrv)s) Profile of "
-#~ "Exports, Imports and Trade Partners"
-#~ msgstr ""
-#~ "%(country)s (%(country_abbrv)s) Профиль экспорта,"
-#~ " импорта и торговых партнеров"
-
-#~ msgid ""
-#~ "List of major leading exports, imports"
-#~ " and complexity economic indicator "
-#~ "statistics of %(country)s."
-#~ msgstr ""
-#~ "Список основных статей экспорта ведущих, "
-#~ "импорта и статистики сложность экономический"
-#~ " показатель %(country)s."
-
-#~ msgid "Economy of %(country)s."
-#~ msgstr "Экономика %(country)s."
-
-#~ msgid "Principle trade partners of %(country)s."
-#~ msgstr "Принцип торговыми партнерами %(country)s."
-
-#~ msgid "Goods and resources of %(country)s."
-#~ msgstr "Товары и ресурсы %(country)s."
-
-#~ msgid "Previous"
-#~ msgstr "Предыдущий"
-
-#~ msgid "Learn More About Trade in <strong>%(country)s</strong>"
-#~ msgstr "Подробнее о торговле в <strong>%(country)s</strong>"
-
-#~ msgid "Next"
-#~ msgstr "Следующий"
-
-#~ msgid "Top 5"
-#~ msgstr "Топ 5"
-
-#~ msgid ""
-#~ "%(country)s %(ranked)s %(rank_val)s with an"
-#~ " Economic Complexity Index (ECI) of "
-#~ "%(eci)s"
-#~ msgstr ""
-#~ "%(country)s %(ranked)s %(rank_val)s с "
-#~ "Сложность индекс экономической (ECI) от "
-#~ "%(eci)s"
-
-#~ msgid "is ranked"
-#~ msgstr "ранг"
-
-#~ msgid "%(country)s is the top exporter of"
-#~ msgstr "%(country)s является верхней экспортером"
-
-#~ msgid "Explore"
-#~ msgstr "Исследовать"
-
-#~ msgid ""
-#~ "%(prod)s (%(prod_abbrv)s) Profile of Export"
-#~ " Destinations and Import Origins"
-#~ msgstr ""
-#~ "%(prod)s (%(prod_abbrv)s) Профиль направления "
-#~ "экспорта и импорта Origins"
-
-#~ msgid ""
-#~ "List of major leading origin and "
-#~ "destination countries with economic indicator"
-#~ " statistics of %(prod)s."
-#~ msgstr ""
-#~ "Список основных ведущих странах происхождения"
-#~ " и назначения с статистики экономический"
-#~ " показатель %(prod)s."
-
-#~ msgid "Principle trade partners that export %(prod)s."
-#~ msgstr "Принцип торговыми партнерами, что экспорт %(prod)s."
-
-#~ msgid "Countries that import %(prod)s."
-#~ msgstr "Страны, импорт %(prod)s."
-
-#~ msgid "Learn More About Trade of <strong>%(prod)s</strong>"
-#~ msgstr "Узнайте больше о торговле <strong>%(prod)s</strong>"
-
-#~ msgid ""
-#~ "%(prod)s (%(classification)s: %(prod_abbrv)s) "
-#~ "%(ranked)s %(rank_val)s with a Product "
-#~ "Complexity Index (PCI) of %(pci)s"
-#~ msgstr ""
-#~ "%(prod)s (%(classification)s: %(prod_abbrv)s) "
-#~ "%(ranked)s %(rank_val)s с Индекс товаров "
-#~ "Сложность (PCI), из %(pci)s"
-
-#~ msgid "%(prod)s is the top export of"
-#~ msgstr "%(prod)s является верхней экспорт"
-
-#~ msgid "Country Rankings"
-#~ msgstr "Рейтинг Стран"
-
-#~ msgid "SITC Product Rankings"
-#~ msgstr "SITC рейтинг товаров"
-
-#~ msgid "Change Year"
-#~ msgstr "Изменить Год"
-
-#~ msgid "Profiles"
-#~ msgstr "Профили"
-
-#~ msgid "Atlas"
-#~ msgstr ""
-
-#~ msgid "About"
-#~ msgstr "О"
-
