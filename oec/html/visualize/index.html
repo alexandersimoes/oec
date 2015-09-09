@@ -75,14 +75,18 @@
     </div></div></div>
   {% endmacro %}
 
+  {% set app = None %}
   {% for builds in all_builds %}
+    {% if app == None %}<div class="app_button_group">{% endif %}
     {% set app = builds[0].viz.slug %}
     <div class="{{ app }} app_button{% if app == current_app %} open{% endif %}" data-app="{{ app }}">
       <img src="/static/img/icons/app/app_{{ app }}.png">{{ builds[0].viz.name }}
     </div>
     {% if loop.index % 2 == 0 %}
+    </div>
       {{ build_list(all_builds[loop.index0 - 1]) }}
       {{ build_list(builds) }}
+    {% set app = None %}
     {% endif %}
   {% endfor %}
 
@@ -235,16 +239,17 @@
   })
 
   // Style control dropdowns
+  var width = d3.select("aside").node().offsetWidth;
   d3.selectAll(".ui")
     .each(function(d,i){
 
       var element = d3.select(this).select("select");
 
       var ui = d3plus.form()
+        .type("drop")
         .focus(false, activate_build_button)
         .data(element)
-        .ui(oec.darkUI)
-        .width(d3.select(this).node().offsetWidth)
+        .ui(oec.darkUI);
 
       if (this.id.indexOf("year") >= 0) {
         ui.search(false).order({"sort": "desc"}).data({"sort": true});
@@ -256,14 +261,6 @@
         ui.search(false).format({"text": function(d){ return d.toUpperCase(); }});
       }
 
-      if (["trade_flow"].indexOf(this.id) >= 0 && app_type != "compare") {
-        ui.type("toggle")
-          // .font({"align": "center"})
-      }
-      else {
-        ui.type("drop")
-      }
-
       if (["origin","destination","product"].indexOf(this.id) >= 0) {
 
         ui.alt("conversion")
@@ -273,6 +270,7 @@
           .keywords("keywords")
           .text("name")
           .height({"secondary": 300})
+          .width(width)
           .draw();
 
         var country_match = ["origin","destination"].indexOf(this.id) >= 0 && ["origin_id","dest_id"].indexOf(attr_id) >= 0,
@@ -309,7 +307,7 @@
 
       }
       else {
-        ui.draw();
+        ui.width(this.id === "year" ? width : width/2 - 10).draw();
       }
 
     })

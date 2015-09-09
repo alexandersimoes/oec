@@ -36,35 +36,42 @@ body.visualize {
     right: 50px;
   }
 
-  .app_button {
-    @include transition(opacity 0.5s);
-    display: inline-block;
-    font-family: $montserrat;
-    font-size: 12px;
-    margin: 5px 0;
-    opacity: 0.7;
-    text-transform: uppercase;
-    width: $sidebar / 2 - 5;
+  .app_button_group {
+    @include flex;
 
-    img {
-      margin-right: 3px;
-      width: 15px;
-    }
+    .app_button {
+      @include flex-size(1);
+      @include transition(opacity 0.5s);
+      display: inline-block;
+      font-family: $montserrat;
+      font-size: 12px;
+      padding: 5px;
+      opacity: 0.7;
+      text-transform: uppercase;
 
-    &:hover {
-      cursor: pointer;
-      opacity: 0.9;
-    }
+      img {
+        margin-right: 3px;
+        width: 15px;
+      }
 
-    &.open {
-      opacity: 1;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.9;
+      }
+
+      &.open {
+        background-color: $darkbordercolor;
+        opacity: 1;
+      }
+
     }
 
   }
 
   .app_menu {
+    background-color: $darkbordercolor;
     display: none;
-    margin: 10px 0 20px 0;
+    padding: 10px;
 
     &.open {
       display: block;
@@ -76,20 +83,23 @@ body.visualize {
     }
 
     .build {
-      @include transition(opacity 0.1s);
+      @include flex;
       font-family: $source-sans;
       font-size: 12px;
       font-weight: 400;
-      margin: 10px 0;
+      margin: 0 0 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
 
       .build_title {
+        @include flex-size(1);
         display: inline-block;
         font-family: $montserrat;
         font-size: 14px;
-        margin-left: 10px;
         opacity: 0.7;
         text-transform: uppercase;
-        width: 115px;
 
         &.active {
           font-weight: 700;
@@ -99,6 +109,7 @@ body.visualize {
       }
 
       .build_list {
+        @include flex-size(1);
         display: inline-block;
         line-height: 1.5;
 
@@ -141,6 +152,9 @@ body.visualize {
   }
 
   #changers {
+    @include flex;
+    @include justify(space-between);
+    @include flex-wrap(wrap);
 
     h2 {
       font-size: 28px;
@@ -164,6 +178,7 @@ body.visualize {
     }
 
     #build {
+      @include transition(background-color 1s);
       border: 1px solid white;
       background-color: $darkbackground;
       color: white;
@@ -177,9 +192,8 @@ body.visualize {
       text-transform: uppercase;
       width: 100%;
 
-      &.active {
-        // @include shadow();
-        // background-color: $blue;
+      &.hover {
+        background-color: $darkbordercolor;
       }
 
     }
