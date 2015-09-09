@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-03-25 21:10-0400\n"
+"POT-Creation-Date: 2015-09-09 13:16-0400\n"
 "PO-Revision-Date: 2013-12-27 15:28-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: el <LL@li.org>\n"
@@ -18,121 +18,165 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/explore/models.py:362
+#: oec/utils.py:219
+msgctxt "0"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:220
+msgctxt "1"
+msgid "st"
+msgstr ""
+
+#: oec/utils.py:221
+#, fuzzy
+msgctxt "2"
+msgid "nd"
+msgstr "και"
+
+#: oec/utils.py:222
+msgctxt "3"
+msgid "rd"
+msgstr ""
+
+#: oec/utils.py:223
+msgctxt "4"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:224
+msgctxt "5"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:225
+msgctxt "6"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:226
+msgctxt "7"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:227
+msgctxt "8"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:228
+msgctxt "9"
+msgid "th"
+msgstr ""
+
+#: oec/explore/models_old.py:362
 msgid "Origin Country"
 msgstr "Χώρα Προέλευσης"
 
-#: oec/explore/models.py:363 oec/explore/models.py:366
-#: oec/html/explore/embed.html:338
+#: oec/explore/models_old.py:363 oec/explore/models_old.py:366
+#: oec/html/visualize/embed.html:339 oec/translations/lookup.py:23
 msgid "ID"
 msgstr "Ταυτότητα"
 
-#: oec/explore/models.py:365
+#: oec/explore/models_old.py:365
 msgid "Destination Country"
 msgstr "Χώρα προορισμού"
 
-#: oec/explore/models.py:368
+#: oec/explore/models_old.py:368
 msgid "Product Name"
 msgstr "Όνομα Προϊόντος"
 
-#: oec/explore/models.py:411
+#: oec/explore/models_old.py:406
 msgid "Origin"
 msgstr "Καταγωγή"
 
-#: oec/explore/models.py:426
+#: oec/explore/models_old.py:416
 msgid "Destination"
 msgstr "Προορισμός"
 
-#: oec/explore/models.py:444 oec/html/profile/product.html:20
-#: oec/html/profile/product.html:24 oec/html/templates/nav.html:26
-#: oec/rankings/views.py:64 oec/rankings/views.py:68
+#: oec/explore/models_old.py:426 oec/html/includes/nav.html:8
+#: oec/rankings/views.py:94 oec/visualize/views.py:325
 msgid "Product"
 msgstr "Προϊόν"
 
-#: oec/explore/models.py:453
+#: oec/explore/models_old.py:435 oec/visualize/views.py:347
 msgid "Trade Flow"
 msgstr "Εμπόριο Flow"
 
-#: oec/explore/models.py:456 oec/html/explore/embed.html:344
+#: oec/explore/models_old.py:438 oec/html/visualize/embed.html:345
+#: oec/translations/lookup.py:15 oec/visualize/views.py:350
 msgid "Export"
 msgstr "Εξαγωγή"
 
-#: oec/explore/models.py:457 oec/html/explore/embed.html:345
+#: oec/explore/models_old.py:439 oec/html/visualize/embed.html:346
+#: oec/translations/lookup.py:16 oec/visualize/views.py:351
 msgid "Import"
 msgstr "Εισαγωγή"
 
-#: oec/explore/models.py:466
+#: oec/explore/models_old.py:448 oec/visualize/views.py:334
 msgid "Y Axis"
 msgstr "Υ Άξονα"
 
-#: oec/explore/models.py:469 oec/html/explore/embed.html:346
+#: oec/explore/models_old.py:451 oec/html/visualize/embed.html:347
+#: oec/profile/models.py:64 oec/translations/lookup.py:17
+#: oec/visualize/views.py:337
 msgid "GDP"
 msgstr "ΑΕΠ"
 
-#: oec/explore/models.py:470 oec/html/explore/embed.html:347
+#: oec/explore/models_old.py:452 oec/html/visualize/embed.html:348
+#: oec/translations/lookup.py:18 oec/visualize/views.py:338
 msgid "GDPpc (constant '05 US$)"
 msgstr "GDPpc (σταθερή '05 US $)"
 
-#: oec/explore/models.py:471 oec/html/explore/embed.html:348
+#: oec/explore/models_old.py:453 oec/html/visualize/embed.html:349
+#: oec/translations/lookup.py:19 oec/visualize/views.py:339
 msgid "GDPpc (current US$)"
 msgstr "GDPpc (τρέχοντα US $)"
 
-#: oec/explore/models.py:472 oec/html/explore/embed.html:349
+#: oec/explore/models_old.py:454 oec/html/visualize/embed.html:350
+#: oec/translations/lookup.py:20 oec/visualize/views.py:340
 msgid "GDPpc PPP (constant '11)"
 msgstr "GDPpc ΣΔΙΤ (σταθερή '11)"
 
-#: oec/explore/models.py:473 oec/html/explore/embed.html:350
+#: oec/explore/models_old.py:455 oec/html/visualize/embed.html:351
+#: oec/translations/lookup.py:21 oec/visualize/views.py:341
 msgid "GDPpc PPP (current)"
 msgstr "GDPpc ΣΔΙΤ (ρεύμα)"
 
-#: oec/explore/models.py:479
+#: oec/explore/models_old.py:461
 msgid "Classification"
 msgstr "Ταξινόμηση"
 
-#: oec/explore/models.py:493
+#: oec/explore/models_old.py:475 oec/visualize/views.py:371
 msgid "Start Year"
 msgstr "Ξεκινήστε Έτος"
 
-#: oec/explore/models.py:499
+#: oec/explore/models_old.py:481 oec/visualize/views.py:377
 msgid "End Year"
 msgstr "Τέλος Έτος"
 
-#: oec/explore/models.py:507 oec/rankings/views.py:90
+#: oec/explore/models_old.py:489 oec/html/rankings/index.html:61
+#: oec/rankings/views.py:119 oec/visualize/views.py:384
 msgid "Year"
 msgstr "Έτος"
 
-#: oec/html/home.html:25
-msgid ""
-"The Observatory of Economic Complexity makes international trade data and"
-" economic complexity indicators available through millions of interactive"
-" visualizations."
+#: oec/html/home.html:3 oec/html/home.html:12
+msgid "The Observatory of Economic Complexity"
 msgstr ""
-"Το Παρατηρητήριο της Οικονομικής Πολυπλοκότητας καθιστά το διεθνές "
-"εμπόριο των δεδομένων και δεικτών οικονομικής πολυπλοκότητας που "
-"διατίθενται μέσω των εκατομμυρίων των διαδραστικών απεικονίσεων."
 
-#: oec/html/home.html:34
-msgid "New!"
-msgstr "Νέο!"
-
-#: oec/html/about/api_data.html:7
+#: oec/html/home.html:15
 msgid ""
-"Application programming interface (API) for querying the raw data used "
-"throughout The Observatory of Economic Complexity."
+"We are the world's<br/>leading visualization engine<br/>for international"
+" trade data."
 msgstr ""
-"Διεπαφή προγραμματισμού εφαρμογών (API) για την αναζήτηση των πρώτων "
-"δεδομένων που χρησιμοποιούνται σε όλο το Παρατηρητήριο της Οικονομικής "
-"Πολυπλοκότητας."
 
-#: oec/html/about/api_embed.html:8
-msgid ""
-"Application programming interface (API) for emedding an iframe of the "
-"visualizations used througout The Observatory of Economic Complexity on "
-"your own website."
+#: oec/html/home.html:17
+msgid "Learn More"
 msgstr ""
-"Διεπαφή προγραμματισμού εφαρμογών (API) για emedding ένα iframe των "
-"απεικονίσεων που χρησιμοποιούνται througout Το Παρατηρητήριο της "
-"Οικονομικής Πολυπλοκότητας στην δική σας ιστοσελίδα."
+
+#: oec/html/home.html:21 oec/html/templates/nav.html:62
+msgid "Search the Observatory"
+msgstr ""
 
 #: oec/html/about/data.html:4
 msgid ""
@@ -142,7 +186,11 @@ msgstr ""
 "HS, SITC, και τη χώρα ταξινόμησης με τις αντίστοιχες ταυτότητες και τις "
 "αξίες τους."
 
-#: oec/html/about/team.html:4
+#: oec/html/about/index.html:3 oec/html/includes/nav.html:38
+msgid "About the Site"
+msgstr ""
+
+#: oec/html/about/index.html:5
 msgid ""
 "Photos and descriptions of the team members involved in the creation of "
 "The Observatory."
@@ -150,336 +198,341 @@ msgstr ""
 "Φωτογραφίες και περιγραφές των μελών της ομάδας που συμμετέχουν στη "
 "δημιουργία του Παρατηρητηρίου."
 
+#: oec/html/about/index.html:11
+msgid "About the Observatory"
+msgstr ""
+
+#: oec/html/about/index.html:29
+msgid "What is Economic Complexity?"
+msgstr ""
+
+#: oec/html/about/index.html:61
+#, fuzzy
+msgid "Current Team"
+msgstr "Τρέχον Έτος"
+
+#: oec/html/about/index.html:65
+msgid "Past Contributors"
+msgstr ""
+
 #: oec/html/about/updates.html:4
 msgid "A Development blog of updates to the site."
 msgstr "Μια ανάπτυξη blog του προϊόντος στην ιστοσελίδα"
 
-#: oec/html/atlas/index.html:4
+#: oec/html/general/api.html:4
 msgid ""
-"A book of complexity economics attempting to explain why some countries "
-"grow and others do not. The book uses many of the visualizations seen "
-"throughout this site."
+"Application programming interface (API) for querying the raw data used "
+"throughout The Observatory of Economic Complexity."
 msgstr ""
-"Ένα βιβλίο της οικονομίας πολυπλοκότητας που προσπαθούν να εξηγήσουν "
-"γιατί ορισμένες χώρες να αναπτυχθούν και άλλοι δεν το κάνουν. Το βιβλίο "
-"χρησιμοποιεί πολλές από τις απεικονίσεις δει σε όλο αυτό το site."
+"Διεπαφή προγραμματισμού εφαρμογών (API) για την αναζήτηση των πρώτων "
+"δεδομένων που χρησιμοποιούνται σε όλο το Παρατηρητήριο της Οικονομικής "
+"Πολυπλοκότητας."
 
-#: oec/html/explore/embed.html:7
-msgid "An emedded visualization."
-msgstr "Μια Emedded οπτικοποίηση."
+#: oec/html/general/permissions.html:3 oec/html/general/permissions.html:10
+#: oec/html/includes/nav.html:47
+msgid "Permissions"
+msgstr ""
 
-#: oec/html/explore/embed.html:12 oec/html/explore/embed.html:788
-msgid "Loading"
-msgstr "Φόρτωση"
+#: oec/html/general/publications.html:3 oec/html/general/publications.html:11
+msgid "Books"
+msgstr ""
 
-#: oec/html/explore/embed.html:19 oec/html/explore/embed.html:49
-#: oec/html/explore/embed.html:340 oec/html/explore/embed.html:342
-msgid "Value"
-msgstr "Αξία"
+#: oec/html/general/publications.html:13 oec/html/profile/index.html:65
+msgid "Photo by"
+msgstr ""
 
-#: oec/html/explore/embed.html:20 oec/html/explore/embed.html:337
-msgid "Percent"
-msgstr "Τοις εκατό"
-
-#: oec/html/explore/embed.html:27
-msgid "Continent"
-msgstr "Ήπειρος"
-
-#: oec/html/explore/embed.html:28 oec/html/explore/embed.html:51
-msgid "Category"
-msgstr "Κατηγορία"
-
-#: oec/html/explore/embed.html:33 oec/html/profile/country.html:22
-#: oec/html/profile/country.html:26 oec/html/templates/nav.html:26
-#: oec/rankings/views.py:72
+#: oec/html/includes/nav.html:4 oec/html/visualize/embed.html:30
+#: oec/rankings/views.py:87 oec/visualize/views.py:298
 msgid "Country"
 msgstr "Χώρα"
 
-#: oec/html/explore/embed.html:34
-msgid "Full"
-msgstr "Γεμάτος"
-
-#: oec/html/explore/embed.html:41
-msgid "Gross"
-msgstr "Ακαθάριστο"
-
-#: oec/html/explore/embed.html:42
-msgid "Net"
-msgstr "Καθαρά"
-
-#: oec/html/explore/embed.html:53 oec/html/explore/embed.html:353
-msgid "Annual Growth Rate (1 year)"
-msgstr "Ετήσιος Ρυθμός Ανάπτυξης (1 έτος)"
-
-#: oec/html/explore/embed.html:54 oec/html/explore/embed.html:354
-msgid "Annual Growth Rate (5 year)"
-msgstr "Ετήσιος Ρυθμός Ανάπτυξης (5 χρόνια)"
-
-#: oec/html/explore/embed.html:55 oec/html/explore/embed.html:355
-msgid "Growth Value (1 year)"
-msgstr "Ανάπτυξη Αξία (1 έτος)"
-
-#: oec/html/explore/embed.html:56 oec/html/explore/embed.html:356
-msgid "Growth Value (5 year)"
-msgstr "Ανάπτυξη Αξία (5 χρόνια)"
-
-#: oec/html/explore/embed.html:61 oec/html/rankings/index.html:64
-msgid "All Years"
-msgstr "Όλα τα έτη"
-
-#: oec/html/explore/embed.html:72 oec/html/explore/embed.html:955
-msgid "View as Text"
-msgstr "Προβολή ως κείμενο"
-
-#: oec/html/explore/embed.html:73
-msgid "Fullscreen"
-msgstr "Πλήρης οθόνη"
-
-#: oec/html/explore/embed.html:111
-msgid "Build Visualization"
-msgstr "Κατασκευάστηκε Οπτικοποίηση"
-
-#: oec/html/explore/embed.html:114 oec/html/rankings/index.html:59
-msgid "Download"
-msgstr "Λήψη"
-
-#: oec/html/explore/embed.html:122
-msgid "Embed"
-msgstr "Ενσωμάτωση"
-
-#: oec/html/explore/embed.html:127
-msgid "Share"
-msgstr "Μετοχή"
-
-#: oec/html/explore/embed.html:143
-msgid "Short URL"
-msgstr "Σύντομο URL"
-
-#: oec/html/explore/embed.html:339
-msgid "Export Value"
-msgstr "Αξία των εξαγωγών"
-
-#: oec/html/explore/embed.html:340
-msgid "Net Export"
-msgstr "Καθαρή Εξαγωγή"
-
-#: oec/html/explore/embed.html:341
-msgid "Import Value"
-msgstr "Αξία κατά την εισαγωγή"
-
-#: oec/html/explore/embed.html:342
-msgid "Net Import"
-msgstr "Καθαρή Εισαγωγή"
-
-#: oec/html/explore/embed.html:343
-msgid "Market Value"
-msgstr "Αγοραία Αξία"
-
-#: oec/html/explore/embed.html:351
-msgid "ECI"
-msgstr "ECI"
-
-#: oec/html/explore/embed.html:360
-msgid "value"
-msgstr "αξία"
-
-#: oec/html/explore/embed.html:361
-msgid "percentage"
-msgstr "ποσοστό"
-
-#: oec/html/explore/embed.html:382
-msgid "Brought to you by"
-msgstr "Έφερε σε σας από"
-
-#: oec/html/explore/embed.html:463
-msgid "Total World Trade"
-msgstr "Σύνολο του Παγκόσμιου Οργανισμού Εμπορίου"
-
-#: oec/html/explore/embed.html:466
-msgid "Total Country Trade"
-msgstr "Σύνολο Χώρα Εμπορίου"
-
-#: oec/html/explore/embed.html:950
-msgid "View as App"
-msgstr "Προβολή ως App"
-
-#: oec/html/explore/index.html:30
-msgid "Data visualization of economic trade"
-msgstr "Οπτικοποίηση δεδομένων των οικονομικών συναλλαγών"
-
-#: oec/html/explore/index.html:36 oec/html/rankings/index.html:20
-msgid "Previous Year"
-msgstr "Προηγούμενο έτος"
-
-#: oec/html/explore/index.html:40 oec/html/rankings/index.html:30
-msgid "Next Year"
-msgstr "Επόμενο Έτος"
-
-#: oec/html/explore/index.html:97
-msgid "Total"
-msgstr "Σύνολο"
-
-#: oec/html/profile/country.html:16
-#, python-format
-msgid ""
-"%(country)s (%(country_abbrv)s) Profile of Exports, Imports and Trade "
-"Partners"
-msgstr ""
-"%(country)s (%(country_abbrv)s) Προφίλ του Εξαγωγές, Εισαγωγές ��αι "
-"Εμπορίου Συνεργάτες"
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid ""
-"List of major leading exports, imports and complexity economic indicator "
-"statistics of %(country)s."
-msgstr ""
-"Κατάλογος των κορυφαίων εξαγωγές, τις εισαγωγές και τις στατιστικές της "
-"πολυπλοκότητας των οικονομικών δεικτών της %(country)s."
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid "Economy of %(country)s."
-msgstr "Οικονομία %(country)s."
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid "Principle trade partners of %(country)s."
-msgstr "Αρχή εμπορικούς εταίρους της %(country)s."
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid "Goods and resources of %(country)s."
-msgstr "Τα αγαθά και οι πόροι του %(country)s."
-
-#: oec/html/profile/country.html:22 oec/html/profile/product.html:20
-msgid "Previous"
-msgstr "Προηγούμενος"
-
-#: oec/html/profile/country.html:24
-#, python-format
-msgid "Learn More About Trade in <strong>%(country)s</strong>"
-msgstr "Μάθετε περισσότερα για το Εμπόριο <strong>%(country)s</strong>"
-
-#: oec/html/profile/country.html:26 oec/html/profile/product.html:24
-msgid "Next"
-msgstr "Προηγούμενος"
-
-#: oec/html/profile/country.html:41 oec/html/profile/product.html:39
-msgid "Top 5"
-msgstr "Top 5"
-
-#: oec/html/profile/country.html:54
-#, python-format
-msgid ""
-"%(country)s %(ranked)s %(rank_val)s with an Economic Complexity Index "
-"(ECI) of %(eci)s"
-msgstr ""
-"%(country)s %(ranked)s %(rank_val)s με την Οικονομική Complexity Index "
-"(ECI) της %(eci)s"
-
-#: oec/html/profile/country.html:54 oec/html/profile/product.html:52
-msgid "is ranked"
-msgstr "κατατάσσεται"
-
-#: oec/html/profile/country.html:60
-#, python-format
-msgid "%(country)s is the top exporter of"
-msgstr "%(country)s είναι η κορυφαία εξαγωγέας"
-
-#: oec/html/profile/country.html:60 oec/html/profile/product.html:58
-msgid "and"
-msgstr "και"
-
-#: oec/html/profile/country.html:87 oec/html/profile/product.html:90
-#: oec/html/templates/nav.html:18
-msgid "Explore"
-msgstr "Εξερευνήστε"
-
-#: oec/html/profile/product.html:14
-#, python-format
-msgid ""
-"%(prod)s (%(prod_abbrv)s) Profile of Export Destinations and Import "
-"Origins"
-msgstr "%(prod)s (%(prod_abbrv)s) Προφίλ προορισμοί Εισαγωγών και Εξαγωγών Origins"
-
-#: oec/html/profile/product.html:15
-#, python-format
-msgid ""
-"List of major leading origin and destination countries with economic "
-"indicator statistics of %(prod)s."
-msgstr ""
-"Κατάλογος των κορυφαίων χωρών προέλευσης και προορισμού με τις "
-"στατιστικές οικονομικός δείκτης του %(prod)s."
-
-#: oec/html/profile/product.html:15
-#, python-format
-msgid "Principle trade partners that export %(prod)s."
-msgstr "Αρχή εμπορικούς εταίρους ότι η εξαγωγή %(prod)s."
-
-#: oec/html/profile/product.html:15
-#, python-format
-msgid "Countries that import %(prod)s."
-msgstr "Χώρες που εισάγουν %(prod)s."
-
-#: oec/html/profile/product.html:22
-#, python-format
-msgid "Learn More About Trade of <strong>%(prod)s</strong>"
-msgstr "Μάθετε περισσότερα για το Εμπόριο <strong>%(prod)s</strong>"
-
-#: oec/html/profile/product.html:52
-#, python-format
-msgid ""
-"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
-"with a Product Complexity Index (PCI) of %(pci)s"
-msgstr ""
-"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s με "
-"ένα προϊόν Complexity Index (PCI) του %(pci)s"
-
-#: oec/html/profile/product.html:58
-#, python-format
-msgid "%(prod)s is the top export of"
-msgstr "%(prod)s είναι η κορυφαία εξαγωγή"
-
-#: oec/html/rankings/index.html:23 oec/html/rankings/index.html:40
-msgid "Country Rankings"
-msgstr "Χώρα κατάταξη"
-
-#: oec/html/rankings/index.html:25 oec/html/rankings/index.html:43
-msgid "HS Product Rankings"
-msgstr "HS κατάταξη προϊόντος"
-
-#: oec/html/rankings/index.html:27 oec/html/rankings/index.html:46
-msgid "SITC Product Rankings"
-msgstr "SITC κατάταξη προϊόντος"
-
-#: oec/html/rankings/index.html:51
-msgid "Change Year"
-msgstr "Αλλαγή Έτος"
-
-#: oec/html/rankings/index.html:61
-msgid "Current Year"
-msgstr "Τρέχον Έτος"
-
-#: oec/html/templates/nav.html:19
-msgid "Profiles"
-msgstr "Προφίλ"
-
-#: oec/html/templates/nav.html:20
-msgid "Atlas"
+#: oec/html/includes/nav.html:12
+msgid "Visualize"
 msgstr ""
 
-#: oec/html/templates/nav.html:21
+#: oec/html/includes/nav.html:16
 msgid "Rankings"
 msgstr "Κατάταξη"
 
-#: oec/html/templates/nav.html:22
-msgid "About"
-msgstr "Περίπου"
+#: oec/html/includes/nav.html:20
+#, fuzzy
+msgid "Countries"
+msgstr "Χώρα"
 
-#: oec/rankings/views.py:64 oec/rankings/views.py:68 oec/rankings/views.py:72
+#: oec/html/includes/nav.html:23
+#, fuzzy
+msgid "Products"
+msgstr "Προϊόν"
+
+#: oec/html/includes/nav.html:30
+#, fuzzy
+msgid "Publications"
+msgstr "Ταξινόμηση"
+
+#: oec/html/includes/nav.html:34
+msgid "Resources"
+msgstr ""
+
+#: oec/html/includes/nav.html:41
+msgid "FAQs"
+msgstr ""
+
+#: oec/html/includes/nav.html:44 oec/html/resources/data.html:10
+msgid "Data Sources"
+msgstr ""
+
+#: oec/html/includes/nav.html:54
+msgid "API"
+msgstr ""
+
+#: oec/html/rankings/index.html:20
+msgid "Economic Complexity Rankings"
+msgstr ""
+
+#: oec/html/rankings/index.html:22
+#, fuzzy
+msgid "Product Complexity Rankings"
+msgstr "HS κατάταξη προϊόντος"
+
+#: oec/html/rankings/index.html:34 oec/html/visualize/index.html:43
+#: oec/html/visualize/index_old.html:36
+msgid "Previous Year"
+msgstr "Προηγούμενο έτος"
+
+#: oec/html/rankings/index.html:40 oec/html/visualize/index.html:48
+#: oec/html/visualize/index_old.html:40
+msgid "Next Year"
+msgstr "Επόμενο Έτος"
+
+#: oec/html/rankings/index.html:49 oec/visualize/views.py:359
+msgid "Dataset"
+msgstr ""
+
+#: oec/html/rankings/index.html:71
+msgid "Depth"
+msgstr ""
+
+#: oec/html/rankings/index.html:81
+#, fuzzy
+msgid "Download Current Year"
+msgstr "Τρέχον Έτος"
+
+#: oec/html/rankings/index.html:86
+msgid "Download All Years"
+msgstr ""
+
+#: oec/html/resources/faqs.html:10
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: oec/html/visualize/embed.html:7 oec/html/visualize/embed_new.html:3
+msgid "An emedded visualization."
+msgstr "Μια Emedded οπτικοποίηση."
+
+#: oec/html/visualize/embed.html:12 oec/html/visualize/embed.html:811
+msgid "Loading"
+msgstr "Φόρτωση"
+
+#: oec/html/visualize/embed.html:19 oec/html/visualize/embed.html:52
+#: oec/html/visualize/embed.html:341 oec/html/visualize/embed.html:343
+msgid "Value"
+msgstr "Αξία"
+
+#: oec/html/visualize/embed.html:20 oec/html/visualize/embed.html:338
+#: oec/translations/lookup.py:9
+msgid "Percent"
+msgstr "Τοις εκατό"
+
+#: oec/html/visualize/embed.html:28
+msgid "Continent"
+msgstr "Ήπειρος"
+
+#: oec/html/visualize/embed.html:33 oec/html/visualize/embed.html:54
+msgid "Category"
+msgstr "Κατηγορία"
+
+#: oec/html/visualize/embed.html:35
+msgid "4 Digit"
+msgstr ""
+
+#: oec/html/visualize/embed.html:37
+msgid "6 Digit"
+msgstr ""
+
+#: oec/html/visualize/embed.html:44
+msgid "Gross"
+msgstr "Ακαθάριστο"
+
+#: oec/html/visualize/embed.html:45
+msgid "Net"
+msgstr "Καθαρά"
+
+#: oec/html/visualize/embed.html:56 oec/html/visualize/embed.html:354
+#: oec/translations/lookup.py:24 oec/translations/lookup.py:28
+msgid "Annual Growth Rate (1 year)"
+msgstr "Ετήσιος Ρυθμός Ανάπτυξης (1 έτος)"
+
+#: oec/html/visualize/embed.html:57 oec/html/visualize/embed.html:355
+#: oec/translations/lookup.py:25 oec/translations/lookup.py:29
+msgid "Annual Growth Rate (5 year)"
+msgstr "Ετήσιος Ρυθμός Ανάπτυξης (5 χρόνια)"
+
+#: oec/html/visualize/embed.html:58 oec/html/visualize/embed.html:356
+#: oec/translations/lookup.py:26 oec/translations/lookup.py:30
+msgid "Growth Value (1 year)"
+msgstr "Ανάπτυξη Αξία (1 έτος)"
+
+#: oec/html/visualize/embed.html:59 oec/html/visualize/embed.html:357
+#: oec/translations/lookup.py:27 oec/translations/lookup.py:31
+msgid "Growth Value (5 year)"
+msgstr "Ανάπτυξη Αξία (5 χρόνια)"
+
+#: oec/html/visualize/embed.html:64
+msgid "All Years"
+msgstr "Όλα τα έτη"
+
+#: oec/html/visualize/embed.html:75 oec/html/visualize/embed.html:985
+msgid "View as Text"
+msgstr "Προβολή ως κείμενο"
+
+#: oec/html/visualize/embed.html:76
+msgid "Fullscreen"
+msgstr "Πλήρης οθόνη"
+
+#: oec/html/visualize/embed.html:114 oec/html/visualize/index.html:142
+msgid "Build Visualization"
+msgstr "Κατασκευάστηκε Οπτικοποίηση"
+
+#: oec/html/visualize/embed.html:117
+msgid "Download"
+msgstr "Λήψη"
+
+#: oec/html/visualize/embed.html:125
+msgid "Embed"
+msgstr "Ενσωμάτωση"
+
+#: oec/html/visualize/embed.html:130
+msgid "Share"
+msgstr "Μετοχή"
+
+#: oec/html/visualize/embed.html:146
+msgid "Short URL"
+msgstr "Σύντομο URL"
+
+#: oec/html/visualize/embed.html:340 oec/translations/lookup.py:10
+msgid "Export Value"
+msgstr "Αξία των εξαγωγών"
+
+#: oec/html/visualize/embed.html:341
+msgid "Net Export"
+msgstr "Καθαρή Εξαγωγή"
+
+#: oec/html/visualize/embed.html:342 oec/translations/lookup.py:12
+msgid "Import Value"
+msgstr "Αξία κατά την εισαγωγή"
+
+#: oec/html/visualize/embed.html:343
+msgid "Net Import"
+msgstr "Καθαρή Εισαγωγή"
+
+#: oec/html/visualize/embed.html:344 oec/translations/lookup.py:14
+msgid "Market Value"
+msgstr "Αγοραία Αξία"
+
+#: oec/html/visualize/embed.html:352 oec/translations/lookup.py:22
+msgid "ECI"
+msgstr "ECI"
+
+#: oec/html/visualize/embed.html:361
+msgid "value"
+msgstr "αξία"
+
+#: oec/html/visualize/embed.html:362
+msgid "percentage"
+msgstr "ποσοστό"
+
+#: oec/html/visualize/embed.html:392
+msgid "Brought to you by"
+msgstr "Έφερε σε σας από"
+
+#: oec/html/visualize/embed.html:479
+msgid "Total World Trade"
+msgstr "Σύνολο του Παγκόσμιου Οργανισμού Εμπορίου"
+
+#: oec/html/visualize/embed.html:482
+msgid "Total Country Trade"
+msgstr "Σύνολο Χώρα Εμπορίου"
+
+#: oec/html/visualize/embed.html:980
+msgid "View as App"
+msgstr "Προβολή ως App"
+
+#: oec/html/visualize/index.html:29 oec/html/visualize/index_old.html:30
+msgid "Data visualization of economic trade"
+msgstr "Οπτικοποίηση δεδομένων των οικονομικών συναλλαγών"
+
+#: oec/html/visualize/index_old.html:97
+msgid "Total"
+msgstr "Σύνολο"
+
+#: oec/profile/models.py:48
+msgid "and"
+msgstr "και"
+
+#: oec/profile/models.py:64
+msgid "Economic Complexity"
+msgstr ""
+
+#: oec/profile/models.py:64 oec/profile/models.py:333
+#, fuzzy
+msgid "Exports"
+msgstr "Εξαγωγή"
+
+#: oec/profile/models.py:64
+#, fuzzy
+msgid "Imports"
+msgstr "Εισαγωγή"
+
+#: oec/profile/models.py:64
+msgid "Population"
+msgstr ""
+
+#: oec/profile/models.py:333
+#, fuzzy
+msgid "Product Complexity"
+msgstr "Όνομα Προϊόντος"
+
+#: oec/profile/models.py:333
+msgid "Top Exporter"
+msgstr ""
+
+#: oec/profile/models.py:333
+#, fuzzy
+msgid "Top Importer"
+msgstr "Καθαρή Εισαγωγή"
+
+#: oec/rankings/views.py:87 oec/rankings/views.py:94
 msgid "Rank"
 msgstr "Τάξη"
+
+#: oec/translations/lookup.py:11
+#, fuzzy
+msgid "Net Export Value"
+msgstr "Αξία των εξαγωγών"
+
+#: oec/translations/lookup.py:13
+#, fuzzy
+msgid "Net Import Value"
+msgstr "Αξία κατά την εισαγωγή"
+
+#: oec/visualize/views.py:316
+msgid "Partner"
+msgstr ""
+
+#: oec/visualize/views.py:437
+#, python-format
+msgid "Profile for %(attr)s"
+msgstr ""
 
 #~ msgid "Language"
 #~ msgstr "Γλώσσα"
@@ -510,4 +563,161 @@ msgstr "Τάξη"
 
 #~ msgid "Flag of %(country)s"
 #~ msgstr "Σημαία της %(country)s"
+
+#~ msgid ""
+#~ "The Observatory of Economic Complexity "
+#~ "makes international trade data and "
+#~ "economic complexity indicators available "
+#~ "through millions of interactive "
+#~ "visualizations."
+#~ msgstr ""
+#~ "Το Παρατηρητήριο της Οικονομικής "
+#~ "Πολυπλοκότητας καθιστά το διεθνές εμπόριο "
+#~ "των δεδομένων και δεικτών οικονομικής "
+#~ "πολυπλοκότητας που διατίθενται μέσω των "
+#~ "εκατομμυρίων των διαδραστικών απεικονίσεων."
+
+#~ msgid "New!"
+#~ msgstr "Νέο!"
+
+#~ msgid ""
+#~ "Application programming interface (API) for"
+#~ " emedding an iframe of the "
+#~ "visualizations used througout The Observatory"
+#~ " of Economic Complexity on your own"
+#~ " website."
+#~ msgstr ""
+#~ "Διεπαφή προγραμματισμού εφαρμογών (API) για"
+#~ " emedding ένα iframe των απεικονίσεων "
+#~ "που χρησιμοποιούνται througout Το "
+#~ "Παρατηρητήριο της Οικονομικής Πολυπλοκότητας "
+#~ "στην δική σας ιστοσελίδα."
+
+#~ msgid ""
+#~ "A book of complexity economics "
+#~ "attempting to explain why some countries"
+#~ " grow and others do not. The "
+#~ "book uses many of the visualizations "
+#~ "seen throughout this site."
+#~ msgstr ""
+#~ "Ένα βιβλίο της οικονομίας πολυπλοκότητας "
+#~ "που προσπαθούν να εξηγήσουν γιατί "
+#~ "ορισμένες χώρες να αναπτυχθούν και άλλοι"
+#~ " δεν το κάνουν. Το βιβλίο "
+#~ "χρησιμοποιεί πολλές από τις απεικονίσεις "
+#~ "δει σε όλο αυτό το site."
+
+#~ msgid "Full"
+#~ msgstr "Γεμάτος"
+
+#~ msgid ""
+#~ "%(country)s (%(country_abbrv)s) Profile of "
+#~ "Exports, Imports and Trade Partners"
+#~ msgstr ""
+#~ "%(country)s (%(country_abbrv)s) Προφίλ του "
+#~ "Εξαγωγές, Εισαγωγές ��αι Εμπορίου Συνεργάτες"
+
+#~ msgid ""
+#~ "List of major leading exports, imports"
+#~ " and complexity economic indicator "
+#~ "statistics of %(country)s."
+#~ msgstr ""
+#~ "Κατάλογος των κορυφαίων εξαγωγές, τις "
+#~ "εισαγωγές και τις στατιστικές της "
+#~ "πολυπλοκότητας των οικονομικών δεικτών της "
+#~ "%(country)s."
+
+#~ msgid "Economy of %(country)s."
+#~ msgstr "Οικονομία %(country)s."
+
+#~ msgid "Principle trade partners of %(country)s."
+#~ msgstr "Αρχή εμπορικούς εταίρους της %(country)s."
+
+#~ msgid "Goods and resources of %(country)s."
+#~ msgstr "Τα αγαθά και οι πόροι του %(country)s."
+
+#~ msgid "Previous"
+#~ msgstr "Προηγούμενος"
+
+#~ msgid "Learn More About Trade in <strong>%(country)s</strong>"
+#~ msgstr "Μάθετε περισσότερα για το Εμπόριο <strong>%(country)s</strong>"
+
+#~ msgid "Next"
+#~ msgstr "Προηγούμενος"
+
+#~ msgid "Top 5"
+#~ msgstr "Top 5"
+
+#~ msgid ""
+#~ "%(country)s %(ranked)s %(rank_val)s with an"
+#~ " Economic Complexity Index (ECI) of "
+#~ "%(eci)s"
+#~ msgstr ""
+#~ "%(country)s %(ranked)s %(rank_val)s με την "
+#~ "Οικονομική Complexity Index (ECI) της "
+#~ "%(eci)s"
+
+#~ msgid "is ranked"
+#~ msgstr "κατατάσσεται"
+
+#~ msgid "%(country)s is the top exporter of"
+#~ msgstr "%(country)s είναι η κορυφαία εξαγωγέας"
+
+#~ msgid "Explore"
+#~ msgstr "Εξερευνήστε"
+
+#~ msgid ""
+#~ "%(prod)s (%(prod_abbrv)s) Profile of Export"
+#~ " Destinations and Import Origins"
+#~ msgstr ""
+#~ "%(prod)s (%(prod_abbrv)s) Προφίλ προορισμοί "
+#~ "Εισαγωγών και Εξαγωγών Origins"
+
+#~ msgid ""
+#~ "List of major leading origin and "
+#~ "destination countries with economic indicator"
+#~ " statistics of %(prod)s."
+#~ msgstr ""
+#~ "Κατάλογος των κορυφαίων χωρών προέλευσης "
+#~ "και προορισμού με τις στατιστικές "
+#~ "οικονομικός δείκτης του %(prod)s."
+
+#~ msgid "Principle trade partners that export %(prod)s."
+#~ msgstr "Αρχή εμπορικούς εταίρους ότι η εξαγωγή %(prod)s."
+
+#~ msgid "Countries that import %(prod)s."
+#~ msgstr "Χώρες που εισάγουν %(prod)s."
+
+#~ msgid "Learn More About Trade of <strong>%(prod)s</strong>"
+#~ msgstr "Μάθετε περισσότερα για το Εμπόριο <strong>%(prod)s</strong>"
+
+#~ msgid ""
+#~ "%(prod)s (%(classification)s: %(prod_abbrv)s) "
+#~ "%(ranked)s %(rank_val)s with a Product "
+#~ "Complexity Index (PCI) of %(pci)s"
+#~ msgstr ""
+#~ "%(prod)s (%(classification)s: %(prod_abbrv)s) "
+#~ "%(ranked)s %(rank_val)s με ένα προϊόν "
+#~ "Complexity Index (PCI) του %(pci)s"
+
+#~ msgid "%(prod)s is the top export of"
+#~ msgstr "%(prod)s είναι η κορυφαία εξαγωγή"
+
+#~ msgid "Country Rankings"
+#~ msgstr "Χώρα κατάταξη"
+
+#~ msgid "SITC Product Rankings"
+#~ msgstr "SITC κατάταξη προϊόντος"
+
+#~ msgid "Change Year"
+#~ msgstr "Αλλαγή Έτος"
+
+#~ msgid "Profiles"
+#~ msgstr "Προφίλ"
+
+#~ msgid "Atlas"
+#~ msgstr ""
+
+#~ msgid "About"
+#~ msgstr "Περίπου"
 

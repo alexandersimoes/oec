@@ -434,7 +434,7 @@ def builds():
         c = build_args["classification"]
         attr = tbl.query.filter(getattr(tbl,c)==build_args["prod_id"]).first()
     profile = {
-        "title":gettext("Profile for {}".format(attr.get_name())),
+        "title":gettext("Profile for %(attr)s", attr=attr.get_name()),
         "url":attr.get_profile_url(),
         "icon":attr.get_icon(),
         "color":attr.color

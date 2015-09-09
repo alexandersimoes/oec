@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-03-25 21:10-0400\n"
+"POT-Creation-Date: 2015-09-09 13:16-0400\n"
 "PO-Revision-Date: 2013-12-27 15:29-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: tr <LL@li.org>\n"
@@ -18,119 +18,165 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/explore/models.py:362
+#: oec/utils.py:219
+msgctxt "0"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:220
+msgctxt "1"
+msgid "st"
+msgstr ""
+
+#: oec/utils.py:221
+#, fuzzy
+msgctxt "2"
+msgid "nd"
+msgstr "ve"
+
+#: oec/utils.py:222
+msgctxt "3"
+msgid "rd"
+msgstr ""
+
+#: oec/utils.py:223
+msgctxt "4"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:224
+msgctxt "5"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:225
+msgctxt "6"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:226
+msgctxt "7"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:227
+msgctxt "8"
+msgid "th"
+msgstr ""
+
+#: oec/utils.py:228
+msgctxt "9"
+msgid "th"
+msgstr ""
+
+#: oec/explore/models_old.py:362
 msgid "Origin Country"
 msgstr "Menşei Ülke"
 
-#: oec/explore/models.py:363 oec/explore/models.py:366
-#: oec/html/explore/embed.html:338
+#: oec/explore/models_old.py:363 oec/explore/models_old.py:366
+#: oec/html/visualize/embed.html:339 oec/translations/lookup.py:23
 msgid "ID"
 msgstr "Kimlik"
 
-#: oec/explore/models.py:365
+#: oec/explore/models_old.py:365
 msgid "Destination Country"
 msgstr "Hedef Ülke"
 
-#: oec/explore/models.py:368
+#: oec/explore/models_old.py:368
 msgid "Product Name"
 msgstr "Ürün Adı"
 
-#: oec/explore/models.py:411
+#: oec/explore/models_old.py:406
 msgid "Origin"
 msgstr "Menşei"
 
-#: oec/explore/models.py:426
+#: oec/explore/models_old.py:416
 msgid "Destination"
 msgstr "Varış Yeri"
 
-#: oec/explore/models.py:444 oec/html/profile/product.html:20
-#: oec/html/profile/product.html:24 oec/html/templates/nav.html:26
-#: oec/rankings/views.py:64 oec/rankings/views.py:68
+#: oec/explore/models_old.py:426 oec/html/includes/nav.html:8
+#: oec/rankings/views.py:94 oec/visualize/views.py:325
 msgid "Product"
 msgstr "Ürün"
 
-#: oec/explore/models.py:453
+#: oec/explore/models_old.py:435 oec/visualize/views.py:347
 msgid "Trade Flow"
 msgstr "Ticaret Akışı"
 
-#: oec/explore/models.py:456 oec/html/explore/embed.html:344
+#: oec/explore/models_old.py:438 oec/html/visualize/embed.html:345
+#: oec/translations/lookup.py:15 oec/visualize/views.py:350
 msgid "Export"
 msgstr "Ihracat"
 
-#: oec/explore/models.py:457 oec/html/explore/embed.html:345
+#: oec/explore/models_old.py:439 oec/html/visualize/embed.html:346
+#: oec/translations/lookup.py:16 oec/visualize/views.py:351
 msgid "Import"
 msgstr "Ithalat"
 
-#: oec/explore/models.py:466
+#: oec/explore/models_old.py:448 oec/visualize/views.py:334
 msgid "Y Axis"
 msgstr "Y ekseni"
 
-#: oec/explore/models.py:469 oec/html/explore/embed.html:346
+#: oec/explore/models_old.py:451 oec/html/visualize/embed.html:347
+#: oec/profile/models.py:64 oec/translations/lookup.py:17
+#: oec/visualize/views.py:337
 msgid "GDP"
 msgstr "GSYİH"
 
-#: oec/explore/models.py:470 oec/html/explore/embed.html:347
+#: oec/explore/models_old.py:452 oec/html/visualize/embed.html:348
+#: oec/translations/lookup.py:18 oec/visualize/views.py:338
 msgid "GDPpc (constant '05 US$)"
 msgstr "GDPpc (sabit '05 ABD $)"
 
-#: oec/explore/models.py:471 oec/html/explore/embed.html:348
+#: oec/explore/models_old.py:453 oec/html/visualize/embed.html:349
+#: oec/translations/lookup.py:19 oec/visualize/views.py:339
 msgid "GDPpc (current US$)"
 msgstr "GDPpc (şimdiki ABD $)"
 
-#: oec/explore/models.py:472 oec/html/explore/embed.html:349
+#: oec/explore/models_old.py:454 oec/html/visualize/embed.html:350
+#: oec/translations/lookup.py:20 oec/visualize/views.py:340
 msgid "GDPpc PPP (constant '11)"
 msgstr "GDPpc PPP (sabit '11)"
 
-#: oec/explore/models.py:473 oec/html/explore/embed.html:350
+#: oec/explore/models_old.py:455 oec/html/visualize/embed.html:351
+#: oec/translations/lookup.py:21 oec/visualize/views.py:341
 msgid "GDPpc PPP (current)"
 msgstr "GDPpc PPP (güncel)"
 
-#: oec/explore/models.py:479
+#: oec/explore/models_old.py:461
 msgid "Classification"
 msgstr "Sınıflandırma"
 
-#: oec/explore/models.py:493
+#: oec/explore/models_old.py:475 oec/visualize/views.py:371
 msgid "Start Year"
 msgstr "Başlangıç Yılı"
 
-#: oec/explore/models.py:499
+#: oec/explore/models_old.py:481 oec/visualize/views.py:377
 msgid "End Year"
 msgstr "Bitiş Yılı"
 
-#: oec/explore/models.py:507 oec/rankings/views.py:90
+#: oec/explore/models_old.py:489 oec/html/rankings/index.html:61
+#: oec/rankings/views.py:119 oec/visualize/views.py:384
 msgid "Year"
 msgstr "Yıl"
 
-#: oec/html/home.html:25
-msgid ""
-"The Observatory of Economic Complexity makes international trade data and"
-" economic complexity indicators available through millions of interactive"
-" visualizations."
+#: oec/html/home.html:3 oec/html/home.html:12
+msgid "The Observatory of Economic Complexity"
 msgstr ""
-"Ekonomik Karmaşıklık Gözlemevi, birbiriyle etkileşim halinde olan "
-"milyonlarca gösterge aracılığıyla uluslararası ticaret verileri ve  "
-"ekonomik karmaşıklık göstergelerini ulaşılabilir hale getirir."
 
-#: oec/html/home.html:34
-msgid "New!"
-msgstr "Yeni!"
-
-#: oec/html/about/api_data.html:7
+#: oec/html/home.html:15
 msgid ""
-"Application programming interface (API) for querying the raw data used "
-"throughout The Observatory of Economic Complexity."
+"We are the world's<br/>leading visualization engine<br/>for international"
+" trade data."
 msgstr ""
-"Ekonomik Karmaşıklık Gözlemevi genelinde kullanılan ham verileri "
-"sorgulamak için uygulama programlama arabirimi (API)."
 
-#: oec/html/about/api_embed.html:8
-msgid ""
-"Application programming interface (API) for emedding an iframe of the "
-"visualizations used througout The Observatory of Economic Complexity on "
-"your own website."
+#: oec/html/home.html:17
+msgid "Learn More"
 msgstr ""
-"Kendi web Ekonomik Karmaşıklık Gözlemevi througout kullanılan görsel bir "
-"iframe emedding için uygulama programlama arabirimi (API)."
+
+#: oec/html/home.html:21 oec/html/templates/nav.html:62
+msgid "Search the Observatory"
+msgstr ""
 
 #: oec/html/about/data.html:4
 msgid ""
@@ -140,342 +186,350 @@ msgstr ""
 "Bunlara karşılık gelen kimlikleri ve değerleri ile HS, SITC ve Ülke "
 "sınıflandırılması."
 
-#: oec/html/about/team.html:4
+#: oec/html/about/index.html:3 oec/html/includes/nav.html:38
+msgid "About the Site"
+msgstr ""
+
+#: oec/html/about/index.html:5
 msgid ""
 "Photos and descriptions of the team members involved in the creation of "
 "The Observatory."
 msgstr "Fotoğraf ve Observatory oluşturulması dahil ekip üyelerinin açıklamaları."
 
+#: oec/html/about/index.html:11
+msgid "About the Observatory"
+msgstr ""
+
+#: oec/html/about/index.html:29
+msgid "What is Economic Complexity?"
+msgstr ""
+
+#: oec/html/about/index.html:61
+#, fuzzy
+msgid "Current Team"
+msgstr "Cari Yıl"
+
+#: oec/html/about/index.html:65
+msgid "Past Contributors"
+msgstr ""
+
 #: oec/html/about/updates.html:4
 msgid "A Development blog of updates to the site."
 msgstr "Site güncellemeleri Bir Kalkınma Blog"
 
-#: oec/html/atlas/index.html:4
+#: oec/html/general/api.html:4
 msgid ""
-"A book of complexity economics attempting to explain why some countries "
-"grow and others do not. The book uses many of the visualizations seen "
-"throughout this site."
+"Application programming interface (API) for querying the raw data used "
+"throughout The Observatory of Economic Complexity."
 msgstr ""
-"Bazı ülkelerde büyümek ve diğerlerinin neden açıklamaya çalışırken "
-"karmaşıklık ekonomi bir kitap. Kitap bu sitede boyunca görülen görsel çok"
-" kullanır."
+"Ekonomik Karmaşıklık Gözlemevi genelinde kullanılan ham verileri "
+"sorgulamak için uygulama programlama arabirimi (API)."
 
-#: oec/html/explore/embed.html:7
-msgid "An emedded visualization."
-msgstr "Bir emedded görselleştirme."
+#: oec/html/general/permissions.html:3 oec/html/general/permissions.html:10
+#: oec/html/includes/nav.html:47
+msgid "Permissions"
+msgstr ""
 
-#: oec/html/explore/embed.html:12 oec/html/explore/embed.html:788
-msgid "Loading"
-msgstr "Yükleme"
+#: oec/html/general/publications.html:3 oec/html/general/publications.html:11
+msgid "Books"
+msgstr ""
 
-#: oec/html/explore/embed.html:19 oec/html/explore/embed.html:49
-#: oec/html/explore/embed.html:340 oec/html/explore/embed.html:342
-msgid "Value"
-msgstr "Değer"
+#: oec/html/general/publications.html:13 oec/html/profile/index.html:65
+msgid "Photo by"
+msgstr ""
 
-#: oec/html/explore/embed.html:20 oec/html/explore/embed.html:337
-msgid "Percent"
-msgstr "Yüzde"
-
-#: oec/html/explore/embed.html:27
-msgid "Continent"
-msgstr "Kıta"
-
-#: oec/html/explore/embed.html:28 oec/html/explore/embed.html:51
-msgid "Category"
-msgstr "Kategori"
-
-#: oec/html/explore/embed.html:33 oec/html/profile/country.html:22
-#: oec/html/profile/country.html:26 oec/html/templates/nav.html:26
-#: oec/rankings/views.py:72
+#: oec/html/includes/nav.html:4 oec/html/visualize/embed.html:30
+#: oec/rankings/views.py:87 oec/visualize/views.py:298
 msgid "Country"
 msgstr "Ülke"
 
-#: oec/html/explore/embed.html:34
-msgid "Full"
-msgstr "Tam"
-
-#: oec/html/explore/embed.html:41
-msgid "Gross"
-msgstr "Brüt"
-
-#: oec/html/explore/embed.html:42
-msgid "Net"
-msgstr "Net"
-
-#: oec/html/explore/embed.html:53 oec/html/explore/embed.html:353
-msgid "Annual Growth Rate (1 year)"
-msgstr "Yıllık Büyüme Oranı (1 yıl)"
-
-#: oec/html/explore/embed.html:54 oec/html/explore/embed.html:354
-msgid "Annual Growth Rate (5 year)"
-msgstr "Yıllık Büyüme Oranı (5 yıl)"
-
-#: oec/html/explore/embed.html:55 oec/html/explore/embed.html:355
-msgid "Growth Value (1 year)"
-msgstr "Büyüme Değer (1 yıl)"
-
-#: oec/html/explore/embed.html:56 oec/html/explore/embed.html:356
-msgid "Growth Value (5 year)"
-msgstr "Büyüme Değer (5 yıl)"
-
-#: oec/html/explore/embed.html:61 oec/html/rankings/index.html:64
-msgid "All Years"
-msgstr "Tüm yıllar"
-
-#: oec/html/explore/embed.html:72 oec/html/explore/embed.html:955
-msgid "View as Text"
-msgstr "Metin olarak görüntüle"
-
-#: oec/html/explore/embed.html:73
-msgid "Fullscreen"
-msgstr "Tam"
-
-#: oec/html/explore/embed.html:111
-msgid "Build Visualization"
-msgstr "Görselleştir"
-
-#: oec/html/explore/embed.html:114 oec/html/rankings/index.html:59
-msgid "Download"
-msgstr "İndir"
-
-#: oec/html/explore/embed.html:122
-msgid "Embed"
-msgstr "Yerleştir"
-
-#: oec/html/explore/embed.html:127
-msgid "Share"
-msgstr "Paylaş"
-
-#: oec/html/explore/embed.html:143
-msgid "Short URL"
-msgstr "Kısa URL"
-
-#: oec/html/explore/embed.html:339
-msgid "Export Value"
-msgstr "Ihracat değeri"
-
-#: oec/html/explore/embed.html:340
-msgid "Net Export"
-msgstr "Net İhracat"
-
-#: oec/html/explore/embed.html:341
-msgid "Import Value"
-msgstr "Ithalat değeri"
-
-#: oec/html/explore/embed.html:342
-msgid "Net Import"
-msgstr "Net İhracat"
-
-#: oec/html/explore/embed.html:343
-msgid "Market Value"
-msgstr "Piyasa değeri"
-
-#: oec/html/explore/embed.html:351
-msgid "ECI"
-msgstr "ECI"
-
-#: oec/html/explore/embed.html:360
-msgid "value"
-msgstr "değer"
-
-#: oec/html/explore/embed.html:361
-msgid "percentage"
-msgstr "yüzde"
-
-#: oec/html/explore/embed.html:382
-msgid "Brought to you by"
-msgstr "Tarafından getirildi"
-
-#: oec/html/explore/embed.html:463
-msgid "Total World Trade"
-msgstr "Toplam Dünya Ticaret"
-
-#: oec/html/explore/embed.html:466
-msgid "Total Country Trade"
-msgstr "Toplam Ülke Ticaret"
-
-#: oec/html/explore/embed.html:950
-msgid "View as App"
-msgstr "App olarak görüntüle"
-
-#: oec/html/explore/index.html:30
-msgid "Data visualization of economic trade"
-msgstr "Ekonomik ticaret veri görselleştirme"
-
-#: oec/html/explore/index.html:36 oec/html/rankings/index.html:20
-msgid "Previous Year"
-msgstr "Önceki Yıl"
-
-#: oec/html/explore/index.html:40 oec/html/rankings/index.html:30
-msgid "Next Year"
-msgstr "Gelecek Yıl"
-
-#: oec/html/explore/index.html:97
-msgid "Total"
-msgstr "Toplam"
-
-#: oec/html/profile/country.html:16
-#, python-format
-msgid ""
-"%(country)s (%(country_abbrv)s) Profile of Exports, Imports and Trade "
-"Partners"
-msgstr ""
-"%(country)s (%(country_abbrv)s) İhracat, İthalat ve Ticaret Ortaklarının "
-"Profili"
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid ""
-"List of major leading exports, imports and complexity economic indicator "
-"statistics of %(country)s."
-msgstr ""
-"Büyük lider, ihracat, ithalat ve karmaşıklığı ekonomik gösterge "
-"istatistik Listesi %(country)s."
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid "Economy of %(country)s."
-msgstr "Ekonomisi %(country)s."
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid "Principle trade partners of %(country)s."
-msgstr "Prensibi ticaret ortakları %(country)s."
-
-#: oec/html/profile/country.html:17
-#, python-format
-msgid "Goods and resources of %(country)s."
-msgstr "Mal ve kaynakları %(country)s."
-
-#: oec/html/profile/country.html:22 oec/html/profile/product.html:20
-msgid "Previous"
-msgstr "Önceki"
-
-#: oec/html/profile/country.html:24
-#, python-format
-msgid "Learn More About Trade in <strong>%(country)s</strong>"
-msgstr "Ticaret Hakkında Daha Fazla Bilgi <strong>%(country)s</strong>"
-
-#: oec/html/profile/country.html:26 oec/html/profile/product.html:24
-msgid "Next"
-msgstr "Sonraki"
-
-#: oec/html/profile/country.html:41 oec/html/profile/product.html:39
-msgid "Top 5"
-msgstr "Top 5"
-
-#: oec/html/profile/country.html:54
-#, python-format
-msgid ""
-"%(country)s %(ranked)s %(rank_val)s with an Economic Complexity Index "
-"(ECI) of %(eci)s"
-msgstr ""
-"%(country)s %(ranked)s %(rank_val)s bir Ekonomik Karmaşıklık Endeksi "
-"(ESO) ile %(eci)s"
-
-#: oec/html/profile/country.html:54 oec/html/profile/product.html:52
-msgid "is ranked"
-msgstr "sıralandığında"
-
-#: oec/html/profile/country.html:60
-#, python-format
-msgid "%(country)s is the top exporter of"
-msgstr "%(country)s Üst ihracatçısı olan"
-
-#: oec/html/profile/country.html:60 oec/html/profile/product.html:58
-msgid "and"
-msgstr "ve"
-
-#: oec/html/profile/country.html:87 oec/html/profile/product.html:90
-#: oec/html/templates/nav.html:18
-msgid "Explore"
-msgstr "Keşfet"
-
-#: oec/html/profile/product.html:14
-#, python-format
-msgid ""
-"%(prod)s (%(prod_abbrv)s) Profile of Export Destinations and Import "
-"Origins"
-msgstr "%(prod)s (%(prod_abbrv)s) İhracat ve İthalat Noktaları Origins Profili"
-
-#: oec/html/profile/product.html:15
-#, python-format
-msgid ""
-"List of major leading origin and destination countries with economic "
-"indicator statistics of %(prod)s."
-msgstr ""
-"Ekonomik gösterge istatistikleri ile büyük lider menşe ve hedef ülkelerin"
-" listesi %(prod)s."
-
-#: oec/html/profile/product.html:15
-#, python-format
-msgid "Principle trade partners that export %(prod)s."
-msgstr "İlke ticaret ortakları olduğu ihracat %(prod)s."
-
-#: oec/html/profile/product.html:15
-#, python-format
-msgid "Countries that import %(prod)s."
-msgstr "Ülkeler bu ithalat %(prod)s."
-
-#: oec/html/profile/product.html:22
-#, python-format
-msgid "Learn More About Trade of <strong>%(prod)s</strong>"
-msgstr "Ticaret Hakkında Daha Fazla Bilgi <strong>%(prod)s</strong>"
-
-#: oec/html/profile/product.html:52
-#, python-format
-msgid ""
-"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
-"with a Product Complexity Index (PCI) of %(pci)s"
-msgstr ""
-"%(prod)s (%(classification)s: %(prod_abbrv)s) %(ranked)s %(rank_val)s "
-"Ürün Karmaşıklık İndeksi (PCI) ve ile %(pci)s"
-
-#: oec/html/profile/product.html:58
-#, python-format
-msgid "%(prod)s is the top export of"
-msgstr "%(prod)s üst ihracat"
-
-#: oec/html/rankings/index.html:23 oec/html/rankings/index.html:40
-msgid "Country Rankings"
-msgstr "Ülke Sıralaması"
-
-#: oec/html/rankings/index.html:25 oec/html/rankings/index.html:43
-msgid "HS Product Rankings"
-msgstr "HS Ürün Sıralaması"
-
-#: oec/html/rankings/index.html:27 oec/html/rankings/index.html:46
-msgid "SITC Product Rankings"
-msgstr "SITC Ürün Sıralaması"
-
-#: oec/html/rankings/index.html:51
-msgid "Change Year"
-msgstr "Değişim Yılı"
-
-#: oec/html/rankings/index.html:61
-msgid "Current Year"
-msgstr "Cari Yıl"
-
-#: oec/html/templates/nav.html:19
-msgid "Profiles"
-msgstr "Görünüm"
-
-#: oec/html/templates/nav.html:20
-msgid "Atlas"
+#: oec/html/includes/nav.html:12
+msgid "Visualize"
 msgstr ""
 
-#: oec/html/templates/nav.html:21
+#: oec/html/includes/nav.html:16
 msgid "Rankings"
 msgstr "Sıralaması"
 
-#: oec/html/templates/nav.html:22
-msgid "About"
-msgstr "Hakkında"
+#: oec/html/includes/nav.html:20
+#, fuzzy
+msgid "Countries"
+msgstr "Ülke"
 
-#: oec/rankings/views.py:64 oec/rankings/views.py:68 oec/rankings/views.py:72
+#: oec/html/includes/nav.html:23
+#, fuzzy
+msgid "Products"
+msgstr "Ürün"
+
+#: oec/html/includes/nav.html:30
+#, fuzzy
+msgid "Publications"
+msgstr "Sınıflandırma"
+
+#: oec/html/includes/nav.html:34
+msgid "Resources"
+msgstr ""
+
+#: oec/html/includes/nav.html:41
+msgid "FAQs"
+msgstr ""
+
+#: oec/html/includes/nav.html:44 oec/html/resources/data.html:10
+msgid "Data Sources"
+msgstr ""
+
+#: oec/html/includes/nav.html:54
+msgid "API"
+msgstr ""
+
+#: oec/html/rankings/index.html:20
+msgid "Economic Complexity Rankings"
+msgstr ""
+
+#: oec/html/rankings/index.html:22
+#, fuzzy
+msgid "Product Complexity Rankings"
+msgstr "HS Ürün Sıralaması"
+
+#: oec/html/rankings/index.html:34 oec/html/visualize/index.html:43
+#: oec/html/visualize/index_old.html:36
+msgid "Previous Year"
+msgstr "Önceki Yıl"
+
+#: oec/html/rankings/index.html:40 oec/html/visualize/index.html:48
+#: oec/html/visualize/index_old.html:40
+msgid "Next Year"
+msgstr "Gelecek Yıl"
+
+#: oec/html/rankings/index.html:49 oec/visualize/views.py:359
+msgid "Dataset"
+msgstr ""
+
+#: oec/html/rankings/index.html:71
+msgid "Depth"
+msgstr ""
+
+#: oec/html/rankings/index.html:81
+#, fuzzy
+msgid "Download Current Year"
+msgstr "Cari Yıl"
+
+#: oec/html/rankings/index.html:86
+msgid "Download All Years"
+msgstr ""
+
+#: oec/html/resources/faqs.html:10
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: oec/html/visualize/embed.html:7 oec/html/visualize/embed_new.html:3
+msgid "An emedded visualization."
+msgstr "Bir emedded görselleştirme."
+
+#: oec/html/visualize/embed.html:12 oec/html/visualize/embed.html:811
+msgid "Loading"
+msgstr "Yükleme"
+
+#: oec/html/visualize/embed.html:19 oec/html/visualize/embed.html:52
+#: oec/html/visualize/embed.html:341 oec/html/visualize/embed.html:343
+msgid "Value"
+msgstr "Değer"
+
+#: oec/html/visualize/embed.html:20 oec/html/visualize/embed.html:338
+#: oec/translations/lookup.py:9
+msgid "Percent"
+msgstr "Yüzde"
+
+#: oec/html/visualize/embed.html:28
+msgid "Continent"
+msgstr "Kıta"
+
+#: oec/html/visualize/embed.html:33 oec/html/visualize/embed.html:54
+msgid "Category"
+msgstr "Kategori"
+
+#: oec/html/visualize/embed.html:35
+msgid "4 Digit"
+msgstr ""
+
+#: oec/html/visualize/embed.html:37
+msgid "6 Digit"
+msgstr ""
+
+#: oec/html/visualize/embed.html:44
+msgid "Gross"
+msgstr "Brüt"
+
+#: oec/html/visualize/embed.html:45
+msgid "Net"
+msgstr "Net"
+
+#: oec/html/visualize/embed.html:56 oec/html/visualize/embed.html:354
+#: oec/translations/lookup.py:24 oec/translations/lookup.py:28
+msgid "Annual Growth Rate (1 year)"
+msgstr "Yıllık Büyüme Oranı (1 yıl)"
+
+#: oec/html/visualize/embed.html:57 oec/html/visualize/embed.html:355
+#: oec/translations/lookup.py:25 oec/translations/lookup.py:29
+msgid "Annual Growth Rate (5 year)"
+msgstr "Yıllık Büyüme Oranı (5 yıl)"
+
+#: oec/html/visualize/embed.html:58 oec/html/visualize/embed.html:356
+#: oec/translations/lookup.py:26 oec/translations/lookup.py:30
+msgid "Growth Value (1 year)"
+msgstr "Büyüme Değer (1 yıl)"
+
+#: oec/html/visualize/embed.html:59 oec/html/visualize/embed.html:357
+#: oec/translations/lookup.py:27 oec/translations/lookup.py:31
+msgid "Growth Value (5 year)"
+msgstr "Büyüme Değer (5 yıl)"
+
+#: oec/html/visualize/embed.html:64
+msgid "All Years"
+msgstr "Tüm yıllar"
+
+#: oec/html/visualize/embed.html:75 oec/html/visualize/embed.html:985
+msgid "View as Text"
+msgstr "Metin olarak görüntüle"
+
+#: oec/html/visualize/embed.html:76
+msgid "Fullscreen"
+msgstr "Tam"
+
+#: oec/html/visualize/embed.html:114 oec/html/visualize/index.html:142
+msgid "Build Visualization"
+msgstr "Görselleştir"
+
+#: oec/html/visualize/embed.html:117
+msgid "Download"
+msgstr "İndir"
+
+#: oec/html/visualize/embed.html:125
+msgid "Embed"
+msgstr "Yerleştir"
+
+#: oec/html/visualize/embed.html:130
+msgid "Share"
+msgstr "Paylaş"
+
+#: oec/html/visualize/embed.html:146
+msgid "Short URL"
+msgstr "Kısa URL"
+
+#: oec/html/visualize/embed.html:340 oec/translations/lookup.py:10
+msgid "Export Value"
+msgstr "Ihracat değeri"
+
+#: oec/html/visualize/embed.html:341
+msgid "Net Export"
+msgstr "Net İhracat"
+
+#: oec/html/visualize/embed.html:342 oec/translations/lookup.py:12
+msgid "Import Value"
+msgstr "Ithalat değeri"
+
+#: oec/html/visualize/embed.html:343
+msgid "Net Import"
+msgstr "Net İhracat"
+
+#: oec/html/visualize/embed.html:344 oec/translations/lookup.py:14
+msgid "Market Value"
+msgstr "Piyasa değeri"
+
+#: oec/html/visualize/embed.html:352 oec/translations/lookup.py:22
+msgid "ECI"
+msgstr "ECI"
+
+#: oec/html/visualize/embed.html:361
+msgid "value"
+msgstr "değer"
+
+#: oec/html/visualize/embed.html:362
+msgid "percentage"
+msgstr "yüzde"
+
+#: oec/html/visualize/embed.html:392
+msgid "Brought to you by"
+msgstr "Tarafından getirildi"
+
+#: oec/html/visualize/embed.html:479
+msgid "Total World Trade"
+msgstr "Toplam Dünya Ticaret"
+
+#: oec/html/visualize/embed.html:482
+msgid "Total Country Trade"
+msgstr "Toplam Ülke Ticaret"
+
+#: oec/html/visualize/embed.html:980
+msgid "View as App"
+msgstr "App olarak görüntüle"
+
+#: oec/html/visualize/index.html:29 oec/html/visualize/index_old.html:30
+msgid "Data visualization of economic trade"
+msgstr "Ekonomik ticaret veri görselleştirme"
+
+#: oec/html/visualize/index_old.html:97
+msgid "Total"
+msgstr "Toplam"
+
+#: oec/profile/models.py:48
+msgid "and"
+msgstr "ve"
+
+#: oec/profile/models.py:64
+msgid "Economic Complexity"
+msgstr ""
+
+#: oec/profile/models.py:64 oec/profile/models.py:333
+#, fuzzy
+msgid "Exports"
+msgstr "Ihracat"
+
+#: oec/profile/models.py:64
+#, fuzzy
+msgid "Imports"
+msgstr "Ithalat"
+
+#: oec/profile/models.py:64
+msgid "Population"
+msgstr ""
+
+#: oec/profile/models.py:333
+#, fuzzy
+msgid "Product Complexity"
+msgstr "Ürün Adı"
+
+#: oec/profile/models.py:333
+msgid "Top Exporter"
+msgstr ""
+
+#: oec/profile/models.py:333
+#, fuzzy
+msgid "Top Importer"
+msgstr "Net İhracat"
+
+#: oec/rankings/views.py:87 oec/rankings/views.py:94
 msgid "Rank"
 msgstr "Rütbe"
+
+#: oec/translations/lookup.py:11
+#, fuzzy
+msgid "Net Export Value"
+msgstr "Ihracat değeri"
+
+#: oec/translations/lookup.py:13
+#, fuzzy
+msgid "Net Import Value"
+msgstr "Ithalat değeri"
+
+#: oec/visualize/views.py:316
+msgid "Partner"
+msgstr ""
+
+#: oec/visualize/views.py:437
+#, python-format
+msgid "Profile for %(attr)s"
+msgstr ""
 
 #~ msgid "Book"
 #~ msgstr "Kitap"
@@ -512,4 +566,155 @@ msgstr "Rütbe"
 
 #~ msgid "Flag of %(country)s"
 #~ msgstr "Bayrağı %(country)s"
+
+#~ msgid ""
+#~ "The Observatory of Economic Complexity "
+#~ "makes international trade data and "
+#~ "economic complexity indicators available "
+#~ "through millions of interactive "
+#~ "visualizations."
+#~ msgstr ""
+#~ "Ekonomik Karmaşıklık Gözlemevi, birbiriyle "
+#~ "etkileşim halinde olan milyonlarca gösterge"
+#~ " aracılığıyla uluslararası ticaret verileri "
+#~ "ve  ekonomik karmaşıklık göstergelerini "
+#~ "ulaşılabilir hale getirir."
+
+#~ msgid "New!"
+#~ msgstr "Yeni!"
+
+#~ msgid ""
+#~ "Application programming interface (API) for"
+#~ " emedding an iframe of the "
+#~ "visualizations used througout The Observatory"
+#~ " of Economic Complexity on your own"
+#~ " website."
+#~ msgstr ""
+#~ "Kendi web Ekonomik Karmaşıklık Gözlemevi "
+#~ "througout kullanılan görsel bir iframe "
+#~ "emedding için uygulama programlama arabirimi"
+#~ " (API)."
+
+#~ msgid ""
+#~ "A book of complexity economics "
+#~ "attempting to explain why some countries"
+#~ " grow and others do not. The "
+#~ "book uses many of the visualizations "
+#~ "seen throughout this site."
+#~ msgstr ""
+#~ "Bazı ülkelerde büyümek ve diğerlerinin "
+#~ "neden açıklamaya çalışırken karmaşıklık "
+#~ "ekonomi bir kitap. Kitap bu sitede "
+#~ "boyunca görülen görsel çok kullanır."
+
+#~ msgid "Full"
+#~ msgstr "Tam"
+
+#~ msgid ""
+#~ "%(country)s (%(country_abbrv)s) Profile of "
+#~ "Exports, Imports and Trade Partners"
+#~ msgstr ""
+#~ "%(country)s (%(country_abbrv)s) İhracat, İthalat "
+#~ "ve Ticaret Ortaklarının Profili"
+
+#~ msgid ""
+#~ "List of major leading exports, imports"
+#~ " and complexity economic indicator "
+#~ "statistics of %(country)s."
+#~ msgstr ""
+#~ "Büyük lider, ihracat, ithalat ve "
+#~ "karmaşıklığı ekonomik gösterge istatistik "
+#~ "Listesi %(country)s."
+
+#~ msgid "Economy of %(country)s."
+#~ msgstr "Ekonomisi %(country)s."
+
+#~ msgid "Principle trade partners of %(country)s."
+#~ msgstr "Prensibi ticaret ortakları %(country)s."
+
+#~ msgid "Goods and resources of %(country)s."
+#~ msgstr "Mal ve kaynakları %(country)s."
+
+#~ msgid "Previous"
+#~ msgstr "Önceki"
+
+#~ msgid "Learn More About Trade in <strong>%(country)s</strong>"
+#~ msgstr "Ticaret Hakkında Daha Fazla Bilgi <strong>%(country)s</strong>"
+
+#~ msgid "Next"
+#~ msgstr "Sonraki"
+
+#~ msgid "Top 5"
+#~ msgstr "Top 5"
+
+#~ msgid ""
+#~ "%(country)s %(ranked)s %(rank_val)s with an"
+#~ " Economic Complexity Index (ECI) of "
+#~ "%(eci)s"
+#~ msgstr ""
+#~ "%(country)s %(ranked)s %(rank_val)s bir "
+#~ "Ekonomik Karmaşıklık Endeksi (ESO) ile "
+#~ "%(eci)s"
+
+#~ msgid "is ranked"
+#~ msgstr "sıralandığında"
+
+#~ msgid "%(country)s is the top exporter of"
+#~ msgstr "%(country)s Üst ihracatçısı olan"
+
+#~ msgid "Explore"
+#~ msgstr "Keşfet"
+
+#~ msgid ""
+#~ "%(prod)s (%(prod_abbrv)s) Profile of Export"
+#~ " Destinations and Import Origins"
+#~ msgstr "%(prod)s (%(prod_abbrv)s) İhracat ve İthalat Noktaları Origins Profili"
+
+#~ msgid ""
+#~ "List of major leading origin and "
+#~ "destination countries with economic indicator"
+#~ " statistics of %(prod)s."
+#~ msgstr ""
+#~ "Ekonomik gösterge istatistikleri ile büyük "
+#~ "lider menşe ve hedef ülkelerin listesi"
+#~ " %(prod)s."
+
+#~ msgid "Principle trade partners that export %(prod)s."
+#~ msgstr "İlke ticaret ortakları olduğu ihracat %(prod)s."
+
+#~ msgid "Countries that import %(prod)s."
+#~ msgstr "Ülkeler bu ithalat %(prod)s."
+
+#~ msgid "Learn More About Trade of <strong>%(prod)s</strong>"
+#~ msgstr "Ticaret Hakkında Daha Fazla Bilgi <strong>%(prod)s</strong>"
+
+#~ msgid ""
+#~ "%(prod)s (%(classification)s: %(prod_abbrv)s) "
+#~ "%(ranked)s %(rank_val)s with a Product "
+#~ "Complexity Index (PCI) of %(pci)s"
+#~ msgstr ""
+#~ "%(prod)s (%(classification)s: %(prod_abbrv)s) "
+#~ "%(ranked)s %(rank_val)s Ürün Karmaşıklık "
+#~ "İndeksi (PCI) ve ile %(pci)s"
+
+#~ msgid "%(prod)s is the top export of"
+#~ msgstr "%(prod)s üst ihracat"
+
+#~ msgid "Country Rankings"
+#~ msgstr "Ülke Sıralaması"
+
+#~ msgid "SITC Product Rankings"
+#~ msgstr "SITC Ürün Sıralaması"
+
+#~ msgid "Change Year"
+#~ msgstr "Değişim Yılı"
+
+#~ msgid "Profiles"
+#~ msgstr "Görünüm"
+
+#~ msgid "Atlas"
+#~ msgstr ""
+
+#~ msgid "About"
+#~ msgstr "Hakkında"
 
