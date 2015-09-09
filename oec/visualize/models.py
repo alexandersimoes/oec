@@ -104,7 +104,7 @@ build_metadata = { \
             "title": "Product Space of {origin}",
             "question": "What does {origin} export?",
             "short_name": "Product Space",
-            "category": None
+            "category": "Country"
         }
     },
     6: {

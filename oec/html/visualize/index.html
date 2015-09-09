@@ -51,58 +51,40 @@
   {% endif %}
   {% endif %}
 
-  {% set pre_app = None %}
-  {% for build in all_builds %}
-
-    {% if pre_app != build.viz.slug %}
-
-      {% set pre_app = build.viz.slug %}
-      <div class="{{ pre_app }} app_button{% if pre_app == current_build.viz.slug %} open{% endif %}" data-app="{{ pre_app }}">
-        <img src="/static/img/icons/app/app_{{ pre_app }}.png">{{ build.viz.name }}
-      </div>
-
-    {% endif %}
-
-  {% endfor %}
-
   {% set current_url = current_build.url() %}
   {% set current_app = current_build.viz.slug %}
-  {% set pre_app = None %}
-  {% set pre_cat = "init" %}
-  {% for build in all_builds %}
 
-    {% if pre_app != build.viz.slug %}
-
-      {% if pre_app != None %}
-            </div>
-          </div>
-        </div>
+  {% macro build_list(builds) %}
+    {% set a = builds[0].viz.slug %}
+    {% set pre_cat = "init" %}
+    <div class="app_menu{% if a == current_app %} open{% endif %}" data-app="{{ a }}">
+    {% for build in builds %}
+      {% if pre_cat != build.category() %}
+        {% if pre_cat != "init" %}</div></div>{% endif %}
+        <div class="build">
+        {% if build.category() != None %}
+          <div class="build_title">{{ build.category() }}</div>
+        {% endif %}
+        <div class="build_list">
       {% endif %}
 
-      {% set pre_app = build.viz.slug %}
-      {% set pre_cat = "init" %}
+      {% set pre_cat = build.category() %}
+      {% set build_url = build.url() %}
+      <a class="build_link{% if build_url == current_url %} active{% endif %}" href="/{{ g.locale }}/visualize/{{ build_url }}">{{ build.short_name() }}</a>
+    {% endfor %}
+    </div></div></div>
+  {% endmacro %}
 
-      <div class="app_menu{% if pre_app == current_build.viz.slug %} open{% endif %}" data-app="{{ pre_app }}">
-        {% set name = build.viz.name %}
-
+  {% for builds in all_builds %}
+    {% set app = builds[0].viz.slug %}
+    <div class="{{ app }} app_button{% if app == current_app %} open{% endif %}" data-app="{{ app }}">
+      <img src="/static/img/icons/app/app_{{ app }}.png">{{ builds[0].viz.name }}
+    </div>
+    {% if loop.index % 2 == 0 %}
+      {{ build_list(all_builds[loop.index0 - 1]) }}
+      {{ build_list(builds) }}
     {% endif %}
-
-    {% if pre_cat != build.category() %}
-      {% if pre_cat != "init" %}</div></div>{% endif %}
-      <div class="build">
-      {% if build.category() != None %}
-        <div class="build_title">{{ build.category() }}</div>
-      {% endif %}
-      <div class="build_list">
-    {% endif %}
-
-    {% set pre_cat = build.category() %}
-
-    {% set build_url = build.url() %}
-    <a class="build_link{% if build_url == current_url %} active{% endif %}" href="/{{ g.locale }}/visualize/{{ build.url() }}">{{ build.short_name() }}</a>
-
   {% endfor %}
-  </div></div></div>
 
   <div id="changers">
     {% for ui in build_ui %}
