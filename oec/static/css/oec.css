@@ -411,8 +411,8 @@ body.home {
                 line-height: 1.4;
                 position: absolute;
                 text-align: center;
-                bottom: 14%;
-                right: 16%; }
+                bottom: 13%;
+                right: 15%; }
                 .bg-frame #ring #info a {
                   border-bottom: 1px solid transparent;
                   color: #6297cb;
@@ -436,10 +436,10 @@ body.home {
         .bg-frame #ring #search_home {
           border-bottom: 1px solid #A1BAC6;
           bottom: 12%;
-          color: #A1BAC6;
+          color: #6297cb;
           display: block;
           font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-          font-size: 13.95349px;
+          font-size: 15px;
           font-weight: 300;
           left: 38%;
           opacity: 0.8;
@@ -1737,9 +1737,13 @@ body.visualize {
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased; }
   body.visualize content {
-    margin: 35px 35px 35px 0 !important; }
-    body.visualize content h1 {
-      text-align: center; }
+    margin: 0 20px 0 0 !important; }
+    @media all and (max-width: 768px) {
+      body.visualize content {
+        margin: 0 20px !important;   }
+}
+      body.visualize content h1 {
+        text-align: center; }
 
 #explorer #prev, #explorer #next {
   font-size: 12px;
@@ -1839,7 +1843,7 @@ body.visualize {
       margin-bottom: 5px;
       text-transform: uppercase; }
       #explorer #changers .ui {
-        margin: 12px 0 0 10px; }
+        margin: 12px 0 0 0; }
         #explorer #changers #build {
           border: 1px solid white;
           background-color: #212831;
@@ -1848,7 +1852,7 @@ body.visualize {
           display: block;
           font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
           font-size: 13px;
-          margin: 20px 0 20px 10px;
+          margin: 20px 0;
           padding: 6px 10px;
           text-align: right;
           text-transform: uppercase;
@@ -2128,6 +2132,9 @@ body.about h2, body.about h3, body.about h4 {
 #cesar_hidalgo:before {
   background-image: url("/static/img/about/cesar_hidalgo.png"); }
 
+#melissa_teng:before {
+  background-image: url("/static/img/about/melissa_teng.png"); }
+
 #eric_franco:before {
   background-image: url("/static/img/about/eric_franco.png"); }
 
@@ -2202,8 +2209,16 @@ body.publications {
                 margin-left: 5%; }
         body.publications article.why-info-grows h2,
         body.publications article.why-info-grows h3 a,
-        body.publications article.why-info-grows h4 {
+        body.publications article.why-info-grows h4,
+        body.publications article.why-info-grows a {
           color: #3b9343; }
+          body.publications article.why-info-grows h2:hover,
+          body.publications article.why-info-grows h3 a:hover,
+          body.publications article.why-info-grows h4:hover,
+          body.publications article.why-info-grows a:hover {
+            border-bottom: 0; }
+        body.publications article.why-info-grows a:hover {
+          border-bottom: 1px solid #3b9343; }
       body.publications article.atlas {
         background: #212831 url('/static/img/publications/books/atlas-bg.png') no-repeat 50% 50%; }
         body.publications article.atlas section {

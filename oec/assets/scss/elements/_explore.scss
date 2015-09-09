@@ -2,7 +2,11 @@ body.visualize {
   @include font-smoothing(antialiased);
 
   content {
-    margin: 35px 35px 35px 0 !important;
+    margin: 0 20px 0 0 !important;
+
+    @media all and (max-width: 768px) {
+      margin: 0 20px !important;
+    }
 
     h1 {
       text-align: center;
@@ -156,7 +160,7 @@ body.visualize {
     }
 
     .ui {
-      margin: 12px 0 0 10px;
+      margin: 12px 0 0 0;
     }
 
     #build {
@@ -167,7 +171,7 @@ body.visualize {
       display: block;
       font-family: $montserrat;
       font-size: 13px;
-      margin: 20px 0 20px 10px;
+      margin: 20px 0;
       padding: 6px 10px;
       text-align: right;
       text-transform: uppercase;

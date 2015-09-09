@@ -386,9 +386,17 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
             "data": years
         })
 
+    builds_by_app = {}
+    for b in all_builds:
+        if not hasattr(builds_by_app, b.viz["slug"]):
+            builds_by_app[b.viz["slug"]] = []
+    for b in all_builds:
+        builds_by_app[b.viz["slug"]].append(b)
+    builds_by_app = [b for a, b in builds_by_app.iteritems()]
+
     return render_template("visualize/index.html",
         current_build = build, build_ui = ui,
-        all_builds = all_builds)
+        all_builds = builds_by_app)
 
 @mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/')
 @mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year:year>/')
