@@ -1796,6 +1796,9 @@ body.visualize {
         -ms-transition: opacity 0.5s;
         -o-transition: opacity 0.5s;
         transition: opacity 0.5s;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 1px;
         display: inline-block;
         font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
         font-size: 12px;
@@ -1809,11 +1812,16 @@ body.visualize {
             cursor: pointer;
             opacity: 0.9; }
             #explorer .app_button_group .app_button.open {
-              background-color: #63737f;
+              background-color: #212831;
+              border-color: white white transparent white;
               opacity: 1; }
 #explorer .app_menu {
-  background-color: #63737f;
+  border-color: white;
+  border-style: solid;
+  border-width: 1px;
   display: none;
+  margin-top: -1px;
+  margin-bottom: 5px;
   padding: 10px; }
   #explorer .app_menu.open {
     display: block; }
@@ -1926,11 +1934,18 @@ body.visualize {
             #explorer #changers #build.hover {
               background-color: #63737f; }
 
-.d3plus_tooltip {
-  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
-  font-weight: 400 !important; }
-  .d3plus_tooltip .d3plus_tooltip_data_value {
+.d3plus_drop_search input {
+  background-color: #3f464f !important;
+  color: white; }
+
+  .d3plus_button_active {
     font-weight: 700 !important; }
+
+    .d3plus_tooltip {
+      font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
+      font-weight: 400 !important; }
+      .d3plus_tooltip .d3plus_tooltip_data_value {
+        font-weight: 700 !important; }
 
 .d3plus_tooltip_title, .d3plus_tooltip_footer {
   font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;

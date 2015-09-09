@@ -61,18 +61,18 @@
           "weight": 200
         },
         "dark": {
-          "primary": "#63636a",
-          // "secondary": "red"
+          "primary": "#212831",
+          "secondary": "white"
         },
         "light": {
-          "primary": "#eeeeee",
-          // "secondary": "red"
+          "primary": "white",
+          "secondary": "#212831"
         },
         "margin": 0,
-        "padding": 4
+        "padding": 5
       };
 
-      oec.darkUI = oec.ui
+      oec.darkUI = d3plus.util.copy(oec.ui);
       oec.darkUI.color = oec.ui.dark;
       delete oec.darkUI.dark;
       delete oec.darkUI.light;
