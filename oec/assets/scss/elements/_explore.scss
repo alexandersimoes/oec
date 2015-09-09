@@ -40,7 +40,7 @@ body.visualize {
     @include transition(opacity 0.5s);
     display: inline-block;
     font-family: $montserrat;
-    font-size: 12px;
+    font-size: 14px;
     margin: 5px 0;
     opacity: 0.7;
     text-transform: uppercase;
@@ -80,16 +80,14 @@ body.visualize {
       font-family: $source-sans;
       font-size: 12px;
       font-weight: 400;
-      margin: 10px 0;
+      margin: 10px 0 10px 33px;
 
       .build_title {
         display: inline-block;
-        font-family: $montserrat;
-        font-size: 14px;
+        font-size: 13px;
         margin-left: 10px;
         opacity: 0.7;
-        text-transform: uppercase;
-        width: 115px;
+        width: 80px;
 
         &.active {
           font-weight: 700;
@@ -137,7 +135,17 @@ body.visualize {
       }
 
     }
+    
+    &[data-app="scatter"] {
+      .build {
+        margin: 10px 0;
 
+        .build_title {
+          margin-left: 0;
+        }
+
+      }
+    }
   }
 
   #changers {
@@ -205,9 +213,8 @@ body.visualize {
 }
 
 .d3plus_tooltip_html {
-  font-family: $montserrat !important;
+  font-family: $source-sans !important;
   font-weight: 400 !important;
-  text-transform: uppercase !important;
 }
 
 .d3plus_tooltip_html a.related,
@@ -217,25 +224,26 @@ body.visualize {
   display: block;
   margin: 10px 0 0 0;
   opacity: 0.75;
-  padding: 6px 24px 6px 4px;
+  padding: 14px 24px 6px 4px;
   position: relative;
   text-decoration: none;
-  font-size: 18px;
-  line-height: 28px;
+  font-size: 13px;
+  line-height: 1.3;
 
   &:hover {
     opacity: 1;
   }
 
   &:after {
-      bottom: 8px;
+      bottom: 2px;
       content: unicode("f105");
       display: block;
       font-family: FontAwesome;
-      font-size: 30px;
+      font-size: 20px;
       -webkit-font-smoothing: antialiased;
       font-style: normal;
       font-weight: normal;
+      line-height: 38px;
       position: absolute;
       right: 12px;
       text-decoration: inherit;
@@ -249,7 +257,7 @@ body.visualize {
   &:before {
       background-image: url("/static/img/icons/app/app_tree_map_black.png");
       font-size: 12px;
-      line-height: 27px;
+      line-height: 38px;
       background-position: 50%;
       background-repeat: no-repeat;
       background-size: 80%;
@@ -272,5 +280,5 @@ body.visualize {
 
 .d3plus_tooltip_html a.profile img {
   width: 30px;
-  margin: 0 6px 0 0;
+  margin: -8px 6px 0 0;
 }
