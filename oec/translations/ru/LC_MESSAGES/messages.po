@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-09-09 13:16-0400\n"
-"PO-Revision-Date: 2015-09-09 14:33-0400\n"
+"PO-Revision-Date: 2015-09-09 16:41-0400\n"
 "Language-Team: ru <LL@li.org>\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "MIME-Version: 1.0\n"
@@ -164,11 +164,11 @@ msgstr "Год"
 
 #: oec/html/home.html:3 oec/html/home.html:12
 msgid "The Observatory of Economic Complexity"
-msgstr ""
+msgstr "Обсерватория экономического сложности"
 
 #: oec/html/home.html:15
 msgid "We are the world's<br/>leading visualization engine<br/>for international trade data."
-msgstr ""
+msgstr "Мы являемся ведущим в мире<br/>визуализация движок для<br/>международных торговых данных."
 
 #: oec/html/home.html:17
 msgid "Learn More"
@@ -176,7 +176,7 @@ msgstr "Узнать больше"
 
 #: oec/html/home.html:21 oec/html/templates/nav.html:62
 msgid "Search the Observatory"
-msgstr ""
+msgstr "Поиск по сайту"
 
 #: oec/html/about/data.html:4
 msgid "HS, SITC, and Country classification with their corresponding IDs and values."
@@ -184,7 +184,7 @@ msgstr "УГ, МСТК, и Классификация стран с соотве
 
 #: oec/html/about/index.html:3 oec/html/includes/nav.html:38
 msgid "About the Site"
-msgstr ""
+msgstr "О сайте"
 
 #: oec/html/about/index.html:5
 msgid "Photos and descriptions of the team members involved in the creation of The Observatory."
@@ -192,20 +192,19 @@ msgstr "Фотографии и описания членов команды, у
 
 #: oec/html/about/index.html:11
 msgid "About the Observatory"
-msgstr ""
+msgstr "О обсерватории"
 
 #: oec/html/about/index.html:29
 msgid "What is Economic Complexity?"
-msgstr ""
+msgstr "Что экономического Сложность?"
 
 #: oec/html/about/index.html:61
-#, fuzzy
 msgid "Current Team"
-msgstr "Текущий год"
+msgstr "Текущие члены"
 
 #: oec/html/about/index.html:65
 msgid "Past Contributors"
-msgstr ""
+msgstr "Прошедшие Авторы"
 
 #: oec/html/about/updates.html:4
 msgid "A Development blog of updates to the site."
@@ -218,15 +217,15 @@ msgstr "Интерфейс прикладного программировани
 #: oec/html/general/permissions.html:3 oec/html/general/permissions.html:10
 #: oec/html/includes/nav.html:47
 msgid "Permissions"
-msgstr ""
+msgstr "Разрешения"
 
 #: oec/html/general/publications.html:3 oec/html/general/publications.html:11
 msgid "Books"
-msgstr ""
+msgstr "книги"
 
 #: oec/html/general/publications.html:13 oec/html/profile/index.html:65
 msgid "Photo by"
-msgstr ""
+msgstr "Фото автором"
 
 #: oec/html/includes/nav.html:4 oec/html/visualize/embed.html:30
 #: oec/rankings/views.py:87 oec/visualize/views.py:298
@@ -235,51 +234,47 @@ msgstr "Страна"
 
 #: oec/html/includes/nav.html:12
 msgid "Visualize"
-msgstr ""
+msgstr "Представьте"
 
 #: oec/html/includes/nav.html:16
 msgid "Rankings"
 msgstr "Рейтинг"
 
 #: oec/html/includes/nav.html:20
-#, fuzzy
 msgid "Countries"
-msgstr "Страна"
+msgstr "страны"
 
 #: oec/html/includes/nav.html:23
-#, fuzzy
 msgid "Products"
 msgstr "Продукт"
 
 #: oec/html/includes/nav.html:30
-#, fuzzy
 msgid "Publications"
-msgstr "Классификация"
+msgstr "Публикации"
 
 #: oec/html/includes/nav.html:34
 msgid "Resources"
-msgstr ""
+msgstr "ресурсы"
 
 #: oec/html/includes/nav.html:41
 msgid "FAQs"
-msgstr ""
+msgstr "Часто задаваемые вопросы"
 
 #: oec/html/includes/nav.html:44 oec/html/resources/data.html:10
 msgid "Data Sources"
-msgstr ""
+msgstr "Источники данных"
 
 #: oec/html/includes/nav.html:54
 msgid "API"
-msgstr ""
+msgstr "API"
 
 #: oec/html/rankings/index.html:20
 msgid "Economic Complexity Rankings"
-msgstr ""
+msgstr "Экономический Сложность Рейтинг"
 
 #: oec/html/rankings/index.html:22
-#, fuzzy
 msgid "Product Complexity Rankings"
-msgstr "HS рейтинг товаров"
+msgstr "Продукт Сложность Рейтинг"
 
 #: oec/html/rankings/index.html:34 oec/html/visualize/index.html:43
 #: oec/html/visualize/index_old.html:36
@@ -293,24 +288,23 @@ msgstr "В будущем году"
 
 #: oec/html/rankings/index.html:49 oec/visualize/views.py:359
 msgid "Dataset"
-msgstr ""
+msgstr "Набор данных"
 
 #: oec/html/rankings/index.html:71
 msgid "Depth"
-msgstr ""
+msgstr "глубина"
 
 #: oec/html/rankings/index.html:81
-#, fuzzy
 msgid "Download Current Year"
-msgstr "Текущий год"
+msgstr "Скачать текущий год"
 
 #: oec/html/rankings/index.html:86
 msgid "Download All Years"
-msgstr ""
+msgstr "Загрузить все годы"
 
 #: oec/html/resources/faqs.html:10
 msgid "Frequently Asked Questions"
-msgstr ""
+msgstr "Часто задаваемые вопросы"
 
 #: oec/html/visualize/embed.html:7 oec/html/visualize/embed_new.html:3
 msgid "An emedded visualization."
@@ -340,11 +334,11 @@ msgstr "Категория"
 
 #: oec/html/visualize/embed.html:35
 msgid "4 Digit"
-msgstr ""
+msgstr "4 цифры"
 
 #: oec/html/visualize/embed.html:37
 msgid "6 Digit"
-msgstr ""
+msgstr "6 цифр"
 
 #: oec/html/visualize/embed.html:44
 msgid "Gross"
@@ -412,7 +406,7 @@ msgstr "Стоимость экспорта"
 
 #: oec/html/visualize/embed.html:341
 msgid "Net Export"
-msgstr ""
+msgstr "Чистый экспорт"
 
 #: oec/html/visualize/embed.html:342 oec/translations/lookup.py:12
 msgid "Import Value"
@@ -420,7 +414,7 @@ msgstr "Цена импорта"
 
 #: oec/html/visualize/embed.html:343
 msgid "Net Import"
-msgstr ""
+msgstr "Чистый импорт"
 
 #: oec/html/visualize/embed.html:344 oec/translations/lookup.py:14
 msgid "Market Value"
@@ -468,55 +462,49 @@ msgstr "и"
 
 #: oec/profile/models.py:64
 msgid "Economic Complexity"
-msgstr ""
+msgstr "Экономический Сложность"
 
 #: oec/profile/models.py:64 oec/profile/models.py:333
-#, fuzzy
 msgid "Exports"
 msgstr "Экспорт"
 
 #: oec/profile/models.py:64
-#, fuzzy
 msgid "Imports"
 msgstr "Импорт"
 
 #: oec/profile/models.py:64
 msgid "Population"
-msgstr ""
+msgstr "население"
 
 #: oec/profile/models.py:333
-#, fuzzy
 msgid "Product Complexity"
-msgstr "Наименование"
+msgstr "Сложность продукта"
 
 #: oec/profile/models.py:333
 msgid "Top Exporter"
-msgstr ""
+msgstr "Топ Экспортер"
 
 #: oec/profile/models.py:333
-#, fuzzy
 msgid "Top Importer"
-msgstr "Чистая Импорт"
+msgstr "Топ Импортер"
 
 #: oec/rankings/views.py:87 oec/rankings/views.py:94
 msgid "Rank"
 msgstr "Разряд"
 
 #: oec/translations/lookup.py:11
-#, fuzzy
 msgid "Net Export Value"
-msgstr "Стоимость экспорта"
+msgstr "Чистая стоимость экспорта"
 
 #: oec/translations/lookup.py:13
-#, fuzzy
 msgid "Net Import Value"
-msgstr "Цена импорта"
+msgstr "Чистый импорт Значение"
 
 #: oec/visualize/views.py:316
 msgid "Partner"
-msgstr ""
+msgstr "партнер"
 
 #: oec/visualize/views.py:437
 #, python-format
 msgid "Profile for %(attr)s"
-msgstr ""
+msgstr "Профиль для %(attr)s"
