@@ -9,7 +9,7 @@
   </li>
 
   <li id="explore"{% if g.page_type == "visualize" %} class="active"{% endif %}>
-    <a href="{{ url_for('visualize.visualize_redirect', app_name='tree_map', lang=g.locale) }}">{{ _('Visualize') }}</a>
+    <a href="{{ url_for('visualize.visualize_redirect', app_name='tree_map', lang=g.locale) }}">{{ _('Visualizations') }}</a>
   </li>
 
   <li id="rankings"{% if g.page_type == "rankings" %} class="active"{% endif %}>
