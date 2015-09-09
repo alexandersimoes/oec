@@ -10,13 +10,13 @@ body.rankings {
 
     table {
 
-      .Rank {
+      .rank {
         font-weight: bold;
         text-align: center;
         width: 40px;
       }
 
-      .Delta {
+      .delta {
         text-align: left;
         width: 50px;
         .fa {
@@ -30,20 +30,31 @@ body.rankings {
         }
       }
 
-      .ID {
+      .id {
         text-align: center;
         width: 50px;
       }
 
-      .Country, .Product {
+      .country, .product {
+        @include flex;
+        @include align-items(center);
+        @include justify(flex-start);
         img {
           margin-right: 5px;
           width: 20px;
         }
       }
 
-      .ECI, .PCI {
+      .eci, .pci {
         width: 50px;
+      }
+
+      .delta, .id {
+
+        @media all and (max-width: 500px) {
+          display: none;
+        }
+
       }
 
     }
