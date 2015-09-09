@@ -186,18 +186,15 @@
   {% set prev = profile.attr.prev() %}
   {% if prev %}
   {% set image = prev.get_image() %}
-
-  {% if image %}
-  <div class="header prev" style="background-image: url('{{ image }}');"></div>
-  {% endif %}
   <a href="{{ prev.get_profile_url() }}" class="profile_header profile_button prev"{% if not image %} style="background-color: {{ prev.color }};"{% endif %}>
+    {% if image %}
+    <img class="header prev" src="{{ image }}">
+    {% endif %}
     <i class="fa fa-angle-left"></i>
     <h1>
       {{ prev.get_name() }}
     </h1>
-    {% if image %}
     <img class="icon" src="{{ prev.get_icon() }}">
-    {% endif %}
   </a>
   {% endif %}
 
@@ -205,13 +202,11 @@
   {% if next %}
   {% set image = next.get_image() %}
 
-  {% if image %}
-  <div class="header next" style="background-image: url('{{ image }}');"></div>
-  {% endif %}
   <a href="{{ next.get_profile_url() }}" class="profile_header profile_button next"{% if not image %} style="background-color: {{ prev.color }};"{% endif %}>
     {% if image %}
-    <img class="icon" src="{{ next.get_icon() }}">
+    <img class="header next" src="{{ image }}">
     {% endif %}
+    <img class="icon" src="{{ next.get_icon() }}">
     <h1>
       {{ next.get_name() }}
     </h1>

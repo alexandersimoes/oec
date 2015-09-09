@@ -134,7 +134,6 @@ body.profile {
       @include flex;
       @include align-items(center);
       @include flex-direction(row);
-      margin: 20px 35px 10px 0;
 
       @media all and (max-width: 768px) {
         @include justify(center);
@@ -212,28 +211,21 @@ body.profile {
       @include align-items(flex-start);
       @include justify(space-between);
       @include flex-wrap(wrap);
-      margin-bottom: 17px;
       position: relative;
     }
 
     #title, #stats {
-      margin-left: 60px;
+      margin: 20px;
     }
 
     &.country {
       #title, #stats {
-        margin-left: 350px;
+        margin-left: 290px;
 
         @media all and (max-width: 768px) {
-          margin-left: 35px;
+          margin-left: 20px;
         }
 
-      }
-    }
-
-    &.product {
-      #stats {
-        margin: 25px 60px;
       }
     }
 
@@ -266,7 +258,11 @@ body.profile {
       margin-top: 20px;
       // min-width: $stat_width;
 
-      @media all and (max-width: 768px) {
+      &:last-child {
+        margin-right: 0;
+      }
+
+      @media all and (max-width: 1024px) {
         margin: 10px;
       }
 
@@ -284,19 +280,24 @@ body.profile {
           @include flex-direction(column);
           @include justify(center);
           text-align: center;
+          h3 {
+            margin: 0 !important;
+          }
         }
 
         @media all and (max-width: 600px) {
           @include flex-direction(row);
           @include justify(flex-start);
           text-align: left;
+          h3 {
+            margin: 0 10px 0 0 !important;
+          }
         }
 
         h3 {
           font-family: $source-sans;
           font-size: 32px;
           font-weight: 300;
-          margin: 0 10px 0 0 !important;
         }
 
         sub {
@@ -319,6 +320,10 @@ body.profile {
         margin: 10px 0;
         width: 90%;
 
+        @media all and (max-width: 600px) {
+          display: none;
+        }
+
         .sparkpath {
           fill: none;
           stroke: white;
@@ -331,12 +336,30 @@ body.profile {
         @include flex-direction(row);
         @include justify(space-between);
         width: 90%;
+
+        @media all and (max-width: 600px) {
+          display: none;
+        }
+
       }
 
       .year {
         font-size: 11px;
         font-weight: 700;
         opacity: 0.9;
+      }
+
+      .stat_flag {
+        text-align: center;
+        img {
+          height: 60px;
+          width: 60px;
+        }
+
+        @media all and (max-width: 600px) {
+          display: none;
+        }
+
       }
 
     }
@@ -357,6 +380,7 @@ body.profile {
       @include justify(center);
 
       h3 {
+        @include flex-size(none);
         font-family: $source-sans;
         font-size: 32px;
         font-weight: 300;
@@ -400,14 +424,6 @@ body.profile {
       font-size: 11px;
       font-weight: 700;
       opacity: 0.9;
-    }
-
-    .stat_flag {
-      text-align: center;
-      img {
-        height: 60px;
-        width: 60px;
-      }
     }
 
     &#eci {
@@ -456,7 +472,7 @@ body.profile {
   article.intro-article {
 
     content {
-      margin: 45px 60px 45px 0 !important;
+      margin: 45px 20px 45px 0 !important;
 
       @media all and (max-width: 768px) {
         margin: 20px !important;
@@ -612,23 +628,7 @@ body.profile {
   }
 
   article .prof-nav {
-    background-color: $darkbackground;
-    height: 150px;
-    overflow: hidden;
-    padding-top: 6px;
-    width: 100vw;
-
-    div.header {
-      background-position: 50% 80%;
-      height: 150px;
-      position: absolute;
-      width: 50vw;
-      @include filter(saturate(90%) brightness(0.9) contrast(1.1));
-
-      &.prev { left: -3px; }
-
-      &.next{ right: -3px; }
-    }
+    width: 100%;
 
     a.profile_button {
       @include flex;
@@ -636,25 +636,31 @@ body.profile {
       @include align-items(center);
       @include gradient(rgba(0,0,0,0), $darkbackground);
       height: 150px;
-      width: 50vw;
-      z-index: 1;
+      overflow: hidden;
+      position: relative;
+      width: 50%;
 
-      &.prev {
-        @include justify(flex-start);
-        text-align: left;
-        i { padding-left: 20px; }
+      @media all and (max-width: 768px) {
+        margin: 0 !important;
+        width: 100%;
       }
 
-      &.next {
-        @include justify(flex-end);
-        text-align: right;
-        i { padding-right: 20px; }
+      .header {
+        @include filter(saturate(90%) brightness(0.9) contrast(1.1));
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
       }
 
       i {
         @include flex-size(none);
         font-size: 35px;
         margin: 6px 10px 0;
+        opacity: 0.8;
+        z-index: 1;
       }
 
       h1 {
@@ -662,18 +668,41 @@ body.profile {
         line-height: 50px;
         opacity: 0.8;
         text-shadow: 1px 1px 6px $darkbackground;
-
-        &:hover {
-          opacity: 1;
-          text-shadow: 0px 0px 1px white, 1px 1px 6px $darkbackground;
-        }
+        z-index: 1;
       }
 
       .icon {
         @include flex-size(none);
         margin: 3px 15px 0;
         max-height: 50px;
+        z-index: 1;
       }
+
+      &:hover {
+        i, h1 {
+          opacity: 1;
+          // text-shadow: 0px 0px 1px white, 1px 1px 6px $darkbackground;
+        }
+      }
+
+      &.prev {
+        @include justify(flex-start);
+        margin-right: 3px;
+        text-align: left;
+        i {
+          padding-left: 20px;
+        }
+      }
+
+      &.next {
+        @include justify(flex-end);
+        margin-left: 3px;
+        text-align: right;
+        i {
+          padding-right: 20px;
+        }
+      }
+
     }
   }
 
