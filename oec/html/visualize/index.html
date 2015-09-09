@@ -84,11 +84,6 @@
 
       <div class="app_menu{% if pre_app == current_build.viz.slug %} open{% endif %}" data-app="{{ pre_app }}">
         {% set name = build.viz.name %}
-        {% if name[-1] != "s" %}
-          <h3>All {{ name }}s</h3>
-        {% else %}
-          <h3>All {{ name }}</h3>
-        {% endif %}
 
     {% endif %}
 
@@ -110,7 +105,6 @@
   </div></div></div>
 
   <div id="changers">
-    <h3>Filter Visualization</h3>
     {% for ui in build_ui %}
     <div class="ui" id="{{ ui.id }}"{% if ui.url %} data-url="{{ui.url}}"{% endif %}>
       <h4>{{ ui.name }}</h4>
@@ -347,7 +341,7 @@
   function resizeIframe() {
 
     var n = window.innerWidth <= 1024 ? 0 : navWidth,
-        w = window.innerWidth - n - p * 3,
+        w = window.innerWidth - n - p * 2,
         m = window.innerHeight < window.innerWidth ? iframe.node().offsetTop : p * 2,
         h = window.innerHeight - m - p * 2,
         viz = iframe.node().contentWindow.viz;
