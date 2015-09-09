@@ -11,12 +11,6 @@ body.about, body.resources, body.permissions {
       &:hover {
         border-bottom: 1px solid $lightlinkcolor;
       }
-      &.contact {
-        color: $brightlinkcolor;
-        &:hover {
-          border-bottom: 1px solid $brightlinkcolor;
-        }
-      }
     }
   }
 

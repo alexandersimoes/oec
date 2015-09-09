@@ -13,7 +13,6 @@ body.publications {
     section {
       padding: 30px;
       max-width: 1054px;
-      min-width: 900px;
       margin: 0 auto;
     
       content {
@@ -25,7 +24,6 @@ body.publications {
 
         h3 {
           font-size: 40px;
-          margin-bottom: 20px;
           letter-spacing: 0;
           font-weight: 700;
 
@@ -55,6 +53,30 @@ body.publications {
       }
     }
 
+    @media all and (max-width: 768px) {
+      h2 {
+        font-size: 24px;
+      }
+      h3 {
+        font-size: 30px !important;
+      }
+      h4 {
+        font-size: 20px;
+      }
+      p {
+        font-size: 13px;
+      }
+    }
+
+    @media all and (min-width: 769px) and (max-width: 1024px) {
+      h2 {
+        font-size: 26px;
+      }
+      p {
+        font-size: 16px;
+      }
+    }
+
     &.why-info-grows {
       background: $green url('/static/img/headers/pages/grows.jpg') repeat 50% 50%;
 
@@ -62,33 +84,85 @@ body.publications {
         background-color: #fff;
 
         content {
-            div:first-child {
-                display: block;
-                width: 100%;
+          div:first-child {
+            display: block;
+            width: 100%;
 
-                h3, h4 {
-                    display: inline-block;
-                }
-
-                h4 {
-                    margin-left: 8px;
-                    margin-top: 10px;
-                }
+            h3, h4 {
+                display: inline-block;
             }
 
-            div:nth-child(2) {
-                width: 16%;
-                margin-right: 5%;
+            h3 {
+              margin-right: 8px;
             }
 
-            div:nth-child(3) {
-                width: 60%;
+            h4 {
+                margin-top: 10px;
+                margin-bottom: 20px;
             }
 
-            div:last-child {
-                width: 13%;
-                margin-left: 5%;
+            @media all and (max-width: 768px) {
+              h4{
+                margin-top: 5px;
+                margin-bottom: 10px;
+              }
             }
+          }
+
+          div:nth-child(2) {
+            float: left;
+            width: 16%;
+            margin-right: 5%;
+
+            @media all and (min-width: 769px) and (max-width: 1024px) {
+              margin-right: 3%;
+              h2 {
+                font-size: 26px;
+              }
+            }
+
+            @media all and (max-width: 768px) {
+              margin-right: 0;
+              width: 100%;
+
+              h2 {
+                font-size: 24px;
+                margin-bottom: 10px;
+              }
+            }
+          }
+
+          div:last-child {
+            width: 60%;
+
+            @media all and (min-width: 769px) and (max-width: 1024px) {
+              width: 64%;
+
+              p {
+                font-size: 16px;
+              }
+            }
+
+            @media all and (max-width: 768px) {
+              width: 78%;
+              p {
+                font-size: 13px;
+              }
+            }
+          }
+
+          div:nth-child(3) {
+            width: 13%;
+            float: right;
+            margin-left: 3%;
+          
+            @media all and (max-width: 768px) {
+              width: 17%;
+              float: left;
+              margin-left: 0;
+              margin-right: 4%;
+            }
+          }
         }
       }
 
@@ -118,6 +192,10 @@ body.publications {
                 font-size: 18px;
                 margin-top: 20px;
             }
+
+            @media all and (max-width: 768px) {
+              width: 100%;
+            }
           }
 
           div:last-child {
@@ -144,6 +222,12 @@ body.publications {
                 }
               }
             }
+
+            @media all and (max-width: 768px) {
+              width: 100%;
+              margin-top: 4%;
+              margin-left: 0;
+            }
           }
 
           img.book {
@@ -168,10 +252,18 @@ body.publications {
         content {
           div:nth-child(2) {
             width: 39%;
+
+            @media all and (max-width: 768px) {
+              width: 100%;
+            }
           }
 
           div:last-child {
             width: 60%;
+
+            @media all and (max-width: 768px) {
+              width: 100%;
+            }
           }
         }
       }
