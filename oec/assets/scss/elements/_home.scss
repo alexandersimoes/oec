@@ -85,8 +85,8 @@ $default_size: 600px;
       line-height: 1.4;
       position: absolute;
       text-align: center;
-      bottom: 14%;
-      right: 16%;
+      bottom: 13%;
+      right: 15%;
 
       a {
         border-bottom: 1px solid transparent;
@@ -115,10 +115,10 @@ $default_size: 600px;
     #search_home {
       border-bottom: 1px solid $lightlinkcolor;
       bottom: 12%;
-      color: $lightlinkcolor;
+      color: $brightlinkcolor;
       display: block;
       font-family: $source-sans;
-      font-size: $default_size/43;
+      font-size: $default_size/40;
       font-weight: 300;
       left: 38%;
       opacity: 0.8;

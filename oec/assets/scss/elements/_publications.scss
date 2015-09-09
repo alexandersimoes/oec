@@ -92,8 +92,15 @@ body.publications {
         }
       }
 
-      h2, h3 a, h4 {
+      h2, h3 a, h4, a {
         color: $green;
+        &:hover {
+          border-bottom: 0;
+        }
+      }
+
+      a:hover {
+        border-bottom: 1px solid $green;
       }
     }
 

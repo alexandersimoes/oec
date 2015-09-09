@@ -28,7 +28,7 @@ def about():
             "name": u"Dave Landry",
             "slug": u"dave_landry",
             "time": u"2012 – Present",
-            "text": u"Dave lead the 2013 redesign of the website, along with being co-author of the underlying visualization engine <a href='http://www.d3plus.org' target='_blank'>D3plus</a>. He continues to support the site with improvements to the front-end in both the visualizations and the overall navigation.",
+            "text": u"Dave designed the 2013 version of the website, along with being co-author of the underlying visualization engine <a href='http://www.d3plus.org' target='_blank'>D3plus</a>. He continues to support the site with improvements to the front-end in both the visualizations and the overall navigation.",
             "links": {
                 "github-alt": "https://github.com/davelandry",
                 "twitter": "https://twitter.com/davelandry",
@@ -43,6 +43,17 @@ def about():
             "links": {
                 "twitter": "https://twitter.com/cesifoti",
                 "linkedin-square": "http://www.linkedin.com/pub/cesar-a-hidalgo/5/30a/a61"
+            }
+        },
+        {
+            "name": u"Melissa Teng",
+            "slug": u"melissa_teng",
+            "time": u"2015 – Present",
+            "text": u"Melissa led the 2015 redesign of the website, focusing on a humanist approach to data. She built on the site's visual identity and user experience, as well as supported some front-end development.",
+            "links": {
+                "github-alt": "https://github.com/melteng",
+                "twitter": "https://twitter.com/melisteng",
+                "linkedin-square": "http://www.linkedin.com/in/mqteng/"
             }
         }
     ]
