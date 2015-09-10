@@ -13,8 +13,18 @@
 
 {% block body %}
 
-<section>
-  <aside></aside>
+<section class="nav-section">
+  <aside>
+    {% if year > g.available_years[category][0]  %}
+    <a id="prev" href="/{{ g.locale }}/rankings/{{ category }}/{{ year-1 }}/">
+      <h2>
+        <i class="fa fa-angle-left"></i>
+        <!-- {{ _('Prev. Year') }} -->
+        {{ year-1 }}
+      </h2>
+    </a>
+    {% endif %}
+  </aside>
   <content>
     {% if category == "country" %}
       <h1>{{ _('Economic Complexity Rankings') }} ({{ year }})</h1>
@@ -22,13 +32,24 @@
       <h1>{{ _('Product Complexity Rankings') }} ({{ year }})</h1>
     {% endif %}
   </content>
+  <aside>
+    {% if year < g.available_years[category][-1]  %}
+    <a id="next" href="/{{ g.locale }}/rankings/{{ category }}/{{ year+1 }}/">
+      <h2>
+        <!-- {{ _('Next Year') }} -->
+        {{ year+1 }}
+        <i class="fa fa-angle-right"></i>
+      </h2>
+    </a>
+    {% endif %}
+  </aside>
 </section>
 
 <section>
 
   <aside id="explorer">
 
-    {% if year > g.available_years[category][0]  %}
+    <!-- {% if year > g.available_years[category][0]  %}
     <a id="prev" href="/{{ g.locale }}/rankings/{{ category }}/{{ year-1 }}/">
       <i class="fa fa-arrow-left"></i>
       {{ _('Previous Year') }}
@@ -40,7 +61,7 @@
       {{ _('Next Year') }}
       <i class="fa fa-arrow-right"></i>
     </a>
-    {% endif %}
+    {% endif %} -->
 
     <div id="changers">
 
@@ -111,9 +132,9 @@
           <td class="rank"><span>{{ r[2]["eci_rank"] }}</span></td>
           <td class="delta">
             {% if r[2]["eci_rank_delta"] > 0 %}
-              <i class="fa fa-arrow-up fa-lg"></i> {{ r[2]["eci_rank_delta"] }}
+              <i class="fa fa-caret-up fa-lg"></i> {{ r[2]["eci_rank_delta"] }}
             {% elif r[2]["eci_rank_delta"] < 0 and r[2]["eci_rank_delta"] %}
-              <i class="fa fa-arrow-down fa-lg"></i> {{ r[2]["eci_rank_delta"]|abs }}
+              <i class="fa fa-caret-down fa-lg"></i> {{ r[2]["eci_rank_delta"]|abs }}
             {% endif %}
           </td>
           <td class="id">{{ r[0]["id_3char"]|upper }}</td>
@@ -123,9 +144,9 @@
           <td class="rank"><span>{{ r[2]["pci_rank"] }}</span></td>
           <td class="delta">
             {% if r[2]["pci_rank_delta"] > 0 %}
-              <i class="fa fa-arrow-up fa-lg"></i> {{ r[2]["pci_rank_delta"] }}
+              <i class="fa fa-caret-up fa-lg"></i> {{ r[2]["pci_rank_delta"] }}
             {% elif r[2]["pci_rank_delta"] < 0 and r[2]["pci_rank_delta"] %}
-              <i class="fa fa-arrow-down fa-lg"></i> {{ r[2]["pci_rank_delta"]|abs }}
+              <i class="fa fa-caret-down fa-lg"></i> {{ r[2]["pci_rank_delta"]|abs }}
             {% endif %}
           </td>
           <td class="id">{{ r[0].get_display_id() }}</td>
