@@ -3,18 +3,20 @@ body.api {
   @include font-smoothing(antialiased);
 
   #container #content {
+    color: #ccc;
     max-width: 1200px;
 
     a {
-      color: #a4b500;
+      color: $pri-c-highlight;
       text-decoration: none;
       &:hover {
         padding-bottom: 2px;
-        border-bottom: 1px dotted #a4b500;
+        border-bottom: 1px dotted $pri-c-highlight;
       }
     }
 
     p {
+      color: #ccc;
       margin: 5px 0;
     }
 
@@ -29,67 +31,71 @@ body.api {
       }
 
     }
-
-  }
-
-  h2 {
-    line-height: 1.1;
-    margin: 20px 0;
-  }
-
-  h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    opacity: 0.8;
-    color: #a4b500;
-  }
-
-  h4 {
-    line-height: 1.3;
-  }
-
-  table {
-    border: 1px solid $darkbordercolor;
-    margin-bottom: 20px;
-    background-color: #272f38;
-    color: #ddd;
-
-    input {
-      padding: 5px 7px;
-      background-color: #353c45;
-      color: white;
-      border: 0;
+    
+    h2 {
+      line-height: 1.1;
+      margin: 20px 0;
     }
 
-    a {
-      color: $lightlinkcolor !important;
-      &:hover {
-        border-bottom: 1px dotted $lightlinkcolor !important;
+    h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      opacity: 0.8;
+      color: $pri-w-highlight;
+    }
+
+    h4 {
+      line-height: 1.3;
+    }
+
+    table {
+      background-color: $l-darkbackground;
+      color: #ccc;
+      border: 1px solid $darkbordercolor;
+      margin-bottom: 20px;
+
+      input {
+        padding: 5px 7px;
+        background-color: $l2-darkbackground;
+        color: white;
+        border: 0;
+      }
+
+      code {
+        color: $sec-w-highlight;
       }
     }
+
+    pre {
+      padding: 7px 0;
+      margin-bottom: 7px;
+    }
+
+    code {
+      background-color: $l2-darkbackground;
+      color: white;
+      display: inline-block;
+      font-size: 14px;
+      letter-spacing: 1px;
+      margin-top: 0px;
+      margin-bottom: 7px;
+      padding: 1px 4px;
+      white-space: nowrap;
+
+      a {
+        color: $pri-c-highlight;
+        &:hover {
+          opacity: 1;
+          border-bottom: 1px dotted $pri-c-highlight !important;
+        }
+      }
+
+    }
+
+    td.code {
+      // text-align: center;
+      width: 120px;
+    }
   }
 
-  pre {
-    padding: 7px 0;
-    margin-bottom: 7px;
-  }
-
-  code {
-    // background-color: rgba(0, 133, 191, 0.25);
-    // background-color: #f9f2f4;
-    background-color: #3f464f;
-    color: #ff50a8;
-    display: inline-block;
-    font-size: 13px;
-    margin-top: 0px;
-    margin-bottom: 7px;
-    padding: 1px 4px;
-    white-space: nowrap;
-
-  }
-
-  td.code {
-    // text-align: center;
-    width: 120px;
-  }
 }
