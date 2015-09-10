@@ -1,31 +1,21 @@
 body.profile {
   background-color: $darkbackground;
+  
+  h1 {
+    line-height: 1;
+  }
 
   article {
-    &:nth-of-type(even) {
+
+    section:last-child {
+      aside, content {
+        border-bottom: 0 !important;
+      }
+    }
+
+    &.intro-article {
       background-color: white;
       color: $black;
-
-      &.viz-article {
-        aside {
-          border-bottom: 1px dotted $lightbordercolor;
-
-          @media all and (max-width: 768px) {
-            border-bottom: none;
-          }
-
-        }
-
-        content {
-          border-bottom: none;
-
-          @media all and (max-width: 768px) {
-            border-bottom: 1px dotted $lightbordercolor;
-          }
-
-        }
-
-      }
 
       p {
         color: $black;
@@ -40,32 +30,31 @@ body.profile {
       }
     }
 
-    &:nth-of-type(odd), &.titled-section {
+    &.titled-section, &.viz-article {
       background-color: $darkbackground;
       color: white;
 
-      &.viz-article {
-        aside {
-          border-bottom: 1px dotted $darkbordercolor;
+      aside {
+        border-bottom: 1px dotted $darkbordercolor;
 
-          @media all and (max-width: 768px) {
-            border-bottom: none;
-          }
-
-        }
-
-        content {
+        @media all and (max-width: 768px) {
           border-bottom: none;
-
-          @media all and (max-width: 768px) {
-            border-bottom: 1px dotted $darkbordercolor;
-          }
-
         }
+
+      }
+
+      content {
+        border-bottom: none;
+
+        @media all and (max-width: 768px) {
+          border-bottom: 1px dotted $darkbordercolor;
+        }
+
       }
 
       p {
         color: white;
+        
         a {
           color: $lightlinkcolor;
           &:hover {
@@ -73,7 +62,6 @@ body.profile {
           }
         }
       }
-
     }
 
     &.dataviva {
@@ -105,12 +93,6 @@ body.profile {
     &.pantheon {
       background-color: #F9F6E3;
       color: $black;
-
-      h1 {
-        border-top: 0 !important;
-        margin: 0px 60px !important;
-        padding-top: 30px !important;
-      }
 
       p {
         color: $black;
@@ -490,10 +472,10 @@ body.profile {
   article.intro-article {
 
     content {
-      margin: 45px 20px 45px 0 !important;
+      margin: 45px 30px 30px 0 !important;
 
       @media all and (max-width: 768px) {
-        margin: 20px !important;
+        margin: 30px !important;
       }
 
     }
@@ -502,7 +484,7 @@ body.profile {
       margin-top: 45px !important;
 
       @media all and (max-width: 768px) {
-        margin: 20px !important;
+        margin: 30px !important;
       }
 
     }
@@ -555,13 +537,11 @@ body.profile {
   article.product ~ article.titled-section {
     h1 {
       border-top: 0;
-      margin: 0 60px -15px;
-      padding-top: 15px;
+      margin: 0 30px;
     }
   }
 
   article.viz-article {
-    margin-top: 15px;
 
     p {
       text-align: left;
@@ -572,15 +552,6 @@ body.profile {
       line-height: 1.1;
     }
 
-    aside {
-      padding: 40px 0;
-      margin: 0 40px 0 60px !important;
-    }
-
-    content {
-      margin: 40px 60px 40px 0 !important;
-    }
-
     section:last-child aside {
       border-bottom: 0;
     }
@@ -588,9 +559,14 @@ body.profile {
 
   article.titled-section {
     h1 {
+      margin: 0px 30px -15px;
+      padding: 20px 0;
       border-top: 1px solid $darkbordercolor;
-      margin: 30px 60px -15px;
-      padding-top: 30px;
+
+      @media all and (max-width: 768px) {
+        border-top: 0;
+        margin: 0px 30px;
+      }
     }
 
     h2 {
@@ -607,12 +583,17 @@ body.profile {
       border: none;
       margin: 20px 0 0 0;
       width: 100%;
+
+      @media all and (max-width: 768px) {
+        width: 50%;
+        margin: 20px 25%;
+      }
     }
 
     section.subtitle-section {
 
       content {
-        margin: 30px 40px 0 0 !important;
+        margin: 0 30px !important;
         padding: 0;
 
         p {
@@ -631,14 +612,14 @@ body.profile {
 
     aside {
       @media all and (max-width: 768px) {
-        margin: 20px 20px 0 20px !important;
+        margin: 0px 30px !important;
         padding: 0 !important;
       }
     }
 
     content {
       @media all and (max-width: 768px) {
-        margin: 0 20px 20px 20px !important;
+        margin: 0 30px 20px 30px !important;
         padding-bottom: 50px !important;
       }
     }
@@ -664,7 +645,7 @@ body.profile {
       }
 
       .header {
-        @include filter(saturate(90%) brightness(0.9) contrast(1.1));
+        @include filter(saturate(90%) brightness(0.8) contrast(1.1));
         display: block;
         height: 100%;
         left: 0;
@@ -724,115 +705,7 @@ body.profile {
     }
   }
 
-  .stat {
-    @include flex-size(1);
-    @include flex;
-    @include flex-direction(column);
-    color: white;
-    margin-right: 35px;
-    margin-top: 5px;
-
-    .stat_text {
-      @include flex;
-      @include flex-direction(row);
-      @include align-items(center);
-      @include justify(flex-start);
-
-      h3 {
-        font-family: $source-sans;
-        font-size: 32px;
-        font-weight: 300;
-        margin: 0 10px 0 0 !important;
-      }
-
-      sub {
-        font-family: $montserrat;
-        font-size: 14px;
-        font-weight: 700;
-        text-transform: uppercase;
-
-        .rank {
-          display: block;
-          font-size: 10px;
-          font-weight: 400;
-          white-space: nowrap;
-        }
-      }
-    }
-
-    .sparkline {
-      height: 35px;
-      margin: 10px 0;
-      width: 90%;
-
-      .sparkpath {
-        fill: none;
-        stroke: white;
-        stroke-width: 2px;
-      }
-    }
-
-    .years {
-      @include flex;
-      @include flex-direction(row);
-      @include justify(space-between);
-      width: 90%;
-    }
-
-    .year {
-      font-size: 11px;
-      font-weight: 700;
-      opacity: 0.9;
-    }
-
-    &#eci {
-      color: $black;
-      width: 100%;
-      margin-top: 35px;
-
-      @media all and (max-width: 768px) {
-        margin-top: 0;
-      }
-
-      // $stat_width: 250px;
-
-      .stat_text {
-        h3 {
-          @include flex-size(none);
-          font-size: 55px;
-          font-weight: 300;
-        }
-
-        sub {
-          font-size: 14px;
-          line-height: 14px;
-          margin-top: 5px;
-
-          .rank {
-            font-size: 12px;
-          }
-        }
-      }
-
-      .sparkline {
-        height: 50px;
-        margin: 10px 0;
-        width: 100%;
-
-        .sparkpath {
-          fill: none;
-          stroke: $darkbackground;
-          stroke-width: 2px;
-        }
-      }
-
-      .years {
-        width: 100%;
-      }
-
-    }
-
-  }
+  
 
   ul.heirarchy {
     border: 1px solid #BBBDC0;
@@ -865,10 +738,6 @@ body.profile {
           font-weight: 700;
         }
       }
-    }
-
-    .active {
-      // font-weight: 700;
     }
 
     .depth2 {

@@ -3,7 +3,8 @@ body.about, body.resources, body.permissions {
   @include font-smoothing(antialiased);
 
   #container #content {
-    max-width: 600px;
+    max-width: 695px;
+    padding-top: 20px;
 
     a {
       color: $lightlinkcolor;
