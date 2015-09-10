@@ -1,14 +1,114 @@
 $rank_sidebar: 150px;
 
 body.rankings {
+  @include font-smoothing(antialiased);
 
   #container {
 
+    #content .nav-section {
+      @include flex();
+      @include flex-direction(row);
+      @include justify(space-between);
+      @include align-items(baseline);
+      padding: 30px 0 10px;
+      margin: 0 30px !important;
+
+      @media all and (max-width: 768px) {
+        @include flex-direction(row);
+      }
+      
+      aside {
+        @include flex(1 auto);
+        width: auto !important;
+        margin: 0;
+
+        a {
+          color: $pri-w-highlight;
+
+          i {
+            margin-top: 5px;
+          }
+        }
+
+        &:last-child {
+          text-align: right;
+        }
+
+        @media all and (max-width: 768px) {
+          a h2 {
+            font-size: 26px;
+          }
+        }
+
+        @media all and (max-width: 768px) {
+          a h2 {
+            font-size: 16px;
+            font-weight: 400;
+          }
+        }
+      }
+
+      content {
+        text-align: center;
+
+        @media all and (max-width: 768px) {
+          h1 {
+            font-size: 30px;
+          }
+        }
+        @media all and (max-width: 768px) {
+          h1 {
+            font-size: 20px;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+    
     aside {
       width: $rank_sidebar !important;
     }
 
+    #explorer {
+      margin-left: -155px;
+        @media all and (max-width: 1175px) {
+          margin: 0 30px 20px;
+        }
+
+      & ~ content {
+        max-width: 695px;
+      }
+    
+      #changers {
+        margin-top: 0;
+
+        h3 {
+          margin: 0 0 5px;
+        }
+      }
+
+    }
+
     table {
+      background-color: $l-darkbackground;
+      color: #ccc;
+      border: 1px solid $darkbordercolor;
+      margin-bottom: 20px;
+
+      a {
+        margin-left: 7px;
+        color: white;
+        font-weight: 700;
+        
+        &:hover {
+          border-bottom: 0;
+          &:after {
+            content: unicode("f105");
+            font-family: FontAwesome;
+            padding-left: 7px;
+          }
+        }
+      }
 
       .rank {
         font-weight: bold;
@@ -19,14 +119,14 @@ body.rankings {
       .delta {
         text-align: left;
         width: 50px;
-        .fa {
-          font-size: 13px;
+
+        .fa-caret-up {
+          // color: #00cc00;
+          color: $pri-c-highlight;
         }
-        .fa-arrow-up {
-          color: #00cc00;
-        }
-        .fa-arrow-down {
-          color: #cc0000;
+        .fa-caret-down {
+          // color: #cc0000;
+          color: $sec-w-highlight;
         }
       }
 
@@ -62,15 +162,24 @@ body.rankings {
   }
 
   .download {
-    background-color: white;
-    border: 1px solid rgb(195, 195, 195);
-    color: rgb(68, 68, 68) !important;
+    border: 1px solid white;
+    color: white;
     display: inline-block;
     font-size: 12px;
     font-weight: 200;
     margin: 15px 0 0;
     padding: 6px;
     width: $rank_sidebar - 12px;
+
+    @media all and (max-width: 768px) {
+      margin: 23px 0 0;
+      width: auto;
+    }
+
+    @media all and (max-width: 500px) {
+      padding: 5px 2px;
+    }
+
     &:hover {
       border-color: rgb(195, 195, 195);
     }
