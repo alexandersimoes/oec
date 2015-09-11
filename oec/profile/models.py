@@ -289,15 +289,23 @@ class Country(Profile):
         ''' DataViva
         '''
         dv_munic_dest_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false".format(self.attr.id)
-        dv_munic_dest_link = "<a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>".format(self.attr.id)
         dv_munic_origin_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false".format(self.attr.id)
-        dv_munic_origin_link = "<a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>".format(self.attr.id)
+        dv_munic_dest_subtitle = u"""
+            This treemap shows the municipalities in Brazil that imported products from {}.<br /><br /> 
+            DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
+            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
+            """.format(self.attr.get_name(), self.attr.id)
+        dv_munic_origin_subtitle = u"""
+            This treemap shows the municipalities in Brazil that exported products to {}.<br /><br /> 
+            DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
+            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
+            """.format(self.attr.get_name(), self.attr.id)
         dv_section = {
             "title": "More on {} from our sister sites".format(self.attr.get_name()),
             "source": "dataviva",
             "builds": [
-                {"title": u"Brazilian Municipalities that import from {}".format(self.attr.get_name()), "iframe": dv_munic_dest_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that imported products from {}.<br />{}".format(self.attr.get_name(), dv_munic_dest_link)},
-                {"title": u"Brazilian Municipalities that export to {}".format(self.attr.get_name()), "iframe": dv_munic_origin_iframe, "subtitle": u"This treemap shows the municipalities in Brazil that exported products to {}.<br />{}".format(self.attr.get_name(), dv_munic_origin_link)},
+                {"title": u"Brazilian Municipalities that import from {}".format(self.attr.get_name()), "iframe": dv_munic_dest_iframe, "subtitle": dv_munic_dest_subtitle},
+                {"title": u"Brazilian Municipalities that export to {}".format(self.attr.get_name()), "iframe": dv_munic_origin_iframe, "subtitle": dv_munic_origin_subtitle},
             ]
         }
         sections.append(dv_section)
