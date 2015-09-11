@@ -19,7 +19,10 @@ class ProdAttr(db.Model, AutoSerialize):
 
     def get_attr_name(self, lang=None):
         lang = lang or getattr(g, "locale", "en")
-        return self.name.filter_by(lang=lang).first().name
+        attr_name = self.name.filter_by(lang=lang).first()
+        if attr_name:
+            return attr_name.name
+        return u""
 
     def get_name(self, lang=None, article=None, verb=None):
         lang = lang or getattr(g, "locale", "en")
@@ -114,7 +117,7 @@ class ProdAttr(db.Model, AutoSerialize):
     def get_profile_link(self):
         url = self.get_profile_url()
         name = self.get_name()
-        return '<a href="{}">{}</a>'.format(url, name)
+        return u'<a href="{}">{}</a>'.format(url, name)
 
     def serialize(self, lang="en"):
         auto_serialized = super(ProdAttr, self).serialize()

@@ -31,134 +31,134 @@ all_viz = [
 build_metadata = { \
     0: {
         "export": {
-            "title": "Products exported by {origin}",
-            "question": "What does {origin} export?",
+            "title": u"Products exported by {origin}",
+            "question": u"What does {origin} export?",
             "short_name": "Exports",
             "category": "Country",
         },
         "import": {
-            "title":"Products imported by {origin}",
-            "question": "What does {origin} import?",
+            "title": u"Products imported by {origin}",
+            "question": u"What does {origin} import?",
             "short_name": "Imports",
             "category": "Country"
         }
     },
     1: {
         "export": {
-            "title": "Import origins of {origin}",
-            "question": "Where does {origin} export to?",
+            "title": u"Import origins of {origin}",
+            "question": u"Where does {origin} export to?",
             "short_name": "Export Destinations",
             "category": "Country"
         },
         "import": {
-            "title": "Export destinations of {origin}",
-            "question": "Where does {origin} import from?",
+            "title": u"Export destinations of {origin}",
+            "question": u"Where does {origin} import from?",
             "short_name": "Import Origins",
             "category": "Country"
         }
     },
     2: {
         "export": {
-            "title": "Countries that export {prod}",
-            "question": "Which countries export {prod}?",
+            "title": u"Countries that export {prod}",
+            "question": u"Which countries export {prod}?",
             "short_name": "Exporters",
             "category": "Product"
         },
         "import": {
-            "title": "Countries that import {prod}",
-            "question": "Which countries import {prod}?",
+            "title": u"Countries that import {prod}",
+            "question": u"Which countries import {prod}?",
             "short_name": "Importers",
             "category": "Product"
         }
     },
     3: {
         "export": {
-            "title": "Products that {origin} exports to {dest}",
-            "question": "What does {origin} export to {dest}?",
+            "title": u"Products that {origin} exports to {dest}",
+            "question": u"What does {origin} export to {dest}?",
             "short_name": "Exports to Destination",
             "category": "Bilateral"
         },
         "import": {
-            "title": "Products that {origin} imports from {dest}",
-            "question": "What does {origin} import from {dest}?",
+            "title": u"Products that {origin} imports from {dest}",
+            "question": u"What does {origin} import from {dest}?",
             "short_name": "Imports from Origin",
             "category": "Bilateral"
         }
     },
     4: {
         "export": {
-            "title": "Export destinations of {prod} from {origin}",
-            "question": "Where does {origin} export {prod} to?",
+            "title": u"Export destinations of {prod} from {origin}",
+            "question": u"Where does {origin} export {prod} to?",
             "short_name": "Exports by Product",
             "category": "Bilateral"
         },
         "import": {
-            "title": "Import origins of {prod} to {origin}",
-            "question": "Where does {origin} import {prod} from?",
+            "title": u"Import origins of {prod} to {origin}",
+            "question": u"Where does {origin} import {prod} from?",
             "short_name": "Imports by Product",
             "category": "Bilateral"
         }
     },
     5: {
         "export": {
-            "title": "Product Space of {origin}",
-            "question": "What does {origin} export?",
+            "title": u"Product Space of {origin}",
+            "question": u"What does {origin} export?",
             "short_name": "Product Space",
             "category": "Country"
         }
     },
     6: {
         "export": {
-            "title": "Connections of {prod} in {origin}",
-            "question": "Where does {origin} export {prod} to?",
+            "title": u"Connections of {prod} in {origin}",
+            "question": u"Where does {origin} export {prod} to?",
             "short_name": "Product Connections",
             "category": "Country"
         }
     },
     7: {
         "gdp": {
-            "title": "Complexity compared to GDP",
-            "question": "How does complexity compare to GDP?",
+            "title": u"Complexity compared to GDP",
+            "question": u"How does complexity compare to GDP?",
             "short_name": "vs GDP",
             "category": "Economic Complexity"
         },
         "gdp_pc_constant": {
-            "title": "Complexity compared to GDP per capita (constant 2005 US$)",
-            "question": "How does complexity compare to GDP per capita?",
+            "title": u"Complexity compared to GDP per capita (constant 2005 US$)",
+            "question": u"How does complexity compare to GDP per capita?",
             "short_name": "vs GDPpc (constant '05 US$)",
             "category": "Economic Complexity"
         },
         "gdp_pc_current": {
-            "title": "Complexity compared to GDP per capita (current US$)",
-            "question": "How does complexity compare to GDP per capita?",
+            "title": u"Complexity compared to GDP per capita (current US$)",
+            "question": u"How does complexity compare to GDP per capita?",
             "short_name": "vs GDPpc (current US$)",
             "category": "Economic Complexity"
         },
         "gdp_pc_constant_ppp": {
-            "title": "Complexity compared to GDP per capita, PPP (constant 2011 international $)",
-            "question": "How does complexity compare to GDP per capita?",
+            "title": u"Complexity compared to GDP per capita, PPP (constant 2011 international $)",
+            "question": u"How does complexity compare to GDP per capita?",
             "short_name": "vs GDPpc PPP (constant '11)",
             "category": "Economic Complexity"
         },
         "gdp_pc_current_ppp": {
-            "title": "Complexity compared to GDP per capita, PPP (constant 2011 international $)",
-            "question": "How does complexity compare to GDP per capita?",
+            "title": u"Complexity compared to GDP per capita, PPP (constant 2011 international $)",
+            "question": u"How does complexity compare to GDP per capita?",
             "short_name": "vs GDPpc PPP (current)",
             "category": "Economic Complexity"
         }
     },
     8: {
         "show": {
-            "title": "Trade balance of {origin}",
-            "question": "What is the trade balance for {origin}?",
+            "title": u"Trade balance of {origin}",
+            "question": u"What is the trade balance for {origin}?",
             "short_name": "Trade Balance",
             "category": "Product"
         }
     },
     9: {
         "export": {
-            "title": "Connections of {prod}",
-            "question": "What products are {prod} connected to?",
+            "title": u"Connections of {prod}",
+            "question": u"What products are {prod} connected to?",
             "short_name": "Product Connections",
             "category": "Product"
         }
@@ -256,7 +256,7 @@ class Build(object):
 
     def facebook_url(self):
         link = "http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
-        return "http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
+        return u"http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
                 "display=popup&app_id={}&name={} ({})&link={}&" \
                 "redirect_uri=http://atlas.media.mit.edu/close/&" \
                 "picture=http://atlas.media.mit.edu/static/img/touchicon.png" \
@@ -264,11 +264,11 @@ class Build(object):
     def twitter_url(self):
         link = "http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
         lang_txt = "&lang={}".format(g.locale) if g.locale != "en" else ""
-        return "https://twitter.com/share?url={}{}&text={} ({})&hashtags=oec" \
+        return u"https://twitter.com/share?url={}{}&text={} ({})&hashtags=oec" \
                 .format(link, lang_txt, self.title(), self.year_str)
     def google_url(self):
         link = "http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
-        return "https://plus.google.com/share?url={}&hl={}" \
+        return u"https://plus.google.com/share?url={}&hl={}" \
                 .format(link, g.locale)
 
     def title(self):
@@ -287,7 +287,7 @@ class Build(object):
             years = self.year[0]
         else:
             years = "{}-{}".format(self.year[0], self.year[-1])
-        return "{} ({})".format(title, years)
+        return u"{} ({})".format(title, years)
 
     def question(self):
         question = build_metadata[self.id][self.trade_flow]["question"]
@@ -305,7 +305,7 @@ class Build(object):
             years = self.year[0]
         else:
             years = "{}-{}".format(self.year[0], self.year[-1])
-        return "{} ({})".format(question, years)
+        return u"{} ({})".format(question, years)
 
     def short_name(self):
         return build_metadata[self.id][self.trade_flow]["short_name"]

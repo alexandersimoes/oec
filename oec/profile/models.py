@@ -230,7 +230,7 @@ class Country(Profile):
             net_trade = this_yo.export_val - this_yo.import_val
             trade_balance = "positive" if net_trade >= 0 else "negative"
             trade_direction = "exports" if net_trade >= 0 else "imports"
-            tb_subtitle = "As of {} {} had a {} trade balance of ${} in net {}." \
+            tb_subtitle = u"As of {} {} had a {} trade balance of ${} in net {}." \
                             .format(self.year, self.attr.get_name(), trade_balance, num_format(abs(net_trade)), trade_direction)
             old_yo = self.models.Yo.query.filter_by(year = available_years["hs92"][0], country = self.attr).first()
             old_net_trade = old_yo.export_val - old_yo.import_val
@@ -238,7 +238,7 @@ class Country(Profile):
             old_trade_direction = "exports" if old_net_trade >= 0 else "imports"
             is_diff = True if old_trade_balance != trade_balance else False
             still_or_not = "still" if old_trade_balance == trade_balance else ""
-            tb_subtitle += " As compared to their trade balance in {} when they {} had a {} trade balance of ${} in net {}." \
+            tb_subtitle += u" As compared to their trade balance in {} when they {} had a {} trade balance of ${} in net {}." \
                             .format(available_years["hs92"][0], still_or_not, old_trade_balance, num_format(abs(old_net_trade)), old_trade_direction)
 
         trade_section = {
@@ -301,7 +301,7 @@ class Country(Profile):
             <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
             """.format(self.attr.get_name(), self.attr.id)
         dv_section = {
-            "title": "More on {} from our sister sites".format(self.attr.get_name()),
+            "title": u"More on {} from our sister sites".format(self.attr.get_name()),
             "source": "dataviva",
             "builds": [
                 {"title": u"Brazilian Municipalities that import from {}".format(self.attr.get_name()), "iframe": dv_munic_dest_iframe, "subtitle": dv_munic_dest_subtitle},
@@ -502,7 +502,7 @@ class Product(Profile):
                 <a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
                 """.format(dv_hs.get_name(), self.attr.id)
             dv_section = {
-                "title": "More on {} from our sister sites".format(self.attr.get_name()),
+                "title": u"More on {} from our sister sites".format(self.attr.get_name()),
                 "source": "dataviva",
                 "builds": [
                     {"title": u"{} exporters in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_exporters_iframe, "subtitle": dv_munic_exporters_subtitle},

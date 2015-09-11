@@ -8,65 +8,87 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-09 13:16-0400\n"
+"POT-Creation-Date: 2015-09-11 09:37-0400\n"
 "PO-Revision-Date: 2015-09-09 17:15-0400\n"
+"Last-Translator: \n"
 "Language-Team: zh_Hans_CN <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
-"Last-Translator: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 1.8.4\n"
 
-#: oec/utils.py:219
+#: oec/utils.py:220
+msgid "Trillion"
+msgid_plural "Trillions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: oec/utils.py:221
+msgid "Billion"
+msgid_plural "Billions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: oec/utils.py:222
+msgid "Million"
+msgid_plural "Millions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: oec/utils.py:223
+msgid "Thousand"
+msgid_plural "Thousands"
+msgstr[0] ""
+msgstr[1] ""
+
+#: oec/utils.py:235
 msgctxt "0"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:220
+#: oec/utils.py:236
 msgctxt "1"
 msgid "st"
 msgstr ""
 
-#: oec/utils.py:221
+#: oec/utils.py:237
 #, fuzzy
 msgctxt "2"
 msgid "nd"
 msgstr "和"
 
-#: oec/utils.py:222
+#: oec/utils.py:238
 msgctxt "3"
 msgid "rd"
 msgstr ""
 
-#: oec/utils.py:223
+#: oec/utils.py:239
 msgctxt "4"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:224
+#: oec/utils.py:240
 msgctxt "5"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:225
+#: oec/utils.py:241
 msgctxt "6"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:226
+#: oec/utils.py:242
 msgctxt "7"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:227
+#: oec/utils.py:243
 msgctxt "8"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:228
+#: oec/utils.py:244
 msgctxt "9"
 msgid "th"
 msgstr ""
@@ -96,8 +118,8 @@ msgstr "产地"
 msgid "Destination"
 msgstr "目的地"
 
-#: oec/explore/models_old.py:426 oec/html/includes/nav.html:8
-#: oec/rankings/views.py:94 oec/visualize/views.py:325
+#: oec/explore/models_old.py:426 oec/rankings/views.py:94
+#: oec/visualize/views.py:325
 msgid "Product"
 msgstr "产品"
 
@@ -157,7 +179,7 @@ msgstr "开始年份"
 msgid "End Year"
 msgstr "结束年份"
 
-#: oec/explore/models_old.py:489 oec/html/rankings/index.html:61
+#: oec/explore/models_old.py:489 oec/html/rankings/index.html:82
 #: oec/rankings/views.py:119 oec/visualize/views.py:384
 msgid "Year"
 msgstr "年"
@@ -167,19 +189,24 @@ msgid "The Observatory of Economic Complexity"
 msgstr "经济复杂性的天文台"
 
 #: oec/html/home.html:15
-msgid "We are the world's<br/>leading visualization engine<br/>for international trade data."
+msgid ""
+"We are the world's<br/>leading visualization engine<br/>for international"
+" trade data."
 msgstr "我们是全球领先的<br/>可视化引擎的<br/>国际贸易数据。"
 
 #: oec/html/home.html:17
 msgid "Learn More"
 msgstr "了解更多"
 
-#: oec/html/home.html:21 oec/html/templates/nav.html:62
-msgid "Search the Observatory"
-msgstr "搜索网站"
+#: oec/html/home.html:21 oec/html/templates/nav.html:64
+#, fuzzy
+msgid "Search"
+msgstr "年"
 
 #: oec/html/about/data.html:4
-msgid "HS, SITC, and Country classification with their corresponding IDs and values."
+msgid ""
+"HS, SITC, and Country classification with their corresponding IDs and "
+"values."
 msgstr "HS,SITC和国家分类及编号与价"
 
 #: oec/html/about/index.html:3 oec/html/includes/nav.html:38
@@ -187,7 +214,9 @@ msgid "About the Site"
 msgstr "关于网站"
 
 #: oec/html/about/index.html:5
-msgid "Photos and descriptions of the team members involved in the creation of The Observatory."
+msgid ""
+"Photos and descriptions of the team members involved in the creation of "
+"The Observatory."
 msgstr "参与建立观测的成员"
 
 #: oec/html/about/index.html:11
@@ -211,7 +240,9 @@ msgid "A Development blog of updates to the site."
 msgstr "更新说明的博客"
 
 #: oec/html/general/api.html:4
-msgid "Application programming interface (API) for querying the raw data used throughout The Observatory of Economic Complexity."
+msgid ""
+"Application programming interface (API) for querying the raw data used "
+"throughout The Observatory of Economic Complexity."
 msgstr "查询经济复杂性的原始观测数据的应用程序编程接口"
 
 #: oec/html/general/permissions.html:3 oec/html/general/permissions.html:10
@@ -227,26 +258,22 @@ msgstr "图书"
 msgid "Photo by"
 msgstr "照片作者"
 
-#: oec/html/includes/nav.html:4 oec/html/visualize/embed.html:30
-#: oec/rankings/views.py:87 oec/visualize/views.py:298
-msgid "Country"
+#: oec/html/includes/nav.html:4 oec/html/includes/nav.html:20
+msgid "Countries"
 msgstr "国家"
 
+#: oec/html/includes/nav.html:8 oec/html/includes/nav.html:23
+msgid "Products"
+msgstr "产品展示"
+
 #: oec/html/includes/nav.html:12
-msgid "Visualize"
-msgstr "想象"
+#, fuzzy
+msgid "Visualizations"
+msgstr "建立可视化"
 
 #: oec/html/includes/nav.html:16
 msgid "Rankings"
 msgstr "排行榜"
-
-#: oec/html/includes/nav.html:20
-msgid "Countries"
-msgstr "国家"
-
-#: oec/html/includes/nav.html:23
-msgid "Products"
-msgstr "产品展示"
 
 #: oec/html/includes/nav.html:30
 msgid "Publications"
@@ -268,37 +295,42 @@ msgstr "数据源"
 msgid "API"
 msgstr "API"
 
-#: oec/html/rankings/index.html:20
+#: oec/html/rankings/index.html:22
+#, fuzzy
+msgid "Prev. Year"
+msgstr "上一年度"
+
+#: oec/html/rankings/index.html:30
 msgid "Economic Complexity Rankings"
 msgstr "经济复杂性排名"
 
-#: oec/html/rankings/index.html:22
+#: oec/html/rankings/index.html:32
 msgid "Product Complexity Rankings"
 msgstr "产品复杂度排名"
 
-#: oec/html/rankings/index.html:34 oec/html/visualize/index.html:43
+#: oec/html/rankings/index.html:39 oec/html/rankings/index.html:61
+#: oec/html/visualize/index.html:48 oec/html/visualize/index_old.html:40
+msgid "Next Year"
+msgstr "下一年度"
+
+#: oec/html/rankings/index.html:55 oec/html/visualize/index.html:43
 #: oec/html/visualize/index_old.html:36
 msgid "Previous Year"
 msgstr "上一年度"
 
-#: oec/html/rankings/index.html:40 oec/html/visualize/index.html:48
-#: oec/html/visualize/index_old.html:40
-msgid "Next Year"
-msgstr "下一年度"
-
-#: oec/html/rankings/index.html:49 oec/visualize/views.py:359
+#: oec/html/rankings/index.html:70 oec/visualize/views.py:359
 msgid "Dataset"
 msgstr "数据集"
 
-#: oec/html/rankings/index.html:71
+#: oec/html/rankings/index.html:92
 msgid "Depth"
 msgstr "深浅"
 
-#: oec/html/rankings/index.html:81
+#: oec/html/rankings/index.html:102
 msgid "Download Current Year"
 msgstr "下载本年度的数据"
 
-#: oec/html/rankings/index.html:86
+#: oec/html/rankings/index.html:107
 msgid "Download All Years"
 msgstr "下载所有年度数据"
 
@@ -327,6 +359,11 @@ msgstr "百分之"
 #: oec/html/visualize/embed.html:28
 msgid "Continent"
 msgstr "大陆"
+
+#: oec/html/visualize/embed.html:30 oec/rankings/views.py:87
+#: oec/visualize/views.py:298
+msgid "Country"
+msgstr "国家"
 
 #: oec/html/visualize/embed.html:33 oec/html/visualize/embed.html:54
 msgid "Category"
@@ -380,7 +417,7 @@ msgstr "查看文本"
 msgid "Fullscreen"
 msgstr "全屏"
 
-#: oec/html/visualize/embed.html:114 oec/html/visualize/index.html:142
+#: oec/html/visualize/embed.html:114 oec/html/visualize/index.html:122
 msgid "Build Visualization"
 msgstr "建立可视化"
 
@@ -464,7 +501,7 @@ msgstr "和"
 msgid "Economic Complexity"
 msgstr "经济复杂"
 
-#: oec/profile/models.py:64 oec/profile/models.py:333
+#: oec/profile/models.py:64 oec/profile/models.py:341
 msgid "Exports"
 msgstr "出口"
 
@@ -476,15 +513,15 @@ msgstr "进口"
 msgid "Population"
 msgstr "人口"
 
-#: oec/profile/models.py:333
+#: oec/profile/models.py:341
 msgid "Product Complexity"
 msgstr "产品复杂性"
 
-#: oec/profile/models.py:333
+#: oec/profile/models.py:341
 msgid "Top Exporter"
 msgstr "出口额最大的"
 
-#: oec/profile/models.py:333
+#: oec/profile/models.py:341
 msgid "Top Importer"
 msgstr "净进热门进口商"
 
@@ -504,7 +541,14 @@ msgstr "净进口值"
 msgid "Partner"
 msgstr "伴侣"
 
-#: oec/visualize/views.py:437
+#: oec/visualize/views.py:445
 #, python-format
 msgid "Profile for %(attr)s"
 msgstr "天寒%(attr)s"
+
+#~ msgid "Search the Observatory"
+#~ msgstr "搜索网站"
+
+#~ msgid "Visualize"
+#~ msgstr "想象"
+

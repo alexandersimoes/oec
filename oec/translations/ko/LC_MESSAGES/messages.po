@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-09 13:16-0400\n"
+"POT-Creation-Date: 2015-09-11 09:37-0400\n"
 "PO-Revision-Date: 2013-12-27 15:28-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ko <LL@li.org>\n"
@@ -18,53 +18,73 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: oec/utils.py:219
+#: oec/utils.py:220
+msgid "Trillion"
+msgid_plural "Trillions"
+msgstr[0] ""
+
+#: oec/utils.py:221
+msgid "Billion"
+msgid_plural "Billions"
+msgstr[0] ""
+
+#: oec/utils.py:222
+msgid "Million"
+msgid_plural "Millions"
+msgstr[0] ""
+
+#: oec/utils.py:223
+msgid "Thousand"
+msgid_plural "Thousands"
+msgstr[0] ""
+
+#: oec/utils.py:235
 msgctxt "0"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:220
+#: oec/utils.py:236
 msgctxt "1"
 msgid "st"
 msgstr ""
 
-#: oec/utils.py:221
+#: oec/utils.py:237
 #, fuzzy
 msgctxt "2"
 msgid "nd"
 msgstr "과"
 
-#: oec/utils.py:222
+#: oec/utils.py:238
 msgctxt "3"
 msgid "rd"
 msgstr ""
 
-#: oec/utils.py:223
+#: oec/utils.py:239
 msgctxt "4"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:224
+#: oec/utils.py:240
 msgctxt "5"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:225
+#: oec/utils.py:241
 msgctxt "6"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:226
+#: oec/utils.py:242
 msgctxt "7"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:227
+#: oec/utils.py:243
 msgctxt "8"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:228
+#: oec/utils.py:244
 msgctxt "9"
 msgid "th"
 msgstr ""
@@ -94,8 +114,8 @@ msgstr "원산지"
 msgid "Destination"
 msgstr "목적지"
 
-#: oec/explore/models_old.py:426 oec/html/includes/nav.html:8
-#: oec/rankings/views.py:94 oec/visualize/views.py:325
+#: oec/explore/models_old.py:426 oec/rankings/views.py:94
+#: oec/visualize/views.py:325
 msgid "Product"
 msgstr "제품"
 
@@ -155,7 +175,7 @@ msgstr "시작년도"
 msgid "End Year"
 msgstr "종료연도"
 
-#: oec/explore/models_old.py:489 oec/html/rankings/index.html:61
+#: oec/explore/models_old.py:489 oec/html/rankings/index.html:82
 #: oec/rankings/views.py:119 oec/visualize/views.py:384
 msgid "Year"
 msgstr "연표"
@@ -174,9 +194,10 @@ msgstr ""
 msgid "Learn More"
 msgstr ""
 
-#: oec/html/home.html:21 oec/html/templates/nav.html:62
-msgid "Search the Observatory"
-msgstr ""
+#: oec/html/home.html:21 oec/html/templates/nav.html:64
+#, fuzzy
+msgid "Search"
+msgstr "연표"
 
 #: oec/html/about/data.html:4
 msgid ""
@@ -234,28 +255,24 @@ msgstr ""
 msgid "Photo by"
 msgstr ""
 
-#: oec/html/includes/nav.html:4 oec/html/visualize/embed.html:30
-#: oec/rankings/views.py:87 oec/visualize/views.py:298
-msgid "Country"
-msgstr "국가"
-
-#: oec/html/includes/nav.html:12
-msgid "Visualize"
-msgstr ""
-
-#: oec/html/includes/nav.html:16
-msgid "Rankings"
-msgstr "순위"
-
-#: oec/html/includes/nav.html:20
+#: oec/html/includes/nav.html:4 oec/html/includes/nav.html:20
 #, fuzzy
 msgid "Countries"
 msgstr "국가"
 
-#: oec/html/includes/nav.html:23
+#: oec/html/includes/nav.html:8 oec/html/includes/nav.html:23
 #, fuzzy
 msgid "Products"
 msgstr "제품"
+
+#: oec/html/includes/nav.html:12
+#, fuzzy
+msgid "Visualizations"
+msgstr "시각화를 구축"
+
+#: oec/html/includes/nav.html:16
+msgid "Rankings"
+msgstr "순위"
 
 #: oec/html/includes/nav.html:30
 #, fuzzy
@@ -278,39 +295,44 @@ msgstr ""
 msgid "API"
 msgstr ""
 
-#: oec/html/rankings/index.html:20
+#: oec/html/rankings/index.html:22
+#, fuzzy
+msgid "Prev. Year"
+msgstr "이전 연도"
+
+#: oec/html/rankings/index.html:30
 msgid "Economic Complexity Rankings"
 msgstr ""
 
-#: oec/html/rankings/index.html:22
+#: oec/html/rankings/index.html:32
 #, fuzzy
 msgid "Product Complexity Rankings"
 msgstr "HS 제품 순위"
 
-#: oec/html/rankings/index.html:34 oec/html/visualize/index.html:43
+#: oec/html/rankings/index.html:39 oec/html/rankings/index.html:61
+#: oec/html/visualize/index.html:48 oec/html/visualize/index_old.html:40
+msgid "Next Year"
+msgstr "내년"
+
+#: oec/html/rankings/index.html:55 oec/html/visualize/index.html:43
 #: oec/html/visualize/index_old.html:36
 msgid "Previous Year"
 msgstr "이전 연도"
 
-#: oec/html/rankings/index.html:40 oec/html/visualize/index.html:48
-#: oec/html/visualize/index_old.html:40
-msgid "Next Year"
-msgstr "내년"
-
-#: oec/html/rankings/index.html:49 oec/visualize/views.py:359
+#: oec/html/rankings/index.html:70 oec/visualize/views.py:359
 msgid "Dataset"
 msgstr ""
 
-#: oec/html/rankings/index.html:71
+#: oec/html/rankings/index.html:92
 msgid "Depth"
 msgstr ""
 
-#: oec/html/rankings/index.html:81
+#: oec/html/rankings/index.html:102
 #, fuzzy
 msgid "Download Current Year"
 msgstr "현재 년"
 
-#: oec/html/rankings/index.html:86
+#: oec/html/rankings/index.html:107
 msgid "Download All Years"
 msgstr ""
 
@@ -339,6 +361,11 @@ msgstr "퍼센트"
 #: oec/html/visualize/embed.html:28
 msgid "Continent"
 msgstr "대륙"
+
+#: oec/html/visualize/embed.html:30 oec/rankings/views.py:87
+#: oec/visualize/views.py:298
+msgid "Country"
+msgstr "국가"
 
 #: oec/html/visualize/embed.html:33 oec/html/visualize/embed.html:54
 msgid "Category"
@@ -392,7 +419,7 @@ msgstr "텍스트로보기"
 msgid "Fullscreen"
 msgstr "전체화면으로 보기"
 
-#: oec/html/visualize/embed.html:114 oec/html/visualize/index.html:142
+#: oec/html/visualize/embed.html:114 oec/html/visualize/index.html:122
 msgid "Build Visualization"
 msgstr "시각화를 구축"
 
@@ -476,7 +503,7 @@ msgstr "과"
 msgid "Economic Complexity"
 msgstr ""
 
-#: oec/profile/models.py:64 oec/profile/models.py:333
+#: oec/profile/models.py:64 oec/profile/models.py:341
 #, fuzzy
 msgid "Exports"
 msgstr "수출"
@@ -490,16 +517,16 @@ msgstr "수입"
 msgid "Population"
 msgstr ""
 
-#: oec/profile/models.py:333
+#: oec/profile/models.py:341
 #, fuzzy
 msgid "Product Complexity"
 msgstr "제품명"
 
-#: oec/profile/models.py:333
+#: oec/profile/models.py:341
 msgid "Top Exporter"
 msgstr ""
 
-#: oec/profile/models.py:333
+#: oec/profile/models.py:341
 #, fuzzy
 msgid "Top Importer"
 msgstr "순 수입"
@@ -522,7 +549,7 @@ msgstr "가져 오기 값"
 msgid "Partner"
 msgstr ""
 
-#: oec/visualize/views.py:437
+#: oec/visualize/views.py:445
 #, python-format
 msgid "Profile for %(attr)s"
 msgstr ""
@@ -561,56 +588,13 @@ msgstr ""
 #~ msgstr "의 국기 %(country)s"
 
 #~ msgid ""
-#~ "The Observatory of Economic Complexity "
-#~ "makes international trade data and "
-#~ "economic complexity indicators available "
-#~ "through millions of interactive "
-#~ "visualizations."
 #~ msgstr ""
-#~ "경제적 복잡성 관측소(The Observatory of Economic"
-#~ " Complexity)는 국제 무역 데이터와 경제적 복잡성에 "
-#~ "대한 지표를 수백만의 쌍방향 시각자료를 통해 정리 "
-#~ "및 보관하고 있습니다."
 
 #~ msgid "New!"
 #~ msgstr "새로운 기능!"
 
-#~ msgid ""
-#~ "Application programming interface (API) for"
-#~ " emedding an iframe of the "
-#~ "visualizations used througout The Observatory"
-#~ " of Economic Complexity on your own"
-#~ " website."
-#~ msgstr ""
-#~ "경제 복잡성 관측소를 통해 사용된 시각화 자료의 "
-#~ "iframe을 고객의 웹사이트에 삽입하기 위한 응용 프로그램"
-#~ " 프로그래밍 인터페이스 (API)."
-
-#~ msgid ""
-#~ "A book of complexity economics "
-#~ "attempting to explain why some countries"
-#~ " grow and others do not. The "
-#~ "book uses many of the visualizations "
-#~ "seen throughout this site."
-#~ msgstr ""
-#~ "왜 일부는 국가는 성장하고 다른 국가는 성장하지 "
-#~ "못하는지 설명하기 위한 복잡 경제 서적. 이 책은"
-#~ " 본 사이트를 통해 볼 수있는 시각화 자료를 "
-#~ "많이 사용하고 있습니다."
-
 #~ msgid "Full"
 #~ msgstr "완전한"
-
-#~ msgid ""
-#~ "%(country)s (%(country_abbrv)s) Profile of "
-#~ "Exports, Imports and Trade Partners"
-#~ msgstr "%(country)s (%(country_abbrv)s) 수출, 수입 및 무역 파트너의 프로필"
-
-#~ msgid ""
-#~ "List of major leading exports, imports"
-#~ " and complexity economic indicator "
-#~ "statistics of %(country)s."
-#~ msgstr "주요 주요 수출, 수입의 복잡성 경제 지표 통계 목록 %(country)s."
 
 #~ msgid "Economy of %(country)s."
 #~ msgstr "경제 %(country)s."
@@ -633,12 +617,6 @@ msgstr ""
 #~ msgid "Top 5"
 #~ msgstr "상위 5"
 
-#~ msgid ""
-#~ "%(country)s %(ranked)s %(rank_val)s with an"
-#~ " Economic Complexity Index (ECI) of "
-#~ "%(eci)s"
-#~ msgstr "%(country)s %(ranked)s %(rank_val)s 의 경제 복잡성 지수 (ECI)와 %(eci)s"
-
 #~ msgid "is ranked"
 #~ msgstr "위"
 
@@ -648,17 +626,6 @@ msgstr ""
 #~ msgid "Explore"
 #~ msgstr "탐구(알아보기)"
 
-#~ msgid ""
-#~ "%(prod)s (%(prod_abbrv)s) Profile of Export"
-#~ " Destinations and Import Origins"
-#~ msgstr "%(prod)s (%(prod_abbrv)s) 수출목적지와 수입원산지 프로필"
-
-#~ msgid ""
-#~ "List of major leading origin and "
-#~ "destination countries with economic indicator"
-#~ " statistics of %(prod)s."
-#~ msgstr "의 경제 지표 통계와 주요 선도 출발지와 목적지 국가의 목록 %(prod)s."
-
 #~ msgid "Principle trade partners that export %(prod)s."
 #~ msgstr "수출 %(prod)s 하는 원리 무역 파트너"
 
@@ -667,15 +634,6 @@ msgstr ""
 
 #~ msgid "Learn More About Trade of <strong>%(prod)s</strong>"
 #~ msgstr "무역에 대해 자세히 알아보기 <strong>%(prod)s</strong>"
-
-#~ msgid ""
-#~ "%(prod)s (%(classification)s: %(prod_abbrv)s) "
-#~ "%(ranked)s %(rank_val)s with a Product "
-#~ "Complexity Index (PCI) of %(pci)s"
-#~ msgstr ""
-#~ "%(prod)s (%(classification)s: %(prod_abbrv)s) "
-#~ "%(ranked)s %(rank_val)s 제품 복잡성 지수 "
-#~ "(PCI)의과 %(pci)s"
 
 #~ msgid "%(prod)s is the top export of"
 #~ msgstr "%(prod)s 의 최고 수출이다"
@@ -697,4 +655,10 @@ msgstr ""
 
 #~ msgid "About"
 #~ msgstr "자세한 정보"
+
+#~ msgid "Search the Observatory"
+#~ msgstr ""
+
+#~ msgid "Visualize"
+#~ msgstr ""
 

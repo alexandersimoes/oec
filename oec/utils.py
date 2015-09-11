@@ -3,7 +3,7 @@ from re import sub
 from jinja2 import Markup
 from babel.numbers import format_decimal
 from flask import abort, current_app, jsonify, request, g, get_flashed_messages, url_for
-from flask.ext.babel import gettext, pgettext
+from flask.ext.babel import gettext, pgettext, ngettext
 from datetime import datetime, date, timedelta
 from math import ceil
 from decimal import *
@@ -212,6 +212,22 @@ def affixes(key):
     else:
         return False
 
+def plurals(key=None, n=1):
+
+    plurals = {
+
+        # Number Formatting
+        "T": ngettext("Trillion", "Trillions", n),
+        "B": ngettext("Billion", "Billions", n),
+        "M": ngettext("Million", "Millions", n),
+        "k": ngettext("Thousand", "Thousands", n),
+
+    }
+
+    if key:
+        return unicode(plurals[key]) if key in plurals else None
+    return plurals
+
 def num_format(number, key = None, labels = True):
 
     if key == "ordinal":
@@ -262,7 +278,8 @@ def num_format(number, key = None, labels = True):
     # If the language is not English, translate the suffix.
     if suffix:
         if g.locale != "en":
-            suffix = u" {0}".format(plurals(key=suffix, n=n))
+            # suffix = u" {0}".format(plurals(key=suffix, n=n))
+            suffix = u"{0}".format(suffix)
         n = u"{0}{1}".format(n,suffix)
 
     if key and labels:
