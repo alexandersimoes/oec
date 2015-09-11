@@ -13,6 +13,16 @@ body.rankings {
       padding: 30px 0 10px;
       margin: 0 30px !important;
 
+      @media all and (min-width: 1100px) {
+        max-width: 1058px;
+        margin: 0 auto !important;
+      }
+
+      @media all and (max-width: 550px) {
+        padding: 30px 0;
+        margin: 0 15px !important;
+      }
+
       @media all and (max-width: 768px) {
         @include flex-direction(row);
       }
@@ -23,35 +33,40 @@ body.rankings {
         margin: 0;
 
         a {
-          color: $pri-w-highlight;
+          color: $brightlinkcolor;
 
           i {
-            margin-top: 5px;
+            margin-top: 3px;
+          }
+          
+          h2 {
+            font-family: $montserrat;
+            font-size: 26px;
+            opacity: 0.6;
+            &:hover {
+              opacity: 1;
+            }
+
+            @media all and (min-width: 769px) and (max-width: 955px) {
+              font-size: 23px;
+            }
+
+            @media all and (max-width: 768px) {
+              font-size: 17px;
+            }
           }
         }
 
         &:last-child {
           text-align: right;
         }
-
-        @media all and (max-width: 768px) {
-          a h2 {
-            font-size: 26px;
-          }
-        }
-
-        @media all and (max-width: 768px) {
-          a h2 {
-            font-size: 16px;
-            font-weight: 400;
-          }
-        }
+        
       }
 
       content {
         text-align: center;
 
-        @media all and (max-width: 768px) {
+        @media all and (min-width: 769px) and (max-width: 955px) {
           h1 {
             font-size: 30px;
           }
@@ -80,10 +95,79 @@ body.rankings {
       }
     
       #changers {
+
+        $font-size: 16px;
+
         margin-top: 0;
 
         h3 {
-          margin: 0 0 5px;
+          font-size: $font-size;
+          margin: 13px 0 3px;
+        }
+
+        .d3plus_node {
+          height: 25px;
+          width: auto;
+
+          .d3plus_button_label {
+            width: auto !important;
+            height: 25px !important;
+          }
+        }
+
+        .change_dataset {
+          margin-bottom: 15px;
+
+          .active {
+            color: #333 !important;
+            display: inline-block;
+            font-weight: bold;
+            margin-top: -1px;
+            &:hover {
+              border-color: #333 !important;
+            }
+          }
+        }
+        
+        .download {
+          border: 1px solid white;
+          color: white;
+          display: inline-block;
+          font-size: 12px;
+          font-weight: 200;
+          height: 15px;
+          margin: 15px 0 0;
+          padding: 5px;
+          width: $rank_sidebar - 12px;
+          top: $font-size + 3;
+          position: relative;
+
+          &:hover {
+            background-color: white;
+            color: $darkbackground;
+          }
+
+          i {
+            margin-right: 2px;
+            margin-top: 1px;
+          }
+
+          @media all and (max-width: 768px) {
+            width: auto;
+          }
+
+          @media all and (max-width: 550px) {
+            padding: 5px 2px;
+            margin-bottom: 15px;
+          }
+        }
+
+        &.pci-changer {
+          @media all and (max-width: 426px) {
+            .download {
+              margin-top: 0px;
+            }
+          }
         }
       }
 
@@ -157,49 +241,6 @@ body.rankings {
 
       }
 
-    }
-
-  }
-
-  .download {
-    border: 1px solid white;
-    color: white;
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 200;
-    margin: 15px 0 0;
-    padding: 6px;
-    width: $rank_sidebar - 12px;
-
-    @media all and (max-width: 768px) {
-      margin: 23px 0 0;
-      width: auto;
-    }
-
-    @media all and (max-width: 500px) {
-      padding: 5px 2px;
-    }
-
-    &:hover {
-      border-color: rgb(195, 195, 195);
-    }
-    i {
-      margin-right: 2px;
-      margin-top: 1px;
-    }
-  }
-
-  .change_dataset {
-    margin-bottom: 15px;
-
-    .active {
-      color: #333 !important;
-      display: inline-block;
-      font-weight: bold;
-      margin-top: -1px;
-      &:hover {
-        border-color: #333 !important;
-      }
     }
 
   }

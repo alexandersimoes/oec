@@ -63,7 +63,7 @@
     </a>
     {% endif %} -->
 
-    <div id="changers">
+    <div id="changers" class="{% if category == "country" %}eci-changer{% else %}pci-changer{% endif %}">
 
       {% if category != "country" %}
       <div class="dropdown_container">
