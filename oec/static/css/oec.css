@@ -61,10 +61,10 @@
                       -o-transition: border-bottom 0.1s;
                       transition: border-bottom 0.1s;
                       border-bottom: 1px solid transparent;
-                      color: #A1BAC6;
+                      color: #99BCD1;
                       text-decoration: none; }
                       p a:hover {
-                        border-bottom: 1px solid #A1BAC6; }
+                        border-bottom: 1px solid #99BCD1; }
 
   a {
     color: white;
@@ -416,8 +416,8 @@ body.home {
                 line-height: 1.4;
                 position: absolute;
                 text-align: center;
-                bottom: 7%;
-                right: 18%; }
+                bottom: 9%;
+                right: 22%; }
                 .bg-frame #ring #info a {
                   border-bottom: 1px solid transparent;
                   color: #6297cb;
@@ -993,9 +993,9 @@ body.profile {
         color: #333;
         text-align: left; }
         body.profile article.intro-article p a {
-          color: #5b87af; }
+          color: #5083b5; }
           body.profile article.intro-article p a:hover {
-            border-bottom: 1px solid #5b87af; }
+            border-bottom: 1px solid #5083b5; }
     body.profile article.titled-section, body.profile article.viz-article {
       background-color: #212831;
       color: white; }
@@ -1016,10 +1016,10 @@ body.profile {
       body.profile article.titled-section p, body.profile article.viz-article p {
         color: white; }
         body.profile article.titled-section p a, body.profile article.viz-article p a {
-          color: #A1BAC6; }
+          color: #99BCD1; }
           body.profile article.titled-section p a:hover,
           body.profile article.viz-article p a:hover {
-            border-bottom: 1px solid #A1BAC6; }
+            border-bottom: 1px solid #99BCD1; }
     body.profile article.dataviva {
       background: white url('/static/img/dataviva.png') repeat-x 0 0;
       color: #333; }
@@ -1634,7 +1634,7 @@ body.profile {
       body.profile ul.heirarchy li {
         padding: 3px 0; }
         body.profile ul.heirarchy li a {
-          color: #5b87af;
+          color: #5083b5;
           font-size: 16px;
           line-height: 1.3; }
           body.profile ul.heirarchy li a:hover {
@@ -1940,33 +1940,48 @@ body.rankings {
     align-items: baseline;
     padding: 30px 0 10px;
     margin: 0 30px !important; }
-    @media all and (max-width: 768px) {
+    @media all and (min-width: 1100px) {
       body.rankings #container #content .nav-section {
-        -webkit-flex-direction: row;
-        -moz-flex-direction: row;
-        flex-direction: row;   }
+        max-width: 1058px;
+        margin: 0 auto !important;   }
 }
-      body.rankings #container #content .nav-section aside {
-        width: auto !important;
-        margin: 0; }
-        body.rankings #container #content .nav-section aside a {
-          color: #a4b500; }
-          body.rankings #container #content .nav-section aside a i {
-            margin-top: 5px; }
-        body.rankings #container #content .nav-section aside:last-child {
-          text-align: right; }
-          @media all and (max-width: 768px) {
-            body.rankings #container #content .nav-section aside a h2 {
-              font-size: 26px;   }
+      @media all and (max-width: 550px) {
+        body.rankings #container #content .nav-section {
+          padding: 30px 0;
+          margin: 0 15px !important;   }
 }
         @media all and (max-width: 768px) {
-          body.rankings #container #content .nav-section aside a h2 {
-            font-size: 16px;
-            font-weight: 400;   }
+          body.rankings #container #content .nav-section {
+            -webkit-flex-direction: row;
+            -moz-flex-direction: row;
+            flex-direction: row;   }
 }
+          body.rankings #container #content .nav-section aside {
+            width: auto !important;
+            margin: 0; }
+            body.rankings #container #content .nav-section aside a {
+              color: #6297cb; }
+              body.rankings #container #content .nav-section aside a i {
+                margin-top: 3px; }
+                body.rankings #container #content .nav-section aside a h2 {
+                  font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+                  font-size: 26px;
+                  opacity: 0.6; }
+                  body.rankings #container #content .nav-section aside a h2:hover {
+                    opacity: 1; }
+                    @media all and (min-width: 769px) and (max-width: 955px) {
+                      body.rankings #container #content .nav-section aside a h2 {
+                        font-size: 23px;   }
+}
+                      @media all and (max-width: 768px) {
+                        body.rankings #container #content .nav-section aside a h2 {
+                          font-size: 17px;   }
+}
+            body.rankings #container #content .nav-section aside:last-child {
+              text-align: right; }
     body.rankings #container #content .nav-section content {
       text-align: center; }
-      @media all and (max-width: 768px) {
+      @media all and (min-width: 769px) and (max-width: 955px) {
         body.rankings #container #content .nav-section content h1 {
           font-size: 30px;   }
 }
@@ -1988,7 +2003,54 @@ body.rankings {
           body.rankings #container #explorer #changers {
             margin-top: 0; }
             body.rankings #container #explorer #changers h3 {
-              margin: 0 0 5px; }
+              font-size: 16px;
+              margin: 13px 0 3px; }
+              body.rankings #container #explorer #changers .d3plus_node {
+                height: 25px;
+                width: auto; }
+                body.rankings #container #explorer #changers .d3plus_node .d3plus_button_label {
+                  width: auto !important;
+                  height: 25px !important; }
+            body.rankings #container #explorer #changers .change_dataset {
+              margin-bottom: 15px; }
+              body.rankings #container #explorer #changers .change_dataset .active {
+                color: #333 !important;
+                display: inline-block;
+                font-weight: bold;
+                margin-top: -1px; }
+                body.rankings #container #explorer #changers .change_dataset .active:hover {
+                  border-color: #333 !important; }
+            body.rankings #container #explorer #changers .download {
+              border: 1px solid white;
+              color: white;
+              display: inline-block;
+              font-size: 12px;
+              font-weight: 200;
+              height: 15px;
+              margin: 15px 0 0;
+              padding: 5px;
+              width: 138px;
+              top: 19px;
+              position: relative; }
+              body.rankings #container #explorer #changers .download:hover {
+                background-color: white;
+                color: #212831; }
+                body.rankings #container #explorer #changers .download i {
+                  margin-right: 2px;
+                  margin-top: 1px; }
+                  @media all and (max-width: 768px) {
+                    body.rankings #container #explorer #changers .download {
+                      width: auto;   }
+}
+                    @media all and (max-width: 550px) {
+                      body.rankings #container #explorer #changers .download {
+                        padding: 5px 2px;
+                        margin-bottom: 15px;   }
+}
+            @media all and (max-width: 426px) {
+              body.rankings #container #explorer #changers.pci-changer .download {
+                margin-top: 0px;   }
+}
   body.rankings #container table {
     background-color: #272f38;
     color: #ccc;
@@ -2042,38 +2104,6 @@ body.rankings {
         body.rankings #container table .delta, body.rankings #container table .id {
           display: none;   }
 }
-  body.rankings .download {
-    border: 1px solid white;
-    color: white;
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 200;
-    margin: 15px 0 0;
-    padding: 6px;
-    width: 138px; }
-    @media all and (max-width: 768px) {
-      body.rankings .download {
-        margin: 23px 0 0;
-        width: auto;   }
-}
-      @media all and (max-width: 500px) {
-        body.rankings .download {
-          padding: 5px 2px;   }
-}
-        body.rankings .download:hover {
-          border-color: #c3c3c3; }
-          body.rankings .download i {
-            margin-right: 2px;
-            margin-top: 1px; }
-  body.rankings .change_dataset {
-    margin-bottom: 15px; }
-    body.rankings .change_dataset .active {
-      color: #333 !important;
-      display: inline-block;
-      font-weight: bold;
-      margin-top: -1px; }
-      body.rankings .change_dataset .active:hover {
-        border-color: #333 !important; }
 body.about, body.resources, body.permissions {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
@@ -2084,11 +2114,11 @@ body.about, body.resources, body.permissions {
     padding-top: 20px; }
     body.about #container #content a, body.resources #container #content a,
     body.permissions #container #content a {
-      color: #A1BAC6;
+      color: #99BCD1;
       text-decoration: none; }
       body.about #container #content a:hover, body.resources #container #content a:hover,
       body.permissions #container #content a:hover {
-        border-bottom: 1px solid #A1BAC6; }
+        border-bottom: 1px solid #99BCD1; }
   body.about h1, body.resources h1, body.permissions h1 {
     line-height: 1;
     margin-bottom: 20px; }
@@ -2370,9 +2400,9 @@ body.publications {
               body.publications article.atlas section content div:last-child ul li {
                 padding-left: 0 !important;
                 margin-left: 0 !important;
-                color: #5b87af; }
+                color: #5083b5; }
                 body.publications article.atlas section content div:last-child ul li a {
-                  color: #5b87af;
+                  color: #5083b5;
                   font-weight: 700; }
                   body.publications article.atlas section content div:last-child ul li a:hover {
                     opacity: 0.7; }
@@ -2424,9 +2454,9 @@ body.publications {
         body.publications article.papers p {
           color: #333; }
           body.publications article.papers p a {
-            color: #5b87af; }
+            color: #5083b5; }
             body.publications article.papers p a:hover {
-              border-bottom: 1px solid #5b87af; }
+              border-bottom: 1px solid #5083b5; }
 
 .book {
   width: 100%; }
