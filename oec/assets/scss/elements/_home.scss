@@ -47,6 +47,7 @@ $default_size: 600px;
   #ring {
     @include rounded(50%);
     background-color: $darkbackground;
+    //background: radial-gradient(#b6966c, #957065, #4e4f5d, $l2-darkbackground, $l-darkbackground, $darkbackground, black, $black);
     border: 1px solid #ffffff;
     height: 100%;
     overflow: hidden;
@@ -71,7 +72,7 @@ $default_size: 600px;
     }
 
     #big_logo {
-      left: 12%;
+      left: 13%;
       position: absolute;
       top: 23%;
       width: 38%;
@@ -98,11 +99,12 @@ $default_size: 600px;
       a {
         border-bottom: 1px solid transparent;
         color: $brightlinkcolor;
+        //color: #f9a17a;
         display: inline-block;
         font-family: $montserrat;
         font-size: 75%;
         margin: 2%;
-        opacity: 0.7;
+        opacity: 1;
         text-transform: uppercase;
 
         i {
@@ -121,29 +123,29 @@ $default_size: 600px;
 
     #search_home {
       // border-bottom: 1px solid #eee;
-      top: 45%;
-      color: #eee;
+      top: 44%;
       display: block;
       font-family: $source-sans;
       font-weight: 400;
-      left: 17%;
+      left: 18%;
+      color: #fff;
       opacity: 0.8;
       position: absolute;
       width: 25%;
 
       &:hover {
         cursor: pointer;
-        @include transition(color 1.5s, border-bottom 1.5s);
-        color: #fff;
-        // border-bottom: 1px solid #fff;
+        @include text-shadow(0 0 2px #eee);
+        @include transition(text-shadow 3s, opacity 3s);
         opacity: 1;
+        // border-bottom: 1px solid #fff;
       }
 
       img {
         margin-bottom: -5px;
         margin-left: -17%;
         margin-right: 0;
-        margin-top: 4px;
+        margin-top: 5px;
         padding: 0;
         position: relative;
         top: 0;
@@ -164,10 +166,6 @@ $default_size: 600px;
     @include transform(scale(2));
     opacity: 0;
   }
-  // 100% {
-  //   @include transform(scale(1));
-  //   opacity: 0.7;
-  // }
 }
 
 @include keyframes(spin-right) {
