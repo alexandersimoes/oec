@@ -106,6 +106,12 @@
   box-shadow: $style;
 }
 
+@mixin text-shadow($style: $shadow) {
+  -webkit-text-shadow: $style;
+  -moz-text-shadow: $style;
+  text-shadow: $style;
+}
+
 @mixin transform($style) {
   -webkit-transform: $style;
   -ms-transform: $style;
