@@ -243,7 +243,7 @@ class Country(Profile):
 
         trade_section = {
             "builds": [
-                {"title": u"Exports", "build": export_tmap, "subtitle": export_subtitle},
+                {"title": u"Exports", "build": export_tmap, "subtitle": export_subtitle, "tour":"This is just a test", "seq":5},
                 {"title": u"Imports", "build": import_tmap, "subtitle": import_subtitle},
                 {"title": u"Trade Balance", "build": tb_build, "subtitle": tb_subtitle},
                 {"title": u"Destinations", "build": dests_tmap, "subtitle": dest_subtitle},
@@ -281,7 +281,7 @@ class Country(Profile):
             "title": u"Economic Complexity of {}".format(self.attr.get_name()),
             "subtitle": subtitle,
             "builds": [
-                {"title": u"Product Space", "build": product_space, "subtitle": u"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure."},
+                {"title": u"Product Space", "build": product_space, "subtitle": u"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure.", "tour":"The product space...", "seq":6},
             ]
         }
         sections.append(ps_section)
@@ -304,7 +304,7 @@ class Country(Profile):
             "title": u"More on {} from our sister sites".format(self.attr.get_name()),
             "source": "dataviva",
             "builds": [
-                {"title": u"Brazilian Municipalities that import from {}".format(self.attr.get_name()), "iframe": dv_munic_dest_iframe, "subtitle": dv_munic_dest_subtitle},
+                {"title": u"Brazilian Municipalities that import from {}".format(self.attr.get_name()), "iframe": dv_munic_dest_iframe, "subtitle": dv_munic_dest_subtitle, "tour":"Profile pages also contain visualizations from other websites created by member of the OEC team. The following are 2 embeded visualization from DataViva, a similar visualization platorm centered around Brazilian data.", "seq":7},
                 {"title": u"Brazilian Municipalities that export to {}".format(self.attr.get_name()), "iframe": dv_munic_origin_iframe, "subtitle": dv_munic_origin_subtitle},
             ]
         }
@@ -319,7 +319,11 @@ class Country(Profile):
                 "title": "Pantheon",
                 "source": "pantheon",
                 "builds": [
-                    {"title": u"Cultural Production of {}".format(self.attr.get_name()), "iframe": pantheon_iframe, "subtitle": u"This treemap shows the cultural exports of {}, as proxied by the production of globally famous historical characters.<br />{}".format(self.attr.get_name(), pantheon_link)},
+                    {"title": u"Cultural Production of {}".format(self.attr.get_name()), 
+                    "iframe": pantheon_iframe, 
+                    "subtitle": u"This treemap shows the cultural exports of {}, as proxied by the production of globally famous historical characters.<br />{}".format(self.attr.get_name(), pantheon_link),
+                    "tour":"Pantheon...", "seq":8
+                    },
                 ]
             }
             sections.append(pantheon_section)

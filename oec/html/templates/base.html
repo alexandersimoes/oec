@@ -19,6 +19,7 @@
 
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/oec.css" />
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/libs/font-awesome-4.3.0/css/font-awesome.min.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/introjs.css" />
 
     <script src="/static/js/libs/caman.full.min.js"></script>
     <script src="/static/js/libs/modernizr.custom.js"></script>
@@ -27,6 +28,8 @@
     <script src="/static/js/libs/topojson.js"></script>
     <script src="/static/js/libs/localforage.js"></script>
     <script src="/static/js/libs/moment.min.js"></script>
+    <script src="/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/libs/intro.js"></script>
     <script>moment.lang("{{g.locale}}")</script>
 
     {% assets "js" %}
@@ -232,6 +235,13 @@
         d3.select("#mobileNav").classed("open", false);
         d3.select("body").classed("frozen", false);
       })
+      
+      console.log(d3.select(".tour a").node())
+      
+      d3.selectAll(".tour a").on(d3plus.client.pointer.click, function() {
+        window.location.href = '/?tour=true';
+        d3.event.preventDefault();
+      });
 
     </script>
 

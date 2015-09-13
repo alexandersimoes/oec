@@ -6,7 +6,7 @@
 {% block body %}
 
 <article class="{{ g.page_sub_type }}">
-<header class="profile_header {{ g.page_sub_type }}">
+<header class="profile_header {{ g.page_sub_type }}" data-step="3" data-intro="The country profiles have been completely redesigned showing a set of quick stats to give an overview of the relative size of the particular country's economy (In this case: {{ profile.attr.get_name() }}).">
   {% set image = profile.attr.get_image() %}
   {% if image %}
   <div class="header_image">
@@ -92,7 +92,7 @@
     <div id="topojson"></div>
 
     {% set stat = stats[0] %}
-    <div class="stat" id="eci">
+    <div class="stat" id="eci" data-step="4" data-intro=" Here we are showing the current Economic Complexity Index for {{ profile.attr.get_name() }} along with a trend line of its historic value. The complexity of an economy is related to the multiplicity of useful knowledge embedded in it. Because individuals are limited in what they know, the only way societies can expand their knowledge base is by facilitating the interaction of individuals in increasingly complex networks in order to make products. We can measure economic complexity by the mix of these products that countries are able to make.">
       <div class="stat_text">
         <h3>
           {% if stat.val %}
@@ -133,6 +133,7 @@
 <article class="viz-article">
   <script>var build_data = [];</script>
   {% set title = None %}
+  {% set tour_step = 5 %}
   {% for section in profile.sections() %}
   {% if section.title %}
   {% if title != section.title %}
@@ -142,7 +143,6 @@
 </article>
 
 <!-- <article{% if section.source %} class="{{ section.source }}"{% endif %}> -->
-
 <article class="titled-section{% if section.source %} {{ section.source }}{% endif %}">
   {% set title = section.title %}
   {% endif %}
@@ -157,7 +157,7 @@
   {% endif %}
   {% endif %}
   {% for build in section.builds %}
-  <section>
+  <section {% if build.tour %}data-position="floating" data-step="{{ build.seq }}" data-intro="{{ build.tour }}"{% endif %}>
     <aside>
       <h2>{{ build.title }}</h2>
       {% if build.subtitle %}
@@ -528,6 +528,21 @@
   //     };
   //   }, 25);
   // }, 7000);
+  
+  if (RegExp('tour', 'gi').test(window.location.search)) {
+    setTimeout(function(){
+      
+      var intro = introJs();
+      intro.setOptions({
+        doneLabel: 'Next page'
+      });
+      
+      intro.oncomplete(function() {
+        window.location.href = '/en/visualize/tree_map/hs92/export/ita/all/show/2013/?tour=true';
+      }).start();
+      
+    }, 2000)
+  }
 
 </script>
 {% endblock %}

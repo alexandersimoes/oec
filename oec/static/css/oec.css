@@ -376,7 +376,8 @@ body.home {
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
         border-radius: 50%;
-        background-color: #212831;
+        background: radial-gradient(#b6966c, #957065 14.28571%, #4e4f5d 28.57143%, #3f464f 42.85714%,
+                #272f38 57.14286%, #212831 71.42857%, black 85.71429%, #333);
         border: 1px solid #ffffff;
         height: 100%;
         overflow: hidden;
@@ -417,7 +418,7 @@ body.home {
                 right: 22%; }
                 .bg-frame #ring #info a {
                   border-bottom: 1px solid transparent;
-                  color: #6297cb;
+                  color: #f9a17a;
                   display: inline-block;
                   font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
                   font-size: 75%;
@@ -857,7 +858,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
         left: 0;
         position: absolute;
         top: 0;
@@ -1549,7 +1550,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
+      background: linear-gradient(to bottom, transparent, #212831);
       height: 150px;
       overflow: hidden;
       position: relative;

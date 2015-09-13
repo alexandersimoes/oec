@@ -22,7 +22,6 @@
     <meta property="og:url" content="http://atlas.media.mit.edu{{ request.path }}{% if g.locale != 'en' %}?lang={{ g.locale }}{% endif %}">
     <meta property="og:site_name" content="The Observatory of Economic Complexity"/>
     <meta property="og:type" content="website" />
-
 {% endblock %}
 
 {% block title %} - {{ current_build.title()|striptags }}{% endblock %}
@@ -125,7 +124,7 @@
 </aside>
 
 <!-- Container for the visualization -->
-<content>
+<content data-step="12" id="main_viz">
   <h1>{{ current_build.question()|safe }}</h1>
   <iframe class="viz" scrolling="no" frameborder="0"></iframe>
 </content>
@@ -347,6 +346,36 @@
   })
 
   resizeFunctions.push(resizeIframe);
+  
+  if (RegExp('tour', 'gi').test(window.location.search)) {
+    var intro = introJs();
+    intro.setOptions({
+      tooltipPosition: "auto",
+      steps: [
+        { 
+          intro: "The visualizations page contains 6 different types of charts or visualizations, here we see that the tree map type is selected.",
+          element: document.querySelector('div.app_button.open')
+        },
+        { 
+          intro: "Tree maps allow users to view different slices of data such as viewing the products that are exported by a specific country (as shown to the right). Experiment with the different selections here to view other slices of the data.",
+          element: document.querySelector('div.app_menu.open')
+        },
+        {
+          intro: "Within each slice of the data, options can be changed to see different combinations of views. In this example we can see that {{ current_build.origin.get_name() }} has been selected as the focus country but we could change that using the country dropdown menu. Once satisfied with your selections, click the build visualization button to update what is shown.",
+          element: document.querySelector("#changers")
+        },
+        {
+          intro: "Lastly, we see the visualization itself displaying the slice of data selected by the options on the left. We can interact with the visualization by hovering around and seeing contextual information in a tooltip or by clicking the visuzliation to reveal more info about the selection. There are also specific options for the visualization below.",
+          element: document.querySelector('content#main_viz')
+        },
+        {
+          intro: "This concludes the tour of the site. If at anytime you wish to repeat the tour click the 'Take a tour' button in the top navigation."
+        }
+      ],
+      scrollToElement: false
+    });
+    intro.start()
+  }
 
 </script>
 {% endblock %}

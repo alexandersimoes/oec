@@ -107,12 +107,9 @@ def page_not_found(e):
 # ---------------------------
 @mod.route('/')
 @mod.route('<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","mn","nl","ru","pt","tr","zh"):lang>/')
-def home(lang=None):
-    if lang is None:
-        return redirect(url_for('.home', lang=g.locale))
+def home(lang='en'):
     g.page_type = "home"
     g.locale = get_locale(lang)
-
     return render_template("home.html")
 
 @mod.route('iframe_test/')
