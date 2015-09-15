@@ -236,8 +236,6 @@
         d3.select("body").classed("frozen", false);
       })
       
-      console.log(d3.select(".tour a").node())
-      
       d3.selectAll(".tour a").on(d3plus.client.pointer.click, function() {
         window.location.href = '/?tour=true';
         d3.event.preventDefault();

@@ -35,6 +35,7 @@ def before_request():
 
     g.page_type = mod.name
     g.supported_langs = current_app.config.get('LANGUAGES')
+    g.supported_langs = sorted(g.supported_langs.iteritems(), key=lambda x: x[1])
     g.available_years = available_years
     g.cache_version = 5
     g.translations = json.dumps(get_translations())

@@ -92,7 +92,7 @@
     <div id="topojson"></div>
 
     {% set stat = stats[0] %}
-    <div class="stat" id="eci" data-step="4" data-intro=" Here we are showing the current Economic Complexity Index for {{ profile.attr.get_name() }} along with a trend line of its historic value. The complexity of an economy is related to the multiplicity of useful knowledge embedded in it. Because individuals are limited in what they know, the only way societies can expand their knowledge base is by facilitating the interaction of individuals in increasingly complex networks in order to make products. We can measure economic complexity by the mix of these products that countries are able to make.">
+    <div class="stat" id="eci" data-postition="right" data-step="4" data-intro=" Here we are showing the current Economic Complexity Index for {{ profile.attr.get_name() }} along with a trend line of its historic value. The complexity of an economy is related to the mix of products that countries are able to export.">
       <div class="stat_text">
         <h3>
           {% if stat.val %}

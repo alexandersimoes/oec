@@ -65,6 +65,7 @@ class Country(Profile):
             for s, s_title in all_stats:
                 if "val" in s:
                     yo_historic = db_data.sitc_models.Yo.query.filter_by(country=self.attr).filter(db_data.sitc_models.Yo.year >= start_year).all()
+                    # raise Exception([x.export_val for x in yo_historic])
                     yo_base_q = self.models.Yo.query.filter_by(year=self.year)
                     this_yo = yo_base_q.filter_by(country=self.attr).first()
                 else:

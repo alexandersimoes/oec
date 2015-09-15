@@ -42,7 +42,7 @@
 
     <div>
       <ul class="lang">
-        {% for lang_id, lang_name in g.supported_langs.iteritems() %}
+        {% for lang_id, lang_name in g.supported_langs %}
         <li><a href="{{ request.path|langify(lang_id) }}">{{ lang_name }}</a></li>
         {% endfor %}
       </ul>

@@ -90,7 +90,7 @@ def format_percent(value):
     return "{:.2g}%".format(value)
 
 def langify(path, lang):
-    possible_langs = g.supported_langs.keys()
+    possible_langs = [l[0] for l in g.supported_langs]
     url_parts = path.split("/")
     if url_parts[1] in possible_langs:
         url_parts[1] = lang

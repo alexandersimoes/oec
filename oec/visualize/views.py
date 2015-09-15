@@ -328,7 +328,7 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
         }
         ui.append(product)
 
-    if build.viz["slug"] == "compare":
+    if build.viz["slug"] == "scatter":
         trade_flow = {
             "id": "trade_flow",
             "name": gettext("Y Axis"),
