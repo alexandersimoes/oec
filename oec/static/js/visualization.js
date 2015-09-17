@@ -186,9 +186,6 @@ configs.default = function(build, container) {
     edges = d3plus.color.lighter(background, 0.2);
     grid = background;
     chart = d3plus.color.lighter(background, 0.1);
-    // grid = "#a9a9a9";
-    // chart = "#c3c3c3";
-
     ui_color = oec.ui.dark;
   }
 
@@ -332,7 +329,7 @@ configs.default = function(build, container) {
         }
       },
       "ticks": {
-        "color": grid
+        "color": text
       }
     },
     "y": {
@@ -345,7 +342,7 @@ configs.default = function(build, container) {
         }
       },
       "ticks": {
-        "color": grid
+        "color": text
       }
     }
   }
