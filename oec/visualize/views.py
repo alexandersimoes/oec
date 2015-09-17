@@ -428,7 +428,7 @@ def builds():
     build_args = {}
     build_args["classification"] = request.args.get('classification', 'hs92')
     build_args["origin_id"] = request.args.get('origin_id') or request.args.get('dest_id')
-    build_args["dest_id"] = None
+    build_args["dest_id"] = request.args.get('dest_id')
     build_args["prod_id"] = request.args.get('prod_id')
     build_args["year"] = request.args.get('year', available_years[build_args["classification"]][-1])
     build_args["defaults"] = {"origin":"nausa", "dest":"aschn", "prod":"010101"}
@@ -437,6 +437,8 @@ def builds():
 
     if focus == "origin_id":
         attr = Country.query.filter_by(id_3char=build_args["origin_id"]).first()
+    elif focus == "dest_id":
+        attr = Country.query.filter_by(id_3char=build_args["dest_id"]).first()
     elif focus == "prod_id":
         tbl = globals()[build_args["classification"].title()]
         c = build_args["classification"]
