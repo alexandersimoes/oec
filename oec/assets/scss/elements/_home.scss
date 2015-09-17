@@ -98,8 +98,8 @@ $default_size: 600px;
 
       a {
         border-bottom: 1px solid transparent;
-        color: $brightlinkcolor;
-        //color: #f9a17a;
+        // color: $brightlinkcolor;
+        color: #f9a17a;
         display: inline-block;
         font-family: $montserrat;
         font-size: 75%;
@@ -136,7 +136,7 @@ $default_size: 600px;
       &:hover {
         cursor: pointer;
         @include text-shadow(0 0 2px #eee);
-        @include transition(text-shadow 3s, opacity 3s);
+        @include transition(text-shadow 1.5s, opacity 3s);
         opacity: 1;
         // border-bottom: 1px solid #fff;
       }
