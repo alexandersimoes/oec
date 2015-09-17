@@ -26815,7 +26815,15 @@ module.exports = function(vars) {
 
         var order = vars[vars.legend.order.value].value;
 
-        arraySort(colors, order, vars.legend.order.sort.value, vars.color.value, vars, colorDepth);
+        var sort_color = vars.color.value;
+        if (!order) {
+          order = vars[vars.color.value].value;
+        }
+        else if (vars.legend.order.value !== "color") {
+          sort_color = [];
+        }
+
+        arraySort(colors, order, vars.legend.order.sort.value, sort_color, vars, colorDepth);
 
         if ( vars.dev.value ) print.timeEnd("sorting legend");
 
@@ -26921,42 +26929,52 @@ module.exports = function(vars) {
               }
               else {
 
-                var names;
-                if (vars.legend.text.value) {
-                  names = [fetchValue(vars, g, vars.legend.text.value, colorDepth)];
-                }
-                else {
-                  names = fetchText(vars, g, colorDepth);
-                }
+                if (vars.legend.labels.value) {
 
-                if (names.length === 1 && !(names[0] instanceof Array) && names[0].length) {
+                  var names;
+                  if (vars.legend.text.value) {
+                    names = [fetchValue(vars, g, vars.legend.text.value, colorDepth)];
+                  }
+                  else {
+                    names = fetchText(vars, g, colorDepth);
+                  }
 
-                  var text = d3.select(this.parentNode).append("text");
+                  if (names.length === 1 && !(names[0] instanceof Array) && names[0].length) {
 
-                  text
-                    .attr("font-size",vars.legend.font.size+"px")
-                    .attr("font-weight",vars.legend.font.weight)
-                    .attr("font-family",vars.legend.font.family.value)
-                    .attr("fill",textColor(color))
-                    .attr("x",0)
-                    .attr("y",0)
-                    .each(function(t){
+                    var text = d3.select(this.parentNode).append("text"),
+                        size = vars.legend.font.size;
 
-                      textWrap()
-                        .align("middle")
-                        .container( d3.select(this) )
-                        .height(square_size)
-                        .padding(vars.ui.padding)
-                        .resize( vars.labels.resize.value )
-                        .text( names[0] )
-                        .width(square_size)
-                        .valign("middle")
-                        .draw();
+                    if (!(size instanceof Array)) {
+                      size = [size]
+                    }
 
-                    })
+                    text
+                      .attr("font-size", size[size.length-1]+"px")
+                      .attr("font-weight", vars.legend.font.weight)
+                      .attr("font-family", vars.legend.font.family.value)
+                      .attr("fill", textColor(color))
+                      .attr("x", 0)
+                      .attr("y", 0)
+                      .each(function(t){
 
-                  if (text.select("tspan").empty()) {
-                    text.remove();
+                        textWrap()
+                          .align("middle")
+                          .container( d3.select(this) )
+                          .height(square_size)
+                          .padding(vars.ui.padding)
+                          .resize(size.length > 1)
+                          .size(size)
+                          .text( names[0] )
+                          .width(square_size)
+                          .valign("middle")
+                          .draw();
+
+                      })
+
+                    if (text.select("tspan").empty()) {
+                      text.remove();
+                    }
+
                   }
 
                 }
@@ -28435,6 +28453,10 @@ module.exports = {
     accepted: [Boolean],
     deprecates: ["mirror_axis", "mirror_axes"],
     value: false
+  },
+  ticks: {
+    accepted: [Boolean],
+    value: true
   }
 };
 
@@ -29442,13 +29464,17 @@ module.exports = {
     align: "middle",
     color: "#444444",
     family: family(),
-    size: 10,
+    size: [8, 14],
     weight: 200
   },
   gradient: {
     height: 10
   },
   icons: {
+    accepted: [Boolean],
+    value: true
+  },
+  labels: {
     accepted: [Boolean],
     value: true
   },
@@ -30640,7 +30666,7 @@ print = require("../../../../core/console/print.coffee");
 module.exports = function(vars) {
   var axes, axis, axisData, data, i, len, ref, style, tick, ticks, timing;
   axes = vars.axes;
-  data = axes.stacked ? [] : vars.data.viz;
+  data = axes.stacked || !axes.ticks.value ? [] : vars.data.viz;
   timing = data.length * 2 > vars.data.large ? 0 : vars.draw.timing;
   style = function(line, axis) {
     if (axis === "y") {
@@ -32851,7 +32877,7 @@ module.exports = viz;
 
 
 },{"../../core/fetch/value.coffee":68,"../../network/shortestPath.coffee":166,"../../util/uniques.coffee":209}],319:[function(require,module,exports){
-var comparator, dataThreshold, fetchValue, groupData, order, pie;
+var comparator, dataThreshold, fetchValue, groupData, pie;
 
 comparator = require("../../array/comparator.coffee");
 
@@ -32861,30 +32887,17 @@ fetchValue = require("../../core/fetch/value.coffee");
 
 groupData = require("../../core/data/group.coffee");
 
-order = {};
-
 pie = function(vars) {
   var d, groupedData, i, item, len, pieData, pieLayout, radius, returnData;
   pieLayout = d3.layout.pie().value(function(d) {
     return d.value;
   }).sort(function(a, b) {
-    var aID, bID;
     if (vars.order.value) {
       return comparator(a.d3plus, b.d3plus, [vars.order.value], vars.order.sort.value, [], vars);
+    } else if (vars.id.nesting.length > 1) {
+      return comparator(a.d3plus, b.d3plus, vars.id.nesting.concat([vars.size.value]), void 0, [], vars);
     } else {
-      aID = fetchValue(vars, a.d3plus, vars.id.value);
-      if (order[aID] === void 0) {
-        order[aID] = a.value;
-      }
-      bID = fetchValue(vars, b.d3plus, vars.id.value);
-      if (order[bID] === void 0) {
-        order[bID] = b.value;
-      }
-      if (order[bID] < order[aID]) {
-        return -1;
-      } else {
-        return 1;
-      }
+      return comparator(a.d3plus, b.d3plus, [vars.size.value], "desc", [], vars);
     }
   });
   groupedData = groupData(vars, vars.data.viz, []);
@@ -32899,6 +32912,7 @@ pie = function(vars) {
     item.d3plus.r = radius;
     item.d3plus.x = vars.width.viz / 2;
     item.d3plus.y = vars.height.viz / 2;
+    item.d3plus.share = (d.endAngle - d.startAngle) / (Math.PI * 2);
     returnData.push(item);
   }
   return returnData;

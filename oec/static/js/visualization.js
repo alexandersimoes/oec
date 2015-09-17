@@ -253,7 +253,8 @@ configs.default = function(build, container) {
         "stroke": {
           "color": grid
         }
-      }
+      },
+      "ticks": false
     },
     "background": background,
     "color": {
