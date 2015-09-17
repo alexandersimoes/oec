@@ -59,7 +59,6 @@
     section {
       @include flex;
       @include flex-direction(row);
-      margin-bottom: 30px;
 
       @media all and (max-width: 768px) {
         @include flex-direction(column);
