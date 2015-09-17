@@ -315,8 +315,10 @@ class Build(object):
 
     '''Returns the data URL for the specific build.'''
     def data_url(self, year=None, output_depth=None):
-        if self.viz["slug"] == "stacked" or self.viz["slug"] == "network" or self.viz["slug"] == "rings":
+        if self.viz["slug"] == "stacked" or self.viz["slug"] == "network":
             output_depth = 6
+        elif self.viz["slug"] == "rings":
+            output_depth = len(self.prod.id)
         output_depth = output_depth or 8
         year = year or self.year_str
         if not year:
