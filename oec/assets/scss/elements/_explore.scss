@@ -2,7 +2,9 @@ body.visualize {
   @include font-smoothing(antialiased);
 
   content {
-    margin: 0 20px 0 0 !important;
+    @media all and (min-width: 769px) {
+      margin: 0 20px 0 -15px !important;
+    }
 
     @media all and (max-width: 768px) {
       margin: 0 20px !important;
@@ -16,6 +18,10 @@ body.visualize {
 }
 
 #explorer {
+
+  @media all and (max-width: 768px) {
+    margin: 0 20px !important;
+  }
 
   #prev, #next {
     font-size: 12px;
@@ -64,8 +70,9 @@ body.visualize {
 
       &.open {
         background-color: $darkbackground;
-        border-color: white white transparent white;
+        border-color: rgba(255,255,255,0.4) rgba(255,255,255,0.4) rgba(255,255,255,0) rgba(255,255,255,0.4) ;
         opacity: 1;
+        border-style: solid;
       }
 
     }
@@ -73,7 +80,7 @@ body.visualize {
   }
 
   .app_menu {
-    border-color: white;
+    border-color: rgba(255,255,255,0.4);
     border-style: solid;
     border-width: 1px;
     display: none;
@@ -103,11 +110,10 @@ body.visualize {
 
       .build_title {
         @include flex-size(1);
+        cursor: default;
         display: inline-block;
-        font-family: $montserrat;
-        font-size: 12px;
+        font-size: 13px;
         opacity: 0.7;
-        text-transform: uppercase;
 
         &.active {
           font-weight: 700;
@@ -184,6 +190,10 @@ body.visualize {
 
     .ui {
       margin: 12px 0 0 0;
+    }
+
+    .ui#product .d3plus_node:not(.d3plus_button_active) {
+      color: #fff !important;
     }
 
     #build {

@@ -1,3 +1,13 @@
+nav {
+  ul.navLinks {
+    #country, #product, #explore, #publications, #api {
+      a {
+        padding: 25px 10px;
+      }
+    }
+  }
+}
+
 ul.navLinks {
   @include font-smoothing(antialiased);
   @include flex();
@@ -8,7 +18,7 @@ ul.navLinks {
     font-size: 12px;
     font-weight: 400;
     letter-spacing: 1px;
-    opacity: 0.7;
+    opacity: 0.7; 
     padding: 5px 10px;
     position: relative;
     text-transform: uppercase;
@@ -100,7 +110,7 @@ nav {
   top: 0;
   width: 100%;
   z-index: 20;
-  padding: 20px 0;
+  padding: 15px 0;
 
   .navLinks {
     @include flex-direction(row);
