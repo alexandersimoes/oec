@@ -1,6 +1,6 @@
 body.profile {
   background-color: $darkbackground;
-  
+
   h1 {
     line-height: 1;
     margin: 0 30px -15px;
@@ -61,7 +61,7 @@ body.profile {
 
       p {
         color: white;
-        
+
         a {
           color: $lightlinkcolor;
           &:hover {
@@ -105,6 +105,8 @@ body.profile {
 
       h1 {
         font-size: 65px;
+        margin: 0;
+        padding: 0;
 
         &:hover {
           cursor: pointer;
@@ -185,7 +187,7 @@ body.profile {
 
     &.country {
       #title, #stats {
-        margin-left: 300px;
+        margin-left: 310px;
 
         @media all and (max-width: 768px) {
           margin-left: 20px;
@@ -256,7 +258,7 @@ body.profile {
           @include justify(flex-start);
           text-align: left;
           h3 {
-            font-size: 24px !important;
+            font-size: 20px !important;
             margin: 0 10px 0 0 !important;
           }
 
@@ -554,7 +556,7 @@ body.profile {
     }
 
     section.subtitle-section {
-      
+
       @media all and (max-width: 768px) {
         aside {
           margin: 0 30px !important;

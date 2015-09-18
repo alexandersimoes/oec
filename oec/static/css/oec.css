@@ -285,7 +285,7 @@ ul.navLinks {
           display: none !important;   }
 }
     nav #search_button {
-      margin: 0 15px 0 20px; }
+      margin: 0 15px 0 34px; }
       nav #search_button img {
         -webkit-transition: opacity 0.1s, transform 0.5s;
         -moz-transition: opacity 0.1s, transform 0.5s;
@@ -1068,7 +1068,9 @@ body.profile {
             width: 80px;
             z-index: 10; }
             body.profile article .profile_header #title h1 {
-              font-size: 65px; }
+              font-size: 65px;
+              margin: 0;
+              padding: 0; }
               body.profile article .profile_header #title h1:hover {
                 cursor: pointer; }
                 body.profile article .profile_header #title h1 i {
@@ -1147,7 +1149,7 @@ body.profile {
 }
     body.profile article .profile_header.country #title,
     body.profile article .profile_header.country #stats {
-      margin-left: 300px; }
+      margin-left: 310px; }
       @media all and (max-width: 768px) {
         body.profile article .profile_header.country #title,
         body.profile article .profile_header.country #stats {
@@ -1231,7 +1233,7 @@ body.profile {
                   justify-content: flex-start;
                   text-align: left;   }
                   body.profile article .profile_header .stat .stat_text h3 {
-                    font-size: 24px !important;
+                    font-size: 20px !important;
                     margin: 0 10px 0 0 !important;   }
                     body.profile article .profile_header .stat .stat_text sub {
                       font-size: 12px !important;   }

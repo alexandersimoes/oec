@@ -449,7 +449,7 @@
     }
 
     var w = d3.select("content").node().offsetWidth,
-        h = window.innerHeight * 0.7;
+        h = window.innerWidth < 768 ? window.innerHeight : window.innerHeight * 0.7;
     builds.forEach(function(b, i){
       var height = b.data && b.data.viz.slug === "network" ? w * 0.7 : h;
       b.container.style("height", height + "px");
@@ -528,19 +528,19 @@
   //     };
   //   }, 25);
   // }, 7000);
-  
+
   if (RegExp('tour', 'gi').test(window.location.search)) {
     setTimeout(function(){
-      
+
       var intro = introJs();
       intro.setOptions({
         doneLabel: 'Next page'
       });
-      
+
       intro.oncomplete(function() {
         window.location.href = '/en/visualize/tree_map/hs92/export/ita/all/show/2013/?tour=true';
       }).start();
-      
+
     }, 2000)
   }
 
