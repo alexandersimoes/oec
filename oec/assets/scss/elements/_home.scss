@@ -13,11 +13,20 @@ body.home {
 
   }
 
+  #container {
+    margin-top: 0;
+  }
+
   footer {
     bottom: 0;
     left: 0;
     position: fixed;
     right: 0;
+
+    @media all and (max-width: 768px) {
+      position: static;
+    }
+
   }
 
 }
@@ -26,7 +35,7 @@ $default_size: 600px;
 
 .bg-frame {
   height: $default_size;
-  margin: 35px auto;
+  margin: 10px auto 20px;
   position: relative;
   width: $default_size;
 

@@ -2,8 +2,7 @@
   body {
     background-color: #212831;
     color: #fff;
-    font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    height: 100vh; }
+    font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif; }
     body.frozen {
       overflow: hidden; }
       body.error {
@@ -314,6 +313,7 @@ ul.navLinks {
   display: block;
   height: 100vh;
   left: -250px;
+  overflow-y: scroll;
   position: fixed;
   top: 0;
   width: 250px;
@@ -327,7 +327,7 @@ ul.navLinks {
         -webkit-flex-direction: column;
         -moz-flex-direction: column;
         flex-direction: column;
-        padding: 0 35px; }
+        padding: 0 35px 35px; }
         #mobileNav .navLinks li {
           margin: 5px 0; }
           #mobileNav .navLinks li .sub_menu {
@@ -349,15 +349,21 @@ body.home {
     position: static; }
     body.home nav #logo, body.home nav #search_button {
       visibility: hidden; }
-  body.home footer {
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    right: 0; }
+  body.home #container {
+    margin-top: 0; }
+    body.home footer {
+      bottom: 0;
+      left: 0;
+      position: fixed;
+      right: 0; }
+      @media all and (max-width: 768px) {
+        body.home footer {
+          position: static;   }
+}
 
 .bg-frame {
   height: 600px;
-  margin: 35px auto;
+  margin: 10px auto 20px;
   position: relative;
   width: 600px; }
   .bg-frame .ring-pulse {
@@ -861,7 +867,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
         left: 0;
         position: absolute;
         top: 0;
@@ -1509,7 +1515,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
+      background: linear-gradient(to bottom, transparent, #212831);
       height: 150px;
       margin-top: 6px;
       overflow: hidden;
