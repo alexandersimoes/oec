@@ -47,6 +47,7 @@ $default_size: 600px;
   #ring {
     @include rounded(50%);
     background-color: $darkbackground;
+    //background: radial-gradient(#957065, $darkbackground 65%);
     //background: radial-gradient(#b6966c, #957065, #4e4f5d, $l2-darkbackground, $l-darkbackground, $darkbackground, black, $black);
     border: 1px solid #ffffff;
     height: 100%;
@@ -93,8 +94,8 @@ $default_size: 600px;
       line-height: 1.4;
       position: absolute;
       text-align: center;
-      bottom: 9%;
-      right: 22%;
+      bottom: 13%;
+      right: 18%;
 
       a {
         border-bottom: 1px solid transparent;
@@ -123,33 +124,35 @@ $default_size: 600px;
 
     #search_home {
       // border-bottom: 1px solid #eee;
-      top: 44%;
+      bottom: 10%;
+      border-bottom: 1px solid $lightbordercolor;
+      border-radius: 2px;
+      color: #fff;
+      cursor: pointer;
       display: block;
       font-family: $source-sans;
       font-weight: 400;
-      left: 18%;
-      color: #fff;
+      left: 33%;
       opacity: 0.8;
+      padding-bottom: 3px;
       position: absolute;
-      width: 25%;
+      width: 37%;
 
       &:hover {
-        cursor: pointer;
         @include text-shadow(0 0 2px #eee);
         @include transition(text-shadow 1.5s, opacity 3s);
         opacity: 1;
-        // border-bottom: 1px solid #fff;
       }
 
       img {
         margin-bottom: -5px;
-        margin-left: -17%;
+        //margin-left: -17%;
         margin-right: 0;
         margin-top: 5px;
-        padding: 0;
+        padding-right: 3px;
         position: relative;
         top: 0;
-        width: 15%;
+        width: 6%;
       }
     }
 
