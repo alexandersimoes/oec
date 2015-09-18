@@ -2,8 +2,7 @@
   body {
     background-color: #212831;
     color: #fff;
-    font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    height: 100vh; }
+    font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif; }
     body.frozen {
       overflow: hidden; }
       body.error {
@@ -286,7 +285,7 @@ ul.navLinks {
           display: none !important;   }
 }
     nav #search_button {
-      margin: 0 15px 0 20px; }
+      margin: 0 15px 0 34px; }
       nav #search_button img {
         -webkit-transition: opacity 0.1s, transform 0.5s;
         -moz-transition: opacity 0.1s, transform 0.5s;
@@ -314,6 +313,7 @@ ul.navLinks {
   display: block;
   height: 100vh;
   left: -250px;
+  overflow-y: scroll;
   position: fixed;
   top: 0;
   width: 250px;
@@ -327,7 +327,7 @@ ul.navLinks {
         -webkit-flex-direction: column;
         -moz-flex-direction: column;
         flex-direction: column;
-        padding: 0 35px; }
+        padding: 0 35px 35px; }
         #mobileNav .navLinks li {
           margin: 5px 0; }
           #mobileNav .navLinks li .sub_menu {
@@ -349,15 +349,21 @@ body.home {
     position: static; }
     body.home nav #logo, body.home nav #search_button {
       visibility: hidden; }
-  body.home footer {
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    right: 0; }
+  body.home #container {
+    margin-top: 0; }
+    body.home footer {
+      bottom: 0;
+      left: 0;
+      position: fixed;
+      right: 0; }
+      @media all and (max-width: 768px) {
+        body.home footer {
+          position: static;   }
+}
 
 .bg-frame {
   height: 600px;
-  margin: 35px auto;
+  margin: 10px auto 20px;
   position: relative;
   width: 600px; }
   .bg-frame .ring-pulse {
@@ -786,6 +792,13 @@ body.home {
       justify-content: flex-start;
       -webkit-align-items: center;
       align-items: center;
+      background-attachment: center center;
+      background-position: fixed;
+      background-repeat: no-repeat;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
       margin: 25px;
       height: 90px;
       min-width: 250px;
@@ -794,18 +807,13 @@ body.home {
       position: relative;
       text-align: left;
       z-index: 0; }
-      #search #search_results .result .background {
-        -webkit-filter: brightness(0.8);
-        -moz-filter: brightness(0.8);
-        -o-filter: brightness(0.8);
-        filter: brightness(0.8);
-        display: block;
+      #search #search_results .result .button_cover {
+        background-color: rgba(0, 0, 0, 0.5);
         height: 100%;
         left: 0;
         position: absolute;
         top: 0;
-        width: 100%;
-        z-index: 1; }
+        width: 100%; }
         #search #search_results .result .icon {
           margin: 0 15px;
           max-height: 40px;
@@ -861,7 +869,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
         left: 0;
         position: absolute;
         top: 0;
@@ -1062,7 +1070,9 @@ body.profile {
             width: 80px;
             z-index: 10; }
             body.profile article .profile_header #title h1 {
-              font-size: 65px; }
+              font-size: 65px;
+              margin: 0;
+              padding: 0; }
               body.profile article .profile_header #title h1:hover {
                 cursor: pointer; }
                 body.profile article .profile_header #title h1 i {
@@ -1141,7 +1151,7 @@ body.profile {
 }
     body.profile article .profile_header.country #title,
     body.profile article .profile_header.country #stats {
-      margin-left: 300px; }
+      margin-left: 310px; }
       @media all and (max-width: 768px) {
         body.profile article .profile_header.country #title,
         body.profile article .profile_header.country #stats {
@@ -1225,7 +1235,7 @@ body.profile {
                   justify-content: flex-start;
                   text-align: left;   }
                   body.profile article .profile_header .stat .stat_text h3 {
-                    font-size: 24px !important;
+                    font-size: 20px !important;
                     margin: 0 10px 0 0 !important;   }
                     body.profile article .profile_header .stat .stat_text sub {
                       font-size: 12px !important;   }
@@ -1509,7 +1519,14 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
+      background: linear-gradient(to bottom, transparent, #212831);
+      background-attachment: center center;
+      background-position: fixed;
+      background-repeat: no-repeat;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
       height: 150px;
       margin-top: 6px;
       overflow: hidden;
@@ -1519,12 +1536,8 @@ body.profile {
         body.profile article .prof-nav a.profile_button {
           width: 100%;   }
 }
-        body.profile article .prof-nav a.profile_button .header {
-          -webkit-filter: saturate(90%) brightness(0.8) contrast(1.1);
-          -moz-filter: saturate(90%) brightness(0.8) contrast(1.1);
-          -o-filter: saturate(90%) brightness(0.8) contrast(1.1);
-          filter: saturate(90%) brightness(0.8) contrast(1.1);
-          display: block;
+        body.profile article .prof-nav a.profile_button .button_cover {
+          background-color: rgba(0, 0, 0, 0.5);
           height: 100%;
           left: 0;
           position: absolute;

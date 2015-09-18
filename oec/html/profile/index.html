@@ -186,10 +186,8 @@
   {% set prev = profile.attr.prev() %}
   {% if prev %}
   {% set image = prev.get_image() %}
-  <a href="{{ prev.get_profile_url() }}" class="profile_header profile_button prev"{% if not image %} style="background-color: {{ prev.color }};"{% endif %}>
-    {% if image %}
-    <img class="header prev" src="{{ image }}">
-    {% endif %}
+  <a href="{{ prev.get_profile_url() }}" class="profile_header profile_button prev" style="background-color: {{ prev.color }};{% if image %} background-image: url('{{image}}'){% endif %}">
+    <div class="button_cover"></div>
     <i class="fa fa-angle-left"></i>
     <h1>
       {{ prev.get_name() }}
@@ -202,10 +200,8 @@
   {% if next %}
   {% set image = next.get_image() %}
 
-  <a href="{{ next.get_profile_url() }}" class="profile_header profile_button next"{% if not image %} style="background-color: {{ prev.color }};"{% endif %}>
-    {% if image %}
-    <img class="header next" src="{{ image }}">
-    {% endif %}
+  <a href="{{ next.get_profile_url() }}" class="profile_header profile_button next" style="background-color: {{ prev.color }};{% if image %} background-image: url('{{image}}'){% endif %}">
+    <div class="button_cover"></div>
     <img class="icon" src="{{ next.get_icon() }}">
     <h1>
       {{ next.get_name() }}
@@ -449,7 +445,7 @@
     }
 
     var w = d3.select("content").node().offsetWidth,
-        h = window.innerHeight * 0.7;
+        h = window.innerWidth < 768 ? window.innerHeight : window.innerHeight * 0.7;
     builds.forEach(function(b, i){
       var height = b.data && b.data.viz.slug === "network" ? w * 0.7 : h;
       b.container.style("height", height + "px");
@@ -528,19 +524,19 @@
   //     };
   //   }, 25);
   // }, 7000);
-  
+
   if (RegExp('tour', 'gi').test(window.location.search)) {
     setTimeout(function(){
-      
+
       var intro = introJs();
       intro.setOptions({
         doneLabel: 'Next page'
       });
-      
+
       intro.oncomplete(function() {
         window.location.href = '/en/visualize/tree_map/hs92/export/ita/all/show/2013/?tour=true';
       }).start();
-      
+
     }, 2000)
   }
 

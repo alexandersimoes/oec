@@ -261,7 +261,9 @@ def num_format(number, key = None, labels = True):
 
         # Moves the decimal point and rounds the new number to specific decimals.
         n = n/10**(3*m)
-        if n > 99:
+        if key and key == "eci":
+            n = round(n, 2)
+        elif n > 99:
             n = int(n)
         elif n > 9:
             n = round(n, 1)
@@ -274,6 +276,11 @@ def num_format(number, key = None, labels = True):
         suffix = groups[m]
 
     n = format_decimal(n, locale=g.locale)
+
+    if key and key == "eci":
+        n = str(n)
+        if len(n) == 3:
+            n = "{}0".format(n)
 
     # If the language is not English, translate the suffix.
     if suffix:

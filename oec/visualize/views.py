@@ -186,7 +186,7 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
 
     if not product:
         # find the largest exporter or importer of given product
-        direction = "top_export_hs4" if trade_flow == "export" else "top_import_hs4"
+        direction = "top_{}".format(trade_flow) if classification == "sitc" else "top_{}_hs4".format(trade_flow)
         product = getattr(data_tbls, "Yo").query.filter_by(year=year[-1]) \
                         .filter_by(country=origin).first()
         product = defaults[classification] if not product else getattr(product, direction)

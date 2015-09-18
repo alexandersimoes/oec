@@ -7,7 +7,7 @@ body {
   background-color: $darkbackground;
   color: #fff;
   font-family: $source-sans;
-  height: 100vh;
+  // height: 100vh;
 
   &.frozen {
     overflow: hidden;

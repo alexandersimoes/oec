@@ -18,7 +18,7 @@ ul.navLinks {
     font-size: 12px;
     font-weight: 400;
     letter-spacing: 1px;
-    opacity: 0.7; 
+    opacity: 0.7;
     padding: 5px 10px;
     position: relative;
     text-transform: uppercase;
@@ -122,7 +122,7 @@ nav {
   }
 
   #search_button {
-    margin: 0 15px 0 20px;
+    margin: 0 15px 0 34px;
 
     img {
       @include transition(opacity 0.1s, transform 0.5s);
@@ -150,6 +150,7 @@ nav {
   display: block;
   height: 100vh;
   left: -$sidebar;
+  overflow-y: scroll;
   position: fixed;
   top: 0;
   width: $sidebar;
@@ -166,7 +167,7 @@ nav {
 
   .navLinks {
     @include flex-direction(column);
-    padding: 0 35px;
+    padding: 0 35px 35px;
 
     li {
       margin: 5px 0;

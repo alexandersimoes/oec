@@ -433,17 +433,7 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
             all_builds.append(build)
 
         elif v["slug"] == "rings":
-            '''rings has 2 builds'''
-
-            build = Build(
-                viz = v["slug"],
-                classification = classification,
-                trade_flow = "export",
-                origin = "all",
-                dest = "all",
-                prod = prod_id,
-                year = year)
-            all_builds.append(build)
+            '''rings has 1 builds'''
 
             build = Build(
                 viz = v["slug"],

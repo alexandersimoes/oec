@@ -33,7 +33,7 @@
   function bgresize() {
 
     var n = d3.select("nav").node().offsetHeight,
-        f = d3.select("footer").node().offsetHeight + 70,
+        f = d3.select("footer").node().offsetHeight,
         p = 50,
         w = window.innerWidth,
         h = window.innerHeight - n - f,
@@ -73,23 +73,23 @@
   resizeFunctions.push(bgresize);
 
   d3.select("#search_home").on("click", search);
-  
+
   if (RegExp('tour', 'gi').test(window.location.search)) {
-    
+
     var intro = introJs();
     intro.setOptions({
       steps: [
-        { 
+        {
           intro: "<p>Welcome to the new Observatory of Economic Complexity</p><p>This guided tour will take you through most of the pages on the site and highlight some of the new features that have been added in this update.</p>"
         },
-        { 
+        {
           intro: "<p>On any page, while you're using the site, you can click the magnifying class to easily search the site for a specific visualization or the profile of a country or product.</p>",
           element: document.querySelector('#search_home')
         },
       ],
       doneLabel: 'Next page'
     });
-    
+
     intro.start().oncomplete(function() {
       window.location.href = '/en/profile/country/ita/?tour=true';
     });
