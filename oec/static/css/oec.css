@@ -423,8 +423,8 @@ body.home {
                 line-height: 1.4;
                 position: absolute;
                 text-align: center;
-                bottom: 9%;
-                right: 22%; }
+                bottom: 13%;
+                right: 18%; }
                 .bg-frame #ring #info a {
                   border-bottom: 1px solid transparent;
                   color: #f9a17a;
@@ -446,17 +446,20 @@ body.home {
                       -o-transition: color 3s;
                       transition: color 3s; }
         .bg-frame #ring #search_home {
-          top: 44%;
+          bottom: 10%;
+          border-bottom: 1px solid #bbbdc0;
+          border-radius: 2px;
+          color: #fff;
+          cursor: pointer;
           display: block;
           font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
           font-weight: 400;
-          left: 18%;
-          color: #fff;
+          left: 33%;
           opacity: 0.8;
+          padding-bottom: 3px;
           position: absolute;
-          width: 25%; }
+          width: 37%; }
           .bg-frame #ring #search_home:hover {
-            cursor: pointer;
             -webkit-text-shadow: 0 0 2px #eee;
             -moz-text-shadow: 0 0 2px #eee;
             text-shadow: 0 0 2px #eee;
@@ -468,13 +471,12 @@ body.home {
             opacity: 1; }
             .bg-frame #ring #search_home img {
               margin-bottom: -5px;
-              margin-left: -17%;
               margin-right: 0;
               margin-top: 5px;
-              padding: 0;
+              padding-right: 3px;
               position: relative;
               top: 0;
-              width: 15%; }
+              width: 6%; }
 
 @-webkit-keyframes pulse {
   0% {
@@ -869,7 +871,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
+        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
         left: 0;
         position: absolute;
         top: 0;
@@ -1519,7 +1521,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent, #212831);
+      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
