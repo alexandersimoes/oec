@@ -241,15 +241,12 @@
       })
       .style("background-color", function(d){
         return analyze_palette(d.palette) || d.color || "#0085BF";
+      })
+      .style("background-image", function(d){
+        return d.image ? "url(" + d.image + ")" : "none";
       });
 
-    enter.each(function(d){
-      if (d.image) {
-        d3.select(this).append("img")
-          .attr("class", "background")
-          .attr("src", d.image);
-      }
-    });
+    enter.append("div").attr("class", "button_cover");
 
     enter.append("img")
       .attr("class", "icon")

@@ -5,6 +5,16 @@
   animation: $animation;
 }
 
+@mixin background-stretch() {
+  background-attachment: center center;
+  background-position: fixed;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 @mixin box($style: border-box) {
   -webkit-box-sizing: $style;
   -moz-box-sizing: $style;

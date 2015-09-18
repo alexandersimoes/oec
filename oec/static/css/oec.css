@@ -792,6 +792,13 @@ body.home {
       justify-content: flex-start;
       -webkit-align-items: center;
       align-items: center;
+      background-attachment: center center;
+      background-position: fixed;
+      background-repeat: no-repeat;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
       margin: 25px;
       height: 90px;
       min-width: 250px;
@@ -800,17 +807,13 @@ body.home {
       position: relative;
       text-align: left;
       z-index: 0; }
-      #search #search_results .result .background {
-        -webkit-filter: brightness(0.8);
-        -moz-filter: brightness(0.8);
-        -o-filter: brightness(0.8);
-        filter: brightness(0.8);
-        display: block;
-        height: 200%;
+      #search #search_results .result .button_cover {
+        background-color: rgba(0, 0, 0, 0.5);
+        height: 100%;
         left: 0;
         position: absolute;
-        top: -50%;
-        z-index: 1; }
+        top: 0;
+        width: 100%; }
         #search #search_results .result .icon {
           margin: 0 15px;
           max-height: 40px;
@@ -1517,6 +1520,13 @@ body.profile {
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
       background: linear-gradient(to bottom, transparent, #212831);
+      background-attachment: center center;
+      background-position: fixed;
+      background-repeat: no-repeat;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
       height: 150px;
       margin-top: 6px;
       overflow: hidden;
@@ -1526,16 +1536,13 @@ body.profile {
         body.profile article .prof-nav a.profile_button {
           width: 100%;   }
 }
-        body.profile article .prof-nav a.profile_button .header {
-          -webkit-filter: saturate(90%) brightness(0.8) contrast(1.1);
-          -moz-filter: saturate(90%) brightness(0.8) contrast(1.1);
-          -o-filter: saturate(90%) brightness(0.8) contrast(1.1);
-          filter: saturate(90%) brightness(0.8) contrast(1.1);
-          display: block;
-          height: 300%;
+        body.profile article .prof-nav a.profile_button .button_cover {
+          background-color: rgba(0, 0, 0, 0.5);
+          height: 100%;
           left: 0;
           position: absolute;
-          top: -75%; }
+          top: 0;
+          width: 100%; }
           body.profile article .prof-nav a.profile_button i {
             -webkit-box-flex: none;
             -moz-box-flex: none;
