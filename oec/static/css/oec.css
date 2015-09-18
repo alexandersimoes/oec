@@ -806,11 +806,10 @@ body.home {
         -o-filter: brightness(0.8);
         filter: brightness(0.8);
         display: block;
-        height: 100%;
+        height: 200%;
         left: 0;
         position: absolute;
-        top: 0;
-        width: 100%;
+        top: -50%;
         z-index: 1; }
         #search #search_results .result .icon {
           margin: 0 15px;
@@ -1533,11 +1532,10 @@ body.profile {
           -o-filter: saturate(90%) brightness(0.8) contrast(1.1);
           filter: saturate(90%) brightness(0.8) contrast(1.1);
           display: block;
-          height: 100%;
+          height: 300%;
           left: 0;
           position: absolute;
-          top: 0;
-          width: 100%; }
+          top: -75%; }
           body.profile article .prof-nav a.profile_button i {
             -webkit-box-flex: none;
             -moz-box-flex: none;
