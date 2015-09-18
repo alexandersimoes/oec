@@ -177,12 +177,12 @@ configs.default = function(build, container) {
 
   var edges = "#ddd",
       grid = "#ccc",
-      missing = "#eee",
+      missing = "#ddd",
       chart = background,
       ui_color = oec.ui.light;
 
   if (background !== "none" && d3.hsl(background).l < 0.5) {
-    missing = d3plus.color.lighter(background, 0.5);
+    missing = d3plus.color.lighter(background, 0.7);
     edges = d3plus.color.lighter(background, 0.2);
     grid = background;
     chart = d3plus.color.lighter(background, 0.1);
