@@ -319,7 +319,7 @@
 
   function resizeIframe() {
 
-    var n = window.innerWidth <= 1024 ? 0 : navWidth,
+    var n = window.innerWidth <= 768 ? 0 : navWidth,
         w = window.innerWidth - n - p * 2,
         m = window.innerHeight < window.innerWidth ? iframe.node().offsetTop : p * 2,
         h = window.innerHeight - m - p * 2,
@@ -346,17 +346,17 @@
   })
 
   resizeFunctions.push(resizeIframe);
-  
+
   if (RegExp('tour', 'gi').test(window.location.search)) {
     var intro = introJs();
     intro.setOptions({
       tooltipPosition: "auto",
       steps: [
-        { 
+        {
           intro: "The visualizations page contains 6 different types of charts or visualizations, here we see that the tree map type is selected.",
           element: document.querySelector('div.app_button.open')
         },
-        { 
+        {
           intro: "Tree maps allow users to view different slices of data such as viewing the products that are exported by a specific country (as shown to the right). Experiment with the different selections here to view other slices of the data.",
           element: document.querySelector('div.app_menu.open')
         },
