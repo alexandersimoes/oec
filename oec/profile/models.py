@@ -60,18 +60,23 @@ class Country(Profile):
 
     def stats(self):
         if not self.cached_stats:
-            start_year = earliest_data.get(self.attr.id, 1980)
+            sitc_swaps = {"eublx":"eubel"}
+            if self.attr.id in sitc_swaps:
+                attr = attrs.Country.query.get(sitc_swaps[self.attr.id])
+            else:
+                attr = self.attr
+            start_year = earliest_data.get(attr.id, 1980)
             all_stats = [("eci", _('Economic Complexity')), ("export_val", _('Exports')), ("import_val", _('Imports')), ("population", _('Population')), ("gdp", _('GDP'))]
             for s, s_title in all_stats:
                 if "val" in s:
-                    yo_historic = db_data.sitc_models.Yo.query.filter_by(country=self.attr).filter(db_data.sitc_models.Yo.year >= start_year).all()
+                    yo_historic = db_data.sitc_models.Yo.query.filter_by(country=attr).filter(db_data.sitc_models.Yo.year >= start_year).all()
                     # raise Exception([x.export_val for x in yo_historic])
                     yo_base_q = self.models.Yo.query.filter_by(year=self.year)
-                    this_yo = yo_base_q.filter_by(country=self.attr).first()
+                    this_yo = yo_base_q.filter_by(country=attr).first()
                 else:
-                    yo_historic = attrs.Yo.query.filter_by(country=self.attr).filter(attrs.Yo.year >= start_year).all()
+                    yo_historic = attrs.Yo.query.filter_by(country=attr).filter(attrs.Yo.year >= start_year).all()
                     yo_base_q = attrs.Yo.query.filter_by(year=self.year)
-                    this_yo = yo_base_q.filter_by(country=self.attr).first()
+                    this_yo = yo_base_q.filter_by(country=attr).first()
 
                 res = yo_base_q.order_by(desc(s)).all()
                 val = getattr(this_yo, s, None)
@@ -289,18 +294,19 @@ class Country(Profile):
 
         ''' DataViva
         '''
-        dv_munic_dest_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false".format(self.attr.id)
-        dv_munic_origin_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false".format(self.attr.id)
+        dv_country_id = "asrus" if self.attr.id == "eurus" else self.attr.id
+        dv_munic_dest_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false".format(dv_country_id)
+        dv_munic_origin_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false".format(dv_country_id)
         dv_munic_dest_subtitle = u"""
             This treemap shows the municipalities in Brazil that imported products from {}.<br /><br /> 
             DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
             <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
-            """.format(self.attr.get_name(), self.attr.id)
+            """.format(self.attr.get_name(), dv_country_id)
         dv_munic_origin_subtitle = u"""
             This treemap shows the municipalities in Brazil that exported products to {}.<br /><br /> 
             DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
             <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
-            """.format(self.attr.get_name(), self.attr.id)
+            """.format(self.attr.get_name(), dv_country_id)
         dv_section = {
             "title": u"More on {} from our sister sites".format(self.attr.get_name()),
             "source": "dataviva",
