@@ -98,6 +98,7 @@ class Country(Profile):
         this_yo = self.models.Yo.query.filter_by(year = self.year, country = self.attr).first()
         all_yo = self.models.Yo.query.filter_by(year = self.year).order_by(desc("export_val")).all()
         if this_yo:
+            p1 = []
             econ_rank = num_format(all_yo.index(this_yo) + 1, "ordinal") if all_yo.index(this_yo) else ""
             export_val = this_yo.export_val
             import_val = this_yo.import_val
@@ -105,27 +106,25 @@ class Country(Profile):
             trade_delta = abs(export_val - import_val)
             this_attr_yo = attrs.Yo.query.filter_by(year = self.year, country = self.attr).first()
             # eci_rank = this_attr_yo.eci_rank
-            if this_attr_yo and this_attr_yo.eci_rank:
-                eci_rank = num_format(this_attr_yo.eci_rank, "ordinal") if this_attr_yo.eci_rank > 1 else ""
-                eci_rank = u" and the {} most complex economy according to the Economic Complexity Index (ECI)".format(eci_rank)
-            else:
-                eci_rank = u""
             formatted_vals = {"export_val":export_val, "import_val":import_val, "trade_delta":trade_delta}
             formatted_vals = {k: num_format(v) for k, v in formatted_vals.items()}
-            p1 = u"{c} is the {econ_rank} largest export economy in the world" \
-                    u"{eci_rank}. In {y}, {c} exported " \
-                    u"${export_val} and imported ${import_val}, " \
-                    u"resulting in a {trade_balance} trade balance of ${trade_delta}. " \
-                    .format(c=self.attr.get_name(article=True), y=self.year, econ_rank=econ_rank,
-                        eci_rank=eci_rank, trade_balance=trade_balance, **formatted_vals)
+            p1.append(_(u"%(country)s is the %(econ_rank)s largest export economy in the world", 
+                        country=self.attr.get_name(article=True), econ_rank=econ_rank))
+            if this_attr_yo and this_attr_yo.eci_rank:
+                eci_rank = num_format(this_attr_yo.eci_rank, "ordinal") if this_attr_yo.eci_rank > 1 else ""
+                p1.append(_(" and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI). ", eci_rank=eci_rank))
+            else:
+                p1.append(". ")
+            p1.append(_(u"In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s. ", 
+                        year=self.year, country=self.attr.get_name(article=True), export_val=formatted_vals["export_val"], import_val=formatted_vals["import_val"], positive_negative=trade_balance, trade_delta=formatted_vals["trade_delta"]))
             if this_attr_yo:
                 gdp = this_attr_yo.gdp
                 gdp_pc = this_attr_yo.gdp_pc_current
                 formatted_vals = {"gdp":gdp, "gdp_pc":gdp_pc}
                 formatted_vals = {k: num_format(v) for k, v in formatted_vals.items()}
-                p1 += u"In {y} the GDP of {c} was ${gdp} and its GDP per capita was ${gdp_pc}." \
-                        .format(c=self.attr.get_name(article=True), y=self.year, **formatted_vals)
-            all_paragraphs.append(p1)
+                p1.append(_(u"In %(year)s the GDP of %(country)s was $%(gdp)s and its GDP per capita was $%(gdp_pc)s.",
+                            year=self.year, country=self.attr.get_name(article=True), gdp=formatted_vals['gdp'], gdp_pc=formatted_vals['gdp_pc']))
+            all_paragraphs.append("".join(p1))
 
         ''' Paragraph #2
         '''
@@ -134,10 +133,7 @@ class Country(Profile):
             exports_list = self.stringify_items(yop_exp, "export_val", "product")
             yop_imp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr, hs92_id_len=6).order_by(desc("import_val")).limit(5).all()
             imports_list = self.stringify_items(yop_imp, "import_val", "product")
-            p2 = u"The top exports of {} are {}, using the 1992 " \
-                    u"revision of the HS (Harmonized System) classification. " \
-                    u"Its top imports are {}." \
-                    .format(self.attr.get_name(article=True), exports_list, imports_list)
+            p2 = _(u"The top exports of %(country)s are %(exports_list)s, using the 1992 revision of the HS (Harmonized System) classification. Its top imports are %(imports_list)s.", country=self.attr.get_name(article=True), exports_list=exports_list, imports_list=imports_list)
             all_paragraphs.append(p2)
 
         ''' Paragraph #3
@@ -147,9 +143,7 @@ class Country(Profile):
             dest_list = self.stringify_items(yod_exp, "export_val", "dest")
             yod_imp = self.models.Yod.query.filter_by(year = self.year, dest = self.attr).order_by(desc("import_val")).limit(5).all()
             origin_list = self.stringify_items(yod_imp, "import_val", "origin")
-            p3 = u"The top export destinations of {} are {}. " \
-                    u"The top import origins are {}." \
-                    .format(self.attr.get_name(article=True), dest_list, origin_list)
+            p3 = _(u"The top export destinations of %(country)s are %(destinations)s. The top import origins are %(origins)s.", country=self.attr.get_name(article=True), destinations=dest_list, origins=origin_list)
             all_paragraphs.append(p3)
 
         ''' Paragraph #4
@@ -158,11 +152,11 @@ class Country(Profile):
         maritime_borders = self.attr.borders(maritime=True)
         if maritime_borders or land_borders:
             if maritime_borders and not land_borders:
-                p4 = u"{} is an island and borders {} by sea.".format(self.attr.get_name(article=True), self.stringify_items(maritime_borders))
+                p4 = _(u"%(country)s is an island and borders %(maritime_borders)s by sea.", country=self.attr.get_name(article=True), maritime_borders=self.stringify_items(maritime_borders))
             if not maritime_borders and land_borders:
-                p4 = u"{} borders {}.".format(self.attr.get_name(article=True), self.stringify_items(land_borders))
+                p4 = _(u"%(country)s borders %(land_borders)s.", country=self.attr.get_name(article=True), land_borders=self.stringify_items(land_borders))
             if maritime_borders and land_borders:
-                p4 = u"{} borders {} by land and {} by sea.".format(self.attr.get_name(article=True), self.stringify_items(land_borders), self.stringify_items(maritime_borders))
+                p4 = _(u"%(country)s borders %(land_borders)s by land and %(maritime_borders)s by sea.", country=self.attr.get_name(article=True), land_borders=self.stringify_items(land_borders), maritime_borders=self.stringify_items(maritime_borders))
             all_paragraphs.append(p4)
 
         return all_paragraphs
@@ -492,7 +486,7 @@ class Product(Profile):
 
         rings = Build("rings", self.classification, "export", "all", "all", self.attr, self.year)
         rings_subtitle = u"This visualization shows products that are likely to be exported by countries that export {}.".format(self.attr.get_name())
-        trade_section["builds"].append({"title": u"Rings", "build": rings, "subtitle": rings_subtitle})
+        trade_section["builds"].append({"title": u"Product Connections", "build": rings, "subtitle": rings_subtitle})
 
         sections.append(trade_section)
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-11 09:37-0400\n"
+"POT-Creation-Date: 2015-09-21 19:14-0400\n"
 "PO-Revision-Date: 2013-12-27 15:28-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ja <LL@li.org>\n"
@@ -89,98 +89,8 @@ msgctxt "9"
 msgid "th"
 msgstr ""
 
-#: oec/explore/models_old.py:362
-msgid "Origin Country"
-msgstr "原産国"
-
-#: oec/explore/models_old.py:363 oec/explore/models_old.py:366
-#: oec/html/visualize/embed.html:339 oec/translations/lookup.py:23
-msgid "ID"
-msgstr "ID"
-
-#: oec/explore/models_old.py:365
-msgid "Destination Country"
-msgstr "目的国"
-
-#: oec/explore/models_old.py:368
-msgid "Product Name"
-msgstr "品目名"
-
-#: oec/explore/models_old.py:406
-msgid "Origin"
-msgstr "元"
-
-#: oec/explore/models_old.py:416
-msgid "Destination"
-msgstr "目的地"
-
-#: oec/explore/models_old.py:426 oec/rankings/views.py:94
-#: oec/visualize/views.py:325
-msgid "Product"
-msgstr "製品"
-
-#: oec/explore/models_old.py:435 oec/visualize/views.py:347
-msgid "Trade Flow"
-msgstr "取引の流れ"
-
-#: oec/explore/models_old.py:438 oec/html/visualize/embed.html:345
-#: oec/translations/lookup.py:15 oec/visualize/views.py:350
-msgid "Export"
-msgstr "輸出"
-
-#: oec/explore/models_old.py:439 oec/html/visualize/embed.html:346
-#: oec/translations/lookup.py:16 oec/visualize/views.py:351
-msgid "Import"
-msgstr "輸入"
-
-#: oec/explore/models_old.py:448 oec/visualize/views.py:334
-msgid "Y Axis"
-msgstr "Y軸"
-
-#: oec/explore/models_old.py:451 oec/html/visualize/embed.html:347
-#: oec/profile/models.py:64 oec/translations/lookup.py:17
-#: oec/visualize/views.py:337
-msgid "GDP"
-msgstr "国内総生産"
-
-#: oec/explore/models_old.py:452 oec/html/visualize/embed.html:348
-#: oec/translations/lookup.py:18 oec/visualize/views.py:338
-msgid "GDPpc (constant '05 US$)"
-msgstr "GDPpc（定数'05 US $）"
-
-#: oec/explore/models_old.py:453 oec/html/visualize/embed.html:349
-#: oec/translations/lookup.py:19 oec/visualize/views.py:339
-msgid "GDPpc (current US$)"
-msgstr "GDPpc（現在のUS $）"
-
-#: oec/explore/models_old.py:454 oec/html/visualize/embed.html:350
-#: oec/translations/lookup.py:20 oec/visualize/views.py:340
-msgid "GDPpc PPP (constant '11)"
-msgstr "GDPpc PPP（定数'11）"
-
-#: oec/explore/models_old.py:455 oec/html/visualize/embed.html:351
-#: oec/translations/lookup.py:21 oec/visualize/views.py:341
-msgid "GDPpc PPP (current)"
-msgstr "GDPpc PPP（現在の）"
-
-#: oec/explore/models_old.py:461
-msgid "Classification"
-msgstr "分類"
-
-#: oec/explore/models_old.py:475 oec/visualize/views.py:371
-msgid "Start Year"
-msgstr "開始年"
-
-#: oec/explore/models_old.py:481 oec/visualize/views.py:377
-msgid "End Year"
-msgstr "終了年"
-
-#: oec/explore/models_old.py:489 oec/html/rankings/index.html:82
-#: oec/rankings/views.py:119 oec/visualize/views.py:384
-msgid "Year"
-msgstr "年"
-
-#: oec/html/home.html:3 oec/html/home.html:12
+#: oec/html/home.html:3 oec/html/home.html:12 oec/html/templates/nav.html:8
+#: oec/html/templates/nav.html:20
 msgid "The Observatory of Economic Complexity"
 msgstr ""
 
@@ -295,6 +205,10 @@ msgstr ""
 msgid "API"
 msgstr ""
 
+#: oec/html/includes/nav.html:58
+msgid "Take a tour"
+msgstr ""
+
 #: oec/html/rankings/index.html:22
 #, fuzzy
 msgid "Prev. Year"
@@ -310,11 +224,11 @@ msgid "Product Complexity Rankings"
 msgstr "HS製品ランキング"
 
 #: oec/html/rankings/index.html:39 oec/html/rankings/index.html:61
-#: oec/html/visualize/index.html:48 oec/html/visualize/index_old.html:40
+#: oec/html/visualize/index.html:47 oec/html/visualize/index_old.html:40
 msgid "Next Year"
 msgstr "来年"
 
-#: oec/html/rankings/index.html:55 oec/html/visualize/index.html:43
+#: oec/html/rankings/index.html:55 oec/html/visualize/index.html:42
 #: oec/html/visualize/index_old.html:36
 msgid "Previous Year"
 msgstr "前の年"
@@ -322,6 +236,11 @@ msgstr "前の年"
 #: oec/html/rankings/index.html:70 oec/visualize/views.py:359
 msgid "Dataset"
 msgstr ""
+
+#: oec/html/rankings/index.html:82 oec/rankings/views.py:119
+#: oec/visualize/views.py:384
+msgid "Year"
+msgstr "年"
 
 #: oec/html/rankings/index.html:92
 msgid "Depth"
@@ -419,7 +338,7 @@ msgstr "テキストとして表示"
 msgid "Fullscreen"
 msgstr "フルスクリーン"
 
-#: oec/html/visualize/embed.html:114 oec/html/visualize/index.html:122
+#: oec/html/visualize/embed.html:114 oec/html/visualize/index.html:121
 msgid "Build Visualization"
 msgstr "ビジュアライゼーションを構築する"
 
@@ -438,6 +357,10 @@ msgstr "シェア"
 #: oec/html/visualize/embed.html:146
 msgid "Short URL"
 msgstr "短縮URL"
+
+#: oec/html/visualize/embed.html:339 oec/translations/lookup.py:23
+msgid "ID"
+msgstr "ID"
 
 #: oec/html/visualize/embed.html:340 oec/translations/lookup.py:10
 msgid "Export Value"
@@ -458,6 +381,41 @@ msgstr "純輸入"
 #: oec/html/visualize/embed.html:344 oec/translations/lookup.py:14
 msgid "Market Value"
 msgstr "時価"
+
+#: oec/html/visualize/embed.html:345 oec/translations/lookup.py:15
+#: oec/visualize/views.py:350
+msgid "Export"
+msgstr "輸出"
+
+#: oec/html/visualize/embed.html:346 oec/translations/lookup.py:16
+#: oec/visualize/views.py:351
+msgid "Import"
+msgstr "輸入"
+
+#: oec/html/visualize/embed.html:347 oec/profile/models.py:69
+#: oec/translations/lookup.py:17 oec/visualize/views.py:337
+msgid "GDP"
+msgstr "国内総生産"
+
+#: oec/html/visualize/embed.html:348 oec/translations/lookup.py:18
+#: oec/visualize/views.py:338
+msgid "GDPpc (constant '05 US$)"
+msgstr "GDPpc（定数'05 US $）"
+
+#: oec/html/visualize/embed.html:349 oec/translations/lookup.py:19
+#: oec/visualize/views.py:339
+msgid "GDPpc (current US$)"
+msgstr "GDPpc（現在のUS $）"
+
+#: oec/html/visualize/embed.html:350 oec/translations/lookup.py:20
+#: oec/visualize/views.py:340
+msgid "GDPpc PPP (constant '11)"
+msgstr "GDPpc PPP（定数'11）"
+
+#: oec/html/visualize/embed.html:351 oec/translations/lookup.py:21
+#: oec/visualize/views.py:341
+msgid "GDPpc PPP (current)"
+msgstr "GDPpc PPP（現在の）"
 
 #: oec/html/visualize/embed.html:352 oec/translations/lookup.py:22
 msgid "ECI"
@@ -487,7 +445,7 @@ msgstr "総カントリー会"
 msgid "View as App"
 msgstr "アプリとして見る"
 
-#: oec/html/visualize/index.html:29 oec/html/visualize/index_old.html:30
+#: oec/html/visualize/index.html:28 oec/html/visualize/index_old.html:30
 msgid "Data visualization of economic trade"
 msgstr "経済貿易のデータの可視化"
 
@@ -499,34 +457,93 @@ msgstr "合計"
 msgid "and"
 msgstr "と"
 
-#: oec/profile/models.py:64
+#: oec/profile/models.py:69
 msgid "Economic Complexity"
 msgstr ""
 
-#: oec/profile/models.py:64 oec/profile/models.py:341
+#: oec/profile/models.py:69 oec/profile/models.py:348
 #, fuzzy
 msgid "Exports"
 msgstr "輸出"
 
-#: oec/profile/models.py:64
+#: oec/profile/models.py:69
 #, fuzzy
 msgid "Imports"
 msgstr "輸入"
 
-#: oec/profile/models.py:64
+#: oec/profile/models.py:69
 msgid "Population"
 msgstr ""
 
-#: oec/profile/models.py:341
+#: oec/profile/models.py:112
+#, python-format
+msgid "%(country)s is the %(econ_rank)s largest export economy in the world"
+msgstr ""
+
+#: oec/profile/models.py:115
+#, python-format
+msgid ""
+" and the %(eci_rank)s most complex economy according to the Economic "
+"Complexity Index (ECI). "
+msgstr ""
+
+#: oec/profile/models.py:119
+#, python-format
+msgid ""
+"In %(year)s, %(country)s exported $%(export_val)s and imported "
+"$%(import_val)s, resulting in a %(positive_negative)s trade balance of "
+"$%(trade_delta)s. "
+msgstr ""
+
+#: oec/profile/models.py:126
+#, python-format
+msgid ""
+"In %(year)s the GDP of %(country)s was $%(gdp)s and its GDP per capita "
+"was $%(gdp_pc)s."
+msgstr ""
+
+#: oec/profile/models.py:136
+#, python-format
+msgid ""
+"The top exports of %(country)s are %(exports_list)s, using the 1992 "
+"revision of the HS (Harmonized System) classification. Its top imports "
+"are %(imports_list)s."
+msgstr ""
+
+#: oec/profile/models.py:146
+#, python-format
+msgid ""
+"The top export destinations of %(country)s are %(destinations)s. The top "
+"import origins are %(origins)s."
+msgstr ""
+
+#: oec/profile/models.py:155
+#, python-format
+msgid "%(country)s is an island and borders %(maritime_borders)s by sea."
+msgstr ""
+
+#: oec/profile/models.py:157
+#, python-format
+msgid "%(country)s borders %(land_borders)s."
+msgstr ""
+
+#: oec/profile/models.py:159
+#, python-format
+msgid ""
+"%(country)s borders %(land_borders)s by land and %(maritime_borders)s by "
+"sea."
+msgstr ""
+
+#: oec/profile/models.py:348
 #, fuzzy
 msgid "Product Complexity"
 msgstr "品目名"
 
-#: oec/profile/models.py:341
+#: oec/profile/models.py:348
 msgid "Top Exporter"
 msgstr ""
 
-#: oec/profile/models.py:341
+#: oec/profile/models.py:348
 #, fuzzy
 msgid "Top Importer"
 msgstr "純輸入"
@@ -534,6 +551,10 @@ msgstr "純輸入"
 #: oec/rankings/views.py:87 oec/rankings/views.py:94
 msgid "Rank"
 msgstr "ランク"
+
+#: oec/rankings/views.py:94 oec/visualize/views.py:325
+msgid "Product"
+msgstr "製品"
 
 #: oec/translations/lookup.py:11
 #, fuzzy
@@ -549,7 +570,23 @@ msgstr "輸入額"
 msgid "Partner"
 msgstr ""
 
-#: oec/visualize/views.py:445
+#: oec/visualize/views.py:334
+msgid "Y Axis"
+msgstr "Y軸"
+
+#: oec/visualize/views.py:347
+msgid "Trade Flow"
+msgstr "取引の流れ"
+
+#: oec/visualize/views.py:371
+msgid "Start Year"
+msgstr "開始年"
+
+#: oec/visualize/views.py:377
+msgid "End Year"
+msgstr "終了年"
+
+#: oec/visualize/views.py:466
 #, python-format
 msgid "Profile for %(attr)s"
 msgstr ""
@@ -663,5 +700,29 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Visualize"
+#~ msgstr ""
+
+#~ msgid "Origin Country"
+#~ msgstr "原産国"
+
+#~ msgid "Destination Country"
+#~ msgstr "目的国"
+
+#~ msgid "Product Name"
+#~ msgstr "品目名"
+
+#~ msgid "Origin"
+#~ msgstr "元"
+
+#~ msgid "Destination"
+#~ msgstr "目的地"
+
+#~ msgid "Classification"
+#~ msgstr "分類"
+
+#~ msgid "%(country)s borders %(country)s."
+#~ msgstr ""
+
+#~ msgid "%(country)s borders %(country)s by land and %(country)s by sea."
 #~ msgstr ""
 
