@@ -91,6 +91,7 @@
     {% else %}
     <div id="topojson"></div>
 
+    {# commented out testing new subnav
     {% set stat = stats[0] %}
     <div class="stat" id="eci" data-postition="right" data-step="4" data-intro=" Here we are showing the current Economic Complexity Index for {{ profile.attr.get_name() }} along with a trend line of its historic value. The complexity of an economy is related to the mix of products that countries are able to export.">
       <div class="stat_text">
@@ -116,7 +117,20 @@
       </div>
       {% endif %}
     </div>
+    #}
     {% endif %}
+    
+
+    <ul class="heirarchy contents">
+      <li class="depth2">Contents</li>
+
+      {% for section in profile.sections()[:2] %}
+      {% for build in section.builds %}
+      <li class="depth6"><a href="#{{ build.title|replace(" ","_") }}">{{ build.title }}</a></li>
+
+      {% endfor %}
+      {% endfor %}
+    </ul>
 
   </aside>
 
@@ -159,7 +173,7 @@
   {% for build in section.builds %}
   <section {% if build.tour %}data-position="floating" data-step="{{ build.seq }}" data-intro="{{ build.tour }}"{% endif %}>
     <aside>
-      <h2>{{ build.title }}</h2>
+      <h2><a name="{{ build.title|replace(" ","_") }}" class="anchor">{{ build.title }}</a></h2>
       {% if build.subtitle %}
       <p>{{ build.subtitle|safe }}</p>
       {% endif %}
