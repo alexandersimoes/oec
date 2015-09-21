@@ -75,6 +75,7 @@ class Country(Profile):
                     this_yo = yo_base_q.filter_by(country=attr).first()
                 else:
                     yo_historic = attrs.Yo.query.filter_by(country=attr).filter(attrs.Yo.year >= start_year).all()
+                    # raise Exception([x.population for x in yo_historic])
                     yo_base_q = attrs.Yo.query.filter_by(year=self.year)
                     this_yo = yo_base_q.filter_by(country=attr).first()
 
@@ -115,7 +116,7 @@ class Country(Profile):
                     u"{eci_rank}. In {y}, {c} exported " \
                     u"${export_val} and imported ${import_val}, " \
                     u"resulting in a {trade_balance} trade balance of ${trade_delta}. " \
-                    .format(c=self.attr.get_name(), y=self.year, econ_rank=econ_rank,
+                    .format(c=self.attr.get_name(article=True), y=self.year, econ_rank=econ_rank,
                         eci_rank=eci_rank, trade_balance=trade_balance, **formatted_vals)
             if this_attr_yo:
                 gdp = this_attr_yo.gdp
@@ -123,7 +124,7 @@ class Country(Profile):
                 formatted_vals = {"gdp":gdp, "gdp_pc":gdp_pc}
                 formatted_vals = {k: num_format(v) for k, v in formatted_vals.items()}
                 p1 += u"In {y} the GDP of {c} was ${gdp} and its GDP per capita was ${gdp_pc}." \
-                        .format(c=self.attr.get_name(), y=self.year, **formatted_vals)
+                        .format(c=self.attr.get_name(article=True), y=self.year, **formatted_vals)
             all_paragraphs.append(p1)
 
         ''' Paragraph #2
@@ -136,7 +137,7 @@ class Country(Profile):
             p2 = u"The top exports of {} are {}, using the 1992 " \
                     u"revision of the HS (Harmonized System) classification. " \
                     u"Its top imports are {}." \
-                    .format(self.attr.get_name(), exports_list, imports_list)
+                    .format(self.attr.get_name(article=True), exports_list, imports_list)
             all_paragraphs.append(p2)
 
         ''' Paragraph #3
@@ -148,7 +149,7 @@ class Country(Profile):
             origin_list = self.stringify_items(yod_imp, "import_val", "origin")
             p3 = u"The top export destinations of {} are {}. " \
                     u"The top import origins are {}." \
-                    .format(self.attr.get_name(), dest_list, origin_list)
+                    .format(self.attr.get_name(article=True), dest_list, origin_list)
             all_paragraphs.append(p3)
 
         ''' Paragraph #4
@@ -157,11 +158,11 @@ class Country(Profile):
         maritime_borders = self.attr.borders(maritime=True)
         if maritime_borders or land_borders:
             if maritime_borders and not land_borders:
-                p4 = u"{} is an island and borders {} by sea.".format(self.attr.get_name(), self.stringify_items(maritime_borders))
+                p4 = u"{} is an island and borders {} by sea.".format(self.attr.get_name(article=True), self.stringify_items(maritime_borders))
             if not maritime_borders and land_borders:
-                p4 = u"{} borders {}.".format(self.attr.get_name(), self.stringify_items(land_borders))
+                p4 = u"{} borders {}.".format(self.attr.get_name(article=True), self.stringify_items(land_borders))
             if maritime_borders and land_borders:
-                p4 = u"{} borders {} by land and {} by sea.".format(self.attr.get_name(), self.stringify_items(land_borders), self.stringify_items(maritime_borders))
+                p4 = u"{} borders {} by land and {} by sea.".format(self.attr.get_name(article=True), self.stringify_items(land_borders), self.stringify_items(maritime_borders))
             all_paragraphs.append(p4)
 
         return all_paragraphs
@@ -185,48 +186,48 @@ class Country(Profile):
             exp_val_stat = exp_val_stat.pop()
             exp_rank = num_format(exp_val_stat["rank"], "ordinal") if exp_val_stat["rank"] > 1 else ""
             export_subtitle = u"In {} {} exported ${}, making it the {} largest exporter in the world. " \
-                                .format(self.year, self.attr.get_name(), num_format(exp_val_stat["val"]), exp_rank)
+                                .format(self.year, self.attr.get_name(article=True), num_format(exp_val_stat["val"]), exp_rank)
             if past_yo:
                 chg = "increased" if this_yo.export_val_growth_pct_5 >= 0 else "decreased"
                 export_subtitle += u"During the last five years the exports of {} have {} at an annualized rate of {}%, " \
                                     u"from ${} in {} to ${} in {}. " \
-                                    .format(self.attr.get_name(), chg, num_format(this_yo.export_val_growth_pct_5*100), \
+                                    .format(self.attr.get_name(article=True), chg, num_format(this_yo.export_val_growth_pct_5*100), \
                                         num_format(past_yo.export_val), past_yr, num_format(this_yo.export_val), self.year)
             top_exports = yop_base.order_by(desc("export_val")).limit(2).all()
             if top_exports:
                 export_subtitle += u"The most recent exports are led by {}, which represent {}% of the total exports of {}, " \
                                     u"followed by {}, which account for {}%." \
                                     .format(top_exports[0].product.get_profile_link(), num_format((top_exports[0].export_val/exp_val_stat["val"])*100), \
-                                        self.attr.get_name(), top_exports[1].product.get_profile_link(), num_format((top_exports[1].export_val/exp_val_stat["val"])*100))
+                                        self.attr.get_name(article=True), top_exports[1].product.get_profile_link(), num_format((top_exports[1].export_val/exp_val_stat["val"])*100))
         imp_val_stat = filter(lambda s: s["key"] == "import_val", self.stats())
         if imp_val_stat:
             imp_val_stat = imp_val_stat.pop()
             imp_rank = num_format(imp_val_stat["rank"], "ordinal") if imp_val_stat["rank"] > 1 else ""
             import_subtitle = u"In {} {} imported ${}, making it the {} largest importer in the world. " \
-                                .format(self.year, self.attr.get_name(), num_format(imp_val_stat["val"]), imp_rank)
+                                .format(self.year, self.attr.get_name(article=True), num_format(imp_val_stat["val"]), imp_rank)
             if past_yo:
                 chg = "increased" if this_yo.import_val_growth_pct_5 >= 0 else "decreased"
                 import_subtitle += u"During the last five years the imports of {} have {} at an annualized rate of {}%, " \
                                     u"from ${} in {} to ${} in {}. " \
-                                    .format(self.attr.get_name(), chg, num_format(this_yo.import_val_growth_pct_5*100), num_format(past_yo.import_val), past_yr, num_format(this_yo.import_val), self.year)
+                                    .format(self.attr.get_name(article=True), chg, num_format(this_yo.import_val_growth_pct_5*100), num_format(past_yo.import_val), past_yr, num_format(this_yo.import_val), self.year)
             top_imports = yop_base.order_by(desc("import_val")).limit(2).all()
             if top_imports:
                 import_subtitle += u"The most recent imports are led by {}, which represent {}% of the total imports of {}, " \
                                     u"followed by {}, which account for {}%." \
                                     .format(top_imports[0].product.get_profile_link(), num_format((top_imports[0].import_val/imp_val_stat["val"])*100), \
-                                        self.attr.get_name(), top_imports[1].product.get_profile_link(), num_format((top_imports[1].import_val/imp_val_stat["val"])*100))
+                                        self.attr.get_name(article=True), top_imports[1].product.get_profile_link(), num_format((top_imports[1].import_val/imp_val_stat["val"])*100))
 
         dests_tmap = Build("tree_map", "hs92", "export", self.attr, "show", "all", self.year)
         yod_exp = self.models.Yod.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
         if yod_exp:
             dest_list = self.stringify_items(yod_exp, "export_val", "dest")
-            dest_subtitle = u"The top export destinations of {} are {}.".format(self.attr.get_name(), dest_list)
+            dest_subtitle = u"The top export destinations of {} are {}.".format(self.attr.get_name(article=True), dest_list)
 
         origins_tmap = Build("tree_map", "hs92", "import", self.attr, "show", "all", self.year)
         yod_imp = self.models.Yod.query.filter_by(year = self.year, dest = self.attr).order_by(desc("export_val")).limit(5).all()
         if yod_imp:
             origin_list = self.stringify_items(yod_imp, "export_val", "origin")
-            origin_subtitle = u"The top import origins of {} are {}.".format(self.attr.get_name(), origin_list)
+            origin_subtitle = u"The top import origins of {} are {}.".format(self.attr.get_name(article=True), origin_list)
 
         # trade balance viz --
         first_yo = self.models.Yo.query.filter_by(year = available_years["hs92"][-1], country = self.attr).first()
@@ -237,15 +238,16 @@ class Country(Profile):
             trade_balance = "positive" if net_trade >= 0 else "negative"
             trade_direction = "exports" if net_trade >= 0 else "imports"
             tb_subtitle = u"As of {} {} had a {} trade balance of ${} in net {}." \
-                            .format(self.year, self.attr.get_name(), trade_balance, num_format(abs(net_trade)), trade_direction)
+                            .format(self.year, self.attr.get_name(article=True), trade_balance, num_format(abs(net_trade)), trade_direction)
             old_yo = self.models.Yo.query.filter_by(year = available_years["hs92"][0], country = self.attr).first()
-            old_net_trade = old_yo.export_val - old_yo.import_val
-            old_trade_balance = "positive" if old_net_trade >= 0 else "negative"
-            old_trade_direction = "exports" if old_net_trade >= 0 else "imports"
-            is_diff = True if old_trade_balance != trade_balance else False
-            still_or_not = "still" if old_trade_balance == trade_balance else ""
-            tb_subtitle += u" As compared to their trade balance in {} when they {} had a {} trade balance of ${} in net {}." \
-                            .format(available_years["hs92"][0], still_or_not, old_trade_balance, num_format(abs(old_net_trade)), old_trade_direction)
+            if old_yo:
+                old_net_trade = old_yo.export_val - old_yo.import_val
+                old_trade_balance = "positive" if old_net_trade >= 0 else "negative"
+                old_trade_direction = "exports" if old_net_trade >= 0 else "imports"
+                is_diff = True if old_trade_balance != trade_balance else False
+                still_or_not = "still" if old_trade_balance == trade_balance else ""
+                tb_subtitle += u" As compared to their trade balance in {} when they {} had a {} trade balance of ${} in net {}." \
+                                .format(available_years["hs92"][0], still_or_not, old_trade_balance, num_format(abs(old_net_trade)), old_trade_direction)
 
         trade_section = {
             "builds": [
@@ -272,14 +274,14 @@ class Country(Profile):
             if eci_rank:
                 subtitle = u"The economy of {} has an Economic Complexity Index (ECI) " \
                     "of {} making it the {} most complex country. " \
-                    .format(self.attr.get_name(), num_format(eci), num_format(eci_rank, "ordinal"))
+                    .format(self.attr.get_name(article=True), num_format(eci), num_format(eci_rank, "ordinal"))
             else:
                 subtitle = ""
             subtitle += u"{} exports {} products with revealed comparative advantage " \
                 u"(meaning that its share of global exports is larger than what " \
                 u"would be expected from the size of its export economy " \
                 u"and from the size of a product’s global market)." \
-                .format(self.attr.get_name(), num_exports_w_rca)
+                .format(self.attr.get_name(article=True), num_exports_w_rca)
         else:
             subtitle = ""
         product_space = Build("network", "hs92", "export", self.attr, "all", "show", self.year)
@@ -301,18 +303,18 @@ class Country(Profile):
             This treemap shows the municipalities in Brazil that imported products from {}.<br /><br /> 
             DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
             <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
-            """.format(self.attr.get_name(), dv_country_id)
+            """.format(self.attr.get_name(article=True), dv_country_id)
         dv_munic_origin_subtitle = u"""
             This treemap shows the municipalities in Brazil that exported products to {}.<br /><br /> 
             DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
             <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
-            """.format(self.attr.get_name(), dv_country_id)
+            """.format(self.attr.get_name(article=True), dv_country_id)
         dv_section = {
-            "title": u"More on {} from our sister sites".format(self.attr.get_name()),
+            "title": u"More on {} from our sister sites".format(self.attr.get_name(article=True)),
             "source": "dataviva",
             "builds": [
-                {"title": u"Brazilian Municipalities that import from {}".format(self.attr.get_name()), "iframe": dv_munic_dest_iframe, "subtitle": dv_munic_dest_subtitle, "tour":"Profile pages also contain visualizations from other websites created by member of the OEC team. The following are 2 embeded visualization from DataViva, a similar visualization platorm centered around Brazilian data.", "seq":7},
-                {"title": u"Brazilian Municipalities that export to {}".format(self.attr.get_name()), "iframe": dv_munic_origin_iframe, "subtitle": dv_munic_origin_subtitle},
+                {"title": u"Brazilian Municipalities that import from {}".format(self.attr.get_name(article=True)), "iframe": dv_munic_dest_iframe, "subtitle": dv_munic_dest_subtitle, "tour":"Profile pages also contain visualizations from other websites created by member of the OEC team. The following are 2 embeded visualization from DataViva, a similar visualization platorm centered around Brazilian data.", "seq":7},
+                {"title": u"Brazilian Municipalities that export to {}".format(self.attr.get_name(article=True)), "iframe": dv_munic_origin_iframe, "subtitle": dv_munic_origin_subtitle},
             ]
         }
         sections.append(dv_section)
@@ -326,7 +328,7 @@ class Country(Profile):
                 "title": "Pantheon",
                 "source": "pantheon",
                 "builds": [
-                    {"title": u"Cultural Production of {}".format(self.attr.get_name()), 
+                    {"title": u"Cultural Production of {}".format(self.attr.get_name(article=True)), 
                     "iframe": pantheon_iframe, 
                     "subtitle": u"This treemap shows the cultural exports of {}, as proxied by the production of globally famous historical characters.<br />{}".format(self.attr.get_name(), pantheon_link),
                     "tour":"Pantheon...", "seq":8
