@@ -1,10 +1,17 @@
+body.profile.frozen {
+  h1 {
+    margin: 0;
+    padding-top: 0;
+  }
+}
+
 body.profile {
   background-color: $darkbackground;
 
   h1 {
     line-height: 1;
-    margin: 0 30px -15px;
-    padding-top: 30px;
+    margin: 0 30px -5px;
+    padding-top: 40px;
 
     @media all and (max-width: 768px) {
       margin: 0px 30px;
@@ -528,6 +535,10 @@ body.profile {
     p {
       text-align: left;
     }
+
+    content {
+      margin: 30px 0 !important;
+    }
   }
 
   article.titled-section {
@@ -564,6 +575,8 @@ body.profile {
       }
 
       content {
+        margin: 30px 0 !important;
+
         p {
           margin-bottom: 0 !important;
         }
