@@ -289,7 +289,6 @@ body.visualize {
   padding: 6px 24px 6px 40px;
 
   &:before {
-      background-image: url("/static/img/icons/app/app_tree_map_black.png");
       font-size: 12px;
       line-height: 38px;
       background-position: 50%;
@@ -304,6 +303,12 @@ body.visualize {
       text-decoration: none;
       top: 0px;
       width: 38px;
+  }
+  &.tree_map:before {
+    background-image: url("/static/img/icons/app/app_tree_map_black.png");
+  }
+  &.rings:before {
+    background-image: url("/static/img/icons/app/app_rings_black.png");
   }
 
 }

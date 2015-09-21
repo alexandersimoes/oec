@@ -204,7 +204,7 @@ configs.default = function(build, container) {
         "url": function(focus_id){
           var display_id = focus_id.substring(2).replace("_export", "").replace("_import", "");
           var attr_type = build.attr_type.indexOf("hs") >= 0 ? "prod_id" : build.attr_type+"_id";
-          var url_args = "?classification="+build.classification+"&"+attr_type+"="+display_id+"&focus="+attr_type;
+          var url_args = "?trade_flow="+build.trade_flow+"&classification="+build.classification+"&"+attr_type+"="+display_id+"&focus="+attr_type;
           ['origin', 'dest', 'prod'].forEach(function(filter){
             if(typeof build[filter] != "string"){
               url_args += "&"+filter+"_id="+build[filter].display_id;
@@ -215,10 +215,10 @@ configs.default = function(build, container) {
         },
         "callback":function(data){
           var buttons = [];
-          data.builds.forEach(function(b){
-            buttons.push("<a target='_top' href='/en/visualize/"+b.url+"' class='related'>"+b.title+"</a>");
-          });
           buttons.push("<a style='background-color:"+d3plus.color.legible(data.profile.color)+";' target='_top' href='"+data.profile.url+"' class='profile'><img src='"+data.profile.icon+"' />"+data.profile.title+"</a>");
+          data.builds.forEach(function(b){
+            buttons.push("<a target='_top' href='/en/visualize/"+b.url+"' class='related "+b.viz+"'>"+b.title+"</a>");
+          });
           return buttons.join("");
         }
       },

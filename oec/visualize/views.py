@@ -432,8 +432,27 @@ def builds():
     build_args["prod_id"] = request.args.get('prod_id')
     build_args["year"] = request.args.get('year', available_years[build_args["classification"]][-1])
     build_args["defaults"] = {"origin":"nausa", "dest":"aschn", "prod":"010101"}
-    build_args["viz"] = "tree_map"
+    build_args["viz"] = ["tree_map", "rings"]
     all_builds = get_all_builds(**build_args)
+    
+    # raise Exception(build_args, all_builds[-1])
+    '''
+        Need some way of ranking these build...
+    '''
+    for build in all_builds:
+        build.relevance = 0
+        for var in ["trade_flow", "origin_id", "dest_id", "prod_id"]:
+            build_arg_var = build_args.get(var) or request.args.get(var)
+            build_var = getattr(build, var.replace("_id", ""))
+            if hasattr(build_var, "get_display_id"):
+                if build_var.get_display_id() == build_arg_var:
+                    build.relevance += 2
+            else:
+                if build_arg_var == build_var:
+                    build.relevance += 1
+    all_builds.sort(key=lambda x: x.relevance, reverse=True)
+    # raise Exception(all_builds[0])
+            
 
     if focus == "origin_id":
         attr = Country.query.filter_by(id_3char=build_args["origin_id"]).first()
@@ -450,4 +469,4 @@ def builds():
         "color":attr.color
     }
 
-    return jsonify(profile=profile, builds=[{"title": b.question(), "url": b.url()} for b in all_builds])
+    return jsonify(profile=profile, builds=[{"title": b.question(), "url": b.url(), "viz": b.viz["slug"]} for b in all_builds])
