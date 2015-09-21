@@ -105,32 +105,37 @@
   }
 
   footer {
+    color: $lightbackground;
     font-size: 10px;
-    margin: 20px auto;
+    margin: 74px auto 5px;
     text-align: center;
 
     a {
+      color: $lightlinkcolor;
       &:hover {
-        text-decoration: underline;
+        @include text-shadow(0 0 1px #fff);
+        @include transition(text-shadow 1s);
+        color: #fff;
       }
     }
 
     #mc {
       display: inline-block;
-      margin-bottom: -20px;
+      margin-bottom: -5px;
     }
 
     img, a {
-      opacity: 0.7;
+      opacity: 0.8;
 
       :hover {
         opacity: 1;
+        @include transition(opacity 1.5s);
       }
     }
 
     div {
-      max-width: 640px;
-      margin: 0 auto;
+      max-width: 770px;
+      margin: 0 auto; 
       padding: 0 20px;
     }
 

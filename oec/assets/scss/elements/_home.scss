@@ -1,6 +1,6 @@
 body.home {
 
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
+  background: $l-darkbackground url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat;
   @include font-smoothing(antialiased);
 
   nav {
@@ -56,7 +56,6 @@ $default_size: 600px;
   #ring {
     @include rounded(50%);
     background-color: $darkbackground;
-    //background: radial-gradient(#957065, $darkbackground 65%);
     //background: radial-gradient(#b6966c, #957065, #4e4f5d, $l2-darkbackground, $l-darkbackground, $darkbackground, black, $black);
     border: 1px solid #ffffff;
     height: 100%;
@@ -71,7 +70,7 @@ $default_size: 600px;
     $star_size: 150%;
 
     .star-rotate {
-      @include animation(spin-right 60s linear infinite);
+      @include animation(spin-right 120s linear infinite);
       left: 68%;
       margin-left: -$star_size/2;
       margin-top: -$star_size/2;

@@ -58,7 +58,7 @@
       font-family: $source-sans;
       font-size: 30px;
       font-weight: 300;
-      color: #fff;
+      color: white;
       margin-bottom: 15px;
       width: 100%;
 
@@ -86,12 +86,17 @@
       .d3plus_node {
         background-color: rgba(0,0,0,0) !important;
         border: 0 !important;
-        color: $darkbordercolor !important;
-        border-bottom: 1px solid $darkbordercolor !important;
+        color: $lightbordercolor !important;
+        border-bottom: 1px solid $lightbordercolor !important;
+
+        &:hover {
+          color: #fff !important;
+          @include transition(color 1.5s);
+        }
 
         &.d3plus_button_active {
-          color: #fff !important;
-          border-bottom: 1px solid #fff !important;
+          color: white !important;
+          border-bottom: 1px solid $sec-w-highlight !important;
 
           .d3plus_button_label {
             opacity: 1;
@@ -99,7 +104,7 @@
             text-transform: uppercase;
 
             &:hover {
-              opacity: 0.7 !important;
+              opacity: 0.8 !important;
             }
           }
         }
@@ -150,6 +155,7 @@
       text-align: center;
 
       & > h1 {
+        color: $darkbordercolor;
         font-family: $montserrat;
         font-weight: 400;
         font-size: 20px;
@@ -218,7 +224,7 @@
       }
 
       &:hover {
-        @include shadow(0 2px 0 rgba(255, 255, 255, 0.9));
+        @include shadow(0 2px 0 $sec-w-highlight);
         border-bottom: none;
       }
 
