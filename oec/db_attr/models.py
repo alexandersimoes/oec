@@ -324,9 +324,9 @@ class Sitc(ProdAttr):
     sitc = db.Column(db.String(6))
 
     name = db.relationship("Sitc_name", backref="sitc", lazy="dynamic")
-    # yodp_product = db.relationship("db_data.sitc_models.Yodp", backref = 'product', lazy = 'dynamic')
-    # yop_product = db.relationship("db_data.sitc_models.Yop", backref = 'product', lazy = 'dynamic')
-    # yp_product = db.relationship("db_data.sitc_models.Yp", backref = 'product', lazy = 'dynamic')
+    yodp_product = db.relationship("db_data.sitc_models.Yodp", backref = 'product', lazy = 'dynamic')
+    yop_product = db.relationship("db_data.sitc_models.Yop", backref = 'product', lazy = 'dynamic')
+    yp_product = db.relationship("db_data.sitc_models.Yp", backref = 'product', lazy = 'dynamic')
     classification = "sitc"
 
 class Sitc_name(db.Model, AutoSerialize, ProdNameAttr):
