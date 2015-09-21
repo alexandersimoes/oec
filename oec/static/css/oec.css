@@ -340,7 +340,7 @@ ul.navLinks {
               margin-bottom: 0;
               padding-bottom: 0; }
 body.home {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat #222931;
+  background: #272f38 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased; }
@@ -394,10 +394,10 @@ body.home {
         width: 100%;
         -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); }
         .bg-frame #ring .star-rotate {
-          -webkit-animation: spin-right 60s linear infinite;
-          -moz-animation: spin-right 60s linear infinite;
-          -o-animation: spin-right 60s linear infinite;
-          animation: spin-right 60s linear infinite;
+          -webkit-animation: spin-right 120s linear infinite;
+          -moz-animation: spin-right 120s linear infinite;
+          -o-animation: spin-right 120s linear infinite;
+          animation: spin-right 120s linear infinite;
           left: 68%;
           margin-left: -75%;
           margin-top: -75%;
@@ -660,7 +660,7 @@ body.home {
       font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
       font-size: 30px;
       font-weight: 300;
-      color: #fff;
+      color: white;
       margin-bottom: 15px;
       width: 100%; }
       #search #search_div #search_input:focus {
@@ -694,17 +694,24 @@ body.home {
         #search #search_div #search_modes .d3plus_node {
           background-color: transparent !important;
           border: 0 !important;
-          color: #63737f !important;
-          border-bottom: 1px solid #63737f !important; }
-          #search #search_div #search_modes .d3plus_node.d3plus_button_active {
+          color: #bbbdc0 !important;
+          border-bottom: 1px solid #bbbdc0 !important; }
+          #search #search_div #search_modes .d3plus_node:hover {
             color: #fff !important;
-            border-bottom: 1px solid #fff !important; }
-            #search #search_div #search_modes .d3plus_node.d3plus_button_active .d3plus_button_label {
-              opacity: 1;
-              padding: 6px 10px !important;
-              text-transform: uppercase; }
-              #search #search_div #search_modes .d3plus_node.d3plus_button_active .d3plus_button_label:hover {
-                opacity: 0.7 !important; }
+            -webkit-transition: color 1.5s;
+            -moz-transition: color 1.5s;
+            -ms-transition: color 1.5s;
+            -o-transition: color 1.5s;
+            transition: color 1.5s; }
+            #search #search_div #search_modes .d3plus_node.d3plus_button_active {
+              color: white !important;
+              border-bottom: 1px solid #f9a17a !important; }
+              #search #search_div #search_modes .d3plus_node.d3plus_button_active .d3plus_button_label {
+                opacity: 1;
+                padding: 6px 10px !important;
+                text-transform: uppercase; }
+                #search #search_div #search_modes .d3plus_node.d3plus_button_active .d3plus_button_label:hover {
+                  opacity: 0.8 !important; }
       #search #search_div #search_modes .d3plus_button_label {
         font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
         font-size: 13px;
@@ -755,6 +762,7 @@ body.home {
           margin: 0 10px;
           text-align: center; }
           #search #search_results .search_group > h1 {
+            color: #63737f;
             font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
             font-weight: 400;
             font-size: 20px;
@@ -834,9 +842,9 @@ body.home {
             text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
             z-index: 2; }
             #search #search_results .result:hover {
-              -webkit-box-shadow: 0 2px 0 rgba(255, 255, 255, 0.9);
-              -moz-box-shadow: 0 2px 0 rgba(255, 255, 255, 0.9);
-              box-shadow: 0 2px 0 rgba(255, 255, 255, 0.9);
+              -webkit-box-shadow: 0 2px 0 #f9a17a;
+              -moz-box-shadow: 0 2px 0 #f9a17a;
+              box-shadow: 0 2px 0 #f9a17a;
               border-bottom: none; }
 #container {
   margin-top: 74px; }
@@ -871,7 +879,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
+        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
         left: 0;
         position: absolute;
         top: 0;
@@ -936,20 +944,36 @@ body.home {
           margin-top: 10px;
           width: 100%; }
   #container footer {
+    color: #d1d2d4;
     font-size: 10px;
-    margin: 20px auto;
+    margin: 74px auto 5px;
     text-align: center; }
-    #container footer a:hover {
-      text-decoration: underline; }
+    #container footer a {
+      color: #99BCD1; }
+      #container footer a:hover {
+        -webkit-text-shadow: 0 0 1px #fff;
+        -moz-text-shadow: 0 0 1px #fff;
+        text-shadow: 0 0 1px #fff;
+        -webkit-transition: text-shadow 1s;
+        -moz-transition: text-shadow 1s;
+        -ms-transition: text-shadow 1s;
+        -o-transition: text-shadow 1s;
+        transition: text-shadow 1s;
+        color: #fff; }
     #container footer #mc {
       display: inline-block;
-      margin-bottom: -20px; }
+      margin-bottom: -5px; }
       #container footer img, #container footer a {
-        opacity: 0.7; }
+        opacity: 0.8; }
         #container footer img :hover, #container footer a :hover {
-          opacity: 1; }
+          opacity: 1;
+          -webkit-transition: opacity 1.5s;
+          -moz-transition: opacity 1.5s;
+          -ms-transition: opacity 1.5s;
+          -o-transition: opacity 1.5s;
+          transition: opacity 1.5s; }
     #container footer div {
-      max-width: 640px;
+      max-width: 770px;
       margin: 0 auto;
       padding: 0 20px; }
       #container footer ul {
@@ -991,12 +1015,16 @@ body.home {
   z-index: 30; }
   #mask.visible {
     display: block; }
+body.profile.frozen h1 {
+  margin: 0;
+  padding-top: 0; }
+
 body.profile {
   background-color: #212831; }
   body.profile h1 {
     line-height: 1;
-    margin: 0 30px -15px;
-    padding-top: 30px; }
+    margin: 0 30px -5px;
+    padding-top: 40px; }
     @media all and (max-width: 768px) {
       body.profile h1 {
         margin: 0px 30px;   }
@@ -1473,6 +1501,8 @@ body.profile {
     border-top: 0; }
   body.profile article.viz-article p {
     text-align: left; }
+    body.profile article.viz-article content {
+      margin: 30px 0 !important; }
   body.profile article.titled-section h1 {
     border-top: 1px solid #63737f; }
     @media all and (max-width: 768px) {
@@ -1497,8 +1527,10 @@ body.profile {
     body.profile article.titled-section section.subtitle-section aside {
       margin: 0 30px !important;   }
 }
-  body.profile article.titled-section section.subtitle-section content p {
-    margin-bottom: 0 !important; }
+  body.profile article.titled-section section.subtitle-section content {
+    margin: 30px 0 !important; }
+    body.profile article.titled-section section.subtitle-section content p {
+      margin-bottom: 0 !important; }
   body.profile article .prof-nav {
     width: 100%; }
     body.profile article .prof-nav a.profile_button {
@@ -1521,7 +1553,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent, #212831);
+      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
