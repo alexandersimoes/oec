@@ -871,7 +871,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
         left: 0;
         position: absolute;
         top: 0;
@@ -1521,7 +1521,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
+      background: linear-gradient(to bottom, transparent, #212831);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -1901,7 +1901,6 @@ body.visualize {
 .d3plus_tooltip_html a.related {
   padding: 6px 24px 6px 40px; }
   .d3plus_tooltip_html a.related:before {
-    background-image: url("/static/img/icons/app/app_tree_map_black.png");
     font-size: 12px;
     line-height: 38px;
     background-position: 50%;
@@ -1916,6 +1915,10 @@ body.visualize {
     text-decoration: none;
     top: 0px;
     width: 38px; }
+    .d3plus_tooltip_html a.related.tree_map:before {
+      background-image: url("/static/img/icons/app/app_tree_map_black.png"); }
+      .d3plus_tooltip_html a.related.rings:before {
+        background-image: url("/static/img/icons/app/app_rings_black.png"); }
 
 .d3plus_tooltip_html a.profile {
   color: white !important; }

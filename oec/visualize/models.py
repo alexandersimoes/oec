@@ -399,7 +399,8 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
 
     wanted_viz = all_viz
     if viz:
-        wanted_viz = filter(lambda v: v["slug"]==viz, all_viz)
+        viz = viz if isinstance(viz, list) else [viz]
+        wanted_viz = filter(lambda v: v["slug"] in viz, all_viz)
 
     all_builds = []
     for v in wanted_viz:
