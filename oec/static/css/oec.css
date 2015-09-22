@@ -404,7 +404,7 @@ body.home {
           position: absolute;
           top: 64%;
           width: 150%;
-          z-index: -1; }
+          z-index: 0; }
           .bg-frame #ring #big_logo {
             left: 13%;
             position: absolute;
@@ -440,12 +440,22 @@ body.home {
                   opacity: 1;
                   text-transform: uppercase; }
                   .bg-frame #ring #info a i {
+                    -webkit-transition: color 3s;
+                    -moz-transition: color 3s;
+                    -ms-transition: color 3s;
+                    -o-transition: color 3s;
+                    transition: color 3s;
                     font-size: 70%;
                     margin-top: 5%; }
                     .bg-frame #ring #info a:hover {
                       opacity: 1;
                       color: #fff; }
         .bg-frame #ring #search_home {
+          -webkit-transition: text-shadow 1.5s, opacity 3s;
+          -moz-transition: text-shadow 1.5s, opacity 3s;
+          -ms-transition: text-shadow 1.5s, opacity 3s;
+          -o-transition: text-shadow 1.5s, opacity 3s;
+          transition: text-shadow 1.5s, opacity 3s;
           bottom: 10%;
           border-bottom: 1px solid #bbbdc0;
           border-radius: 2px;
@@ -463,11 +473,6 @@ body.home {
             -webkit-text-shadow: 0 0 2px #eee;
             -moz-text-shadow: 0 0 2px #eee;
             text-shadow: 0 0 2px #eee;
-            -webkit-transition: text-shadow 1.5s, opacity 3s;
-            -moz-transition: text-shadow 1.5s, opacity 3s;
-            -ms-transition: text-shadow 1.5s, opacity 3s;
-            -o-transition: text-shadow 1.5s, opacity 3s;
-            transition: text-shadow 1.5s, opacity 3s;
             opacity: 1; }
             .bg-frame #ring #search_home img {
               margin-bottom: -5px;
@@ -692,17 +697,17 @@ body.home {
       #search #search_div #search_modes .d3plus_toggle > * {
         margin: 0 5px !important; }
         #search #search_div #search_modes .d3plus_node {
+          -webkit-transition: color 1.5s;
+          -moz-transition: color 1.5s;
+          -ms-transition: color 1.5s;
+          -o-transition: color 1.5s;
+          transition: color 1.5s;
           background-color: transparent !important;
           border: 0 !important;
           color: #bbbdc0 !important;
           border-bottom: 1px solid #bbbdc0 !important; }
           #search #search_div #search_modes .d3plus_node:hover {
-            color: #fff !important;
-            -webkit-transition: color 1.5s;
-            -moz-transition: color 1.5s;
-            -ms-transition: color 1.5s;
-            -o-transition: color 1.5s;
-            transition: color 1.5s; }
+            color: #fff !important; }
             #search #search_div #search_modes .d3plus_node.d3plus_button_active {
               color: white !important;
               border-bottom: 1px solid #f9a17a !important; }
@@ -879,7 +884,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
+        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
         left: 0;
         position: absolute;
         top: 0;
@@ -964,14 +969,14 @@ body.home {
       display: inline-block;
       margin-bottom: -5px; }
       #container footer img, #container footer a {
+        -webkit-transition: opacity 1.5s;
+        -moz-transition: opacity 1.5s;
+        -ms-transition: opacity 1.5s;
+        -o-transition: opacity 1.5s;
+        transition: opacity 1.5s;
         opacity: 0.8; }
         #container footer img :hover, #container footer a :hover {
-          opacity: 1;
-          -webkit-transition: opacity 1.5s;
-          -moz-transition: opacity 1.5s;
-          -ms-transition: opacity 1.5s;
-          -o-transition: opacity 1.5s;
-          transition: opacity 1.5s; }
+          opacity: 1; }
     #container footer div {
       max-width: 770px;
       margin: 0 auto;
@@ -1034,18 +1039,29 @@ body.profile {
     line-height: 1.1; }
     body.profile article aside {
       margin: 30px !important; }
-      body.profile article content {
-        margin: 30px !important; }
-        body.profile article.intro-article {
-          background-color: white;
-          color: #333; }
-          body.profile article.intro-article p {
-            color: #333;
-            text-align: left; }
-            body.profile article.intro-article p a {
-              color: #5083b5; }
-              body.profile article.intro-article p a:hover {
-                border-bottom: 1px solid #5083b5; }
+      body.profile article aside a.deep-link {
+        -webkit-transition: color 1s;
+        -moz-transition: color 1s;
+        -ms-transition: color 1s;
+        -o-transition: color 1s;
+        transition: color 1s;
+        color: #6297cb !important;
+        border-bottom: none !important; }
+        body.profile article aside a.deep-link:hover {
+          border-bottom: none !important;
+          color: #fff !important; }
+    body.profile article content {
+      margin: 30px !important; }
+      body.profile article.intro-article {
+        background-color: white;
+        color: #333; }
+        body.profile article.intro-article p {
+          color: #333;
+          text-align: left; }
+          body.profile article.intro-article p a {
+            color: #5083b5; }
+            body.profile article.intro-article p a:hover {
+              border-bottom: 1px solid #5083b5; }
     body.profile article.titled-section, body.profile article.viz-article {
       background-color: #212831;
       color: white; }
@@ -1553,7 +1569,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent, #212831);
+      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -1638,7 +1654,7 @@ body.profile {
     margin-top: 20px;
     padding-left: 0; }
     body.profile ul.heirarchy.contents li a {
-      color: #855c37; }
+      color: #6297cb; }
   body.profile ul.heirarchy {
     border: 1px solid #BBBDC0;
     color: #212831;
