@@ -1,18 +1,12 @@
 body.visualize {
   @include font-smoothing(antialiased);
 
-  content {
-    @media all and (min-width: 769px) {
-      margin: 0 20px 0 -15px !important;
-    }
+  section {
 
     @media all and (max-width: 768px) {
-      margin: 0 20px !important;
+      @include flex-direction(column-reverse !important);
     }
 
-    h1 {
-      text-align: center;
-    }
   }
 
 }
