@@ -879,7 +879,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
         left: 0;
         position: absolute;
         top: 0;
@@ -1553,7 +1553,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
+      background: linear-gradient(to bottom, transparent, #212831);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -1633,6 +1633,12 @@ body.profile {
             body.profile article .prof-nav a.profile_button.next {
               margin-left: 0;   }
 }
+  body.profile ul.heirarchy.contents {
+    border: 0;
+    margin-top: 20px;
+    padding-left: 0; }
+    body.profile ul.heirarchy.contents li a {
+      color: #855c37; }
   body.profile ul.heirarchy {
     border: 1px solid #BBBDC0;
     color: #212831;
