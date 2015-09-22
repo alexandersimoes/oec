@@ -35,21 +35,6 @@
 
   <!-- <a id="collapse"><i class="fa fa-cog"></i></a> -->
 
-  {% if false and current_build.viz.slug != "stacked" %}
-  {% if current_build.year_str|int > g.available_years['sitc'][0] %}
-  <a id="prev" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int-1) }}">
-    <i class="fa fa-arrow-left"></i>
-    {{ _('Previous Year') }}
-  </a>
-  {% endif %}
-  {% if current_build.year_str|int < g.available_years['sitc'][-1] %}
-  <a id="next" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int+1) }}">
-    {{ _('Next Year') }}
-    <i class="fa fa-arrow-right"></i>
-  </a>
-  {% endif %}
-  {% endif %}
-
   {% set current_url = current_build.url() %}
   {% set current_app = current_build.viz.slug %}
 
@@ -125,7 +110,23 @@
 
 <!-- Container for the visualization -->
 <content data-step="12" id="main_viz">
+
+  {% if current_build.viz.slug != "stacked" and current_build.year_str|int > g.available_years['sitc'][0] %}
+  <a id="prev" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int-1) }}">
+    <i class="fa fa-arrow-left"></i>
+    {{ _('Previous Year') }}
+  </a>
+  {% endif %}
+
   <h1>{{ current_build.question()|safe }}</h1>
+
+  {% if current_build.viz.slug != "stacked" and current_build.year_str|int < g.available_years['sitc'][-1] %}
+  <a id="next" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int+1) }}">
+    {{ _('Next Year') }}
+    <i class="fa fa-arrow-right"></i>
+  </a>
+  {% endif %}
+
   <iframe class="viz" scrolling="no" frameborder="0"></iframe>
 </content>
 
