@@ -91,7 +91,7 @@ a {
   position: relative;
   text-decoration: none;
 
-  &.anchor::before {
+  &.anchor:before {
     content: "";
     left: 0;
     position: absolute;

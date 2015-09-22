@@ -66,7 +66,7 @@ class Country(Profile):
             else:
                 attr = self.attr
             start_year = earliest_data.get(attr.id, 1980)
-            all_stats = [("eci", _('Economic Complexity')), ("export_val", _('Exports')), ("import_val", _('Imports')), ("population", _('Population')), ("gdp", _('GDP'))]
+            all_stats = [("eci", _('Economic Complexity')), ("export_val", _('Exports')), ("import_val", _('Imports')), ("gdp", _('GDP'))]
             for s, s_title in all_stats:
                 if "val" in s:
                     yo_historic = db_data.sitc_models.Yo.query.filter_by(country=attr).filter(db_data.sitc_models.Yo.year >= start_year).all()
@@ -108,14 +108,14 @@ class Country(Profile):
             # eci_rank = this_attr_yo.eci_rank
             formatted_vals = {"export_val":export_val, "import_val":import_val, "trade_delta":trade_delta}
             formatted_vals = {k: num_format(v) for k, v in formatted_vals.items()}
-            p1.append(_(u"%(country)s is the %(econ_rank)s largest export economy in the world", 
+            p1.append(_(u"%(country)s is the %(econ_rank)s largest export economy in the world",
                         country=self.attr.get_name(article=True), econ_rank=econ_rank))
             if this_attr_yo and this_attr_yo.eci_rank:
                 eci_rank = num_format(this_attr_yo.eci_rank, "ordinal") if this_attr_yo.eci_rank > 1 else ""
                 p1.append(_(" and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI). ", eci_rank=eci_rank))
             else:
                 p1.append(". ")
-            p1.append(_(u"In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s. ", 
+            p1.append(_(u"In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s. ",
                         year=self.year, country=self.attr.get_name(article=True), export_val=formatted_vals["export_val"], import_val=formatted_vals["import_val"], positive_negative=trade_balance, trade_delta=formatted_vals["trade_delta"]))
             if this_attr_yo:
                 gdp = this_attr_yo.gdp
@@ -294,12 +294,12 @@ class Country(Profile):
         dv_munic_dest_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false".format(dv_country_id)
         dv_munic_origin_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false".format(dv_country_id)
         dv_munic_dest_subtitle = u"""
-            This treemap shows the municipalities in Brazil that imported products from {}.<br /><br /> 
+            This treemap shows the municipalities in Brazil that imported products from {}.<br /><br />
             DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
             <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
             """.format(self.attr.get_name(article=True), dv_country_id)
         dv_munic_origin_subtitle = u"""
-            This treemap shows the municipalities in Brazil that exported products to {}.<br /><br /> 
+            This treemap shows the municipalities in Brazil that exported products to {}.<br /><br />
             DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
             <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
             """.format(self.attr.get_name(article=True), dv_country_id)
@@ -322,8 +322,8 @@ class Country(Profile):
                 "title": "Pantheon",
                 "source": "pantheon",
                 "builds": [
-                    {"title": u"Cultural Production of {}".format(self.attr.get_name(article=True)), 
-                    "iframe": pantheon_iframe, 
+                    {"title": u"Cultural Production of {}".format(self.attr.get_name(article=True)),
+                    "iframe": pantheon_iframe,
                     "subtitle": u"This treemap shows the cultural exports of {}, as proxied by the production of globally famous historical characters.<br />{}".format(self.attr.get_name(), pantheon_link),
                     "tour":"Pantheon...", "seq":8
                     },
@@ -365,7 +365,7 @@ class Product(Profile):
                     self.cached_stats.append(this_stat)
         return self.cached_stats
 
-    def heirarchy(self):
+    def hierarchy(self):
         prods = []
 
         _2dig = self.attr_cls.query.get(self.attr.id[:2])
@@ -499,7 +499,7 @@ class Product(Profile):
             dv_munic_exporters_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val".format(dv_hs.id)
             dv_munic_importers_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val".format(dv_hs.id)
             dv_munic_exporters_subtitle = u"""
-                This treemap shows the municipalities in Brazil that export {}.<br /><br /> 
+                This treemap shows the municipalities in Brazil that export {}.<br /><br />
                 DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
                 <a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
                 """.format(dv_hs.get_name(), self.attr.id)

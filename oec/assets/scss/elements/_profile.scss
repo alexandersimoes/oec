@@ -103,6 +103,12 @@ body.profile {
         margin: 0 20px 0 0;
         width: 80px;
         z-index: 10;
+
+        @media all and (max-width: 768px) {
+          height: 60px;
+          width: 60px;
+        }
+
       }
 
       h1 {
@@ -182,7 +188,7 @@ body.profile {
       margin: 20px;
 
       @media all and (max-width: 600px) {
-        margin: 10px 0 !important;
+        margin: 0 10px !important;
       }
 
     }
@@ -244,14 +250,14 @@ body.profile {
         @include flex;
         @include flex-direction(row);
         @include align-items(center);
-        @include justify(flex-start);
+        @include justify(center);
 
         @media all and (max-width: 1024px) {
           @include flex-direction(column);
           @include justify(center);
           text-align: center;
           h3 {
-            margin: 0 !important;
+            margin: 0 10px 0 0 !important;
           }
         }
 
@@ -261,7 +267,7 @@ body.profile {
           text-align: left;
           h3 {
             font-size: 20px !important;
-            margin: 0 10px 0 0 !important;
+            margin: 0 10px !important;
           }
 
           sub {
@@ -270,7 +276,7 @@ body.profile {
         }
 
         h3 {
-          @include flex-size(1);
+          @include flex-size(none);
           font-family: $source-sans;
           font-size: 32px;
           font-weight: 300;
@@ -278,7 +284,7 @@ body.profile {
         }
 
         sub {
-          @include flex-size(1);
+          @include flex-size(none);
           font-family: $montserrat;
           font-size: 14px;
           font-weight: 700;
@@ -296,7 +302,7 @@ body.profile {
       .sparkline {
         height: 35px;
         margin: 10px 0;
-        width: 90%;
+        // width: 90%;
 
         @media all and (max-width: 600px) {
           display: none;
@@ -313,7 +319,7 @@ body.profile {
         @include flex;
         @include flex-direction(row);
         @include justify(space-between);
-        width: 90%;
+        // width: 90%;
 
         @media all and (max-width: 600px) {
           display: none;
@@ -665,17 +671,20 @@ body.profile {
     }
   }
 
-  ul.heirarchy.contents {
+  ul.hierarchy.contents {
     border: 0;
-    margin-top: 20px;
     padding-left: 0;
+
+    &.country {
+      margin-top: 20px;
+    }
 
     li a {
       color: #855c37;
     }
   }
 
-  ul.heirarchy {
+  ul.hierarchy {
     border: 1px solid #BBBDC0;
     color: $darkbackground;
     display: block;
