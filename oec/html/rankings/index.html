@@ -63,7 +63,7 @@
     </a>
     {% endif %} -->
 
-    <div id="changers" class="{% if category == "country" %}eci-changer{% else %}pci-changer{% endif %}">
+    <div id="rank_changers" class="{% if category == "country" %}eci-changer{% else %}pci-changer{% endif %}">
 
       {% if category != "country" %}
       <div class="dropdown_container">
@@ -202,6 +202,8 @@
 
     }
 
+    var width = d3.select("#rank_changers").node().offsetWidth;
+
     if (!d3.select("#change_dataset").empty()) {
 
       d3plus.form()
@@ -215,7 +217,7 @@
         .format({"text": function(d){
           return d.toUpperCase();
         }})
-        .width(d3.select("aside").node().offsetWidth)
+        .width(width)
         .search(false)
         .ui(oec.darkUI)
         .draw();
@@ -230,10 +232,10 @@
       .order({
         "sort": "desc"
       })
-      .width(d3.select("aside").node().offsetWidth)
+      .width(width)
       .search(false)
       .ui(oec.darkUI)
-      .draw()
+      .draw();
 
     if (!d3.select("#change_depth").empty()) {
 
@@ -250,7 +252,7 @@
         .order({
           "sort": "asc"
         })
-        .width(d3.select("aside").node().offsetWidth)
+        .width(width)
         .search(false)
         .ui(oec.darkUI)
         .draw();

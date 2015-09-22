@@ -26,7 +26,7 @@ body.rankings {
       @media all and (max-width: 768px) {
         @include flex-direction(row);
       }
-      
+
       aside {
         @include flex(1 auto);
         width: auto !important;
@@ -38,7 +38,7 @@ body.rankings {
           i {
             margin-top: 3px;
           }
-          
+
           h2 {
             font-family: $montserrat;
             font-size: 26px;
@@ -60,7 +60,7 @@ body.rankings {
         &:last-child {
           text-align: right;
         }
-        
+
       }
 
       content {
@@ -79,7 +79,7 @@ body.rankings {
         }
       }
     }
-    
+
     aside {
       width: $rank_sidebar !important;
     }
@@ -93,8 +93,8 @@ body.rankings {
       & ~ content {
         max-width: 695px;
       }
-    
-      #changers {
+
+      #rank_changers {
 
         $font-size: 16px;
 
@@ -107,11 +107,11 @@ body.rankings {
 
         .d3plus_node {
           height: 25px;
-          width: auto;
+          // width: auto;
 
           .d3plus_button_label {
             width: auto !important;
-            height: 25px !important;
+            // height: 25px !important;
           }
         }
 
@@ -128,17 +128,17 @@ body.rankings {
             }
           }
         }
-        
+
         .download {
           border: 1px solid white;
           color: white;
-          display: inline-block;
+          display: block;
           font-size: 12px;
           font-weight: 200;
           height: 15px;
           margin: 15px 0 0;
           padding: 5px;
-          width: $rank_sidebar - 12px;
+          // width: $rank_sidebar - 12px;
           top: $font-size + 3;
           position: relative;
 
@@ -183,7 +183,7 @@ body.rankings {
         margin-left: 7px;
         color: white;
         font-weight: 700;
-        
+
         &:hover {
           border-bottom: 0;
           &:after {
