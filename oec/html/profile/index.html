@@ -134,7 +134,7 @@
       <p>{{ build.subtitle|safe }}</p>
       {% endif %}
       {% if not build.iframe %}
-      <p><a href="/{{ g.locale }}/visualize/{{ build.build.url() }}">View Full Visualization &raquo;</a>
+      <p><a href="/{{ g.locale }}/visualize/{{ build.build.url() }}" class="deep-link">Explore on Visualizations page &raquo;</a>
       {% endif %}
     </aside>
     <content>
