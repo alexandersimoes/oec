@@ -240,10 +240,10 @@
         return !d.id ? p + "explore/" + d.name : p + "profile/" + g + "/" + d.display_id;
       })
       .style("background-color", function(d){
-        return analyze_palette(d.palette) || d.color || "#0085BF";
+        return analyze_palette(d.palette) || d.color || "transparent";
       })
       .style("background-image", function(d){
-        return d.image ? "url(" + d.image + ")" : "none";
+        return !d.id ? "url('/static/img/visualizations/" + d.name.split("/")[0] + ".png')" : d.image ? "url('" + d.image + "')" : "none";
       });
 
     enter.append("div").attr("class", "button_cover");

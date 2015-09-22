@@ -738,8 +738,8 @@ body.home {
     flex-wrap: wrap;
     -webkit-align-content: flex-start;
     align-content: flex-start;
+    margin-top: 35px;
     overflow: scroll;
-    padding-top: 35px;
     width: 93%;
     height: 100%; }
     #search #search_results h1 {
