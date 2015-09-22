@@ -84,6 +84,7 @@
       }
 
       .d3plus_node {
+        @include transition(color 1.5s);
         background-color: rgba(0,0,0,0) !important;
         border: 0 !important;
         color: $lightbordercolor !important;
@@ -91,7 +92,6 @@
 
         &:hover {
           color: #fff !important;
-          @include transition(color 1.5s);
         }
 
         &.d3plus_button_active {
