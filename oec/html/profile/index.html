@@ -119,7 +119,7 @@
     </div>
     #}
     {% endif %}
-    
+
 
     <ul class="heirarchy contents">
       <li class="depth2">Contents</li>
@@ -321,7 +321,10 @@
         coords.objects[key].geometries.push(coords.objects[key].lookup[g]);
       })
 
-      var projection = d3.geo.mercator().scale(1).translate([0, 0]),
+      // List of countries that get cropped in the regular projection
+      var rotate = ["eurus"].indexOf(id) >= 0 ? -155 : 0;
+
+      var projection = d3.geo.mercator().rotate([rotate,0]).scale(1).translate([0, 0]),
           path = d3.geo.path().projection(projection),
           country = topojson.feature(coords, coords.objects[key]).features[0];
 
