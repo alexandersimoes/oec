@@ -88,7 +88,16 @@ p {
 
 a {
   color: white;
+  position: relative;
   text-decoration: none;
+
+  &.anchor::before {
+    content: "";
+    left: 0;
+    position: absolute;
+    top: -($header + 10);
+  }
+
 }
 
 table {
