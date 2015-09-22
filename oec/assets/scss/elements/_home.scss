@@ -77,7 +77,7 @@ $default_size: 600px;
       position: absolute;
       top: 64%;
       width: $star_size;
-      z-index: -1;
+      z-index: 0;
     }
 
     #big_logo {
@@ -118,6 +118,7 @@ $default_size: 600px;
         text-transform: uppercase;
 
         i {
+          @include transition(color 3s);
           font-size: 70%;
           margin-top: 5%;
         }
@@ -131,6 +132,7 @@ $default_size: 600px;
     }
 
     #search_home {
+      @include transition(text-shadow 1.5s, opacity 3s);
       // border-bottom: 1px solid #eee;
       bottom: 10%;
       border-bottom: 1px solid $lightbordercolor;
@@ -148,7 +150,6 @@ $default_size: 600px;
 
       &:hover {
         @include text-shadow(0 0 2px #eee);
-        @include transition(text-shadow 1.5s, opacity 3s);
         opacity: 1;
       }
 

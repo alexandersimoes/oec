@@ -107,7 +107,7 @@
   footer {
     color: $lightbackground;
     font-size: 10px;
-    margin: 74px auto 5px;
+    margin: $header auto 5px;
     text-align: center;
 
     a {
@@ -125,11 +125,11 @@
     }
 
     img, a {
+      @include transition(opacity 1.5s);
       opacity: 0.8;
 
       :hover {
         opacity: 1;
-        @include transition(opacity 1.5s);
       }
     }
 
