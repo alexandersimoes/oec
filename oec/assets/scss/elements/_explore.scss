@@ -246,13 +246,13 @@ body.visualize {
   text-transform: uppercase !important;
 }
 
-.d3plus_tooltip_html {
+.d3plus_tooltip_container {
   font-family: $source-sans !important;
   font-weight: 400 !important;
 }
 
-.d3plus_tooltip_html a.related,
-.d3plus_tooltip_html a.profile {
+.d3plus_tooltip_container a.related,
+.d3plus_tooltip_container a.profile {
   @include transition(opacity 0.1s);
   color: $black;
   display: block;
@@ -285,7 +285,7 @@ body.visualize {
 
 }
 
-.d3plus_tooltip_html a.related {
+.d3plus_tooltip_container a.related {
   padding: 6px 24px 6px 40px;
 
   &:before {
@@ -313,11 +313,11 @@ body.visualize {
 
 }
 
-.d3plus_tooltip_html a.profile {
+.d3plus_tooltip_container a.profile {
   color: white !important;
 }
 
-.d3plus_tooltip_html a.profile img {
+.d3plus_tooltip_container a.profile img {
   width: 30px;
   margin: -8px 6px 0 0;
 }

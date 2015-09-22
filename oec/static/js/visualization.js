@@ -262,7 +262,7 @@ configs.default = function(build, container) {
       "missing": missing
     },
     "edges": {"color": edges},
-    "focus": {"tooltip": false},
+    // "focus": {"tooltip": false},
     "font": {
       "color": text
     },

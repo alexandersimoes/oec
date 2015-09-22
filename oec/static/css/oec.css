@@ -1916,11 +1916,11 @@ body.visualize {
   font-weight: 700 !important;
   text-transform: uppercase !important; }
 
-  .d3plus_tooltip_html {
+  .d3plus_tooltip_container {
     font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
     font-weight: 400 !important; }
 
-    .d3plus_tooltip_html a.related, .d3plus_tooltip_html a.profile {
+    .d3plus_tooltip_container a.related, .d3plus_tooltip_container a.profile {
       -webkit-transition: opacity 0.1s;
       -moz-transition: opacity 0.1s;
       -ms-transition: opacity 0.1s;
@@ -1935,9 +1935,11 @@ body.visualize {
       text-decoration: none;
       font-size: 13px;
       line-height: 1.3; }
-      .d3plus_tooltip_html a.related:hover, .d3plus_tooltip_html a.profile:hover {
+      .d3plus_tooltip_container a.related:hover,
+      .d3plus_tooltip_container a.profile:hover {
         opacity: 1; }
-        .d3plus_tooltip_html a.related:after, .d3plus_tooltip_html a.profile:after {
+        .d3plus_tooltip_container a.related:after,
+        .d3plus_tooltip_container a.profile:after {
           bottom: 2px;
           content: "\f105";
           display: block;
@@ -1951,9 +1953,9 @@ body.visualize {
           right: 12px;
           text-decoration: inherit; }
 
-.d3plus_tooltip_html a.related {
+.d3plus_tooltip_container a.related {
   padding: 6px 24px 6px 40px; }
-  .d3plus_tooltip_html a.related:before {
+  .d3plus_tooltip_container a.related:before {
     font-size: 12px;
     line-height: 38px;
     background-position: 50%;
@@ -1968,15 +1970,15 @@ body.visualize {
     text-decoration: none;
     top: 0px;
     width: 38px; }
-    .d3plus_tooltip_html a.related.tree_map:before {
+    .d3plus_tooltip_container a.related.tree_map:before {
       background-image: url("/static/img/icons/app/app_tree_map_black.png"); }
-      .d3plus_tooltip_html a.related.rings:before {
+      .d3plus_tooltip_container a.related.rings:before {
         background-image: url("/static/img/icons/app/app_rings_black.png"); }
 
-.d3plus_tooltip_html a.profile {
+.d3plus_tooltip_container a.profile {
   color: white !important; }
 
-  .d3plus_tooltip_html a.profile img {
+  .d3plus_tooltip_container a.profile img {
     width: 30px;
     margin: -8px 6px 0 0; }
 body.rankings {
