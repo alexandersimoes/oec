@@ -27,6 +27,16 @@ body.profile {
 
     aside {
       margin: 30px !important;
+
+      a.deep-link {
+        @include transition(color 1s);
+        color: $brightlinkcolor !important;
+        border-bottom: none !important;
+        &:hover {
+          border-bottom: none !important;
+          color: #fff !important;
+        }
+      }
     }
 
     content {
@@ -671,7 +681,7 @@ body.profile {
     padding-left: 0;
 
     li a {
-      color: #855c37;
+      color: $brightlinkcolor;
     }
   }
 
