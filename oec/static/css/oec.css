@@ -426,6 +426,11 @@ body.home {
                 bottom: 13%;
                 right: 18%; }
                 .bg-frame #ring #info a {
+                  -webkit-transition: color 3s;
+                  -moz-transition: color 3s;
+                  -ms-transition: color 3s;
+                  -o-transition: color 3s;
+                  transition: color 3s;
                   border-bottom: 1px solid transparent;
                   color: #f9a17a;
                   display: inline-block;
@@ -439,12 +444,7 @@ body.home {
                     margin-top: 5%; }
                     .bg-frame #ring #info a:hover {
                       opacity: 1;
-                      color: #fff;
-                      -webkit-transition: color 3s;
-                      -moz-transition: color 3s;
-                      -ms-transition: color 3s;
-                      -o-transition: color 3s;
-                      transition: color 3s; }
+                      color: #fff; }
         .bg-frame #ring #search_home {
           bottom: 10%;
           border-bottom: 1px solid #bbbdc0;

@@ -106,6 +106,7 @@ $default_size: 600px;
       right: 18%;
 
       a {
+        @include transition(color 3s);
         border-bottom: 1px solid transparent;
         // color: $brightlinkcolor;
         color: #f9a17a;
@@ -124,7 +125,6 @@ $default_size: 600px;
         &:hover {
           opacity: 1;
           color: #fff;
-          @include transition(color 3s);
         }
       }
 
