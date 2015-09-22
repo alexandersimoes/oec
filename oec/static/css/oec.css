@@ -1045,18 +1045,29 @@ body.profile {
     line-height: 1.1; }
     body.profile article aside {
       margin: 30px !important; }
-      body.profile article content {
-        margin: 30px !important; }
-        body.profile article.intro-article {
-          background-color: white;
-          color: #333; }
-          body.profile article.intro-article p {
-            color: #333;
-            text-align: left; }
-            body.profile article.intro-article p a {
-              color: #5083b5; }
-              body.profile article.intro-article p a:hover {
-                border-bottom: 1px solid #5083b5; }
+      body.profile article aside a.deep-link {
+        -webkit-transition: color 1s;
+        -moz-transition: color 1s;
+        -ms-transition: color 1s;
+        -o-transition: color 1s;
+        transition: color 1s;
+        color: #6297cb !important;
+        border-bottom: none !important; }
+        body.profile article aside a.deep-link:hover {
+          border-bottom: none !important;
+          color: #fff !important; }
+    body.profile article content {
+      margin: 30px !important; }
+      body.profile article.intro-article {
+        background-color: white;
+        color: #333; }
+        body.profile article.intro-article p {
+          color: #333;
+          text-align: left; }
+          body.profile article.intro-article p a {
+            color: #5083b5; }
+            body.profile article.intro-article p a:hover {
+              border-bottom: 1px solid #5083b5; }
     body.profile article.titled-section, body.profile article.viz-article {
       background-color: #212831;
       color: white; }
@@ -1653,7 +1664,7 @@ body.profile {
     body.profile ul.hierarchy.contents.country {
       margin-top: 20px; }
       body.profile ul.hierarchy.contents li a {
-        color: #855c37; }
+        color: #6297cb; }
   body.profile ul.hierarchy {
     border: 1px solid #BBBDC0;
     color: #212831;
@@ -2064,55 +2075,52 @@ body.rankings {
 }
         body.rankings #container #explorer ~ content {
           max-width: 695px; }
-          body.rankings #container #explorer #changers {
+          body.rankings #container #explorer #rank_changers {
             margin-top: 0; }
-            body.rankings #container #explorer #changers h3 {
+            body.rankings #container #explorer #rank_changers h3 {
               font-size: 16px;
               margin: 13px 0 3px; }
-              body.rankings #container #explorer #changers .d3plus_node {
-                height: 25px;
-                width: auto; }
-                body.rankings #container #explorer #changers .d3plus_node .d3plus_button_label {
-                  width: auto !important;
-                  height: 25px !important; }
-            body.rankings #container #explorer #changers .change_dataset {
+              body.rankings #container #explorer #rank_changers .d3plus_node {
+                height: 25px; }
+                body.rankings #container #explorer #rank_changers .d3plus_node .d3plus_button_label {
+                  width: auto !important; }
+            body.rankings #container #explorer #rank_changers .change_dataset {
               margin-bottom: 15px; }
-              body.rankings #container #explorer #changers .change_dataset .active {
+              body.rankings #container #explorer #rank_changers .change_dataset .active {
                 color: #333 !important;
                 display: inline-block;
                 font-weight: bold;
                 margin-top: -1px; }
-                body.rankings #container #explorer #changers .change_dataset .active:hover {
+                body.rankings #container #explorer #rank_changers .change_dataset .active:hover {
                   border-color: #333 !important; }
-            body.rankings #container #explorer #changers .download {
+            body.rankings #container #explorer #rank_changers .download {
               border: 1px solid white;
               color: white;
-              display: inline-block;
+              display: block;
               font-size: 12px;
               font-weight: 200;
               height: 15px;
               margin: 15px 0 0;
               padding: 5px;
-              width: 138px;
               top: 19px;
               position: relative; }
-              body.rankings #container #explorer #changers .download:hover {
+              body.rankings #container #explorer #rank_changers .download:hover {
                 background-color: white;
                 color: #212831; }
-                body.rankings #container #explorer #changers .download i {
+                body.rankings #container #explorer #rank_changers .download i {
                   margin-right: 2px;
                   margin-top: 1px; }
                   @media all and (max-width: 768px) {
-                    body.rankings #container #explorer #changers .download {
+                    body.rankings #container #explorer #rank_changers .download {
                       width: auto;   }
 }
                     @media all and (max-width: 550px) {
-                      body.rankings #container #explorer #changers .download {
+                      body.rankings #container #explorer #rank_changers .download {
                         padding: 5px 2px;
                         margin-bottom: 15px;   }
 }
             @media all and (max-width: 426px) {
-              body.rankings #container #explorer #changers.pci-changer .download {
+              body.rankings #container #explorer #rank_changers.pci-changer .download {
                 margin-top: 0px;   }
 }
   body.rankings #container table {
