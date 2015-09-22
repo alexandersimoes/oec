@@ -19804,6 +19804,7 @@ module.exports = function(vars) {
   placeWord = function(word) {
     var current, joiner, next_char;
     current = textBox.text();
+    next_char = "";
     if (reverse) {
       next_char = vars.text.current.charAt(vars.text.current.length - progress.length - 1);
       joiner = next_char === " " ? " " : "";
@@ -19815,7 +19816,7 @@ module.exports = function(vars) {
       progress += joiner + word;
       textBox.text(current + joiner + word);
     }
-    if (textBox.node().getComputedTextLength() > lineWidth()) {
+    if (textBox.node().getComputedTextLength() > lineWidth() || next_char === "\n") {
       textBox.text(current);
       textBox = newLine(word);
       if (reverse) {
@@ -21046,7 +21047,15 @@ module.exports = function(parent, child) {
 
 },{"./d3selection.coffee":207}],205:[function(require,module,exports){
 module.exports = function(arr, value) {
-  var closest;
+  var closest, i;
+  if (value.constructor === String) {
+    i = arr.indexOf(value);
+    if (i > -1) {
+      return arr[i];
+    } else {
+      return arr[0];
+    }
+  }
   closest = arr[0];
   arr.forEach(function(p) {
     if (Math.abs(value - p) < Math.abs(value - closest)) {
@@ -24471,7 +24480,7 @@ module.exports = function( vars , group ) {
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Label Exiting
   //----------------------------------------------------------------------------
-  remove = function(text) {
+  var remove = function(text) {
 
     if (vars.draw.timing) {
       text
@@ -24488,7 +24497,7 @@ module.exports = function( vars , group ) {
   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   // Label Styling
   //----------------------------------------------------------------------------
-  style = function(text) {
+  var style = function(text) {
 
     var salign = vars.labels.valign.value === "bottom" ? "top" : "bottom";
 
