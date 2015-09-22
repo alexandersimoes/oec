@@ -133,8 +133,8 @@
     @include flex-direction(row);
     @include flex-wrap();
     @include align-content(flex-start);
+    margin-top: 35px;
     overflow: scroll;
-    padding-top: 35px;
     width: 93%;
     height: 100%;
 

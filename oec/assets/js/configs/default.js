@@ -70,14 +70,17 @@ configs.default = function(build, container) {
       grid = "#ccc",
       missing = "#ddd",
       chart = background,
-      ui_color = oec.ui.light;
+      ui_color = oec.ui.light,
+      heatmap = ["#282F6B", "#419391", "#AFD5E8", "#EACE3F", "#B35C1E", "#B22200"];
 
   if (background !== "none" && d3.hsl(background).l < 0.5) {
     missing = d3plus.color.lighter(background, 0.7);
+    missing = "#3f464f";
     edges = d3plus.color.lighter(background, 0.2);
     grid = background;
     chart = d3plus.color.lighter(background, 0.1);
     ui_color = oec.ui.dark;
+    heatmap = ["#282F6B", "#419391", "#AFD5E8", "#EACE3F", "#B35C1E", "#B22200"];
   }
 
   var large_tooltip_width = 150;
@@ -146,7 +149,7 @@ configs.default = function(build, container) {
     },
     "background": background,
     "color": {
-      "heatmap": ["#cccccc","#0085BF"],
+      "heatmap": heatmap,
       "missing": missing
     },
     "edges": {"color": edges},
