@@ -246,7 +246,7 @@ class Search():
             product = product.get_display_id() if product else "all"
             
             defaults = {"origin":"nausa", "dest":"aschn", "prod":"010101"}
-            builds = models.get_all_builds("hs92", origin, dest, product, self.year, defaults, viz="tree_map")
+            builds = models.get_all_builds("hs92", origin, dest, product, self.year, defaults, viz=["tree_map","rings","network","geo_map"])
             
             for b in builds:
                 exact.append({"value": b.question(), "name": b.url()})
