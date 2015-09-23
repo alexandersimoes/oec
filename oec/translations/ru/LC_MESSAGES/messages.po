@@ -9,41 +9,42 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-09-23 13:14-0400\n"
-"PO-Revision-Date: 2015-09-09 16:41-0400\n"
+"PO-Revision-Date: 2015-09-23 16:42-0400\n"
 "Last-Translator: \n"
 "Language-Team: ru <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+"Language: ru\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: oec/utils.py:220
 msgid "Trillion"
 msgid_plural "Trillions"
-msgstr[0] ""
+msgstr[0] "триллион"
 msgstr[1] ""
 msgstr[2] ""
 
 #: oec/utils.py:221
 msgid "Billion"
 msgid_plural "Billions"
-msgstr[0] ""
+msgstr[0] "миллиард"
 msgstr[1] ""
 msgstr[2] ""
 
 #: oec/utils.py:222
 msgid "Million"
 msgid_plural "Millions"
-msgstr[0] ""
+msgstr[0] "миллиона"
 msgstr[1] ""
 msgstr[2] ""
 
 #: oec/utils.py:223
 msgid "Thousand"
 msgid_plural "Thousands"
-msgstr[0] ""
+msgstr[0] "Тысяча"
 msgstr[1] ""
 msgstr[2] ""
 
@@ -98,44 +99,32 @@ msgctxt "9"
 msgid "th"
 msgstr ""
 
-#: oec/html/home.html:3 oec/html/home.html:12 oec/html/templates/nav.html:8
-#: oec/html/templates/nav.html:20
+#: oec/html/home.html:3 oec/html/home.html:12 oec/html/templates/nav.html:8 oec/html/templates/nav.html:20
 msgid "The Observatory of Economic Complexity"
 msgstr "Обсерватория экономического сложности"
 
 #: oec/html/home.html:15
-msgid ""
-"We are the world's<br/>leading visualization engine<br/>for international"
-" trade data."
-msgstr ""
-"Мы являемся ведущим в мире<br/>визуализация движок для<br/>международных "
-"торговых данных."
+msgid "We are the world's<br/>leading visualization engine<br/>for international trade data."
+msgstr "Мы являемся ведущим в мире<br/>визуализация движок для<br/>международных торговых данных."
 
 #: oec/html/home.html:17
 msgid "Learn More"
 msgstr "Узнать больше"
 
 #: oec/html/home.html:21 oec/html/templates/nav.html:64
-#, fuzzy
 msgid "Search"
-msgstr "Год"
+msgstr "поисковый"
 
 #: oec/html/about/data.html:4
-msgid ""
-"HS, SITC, and Country classification with their corresponding IDs and "
-"values."
-msgstr ""
-"УГ, МСТК, и Классификация стран с соответствующими идентификаторами и "
-"ценностей."
+msgid "HS, SITC, and Country classification with their corresponding IDs and values."
+msgstr "УГ, МСТК, и Классификация стран с соответствующими идентификаторами и ценностей."
 
 #: oec/html/about/index.html:3 oec/html/includes/nav.html:38
 msgid "About the Site"
 msgstr "О сайте"
 
 #: oec/html/about/index.html:5
-msgid ""
-"Photos and descriptions of the team members involved in the creation of "
-"The Observatory."
+msgid "Photos and descriptions of the team members involved in the creation of The Observatory."
 msgstr "Фотографии и описания членов команды, участвующих в создании обсерватории."
 
 #: oec/html/about/index.html:11
@@ -159,15 +148,12 @@ msgid "A Development blog of updates to the site."
 msgstr "Блог Развитие новинках сайте"
 
 #: oec/html/general/api.html:4
-msgid ""
-"Application programming interface (API) for querying the raw data used "
-"throughout The Observatory of Economic Complexity."
+msgid "Application programming interface (API) for querying the raw data used throughout The Observatory of Economic Complexity."
 msgstr ""
-"Интерфейс прикладного программирования (API) для запросов необработанные "
-"данные, используемые во всей обсерватории экономического сложности."
+"Интерфейс прикладного программирования (API) для запросов необработанные данные, используемые во всей обсерватории экономического "
+"сложности."
 
-#: oec/html/general/permissions.html:3 oec/html/general/permissions.html:10
-#: oec/html/includes/nav.html:47
+#: oec/html/general/permissions.html:3 oec/html/general/permissions.html:10 oec/html/includes/nav.html:47
 msgid "Permissions"
 msgstr "Разрешения"
 
@@ -188,9 +174,8 @@ msgid "Products"
 msgstr "Продукт"
 
 #: oec/html/includes/nav.html:12
-#, fuzzy
 msgid "Visualizations"
-msgstr "Построить Визуализация"
+msgstr "Визуализация"
 
 #: oec/html/includes/nav.html:16
 msgid "Rankings"
@@ -218,10 +203,9 @@ msgstr "API"
 
 #: oec/html/includes/nav.html:58
 msgid "Take a tour"
-msgstr ""
+msgstr "взять тур"
 
 #: oec/html/rankings/index.html:22
-#, fuzzy
 msgid "Prev. Year"
 msgstr "Предыдущий год"
 
@@ -233,8 +217,7 @@ msgstr "Экономический Сложность Рейтинг"
 msgid "Product Complexity Rankings"
 msgstr "Продукт Сложность Рейтинг"
 
-#: oec/html/rankings/index.html:39 oec/html/rankings/index.html:61
-#: oec/html/visualize/index_old.html:40
+#: oec/html/rankings/index.html:39 oec/html/rankings/index.html:61 oec/html/visualize/index_old.html:40
 msgid "Next Year"
 msgstr "В будущем году"
 
@@ -246,8 +229,7 @@ msgstr "Предыдущий год"
 msgid "Dataset"
 msgstr "Набор данных"
 
-#: oec/html/rankings/index.html:82 oec/rankings/views.py:119
-#: oec/visualize/views.py:385
+#: oec/html/rankings/index.html:82 oec/rankings/views.py:119 oec/visualize/views.py:385
 msgid "Year"
 msgstr "Год"
 
@@ -275,13 +257,11 @@ msgstr "Emedded визуализации."
 msgid "Loading"
 msgstr "Загрузка"
 
-#: oec/html/visualize/embed.html:19 oec/html/visualize/embed.html:52
-#: oec/html/visualize/embed.html:341 oec/html/visualize/embed.html:343
+#: oec/html/visualize/embed.html:19 oec/html/visualize/embed.html:52 oec/html/visualize/embed.html:341 oec/html/visualize/embed.html:343
 msgid "Value"
 msgstr "Значение"
 
-#: oec/html/visualize/embed.html:20 oec/html/visualize/embed.html:338
-#: oec/translations/lookup.py:9
+#: oec/html/visualize/embed.html:20 oec/html/visualize/embed.html:338 oec/translations/lookup.py:9
 msgid "Percent"
 msgstr "Процент"
 
@@ -289,8 +269,7 @@ msgstr "Процент"
 msgid "Continent"
 msgstr "Континент"
 
-#: oec/html/visualize/embed.html:30 oec/rankings/views.py:87
-#: oec/visualize/views.py:299
+#: oec/html/visualize/embed.html:30 oec/rankings/views.py:87 oec/visualize/views.py:299
 msgid "Country"
 msgstr "Страна"
 
@@ -314,23 +293,19 @@ msgstr "Брутто"
 msgid "Net"
 msgstr "Сеть"
 
-#: oec/html/visualize/embed.html:56 oec/html/visualize/embed.html:354
-#: oec/translations/lookup.py:24 oec/translations/lookup.py:28
+#: oec/html/visualize/embed.html:56 oec/html/visualize/embed.html:354 oec/translations/lookup.py:24 oec/translations/lookup.py:28
 msgid "Annual Growth Rate (1 year)"
 msgstr "Среднегодовой темп роста (1 год)"
 
-#: oec/html/visualize/embed.html:57 oec/html/visualize/embed.html:355
-#: oec/translations/lookup.py:25 oec/translations/lookup.py:29
+#: oec/html/visualize/embed.html:57 oec/html/visualize/embed.html:355 oec/translations/lookup.py:25 oec/translations/lookup.py:29
 msgid "Annual Growth Rate (5 year)"
 msgstr "Среднегодовой темп роста (5 лет)"
 
-#: oec/html/visualize/embed.html:58 oec/html/visualize/embed.html:356
-#: oec/translations/lookup.py:26 oec/translations/lookup.py:30
+#: oec/html/visualize/embed.html:58 oec/html/visualize/embed.html:356 oec/translations/lookup.py:26 oec/translations/lookup.py:30
 msgid "Growth Value (1 year)"
 msgstr "Стоимость Рост (1 год)"
 
-#: oec/html/visualize/embed.html:59 oec/html/visualize/embed.html:357
-#: oec/translations/lookup.py:27 oec/translations/lookup.py:31
+#: oec/html/visualize/embed.html:59 oec/html/visualize/embed.html:357 oec/translations/lookup.py:27 oec/translations/lookup.py:31
 msgid "Growth Value (5 year)"
 msgstr "Стоимость Рост (5 лет)"
 
@@ -390,38 +365,31 @@ msgstr "Чистый импорт"
 msgid "Market Value"
 msgstr "Рыночная цена"
 
-#: oec/html/visualize/embed.html:345 oec/translations/lookup.py:15
-#: oec/visualize/views.py:351
+#: oec/html/visualize/embed.html:345 oec/translations/lookup.py:15 oec/visualize/views.py:351
 msgid "Export"
 msgstr "Экспорт"
 
-#: oec/html/visualize/embed.html:346 oec/translations/lookup.py:16
-#: oec/visualize/views.py:352
+#: oec/html/visualize/embed.html:346 oec/translations/lookup.py:16 oec/visualize/views.py:352
 msgid "Import"
 msgstr "Импорт"
 
-#: oec/html/visualize/embed.html:347 oec/translations/lookup.py:17
-#: oec/visualize/views.py:338
+#: oec/html/visualize/embed.html:347 oec/translations/lookup.py:17 oec/visualize/views.py:338
 msgid "GDP"
 msgstr "ВВП"
 
-#: oec/html/visualize/embed.html:348 oec/translations/lookup.py:18
-#: oec/visualize/views.py:339
+#: oec/html/visualize/embed.html:348 oec/translations/lookup.py:18 oec/visualize/views.py:339
 msgid "GDPpc (constant '05 US$)"
 msgstr "GDPpc (постоянная '05 US $)"
 
-#: oec/html/visualize/embed.html:349 oec/translations/lookup.py:19
-#: oec/visualize/views.py:340
+#: oec/html/visualize/embed.html:349 oec/translations/lookup.py:19 oec/visualize/views.py:340
 msgid "GDPpc (current US$)"
 msgstr "GDPpc (в текущих долларах США)"
 
-#: oec/html/visualize/embed.html:350 oec/translations/lookup.py:20
-#: oec/visualize/views.py:341
+#: oec/html/visualize/embed.html:350 oec/translations/lookup.py:20 oec/visualize/views.py:341
 msgid "GDPpc PPP (constant '11)"
 msgstr "GDPpc PPP (постоянная '11)"
 
-#: oec/html/visualize/embed.html:351 oec/translations/lookup.py:21
-#: oec/visualize/views.py:342
+#: oec/html/visualize/embed.html:351 oec/translations/lookup.py:21 oec/visualize/views.py:342
 msgid "GDPpc PPP (current)"
 msgstr "GDPpc PPP (ток)"
 
@@ -479,7 +447,7 @@ msgstr "Импорт"
 
 #: oec/profile/models.py:69
 msgid "GDP Per Capita"
-msgstr ""
+msgstr "GDP на душу населения"
 
 #: oec/profile/models.py:112
 #, python-format
@@ -488,52 +456,36 @@ msgstr "%(country)s является %(econ_rank)s крупнейшим эксп
 
 #: oec/profile/models.py:115
 #, python-format
-msgid ""
-" and the %(eci_rank)s most complex economy according to the Economic "
-"Complexity Index (ECI). "
-msgstr ""
-"и %(eci_rank)s самая сложная экономика в зависимости от сложности индекс "
-"экономического (ECI)."
+msgid " and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI). "
+msgstr "и %(eci_rank)s самая сложная экономика в зависимости от сложности индекс экономического (ECI)."
 
 #: oec/profile/models.py:119
 #, python-format
 msgid ""
-"In %(year)s, %(country)s exported $%(export_val)s and imported "
-"$%(import_val)s, resulting in a %(positive_negative)s trade balance of "
-"$%(trade_delta)s. "
+"In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $"
+"%(trade_delta)s. "
 msgstr ""
-"В %(year)s году %(country)s экспортировала $%(export_val)s и "
-"$%(import_val)s импортированы, в результате чего $%(positive_negative)s "
+"В %(year)s году %(country)s экспортировала $%(export_val)s и $%(import_val)s импортированы, в результате чего $%(positive_negative)s "
 "сальдо торгового баланса в $%(trade_delta)s. "
 
 #: oec/profile/models.py:126
 #, python-format
-msgid ""
-"In %(year)s the GDP of %(country)s was $%(gdp)s and its GDP per capita "
-"was $%(gdp_pc)s."
-msgstr ""
-"В %(year)s году ВВП %(country)s составлял $%(gdp)s, а ВВП на душу "
-"населения составил $%(gdp_pc)s."
+msgid "In %(year)s the GDP of %(country)s was $%(gdp)s and its GDP per capita was $%(gdp_pc)s."
+msgstr "В %(year)s году ВВП %(country)s составлял $%(gdp)s, а ВВП на душу населения составил $%(gdp_pc)s."
 
 #: oec/profile/models.py:136
 #, python-format
 msgid ""
-"The top exports of %(country)s are %(exports_list)s, using the 1992 "
-"revision of the HS (Harmonized System) classification. Its top imports "
-"are %(imports_list)s."
+"The top exports of %(country)s are %(exports_list)s, using the 1992 revision of the HS (Harmonized System) classification. Its top "
+"imports are %(imports_list)s."
 msgstr ""
-"Лучшие экспорта %(country)s %(exports_list)s, используя 1992 пересмотра "
-"УГ (Согласованная система) классификации. Его топ-импорт "
+"Лучшие экспорта %(country)s %(exports_list)s, используя 1992 пересмотра УГ (Согласованная система) классификации. Его топ-импорт "
 "%(imports_list)s."
 
 #: oec/profile/models.py:146
 #, python-format
-msgid ""
-"The top export destinations of %(country)s are %(destinations)s. The top "
-"import origins are %(origins)s."
-msgstr ""
-"Лучшие направления экспорта из %(country)s %(destinations)s. Лучшие "
-"импортные происхождение %(origins)s."
+msgid "The top export destinations of %(country)s are %(destinations)s. The top import origins are %(origins)s."
+msgstr "Лучшие направления экспорта из %(country)s %(destinations)s. Лучшие импортные происхождение %(origins)s."
 
 #: oec/profile/models.py:155
 #, python-format
@@ -547,206 +499,198 @@ msgstr "%(country)s граничит %(land_borders)s."
 
 #: oec/profile/models.py:159
 #, python-format
-msgid ""
-"%(country)s borders %(land_borders)s by land and %(maritime_borders)s by "
-"sea."
-msgstr ""
-"%(country)s граничит по суше %(land_borders)s и %(maritime_borders)s по "
-"морю."
+msgid "%(country)s borders %(land_borders)s by land and %(maritime_borders)s by sea."
+msgstr "%(country)s граничит по суше %(land_borders)s и %(maritime_borders)s по морю."
 
 #: oec/profile/models.py:183
-#, fuzzy, python-format
-msgid ""
-"In %(year)s %(country)s exported $%(export_val)s, making it the "
-"%(export_rank)s largest exporter in the world. "
-msgstr "%(country)s является %(econ_rank)s крупнейшим экспортным экономика в мире"
+#, python-format
+msgid "In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world. "
+msgstr "В %(year)s году %(country)s экспортировала %(export_val)s $, что делает его %(export_rank)s по величине экспортером в мире."
 
 #: oec/profile/models.py:188
 #, python-format
 msgid ""
-"During the last five years the exports of %(country)s have "
-"%(increased_decreased)s at an annualized rate of %(change_rate)s%%, from "
-"$%(past_export_val)s in %(past_year)s to $%(current_export_val)s in "
-"%(current_year)s. "
+"During the last five years the exports of %(country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $"
+"%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. "
 msgstr ""
+"В течение последних пяти лет экспорт %(country)s %(increased_decreased)s в годовом исчислении на %(change_rate)s%%, с $ "
+"%(past_export_val)s в %(past_year)s году до $ %(current_export_val)s в %(current_year)s году. "
 
 #: oec/profile/models.py:193
 #, python-format
 msgid ""
-"The most recent exports are led by %(top_export)s, which represent "
-"%(top_export_pct)s%% of the total exports of %(country)s, followed by "
+"The most recent exports are led by %(top_export)s, which represent %(top_export_pct)s%% of the total exports of %(country)s, followed by "
 "%(second_export)s, which account for %(second_export_pct)s%%."
 msgstr ""
+"Самые последние экспорта во главе с %(top_export)s, которые представляют %(top_export_pct)s%% от общего объема экспорта %(country)s, а "
+"затем %(second_export)s, на долю которых приходится %(second_export_pct)s%%."
 
 #: oec/profile/models.py:199
-#, fuzzy, python-format
-msgid ""
-"In %(year)s %(country)s imported $%(import_val)s, making it the "
-"%(import_rank)s largest importer in the world. "
-msgstr "%(country)s является %(econ_rank)s крупнейшим экспортным экономика в мире"
+#, python-format
+msgid "In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world. "
+msgstr "В %(year)s году %(country)s импортировала $ %(import_val)s, что делает его %(import_rank)s по величине импортером в мире. "
 
 #: oec/profile/models.py:204
 #, python-format
 msgid ""
-"During the last five years the imports of %(country)s have "
-"%(increased_decreased)s at an annualized rate of %(change_rate)s%%, from "
-"$%(past_import_val)s in %(past_year)s to $%(current_import_val)s in "
-"%(current_year)s. "
+"During the last five years the imports of %(country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $"
+"%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s. "
 msgstr ""
+"В течение последних пяти лет импорт %(country)s %(increased_decreased)s в годовом исчислении на %(change_rate)s%%, с $ "
+"%(past_import_val)s в %(past_year)s году до $ %(current_import_val)s в %(current_year)s году."
 
 #: oec/profile/models.py:213
 #, python-format
 msgid ""
-"The most recent imports are led by %(top_import)s, which represent "
-"%(top_import_pct)s%% of the total imports of %(country)s, followed by "
+"The most recent imports are led by %(top_import)s, which represent %(top_import_pct)s%% of the total imports of %(country)s, followed by "
 "%(second_import)s, which account for %(second_import_pct)s%%."
 msgstr ""
+"Самые последние импорт главе с %(top_import)s, которые представляют %(top_import_pct)s%% от общего объема импорта %(country)s, а затем "
+"%(second_import)s, на долю которых приходится %(second_import_pct)s%%."
 
 #: oec/profile/models.py:219
-#, fuzzy, python-format
+#, python-format
 msgid "The top export destinations of %(country)s are %(destinations)s."
-msgstr ""
-"Лучшие направления экспорта из %(country)s %(destinations)s. Лучшие "
-"импортные происхождение %(origins)s."
+msgstr "Лучшие направления экспорта из %(country)s %(destinations)s."
 
 #: oec/profile/models.py:225
-#, fuzzy, python-format
+#, python-format
 msgid "The top import origins of %(country)s are %(origins)s."
-msgstr ""
-"Лучшие направления экспорта из %(country)s %(destinations)s. Лучшие "
-"импортные происхождение %(origins)s."
+msgstr "Лучшие импортные происхождение %(country)s %(origins)s."
 
 #: oec/profile/models.py:233 oec/profile/models.py:240
 msgid "positive"
-msgstr ""
+msgstr "положительный"
 
 #: oec/profile/models.py:233 oec/profile/models.py:240
 msgid "negative"
-msgstr ""
+msgstr "отрицательный"
 
 #: oec/profile/models.py:234 oec/profile/models.py:241
-#, fuzzy
 msgid "exports"
-msgstr "Экспорт"
+msgstr "экспорт"
 
 #: oec/profile/models.py:234 oec/profile/models.py:241
-#, fuzzy
 msgid "imports"
-msgstr "Импорт"
+msgstr "импорт"
 
 #: oec/profile/models.py:236
 #, python-format
-msgid ""
-"As of %(year)s %(country)s had a %(positive_negative)s trade balance of "
-"$%(net_trade)s in net %(exports_imports)s."
-msgstr ""
+msgid "As of %(year)s %(country)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s."
+msgstr "В %(year)s в %(country)s было %(positive_negative)s сальдо торгового баланса в размере $ %(net_trade)s чистого %(exports_imports)s."
 
 #: oec/profile/models.py:243
 msgid "still"
-msgstr ""
+msgstr "до сих пор"
 
 #: oec/profile/models.py:245
 #, python-format
 msgid ""
-" As compared to their trade balance in %(year)s when they %(still)s had a"
-" %(positive_negative)s trade balance of $%(net_trade)s in net "
+" As compared to their trade balance in %(year)s when they %(still)s had a %(positive_negative)s trade balance of $%(net_trade)s in net "
 "%(exports_imports)s."
 msgstr ""
+"По сравнению с их торгового баланса в %(year)s году, когда они %(still)s %(positive_negative)s торговый баланс $ %(net_trade)s чистого "
+"%(exports_imports)s."
 
 #: oec/profile/models.py:251
 msgid "Trade Balance"
-msgstr ""
+msgstr "Торговый баланс"
 
 #: oec/profile/models.py:252
 msgid "Destinations"
-msgstr ""
+msgstr "Направления"
 
 #: oec/profile/models.py:253
 msgid "Origins"
-msgstr ""
+msgstr "происхождения"
 
 #: oec/profile/models.py:271
 #, python-format
-msgid ""
-"The economy of %(country)s has an Economic Complexity Index (ECI) of "
-"%(eci)s making it the %(eci_rank)s most complex country. "
-msgstr ""
+msgid "The economy of %(country)s has an Economic Complexity Index (ECI) of %(eci)s making it the %(eci_rank)s most complex country. "
+msgstr "Экономика %(country)s имеет сложность индекс экономической (ECI) %(eci)s, что делает его %(eci_rank)s наиболее сложная страна."
 
 #: oec/profile/models.py:278
 #, python-format
 msgid ""
-"%(country)s exports %(num_of_exports)s products with revealed comparative"
-" advantage (meaning that its share of global exports is larger than what "
-"would be expected from the size of its export economy and from the size "
-"of a product’s global market)."
+"%(country)s exports %(num_of_exports)s products with revealed comparative advantage (meaning that its share of global exports is larger "
+"than what would be expected from the size of its export economy and from the size of a product’s global market)."
 msgstr ""
+"%(country)s экспортирует %(num_of_exports)s продуктов с выявленного сравнительного преимущества (это означает, что ее доля в мировом "
+"экспорте больше, чем можно было бы ожидать исходя из размера его экспортной экономики и от размера глобального рынка продукт, в)."
 
 #: oec/profile/models.py:283
-#, fuzzy, python-format
+#, python-format
 msgid "Economic Complexity of %(country)s"
-msgstr "Экономический Сложность Рейтинг"
+msgstr "Экономический Сложность %(country)s"
 
 #: oec/profile/models.py:286
-#, fuzzy
 msgid "Product Space"
-msgstr "Продукт"
+msgstr "пространство товаров"
 
 #: oec/profile/models.py:286
 msgid ""
-"The product space is a network connecting products that are likely to be "
-"co-exported and can be used to predict the evolution of a country’s "
-"export structure."
+"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a "
+"country’s export structure."
 msgstr ""
+"Пространство продукт является сеть, соединяющая продукты, которые могут быть совместно экспортировать и могут быть использованы для "
+"прогнозирования эволюции структуры экспорта страны."
 
 #: oec/profile/models.py:300
 #, python-format
 msgid ""
 "\n"
-"            This treemap shows the municipalities in Brazil that imported"
-" products from %(country)s.<br /><br />\n"
-"            DataViva is a visualization tool that provides official data "
-"on trade, industries, and education throughout Brazil. If you would like "
-"more info or to create a similar site get in touch with us at <a "
-"href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />\n"
-"            <a target='_blank' "
-"href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'><img"
-" src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>\n"
+"            This treemap shows the municipalities in Brazil that imported products from %(country)s.<br /><br />\n"
+"            DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you "
+"would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />\n"
+"            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?"
+"size=import_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>\n"
 "            "
 msgstr ""
+"\n"
+"Это показывает, дерево карта муниципалитеты в Бразилии, что импортные товары из %(country)s.<br /><br />\n"
+"DataViva это инструмент визуализации, который обеспечивает официальные данные о торговле, промышленности и образования на протяжении всей "
+"Бразилии. Если вы хотели бы получить больше информации или создать подобный сайт, свяжитесь с нами по <a href='mailto:oec@media.mit."
+"edu'>oec@media.mit.edu</a>.<br /><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?"
+"size=import_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>"
 
 #: oec/profile/models.py:305
 #, python-format
 msgid ""
 "\n"
-"            This treemap shows the municipalities in Brazil that exported"
-" products to %(country)s.<br /><br />\n"
-"            DataViva is a visualization tool that provides official data "
-"on trade, industries, and education throughout Brazil. If you would like "
-"more info or to create a similar site get in touch with us at <a "
-"href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />\n"
-"            <a target='_blank' "
-"href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'><img"
-" src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>\n"
+"            This treemap shows the municipalities in Brazil that exported products to %(country)s.<br /><br />\n"
+"            DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you "
+"would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />\n"
+"            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?"
+"size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>\n"
 "            "
 msgstr ""
+"\n"
+"Это дерево карта показывает муниципалитетов в Бразилии, что экспортируемые продукты в %(country)s.<br /><br />\n"
+"DataViva это инструмент визуализации, который обеспечивает официальные данные о торговле, промышленности и образования на протяжении всей "
+"Бразилии. Если вы хотели бы получить больше информации или создать подобный сайт, свяжитесь с нами по <a href='mailto:oec@media.mit."
+"edu'>oec@media.mit.edu</a>.<br />\n"
+"            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?"
+"size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>\n"
+"            "
 
 #: oec/profile/models.py:310
 #, python-format
 msgid "Brazilian Municipalities that import from %(country)s"
-msgstr ""
+msgstr "Бразильские Муниципалитеты, которые импортируют из %(country)s"
 
 #: oec/profile/models.py:311
 #, python-format
 msgid "Brazilian Municipalities that export to %(country)s"
-msgstr ""
+msgstr "Бразильские Муниципалитеты, которые экспортируют в %(country)s"
 
 #: oec/profile/models.py:327
 #, python-format
 msgid ""
-"This treemap shows the cultural exports of %(country)s, as proxied by the"
-" production of globally famous historical characters.<br "
-"/>%(pantheon_link)s"
+"This treemap shows the cultural exports of %(country)s, as proxied by the production of globally famous historical characters.<br />"
+"%(pantheon_link)s"
 msgstr ""
+"Это дерево карта показывает культурные экспорт %(country)s, в качестве индикатора производства глобально известных исторических "
+"персонажей. <br />%(pantheon_link)s"
 
 #: oec/profile/models.py:348
 msgid "Product Complexity"
@@ -763,45 +707,37 @@ msgstr "Топ Импортер"
 #: oec/profile/models.py:411
 #, python-format
 msgid "%(product)s the %(economic_rank)s most traded product"
-msgstr ""
+msgstr "%(product)s %(economic_rank)s наиболее торгуемых продукт"
 
 #: oec/profile/models.py:415
-#, fuzzy, python-format
-msgid ""
-" and the %(pci_rank)s most complex product according to the <a "
-"href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>"
-msgstr ""
-"и %(eci_rank)s самая сложная экономика в зависимости от сложности индекс "
-"экономического (ECI)."
+#, python-format
+msgid " and the %(pci_rank)s most complex product according to the <a href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>"
+msgstr " и %(pci_rank)s наиболее сложный продукт в соответствии с <a href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>"
 
 #: oec/profile/models.py:427
-#, fuzzy, python-format
-msgid ""
-"The top exporters of %(product)s are %(exporters)s. The top importers are"
-" %(importers)s."
-msgstr ""
-"Лучшие направления экспорта из %(country)s %(destinations)s. Лучшие "
-"импортные происхождение %(origins)s."
+#, python-format
+msgid "The top exporters of %(product)s are %(exporters)s. The top importers are %(importers)s."
+msgstr "Крупнейшими экспортерами %(product)s являются %(exporters)s. Лучшие импортеры %(importers)s."
 
 #: oec/profile/models.py:445
 #, python-format
 msgid "%(product)s the top export of %(countries)s."
-msgstr ""
+msgstr "%(product)s верхняя экспорт %(countries)s."
 
 #: oec/profile/models.py:448
 #, python-format
 msgid "%(product)s the top import of %(countries)s."
-msgstr ""
+msgstr "%(product)s верхняя импорт %(countries)s."
 
 #: oec/profile/models.py:456
 #, python-format
 msgid "%(product)s also known as %(keywords)s."
-msgstr ""
+msgstr "%(product)s также известный как %(keywords)s."
 
 #: oec/profile/models.py:460
 #, python-format
 msgid "%(product)s a %(product_id_length)s digit %(classification)s product."
-msgstr ""
+msgstr "%(product)s ткани %(classification)s %(product_id_length)s цифр."
 
 #: oec/rankings/views.py:87 oec/rankings/views.py:94
 msgid "Rank"
@@ -833,7 +769,7 @@ msgstr "О торговых потоках"
 
 #: oec/visualize/views.py:372
 msgid "Start Year"
-msgstr "Год начала"
+msgstr "В %(year) году %(country)s импортировала $ %(import_val)s, что делает его %(import_rank)s по величине импортером в мире. Год начала"
 
 #: oec/visualize/views.py:378
 msgid "End Year"
@@ -868,9 +804,5 @@ msgstr "Профиль для %(attr)s"
 #~ msgid "Classification"
 #~ msgstr "Классификация"
 
-#~ msgid "%(country)s borders %(country)s by land and %(country)s by sea."
-#~ msgstr ""
-
 #~ msgid "Population"
 #~ msgstr "население"
-
