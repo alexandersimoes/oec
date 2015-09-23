@@ -66,7 +66,7 @@ class Country(Profile):
             else:
                 attr = self.attr
             start_year = earliest_data.get(attr.id, 1980)
-            all_stats = [("eci", _('Economic Complexity')), ("export_val", _('Exports')), ("import_val", _('Imports')), ("gdp_pc_constant", _('GDP Per Capita'))]
+            all_stats = [("eci", _('Economic Complexity')), ("export_val", _('Exports')), ("import_val", _('Imports')), ("gdp_pc_current_ppp", _('GDP Per Capita'))]
             for s, s_title in all_stats:
                 if "val" in s:
                     yo_historic = db_data.sitc_models.Yo.query.filter_by(country=attr).filter(db_data.sitc_models.Yo.year >= start_year).all()
