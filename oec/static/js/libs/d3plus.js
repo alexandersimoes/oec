@@ -10871,70 +10871,78 @@ module.exports = function( vars , data ) {
   // if "solo", only check against "solo" (disregard "mute")
   var key = vars.data.solo.length ? "solo" : "mute";
 
-  vars.data[key].forEach(function(v) {
+  if (vars.data[key].length) {
 
-    function test_value(val) {
+    vars.data[key].forEach(function(v) {
 
-      var arr = vars[v][key].value;
+      function test_value(val) {
 
-      var match = false;
-      arr.forEach(function(f){
-        if (typeof f === "function") {
-          match = f(val);
-        }
-        else if (f === val) {
-          match = true;
-        }
+        var arr = vars[v][key].value;
 
-      })
+        var match = false;
+        arr.forEach(function(f){
+          if (typeof f === "function") {
+            match = f(val);
+          }
+          else if (f === val) {
+            match = true;
+          }
 
-      return key === "solo" ? match : !match;
-
-    }
-
-    function filter_data(d, flat) {
-      if (!flat && vars[v].nesting) {
-        var nesting = vars[v].nesting;
-        if (validObject(nesting)) {
-          nesting = d3.values(nesting);
-        }
-        for (var n = 0; n < nesting.length; n++) {
-          var new_data = d.filter(function(dd){
-            return test_value(fetchValue(vars, dd, nesting[n]));
-          });
-          if (new_data.length) d = new_data;
-        }
-      }
-      else {
-        d = d.filter(function(dd){
-          return test_value(fetchValue(vars, dd, vars[v].value));
-        });
-      }
-      return d;
-    }
-
-    data = filter_data(data);
-
-    if ( v === "id" ) {
-
-      if ("nodes" in vars && vars.nodes.value) {
-        if ( vars.dev.value ) print.time("filtering nodes")
-        vars.nodes.restricted = filter_data(vars.nodes.value)
-        if ( vars.dev.value ) print.timeEnd("filtering nodes")
-      }
-
-      if ("edges" in vars && vars.edges.value) {
-        if ( vars.dev.value ) print.time("filtering edges")
-        vars.edges.restricted = vars.edges.value.filter(function(d){
-          var points = filter_data([d[vars.edges.source], d[vars.edges.target]], true);
-          return points.length === 2;
         })
-        if ( vars.dev.value ) print.timeEnd("filtering edges")
+
+        return key === "solo" ? match : !match;
+
       }
 
-    }
+      function filter_data(d, flat) {
+        if (!flat && vars[v].nesting) {
+          var nesting = vars[v].nesting;
+          if (validObject(nesting)) {
+            nesting = d3.values(nesting);
+          }
+          for (var n = 0; n < nesting.length; n++) {
+            var new_data = d.filter(function(dd){
+              return test_value(fetchValue(vars, dd, nesting[n]));
+            });
+            if (new_data.length) d = new_data;
+          }
+        }
+        else {
+          d = d.filter(function(dd){
+            return test_value(fetchValue(vars, dd, vars[v].value));
+          });
+        }
+        return d;
+      }
 
-  })
+      data = filter_data(data);
+
+      if ( v === "id" ) {
+
+        if ("nodes" in vars && vars.nodes.value) {
+          if ( vars.dev.value ) print.time("filtering nodes")
+          vars.nodes.restricted = filter_data(vars.nodes.value);
+          if ( vars.dev.value ) print.timeEnd("filtering nodes")
+        }
+
+        if ("edges" in vars && vars.edges.value) {
+          if ( vars.dev.value ) print.time("filtering edges")
+          vars.edges.restricted = vars.edges.value.filter(function(d){
+            var points = filter_data([d[vars.edges.source], d[vars.edges.target]]);
+            return points.length === 2;
+          })
+          if ( vars.dev.value ) print.timeEnd("filtering edges")
+        }
+
+      }
+
+    })
+
+  }
+  else if ("nodes" in vars) {
+    vars.nodes.restricted = undefined;
+    vars.edges.restricted = undefined;
+  }
 
   if ( vars.dev.value ) print.timeEnd("filtering data")
 
@@ -11517,11 +11525,14 @@ var dataNest = function(vars, flatData, nestingLevels) {
         if (key in returnObj.d3plus.data) {
           returnObj[key] = returnObj.d3plus[key];
         }
-        if (aggType === "function") {
+        else if (aggType === "function") {
           returnObj[key] = vars.aggs.value[key](leaves);
         }
         else if (timeKey) {
           returnObj[key] = parseDates(uniqueValues(leaves, key));
+        }
+        else if (vars.axes && vars.axes.discrete && vars[vars.axes.discrete].value === key) {
+          returnObj[key] = uniqueValues(leaves, key);
         }
         else if (keyType === "number" && aggType === "string" && !idKey) {
           var vals = leaves.map(function(d){ return d[key]; });
@@ -12193,7 +12204,11 @@ module.exports = function(vars, years, depth) {
 
     if ( vars.dev.value ) print.comment("data already cached");
 
-    returnData = vars.data.cache[cacheID];
+    returnData = vars.data.cache[cacheID].data;
+    if ("nodes" in vars) {
+      vars.nodes.restricted = vars.data.cache[cacheID].nodes;
+      vars.edges.restricted = vars.data.cache[cacheID].edges;
+    }
 
     if ( typeof vizFilter === "function" ) {
       returnData = vizFilter( vars ,  returnData );
@@ -12273,7 +12288,11 @@ module.exports = function(vars, years, depth) {
       }
 
       cacheID = new Date().getTime() + "_" + cacheID;
-      vars.data.cache[cacheID] = returnData;
+      vars.data.cache[cacheID] = {"data": returnData};
+      if ("nodes" in vars) {
+        vars.data.cache[cacheID].nodes = vars.nodes.restricted;
+        vars.data.cache[cacheID].edges = vars.edges.restricted;
+      }
 
       if ( typeof vizFilter === "function" ) {
         returnData = vizFilter( vars , returnData );
@@ -22496,7 +22515,7 @@ module.exports = function(vars, selection, enter, exit) {
   size_change = vars.old_height !== vars.height.viz || vars.height.changed || vars.old_width !== vars.width.viz || vars.width.changed;
   vars.old_height = vars.height.viz;
   vars.old_width = vars.width.viz;
-  if (vars.coords.changed || size_change || vars.coords.mute.changed || vars.coords.solo.changed || vars.type.changed) {
+  if (vars.coords.changed || size_change || vars.coords.mute.changed || vars.coords.solo.changed || vars.type.changed || vars.text.changed) {
     vars.zoom.bounds = null;
     vars.zoom.reset = true;
     vars.zoom.coords = {};
@@ -32491,7 +32510,7 @@ var network = function(vars) {
   // Use filtered lists if they are available
   //----------------------------------------------------------------------------
   var nodes = vars.nodes.restricted || vars.nodes.value,
-      edges = vars.edges.restricted || vars.edges.value
+      edges = vars.edges.restricted || vars.edges.value;
 
   var x_range = d3.extent(nodes,function(n){return n.x}),
       y_range = d3.extent(nodes,function(n){return n.y})
@@ -33588,9 +33607,9 @@ stacked.setup = function(vars) {
   y = vars[vars.axes.opposite];
   size = vars.size;
   if ((!y.value && size.value) || (size.changed && size.previous === y.value)) {
-    vars.self[vars.axes.opposite](size.value);
+    return vars.self[vars.axes.opposite](size.value);
   } else if ((!size.value && y.value) || (y.changed && y.previous === size.value)) {
-    vars.self.size(y.value);
+    return vars.self.size(y.value);
   }
 };
 
