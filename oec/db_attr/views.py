@@ -12,6 +12,12 @@ mod = Blueprint('attr', __name__, url_prefix='/attr')
 #
 ############################################################
 
+@mod.route('/eci/')
+@crossdomain(origin='*')
+def eci():
+    countries = Yo.query.filter(Yo.eci != None).all()
+    return jsonify(data=[c.serialize() for c in countries])
+
 @mod.route('/<attr>/')
 @mod.route('/<attr>/<lang>/')
 @crossdomain(origin='*')
