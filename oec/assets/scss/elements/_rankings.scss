@@ -33,14 +33,15 @@ body.rankings {
         margin: 0;
 
         a {
-          color: $brightlinkcolor;
+          color: $lightlinkcolor;
 
           i {
             margin-top: 3px;
           }
           
-          h2 {
-            font-family: $montserrat;
+          .year-nav {
+            @include transition(opacity 0.6s);
+            font-weight: 400;
             font-size: 26px;
             opacity: 0.6;
             &:hover {

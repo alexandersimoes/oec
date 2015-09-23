@@ -17,7 +17,7 @@
   <aside>
     {% if year > g.available_years[category][0]  %}
     <a id="prev" href="/{{ g.locale }}/rankings/{{ category }}/{{ year-1 }}/">
-      <h2>
+      <h2 class="year-nav">
         <i class="fa fa-angle-left"></i>
         <!-- {{ _('Prev. Year') }} -->
         {{ year-1 }}
@@ -35,7 +35,7 @@
   <aside>
     {% if year < g.available_years[category][-1]  %}
     <a id="next" href="/{{ g.locale }}/rankings/{{ category }}/{{ year+1 }}/">
-      <h2>
+      <h2 class="year-nav">
         <!-- {{ _('Next Year') }} -->
         {{ year+1 }}
         <i class="fa fa-angle-right"></i>
