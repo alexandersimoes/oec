@@ -890,7 +890,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
         left: 0;
         position: absolute;
         top: 0;
@@ -1578,7 +1578,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
+      background: linear-gradient(to bottom, transparent, #212831);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -1751,127 +1751,81 @@ body.visualize {
         justify-content: space-between;
         -webkit-align-items: baseline;
         align-items: baseline;
-        padding: 30px 0 10px;
+        padding: 10px 0;
         margin: 0 !important; }
-        body.visualize #content #main_viz .nav-section aside {
-          width: auto !important;
-          margin: 0; }
-          body.visualize #content #main_viz .nav-section aside a {
-            color: #99BCD1; }
-            body.visualize #content #main_viz .nav-section aside a i {
-              margin-top: 3px; }
-              body.visualize #content #main_viz .nav-section aside a h2.year-nav {
-                -webkit-transition: opacity 0.6s;
-                -moz-transition: opacity 0.6s;
-                -ms-transition: opacity 0.6s;
-                -o-transition: opacity 0.6s;
-                transition: opacity 0.6s;
-                font-weight: 400;
-                font-size: 26px;
-                opacity: 0.6; }
-                body.visualize #content #main_viz .nav-section aside a h2.year-nav:hover {
-                  opacity: 1; }
-                  @media all and (min-width: 860px) and (max-width: 960px) {
-                    body.visualize #content #main_viz .nav-section aside a h2.year-nav {
-                      font-size: 22px;   }
+        @media all and (max-width: 768px) {
+          body.visualize #content #main_viz .nav-section {
+            padding: 0 0 10px;   }
 }
-                    @media all and (min-width: 501px) and (max-width: 859px) {
+          body.visualize #content #main_viz .nav-section aside {
+            width: auto !important;
+            margin: 0; }
+            body.visualize #content #main_viz .nav-section aside a {
+              color: #99BCD1; }
+              body.visualize #content #main_viz .nav-section aside a i {
+                margin-top: 3px; }
+                body.visualize #content #main_viz .nav-section aside a h2.year-nav {
+                  -webkit-transition: opacity 0.6s;
+                  -moz-transition: opacity 0.6s;
+                  -ms-transition: opacity 0.6s;
+                  -o-transition: opacity 0.6s;
+                  transition: opacity 0.6s;
+                  font-weight: 400;
+                  font-size: 26px;
+                  opacity: 0.6; }
+                  body.visualize #content #main_viz .nav-section aside a h2.year-nav:hover {
+                    opacity: 1; }
+                    @media all and (min-width: 860px) and (max-width: 960px) {
                       body.visualize #content #main_viz .nav-section aside a h2.year-nav {
-                        font-size: 17px;   }
+                        font-size: 22px;   }
 }
-                      @media all and (max-width: 500px) {
+                      @media all and (min-width: 501px) and (max-width: 859px) {
                         body.visualize #content #main_viz .nav-section aside a h2.year-nav {
-                          font-size: 14px;   }
+                          font-size: 17px;   }
 }
-        body.visualize #content #main_viz .nav-section content h1 {
-          text-align: center; }
-          @media all and (min-width: 920px) and (max-width: 1090px) {
-            body.visualize #content #main_viz .nav-section content h1 {
-              font-size: 30px;   }
+                        @media all and (max-width: 500px) {
+                          body.visualize #content #main_viz .nav-section aside a h2.year-nav {
+                            font-size: 14px;   }
 }
-            @media all and (min-width: 860px) and (max-width: 919px) {
+        body.visualize #content #main_viz .nav-section content {
+          margin: 0; }
+          body.visualize #content #main_viz .nav-section content h1 {
+            text-align: center; }
+            @media all and (min-width: 920px) and (max-width: 1090px) {
               body.visualize #content #main_viz .nav-section content h1 {
-                font-size: 26px;   }
+                font-size: 30px;   }
 }
-              @media all and (min-width: 501px) and (max-width: 859px) {
+              @media all and (min-width: 860px) and (max-width: 919px) {
                 body.visualize #content #main_viz .nav-section content h1 {
-                  font-size: 22px;   }
+                  font-size: 26px;   }
 }
-                @media all and (max-width: 500px) {
+                @media all and (min-width: 501px) and (max-width: 859px) {
                   body.visualize #content #main_viz .nav-section content h1 {
-                    font-size: 18px;   }
+                    font-size: 22px;   }
 }
-  @media all and (max-width: 768px) {
-    body.visualize #explorer {
-      margin: 0 20px !important;   }
+                  @media all and (max-width: 500px) {
+                    body.visualize #content #main_viz .nav-section content h1 {
+                      font-size: 18px;   }
 }
-    body.visualize #explorer #prev, body.visualize #explorer #next {
-      font-size: 12px;
-      position: absolute;
-      top: 34px; }
-      @media all and (max-width: 768px) {
-        body.visualize #explorer #prev, body.visualize #explorer #next {
-          top: 13px;   }
+  body.visualize aside#explorer {
+    margin: 30px 35px 0 20px !important; }
+    @media all and (max-width: 768px) {
+      body.visualize aside#explorer {
+        margin: 0 20px !important;   }
 }
-  body.visualize #explorer #prev {
-    left: 50px; }
-    body.visualize #explorer #next {
-      right: 50px; }
-      body.visualize #explorer .app_button_group {
-        -webkit-justify-content: center;
-        -moz-justify-content: center;
-        justify-content: center;
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex; }
-        body.visualize #explorer .app_button_group .app_button {
-          -webkit-box-flex: 1;
-          -moz-box-flex: 1;
-          -webkit-flex: 1;
-          -ms-flex: 1;
-          flex: 1;
-          -webkit-transition: opacity 0.5s;
-          -moz-transition: opacity 0.5s;
-          -ms-transition: opacity 0.5s;
-          -o-transition: opacity 0.5s;
-          transition: opacity 0.5s;
-          border-color: transparent;
-          border-style: solid;
-          border-width: 1px;
-          display: inline-block;
-          font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-          font-size: 14px;
-          padding: 5px;
-          opacity: 0.7;
-          text-transform: uppercase; }
-          body.visualize #explorer .app_button_group .app_button img {
-            margin-right: 3px;
-            width: 15px; }
-            body.visualize #explorer .app_button_group .app_button:hover {
-              cursor: pointer;
-              opacity: 0.9; }
-              body.visualize #explorer .app_button_group .app_button.open {
-                background-color: #212831;
-                border-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0) rgba(255,
-                                255, 255, 0.4);
-                opacity: 1;
-                border-style: solid; }
-  body.visualize #explorer .app_menu {
-    border-color: rgba(255, 255, 255, 0.4);
-    border-style: solid;
-    border-width: 1px;
-    display: none;
-    margin-top: -1px;
-    margin-bottom: 5px;
-    padding: 10px; }
-    body.visualize #explorer .app_menu.open {
-      display: block; }
-      body.visualize #explorer .app_menu h3 {
-        font-size: 16px;
-        margin: 35px 0 20px; }
-        body.visualize #explorer .app_menu .build {
+      body.visualize aside#explorer #prev, body.visualize aside#explorer #next {
+        font-size: 12px;
+        position: absolute;
+        top: 34px; }
+        @media all and (max-width: 768px) {
+          body.visualize aside#explorer #prev, body.visualize aside#explorer #next {
+            top: 13px;   }
+}
+    body.visualize aside#explorer #prev {
+      left: 50px; }
+      body.visualize aside#explorer #next {
+        right: 50px; }
+        body.visualize aside#explorer .app_button_group {
           -webkit-justify-content: center;
           -moz-justify-content: center;
           justify-content: center;
@@ -1879,107 +1833,161 @@ body.visualize {
           display: -moz-box;
           display: -ms-flexbox;
           display: -webkit-flex;
-          display: flex;
-          font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-          font-size: 12px;
-          font-weight: 400;
-          margin: 0 0 10px; }
-          body.visualize #explorer .app_menu .build:last-child {
-            margin-bottom: 0; }
-            body.visualize #explorer .app_menu .build .build_title {
-              -webkit-box-flex: 1;
-              -moz-box-flex: 1;
-              -webkit-flex: 1;
-              -ms-flex: 1;
-              flex: 1;
-              cursor: default;
-              display: inline-block;
-              font-size: 13px;
-              opacity: 0.7; }
-              body.visualize #explorer .app_menu .build .build_title.active {
-                font-weight: 700;
-                opacity: 1; }
-          body.visualize #explorer .app_menu .build .build_list {
+          display: flex; }
+          body.visualize aside#explorer .app_button_group .app_button {
             -webkit-box-flex: 1;
             -moz-box-flex: 1;
             -webkit-flex: 1;
             -ms-flex: 1;
             flex: 1;
+            -webkit-transition: opacity 0.5s;
+            -moz-transition: opacity 0.5s;
+            -ms-transition: opacity 0.5s;
+            -o-transition: opacity 0.5s;
+            transition: opacity 0.5s;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 1px;
             display: inline-block;
-            line-height: 1.5; }
-            body.visualize #explorer .app_menu .build .build_list .build_link {
-              display: block;
-              opacity: 0.7; }
-              body.visualize #explorer .app_menu .build .build_list .build_link.active {
-                font-weight: 700;
-                opacity: 1; }
-                body.visualize #explorer .app_menu .build .build_list .build_link.active:before {
-                  content: "\f0da";
-                  font-family: FontAwesome;
-                  position: absolute;
-                  margin-top: 0px;
-                  margin-left: -10px; }
-              body.visualize #explorer .app_menu .build .build_list .build_link:hover {
+            font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            padding: 5px;
+            opacity: 0.7;
+            text-transform: uppercase; }
+            body.visualize aside#explorer .app_button_group .app_button img {
+              margin-right: 3px;
+              width: 15px; }
+              body.visualize aside#explorer .app_button_group .app_button:hover {
+                cursor: pointer;
                 opacity: 0.9; }
-                body.visualize #explorer .app_menu .build .build_list .build_link:hover:before {
-                  content: "\f0da";
-                  font-family: FontAwesome;
-                  opacity: 0.7;
-                  position: absolute;
-                  margin-top: 0px;
-                  margin-left: -10px; }
-  body.visualize #explorer #changers {
-    -webkit-justify-content: center;
-    -moz-justify-content: center;
-    justify-content: center;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-justify-content: space-between;
-    -moz-justify-content: space-between;
-    justify-content: space-between;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin-top: 25px; }
-    body.visualize #explorer #changers h2 {
-      font-size: 28px;
-      margin-bottom: 28px; }
-      body.visualize #explorer #changers h3 {
-        font-size: 16px;
-        margin: 25px 0 5px; }
-        body.visualize #explorer #changers h4 {
+                body.visualize aside#explorer .app_button_group .app_button.open {
+                  background-color: #212831;
+                  border-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0) rgba(255,
+                                    255, 255, 0.4);
+                  opacity: 1;
+                  border-style: solid; }
+    body.visualize aside#explorer .app_menu {
+      border-color: rgba(255, 255, 255, 0.4);
+      border-style: solid;
+      border-width: 1px;
+      display: none;
+      margin-top: -1px;
+      margin-bottom: 5px;
+      padding: 10px; }
+      body.visualize aside#explorer .app_menu.open {
+        display: block; }
+        body.visualize aside#explorer .app_menu h3 {
+          font-size: 16px;
+          margin: 35px 0 20px; }
+          body.visualize aside#explorer .app_menu .build {
+            -webkit-justify-content: center;
+            -moz-justify-content: center;
+            justify-content: center;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            margin: 0 0 10px; }
+            body.visualize aside#explorer .app_menu .build:last-child {
+              margin-bottom: 0; }
+              body.visualize aside#explorer .app_menu .build .build_title {
+                -webkit-box-flex: 1;
+                -moz-box-flex: 1;
+                -webkit-flex: 1;
+                -ms-flex: 1;
+                flex: 1;
+                cursor: default;
+                display: inline-block;
+                font-size: 13px;
+                opacity: 0.7; }
+                body.visualize aside#explorer .app_menu .build .build_title.active {
+                  font-weight: 700;
+                  opacity: 1; }
+            body.visualize aside#explorer .app_menu .build .build_list {
+              -webkit-box-flex: 1;
+              -moz-box-flex: 1;
+              -webkit-flex: 1;
+              -ms-flex: 1;
+              flex: 1;
+              display: inline-block;
+              line-height: 1.5; }
+              body.visualize aside#explorer .app_menu .build .build_list .build_link {
+                display: block;
+                opacity: 0.7; }
+                body.visualize aside#explorer .app_menu .build .build_list .build_link.active {
+                  font-weight: 700;
+                  opacity: 1; }
+                  body.visualize aside#explorer .app_menu .build .build_list .build_link.active:before {
+                    content: "\f0da";
+                    font-family: FontAwesome;
+                    position: absolute;
+                    margin-top: 0px;
+                    margin-left: -10px; }
+                body.visualize aside#explorer .app_menu .build .build_list .build_link:hover {
+                  opacity: 0.9; }
+                  body.visualize aside#explorer .app_menu .build .build_list .build_link:hover:before {
+                    content: "\f0da";
+                    font-family: FontAwesome;
+                    opacity: 0.7;
+                    position: absolute;
+                    margin-top: 0px;
+                    margin-left: -10px; }
+    body.visualize aside#explorer #changers {
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      justify-content: center;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: space-between;
+      -moz-justify-content: space-between;
+      justify-content: space-between;
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+      margin-top: 25px; }
+      body.visualize aside#explorer #changers h2 {
+        font-size: 28px;
+        margin-bottom: 28px; }
+        body.visualize aside#explorer #changers h3 {
+          font-size: 16px;
+          margin: 25px 0 5px; }
+          body.visualize aside#explorer #changers h4 {
+            font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            font-size: 12px;
+            margin-bottom: 5px;
+            text-transform: uppercase; }
+            body.visualize aside#explorer #changers .ui {
+              margin: 12px 0 0 0; }
+              body.visualize aside#explorer #changers .ui .d3plus_node {
+                border-color: rgba(255, 255, 255, 0.4) !important; }
+      body.visualize aside#explorer #changers .ui#product .d3plus_node:not(.d3plus_button_active) {
+        color: #fff !important; }
+        body.visualize aside#explorer #changers #build {
+          -webkit-transition: background-color 1s;
+          -moz-transition: background-color 1s;
+          -ms-transition: background-color 1s;
+          -o-transition: background-color 1s;
+          transition: background-color 1s;
+          border: 1px solid white;
+          background-color: #212831;
+          color: white;
+          cursor: pointer;
+          display: block;
           font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-          font-size: 12px;
-          margin-bottom: 5px;
-          text-transform: uppercase; }
-          body.visualize #explorer #changers .ui {
-            margin: 12px 0 0 0; }
-            body.visualize #explorer #changers .ui .d3plus_node {
-              border-color: rgba(255, 255, 255, 0.4) !important; }
-    body.visualize #explorer #changers .ui#product .d3plus_node:not(.d3plus_button_active) {
-      color: #fff !important; }
-      body.visualize #explorer #changers #build {
-        -webkit-transition: background-color 1s;
-        -moz-transition: background-color 1s;
-        -ms-transition: background-color 1s;
-        -o-transition: background-color 1s;
-        transition: background-color 1s;
-        border: 1px solid white;
-        background-color: #212831;
-        color: white;
-        cursor: pointer;
-        display: block;
-        font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-        font-size: 13px;
-        margin: 20px 0;
-        padding: 6px 10px;
-        text-align: right;
-        text-transform: uppercase;
-        width: 100%; }
-        body.visualize #explorer #changers #build.hover {
-          background-color: #63737f; }
+          font-size: 13px;
+          margin: 20px 0;
+          padding: 6px 10px;
+          text-align: right;
+          text-transform: uppercase;
+          width: 100%; }
+          body.visualize aside#explorer #changers #build.hover {
+            background-color: #63737f; }
   body.visualize .d3plus_drop_search input {
     background-color: #3f464f !important;
     color: white; }
@@ -2148,20 +2156,16 @@ body.rankings {
             margin-top: 0; }
             body.rankings #container #explorer #rank_changers h3 {
               font-size: 16px;
-              margin: 13px 0 3px; }
-              body.rankings #container #explorer #rank_changers .d3plus_node {
-                height: 25px; }
-                body.rankings #container #explorer #rank_changers .d3plus_node .d3plus_button_label {
-                  width: auto !important; }
-            body.rankings #container #explorer #rank_changers .change_dataset {
-              margin-bottom: 15px; }
-              body.rankings #container #explorer #rank_changers .change_dataset .active {
-                color: #333 !important;
-                display: inline-block;
-                font-weight: bold;
-                margin-top: -1px; }
-                body.rankings #container #explorer #rank_changers .change_dataset .active:hover {
-                  border-color: #333 !important; }
+              margin: 13px 0 6px; }
+              body.rankings #container #explorer #rank_changers .change_dataset {
+                margin-bottom: 15px; }
+                body.rankings #container #explorer #rank_changers .change_dataset .active {
+                  color: #333 !important;
+                  display: inline-block;
+                  font-weight: bold;
+                  margin-top: -1px; }
+                  body.rankings #container #explorer #rank_changers .change_dataset .active:hover {
+                    border-color: #333 !important; }
             body.rankings #container #explorer #rank_changers .download {
               border: 1px solid white;
               color: white;
@@ -2169,7 +2173,7 @@ body.rankings {
               font-size: 12px;
               font-weight: 200;
               height: 15px;
-              margin: 15px 0 0;
+              margin: 0 0 15px;
               padding: 5px;
               top: 19px;
               position: relative; }
@@ -2179,15 +2183,6 @@ body.rankings {
                 body.rankings #container #explorer #rank_changers .download i {
                   margin-right: 2px;
                   margin-top: 1px; }
-                  @media all and (max-width: 768px) {
-                    body.rankings #container #explorer #rank_changers .download {
-                      width: auto;   }
-}
-                    @media all and (max-width: 550px) {
-                      body.rankings #container #explorer #rank_changers .download {
-                        padding: 5px 2px;
-                        margin-bottom: 15px;   }
-}
             @media all and (max-width: 426px) {
               body.rankings #container #explorer #rank_changers.pci-changer .download {
                 margin-top: 0px;   }

@@ -111,7 +111,7 @@
 <!-- Container for the visualization -->
 <content data-step="12" id="main_viz">
   <section class="nav-section">
-    
+
     {% if current_build.viz.slug != "stacked" and current_build.year_str|int > g.available_years['sitc'][0] %}
     <aside>
       <a id="prev" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int-1) }}">
@@ -209,6 +209,9 @@
         , destOption = destSelect.options[destSelect.selectedIndex]
       dest = destOption.getAttribute("data-display_id")
     }
+    else if (d3.select("#origin select").node()) {
+      dest = "show";
+    }
 
     if(d3.select("#classification select").node()){
       classification = d3.select("#classification select").node().value.toLowerCase()
@@ -289,7 +292,7 @@
             product_match = this.id == "product" && ["hs_id","sitc_id"].indexOf(attr_id) >= 0,
             icon_style = this.id == "product" ? "knockout" : "default";
 
-        var url = this.getAttribute("data-url"), dests = this.id === "destination";
+        var url = this.getAttribute("data-url"), dests = ["origin","destination"].indexOf(this.id) >= 0;
         load(url, function(d, v){
 
           d = d.data.filter(function(a){

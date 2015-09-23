@@ -293,34 +293,45 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
 
     '''create the ui array for the current build'''
     ui = []
-    if isinstance(build.origin, Country):
-        country = {
-            "id": "origin",
-            "name": gettext("Country"),
-            "data": [build.origin.serialize()],
-            "url": url_for('attr.attrs', attr='country', lang=g.locale)
-        }
-        ui.append(country)
 
+    all_country = {
+        "color": "#333333",
+        "display_id": "all",
+        "id": "all",
+        "icon": "/static/img/icons/app/app_geo_map.png",
+        "name": "All"
+    }
+    all_placed = False
+
+    if isinstance(build.origin, Country):
+        origin_country = build.origin.serialize()
+    else:
+        origin_country = all_country
+        all_placed = True
+
+    ui.append({
+        "id": "origin",
+        "name": gettext("Country"),
+        "data": [origin_country],
+        "url": url_for('attr.attrs', attr='country', lang=g.locale)
+    })
+
+    dest_country = False
+    prod_exists = isinstance(build.prod, (Sitc, Hs92, Hs96, Hs02, Hs07))
     if isinstance(build.dest, Country):
         dest_country = build.dest.serialize()
-    else:
-        dest_country = {
-            "color": "#333333",
-            "display_id": "all",
-            "id": "all",
-            "icon": "/static/img/icons/app/app_geo_map.png",
-            "name": "All"
-        }
-    country = {
-        "id": "destination",
-        "name": gettext("Partner"),
-        "data": [dest_country],
-        "url": url_for('attr.attrs', attr='country', lang=g.locale)
-    }
-    ui.append(country)
+    elif not all_placed and not prod_exists:
+        dest_country = all_country
 
-    if isinstance(build.prod, (Sitc, Hs92, Hs96, Hs02, Hs07)):
+    if dest_country:
+        ui.append({
+            "id": "destination",
+            "name": gettext("Partner"),
+            "data": [dest_country],
+            "url": url_for('attr.attrs', attr='country', lang=g.locale)
+        })
+
+    if prod_exists:
         product = {
             "id": "product",
             "name": gettext("Product"),
@@ -435,7 +446,7 @@ def builds():
     build_args["defaults"] = {"origin":"nausa", "dest":"aschn", "prod":"010101"}
     build_args["viz"] = ["tree_map", "rings"]
     all_builds = get_all_builds(**build_args)
-    
+
     # raise Exception(build_args, all_builds[-1])
     '''
         Need some way of ranking these build...
@@ -453,7 +464,7 @@ def builds():
                     build.relevance += 1
     all_builds.sort(key=lambda x: x.relevance, reverse=True)
     # raise Exception(all_builds[0])
-            
+
 
     if focus == "origin_id":
         attr = Country.query.filter_by(id_3char=build_args["origin_id"]).first()
