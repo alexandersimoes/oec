@@ -27,6 +27,7 @@ configs.spaghetti = function(build, container) {
   return {
     "color": "eci_color",
     "id": "origin_id",
+
     "shape": {"interpolate": "monotone"},
     "timeline": false,
     "x": {
