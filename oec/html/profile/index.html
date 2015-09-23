@@ -75,17 +75,23 @@
 
     {% if g.page_sub_type == "country" %}
     <div id="topojson"></div>
+    {% set extra = 2 %}
+    {% else %}
+    {% set extra = 1 %}
     {% endif %}
 
     <ul class="hierarchy contents {{ g.page_sub_type }}">
       <li class="depth2">Contents</li>
 
-      {% for section in profile.sections()[:2] %}
+      {% for section in profile.sections()[:extra] %}
       {% for build in section.builds %}
       <li class="depth6"><a href="#{{ build.title|replace(" ","_") }}">{{ build.title }}</a></li>
-
       {% endfor %}
       {% endfor %}
+      <li class="depth6"><a href="#dataviva">DataViva</a></li>
+      {% if g.page_sub_type == "country" %}
+      <li class="depth6"><a href="#pantheon">Pantheon</a></li>
+      {% endif %}
     </ul>
 
   </aside>
@@ -129,7 +135,7 @@
   {% for build in section.builds %}
   <section {% if build.tour %}data-position="floating" data-step="{{ build.seq }}" data-intro="{{ build.tour }}"{% endif %}>
     <aside>
-      <h2><a name="{{ build.title|replace(" ","_") }}" class="anchor">{{ build.title }}</a></h2>
+      <h2><a name="{% if section.source %}{{ section.source }}{% else %}{{ build.title|replace(" ","_") }}{% endif %}" class="anchor">{{ build.title }}</a></h2>
       {% if build.subtitle %}
       <p>{{ build.subtitle|safe }}</p>
       {% endif %}
