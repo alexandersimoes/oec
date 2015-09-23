@@ -23,7 +23,6 @@
   {% set stats = profile.stats() %}
   <div id="stats">
     {% for stat in stats %}
-    {% if stat.key != "eci" %}
     <div class="stat">
       <div class="stat_text">
         <h3>
@@ -54,7 +53,6 @@
       </a>
       {% endif %}
     </div>
-    {% endif %}
     {% endfor %}
   </div>
 
@@ -74,54 +72,12 @@
 <section>
 
   <aside>
-    {% if g.page_sub_type == "product" %}
-    <ul class="heirarchy">
-      {% for attr in profile.heirarchy() %}
-      <li class="depth{{ attr.id|length }}{% if attr.id == profile.attr.id %} active{% endif %}">
-        {% if attr.id|length != 2 %}
-        <a href="{{ attr.get_profile_url() }}">
-          <span>{{ attr.get_display_id() }}.</span> {{ attr.get_attr_name() }}
-        </a>
-        {% else %}
-        {{ attr.get_attr_name() }}
-        {% endif %}
-      </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <div id="topojson"></div>
 
-    {# commented out testing new subnav
-    {% set stat = stats[0] %}
-    <div class="stat" id="eci" data-postition="right" data-step="4" data-intro=" Here we are showing the current Economic Complexity Index for {{ profile.attr.get_name() }} along with a trend line of its historic value. The complexity of an economy is related to the mix of products that countries are able to export.">
-      <div class="stat_text">
-        <h3>
-          {% if stat.val %}
-            {{ stat.val|num_format(stat.key) }}
-          {% else %}
-            &mdash;
-          {% endif %}
-        </h3>
-        <sub>
-          {{ stat.title }}
-          {% if stat.rank %}
-          <span class="rank">{{ stat.rank|num_format('ordinal') }} of {{ stat.total }}</span>
-          {% endif %}
-        </sub>
-      </div>
-      {% if stat.sparkline %}
-      <div class="sparkline" data-array="{{ stat.sparkline.val }}"></div>
-      <div class="years">
-        <div class="year">{{ stat.sparkline.start }}</div>
-        <div class="year">{{ stat.sparkline.end }}</div>
-      </div>
-      {% endif %}
-    </div>
-    #}
+    {% if g.page_sub_type == "country" %}
+    <div id="topojson"></div>
     {% endif %}
 
-
-    <ul class="heirarchy contents">
+    <ul class="hierarchy contents {{ g.page_sub_type }}">
       <li class="depth2">Contents</li>
 
       {% for section in profile.sections()[:2] %}
@@ -430,14 +386,14 @@
 
   }
 
-  var heirarchy = d3.select("ul.heirarchy");
-  if (!heirarchy.empty()) {
-    function heirarchyHeight() {
+  var hierarchy = d3.select("ul.hierarchy");
+  if (!hierarchy.empty()) {
+    function hierarchyHeight() {
       var ch = d3.select(".columns").node().offsetHeight;
-      heirarchy.style("max-height", ch + 60 + "px");
+      hierarchy.style("max-height", ch + 60 + "px");
     }
-    heirarchyHeight();
-    resizeFunctions.push(heirarchyHeight);
+    hierarchyHeight();
+    resizeFunctions.push(hierarchyHeight);
   }
 
   var builds = [];

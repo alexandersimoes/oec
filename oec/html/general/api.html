@@ -11,15 +11,14 @@
     <h2>How to Query for Specific Data</h2>
     <p>
       This is the basic call structure for returning JSON from the data API:<br>
-      <code>/<a href="#uri-classification">CLASSIFICATION</a>/<a href="#uri-trade_flow">TRADE_FLOW</a>/<a href="#uri-year">YEAR</a>/<a href="#uri-country">ORIGIN</a>/<a href="#uri-country">DESTINATION</a>/<a href="#uri-product">PRODUCT</a>/</code>
+      <code>/<a href="#classification">CLASSIFICATION</a>/<a href="#trade_flow">TRADE_FLOW</a>/<a href="#year">YEAR</a>/<a href="#country">ORIGIN</a>/<a href="#country">DESTINATION</a>/<a href="#product">PRODUCT</a>/</code>
     </p>
   </content>
 </section>
 
-<a name="uri-classification"></a>
 <section>
   <aside>
-    <h3>Classification</h3>
+    <h3><a name="classification" class="anchor"></a>Classification</h3>
     <p>Defines which product classification to use.</p>
   </aside>
   <content>
@@ -56,10 +55,9 @@
   </content>
 </section>
 
-<a name="uri-trade_flow"></a>
 <section>
   <aside>
-    <h3>Trade Flow</h3>
+    <h3><a name="trade_flow" class="anchor"></a>Trade Flow</h3>
     <p>Defines which trade value to show.</p>
   </aside>
   <content>
@@ -84,10 +82,9 @@
   </content>
 </section>
 
-<a name="uri-year"></a>
 <section>
   <aside>
-    <h3>Year</h3>
+    <h3><a name="year" class="anchor"></a>Year</h3>
     <p>Defines either a single year, or a range of years to show.</p>
   </aside>
   <content>
@@ -112,10 +109,9 @@
   </content>
 </section>
 
-<a name="uri-country"></a>
 <section>
   <aside>
-    <h3>Country</h3>
+    <h3><a name="country" class="anchor"></a>Country</h3>
     <p>Unique codes to filter the data by the origin and destination countries included in the trade.</p>
   </aside>
   <content>
@@ -147,10 +143,9 @@
   </content>
 </section>
 
-<a name="uri-product"></a>
 <section>
   <aside>
-    <h3>Product</h3>
+    <h3><a name="product" class="anchor"></a>Product</h3>
     <p>Unique codes to filter the data by the product traded.</p>
   </aside>
   <content>
@@ -224,15 +219,14 @@
     <h2>How to Embed Visualizations</h2>
     <p>
       To embed a visualization, you need to use the same URI parameters as in the data calls, in a slightly different order, with an additional parameter specifying the visualization type. Here is the variable order, which for a visualization in English, would follow <code>/en/explore/embed/</code>:<br><br>
-      <code>/<a href="#uri-viz">VISUALIZATION</a>/<a href="#uri-classification">CLASSIFICATION</a>/<a href="#uri-trade_flow">TRADE_FLOW</a>/<a href="#uri-country">ORIGIN</a>/<a href="#uri-country">DESTINATION</a>/<a href="#uri-product">PRODUCT</a>/<a href="#uri-year">YEAR</a>/</code>
+      <code>/<a href="#viz">VISUALIZATION</a>/<a href="#classification">CLASSIFICATION</a>/<a href="#trade_flow">TRADE_FLOW</a>/<a href="#country">ORIGIN</a>/<a href="#country">DESTINATION</a>/<a href="#product">PRODUCT</a>/<a href="#year">YEAR</a>/</code>
     </p>
   </content>
 </section>
 
-<a name="uri-viz"></a>
 <section>
   <aside>
-    <h3>Visualization Type</h3>
+    <h3><a name="viz" class="anchor"></a>Visualization Type</h3>
     <p>Defines which visualization style to use to represent the data.</p>
   </aside>
   <content>
@@ -273,7 +267,7 @@
   </content>
 </section>
 
-<!-- <a name="uri-params"></a>
+<!-- <a name="params"></a>
 <section>
   <aside>
     <h3>URL Parameters</h3>
