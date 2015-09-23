@@ -6,8 +6,6 @@
     body.frozen {
       overflow: hidden; }
       body.error {
-        text-align: center;
-        padding-top: 40%;
         overflow: hidden; }
 
   h1, h2, h3, h4 {
@@ -716,7 +714,7 @@ body.home {
             color: #fff !important; }
             #search #search_div #search_modes .d3plus_node.d3plus_button_active {
               color: white !important;
-              border-bottom: 1px solid #f9a17a !important; }
+              border-bottom: 1px solid #6297cb !important; }
               #search #search_div #search_modes .d3plus_node.d3plus_button_active .d3plus_button_label {
                 opacity: 1;
                 padding: 6px 10px !important;
@@ -829,9 +827,14 @@ body.home {
       text-align: left;
       z-index: 0; }
       #search #search_results .result .button_cover {
-        background-color: rgba(0, 0, 0, 0.5);
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        background-color: #272f38;
+        border: 1px solid #63737f;
         height: 100%;
         left: 0;
+        opacity: 0.7;
         position: absolute;
         top: 0;
         width: 100%; }
@@ -853,9 +856,9 @@ body.home {
             text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
             z-index: 2; }
             #search #search_results .result:hover {
-              -webkit-box-shadow: 0 2px 0 #f9a17a;
-              -moz-box-shadow: 0 2px 0 #f9a17a;
-              box-shadow: 0 2px 0 #f9a17a;
+              -webkit-box-shadow: 0 2px 0 #6297cb;
+              -moz-box-shadow: 0 2px 0 #6297cb;
+              box-shadow: 0 2px 0 #6297cb;
               border-bottom: none; }
 #container {
   margin-top: 74px; }
@@ -890,7 +893,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
+        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
         left: 0;
         position: absolute;
         top: 0;
@@ -1578,7 +1581,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent, #212831);
+      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -2759,3 +2762,75 @@ body.api {
     text-decoration: none; }
     .modal-body .download_button:hover {
       opacity: 1; }
+body.error {
+  background: #272f38 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  font-smoothing: antialiased; }
+  body.error nav {
+    background: none;
+    position: static; }
+    body.error #container {
+      margin-top: 5vh; }
+      body.error footer {
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        right: 0; }
+        @media all and (max-width: 768px) {
+          body.error footer {
+            position: static;   }
+}
+  body.error .bg-frame #ring .star-rotate {
+    -webkit-animation: spin-right 300s linear infinite;
+    -moz-animation: spin-right 300s linear infinite;
+    -o-animation: spin-right 300s linear infinite;
+    animation: spin-right 300s linear infinite;
+    left: 50%;
+    top: 50%; }
+    body.error .bg-frame #ring #observatory {
+      -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+      transform: rotate(180deg);
+      left: 8%;
+      position: absolute;
+      top: -5%;
+      width: 100%; }
+      body.error .bg-frame #ring h1 {
+        display: block;
+        font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-size: 40px;
+        font-weight: 300;
+        line-height: 1.4;
+        position: absolute;
+        text-align: center;
+        top: 15%;
+        left: 30%; }
+
+@-webkit-keyframes spin-right {
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);   }
+}
+
+@-moz-keyframes spin-right {
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);   }
+}
+
+@-o-keyframes spin-right {
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);   }
+}
+
+@keyframes spin-right {
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);   }
+}
