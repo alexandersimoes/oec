@@ -1,0 +1,69 @@
+body.error {
+
+  background: $l-darkbackground url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAOZxU3GjMhiIIHpvXVn4YIwAZAisCCyAFgQXQAkCAAiqRGXMgseLwAAAABJRU5ErkJggg==) repeat;
+  @include font-smoothing(antialiased);
+
+  nav {
+    background: none;
+    position: static;
+
+  }
+
+  #container {
+  	margin-top: 5vh;
+  }
+  
+  footer {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+
+    @media all and (max-width: 768px) {
+      position: static;
+    }
+
+  }
+  
+  .bg-frame {
+  
+  $default_size: 600px;
+
+    #ring {
+
+      .star-rotate {
+        @include animation(spin-right 300s linear infinite);
+        left: 50%;
+	    top: 50%;
+      }
+
+      #observatory {
+      	@include transform(rotate(180deg));
+        left: 8%;
+        position: absolute;
+        top: -5%;
+        width: 100%;
+      }
+		
+	  h1 {
+	  	display: block;
+        font-family: $source-sans;
+        font-size: $default_size/15;
+        font-weight: 300;
+        line-height: 1.4;
+        position: absolute;
+        text-align: center;
+        top: 15%;
+        left: 30%;
+	  }
+    }
+
+  }
+}
+
+
+@include keyframes(spin-right) {
+  100% {
+    @include transform(rotate(360deg));
+  }
+}

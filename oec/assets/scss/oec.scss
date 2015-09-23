@@ -14,8 +14,6 @@ body {
   }
 
   &.error {
-    text-align: center;
-    padding-top: 40%;
     overflow: hidden;
   }
 }
@@ -205,3 +203,4 @@ section {
 @import "elements/publications";
 @import "elements/api";
 @import "elements/modal";
+@import "elements/error";
