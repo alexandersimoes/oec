@@ -96,7 +96,7 @@
 
         &.d3plus_button_active {
           color: white !important;
-          border-bottom: 1px solid $sec-w-highlight !important;
+          border-bottom: 1px solid $brightlinkcolor !important;
 
           .d3plus_button_label {
             opacity: 1;
@@ -192,9 +192,12 @@
       z-index: 0;
 
       .button_cover {
-        background-color: rgba(0, 0, 0, 0.5);
+        @include box();
+        background-color: $l-darkbackground;
+        border: 1px solid $darkbordercolor;
         height: 100%;
         left: 0;
+        opacity: 0.7;
         position: absolute;
         top: 0;
         width: 100%;
@@ -224,7 +227,7 @@
       }
 
       &:hover {
-        @include shadow(0 2px 0 $sec-w-highlight);
+        @include shadow(0 2px 0 $brightlinkcolor);
         border-bottom: none;
       }
 
