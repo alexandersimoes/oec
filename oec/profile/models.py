@@ -66,7 +66,7 @@ class Country(Profile):
             else:
                 attr = self.attr
             start_year = earliest_data.get(attr.id, 1980)
-            all_stats = [("eci", _('Economic Complexity')), ("export_val", _('Exports')), ("import_val", _('Imports')), ("gdp", _('GDP'))]
+            all_stats = [("eci", _('Economic Complexity')), ("export_val", _('Exports')), ("import_val", _('Imports')), ("gdp_pc_constant", _('GDP Per Capita'))]
             for s, s_title in all_stats:
                 if "val" in s:
                     yo_historic = db_data.sitc_models.Yo.query.filter_by(country=attr).filter(db_data.sitc_models.Yo.year >= start_year).all()
@@ -267,24 +267,23 @@ class Country(Profile):
             eci = this_attr_yo.eci
             eci_rank = this_attr_yo.eci_rank
             if eci_rank:
-                subtitle = u"The economy of {} has an Economic Complexity Index (ECI) " \
-                    "of {} making it the {} most complex country. " \
-                    .format(self.attr.get_name(article=True), num_format(eci), num_format(eci_rank, "ordinal"))
+                subtitle = _(u"The economy of %(country)s has an Economic Complexity Index (ECI) of %(eci)s making it the %(eci_rank)s most complex country. ",
+                            country=self.attr.get_name(article=True), eci=num_format(eci), eci_rank=num_format(eci_rank, "ordinal"))
             else:
                 subtitle = ""
-            subtitle += u"{} exports {} products with revealed comparative advantage " \
+            subtitle += _(u"%(country)s exports %(num_of_exports)s products with revealed comparative advantage " \
                 u"(meaning that its share of global exports is larger than what " \
                 u"would be expected from the size of its export economy " \
-                u"and from the size of a product’s global market)." \
-                .format(self.attr.get_name(article=True), num_exports_w_rca)
+                u"and from the size of a product’s global market).",
+                country=self.attr.get_name(article=True), num_of_exports=num_exports_w_rca)
         else:
             subtitle = ""
         product_space = Build("network", "hs92", "export", self.attr, "all", "show", self.year)
         ps_section = {
-            "title": u"Economic Complexity of {}".format(self.attr.get_name()),
+            "title": _(u"Economic Complexity of %(country)s", country=self.attr.get_name()),
             "subtitle": subtitle,
             "builds": [
-                {"title": u"Product Space", "build": product_space, "subtitle": u"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure.", "tour":"The product space...", "seq":6},
+                {"title": _(u"Product Space"), "build": product_space, "subtitle": _(u"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure."), "tour":"The product space...", "seq":6},
             ]
         }
         sections.append(ps_section)
@@ -294,22 +293,22 @@ class Country(Profile):
         dv_country_id = "asrus" if self.attr.id == "eurus" else self.attr.id
         dv_munic_dest_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false".format(dv_country_id)
         dv_munic_origin_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false".format(dv_country_id)
-        dv_munic_dest_subtitle = u"""
-            This treemap shows the municipalities in Brazil that imported products from {}.<br /><br />
+        dv_munic_dest_subtitle = _(u"""
+            This treemap shows the municipalities in Brazil that imported products from %(country)s.<br /><br />
             DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
-            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
-            """.format(self.attr.get_name(article=True), dv_country_id)
-        dv_munic_origin_subtitle = u"""
-            This treemap shows the municipalities in Brazil that exported products to {}.<br /><br />
+            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
+            """, country=self.attr.get_name(article=True), dv_country_id=dv_country_id)
+        dv_munic_origin_subtitle = _(u"""
+            This treemap shows the municipalities in Brazil that exported products to %(country)s.<br /><br />
             DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
-            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
-            """.format(self.attr.get_name(article=True), dv_country_id)
+            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
+            """, country=self.attr.get_name(article=True), dv_country_id=dv_country_id)
         dv_section = {
             "title": u"More on {} from our sister sites".format(self.attr.get_name(article=True)),
             "source": "dataviva",
             "builds": [
-                {"title": u"Brazilian Municipalities that import from {}".format(self.attr.get_name(article=True)), "iframe": dv_munic_dest_iframe, "subtitle": dv_munic_dest_subtitle, "tour":"Profile pages also contain visualizations from other websites created by member of the OEC team. The following are 2 embeded visualization from DataViva, a similar visualization platorm centered around Brazilian data.", "seq":7},
-                {"title": u"Brazilian Municipalities that export to {}".format(self.attr.get_name(article=True)), "iframe": dv_munic_origin_iframe, "subtitle": dv_munic_origin_subtitle},
+                {"title": _(u"Brazilian Municipalities that import from %(country)s", country=self.attr.get_name(article=True)), "iframe": dv_munic_dest_iframe, "subtitle": dv_munic_dest_subtitle, "tour":"Profile pages also contain visualizations from other websites created by member of the OEC team. The following are 2 embeded visualization from DataViva, a similar visualization platorm centered around Brazilian data.", "seq":7},
+                {"title": _(u"Brazilian Municipalities that export to %(country)s", country=self.attr.get_name(article=True)), "iframe": dv_munic_origin_iframe, "subtitle": dv_munic_origin_subtitle},
             ]
         }
         sections.append(dv_section)
@@ -325,7 +324,7 @@ class Country(Profile):
                 "builds": [
                     {"title": u"Cultural Production of {}".format(self.attr.get_name(article=True)),
                     "iframe": pantheon_iframe,
-                    "subtitle": u"This treemap shows the cultural exports of {}, as proxied by the production of globally famous historical characters.<br />{}".format(self.attr.get_name(), pantheon_link),
+                    "subtitle": _(u"This treemap shows the cultural exports of %(country)s, as proxied by the production of globally famous historical characters.<br />%(pantheon_link)s", country=self.attr.get_name(), pantheon_link=pantheon_link),
                     "tour":"Pantheon...", "seq":8
                     },
                 ]
@@ -409,14 +408,12 @@ class Product(Profile):
         if this_yp:
             econ_rank = num_format(all_yp.index(this_yp) + 1, "ordinal") if all_yp.index(this_yp) else ""
             # get PCI ranking
+            p2 = _(u"%(product)s the %(economic_rank)s most traded product", product=self.attr.get_name(verb=True), economic_rank=econ_rank)
             pci_rank = this_yp.pci_rank
             if pci_rank:
                 pci_rank = num_format(pci_rank, "ordinal") if pci_rank > 1 else ""
-                pci_rank = u" and {} most complex product according to the <a href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>".format(pci_rank)
-            else:
-                pci_rank = u""
-            p2 = u"{} the {} most traded product{}." \
-                    .format(self.attr.get_name(verb=True), econ_rank, pci_rank)
+                p2 += _(u" and the %(pci_rank)s most complex product according to the <a href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>", pci_rank=pci_rank)
+            p2 += "."
             all_paragraphs.append(p2)
 
         ''' Paragraph #3
@@ -426,9 +423,8 @@ class Product(Profile):
             exporters = self.stringify_items(yop_exp, "export_val", "origin")
             yop_imp = self.models.Yop.query.filter_by(year=self.year, product=self.attr).filter(self.models.Yop.import_val!=None).order_by(desc("import_val")).limit(5).all()
             importers = self.stringify_items(yop_imp, "import_val", "origin")
-            p3 = u"The top exporters of {} are {}. " \
-                    u"The top importers are {}." \
-                    .format(self.attr.get_name(), exporters, importers)
+            p3 = _(u"The top exporters of %(product)s are %(exporters)s. The top importers are %(importers)s.",
+                    product=self.attr.get_name(), exporters=exporters, importers=importers)
             all_paragraphs.append(p3)
 
         ''' Paragraph #4
@@ -446,10 +442,10 @@ class Product(Profile):
         countries_top_import = countries_top_import.all()
         if countries_top_export:
             countries_top_export = self.stringify_items(countries_top_export, None, "country")
-            p4.append(u"{} the top export of {}.".format(self.attr.get_name(verb=True), countries_top_export))
+            p4.append(_(u"%(product)s the top export of %(countries)s.", product=self.attr.get_name(verb=True), countries=countries_top_export))
         if countries_top_import:
             countries_top_import = self.stringify_items(countries_top_import, None, "country")
-            p4.append(u"{} the top import of {}.".format(self.attr.get_name(verb=True), countries_top_import))
+            p4.append(_(u"%(product)s the top import of %(countries)s.", product=self.attr.get_name(verb=True), countries=countries_top_import))
         if p4:
             all_paragraphs = all_paragraphs + p4
 
@@ -457,12 +453,11 @@ class Product(Profile):
         '''
         keywords = self.attr.get_keywords()
         if keywords:
-            all_paragraphs.append(u"{} also known as {}.".format(self.attr.get_name(verb=True), keywords))
+            all_paragraphs.append(_(u"%(product)s also known as %(keywords)s.", product=self.attr.get_name(verb=True), keywords=keywords))
 
         ''' Paragraph #1
         '''
-        p1 = u"{} a {} digit {} product." \
-                .format(self.attr.get_name(verb=True), len(self.attr.get_display_id()), self.classification.upper())
+        p1 = _(u"%(product)s a %(product_id_length)s digit %(classification)s product.", product=self.attr.get_name(verb=True), product_id_length=len(self.attr.get_display_id()), classification=self.classification.upper())
         all_paragraphs.append(p1)
 
         return all_paragraphs
