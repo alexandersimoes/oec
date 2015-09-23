@@ -21,8 +21,12 @@ body.visualize {
       @include flex-direction(row);
       @include justify(space-between);
       @include align-items(baseline);
-      padding: 30px 0 10px;
+      padding: 10px 0;
       margin: 0 !important;
+
+      @media all and (max-width: 768px) {
+        padding: 0 0 10px;
+      }
 
       aside {
         @include flex(1 auto);
@@ -62,6 +66,8 @@ body.visualize {
       }
       
       content {
+        margin: 0;
+
         h1 {
           text-align: center;
 
@@ -82,7 +88,8 @@ body.visualize {
     }
   }
 
-  #explorer {
+  aside#explorer {
+    margin: 30px 35px 0 20px !important;
 
     @media all and (max-width: 768px) {
       margin: 0 20px !important;
