@@ -38,7 +38,7 @@ body.rankings {
           i {
             margin-top: 3px;
           }
-          
+
           h2.year-nav {
             @include transition(opacity 0.6s);
             font-weight: 400;
@@ -103,17 +103,7 @@ body.rankings {
 
         h3 {
           font-size: $font-size;
-          margin: 13px 0 3px;
-        }
-
-        .d3plus_node {
-          height: 25px;
-          // width: auto;
-
-          .d3plus_button_label {
-            width: auto !important;
-            // height: 25px !important;
-          }
+          margin: 13px 0 6px;
         }
 
         .change_dataset {
@@ -137,9 +127,8 @@ body.rankings {
           font-size: 12px;
           font-weight: 200;
           height: 15px;
-          margin: 15px 0 0;
+          margin: 0 0 15px;
           padding: 5px;
-          // width: $rank_sidebar - 12px;
           top: $font-size + 3;
           position: relative;
 
@@ -153,14 +142,6 @@ body.rankings {
             margin-top: 1px;
           }
 
-          @media all and (max-width: 768px) {
-            width: auto;
-          }
-
-          @media all and (max-width: 550px) {
-            padding: 5px 2px;
-            margin-bottom: 15px;
-          }
         }
 
         &.pci-changer {
