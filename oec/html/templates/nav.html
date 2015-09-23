@@ -424,8 +424,10 @@
   }
 
   var searchInterval = "";
+  // Key events while the search input is active
   d3.select("#search_input").on("keyup", function(){
 
+    // ESC to close search
     if (d3.event.keyCode === 27) {
       close_search();
     }
@@ -444,6 +446,19 @@
         else {
           search_results();
         }
+      }
+
+    }
+  })
+
+  d3.select("body").on("keyup", function(){
+
+    // Site key events when search is closed
+    if (!d3.select("#search").classed("visible")) {
+
+      // Press "s" for search
+      if (d3.event.keyCode === 83) {
+        search("all");
       }
 
     }
