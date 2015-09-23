@@ -6,13 +6,11 @@ var configs = {};
 var visualization = function(build, container) {
 
   var trade_flow = build.trade_flow,
-      default_config = configs["default"](build, container),
-      viz_config = configs[build.viz.slug](build, container);
+      default_config = configs["default"](build, container);
 
   var viz = d3plus.viz()
               .container(container)
               .config(default_config)
-              .config(viz_config)
               .error("Loading Visualization")
               .edges({"color": default_config.edges.color})
               .draw();
@@ -37,13 +35,13 @@ var visualization = function(build, container) {
   /* Need to set text formatting in HTML for translations */
   viz.format({"text": function(text, key, vars){
 
-      if(key){
-        if(key.key === "display_id"){
-          return text.toUpperCase();
-        }
-      }
-
       if(text){
+
+        if (key) {
+          if(key.key === "display_id"){
+            return text.toUpperCase();
+          }
+        }
 
         if (text.indexOf("HS") === 0 || text.indexOf("SITC") === 0) {
           return text;
@@ -81,17 +79,19 @@ var visualization = function(build, container) {
   }
 
   load(build.attr_url, function(raw_attrs){
-    var attrs = format_attrs(raw_attrs, build);
+    build.attrs = format_attrs(raw_attrs, build);
 
     /* unleash the dogs... make the AJAX requests in order to the server and when
        they return execute the go() func */
     d3.json(build.data_url, function(error, raw_data){
-      var data = format_data(raw_data, attrs, build);
+      build.data = format_data(raw_data, build.attrs, build);
 
-      var csv_data = format_csv_data(data, attrs, build);
+      var csv_data = format_csv_data(build.data, build.attrs, build);
 
-      viz.data(data)
-        .attrs(attrs)
+      viz
+        .data(build.data)
+        .attrs(build.attrs)
+        .config(configs[build.viz.slug](build, container))
         .error(false)
         .ui(viz.ui().concat([{"method":download(container, csv_data), "value":["Download"], "type":"button"}]))
         .draw();
@@ -312,7 +312,7 @@ configs.default = function(build, container) {
       }
     },
     "tooltip": tooltip,
-    "type": build.viz.slug,
+    "type": build.viz.slug === "spaghetti" ? "line" : build.viz.slug,
     "ui": {
       "border": oec.ui.border,
       "color": ui_color,
@@ -335,7 +335,8 @@ configs.default = function(build, container) {
         }
       },
       "ticks": {
-        "color": text
+        "color": text,
+        "font": {"size": 12}
       }
     },
     "y": {
@@ -348,7 +349,8 @@ configs.default = function(build, container) {
         }
       },
       "ticks": {
-        "color": text
+        "color": text,
+        "font": {"size": 12}
       }
     }
   }
@@ -496,6 +498,52 @@ configs.scatter = function(build, container) {
     "y": {
       "scale": "log",
       "value": build.trade_flow
+    },
+    "ui": [
+      {"method":share(build), "value":["Share"], "type":"button"}
+    ]
+  }
+}
+
+configs.spaghetti = function(build, container) {
+
+  var countries = d3plus.util.uniques(build.data, "eci_rank");
+  var oldest_year = build.data.reduce(function(obj, d){
+    if (!obj[d.id]) obj[d.id] = [];
+    obj[d.id].push(d);
+    return obj;
+  }, {});
+  for (var id in oldest_year) {
+    var year = d3.min(oldest_year[id], function(d){ return d.year; });
+    oldest_year[id] = oldest_year[id].filter(function(d){ return d.year === year; })[0].eci_rank;
+  }
+
+  var unique_years = d3plus.util.uniques(build.data, "year");
+  var years = d3.range(unique_years[0], unique_years[unique_years.length - 1], 5);
+  years = years.concat([unique_years[unique_years.length - 1]]);
+  years = years.map(function(y){ return new Date("01/01/"+y)});
+
+  var heatmap = ["#282F6B", "#419391", "#AFD5E8", "#EACE3F", "#B35C1E", "#B22200"];
+  var color_scale = d3.scale.linear()
+    .domain(d3plus.util.buckets([1, countries.length], heatmap.length))
+    .range(heatmap);
+
+  build.data.forEach(function(d){
+    d.eci_color = color_scale(oldest_year[d.id]);
+  });
+  return {
+    "color": "eci_color",
+    "id": "origin_id",
+    "shape": {"interpolate": "monotone"},
+    "timeline": false,
+    "x": {
+      "ticks": years,
+      "value": "year"
+    },
+    "y": {
+      "range": [countries.length, 1],
+      "ticks": [1].concat(d3.range(5, countries.length + 1, 5)),
+      "value": "eci_rank"
     },
     "ui": [
       {"method":share(build), "value":["Share"], "type":"button"}

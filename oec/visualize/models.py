@@ -14,7 +14,8 @@ all_viz = [
     {"slug":"rings", "name":"Rings", "color":"#333"},
     {"slug":"scatter", "name":"Scatter", "color":"#333"},
     {"slug":"geo_map", "name":"Geo Map", "color":"#333"},
-    {"slug":"line", "name":"Line", "color":"#333"}
+    {"slug":"line", "name":"Line", "color":"#333"},
+    {"slug":"spaghetti", "name":"Spaghetti", "color":"#333"}
 ]
 
 ''' Title, question, short name and category specific per build type. See below:
@@ -162,6 +163,14 @@ build_metadata = { \
             "short_name": "Product Connections",
             "category": "Product"
         }
+    },
+    10: {
+        "show": {
+            "title": "Country Rankings",
+            "question": "Country Rankings",
+            "short_name": "Country Rankings",
+            "category": "Country"
+        }
     }
 }
 
@@ -222,6 +231,8 @@ class Build(object):
 
     def get_build_id(self, viz, origin, dest, prod):
         '''build showing products given an origin'''
+        if viz["slug"] == "spaghetti":
+            return 10
         if viz["slug"] == "line":
             return 8
         if viz["slug"] == "network":
@@ -315,6 +326,10 @@ class Build(object):
 
     '''Returns the data URL for the specific build.'''
     def data_url(self, year=None, output_depth=None):
+
+        if self.viz["slug"] == "spaghetti":
+            return "/attr/eci/"
+
         if self.viz["slug"] == "stacked" or self.viz["slug"] == "network":
             output_depth = 6
         elif self.viz["slug"] == "rings":

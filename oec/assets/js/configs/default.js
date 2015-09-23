@@ -203,7 +203,7 @@ configs.default = function(build, container) {
       }
     },
     "tooltip": tooltip,
-    "type": build.viz.slug,
+    "type": build.viz.slug === "spaghetti" ? "line" : build.viz.slug,
     "ui": {
       "border": oec.ui.border,
       "color": ui_color,
@@ -226,7 +226,8 @@ configs.default = function(build, container) {
         }
       },
       "ticks": {
-        "color": text
+        "color": text,
+        "font": {"size": 12}
       }
     },
     "y": {
@@ -239,7 +240,8 @@ configs.default = function(build, container) {
         }
       },
       "ticks": {
-        "color": text
+        "color": text,
+        "font": {"size": 12}
       }
     }
   }
