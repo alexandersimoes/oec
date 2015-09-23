@@ -20,6 +20,7 @@ def get_translations():
         "gdp_pc_constant_ppp": _('GDPpc PPP (constant \'11)'),
         "gdp_pc_current_ppp": _('GDPpc PPP (current)'),
         "eci": _('ECI'),
+        "eci_rank": _('ECI Rank'),
         "id": _('ID'),
         "export_val_growth_pct": _('Annual Growth Rate (1 year)'),
         "export_val_growth_pct_5": _('Annual Growth Rate (5 year)'),

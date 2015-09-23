@@ -29335,6 +29335,7 @@ module.exports = function(axis) {
       value: false
     },
     ticks: {
+      accepted: [false, Array],
       color: "#ccc",
       font: {
         color: "#666",
@@ -29346,7 +29347,8 @@ module.exports = function(axis) {
       },
       rendering: rendering(),
       size: 10,
-      width: 1
+      width: 1,
+      value: false
     },
     value: false,
     zerofill: {
@@ -31589,8 +31591,15 @@ module.exports = function(vars, opts) {
         limit: vars.width.viz,
         style: axisStyle
       });
-      vars[axis].ticks.visible = timeReturn.values.map(Number);
+      if (vars[axis].ticks.value) {
+        vars[axis].ticks.visible = vars[axis].ticks.value.map(Number);
+      } else {
+        vars[axis].ticks.visible = timeReturn.values.map(Number);
+      }
       vars[axis].ticks.format = timeReturn.format;
+    } else if (vars[axis].ticks.value) {
+      vars[axis].ticks.values = vars[axis].ticks.value;
+      vars[axis].ticks.visible = vars[axis].ticks.value;
     } else if (vars[axis].scale.value === "log") {
       ticks = vars[axis].ticks.values;
       tens = ticks.filter(function(t) {
@@ -32086,7 +32095,11 @@ module.exports = function(vars) {
   for (j = 0, len = ref.length; j < len; j++) {
     axis = ref[j];
     if (vars[axis].grid.value) {
-      gridData = vars[axis].ticks.values;
+      if (vars[axis].ticks.value) {
+        gridData = vars[axis].ticks.value;
+      } else {
+        gridData = vars[axis].ticks.values;
+      }
     } else {
       gridData = [];
       if (vars[axis].ticks.values.indexOf(0) >= 0 && vars[axis].axis.value) {

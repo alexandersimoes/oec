@@ -3,13 +3,11 @@ var configs = {};
 var visualization = function(build, container) {
 
   var trade_flow = build.trade_flow,
-      default_config = configs["default"](build, container),
-      viz_config = configs[build.viz.slug](build, container);
+      default_config = configs["default"](build, container);
 
   var viz = d3plus.viz()
               .container(container)
               .config(default_config)
-              .config(viz_config)
               .error("Loading Visualization")
               .edges({"color": default_config.edges.color})
               .draw();
@@ -34,13 +32,13 @@ var visualization = function(build, container) {
   /* Need to set text formatting in HTML for translations */
   viz.format({"text": function(text, key, vars){
 
-      if(key){
-        if(key.key === "display_id"){
-          return text.toUpperCase();
-        }
-      }
-
       if(text){
+
+        if (key) {
+          if(key.key === "display_id"){
+            return text.toUpperCase();
+          }
+        }
 
         if (text.indexOf("HS") === 0 || text.indexOf("SITC") === 0) {
           return text;
@@ -78,17 +76,19 @@ var visualization = function(build, container) {
   }
 
   load(build.attr_url, function(raw_attrs){
-    var attrs = format_attrs(raw_attrs, build);
+    build.attrs = format_attrs(raw_attrs, build);
 
     /* unleash the dogs... make the AJAX requests in order to the server and when
        they return execute the go() func */
     d3.json(build.data_url, function(error, raw_data){
-      var data = format_data(raw_data, attrs, build);
+      build.data = format_data(raw_data, build.attrs, build);
 
-      var csv_data = format_csv_data(data, attrs, build);
+      var csv_data = format_csv_data(build.data, build.attrs, build);
 
-      viz.data(data)
-        .attrs(attrs)
+      viz
+        .data(build.data)
+        .attrs(build.attrs)
+        .config(configs[build.viz.slug](build, container))
         .error(false)
         .ui(viz.ui().concat([{"method":download(container, csv_data), "value":["Download"], "type":"button"}]))
         .draw();
