@@ -9,229 +9,208 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-09-23 13:14-0400\n"
-"PO-Revision-Date: 2013-12-27 15:28-0500\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-09-23 18:43-0400\n"
 "Language-Team: it <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+"Last-Translator: \n"
+"Language: it\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: oec/utils.py:220
 msgid "Trillion"
 msgid_plural "Trillions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Trilione"
+msgstr[1] "trilioni"
 
 #: oec/utils.py:221
 msgid "Billion"
 msgid_plural "Billions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Miliardo"
+msgstr[1] "miliardi"
 
 #: oec/utils.py:222
 msgid "Million"
 msgid_plural "Millions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Milione"
+msgstr[1] "milioni"
 
 #: oec/utils.py:223
 msgid "Thousand"
 msgid_plural "Thousands"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Mille"
+msgstr[1] "migliaia"
 
 #: oec/utils.py:235
 msgctxt "0"
 msgid "th"
-msgstr ""
+msgstr " °"
 
 #: oec/utils.py:236
 msgctxt "1"
 msgid "st"
-msgstr ""
+msgstr " °"
 
 #: oec/utils.py:237
-#, fuzzy
 msgctxt "2"
 msgid "nd"
-msgstr "e"
+msgstr " °"
 
 #: oec/utils.py:238
 msgctxt "3"
 msgid "rd"
-msgstr ""
+msgstr " °"
 
 #: oec/utils.py:239
 msgctxt "4"
 msgid "th"
-msgstr ""
+msgstr " °"
 
 #: oec/utils.py:240
 msgctxt "5"
 msgid "th"
-msgstr ""
+msgstr " °"
 
 #: oec/utils.py:241
 msgctxt "6"
 msgid "th"
-msgstr ""
+msgstr " °"
 
 #: oec/utils.py:242
 msgctxt "7"
 msgid "th"
-msgstr ""
+msgstr " °"
 
 #: oec/utils.py:243
 msgctxt "8"
 msgid "th"
-msgstr ""
+msgstr " °"
 
 #: oec/utils.py:244
 msgctxt "9"
 msgid "th"
-msgstr ""
+msgstr " °"
 
 #: oec/html/home.html:3 oec/html/home.html:12 oec/html/templates/nav.html:8
 #: oec/html/templates/nav.html:20
 msgid "The Observatory of Economic Complexity"
-msgstr ""
+msgstr "L'Osservatorio di complessità economica"
 
 #: oec/html/home.html:15
-msgid ""
-"We are the world's<br/>leading visualization engine<br/>for international"
-" trade data."
-msgstr ""
+msgid "We are the world's<br/>leading visualization engine<br/>for international trade data."
+msgstr "Siamo motore di<br/>visualizzazione leader mondiale<br/>per i dati di commercio internazionale."
 
 #: oec/html/home.html:17
 msgid "Learn More"
-msgstr ""
+msgstr "Impara di più"
 
 #: oec/html/home.html:21 oec/html/templates/nav.html:64
-#, fuzzy
 msgid "Search"
-msgstr "Anno"
+msgstr "Ricerca"
 
 #: oec/html/about/data.html:4
-msgid ""
-"HS, SITC, and Country classification with their corresponding IDs and "
-"values."
-msgstr ""
-"La classificazione HS, SITC e Paese con il loro ID e valori "
-"corrispondenti."
+msgid "HS, SITC, and Country classification with their corresponding IDs and values."
+msgstr "La classificazione HS, SITC e Paese con il loro ID e valori corrispondenti."
 
 #: oec/html/about/index.html:3 oec/html/includes/nav.html:38
 msgid "About the Site"
-msgstr ""
+msgstr "A proposito del sito"
 
 #: oec/html/about/index.html:5
-msgid ""
-"Photos and descriptions of the team members involved in the creation of "
-"The Observatory."
-msgstr ""
-"Foto e descrizioni dei membri del team coinvolti nella creazione di The "
-"Observatory."
+msgid "Photos and descriptions of the team members involved in the creation of The Observatory."
+msgstr "Foto e descrizioni dei membri del team coinvolti nella creazione di The Observatory."
 
 #: oec/html/about/index.html:11
 msgid "About the Observatory"
-msgstr ""
+msgstr "Circa l'Osservatorio"
 
 #: oec/html/about/index.html:29
 msgid "What is Economic Complexity?"
-msgstr ""
+msgstr "Qual è la complessità economica?"
 
 #: oec/html/about/index.html:61
-#, fuzzy
 msgid "Current Team"
-msgstr "Anno corrente"
+msgstr "Squadra Attuale"
 
 #: oec/html/about/index.html:65
 msgid "Past Contributors"
-msgstr ""
+msgstr "Collaboratori del passato"
 
 #: oec/html/about/updates.html:4
 msgid "A Development blog of updates to the site."
 msgstr "Un blog per lo sviluppo degli aggiornamenti al sito"
 
 #: oec/html/general/api.html:4
-msgid ""
-"Application programming interface (API) for querying the raw data used "
-"throughout The Observatory of Economic Complexity."
-msgstr ""
-"Application Programming Interface (API) per interrogare i dati grezzi "
-"utilizzati in tutta l'Osservatorio di complessità economica."
+msgid "Application programming interface (API) for querying the raw data used throughout The Observatory of Economic Complexity."
+msgstr "Application Programming Interface (API) per interrogare i dati grezzi utilizzati in tutta l'Osservatorio di complessità economica."
 
 #: oec/html/general/permissions.html:3 oec/html/general/permissions.html:10
 #: oec/html/includes/nav.html:47
 msgid "Permissions"
-msgstr ""
+msgstr "Permessi"
 
 #: oec/html/general/publications.html:3 oec/html/general/publications.html:11
 msgid "Books"
-msgstr ""
+msgstr "Libri"
 
 #: oec/html/general/publications.html:13 oec/html/profile/index.html:63
 msgid "Photo by"
-msgstr ""
+msgstr "Foto autore"
 
 #: oec/html/includes/nav.html:4 oec/html/includes/nav.html:20
-#, fuzzy
 msgid "Countries"
-msgstr "Paese"
+msgstr "Paesi"
 
 #: oec/html/includes/nav.html:8 oec/html/includes/nav.html:23
-#, fuzzy
 msgid "Products"
-msgstr "Prodotto"
+msgstr "Prodotti"
 
 #: oec/html/includes/nav.html:12
-#, fuzzy
 msgid "Visualizations"
-msgstr "Costruire Visualization"
+msgstr "Visualizzazioni"
 
 #: oec/html/includes/nav.html:16
 msgid "Rankings"
 msgstr "Classifiche"
 
 #: oec/html/includes/nav.html:30
-#, fuzzy
 msgid "Publications"
-msgstr "Classificazione"
+msgstr "Pubblicazioni"
 
 #: oec/html/includes/nav.html:34
 msgid "Resources"
-msgstr ""
+msgstr "Risorse"
 
 #: oec/html/includes/nav.html:41
 msgid "FAQs"
-msgstr ""
+msgstr "FAQs"
 
 #: oec/html/includes/nav.html:44 oec/html/resources/data.html:10
 msgid "Data Sources"
-msgstr ""
+msgstr "Origini dati"
 
 #: oec/html/includes/nav.html:54
 msgid "API"
-msgstr ""
+msgstr "API"
 
 #: oec/html/includes/nav.html:58
 msgid "Take a tour"
-msgstr ""
+msgstr "Fare un giro"
 
 #: oec/html/rankings/index.html:22
-#, fuzzy
 msgid "Prev. Year"
-msgstr "Anno Precedente"
+msgstr "L'anno scorso"
 
 #: oec/html/rankings/index.html:30
 msgid "Economic Complexity Rankings"
-msgstr ""
+msgstr "Economica Complessità Classifiche"
 
 #: oec/html/rankings/index.html:32
-#, fuzzy
 msgid "Product Complexity Rankings"
-msgstr "HS simile prodotto"
+msgstr "Prodotto complessità Classifiche"
 
 #: oec/html/rankings/index.html:39 oec/html/rankings/index.html:61
 #: oec/html/visualize/index_old.html:40
@@ -244,7 +223,7 @@ msgstr "Anno Precedente"
 
 #: oec/html/rankings/index.html:70 oec/visualize/views.py:360
 msgid "Dataset"
-msgstr ""
+msgstr "set di dati"
 
 #: oec/html/rankings/index.html:82 oec/rankings/views.py:119
 #: oec/visualize/views.py:385
@@ -253,20 +232,19 @@ msgstr "Anno"
 
 #: oec/html/rankings/index.html:92
 msgid "Depth"
-msgstr ""
+msgstr "Profondità"
 
 #: oec/html/rankings/index.html:102
-#, fuzzy
 msgid "Download Current Year"
-msgstr "Anno corrente"
+msgstr "Scarica Anno corrente"
 
 #: oec/html/rankings/index.html:107
 msgid "Download All Years"
-msgstr ""
+msgstr "Scarica tutto l'anni"
 
 #: oec/html/resources/faqs.html:10
 msgid "Frequently Asked Questions"
-msgstr ""
+msgstr "Domande frequenti"
 
 #: oec/html/visualize/embed.html:7 oec/html/visualize/embed_new.html:3
 msgid "An emedded visualization."
@@ -301,11 +279,11 @@ msgstr "Categoria"
 
 #: oec/html/visualize/embed.html:35
 msgid "4 Digit"
-msgstr ""
+msgstr "4 cifre"
 
 #: oec/html/visualize/embed.html:37
 msgid "6 Digit"
-msgstr ""
+msgstr "6 cifre"
 
 #: oec/html/visualize/embed.html:44
 msgid "Gross"
@@ -377,7 +355,7 @@ msgstr "Valore delle esportazioni"
 
 #: oec/html/visualize/embed.html:341
 msgid "Net Export"
-msgstr "Export Net"
+msgstr "Netto esportazioni"
 
 #: oec/html/visualize/embed.html:342 oec/translations/lookup.py:12
 msgid "Import Value"
@@ -385,7 +363,7 @@ msgstr "Valore delle importazioni"
 
 #: oec/html/visualize/embed.html:343
 msgid "Net Import"
-msgstr "Import Net"
+msgstr "netto importazione"
 
 #: oec/html/visualize/embed.html:344 oec/translations/lookup.py:14
 msgid "Market Value"
@@ -394,12 +372,12 @@ msgstr "Valore di mercato"
 #: oec/html/visualize/embed.html:345 oec/translations/lookup.py:15
 #: oec/visualize/views.py:351
 msgid "Export"
-msgstr "Export"
+msgstr "esportazione"
 
 #: oec/html/visualize/embed.html:346 oec/translations/lookup.py:16
 #: oec/visualize/views.py:352
 msgid "Import"
-msgstr "Import"
+msgstr "importazione"
 
 #: oec/html/visualize/embed.html:347 oec/translations/lookup.py:17
 #: oec/visualize/views.py:338
@@ -409,22 +387,22 @@ msgstr "PIL"
 #: oec/html/visualize/embed.html:348 oec/translations/lookup.py:18
 #: oec/visualize/views.py:339
 msgid "GDPpc (constant '05 US$)"
-msgstr "GDPpc (costante '05 US $)"
+msgstr "PILpc (costante '05 US $)"
 
 #: oec/html/visualize/embed.html:349 oec/translations/lookup.py:19
 #: oec/visualize/views.py:340
 msgid "GDPpc (current US$)"
-msgstr "GDPpc (corrente US $)"
+msgstr "PILpc (corrente US $)"
 
 #: oec/html/visualize/embed.html:350 oec/translations/lookup.py:20
 #: oec/visualize/views.py:341
 msgid "GDPpc PPP (constant '11)"
-msgstr "GDPpc PPP (costante '11)"
+msgstr "PILpc PPP (costante '11)"
 
 #: oec/html/visualize/embed.html:351 oec/translations/lookup.py:21
 #: oec/visualize/views.py:342
 msgid "GDPpc PPP (current)"
-msgstr "GDPpc PPP (attuale)"
+msgstr "PILpc PPP (attuale)"
 
 #: oec/html/visualize/embed.html:352 oec/translations/lookup.py:22
 msgid "ECI"
@@ -468,323 +446,259 @@ msgstr "e"
 
 #: oec/profile/models.py:69
 msgid "Economic Complexity"
-msgstr ""
+msgstr "Complessità economico"
 
 #: oec/profile/models.py:69 oec/profile/models.py:249 oec/profile/models.py:348
-#, fuzzy
 msgid "Exports"
-msgstr "Export"
+msgstr "Esportazioni"
 
 #: oec/profile/models.py:69 oec/profile/models.py:250
-#, fuzzy
 msgid "Imports"
-msgstr "Import"
+msgstr "Importazioni"
 
 #: oec/profile/models.py:69
 msgid "GDP Per Capita"
-msgstr ""
+msgstr "PIL pro capite"
 
 #: oec/profile/models.py:112
 #, python-format
 msgid "%(country)s is the %(econ_rank)s largest export economy in the world"
-msgstr ""
+msgstr "%(country)s è il %(econ_rank)s più grande economia di esportazione in tutto il mondo"
 
 #: oec/profile/models.py:115
 #, python-format
-msgid ""
-" and the %(eci_rank)s most complex economy according to the Economic "
-"Complexity Index (ECI). "
-msgstr ""
+msgid " and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI). "
+msgstr "e la %(eci_rank)s economia più complessi a seconda della complessità economica Index (ECI)."
 
 #: oec/profile/models.py:119
 #, python-format
-msgid ""
-"In %(year)s, %(country)s exported $%(export_val)s and imported "
-"$%(import_val)s, resulting in a %(positive_negative)s trade balance of "
-"$%(trade_delta)s. "
-msgstr ""
+msgid "In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s. "
+msgstr "Nel %(year)s, %(country)s ha esportato $ %(export_val)s e importati $ %(import_val)s, con un conseguente saldo commerciale %(positive_negative)s di $ %(trade_delta)s."
 
 #: oec/profile/models.py:126
 #, python-format
-msgid ""
-"In %(year)s the GDP of %(country)s was $%(gdp)s and its GDP per capita "
-"was $%(gdp_pc)s."
-msgstr ""
+msgid "In %(year)s the GDP of %(country)s was $%(gdp)s and its GDP per capita was $%(gdp_pc)s."
+msgstr "Nel %(year)s il Pil di %(country)s è stato di $ %(gdp)s e il suo PIL pro capite era di $ %(gdp_pc)s."
 
 #: oec/profile/models.py:136
 #, python-format
-msgid ""
-"The top exports of %(country)s are %(exports_list)s, using the 1992 "
-"revision of the HS (Harmonized System) classification. Its top imports "
-"are %(imports_list)s."
-msgstr ""
+msgid "The top exports of %(country)s are %(exports_list)s, using the 1992 revision of the HS (Harmonized System) classification. Its top imports are %(imports_list)s."
+msgstr "Le prime esportazioni di %(country)s sono %(exports_list)s, con la revisione 1992 della classificazione HS (Harmonized System). Le sue prime importazioni %(imports_list)s."
 
 #: oec/profile/models.py:146
 #, python-format
-msgid ""
-"The top export destinations of %(country)s are %(destinations)s. The top "
-"import origins are %(origins)s."
-msgstr ""
+msgid "The top export destinations of %(country)s are %(destinations)s. The top import origins are %(origins)s."
+msgstr "Le migliori destinazioni di esportazione %(country)s sono %(destinations)s. Le origini di importazione superiori sono %(origins)s."
 
 #: oec/profile/models.py:155
 #, python-format
 msgid "%(country)s is an island and borders %(maritime_borders)s by sea."
-msgstr ""
+msgstr "%(country)s è un isola e confina con %(maritime_borders)s via mare."
 
 #: oec/profile/models.py:157
 #, python-format
 msgid "%(country)s borders %(land_borders)s."
-msgstr ""
+msgstr "%(country)s confina con %(land_borders)s."
 
 #: oec/profile/models.py:159
 #, python-format
-msgid ""
-"%(country)s borders %(land_borders)s by land and %(maritime_borders)s by "
-"sea."
-msgstr ""
+msgid "%(country)s borders %(land_borders)s by land and %(maritime_borders)s by sea."
+msgstr "%(country)s confina con %(land_borders)s per terra e %(maritime_borders)s via mare."
 
 #: oec/profile/models.py:183
 #, python-format
-msgid ""
-"In %(year)s %(country)s exported $%(export_val)s, making it the "
-"%(export_rank)s largest exporter in the world. "
-msgstr ""
+msgid "In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world. "
+msgstr "Nel %(year)s %(country)s ha esportato $ %(export_val)s, il che rende il %(export_rank)s più grande esportatore al mondo."
 
 #: oec/profile/models.py:188
 #, python-format
-msgid ""
-"During the last five years the exports of %(country)s have "
-"%(increased_decreased)s at an annualized rate of %(change_rate)s%%, from "
-"$%(past_export_val)s in %(past_year)s to $%(current_export_val)s in "
-"%(current_year)s. "
-msgstr ""
+msgid "During the last five years the exports of %(country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. "
+msgstr "Nel corso degli ultimi cinque anni, le esportazioni %(country)s sono %(increased_decreased)s ad un tasso annualizzato del %(change_rate)s%%, da $ %(past_export_val)s nel %(past_year)s a %(current_export_val)s $ nel %(current_year)s."
 
 #: oec/profile/models.py:193
 #, python-format
-msgid ""
-"The most recent exports are led by %(top_export)s, which represent "
-"%(top_export_pct)s%% of the total exports of %(country)s, followed by "
-"%(second_export)s, which account for %(second_export_pct)s%%."
-msgstr ""
+msgid "The most recent exports are led by %(top_export)s, which represent %(top_export_pct)s%% of the total exports of %(country)s, followed by %(second_export)s, which account for %(second_export_pct)s%%."
+msgstr "Le esportazioni più recenti sono guidati da %(top_export)s, che rappresentano il %(top_export_pct)s%% del totale delle esportazioni di %(country)s, seguita di %(second_export)s, che rappresentano il %(second_export_pct)s%%."
 
 #: oec/profile/models.py:199
 #, python-format
-msgid ""
-"In %(year)s %(country)s imported $%(import_val)s, making it the "
-"%(import_rank)s largest importer in the world. "
-msgstr ""
+msgid "In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world. "
+msgstr "Nel %(year)s %(country)s ha importato $ %(import_val)s, il che rende il %(import_rank)s più grande importatore al mondo."
 
 #: oec/profile/models.py:204
 #, python-format
-msgid ""
-"During the last five years the imports of %(country)s have "
-"%(increased_decreased)s at an annualized rate of %(change_rate)s%%, from "
-"$%(past_import_val)s in %(past_year)s to $%(current_import_val)s in "
-"%(current_year)s. "
-msgstr ""
+msgid "During the last five years the imports of %(country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s. "
+msgstr "Negli ultimi cinque anni le importazioni in %(country)s sono %(increased_decreased)s ad un tasso annualizzato del %(change_rate)s%%, da $ %(past_import_val)s nel %(past_year)s a %(current_import_val)s $ nel %(current_year)s."
 
 #: oec/profile/models.py:213
 #, python-format
-msgid ""
-"The most recent imports are led by %(top_import)s, which represent "
-"%(top_import_pct)s%% of the total imports of %(country)s, followed by "
-"%(second_import)s, which account for %(second_import_pct)s%%."
-msgstr ""
+msgid "The most recent imports are led by %(top_import)s, which represent %(top_import_pct)s%% of the total imports of %(country)s, followed by %(second_import)s, which account for %(second_import_pct)s%%."
+msgstr "Le importazioni più recenti sono guidati da %(top_import)s, che rappresentano il %(top_import_pct)s%% delle importazioni totali di %(country)s, seguita %(second_import)s, che rappresentano il %(second_import_pct)s%%."
 
 #: oec/profile/models.py:219
 #, python-format
 msgid "The top export destinations of %(country)s are %(destinations)s."
-msgstr ""
+msgstr "Le migliori destinazioni di esportazione %(country)s sono %(destinations)s."
 
 #: oec/profile/models.py:225
 #, python-format
 msgid "The top import origins of %(country)s are %(origins)s."
-msgstr ""
+msgstr "Le origini prime di importazione %(country)s sono %(origins)s."
 
 #: oec/profile/models.py:233 oec/profile/models.py:240
 msgid "positive"
-msgstr ""
+msgstr "positivo"
 
 #: oec/profile/models.py:233 oec/profile/models.py:240
 msgid "negative"
-msgstr ""
+msgstr "negativo"
 
 #: oec/profile/models.py:234 oec/profile/models.py:241
-#, fuzzy
 msgid "exports"
-msgstr "Export"
+msgstr "esportazioni"
 
 #: oec/profile/models.py:234 oec/profile/models.py:241
-#, fuzzy
 msgid "imports"
-msgstr "Import"
+msgstr "importazioni"
 
 #: oec/profile/models.py:236
 #, python-format
-msgid ""
-"As of %(year)s %(country)s had a %(positive_negative)s trade balance of "
-"$%(net_trade)s in net %(exports_imports)s."
-msgstr ""
+msgid "As of %(year)s %(country)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s."
+msgstr "Dal %(year)s %(country)s ha avuto un %(positive_negative)s commerciale positivo di $ %(net_trade)s in %(exports_imports)s nette."
 
 #: oec/profile/models.py:243
 msgid "still"
-msgstr ""
+msgstr "ancora"
 
 #: oec/profile/models.py:245
 #, python-format
-msgid ""
-" As compared to their trade balance in %(year)s when they %(still)s had a"
-" %(positive_negative)s trade balance of $%(net_trade)s in net "
-"%(exports_imports)s."
-msgstr ""
+msgid " As compared to their trade balance in %(year)s when they %(still)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s."
+msgstr "Rispetto alla loro bilancia commerciale nel %(year)s, quando avevano %(still)s un saldo commerciale %(positive_negative)s di $ %(net_trade)s in %(exports_imports)s nette."
 
 #: oec/profile/models.py:251
 msgid "Trade Balance"
-msgstr ""
+msgstr "Bilancia commerciale"
 
 #: oec/profile/models.py:252
 msgid "Destinations"
-msgstr ""
+msgstr "Destinazioni"
 
 #: oec/profile/models.py:253
 msgid "Origins"
-msgstr ""
+msgstr "Origini"
 
 #: oec/profile/models.py:271
 #, python-format
-msgid ""
-"The economy of %(country)s has an Economic Complexity Index (ECI) of "
-"%(eci)s making it the %(eci_rank)s most complex country. "
-msgstr ""
+msgid "The economy of %(country)s has an Economic Complexity Index (ECI) of %(eci)s making it the %(eci_rank)s most complex country. "
+msgstr "L'economia di %(country)s ha un indice economico Complessità (ECI) %(eci)s che lo rende il %(eci_rank)s paese più complesse."
 
 #: oec/profile/models.py:278
 #, python-format
-msgid ""
-"%(country)s exports %(num_of_exports)s products with revealed comparative"
-" advantage (meaning that its share of global exports is larger than what "
-"would be expected from the size of its export economy and from the size "
-"of a product’s global market)."
-msgstr ""
+msgid "%(country)s exports %(num_of_exports)s products with revealed comparative advantage (meaning that its share of global exports is larger than what would be expected from the size of its export economy and from the size of a product’s global market)."
+msgstr "%(country)s esporta %(num_of_exports)s prodotti con vantaggio comparato rivelato (il che significa che la sua quota di esportazioni mondiali è più grande di quello che ci si aspetterebbe dalla dimensione della sua economia di esportazione e dalle dimensioni del mercato globale di un prodotto)."
 
 #: oec/profile/models.py:283
 #, python-format
 msgid "Economic Complexity of %(country)s"
-msgstr ""
+msgstr "Complessità economica %(country)s"
 
 #: oec/profile/models.py:286
-#, fuzzy
 msgid "Product Space"
-msgstr "Prodotto"
+msgstr "Spazio del prodotto"
 
 #: oec/profile/models.py:286
-msgid ""
-"The product space is a network connecting products that are likely to be "
-"co-exported and can be used to predict the evolution of a country’s "
-"export structure."
-msgstr ""
+msgid "The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure."
+msgstr "Lo spazio prodotto è una rete che collega i prodotti che possono essere co-esportato e possono essere utilizzate per prevedere l'evoluzione della struttura delle esportazioni di un paese."
 
 #: oec/profile/models.py:300
 #, python-format
 msgid ""
 "\n"
-"            This treemap shows the municipalities in Brazil that imported"
-" products from %(country)s.<br /><br />\n"
-"            DataViva is a visualization tool that provides official data "
-"on trade, industries, and education throughout Brazil. If you would like "
-"more info or to create a similar site get in touch with us at <a "
-"href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />\n"
-"            <a target='_blank' "
-"href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'><img"
-" src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>\n"
+"            This treemap shows the municipalities in Brazil that imported products from %(country)s.<br /><br />\n"
+"            DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />\n"
+"            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>\n"
 "            "
 msgstr ""
+"\n"
+"Questo treemap mostra i comuni in Brasile che importavano prodotti  %(country)s. <br /> <br /> \n"
+"DataViva è uno strumento di visualizzazione che fornisce dati ufficiali sul commercio, le industrie e l'educazione in tutto il Brasile. Se desiderate maggiori informazioni o per creare un sito simile entrare in contatto con noi all'indirizzo <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />\n"
+"            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>"
 
 #: oec/profile/models.py:305
 #, python-format
 msgid ""
 "\n"
-"            This treemap shows the municipalities in Brazil that exported"
-" products to %(country)s.<br /><br />\n"
-"            DataViva is a visualization tool that provides official data "
-"on trade, industries, and education throughout Brazil. If you would like "
-"more info or to create a similar site get in touch with us at <a "
-"href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />\n"
-"            <a target='_blank' "
-"href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'><img"
-" src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>\n"
+"            This treemap shows the municipalities in Brazil that exported products to %(country)s.<br /><br />\n"
+"            DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />\n"
+"            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>\n"
 "            "
 msgstr ""
+"\n"
+"Questo treemap mostra i comuni in Brasile che hanno esportato i prodotti in %(country)s. <br /> <br /> \n"
+"DataViva è uno strumento di visualizzazione che fornisce dati ufficiali sul commercio, le industrie e l'educazione in tutto il Brasile. Se desiderate maggiori informazioni o per creare un sito simile entrare in contatto con noi all'indirizzo <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />\n"
+"            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>"
 
 #: oec/profile/models.py:310
 #, python-format
 msgid "Brazilian Municipalities that import from %(country)s"
-msgstr ""
+msgstr "Comuni brasiliane che importano da %(country)s"
 
 #: oec/profile/models.py:311
 #, python-format
 msgid "Brazilian Municipalities that export to %(country)s"
-msgstr ""
+msgstr "Comuni brasiliane che esportano in %(country)s"
 
 #: oec/profile/models.py:327
 #, python-format
-msgid ""
-"This treemap shows the cultural exports of %(country)s, as proxied by the"
-" production of globally famous historical characters.<br "
-"/>%(pantheon_link)s"
-msgstr ""
+msgid "This treemap shows the cultural exports of %(country)s, as proxied by the production of globally famous historical characters.<br />%(pantheon_link)s"
+msgstr "Questo treemap mostra esportazioni culturali %(country)s, come proxy per la produzione di famosi personaggi storici a livello mondiale.<br />%(pantheon_link)s"
 
 #: oec/profile/models.py:348
-#, fuzzy
 msgid "Product Complexity"
-msgstr "Nome del prodotto"
+msgstr "Complessità del prodotto"
 
 #: oec/profile/models.py:348
 msgid "Top Exporter"
-msgstr ""
+msgstr "Il più grande esportatore"
 
 #: oec/profile/models.py:348
-#, fuzzy
 msgid "Top Importer"
-msgstr "Import Net"
+msgstr "Più grande importatore"
 
 #: oec/profile/models.py:411
 #, python-format
 msgid "%(product)s the %(economic_rank)s most traded product"
-msgstr ""
+msgstr "%(product)s il %(economic_rank)s prodotto più scambiato"
 
 #: oec/profile/models.py:415
 #, python-format
-msgid ""
-" and the %(pci_rank)s most complex product according to the <a "
-"href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>"
-msgstr ""
+msgid " and the %(pci_rank)s most complex product according to the <a href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>"
+msgstr "e il %(pci_rank)s prodotto più complesso secondo il <a href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>"
 
 #: oec/profile/models.py:427
 #, python-format
-msgid ""
-"The top exporters of %(product)s are %(exporters)s. The top importers are"
-" %(importers)s."
-msgstr ""
+msgid "The top exporters of %(product)s are %(exporters)s. The top importers are %(importers)s."
+msgstr "I primi esportatori di %(product)s sono %(exporters)s. I primi importatori sono %(importers)s."
 
 #: oec/profile/models.py:445
 #, python-format
 msgid "%(product)s the top export of %(countries)s."
-msgstr ""
+msgstr "%(product)s l'esportazione superiore %(countries)s."
 
 #: oec/profile/models.py:448
 #, python-format
 msgid "%(product)s the top import of %(countries)s."
-msgstr ""
+msgstr "%(product)s l'importazione superiore di %(countries)s."
 
 #: oec/profile/models.py:456
 #, python-format
 msgid "%(product)s also known as %(keywords)s."
-msgstr ""
+msgstr "%(product)s conosciuto anche come %(keywords)s."
 
 #: oec/profile/models.py:460
 #, python-format
 msgid "%(product)s a %(product_id_length)s digit %(classification)s product."
-msgstr ""
+msgstr "%(product)s un prodotto %(classification)s a %(product_id_length)s cifre."
 
 #: oec/rankings/views.py:87 oec/rankings/views.py:94
 msgid "Rank"
@@ -795,18 +709,16 @@ msgid "Product"
 msgstr "Prodotto"
 
 #: oec/translations/lookup.py:11
-#, fuzzy
 msgid "Net Export Value"
-msgstr "Valore delle esportazioni"
+msgstr "Valore Netto Esportazione"
 
 #: oec/translations/lookup.py:13
-#, fuzzy
 msgid "Net Import Value"
-msgstr "Valore delle importazioni"
+msgstr "Valore Netto Importazione"
 
 #: oec/visualize/views.py:317
 msgid "Partner"
-msgstr ""
+msgstr "Compagno"
 
 #: oec/visualize/views.py:335
 msgid "Y Axis"
@@ -827,140 +739,4 @@ msgstr "Fine Anno"
 #: oec/visualize/views.py:467
 #, python-format
 msgid "Profile for %(attr)s"
-msgstr ""
-
-#~ msgid "Book"
-#~ msgstr "Libro"
-
-#~ msgid "Language"
-#~ msgstr "Lingua"
-
-#~ msgid "Net Export"
-#~ msgstr "Export Net"
-
-#~ msgid "Net Import"
-#~ msgstr "Import Net"
-
-#~ msgid "Interval"
-#~ msgstr "Intervallo"
-
-#~ msgid "Click to view more years"
-#~ msgstr "Clicca per visualizzare più anni"
-
-#~ msgid "View graphic"
-#~ msgstr "Vista grafica"
-
-#~ msgid "View as Visualization"
-#~ msgstr "Guarda come Visualization"
-
-#~ msgid "Download this year's data"
-#~ msgstr "Scarica i dati di quest'anno"
-
-#~ msgid "Download all years data"
-#~ msgstr "Scarica tutti i dati anno"
-
-#~ msgid "Flag of %(country)s"
-#~ msgstr "Bandiera della %(country)s"
-
-#~ msgid ""
-#~ msgstr ""
-
-#~ msgid "New!"
-#~ msgstr "Nuovo!"
-
-#~ msgid "Full"
-#~ msgstr "Completo"
-
-#~ msgid "Economy of %(country)s."
-#~ msgstr "Economia di %(country)s."
-
-#~ msgid "Principle trade partners of %(country)s."
-#~ msgstr "Partner commerciali Principio di %(country)s."
-
-#~ msgid "Goods and resources of %(country)s."
-#~ msgstr "Beni e risorse %(country)s."
-
-#~ msgid "Previous"
-#~ msgstr "Precedente"
-
-#~ msgid "Learn More About Trade in <strong>%(country)s</strong>"
-#~ msgstr "Ulteriori informazioni su Commercio di <strong>%(country)s</strong>"
-
-#~ msgid "Next"
-#~ msgstr "Il Prossimo"
-
-#~ msgid "Top 5"
-#~ msgstr "Top 5"
-
-#~ msgid "is ranked"
-#~ msgstr "è classificato"
-
-#~ msgid "%(country)s is the top exporter of"
-#~ msgstr "%(country)s è il primo esportatore di"
-
-#~ msgid "Explore"
-#~ msgstr "Esplorare"
-
-#~ msgid "Principle trade partners that export %(prod)s."
-#~ msgstr "Partner commerciali Principio che esportano %(prod)s."
-
-#~ msgid "Countries that import %(prod)s."
-#~ msgstr "Paesi che l'importazione %(prod)s."
-
-#~ msgid "Learn More About Trade of <strong>%(prod)s</strong>"
-#~ msgstr "Ulteriori informazioni su Commercio di <strong>%(prod)s</strong>"
-
-#~ msgid "%(prod)s is the top export of"
-#~ msgstr "%(prod)s è l'esportazione superiore del"
-
-#~ msgid "Country Rankings"
-#~ msgstr "Country simile"
-
-#~ msgid "SITC Product Rankings"
-#~ msgstr "SITC simile prodotto"
-
-#~ msgid "Change Year"
-#~ msgstr "Cambia Anno"
-
-#~ msgid "Profiles"
-#~ msgstr "Profili"
-
-#~ msgid "Atlas"
-#~ msgstr ""
-
-#~ msgid "About"
-#~ msgstr "Circa"
-
-#~ msgid "Search the Observatory"
-#~ msgstr ""
-
-#~ msgid "Visualize"
-#~ msgstr ""
-
-#~ msgid "Origin Country"
-#~ msgstr "Paese di origine"
-
-#~ msgid "Destination Country"
-#~ msgstr "Paese di destinazione"
-
-#~ msgid "Product Name"
-#~ msgstr "Nome del prodotto"
-
-#~ msgid "Origin"
-#~ msgstr "Origine"
-
-#~ msgid "Destination"
-#~ msgstr "Destinazione"
-
-#~ msgid "Classification"
-#~ msgstr "Classificazione"
-
-#~ msgid "%(country)s borders %(country)s."
-#~ msgstr ""
-
-#~ msgid "%(country)s borders %(country)s by land and %(country)s by sea."
-#~ msgstr ""
-
-#~ msgid "Population"
-#~ msgstr ""
-
+msgstr "Profilo per %(attr)s"
