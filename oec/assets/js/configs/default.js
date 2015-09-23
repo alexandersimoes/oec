@@ -71,7 +71,8 @@ configs.default = function(build, container) {
       missing = "#ddd",
       chart = background,
       ui_color = oec.ui.light,
-      heatmap = ["#282F6B", "#419391", "#AFD5E8", "#EACE3F", "#B35C1E", "#B22200"];
+      heatmap = ["#282F6B", "#419391", "#AFD5E8", "#EACE3F", "#B35C1E", "#B22200"],
+      highlight = "#000";
 
   if (background !== "none" && d3.hsl(background).l < 0.5) {
     missing = d3plus.color.lighter(background, 0.7);
@@ -81,6 +82,7 @@ configs.default = function(build, container) {
     chart = d3plus.color.lighter(background, 0.1);
     ui_color = oec.ui.dark;
     heatmap = ["#282F6B", "#419391", "#AFD5E8", "#EACE3F", "#B35C1E", "#B22200"];
+    highlight = "#fff";
   }
 
   var large_tooltip_width = 150;
@@ -150,7 +152,8 @@ configs.default = function(build, container) {
     "background": background,
     "color": {
       "heatmap": heatmap,
-      "missing": missing
+      "missing": missing,
+      "primary": highlight
     },
     "edges": {"color": edges},
     // "focus": {"tooltip": false},
