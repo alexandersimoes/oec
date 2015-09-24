@@ -278,6 +278,9 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
     g.page_type = "visualize"
     g.page_sub_type = app_name
 
+    if app_name == "scatter":
+        year = [y for y in year if y >= 1980]
+
     '''sanitize input args'''
     redir = sanitize(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
     if redir:
@@ -303,7 +306,7 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
     }
     all_placed = False
 
-    if build.trade_flow != "eci":
+    if build.trade_flow != "eci" and build.viz["slug"] != "scatter":
         if isinstance(build.origin, Country):
             origin_country = build.origin.serialize()
         else:
@@ -321,7 +324,7 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
     prod_exists = isinstance(build.prod, (Sitc, Hs92, Hs96, Hs02, Hs07))
     if isinstance(build.dest, Country):
         dest_country = build.dest.serialize()
-    elif not all_placed and not prod_exists and build.viz["slug"] != "line":
+    elif not all_placed and not prod_exists and build.viz["slug"] != "line" and build.viz["slug"] != "scatter":
         dest_country = all_country
 
     if dest_country:
@@ -377,7 +380,7 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
 
     years = set()
     for d in available_years:
-        [years.add(y) for y in available_years[d]]
+        [years.add(y) for y in available_years[d] if build.viz["slug"] != "scatter" or y >= 1980]
 
     if build.viz["slug"] in ("stacked", "line"):
         ui.append({
