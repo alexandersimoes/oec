@@ -159,6 +159,10 @@ configs.default = function(build, container) {
     }
   }
 
+  if (["eci", "show"].indexOf(build.trade_flow) >= 0) {
+    tooltip_data.push("year");
+  }
+
   var background = "none", curtain = "black", text = "#333333";
   if(window.parent.location.host == window.location.host){
     if (window.location.href.indexOf("/profile/") > 0) {
