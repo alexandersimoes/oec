@@ -10,9 +10,9 @@ body.error {
   }
 
   #container {
-  	margin-top: 5vh;
+  	margin-top: 0;
   }
-  
+
   footer {
     bottom: 0;
     left: 0;
@@ -24,9 +24,9 @@ body.error {
     }
 
   }
-  
+
   .bg-frame {
-  
+
   $default_size: 600px;
 
     #ring {
@@ -44,7 +44,7 @@ body.error {
         top: -5%;
         width: 100%;
       }
-		
+
 	  h1 {
 	  	display: block;
         font-family: $source-sans;

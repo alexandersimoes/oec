@@ -3,7 +3,7 @@
 {% block title %}: Error{% endblock %}
 
 {% block body %}
-	
+
 
 <div class="bg-frame">
   <div id="ring">
@@ -17,6 +17,7 @@
 {% block js %}
 
 <script>
+
   var timing = 0;
   function bgresize() {
 
@@ -26,7 +27,7 @@
         w = window.innerWidth,
         h = window.innerHeight - n - f,
         min = 300,
-        max = 600,
+        max = 850,
         s = d3.min([max, d3.max([Math.floor(d3.min([w - p, h - p])), min])]);
 
     if (timing) {

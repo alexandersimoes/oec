@@ -893,7 +893,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
         left: 0;
         position: absolute;
         top: 0;
@@ -1581,7 +1581,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
+      background: linear-gradient(to bottom, transparent, #212831);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -2860,7 +2860,7 @@ body.error {
     background: none;
     position: static; }
     body.error #container {
-      margin-top: 5vh; }
+      margin-top: 0; }
       body.error footer {
         bottom: 0;
         left: 0;
