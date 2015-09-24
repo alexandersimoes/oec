@@ -237,7 +237,7 @@
       .attr("class", "result")
       .attr("href", function(d){
         var p = "/" + oec.locale + "/";
-        return !d.id ? p + "explore/" + d.name : p + "profile/" + g + "/" + d.display_id;
+        return !d.id ? p + "visualize/" + d.name : p + "profile/" + g + "/" + d.display_id;
       })
       .style("background-color", function(d){
         return analyze_palette(d.palette) || d.color || "transparent";

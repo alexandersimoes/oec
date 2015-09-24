@@ -14,7 +14,7 @@
     <p id="info">
       {{ _("We are the world's<br/>leading visualization engine<br/>for international trade data.") }}
       <br>
-      <a href="{{ url_for('about.about') }}">{{ _("Learn More") }}</a>
+      <a href="{{ url_for('resources.about', lang=g.locale) }}">{{ _("Learn More") }}</a>
     </p>
     <div id="search_home">
       <img src="/static/img/nav/search.png">
