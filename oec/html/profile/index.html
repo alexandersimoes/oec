@@ -88,7 +88,11 @@
       <li class="depth6"><a href="#{{ build.title|replace(" ","_") }}">{{ build.title }}</a></li>
       {% endfor %}
       {% endfor %}
+
+      {% if g.page_sub_type == "country" or profile.classification == "hs92" %}
       <li class="depth6"><a href="#dataviva">DataViva</a></li>
+      {% endif %}
+
       {% if g.page_sub_type == "country" %}
       <li class="depth6"><a href="#pantheon">Pantheon</a></li>
       {% endif %}
