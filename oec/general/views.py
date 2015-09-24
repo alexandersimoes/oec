@@ -128,11 +128,6 @@ def search():
     search_results = Search(**search_args).results()
     return jsonify(search_results)
 
-@mod.route('permissions/')
-def permissions():
-    g.page_type = "permissions"
-    return render_template("general/permissions.html")
-
 @mod.route('api/')
 def api():
     g.page_type = "api"
@@ -200,3 +195,22 @@ def redirect_short_url(slug):
     db.session.commit()
 
     return redirect(short.long_url)
+
+###############################
+# Legacy static views (redirects)
+# ---------------------------
+@mod.route('about/api/')
+@mod.route('about/api/embed/')
+@mod.route('about/api/data/')
+def about_api():
+    return redirect(url_for("general.api"))
+
+@mod.route('about/data/')
+@mod.route('about/data/sources/')
+@mod.route('about/data/download/')
+def about_data_sources():
+    return redirect(url_for('resources.data'))
+
+@mod.route('about/permissions/')
+def about_permissions():
+    return redirect(url_for('general.permissions'))

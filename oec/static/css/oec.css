@@ -2243,38 +2243,39 @@ body.rankings {
         body.rankings #container table .delta, body.rankings #container table .id {
           display: none;   }
 }
-body.about, body.resources, body.permissions {
+body.about, body.resources, body.permissions, body.eci {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased; }
   body.about #container #content, body.resources #container #content,
-  body.permissions #container #content {
+  body.permissions #container #content, body.eci #container #content {
     max-width: 695px;
     padding-top: 20px; }
     body.about #container #content a, body.resources #container #content a,
-    body.permissions #container #content a {
+    body.permissions #container #content a, body.eci #container #content a {
       color: #99BCD1;
       text-decoration: none; }
       body.about #container #content a:hover, body.resources #container #content a:hover,
-      body.permissions #container #content a:hover {
+      body.permissions #container #content a:hover, body.eci #container #content a:hover {
         border-bottom: 1px solid #99BCD1; }
-  body.about h1, body.resources h1, body.permissions h1 {
+  body.about h1, body.resources h1, body.permissions h1, body.eci h1 {
     line-height: 1;
     margin-bottom: 20px; }
-    body.about h2, body.resources h2, body.permissions h2 {
+    body.about h2, body.resources h2, body.permissions h2, body.eci h2 {
       line-height: 1.1;
       margin-bottom: 15px; }
-      body.about h3, body.resources h3, body.permissions h3 {
+      body.about h3, body.resources h3, body.permissions h3, body.eci h3 {
         line-height: 1.3;
         margin: 20px 0;
         font-size: 24px;
         opacity: 0.8; }
-        body.about h4, body.resources h4, body.permissions h4 {
+        body.about h4, body.resources h4, body.permissions h4, body.eci h4 {
           line-height: 1.3;
           margin: 15px 0; }
-          body.about ol, body.resources ol, body.permissions ol {
+          body.about ol, body.resources ol, body.permissions ol, body.eci ol {
             margin-left: 20px; }
-            body.about blockquote, body.resources blockquote, body.permissions blockquote {
+            body.about blockquote, body.resources blockquote, body.permissions blockquote,
+            body.eci blockquote {
               margin: 15px 0; }
 
 body.about h2, body.about h3, body.about h4 {

@@ -31,11 +31,14 @@
   </li>
 
   <li id="resources"{% if g.page_type == "resources" %} class="active"{% endif %}>
-    <a href="{{ url_for('about.about') }}">{{ _('Resources') }}</a>
+    <a href="{{ url_for('resources.about', lang=g.locale) }}">{{ _('Resources') }}</a>
     <div class="sub_menu">
       <ul>
+        <li class="eci{% if g.page_sub_type == 'eci' %} active{% endif %}">
+          <a href="{{ url_for('resources.eci', lang=g.locale) }}">{{ _('Economic Complexity') }}</a>
+        </li>
         <li class="about{% if g.page_sub_type == 'about' %} active{% endif %}">
-          <a href="{{ url_for('about.about') }}">{{ _('About the Site') }}</a>
+          <a href="{{ url_for('resources.about', lang=g.locale) }}">{{ _('About the Site') }}</a>
         </li>
         <li class="faqs{% if g.page_sub_type == 'faqs' %} active{% endif %}">
           <a href="{{ url_for('resources.faqs', lang=g.locale) }}">{{ _('FAQs') }}</a>
@@ -44,7 +47,7 @@
           <a href="{{ url_for('resources.data', lang=g.locale) }}">{{ _('Data Sources') }}</a>
         </li>
         <li class="permissions{% if g.page_sub_type == 'permissions' %} active{% endif %}">
-          <a href="{{ url_for('general.permissions') }}">{{ _('Permissions') }}</a>
+          <a href="{{ url_for('resources.permissions', lang=g.locale) }}">{{ _('Permissions') }}</a>
         </li>
       </ul>
     </div>
