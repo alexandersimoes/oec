@@ -114,7 +114,7 @@
 <content data-step="12" id="main_viz">
   <section class="nav-section">
 
-    {% if current_build.viz.slug != "stacked" and current_build.year_str|int > g.available_years['sitc'][0] %}
+    {% if current_build.viz.slug != "stacked" and current_build.viz.slug != "line" and current_build.year_str|int > g.available_years['sitc'][0] %}
     <aside>
       <a id="prev" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int-1) }}">
         <h2 class="year-nav">
@@ -129,7 +129,7 @@
       <h1>{{ current_build.question()|safe }}</h1>
     </content>
 
-    {% if current_build.viz.slug != "stacked" and current_build.year_str|int < g.available_years['sitc'][-1] %}
+    {% if current_build.viz.slug != "stacked" and current_build.viz.slug != "line" and current_build.year_str|int < g.available_years['sitc'][-1] %}
     <aside>
       <a id="next" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int+1) }}">
         <h2 class="year-nav">
