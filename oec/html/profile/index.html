@@ -23,7 +23,7 @@
   {% set stats = profile.stats() %}
   <div id="stats">
     {% for stat in stats %}
-    <div class="stat">
+    <div class="stat {{ stat.key }}">
       <div class="stat_text">
         <h3>
           {% if "top" in stat.key %}
