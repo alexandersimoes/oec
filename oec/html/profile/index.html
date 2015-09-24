@@ -135,7 +135,7 @@
   {% for build in section.builds %}
   <section {% if build.tour %}data-position="floating" data-step="{{ build.seq }}" data-intro="{{ build.tour }}"{% endif %}>
     <aside>
-      <h2><a name="{% if section.source %}{{ section.source }}{% else %}{{ build.title|replace(" ","_") }}{% endif %}" class="anchor">{{ build.title }}</a></h2>
+      <h2><a name="{% if section.source %}{{ section.source }}{% else %}{{ build.title|replace(" ","_") }}{% endif %}" class="anchor"></a>{{ build.title }}</h2>
       {% if build.subtitle %}
       <p>{{ build.subtitle|safe }}</p>
       {% endif %}
