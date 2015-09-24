@@ -19,7 +19,7 @@ function format_data(raw_data, attrs, build){
   })
 
   // special case for line chart of trade balance (need to duplicate data)
-  if(build.viz.slug == "line"){
+  if(build.viz.slug == "line" && build.trade_flow === "show"){
 
     data = data.map(function(d){
       d.trade = d.export_val;

@@ -303,24 +303,25 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
     }
     all_placed = False
 
-    if isinstance(build.origin, Country):
-        origin_country = build.origin.serialize()
-    else:
-        origin_country = all_country
-        all_placed = True
+    if build.trade_flow != "eci":
+        if isinstance(build.origin, Country):
+            origin_country = build.origin.serialize()
+        else:
+            origin_country = all_country
+            all_placed = True
 
-    ui.append({
-        "id": "origin",
-        "name": gettext("Country"),
-        "data": [origin_country],
-        "url": url_for('attr.attrs', attr='country', lang=g.locale)
-    })
+        ui.append({
+            "id": "origin",
+            "name": gettext("Country"),
+            "data": [origin_country],
+            "url": url_for('attr.attrs', attr='country', lang=g.locale)
+        })
 
     dest_country = False
     prod_exists = isinstance(build.prod, (Sitc, Hs92, Hs96, Hs02, Hs07))
     if isinstance(build.dest, Country):
         dest_country = build.dest.serialize()
-    elif not all_placed and not prod_exists:
+    elif not all_placed and not prod_exists and build.viz["slug"] != "line":
         dest_country = all_country
 
     if dest_country:
@@ -364,7 +365,8 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
             ]
         }
 
-    ui.append(trade_flow)
+    if build.trade_flow not in ("show", "eci"):
+        ui.append(trade_flow)
 
     ui.append({
         "id": "classification",
@@ -377,7 +379,7 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
     for d in available_years:
         [years.add(y) for y in available_years[d]]
 
-    if build.viz["slug"] == "stacked":
+    if build.viz["slug"] in ("stacked", "line"):
         ui.append({
             "id": "start_year",
             "name": gettext("Start Year"),
@@ -429,7 +431,7 @@ def embed(app_name, classification, trade_flow, origin_id, dest_id, \
     if "controls" not in global_vars:
         global_vars["controls"] = "true"
 
-    return render_template("visualize/embed_new.html",
+    return render_template("visualize/embed.html",
         build = b,
         global_vars = json.dumps(global_vars),
         facebook_id = FACEBOOK_ID)

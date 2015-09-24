@@ -66,9 +66,11 @@
     <div class="{{ app }} app_button{% if app == current_app %} open{% endif %}" data-app="{{ app }}">
       <img src="/static/img/icons/app/app_{{ app }}.png">{{ builds[0].viz.name }}
     </div>
-    {% if loop.index % 2 == 0 %}
+    {% if loop.index % 2 == 0 or loop.last %}
     </div>
+      {% if loop.index % 2 == 0 %}
       {{ build_list(all_builds[loop.index0 - 1]) }}
+      {% endif %}
       {{ build_list(builds) }}
     {% set app = None %}
     {% endif %}
@@ -158,7 +160,9 @@
   });
 
   var active = d3.select(".build_link.active");
-  d3.select(active.node().parentNode.parentNode).select(".build_title").classed("active", true);
+  if (!active.empty()) {
+    d3.select(active.node().parentNode.parentNode).select(".build_title").classed("active", true);
+  }
 
   var attr_id = "{{ current_build.attr_type() }}_id",
       app_type = "{{ current_build.viz.slug }}";
@@ -184,10 +188,17 @@
   d3.selectAll("button#build").on("click", function(){
 
     var classification = "{{ current_build.classification }}",
-        tf = d3.select("#trade_flow select").node().value.toLowerCase(),
+        tf = d3.select("#trade_flow select").node(),
         origin = "{{ current_build.origin.id_3char }}" || "{{ current_build.origin }}",
         dest = "{{ current_build.dest.id_3char }}" || "{{ current_build.dest }}",
         prod = "{{ current_build.prod.hs }}" || "{{ current_build.prod.sitc }}" || "{{ current_build.prod }}";
+
+    if (tf) {
+      tf = tf.value.toLowerCase();
+    }
+    else {
+      tf = "{{ current_build.trade_flow }}";
+    }
 
     if (d3.select("#year select").node()){
       var year = d3.select("#year select").node().value
@@ -209,7 +220,7 @@
         , destOption = destSelect.options[destSelect.selectedIndex]
       dest = destOption.getAttribute("data-display_id")
     }
-    else if (d3.select("#origin select").node()) {
+    else if (d3.select("#origin select").node() && app_type !== "line") {
       dest = "show";
     }
 
@@ -260,8 +271,10 @@
 
       var element = d3.select(this).select("select");
 
+      var wide_dataset = this.id === "classification" && ["show", "eci"].indexOf("{{ current_build.trade_flow }}") >= 0;
+
       var ui = d3plus.form()
-        .type("drop")
+        .type(wide_dataset ? "toggle" : "drop")
         .focus(false, activate_build_button)
         .data(element)
         .ui(oec.darkUI);
@@ -322,7 +335,7 @@
 
       }
       else {
-        ui.width(this.id === "year" ? width : width/2 - 10).draw();
+        ui.width(this.id === "year" || wide_dataset ? width : width/2 - 10).draw();
       }
 
     })

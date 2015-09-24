@@ -14,8 +14,7 @@ all_viz = [
     {"slug":"rings", "name":"Rings", "color":"#333"},
     {"slug":"scatter", "name":"Scatter", "color":"#333"},
     {"slug":"geo_map", "name":"Geo Map", "color":"#333"},
-    {"slug":"line", "name":"Line", "color":"#333"},
-    {"slug":"spaghetti", "name":"Spaghetti", "color":"#333"}
+    {"slug":"line", "name":"Line", "color":"#333"}
 ]
 
 ''' Title, question, short name and category specific per build type. See below:
@@ -153,7 +152,7 @@ build_metadata = { \
             "title": u"Trade balance of {origin}",
             "question": u"What is the trade balance for {origin}?",
             "short_name": "Trade Balance",
-            "category": "Product"
+            "category": "Country"
         }
     },
     9: {
@@ -165,11 +164,11 @@ build_metadata = { \
         }
     },
     10: {
-        "show": {
+        "eci": {
             "title": "Country Rankings",
             "question": "Country Rankings",
             "short_name": "Country Rankings",
-            "category": "Country"
+            "category": "Economic Complexity"
         }
     }
 }
@@ -231,10 +230,11 @@ class Build(object):
 
     def get_build_id(self, viz, origin, dest, prod):
         '''build showing products given an origin'''
-        if viz["slug"] == "spaghetti":
-            return 10
         if viz["slug"] == "line":
-            return 8
+            if self.trade_flow == "show":
+                return 8
+            else:
+                return 10
         if viz["slug"] == "network":
             return 5
         if origin == "show" and dest == "all" and prod == "all":
@@ -327,7 +327,7 @@ class Build(object):
     '''Returns the data URL for the specific build.'''
     def data_url(self, year=None, output_depth=None):
 
-        if self.viz["slug"] == "spaghetti":
+        if self.viz["slug"] == "line" and self.trade_flow == "eci":
             return "/attr/eci/"
 
         if self.viz["slug"] == "stacked" or self.viz["slug"] == "network":
@@ -488,6 +488,25 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
                     prod = prod_id,
                     year = year)
                 all_builds.append(build)
+
+        elif v["slug"] == "line":
+            '''line builds are trade balance and rankings'''
+
+            all_builds.append(Build(viz = v["slug"],
+                classification = classification,
+                trade_flow = "show",
+                origin = origin_id,
+                dest = "all",
+                prod = "all",
+                year = year))
+
+            all_builds.append(Build(viz = v["slug"],
+                classification = classification,
+                trade_flow = "eci",
+                origin = "show",
+                dest = "all",
+                prod = "all",
+                year = year))
 
 
     return all_builds
