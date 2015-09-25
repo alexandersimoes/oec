@@ -862,6 +862,7 @@ body.home {
             font-size: 20px;
             font-weight: 400;
             line-height: 25px;
+            margin-bottom: 0;
             margin-right: 15px;
             text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
             z-index: 2; }
@@ -2474,6 +2475,7 @@ body.about, body.resources, body.permissions, body.eci {
     line-height: 1;
     margin-bottom: 20px; }
     body.about h2, body.resources h2, body.permissions h2, body.eci h2 {
+      color: #a4b500;
       line-height: 1.1;
       margin-bottom: 15px; }
       body.about h3, body.resources h3, body.permissions h3, body.eci h3 {
@@ -2489,9 +2491,18 @@ body.about, body.resources, body.permissions, body.eci {
             body.about blockquote, body.resources blockquote, body.permissions blockquote,
             body.eci blockquote {
               margin: 15px 0; }
+              body.about p, body.resources p, body.permissions p, body.eci p {
+                opacity: 0.9; }
 
-body.about h2, body.about h3, body.about h4 {
-  margin: 0; }
+body.eci h1 {
+  margin: 20px 0; }
+  body.eci h4, body.eci ol {
+    color: #a4b500; }
+    body.eci li span.calc {
+      color: #fff; }
+      body.eci .calc {
+        position: relative;
+        top: 3px; }
 
 .member {
   margin: 50px 0;
@@ -2519,13 +2530,15 @@ body.about h2, body.about h3, body.about h4 {
     position: absolute;
     top: 0;
     width: 150px; }
-    @media all and (max-width: 500px) {
-      .member {
-        padding-left: 0;
-        padding-top: 180px;   }
-        .member:before {
-          margin-left: -75px;
-          left: 50%;   }
+    .member h3, .member h4 {
+      margin: 0 !important; }
+      @media all and (max-width: 500px) {
+        .member {
+          padding-left: 0;
+          padding-top: 180px;   }
+          .member:before {
+            margin-left: -75px;
+            left: 50%;   }
 }
   .member h3 a {
     -webkit-transition: text-shadow 0.1s;
@@ -2828,7 +2841,7 @@ body.api {
         padding-bottom: 2px;
         border-bottom: 1px dotted #20a898; }
     body.api #container #content p {
-      color: #ccc;
+      opacity: 0.9;
       margin: 5px 0; }
       body.api #container #content section aside {
         width: 180px; }
