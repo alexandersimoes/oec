@@ -235,11 +235,37 @@
         d3.select("#mobileNav").classed("open", false);
         d3.select("body").classed("frozen", false);
       })
-      
+
       d3.selectAll(".tour a").on(d3plus.client.pointer.click, function() {
         window.location.href = '/?tour=true';
         d3.event.preventDefault();
       });
+
+      d3.selectAll("[data-tooltip]")
+        .on(d3plus.client.pointer.over,function(){
+
+          d3plus.tooltip.remove("data-tooltip");
+
+          var size = this.getBoundingClientRect();
+
+          d3plus.tooltip.remove("data-tooltip");
+          d3plus.tooltip.create({
+            "x": size.left+size.width/2,
+            "y": size.top+size.height/2,
+            "offset": size.height/2,
+            "arrow": true,
+            "description": d3.select(this).attr("data-tooltip"),
+            "width": "auto",
+            "id": "data-tooltip",
+            "align": "top center",
+            // "parent": parent,
+            "max_width": 180
+          })
+
+        })
+        .on(d3plus.client.pointer.out,function(){
+          d3plus.tooltip.remove("data-tooltip");
+        })
 
     </script>
 
