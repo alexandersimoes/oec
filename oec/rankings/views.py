@@ -81,17 +81,20 @@ def rankings(category=None, year=None):
     #     Yp = getattr(db_data, "hs92_models").Yp
     #     Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Hs, Hs_name, Yp, "hs_id", "pci", "pci_rank", "pci_rank_delta"]
     #     cols = [gettext("Rank"), "", "HS", gettext("Product"), "PCI Value"]
-
+    
+    cols = [{"id":"rank", "name":gettext("Rank"),"sortable":True}, 
+            {"id":"delta", "name":"","sortable":False}, 
+            {"id":"id", "name":gettext("ID"),"sortable":True, "sort-alpha":True}]
     if category == "country":
         Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Country, Country_name, Yo, "origin_id", "eci", "eci_rank", "eci_rank_delta"]
-        cols = [["rank", gettext("Rank")], ["delta", ""], ["id", "ID"], ["country", gettext("Country")], ["eci", "ECI"]]
+        cols += [{"id":"country", "name":gettext("Country"), "sortable":True, "sort-alpha":True}, {"id":"eci", "name":"ECI", "sortable":True}]
     else:
         Attr_data = getattr(db_data, "{}_models".format(category)).Yp
         Attr = globals()[category.title()]
         Attr_name = globals()["{}_name".format(category.title())]
         attr_id = "{}_id".format(category)
         index, rank, delta = ["pci", "pci_rank", "pci_rank_delta"]
-        cols = [["rank", gettext("Rank")], ["delta", ""], ["id", "ID"], ["product", gettext("Product")], ["pci", "PCI"]]
+        cols += [{"id":"product", "name":gettext("Product"), "sortable":True, "sort-alpha":True}, {"id":"pci", "name":"PCI", "sortable":True}]
 
 
     rankings = db.session.query(Attr, Attr_name, Attr_data) \
