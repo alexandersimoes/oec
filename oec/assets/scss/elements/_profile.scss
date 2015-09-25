@@ -567,7 +567,11 @@ body.profile {
     }
 
     content {
-      margin: 30px 0 !important;
+      margin: 30px 30px 30px 0 !important;
+
+      @media all and (max-width: 768px) {
+        margin: -30px 0 45px 0 !important;
+      }
     }
   }
 

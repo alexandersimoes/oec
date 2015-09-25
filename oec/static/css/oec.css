@@ -893,7 +893,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
         left: 0;
         position: absolute;
         top: 0;
@@ -955,7 +955,6 @@ body.home {
         #container #content section content .viz {
           display: block;
           height: 450px;
-          margin-top: 10px;
           width: 100%; }
   #container footer {
     color: #d1d2d4;
@@ -1185,7 +1184,7 @@ body.profile {
       position: absolute;
       right: 0;
       top: 0;
-      margin: 0 15px 0 34px; }
+      margin: 0 13px 0 30px; }
       body.profile article .profile_header .share img {
         -webkit-transition: opacity 0.1s, transform 0.5s;
         -moz-transition: opacity 0.1s, transform 0.5s;
@@ -1198,10 +1197,6 @@ body.profile {
         body.profile article .profile_header .share :hover {
           cursor: pointer;
           opacity: 1; }
-          body.profile article .profile_header .share.open img {
-            -webkit-transform: rotate(180deg);
-            -ms-transform: rotate(180deg);
-            transform: rotate(180deg); }
     body.profile article .profile_header #stats {
       -webkit-justify-content: center;
       -moz-justify-content: center;
@@ -1551,7 +1546,11 @@ body.profile {
   body.profile article.viz-article p {
     text-align: left; }
     body.profile article.viz-article content {
-      margin: 30px 0 !important; }
+      margin: 30px 30px 30px 0 !important; }
+      @media all and (max-width: 768px) {
+        body.profile article.viz-article content {
+          margin: -30px 0 45px 0 !important;   }
+}
   body.profile article.titled-section h1 {
     border-top: 1px solid #63737f; }
     @media all and (max-width: 768px) {
@@ -1602,7 +1601,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
+      background: linear-gradient(to bottom, transparent, #212831);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -1831,24 +1830,41 @@ body.visualize {
                     body.visualize #content #main_viz .nav-section content h1 {
                       font-size: 18px;   }
 }
-  body.visualize aside#explorer {
-    margin: 30px 35px 0 20px !important; }
-    @media all and (max-width: 768px) {
-      body.visualize aside#explorer {
-        margin: 0 20px !important;   }
-}
-      body.visualize aside#explorer #prev, body.visualize aside#explorer #next {
-        font-size: 12px;
-        position: absolute;
-        top: 34px; }
+  body.visualize #collapse {
+    -webkit-transition: opacity 0.1s;
+    -moz-transition: opacity 0.1s;
+    -ms-transition: opacity 0.1s;
+    -o-transition: opacity 0.1s;
+    transition: opacity 0.1s;
+    color: white;
+    font-size: 12px;
+    left: 20px;
+    opacity: 0.7;
+    position: absolute;
+    top: 66px; }
+    body.visualize #collapse i {
+      font-size: 16px;
+      margin-right: 4px; }
+      body.visualize #collapse:hover {
+        cursor: pointer;
+        opacity: 1; }
         @media all and (max-width: 768px) {
-          body.visualize aside#explorer #prev, body.visualize aside#explorer #next {
-            top: 13px;   }
+          body.visualize #collapse {
+            display: none;   }
 }
-    body.visualize aside#explorer #prev {
-      left: 50px; }
-      body.visualize aside#explorer #next {
-        right: 50px; }
+  body.visualize aside#explorer {
+    -webkit-transition: margin-left 0.5s;
+    -moz-transition: margin-left 0.5s;
+    -ms-transition: margin-left 0.5s;
+    -o-transition: margin-left 0.5s;
+    transition: margin-left 0.5s;
+    margin: 30px 35px 0 20px !important; }
+    body.visualize aside#explorer.small {
+      margin-left: -250px !important; }
+      @media all and (max-width: 768px) {
+        body.visualize aside#explorer {
+          margin: 0 20px !important;   }
+}
         body.visualize aside#explorer .app_button_group {
           -webkit-justify-content: center;
           -moz-justify-content: center;
