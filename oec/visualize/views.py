@@ -225,14 +225,11 @@ def download():
     title = "{0}_{1}".format(g.locale, title)
     save = request.json.get("save", False) if request.json else None
 
-    temp = tempfile.NamedTemporaryFile()
     if save:
         file_path = os.path.abspath(os.path.join(oec_dir, 'static/generated', "{0}.png".format(title)))
         if os.path.isfile(file_path):
             return jsonify({"file_name":"{0}.png".format(title), "new":False})
         new_file = open(file_path, 'w')
-    temp.write(data.encode("utf-8"))
-    temp.seek(0)
 
     if format == "png":
         mimetype='image/png'
@@ -244,6 +241,9 @@ def download():
         mimetype="text/csv;charset=UTF-8"
 
     if format == "png" or format == "pdf":
+        temp = tempfile.NamedTemporaryFile()
+        temp.write(data.encode("utf-8"))
+        temp.seek(0)
         zoom = "1"
         background = "#ffffff"
         if save:

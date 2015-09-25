@@ -105,6 +105,14 @@
   </head>
   <body class="{% if g.page_type %}{{g.page_type}}{% endif %}{% if g.locale == 'ar' or g.locale == 'he' %} rtl{% endif %}">
 
+    <form id="download" action="/en/visualize/download/" method="post">
+      <div style="display:none;">
+        <input id="format" name="format" type="hidden" value="">
+        <input id="content" name="content" type="hidden" value="">
+        <input id="title" name="title" type="hidden" value="">
+      </div>
+    </form>
+
     <div id="mask"></div>
 
     <div class="modal" id="share">

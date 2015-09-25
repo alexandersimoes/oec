@@ -26,7 +26,7 @@ function download(container, csv_data){
         var svg = d3.select(this_container).select("svg")
           .attr("title", title)
           .attr("version", 1.1)
-          .attr("xmlns", "http://www.w3.org/2000/svg")
+          .attr("xmlns", "http://www.w3.org/2000/svg");
 
         // Add this content as the value of input
         var content = (new XMLSerializer).serializeToString(svg.node());
@@ -36,10 +36,10 @@ function download(container, csv_data){
         var content = JSON.stringify(csv_data);
       }
 
-      var form = d3.select("body").append("form").attr("id", "download").attr("action", "/en/visualize/download/").attr("method", "post");
-      form.append("input").attr("type", "text").attr("name", "content").attr("value", content);
-      form.append("input").attr("type", "text").attr("name", "format").attr("value", format);
-      form.append("input").attr("type", "text").attr("name", "title").attr("value", title);
+      var form = d3.select("form#download");
+      form.select("input[name=content]").attr("value", content);
+      form.select("input[name=format]").attr("value", format);
+      form.select("input[name=title]").attr("value", title);
 
       form.node().submit();
 
