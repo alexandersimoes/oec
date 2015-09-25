@@ -176,10 +176,44 @@ body.rankings {
         }
       }
 
+      th[data-sortable] {
+        display: table-cell !important;
+
+        i {
+          @include transition(opacity 0.1s);
+          display: inline-block;
+          margin-left: 5px;
+          padding-top: 3px;
+          opacity: 0.5;
+
+          &.fa-sort-down, &.fa-sort-up {
+            opacity: 1;
+          }
+
+          &.fa-sort-down {
+            margin-top: -3px;
+          }
+
+          &.fa-sort-up {
+            margin-top: 3px;
+          }
+
+        }
+
+        &:hover {
+          cursor: pointer;
+
+          i {
+            opacity: 1;
+          }
+
+        }
+      }
+
       .rank {
         font-weight: bold;
         text-align: center;
-        width: 40px;
+        width: 50px;
       }
 
       .delta {

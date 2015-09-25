@@ -2332,10 +2332,33 @@ body.rankings {
           content: "\f105";
           font-family: FontAwesome;
           padding-left: 7px; }
+    body.rankings #container table th[data-sortable] {
+      display: table-cell !important; }
+      body.rankings #container table th[data-sortable] i {
+        -webkit-transition: opacity 0.1s;
+        -moz-transition: opacity 0.1s;
+        -ms-transition: opacity 0.1s;
+        -o-transition: opacity 0.1s;
+        transition: opacity 0.1s;
+        display: inline-block;
+        margin-left: 5px;
+        padding-top: 3px;
+        opacity: 0.5; }
+        body.rankings #container table th[data-sortable] i.fa-sort-down,
+        body.rankings #container table th[data-sortable] i.fa-sort-up {
+          opacity: 1; }
+          body.rankings #container table th[data-sortable] i.fa-sort-down {
+            margin-top: -3px; }
+            body.rankings #container table th[data-sortable] i.fa-sort-up {
+              margin-top: 3px; }
+      body.rankings #container table th[data-sortable]:hover {
+        cursor: pointer; }
+        body.rankings #container table th[data-sortable]:hover i {
+          opacity: 1; }
     body.rankings #container table .rank {
       font-weight: bold;
       text-align: center;
-      width: 40px; }
+      width: 50px; }
       body.rankings #container table .delta {
         text-align: left;
         width: 50px; }

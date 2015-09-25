@@ -120,7 +120,7 @@
         <tr>
 
           {% for c in cols %}
-          <th class="{{ c.id }}"{% if c.sortable %} data-sortable{% if c["sort-alpha"] %} data-sort-alpha{% endif %}><i class="fa fa-sort"></i>{% else %}>{% endif %} {{ c.name }}</th>
+          <th class="{{ c.id }}"{% if c.sortable %} data-sortable{% if c["sort-alpha"] %} data-sort-alpha{% endif %}{% endif %}>{{ c.name }}{% if c.sortable %}<i class="fa fa-sort"></i>{% endif %}</th>
           {% endfor %}
 
         </tr>
@@ -272,9 +272,9 @@
     //   .style("color", function(d, i){
     //     return color(i);
     //   })
-    
+
     d3.selectAll("thead th[data-sortable]").on(d3plus.client.pointer.click, function(){
-      
+
       /* Changing sort direction is a 3-way toggle with the order being:
         1st click = descending
         2nd click = ascending
@@ -282,20 +282,20 @@
       */
       var current_sort_direction = d3.select(this).attr("data-direction");
       var new_sort_direction = current_sort_direction ? current_sort_direction == "down" ? "up" : null : "down";
-      
+
       // Reset all columns sorting to null
       d3.select(this.parentNode).selectAll("th .fa").attr("class", "fa fa-sort");
       d3.select(this.parentNode).selectAll("th").attr("data-direction", null);
       var sortby = "rank";
       var alpha_sort = null;
-      
+
       if(new_sort_direction){
         d3.select(this).select(".fa").attr("class", "fa fa-sort-"+new_sort_direction)
         d3.select(this).attr("data-direction", new_sort_direction);
         sortby = d3.select(this).attr("class");
         alpha_sort = d3.select(this).attr("data-sort-alpha") != null;
       }
-      
+
       d3.selectAll("tbody tr").datum(function(d, i){
         return d3.select(this).select("."+sortby).text();
       }).sort(function(a, b){
