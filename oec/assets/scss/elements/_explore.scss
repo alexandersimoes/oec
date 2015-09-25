@@ -414,7 +414,12 @@ body.visualize {
 .d3plus_tooltip_large {
   color: #ccc !important;
   font-family: $source-sans !important;
-  top: 0 !important;
+  // top: 0 !important;
+
+  .d3plus_tooltip_arrow {
+    background-color: $darkbordercolor !important;
+    border: 1px solid $darkbordercolor;
+  }
 
   .d3plus_tooltip_container {
     background-color: $l-darkbackground !important;
