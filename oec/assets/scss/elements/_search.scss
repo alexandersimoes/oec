@@ -226,7 +226,7 @@
         z-index: 2;
       }
 
-      &:hover {
+      &:hover, &:focus {
         @include shadow(0 2px 0 $brightlinkcolor);
         border-bottom: none;
       }
