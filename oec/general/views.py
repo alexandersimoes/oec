@@ -138,13 +138,6 @@ def publications():
     g.page_type = "publications"
     return render_template("general/publications.html")
 
-###############################
-# Legacy support views
-# ---------------------------
-@mod.route('atlas/')
-def atlas():
-    return redirect(url_for("publications.books", lang="en"))
-
 @mod.route('embed/<app_name>/<trade_flow>/<origin>/<dest>/<product>/')
 @mod.route('embed/<app_name>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
 def embed_legacy(app_name, trade_flow, origin, dest, product, year=2012):
@@ -199,18 +192,29 @@ def redirect_short_url(slug):
 ###############################
 # Legacy static views (redirects)
 # ---------------------------
+@mod.route('atlas/')
+def legacy_atlas():
+    return redirect(url_for(".publications"))
+
 @mod.route('about/api/')
-@mod.route('about/api/embed/')
-@mod.route('about/api/data/')
-def about_api():
-    return redirect(url_for("general.api"))
+@mod.route('about/api/<path:legacy_path>')
+def legacy_about_api(legacy_path=None):
+    return redirect(url_for(".api"))
 
 @mod.route('about/data/')
-@mod.route('about/data/sources/')
-@mod.route('about/data/download/')
-def about_data_sources():
-    return redirect(url_for('resources.data'))
+@mod.route('about/data/<path:legacy_path>')
+def legacy_about_data(legacy_path=None):
+    return redirect(url_for('resources.data', lang=g.locale))
 
 @mod.route('about/permissions/')
-def about_permissions():
-    return redirect(url_for('general.permissions'))
+def legacy_about_permissions():
+    return redirect(url_for('resources.permissions', lang=g.locale))
+
+@mod.route('about/faqs/')
+def legacy_about_faqs():
+    return redirect(url_for('resources.faqs', lang=g.locale))
+
+@mod.route('about/')
+@mod.route('about/<path:legacy_path>')
+def legacy_about(legacy_path=None):
+    return redirect(url_for('resources.about', lang=g.locale))
