@@ -893,7 +893,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
+        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
         left: 0;
         position: absolute;
         top: 0;
@@ -1181,6 +1181,27 @@ body.profile {
           color: white; }
           body.profile article .profile_header .author a:hover {
             border-color: transparent; }
+    body.profile article .profile_header .share {
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 0 15px 0 34px; }
+      body.profile article .profile_header .share img {
+        -webkit-transition: opacity 0.1s, transform 0.5s;
+        -moz-transition: opacity 0.1s, transform 0.5s;
+        -ms-transition: opacity 0.1s, transform 0.5s;
+        -o-transition: opacity 0.1s, transform 0.5s;
+        transition: opacity 0.1s, transform 0.5s;
+        opacity: 0.7;
+        height: 22px;
+        width: 22px; }
+        body.profile article .profile_header .share :hover {
+          cursor: pointer;
+          opacity: 1; }
+          body.profile article .profile_header .share.open img {
+            -webkit-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            transform: rotate(180deg); }
     body.profile article .profile_header #stats {
       -webkit-justify-content: center;
       -moz-justify-content: center;
@@ -1581,7 +1602,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent, #212831);
+      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
