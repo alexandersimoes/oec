@@ -29,11 +29,11 @@
 
 {% block body %}
 
+<a id="collapse"><i class="fa fa-toggle-on"></i>Controls</a>
+
 <section>
 
 <aside id="explorer">
-
-  <!-- <a id="collapse"><i class="fa fa-cog"></i></a> -->
 
   {% set current_url = current_build.url() %}
   {% set current_app = current_build.viz.slug %}
@@ -348,7 +348,7 @@
 
   function resizeIframe() {
 
-    var n = window.innerWidth <= 768 ? 0 : navWidth,
+    var n = window.innerWidth <= 768 || d3.select("#explorer").classed("small") ? 0 : navWidth,
         w = window.innerWidth - n - p * 2,
         m = window.innerHeight < window.innerWidth ? iframe.node().offsetTop : p * 2,
         h = window.innerHeight - m - p * 2,
@@ -370,7 +370,10 @@
     .attr("src", "/"+oec.locale+"/visualize/embed/"+url);
 
   d3.select("#collapse").on("click", function(){
-    explorer.classed("small", explorer.node().className !== "small");
+    var small = explorer.node().className !== "small";
+    explorer.classed("small", small);
+    d3.select(this).select("i").classed("fa-toggle-off", small);
+    d3.select(this).select("i").classed("fa-toggle-on", !small);
     setTimeout(resizeIframe, 500);
   })
 

@@ -1,6 +1,6 @@
 body.visualize {
   @include font-smoothing(antialiased);
-  
+
   #content > section {
     @media all and (max-width: 768px) {
       @include flex-direction(column-reverse !important);
@@ -37,9 +37,9 @@ body.visualize {
           color: $lightlinkcolor;
 
           i {
-            margin-top: 3px; 
+            margin-top: 3px;
           }
-          
+
           h2.year-nav {
             @include transition(opacity 0.6s);
             font-weight: 400;
@@ -64,7 +64,7 @@ body.visualize {
           }
         }
       }
-      
+
       content {
         margin: 0;
 
@@ -88,30 +88,40 @@ body.visualize {
     }
   }
 
+  #collapse {
+    @include transition(opacity 0.1s);
+    color: white;
+    font-size: 12px;
+    left: 20px;
+    opacity: 0.7;
+    position: absolute;
+    top: $header - 8;
+
+    i {
+      font-size: 16px;
+      margin-right: 4px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      opacity: 1;
+    }
+
+    @media all and (max-width: 768px) {
+      display: none;
+    }
+  }
+
   aside#explorer {
+    @include transition(margin-left 0.5s);
     margin: 30px 35px 0 20px !important;
+
+    &.small {
+      margin-left: -$sidebar !important;
+    }
 
     @media all and (max-width: 768px) {
       margin: 0 20px !important;
-    }
-
-    #prev, #next {
-      font-size: 12px;
-      position: absolute;
-      top: 34px;
-
-      @media all and (max-width: 768px) {
-        top: 13px;
-      }
-
-    }
-
-    #prev {
-      left: 50px;
-    }
-
-    #next {
-      right: 50px;
     }
 
     .app_button_group {
@@ -454,13 +464,13 @@ body.visualize {
 
     & ~ div {
 
-      img { 
+      img {
         width: 40%;
         display: block;
         text-align: center;
         margin: 0 auto;
       }
-      
+
       a {
         color: #ccc;
         display: block;
@@ -470,7 +480,7 @@ body.visualize {
         }
 
         &.profile {
-          background-color: transparent !important;        
+          background-color: transparent !important;
           font-size: 18px;
           font-weight: 400;
           margin-bottom: 10px;
@@ -493,7 +503,7 @@ body.visualize {
 
   .d3plus_tooltip_html {
 
-    img { 
+    img {
         width: 20%;
         display: block;
         text-align: center;
@@ -509,7 +519,7 @@ body.visualize {
       }
 
       &.profile {
-        background-color: transparent !important;        
+        background-color: transparent !important;
         font-size: 18px;
         font-weight: 400;
         margin-bottom: 10px;
