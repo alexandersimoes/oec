@@ -463,7 +463,57 @@
       }
 
     }
+    else {
+      
+      // Down key
+      if (d3.event.keyCode === 40) {
+        if(!d3.select("a.result:focus").empty()){
+          d3.select("a.result:focus").node().nextSibling.focus()
+        }
+        else {
+          d3.select("a.result").node().focus();
+        }
+        d3.event.preventDefault()
+      }
+      
+      // Down key
+      if (d3.event.keyCode === 38) {
+        if(!d3.select("a.result:focus").empty()){
+          var prev = d3.select("a.result:focus").node().previousSibling;
+          if(d3.select(prev).classed("result")){
+            prev.focus();
+          }
+          else{
+            d3.select("#search_input").node().focus();
+          }
+        }
+        d3.event.preventDefault()
+      }
+      
+      // Right key
+      if (d3.event.keyCode === 39 || d3.event.keyCode === 37) {
+        if(!d3.select("a.result:focus").empty()){
+          var direction = d3.event.keyCode === 39 ? 1 : -1
+          var curr_el = d3.select("a.result:focus").node()
+          var all_groups = Array.prototype.slice.call(document.querySelectorAll(".search_group"))
+          var curr_group = all_groups.indexOf(curr_el.parentNode)
+          var all_in_group = Array.prototype.slice.call(document.querySelectorAll(".search_group#"+curr_el.parentNode.id+" .result"))
+          var next_group = (curr_group+direction) < 0 ? (all_groups.length + (curr_group+direction)) : (curr_group+direction)%all_groups.length
+          var curr_el_index = all_in_group.indexOf(curr_el)
+          all_groups[next_group].childNodes[curr_el_index+1].focus()
+        }
+      }
+      
+    }
   })
+  
+  d3.select("body").on("keydown", function(e) {
+    if (d3.select("#search").classed("visible")) {
+      if (d3.event.keyCode === 40 || d3.event.keyCode === 38) {
+         d3.event.preventDefault()
+      }
+    }
+  });
 
   d3.select("#search").on("click", function(){
     if (d3.event.toElement === this || d3.event.toElement === d3.select("#search_results").node()) {
