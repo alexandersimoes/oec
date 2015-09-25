@@ -289,7 +289,9 @@ ul.navLinks {
           display: none !important;   }
 }
     nav #search_button {
-      margin: 0 15px 0 34px; }
+      cursor: pointer;
+      margin: -15px 0 -15px 19px;
+      padding: 15px; }
       nav #search_button img {
         -webkit-transition: opacity 0.1s, transform 0.5s;
         -moz-transition: opacity 0.1s, transform 0.5s;
@@ -633,7 +635,11 @@ body.home {
   #search.visible {
     opacity: 1; }
     #search #search_close {
-      padding: 0 15px; }
+      cursor: pointer;
+      padding: 15px;
+      position: absolute;
+      margin: 8px 0 0 -5px;
+      right: 0; }
       #search #search_close img {
         -webkit-transition: opacity 0.1s, transform 0.5s;
         -moz-transition: opacity 0.1s, transform 0.5s;
@@ -644,20 +650,24 @@ body.home {
         -ms-transform: rotate(-180deg);
         transform: rotate(-180deg);
         opacity: 1;
-        height: 22px;
-        width: 22px;
-        position: absolute;
-        right: 10px;
-        margin-top: 21px;
-        padding: 5px;
-        background-color: #212831;
-        top: 0; }
-        #search #search_close :hover {
-          cursor: pointer; }
-          #search #search_close.open img {
-            -webkit-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-            transform: rotate(0deg); }
+        height: 16px;
+        width: 16px;
+        background-color: #212831; }
+        #search #search_close.open img {
+          -webkit-transform: rotate(0deg);
+          -ms-transform: rotate(0deg);
+          transform: rotate(0deg); }
+          #search #search_close div {
+            -webkit-transition: opacity 1s 2s;
+            -moz-transition: opacity 1s 2s;
+            -ms-transition: opacity 1s 2s;
+            -o-transition: opacity 1s 2s;
+            transition: opacity 1s 2s;
+            font-size: 9px;
+            margin: 1px 0 0 -4px;
+            opacity: 0.5;
+            position: absolute;
+            text-transform: uppercase; }
   #search #search_div {
     padding: 50px 35px 0;
     text-align: left;
@@ -848,8 +858,8 @@ body.home {
           -webkit-filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
           filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5)); }
           #search #search_results .result h1 {
-            color: white;
-            font-size: 24px;
+            color: #ddd;
+            font-size: 20px;
             font-weight: 400;
             line-height: 25px;
             margin-right: 15px;
@@ -860,6 +870,8 @@ body.home {
               -moz-box-shadow: 0 2px 0 #6297cb;
               box-shadow: 0 2px 0 #6297cb;
               border-bottom: none; }
+  #search #explore .result {
+    background-color: #3f464f !important; }
 #container {
   margin-top: 74px; }
   #container #content {
@@ -893,7 +905,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
+        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
         left: 0;
         position: absolute;
         top: 0;
@@ -1168,7 +1180,7 @@ body.profile {
       bottom: 3px;
       color: white;
       font-size: 9px;
-      font-weight: 300;
+      font-weight: 400;
       opacity: 0;
       position: absolute;
       right: 7px;
@@ -1184,19 +1196,69 @@ body.profile {
       position: absolute;
       right: 0;
       top: 0;
-      margin: 0 13px 0 30px; }
+      padding: 13px;
+      margin: -13px 0;
+      cursor: pointer; }
       body.profile article .profile_header .share img {
-        -webkit-transition: opacity 0.1s, transform 0.5s;
-        -moz-transition: opacity 0.1s, transform 0.5s;
-        -ms-transition: opacity 0.1s, transform 0.5s;
-        -o-transition: opacity 0.1s, transform 0.5s;
-        transition: opacity 0.1s, transform 0.5s;
+        -webkit-transition: opacity 0.5s, transform 0.5s;
+        -moz-transition: opacity 0.5s, transform 0.5s;
+        -ms-transition: opacity 0.5s, transform 0.5s;
+        -o-transition: opacity 0.5s, transform 0.5s;
+        transition: opacity 0.5s, transform 0.5s;
         opacity: 0.7;
         height: 22px;
         width: 22px; }
-        body.profile article .profile_header .share :hover {
-          cursor: pointer;
+        body.profile article .profile_header .share:hover img {
           opacity: 1; }
+          body.profile article .profile_header .share .drawer {
+            height: auto;
+            margin: 18px 8px 15px 0;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            right: 30px;
+            width: 84px; }
+            body.profile article .profile_header .share .drawer-content {
+              -webkit-transition: right 1s, top 1s, opacity 1s 0.25s;
+              -moz-transition: right 1s, top 1s, opacity 1s 0.25s;
+              -ms-transition: right 1s, top 1s, opacity 1s 0.25s;
+              -o-transition: right 1s, top 1s, opacity 1s 0.25s;
+              transition: right 1s, top 1s, opacity 1s 0.25s;
+              opacity: 0;
+              position: relative;
+              right: -84px;
+              top: 0; }
+              body.profile article .profile_header .share .drawer-content i {
+                -webkit-transition: opacity 0.5s;
+                -moz-transition: opacity 0.5s;
+                -ms-transition: opacity 0.5s;
+                -o-transition: opacity 0.5s;
+                transition: opacity 0.5s;
+                display: inline-block;
+                opacity: 0.7;
+                text-align: center;
+                width: 25px;
+                height: 25px; }
+                body.profile article .profile_header .share .drawer-content i:hover {
+                  opacity: 1; }
+      body.profile article .profile_header .share.open img {
+        opacity: 1; }
+        body.profile article .profile_header .share.open .drawer-content {
+          opacity: 1;
+          right: 0; }
+      @media all and (max-width: 768px) {
+        body.profile article .profile_header .share .drawer {
+          height: 84px;
+          margin: 15px 0px 15px 13px;
+          top: 30px;
+          right: 0;
+          width: auto;   }
+          body.profile article .profile_header .share .drawer-content {
+            right: 0;
+            top: -84px;   }
+            body.profile article .profile_header .share.open .drawer-content {
+              top: 0;   }
+}
     body.profile article .profile_header #stats {
       -webkit-justify-content: center;
       -moz-justify-content: center;
@@ -1601,7 +1663,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent, #212831);
+      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
