@@ -59,6 +59,7 @@
 <div id="search">
   <div id="search_close">
     <img src="/static/img/nav/x.png">
+    <div>[ esc ] </div>
   </div>
   <div id="search_div">
     <input id="search_input" type="text" placeholder="{{ _('Search') }}" />
@@ -369,7 +370,7 @@
 
     d3.select("#search_results").append("h1")
       .classed("search-loading", true)
-      .text("Loading...");
+      .text("Searching...");
 
     var m = search_mode === "all" ? "" : "&mode=" + search_mode;
 

@@ -122,7 +122,9 @@ nav {
   }
 
   #search_button {
-    margin: 0 15px 0 34px;
+    cursor: pointer;
+    margin: -15px 0 -15px 19px;
+    padding: 15px;
 
     img {
       @include transition(opacity 0.1s, transform 0.5s);

@@ -18,32 +18,33 @@
   }
 
   #search_close {
-    padding: 0 15px;
+    cursor: pointer;
+    padding: 15px;
+    position: absolute;
+    margin: 8px 0 0 -5px;
+    right: 0;
 
     img {
       @include transition(opacity 0.1s, transform 0.5s);
       @include transform(rotate(-180deg));
       opacity: 1;
-      height: 22px;
-      width: 22px;
-      position: absolute;
-      // right: 17px;
-      right: 10px;
-      // margin-top: 28px;
-      margin-top: 21px;
-      padding: 5px;
+      height: 16px;
+      width: 16px;
       background-color: $darkbackground;
-      top: 0;
-    }
-
-    :hover {
-      cursor: pointer;
     }
 
     &.open img {
       @include transform(rotate(0deg));
     }
-
+    
+    div {
+      @include transition(opacity 1s 2s);
+      font-size: 9px;
+      margin: 1px 0 0 -4px;
+      opacity: 0.5;
+      position: absolute;
+      text-transform: uppercase;
+    }
   }
 
   #search_div {
@@ -217,8 +218,8 @@
       }
 
       h1 {
-        color: white;
-        font-size: 24px;
+        color: #ddd;
+        font-size: 20px;
         font-weight: 400;
         line-height: 25px;
         margin-right: 15px;
@@ -233,6 +234,12 @@
 
     }
 
+  }
+
+  #explore {
+    .result {
+      background-color: $l2-darkbackground !important;
+    }
   }
 
 }
