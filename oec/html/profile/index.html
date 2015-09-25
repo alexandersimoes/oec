@@ -66,7 +66,21 @@
   {% endif %}
 
   <div class="share">
-    <img src="/static/img/profile/share.png" alt="share">
+    <div class="drawer">
+      <div class="drawer-content">
+        <a href="/" target="_blank" title="Share on Google+">
+          <i class="fa fa-google-plus"></i>
+        </a>
+        <a href="/" target="_blank" title="Share on Facebook">
+          <i class="fa fa-facebook"></i>
+        </a>
+        <a href="/" target="_blank" title="Share on Twitter">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </div>
+    </div>
+
+    <img src="/static/img/profile/share.png" alt="share" title="Share this profile">
   </div>
 
 </header>
@@ -526,6 +540,10 @@
 
     }, 2000)
   }
+
+  d3.select(".share").on("click", function(){
+    d3.select(this).classed("open", !d3.select(this).classed("open"));
+  });
 
 </script>
 {% endblock %}

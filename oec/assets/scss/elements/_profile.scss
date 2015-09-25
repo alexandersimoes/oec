@@ -166,7 +166,7 @@ body.profile {
       bottom: 3px;
       color: white;
       font-size: 9px;
-      font-weight: 300;
+      font-weight: 400;
       opacity: 0;
       position: absolute;
       right: 7px;
@@ -186,21 +186,88 @@ body.profile {
     }
 
     .share {
+      
+      $icon-width = 25px;
+
       position: absolute;
       right: 0;
       top: 0;
-      margin: 0 13px 0 30px;
+      padding: 13px;
+      margin: -13px 0;
+      cursor: pointer;
 
       img {
-        @include transition(opacity 0.1s, transform 0.5s);
+        @include transition(opacity 0.5s, transform 0.5s);
         opacity: 0.7;
         height: 22px;
         width: 22px;
       }
 
-      :hover {
-        cursor: pointer;
+      &:hover img {
         opacity: 1;
+      }
+
+      .drawer {
+        height: auto;
+        margin: 18px 8px 15px 0;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        right: 30px;
+        width: ($icon-width + 3) * 3;
+      }
+
+      .drawer-content {
+        @include transition(right 1s, top 1s, opacity 1s 0.25s);
+        opacity: 0;
+        position: relative;
+        right: -($icon-width + 3) * 3;
+        top: 0;
+        
+        i {
+          @include transition(opacity 0.5s);
+          display: inline-block;
+          opacity: 0.7;
+          text-align: center;
+          width: $icon-width;
+          height: $icon-width;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+
+      &.open {
+        img {
+          opacity: 1;
+        }
+
+        .drawer-content {
+          opacity: 1;
+          right: 0;
+        }
+      }
+
+      @media all and (max-width: 768px) {
+        .drawer {
+          height: ($icon-width + 3) * 3;
+          margin: 15px 0px 15px 13px;
+          top: 30px;
+          right: 0;
+          width: auto;
+        }
+
+        .drawer-content {
+          right: 0;
+          top: -($icon-width + 3) * 3;
+        }
+
+        &.open {
+          .drawer-content {
+            top: 0;
+          }
+        }
       }
     }
 
