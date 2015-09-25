@@ -21,6 +21,7 @@ body.about, body.resources, body.permissions, body.eci {
   }
 
   h2 {
+    color: $pri-w-highlight;
     line-height: 1.1;
     margin-bottom: 15px;
   }
@@ -44,11 +45,28 @@ body.about, body.resources, body.permissions, body.eci {
   blockquote {
     margin: 15px 0;
   }
+
+  p {
+    opacity: 0.9;
+  }
 }
 
-body.about {
-  h2, h3, h4 {
-    margin: 0;
+body.eci {
+  h1 {
+    margin: 20px 0;
+  }
+
+  h4, ol {
+    color: $pri-w-highlight;
+  }
+
+  li span.calc {
+    color: #fff;
+  }
+
+  .calc {
+    position: relative;
+    top: 3px;
   }
 }
 
@@ -76,6 +94,10 @@ $image_size: 150px;
     position: absolute;
     top: 0;
     width: $image_size;
+  }
+
+  h3, h4 {
+    margin: 0 !important;
   }
 
   @media all and (max-width: 500px) {
