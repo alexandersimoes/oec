@@ -74,7 +74,7 @@ class Country(Profile):
                     yo_base_q = self.models.Yo.query.filter_by(year=self.year)
                     this_yo = yo_base_q.filter_by(country=attr).first()
                 else:
-                    start_year = 1990 if "gdp" in s else start_year
+                    start_year = max(1990, start_year) if "gdp" in s else start_year
                     yo_historic = attrs.Yo.query.filter_by(country=attr).filter(attrs.Yo.year >= start_year).all()
                     # raise Exception([x.population for x in yo_historic])
                     yo_base_q = attrs.Yo.query.filter_by(year=self.year)
@@ -284,10 +284,23 @@ class Country(Profile):
             ]
         }
 
+        ''' ECI Ranking Section
+        '''
         if this_attr_yo and this_attr_yo.eci != None:
             line_rankings = Build("line", "sitc", "eci", "show", self.attr, "all", [y for y in available_years["sitc"] if y >= 1964])
-            ps_section["builds"].append({"title": _(u"ECI Ranking"), "build": line_rankings, "subtitle": _(u"Lorem Ipsum.")})
-
+            start_year = earliest_data.get(self.attr.id, 1980)
+            start_year = max(1964, start_year) if start_year != 1980 else 1964
+            year_range = self.year - start_year
+            attr_yo_historic = attrs.Yo.query.filter_by(country=self.attr).filter(attrs.Yo.year == start_year).first()
+            if attr_yo_historic.eci_rank:
+                eci_delta = this_attr_yo.eci_rank - attr_yo_historic.eci_rank
+                inc_dec = _('increased') if eci_delta < 0 else _('decreased')
+                subtitle = _("""The Economic Complexity ranking of %(country)s has %(increased_or_decreased)s by %(rank_delta)s places 
+                    over the past %(year_range)s years from %(old_eci)s in %(old_year)s to %(current_eci)s in %(current_year)s.""",
+                    country=self.attr.get_name(), increased_or_decreased=inc_dec,
+                    rank_delta=abs(eci_delta), year_range=year_range, old_eci=num_format(attr_yo_historic.eci_rank, "ordinal"),
+                    old_year=start_year, current_eci=num_format(this_attr_yo.eci_rank, "ordinal"), current_year=self.year)
+                ps_section["builds"].append({"title": _(u"Economic Complexity Ranking"), "build": line_rankings, "subtitle": subtitle})
         sections.append(ps_section)
 
         ''' DataViva
