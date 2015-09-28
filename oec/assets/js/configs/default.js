@@ -78,7 +78,9 @@ configs.default = function(build, container) {
       heatmap = ["#3B447A", "#419391", "#AFD5E8", "#EACE3F", "#B35C1E", "#B22200"],
       highlight = "#a0a0a0";
 
-  if (background !== "none" && d3.hsl(background).l < 0.5) {
+  build.dark = background !== "none" && d3.hsl(background).l < 0.5;
+
+  if (build.dark) {
     missing = d3plus.color.lighter(background, 0.7);
     missing = "#3f464f";
     edges = d3plus.color.lighter(background, 0.2);
