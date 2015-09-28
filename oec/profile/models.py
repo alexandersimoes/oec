@@ -74,6 +74,7 @@ class Country(Profile):
                     yo_base_q = self.models.Yo.query.filter_by(year=self.year)
                     this_yo = yo_base_q.filter_by(country=attr).first()
                 else:
+                    start_year = 1990 if "gdp" in s else start_year
                     yo_historic = attrs.Yo.query.filter_by(country=attr).filter(attrs.Yo.year >= start_year).all()
                     # raise Exception([x.population for x in yo_historic])
                     yo_base_q = attrs.Yo.query.filter_by(year=self.year)
