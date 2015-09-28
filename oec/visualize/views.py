@@ -308,7 +308,7 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
     }
     all_placed = False
 
-    if build.trade_flow != "eci" and build.viz["slug"] != "scatter":
+    if build.trade_flow != "eci" and build.viz["slug"] not in ("scatter", "geo_map"):
         if isinstance(build.origin, Country):
             origin_country = build.origin.serialize()
         else:
