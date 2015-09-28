@@ -205,10 +205,6 @@ class Country(Profile):
                                         past_import_val=num_format(past_yo.import_val), past_year=past_yr, current_import_val=num_format(this_yo.import_val), current_year=self.year)
             top_imports = yop_base.order_by(desc("import_val")).limit(2).all()
             if top_imports:
-                import_subtitle += u"The most recent imports are led by {}, which represent {}% of the total imports of {}, " \
-                                    u"followed by {}, which account for {}%." \
-                                    .format(top_imports[0].product.get_profile_link(), num_format((top_imports[0].import_val/imp_val_stat["val"])*100), \
-                                        self.attr.get_name(article=True), top_imports[1].product.get_profile_link(), num_format((top_imports[1].import_val/imp_val_stat["val"])*100))
                 import_subtitle += _(u"The most recent imports are led by %(top_import)s, which represent %(top_import_pct)s%% of the total imports of %(country)s, followed by %(second_import)s, which account for %(second_import_pct)s%%.", 
                                         top_import=top_imports[0].product.get_profile_link(), top_import_pct=num_format((top_imports[0].import_val/imp_val_stat["val"])*100), \
                                         country=self.attr.get_name(article=True), second_import=top_imports[1].product.get_profile_link(), second_import_pct=num_format((top_imports[1].import_val/imp_val_stat["val"])*100))
