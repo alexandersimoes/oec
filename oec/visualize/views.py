@@ -373,12 +373,13 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
     if build.trade_flow not in ("show", "eci"):
         ui.append(trade_flow)
 
-    ui.append({
-        "id": "classification",
-        "name": gettext("Dataset"),
-        "current": build.classification,
-        "data": ["HS92", "HS96", "HS02", "HS07", "SITC"]
-    })
+    if build.trade_flow != "eci":
+        ui.append({
+            "id": "classification",
+            "name": gettext("Dataset"),
+            "current": build.classification,
+            "data": ["HS92", "HS96", "HS02", "HS07", "SITC"]
+        })
 
     years = set()
     for d in available_years:
