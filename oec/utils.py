@@ -128,6 +128,8 @@ def compile_query(query):
 def make_query(data_table, url_args, lang, join_table=None, classification=None, output_depth=None, **kwargs):
     # from oec.db_attr.models import Country, Hs, Sitc
     from oec.db_attr.models import Country, Hs92, Hs96, Hs02, Hs07, Sitc
+    from oec import available_years
+    classification = classification or "hs92"
     prod_attr_tbl_lookup = {"hs92":Hs92, "hs96":Hs96, "hs02":Hs02, "hs07":Hs07, "sitc":Sitc}
     query = getattr(data_table, "query", None) or data_table
     data_table = join_table or data_table
@@ -152,7 +154,8 @@ def make_query(data_table, url_args, lang, join_table=None, classification=None,
                             years = range(year_parts[0], year_parts[1]+1, year_parts[2])
                     else:
                         years = [kwargs[filter]]
-                    query = query.filter(getattr(data_table, filter).in_(years))
+                    if years != available_years[classification]:
+                        query = query.filter(getattr(data_table, filter).in_(years))
 
             elif filter == "origin_id" or filter == "dest_id":
                 id = Country.query.filter_by(id_3char=kwargs[filter]).first().id

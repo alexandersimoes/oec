@@ -102,6 +102,8 @@ def ydp(**kwargs):
 # 
 ############################################################
 
+@mod.route('/<trade_flow>/all/<origin_id>/<dest_id>/all/')
+@mod.route('/<trade_flow>/<year>/<origin_id>/<dest_id>/all/')
 @mod.route('/<trade_flow>/all/<origin_id>/<dest_id>/show/')
 @mod.route('/<trade_flow>/<year>/<origin_id>/<dest_id>/show/')
 @crossdomain(origin='*')
