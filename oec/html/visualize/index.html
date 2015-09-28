@@ -220,7 +220,7 @@
         , destOption = destSelect.options[destSelect.selectedIndex]
       dest = destOption.getAttribute("data-display_id")
     }
-    else if (d3.select("#origin select").node() && app_type !== "line") {
+    else if (d3.select("#origin select").node() && tf !== "eci" && tf !== "show") {
       dest = "show";
     }
 

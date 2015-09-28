@@ -167,8 +167,16 @@ build_metadata = { \
         "eci": {
             "title": "Country Rankings",
             "question": "Country Rankings",
-            "short_name": "Country Rankings",
-            "category": "Economic Complexity"
+            "short_name": "All Countries",
+            "category": "ECI Rankings"
+        }
+    },
+    11: {
+        "eci": {
+            "title": "Country Ranking for {dest}",
+            "question": "Country Ranking for {dest}",
+            "short_name": "Specific Country",
+            "category": "ECI Rankings"
         }
     }
 }
@@ -230,9 +238,11 @@ class Build(object):
 
     def get_build_id(self, viz, origin, dest, prod):
         '''build showing products given an origin'''
-        if viz["slug"] == "line":
-            if self.trade_flow == "show":
-                return 8
+        if self.trade_flow == "show":
+            return 8
+        if self.trade_flow == "eci":
+            if dest != "all":
+                return 11
             else:
                 return 10
         if viz["slug"] == "network":
@@ -490,8 +500,8 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
                 all_builds.append(build)
 
         elif v["slug"] == "line":
-            '''line builds are trade balance and rankings'''
 
+            '''trade balance'''
             all_builds.append(Build(viz = v["slug"],
                 classification = classification,
                 trade_flow = "show",
@@ -500,11 +510,33 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
                 prod = "all",
                 year = year))
 
+            '''all tree_map/stacked permutations'''
+            for b in build_types:
+                for tf in ["export", "import"]:
+                    build = Build(
+                        viz = v["slug"],
+                        classification = classification,
+                        trade_flow = tf,
+                        origin = b["origin"],
+                        dest = b["dest"],
+                        prod = b["prod"],
+                        year = year)
+                    all_builds.append(build)
+
+            '''eci rankings'''
             all_builds.append(Build(viz = v["slug"],
                 classification = classification,
                 trade_flow = "eci",
                 origin = "show",
                 dest = "all",
+                prod = "all",
+                year = year))
+
+            all_builds.append(Build(viz = v["slug"],
+                classification = classification,
+                trade_flow = "eci",
+                origin = "show",
+                dest = dest_id,
                 prod = "all",
                 year = year))
 
