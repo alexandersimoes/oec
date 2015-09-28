@@ -189,7 +189,7 @@ class Country(Profile):
                                         past_export_val=num_format(past_yo.export_val), past_year=past_yr, current_export_val=num_format(this_yo.export_val), current_year=self.year)
             top_exports = yop_base.order_by(desc("export_val")).limit(2).all()
             if top_exports:
-                export_subtitle += _(u"The most recent exports are led by %(top_export)s, which represent %(top_export_pct)s%% of the total exports of %(country)s, followed by %(second_export)s, which account for %(second_export_pct)s%%.", 
+                export_subtitle += _(u"The most recent exports are led by %(top_export)s, which represent %(top_export_pct)s%% of the total exports of %(country)s, followed by %(second_export)s, which account for %(second_export_pct)s%%.",
                                         top_export=top_exports[0].product.get_profile_link(), top_export_pct=num_format((top_exports[0].export_val/exp_val_stat["val"])*100), \
                                         country=self.attr.get_name(article=True), second_export=top_exports[1].product.get_profile_link(), second_export_pct=num_format((top_exports[1].export_val/exp_val_stat["val"])*100))
         imp_val_stat = filter(lambda s: s["key"] == "import_val", self.stats())
@@ -205,7 +205,7 @@ class Country(Profile):
                                         past_import_val=num_format(past_yo.import_val), past_year=past_yr, current_import_val=num_format(this_yo.import_val), current_year=self.year)
             top_imports = yop_base.order_by(desc("import_val")).limit(2).all()
             if top_imports:
-                import_subtitle += _(u"The most recent imports are led by %(top_import)s, which represent %(top_import_pct)s%% of the total imports of %(country)s, followed by %(second_import)s, which account for %(second_import_pct)s%%.", 
+                import_subtitle += _(u"The most recent imports are led by %(top_import)s, which represent %(top_import_pct)s%% of the total imports of %(country)s, followed by %(second_import)s, which account for %(second_import_pct)s%%.",
                                         top_import=top_imports[0].product.get_profile_link(), top_import_pct=num_format((top_imports[0].import_val/imp_val_stat["val"])*100), \
                                         country=self.attr.get_name(article=True), second_import=top_imports[1].product.get_profile_link(), second_import_pct=num_format((top_imports[1].import_val/imp_val_stat["val"])*100))
 
@@ -229,7 +229,7 @@ class Country(Profile):
             net_trade = this_yo.export_val - this_yo.import_val
             trade_balance = _("positive") if net_trade >= 0 else _("negative")
             trade_direction = _("exports") if net_trade >= 0 else _("imports")
-            tb_subtitle = _(u"As of %(year)s %(country)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s.", 
+            tb_subtitle = _(u"As of %(year)s %(country)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s.",
                             year=self.year, country=self.attr.get_name(article=True), positive_negative=trade_balance, net_trade=num_format(abs(net_trade)), exports_imports=trade_direction)
             old_yo = self.models.Yo.query.filter_by(year = available_years["hs92"][0], country = self.attr).first()
             if old_yo:
@@ -280,9 +280,14 @@ class Country(Profile):
             "title": _(u"Economic Complexity of %(country)s", country=self.attr.get_name()),
             "subtitle": subtitle,
             "builds": [
-                {"title": _(u"Product Space"), "build": product_space, "subtitle": _(u"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure."), "tour":"The product space...", "seq":6},
+                {"title": _(u"Product Space"), "build": product_space, "subtitle": _(u"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure."), "tour":"The product space...", "seq":6}
             ]
         }
+
+        if this_attr_yo and this_attr_yo.eci != None:
+            line_rankings = Build("line", "sitc", "eci", "show", self.attr, "all", [y for y in available_years["sitc"] if y >= 1964])
+            ps_section["builds"].append({"title": _(u"ECI Ranking"), "build": line_rankings, "subtitle": _(u"Lorem Ipsum.")})
+
         sections.append(ps_section)
 
         ''' DataViva

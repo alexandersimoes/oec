@@ -58,7 +58,6 @@ configs.line = function(build, container) {
       ui.unshift({"method": "color", "value":[{"On": "highlight"},{"Off": "eci_color"}], "type":"toggle", "label": "Highlight"});
     }
 
-
     return {
       "color": build.dest !== "all" ? "highlight" : "eci_color",
       "id": "origin_id",
