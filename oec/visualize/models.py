@@ -178,6 +178,14 @@ build_metadata = { \
             "short_name": "Specific Country",
             "category": "ECI Rankings"
         }
+    },
+    12: {
+        "show": {
+            "title": u"Trade balance of {origin} to {dest}",
+            "question": u"What is the trade balance for {origin} to {dest}?",
+            "short_name": "Trade Balance",
+            "category": "Bilateral"
+        }
     }
 }
 
@@ -239,12 +247,9 @@ class Build(object):
     def get_build_id(self, viz, origin, dest, prod):
         '''build showing products given an origin'''
         if self.trade_flow == "show":
-            return 8
+            return 8 if dest == "all" else 12
         if self.trade_flow == "eci":
-            if dest != "all":
-                return 11
-            else:
-                return 10
+            return 10 if dest == "all" else 11
         if viz["slug"] == "network":
             return 5
         if origin == "show" and dest == "all" and prod == "all":
@@ -522,6 +527,14 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
                         prod = b["prod"],
                         year = year)
                     all_builds.append(build)
+
+            all_builds.append(Build(viz = v["slug"],
+                classification = classification,
+                trade_flow = "show",
+                origin = origin_id,
+                dest = dest_id,
+                prod = "all",
+                year = year))
 
             '''eci rankings'''
             all_builds.append(Build(viz = v["slug"],

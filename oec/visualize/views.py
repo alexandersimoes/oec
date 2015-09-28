@@ -326,7 +326,7 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
     prod_exists = isinstance(build.prod, (Sitc, Hs92, Hs96, Hs02, Hs07))
     if isinstance(build.dest, Country):
         dest_country = build.dest.serialize()
-    elif not all_placed and not prod_exists and build.trade_flow != "show" and build.viz["slug"] != "scatter":
+    elif not all_placed and not prod_exists and build.viz["slug"] != "scatter":
         dest_country = all_country
 
     if dest_country:
