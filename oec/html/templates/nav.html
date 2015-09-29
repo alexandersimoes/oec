@@ -228,39 +228,63 @@
 
   function add_results(container, data) {
 
-    var g = container.node().id;
-    if (g === "search_results") g = search_mode;
+    function draw(container, data) {
 
-    var results = container.selectAll(".result")
-      .data(data, function(d, i){ return d.id || i; });
+      var g = container.node().id;
+      if (g === "search_results") g = search_mode;
 
-    var enter = results.enter().append("a")
-      .attr("class", "result")
-      .attr("href", function(d){
-        var p = "/" + oec.locale + "/";
-        return !d.id ? p + "visualize/" + d.name : p + "profile/" + g + "/" + d.display_id;
-      })
-      .style("background-color", function(d){
-        return analyze_palette(d.palette) || d.color || "transparent";
-      })
-      .style("background-image", function(d){
-        return !d.id ? "url('/static/img/visualizations/" + d.name.split("/")[0] + ".png')" : d.image ? "url('" + d.image + "')" : "none";
+      var results = container.selectAll(".result")
+        .data(data, function(d, i){ return d.id || i; });
+
+      var enter = results.enter().append("a")
+        .attr("class", "result")
+        .attr("href", function(d){
+          var p = "/" + oec.locale + "/";
+          return !d.id ? p + "visualize/" + d.name : p + "profile/" + g + "/" + d.display_id;
+        })
+        .style("background-color", function(d){
+          return analyze_palette(d.palette) || d.color || "transparent";
+        })
+        .style("background-image", function(d){
+          return !d.id ? "url('/static/img/visualizations/" + d.name.split("/")[0] + ".png')" : d.image ? "url('" + d.image + "')" : "none";
+        });
+
+      enter.append("div").attr("class", "button_cover");
+
+      enter.append("img")
+        .attr("class", "icon")
+        .attr("src", function(d) {
+          return d.icon || "/static/img/icons/app/app_" + d.name.split("/")[0] + ".png";
+        });
+
+      enter.append("h1")
+        .text(function(d){
+          return d.value || d.name || d.display_id;
+        })
+
+      results.exit().remove();
+
+    }
+
+    if (data.constructor === String) {
+
+      var viz_loading = container.append("div")
+        .attr("class", "search-loading")
+        .text("Loading...");
+
+      d3.json(data, function(error, d){
+        viz_loading.remove();
+        if (!error) {
+          draw(container, d.explore);
+        }
+        else {
+          draw(container, []);
+        }
       });
-
-    enter.append("div").attr("class", "button_cover");
-
-    enter.append("img")
-      .attr("class", "icon")
-      .attr("src", function(d) {
-        return d.icon || "/static/img/icons/app/app_" + d.name.split("/")[0] + ".png";
-      });
-
-    enter.append("h1")
-      .text(function(d){
-        return d.value || d.name || d.display_id;
-      })
-
-    results.exit().remove();
+    }
+    else {
+      draw(container, data);
+    }
 
   }
 
@@ -275,6 +299,7 @@
   ];
 
   function search_results(data) {
+
     if (!data) {
       data = {};
       if (search_mode === "all") {
@@ -404,15 +429,8 @@
         }
       }
       else if (["explore", "all"].indexOf(search_mode) >= 0 && q.length) {
-        d3.json("/search/?mode=explore&q=" + q, function(error, d){
-          if (!error) {
-            data.explore = d.explore;
-            search_results(data);
-          }
-          else {
-            search_results();
-          }
-        });
+        data.explore = "/search/?mode=explore&q=" + q;
+        search_results(data);
       }
       else {
         if (["all", "explore"].indexOf(search_mode) >= 0) {
@@ -465,7 +483,7 @@
 
     }
     else {
-      
+
       // Down key
       if (d3.event.keyCode === 40) {
         if(!d3.select("a.result:focus").empty()){
@@ -476,7 +494,7 @@
         }
         d3.event.preventDefault()
       }
-      
+
       // Down key
       if (d3.event.keyCode === 38) {
         if(!d3.select("a.result:focus").empty()){
@@ -490,7 +508,7 @@
         }
         d3.event.preventDefault()
       }
-      
+
       // Right key
       if (d3.event.keyCode === 39 || d3.event.keyCode === 37) {
         if(!d3.select("a.result:focus").empty()){
@@ -504,10 +522,10 @@
           all_groups[next_group].childNodes[curr_el_index+1].focus()
         }
       }
-      
+
     }
   })
-  
+
   d3.select("body").on("keydown", function(e) {
     if (d3.select("#search").classed("visible")) {
       if (d3.event.keyCode === 40 || d3.event.keyCode === 38) {
