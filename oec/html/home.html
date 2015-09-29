@@ -15,6 +15,7 @@
       {{ _("We are the world's<br/>leading visualization engine<br/>for international trade data.") }}
       <br>
       <a href="{{ url_for('resources.about', lang=g.locale) }}">{{ _("Learn More") }}</a>
+      <i class="fa fa-play-circle-o" id="launch_vid" title="Watch our launch video!"></i>
     </p>
     <div id="search_home">
       <img src="/static/img/nav/search.png">
@@ -71,6 +72,8 @@
   bgresize();
 
   resizeFunctions.push(bgresize);
+
+  d3.select("#launch_vid").on("click", launchVid);
 
   d3.select("#search_home").on("click", search);
 

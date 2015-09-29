@@ -1,9 +1,16 @@
+#launch {
+  background-color: rgba(0,0,0,0.7);
+}
+
 #search {
+  background-color: rgba(33, 40, 49, 1);
+}
+
+#search, #launch {
   @include flex();
   @include flex-direction(column);
   @include align-items(center);
   @include transition(opacity 0.5s);
-  background-color: rgba(33, 40, 49, 1);
   bottom: 0;
   left: 0;
   opacity: 0;
@@ -16,13 +23,18 @@
   &.visible {
     opacity: 1;
   }
-
-  #search_close {
+  
+  #search_close img {
+    background-color: $darkbackground;
+  }
+  
+  #search_close, .modal_close {
     cursor: pointer;
     padding: 15px;
     position: absolute;
     margin: 8px 0 0 -5px;
     right: 0;
+    top: 0;
 
     img {
       @include transition(opacity 0.1s, transform 0.5s);
@@ -30,7 +42,6 @@
       opacity: 1;
       height: 16px;
       width: 16px;
-      background-color: $darkbackground;
     }
 
     &.open img {
@@ -45,6 +56,11 @@
       position: absolute;
       text-transform: uppercase;
     }
+  }
+
+  .modal_body {
+    padding: 50px 35px;
+    text-align: center;
   }
 
   #search_div {
