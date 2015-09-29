@@ -369,13 +369,16 @@
     // .style("background-color", "red")
     .attr("src", "/"+oec.locale+"/visualize/embed/"+url);
 
-  d3.select("#collapse").on("click", function(){
+  function toggle_controls() {
     var small = explorer.node().className !== "small";
     explorer.classed("small", small);
-    d3.select(this).select("i").classed("fa-toggle-off", small);
-    d3.select(this).select("i").classed("fa-toggle-on", !small);
+    d3.select("#collapse").select("i").classed("fa-toggle-off", small);
+    d3.select("#collapse").select("i").classed("fa-toggle-on", !small);
     setTimeout(resizeIframe, 500);
-  })
+  }
+
+  d3.select("#collapse").on("click", toggle_controls);
+  if (window.innerWidth < 768) toggle_controls();
 
   resizeFunctions.push(resizeIframe);
 

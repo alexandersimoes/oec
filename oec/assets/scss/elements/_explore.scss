@@ -1,11 +1,11 @@
 body.visualize {
   @include font-smoothing(antialiased);
 
-  #content > section {
-    @media all and (max-width: 768px) {
-      @include flex-direction(column-reverse !important);
-    }
-  }
+  // #content > section {
+  //   @media all and (max-width: 768px) {
+  //     @include flex-direction(column-reverse !important);
+  //   }
+  // }
 
   #content #main_viz {
     @media all and (min-width: 769px) {
@@ -13,7 +13,7 @@ body.visualize {
     }
 
     @media all and (max-width: 768px) {
-      margin: 0 20px 40px;
+      margin: 0 20px 0;
     }
 
     .nav-section {
@@ -96,6 +96,7 @@ body.visualize {
     opacity: 0.7;
     position: absolute;
     top: $header - 8;
+    z-index: 21;
 
     i {
       font-size: 16px;
@@ -108,7 +109,7 @@ body.visualize {
     }
 
     @media all and (max-width: 768px) {
-      display: none;
+      top: $header - 24;
     }
   }
 
@@ -122,6 +123,12 @@ body.visualize {
 
     @media all and (max-width: 768px) {
       margin: 0 20px !important;
+
+      &.small {
+        display: none;
+        margin-left: 20px !important;
+      }
+
     }
 
     .app_button_group {
