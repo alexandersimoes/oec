@@ -582,6 +582,10 @@ body.profile {
 
     div.columns p {
       text-align: justify;
+
+      @media all and (max-width: 768px) {
+        text-align: left;
+      }
     }
 
     #topojson {
