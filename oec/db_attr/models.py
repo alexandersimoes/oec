@@ -203,9 +203,9 @@ class Country(db.Model, AutoSerialize):
 
     def get_profile_url(self):
         if self.id_3char:
-            return "/{}/profile/country/{}/".format(g.locale, self.id_3char)
+            return u"/{}/profile/country/{}/".format(g.locale, self.id_3char)
         else:
-            return "/{}/profile/country/".format(g.locale)
+            return u"/{}/profile/country/".format(g.locale)
 
     def serialize(self, lang="en"):
         auto_serialized = super(Country, self).serialize()

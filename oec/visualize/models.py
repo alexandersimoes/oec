@@ -165,16 +165,16 @@ build_metadata = { \
     },
     10: {
         "eci": {
-            "title": "Country Rankings",
-            "question": "Country Rankings",
+            "title": u"Country Rankings",
+            "question": u"Country Rankings",
             "short_name": "All Countries",
             "category": "ECI Rankings"
         }
     },
     11: {
         "eci": {
-            "title": "Country Ranking for {dest}",
-            "question": "Country Ranking for {dest}",
+            "title": u"Country Ranking for {dest}",
+            "question": u"Country Ranking for {dest}",
             "short_name": "Specific Country",
             "category": "ECI Rankings"
         }
@@ -281,19 +281,19 @@ class Build(object):
         )
 
     def facebook_url(self):
-        link = "http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
+        link = u"http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
         return u"http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
                 "display=popup&app_id={}&name={} ({})&link={}&" \
                 "redirect_uri=http://atlas.media.mit.edu/close/&" \
                 "picture=http://atlas.media.mit.edu/static/img/touchicon.png" \
                 .format(FACEBOOK_ID, self.title(), self.year_str, link)
     def twitter_url(self):
-        link = "http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
-        lang_txt = "&lang={}".format(g.locale) if g.locale != "en" else ""
+        link = u"http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
+        lang_txt = u"&lang={}".format(g.locale) if g.locale != "en" else ""
         return u"https://twitter.com/share?url={}{}&text={} ({})&hashtags=oec" \
                 .format(link, lang_txt, self.title(), self.year_str)
     def google_url(self):
-        link = "http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
+        link = u"http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
         return u"https://plus.google.com/share?url={}&hl={}" \
                 .format(link, g.locale)
 
@@ -312,7 +312,7 @@ class Build(object):
         if len(self.year) == 1:
             years = self.year[0]
         else:
-            years = "{}-{}".format(self.year[0], self.year[-1])
+            years = u"{}-{}".format(self.year[0], self.year[-1])
         return u"{} ({})".format(title, years)
 
     def question(self):
