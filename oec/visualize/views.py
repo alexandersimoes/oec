@@ -450,8 +450,8 @@ def builds():
     build_args = {}
     build_args["classification"] = request.args.get('classification', 'hs92')
     build_args["origin_id"] = request.args.get('origin_id') or request.args.get('dest_id')
-    build_args["dest_id"] = request.args.get('dest_id')
-    build_args["prod_id"] = request.args.get('prod_id')
+    build_args["dest_id"] = request.args.get('dest_id') or None
+    build_args["prod_id"] = request.args.get('prod_id') or None
     build_args["year"] = request.args.get('year', available_years[build_args["classification"]][-1])
     build_args["defaults"] = {"origin":"nausa", "dest":"aschn", "prod":"010101"}
     build_args["viz"] = ["tree_map", "rings"]
