@@ -408,15 +408,17 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
 
     builds_by_app = {}
     for b in all_builds:
+        if b.viz["slug"] not in ("stacked", "line"):
+            b.year = [b.year[-1]]
+            b.year_str = Build.year_to_str(b, b.year)
         if not hasattr(builds_by_app, b.viz["slug"]):
             builds_by_app[b.viz["slug"]] = []
     for b in all_builds:
         builds_by_app[b.viz["slug"]].append(b)
-    builds_by_app = [b for a, b in builds_by_app.iteritems()]
 
     return render_template("visualize/index.html",
         current_build = build, build_ui = ui,
-        all_builds = builds_by_app)
+        all_builds = builds_by_app.values())
 
 @mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/')
 @mod.route('/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year:year>/')

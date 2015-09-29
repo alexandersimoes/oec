@@ -98,7 +98,7 @@ class Country(db.Model, AutoSerialize):
                 return "The {0}".format(name.name)
 
             ''' French '''
-            if lang == "fr" and name.article and article:
+            if lang == "fr" and name.article and article=="the":
                 if name.plural:
                     return u"les {0}".format(name.name)
                 elif any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
@@ -107,6 +107,15 @@ class Country(db.Model, AutoSerialize):
                     return u"le {0}".format(name.name)
                 elif name.gender == "f":
                     return u"la {0}".format(name.name)
+            if lang == "fr" and name.article and article=="of":
+                if name.plural:
+                    return u"des {0}".format(name.name)
+                elif any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
+                    return u"d'{0}".format(name.name)
+                elif name.gender == "m":
+                    return u"du {0}".format(name.name)
+                elif name.gender == "f":
+                    return u"de {0}".format(name.name)
 
             ''' Spanish '''
             if lang == "es" and name.article and article:
