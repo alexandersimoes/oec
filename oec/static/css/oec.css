@@ -1807,8 +1807,13 @@ body.profile {
     padding-left: 0; }
     body.profile ul.hierarchy.contents.country {
       margin-top: 20px; }
-      body.profile ul.hierarchy.contents li a {
-        color: #6297cb; }
+      @media all and (max-width: 768px) {
+        body.profile ul.hierarchy.contents.country {
+          margin-top: -20px;
+          margin-bottom: -20px;   }
+}
+    body.profile ul.hierarchy.contents li a {
+      color: #6297cb; }
   body.profile ul.hierarchy {
     border: 1px solid #BBBDC0;
     color: #212831;
@@ -2304,7 +2309,32 @@ body.visualize {
             .d3plus_tooltip_large .d3plus_tooltip_html a.related {
               font-size: 14px;
               line-height: 1.3;
-              padding: 6px 0; }
+              padding: 6px 0 6px 3px; }
+              .d3plus_tooltip_large .d3plus_tooltip_html a.related.tree_map:before {
+                background-image: url("/static/img/icons/app/app_tree_map.png"); }
+                .d3plus_tooltip_large .d3plus_tooltip_html a.related.stacked:before {
+                  background-image: url("/static/img/icons/app/app_stacked.png"); }
+                  .d3plus_tooltip_large .d3plus_tooltip_html a.related.network:before {
+                    background-image: url("/static/img/icons/app/app_network.png"); }
+                    .d3plus_tooltip_large .d3plus_tooltip_html a.related.rings:before {
+                      background-image: url("/static/img/icons/app/app_rings.png"); }
+                      .d3plus_tooltip_large .d3plus_tooltip_html a.related.geo_map:before {
+                        background-image: url("/static/img/icons/app/app_geo_map.png"); }
+                        .d3plus_tooltip_large .d3plus_tooltip_html a.related.compare:before {
+                          background-image: url("/static/img/icons/app/app_compare.png"); }
+                          .d3plus_tooltip_large .d3plus_tooltip_html a.related.scatter:before {
+                            background-image: url("/static/img/icons/app/app_scatter.png"); }
+                            .d3plus_tooltip_large .d3plus_tooltip_html a.related:before {
+                              background-repeat: no-repeat;
+                              background-size: 15px 15px;
+                              content: "";
+                              display: block;
+                              margin-right: 8px;
+                              left: -15px;
+                              width: 15px;
+                              height: 15px;
+                              position: absolute;
+                              top: 8px; }
   .d3plus_tooltip_large .d3plus_tooltip_close {
     top: 15px !important;
     right: 15px !important;

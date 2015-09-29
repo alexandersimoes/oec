@@ -781,6 +781,11 @@ body.profile {
 
     &.country {
       margin-top: 20px;
+
+      @media all and (max-width: 768px) {
+        margin-top: -20px;
+        margin-bottom: -20px;
+      }
     }
 
     li a {

@@ -382,20 +382,20 @@ body.visualize {
     padding: 6px 24px 6px 40px;
 
     &:before {
-        font-size: 12px;
-        line-height: 38px;
-        background-position: 50%;
-        background-repeat: no-repeat;
-        background-size: 80%;
-        content: "";
-        display: block;
-        height: 100%;
-        left: 0px;
-        position: absolute;
-        text-align: center;
-        text-decoration: none;
-        top: 0px;
-        width: 38px;
+      font-size: 12px;
+      line-height: 38px;
+      background-position: 50%;
+      background-repeat: no-repeat;
+      background-size: 80%;
+      content: "";
+      display: block;
+      height: 100%;
+      left: 0px;
+      position: absolute;
+      text-align: center;
+      text-decoration: none;
+      top: 0px;
+      width: 38px;
     }
     &.tree_map:before {
       background-image: url("/static/img/icons/app/app_tree_map_black.png");
@@ -541,7 +541,49 @@ body.visualize {
       &.related {
         font-size: 14px;
         line-height: 1.3;
-        padding: 6px 0;
+        padding: 6px 0 6px 3px;
+        
+        &.tree_map:before {
+          background-image: url("/static/img/icons/app/app_tree_map.png");
+        }
+
+        &.stacked:before {
+          background-image: url("/static/img/icons/app/app_stacked.png");
+        }
+
+        &.network:before {
+          background-image: url("/static/img/icons/app/app_network.png");
+        }
+
+        &.rings:before {
+          background-image: url("/static/img/icons/app/app_rings.png");
+        }
+
+        &.geo_map:before {
+          background-image: url("/static/img/icons/app/app_geo_map.png");
+        }
+
+        &.compare:before {
+          background-image: url("/static/img/icons/app/app_compare.png");
+        }
+
+        &.scatter:before {
+          background-image: url("/static/img/icons/app/app_scatter.png");
+        }
+
+        &:before {
+          background-repeat: no-repeat;
+          background-size: 15px 15px;
+          content: "";
+          display: block;
+          margin-right: 8px;
+          left: -15px;
+          width: 15px;
+          height: 15px;
+          position: absolute;
+          top: 8px;
+        }
+
       }
     }
   }
