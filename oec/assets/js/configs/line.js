@@ -10,9 +10,7 @@ configs.line = function(build, container) {
       "timeline": false,
       "x": "year",
       "y": "trade",
-      "ui": [
-        {"method":share(build), "value":["Share"], "type":"button"}
-      ]
+      "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
     }
 
   }
@@ -100,7 +98,6 @@ configs.line = function(build, container) {
       },
       "ui": [
         depth_ui,
-        {"method":change_layout, "value":[{"Value": "linear"}, {"Share": "share"}], "label":"Layout"},
         {"method":share(build), "value":["Share"], "type":"button"}
       ]
     }
