@@ -168,14 +168,14 @@ $default_size: 600px;
 
   #launch_vid {
     @include transition(color 2s, opacity 1s);
-    color: $pri-w-highlight;
+    color: white;
     cursor: pointer;
     opacity: 0.7;
     padding: 3px;
     margin-left: -3px;
 
     &:hover {
-      color: $sec-w-highlight;
+      color: $sec-w-highlight; 
       opacity: 1;
     }
   }
