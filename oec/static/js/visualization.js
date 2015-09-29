@@ -517,7 +517,7 @@ configs.network = function(build, container) {
       {"method":change_layout, "label":"Layout", "value":[
         {"Force Directed":"network_hs4"}, 
         {"Circular Spring":"network_hs4_circular_spring"},
-        {"FR":"network_hs4_fr"},
+        {"Fruchterman Reingold":"network_hs4_fr"},
         {"Complexity Circles":"network_hs4_complexity_circles"},
         {"Community Circles":"network_hs4_community_circles"},
         {"Community Rectangles":"network_hs4_community_rectangles"},
@@ -681,7 +681,7 @@ configs.tree_map = function(build, container) {
   }
 
   return {
-    "depth": window.innerWidth < 768 ? 0 : 1,
+    "depth": window.innerWidth <= 480 ? 0 : 1,
     "shape": "square",
     "labels": {"align": "start", "valign":"top"},
     "color": "color",

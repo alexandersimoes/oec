@@ -43,7 +43,7 @@ configs.tree_map = function(build, container) {
   }
 
   return {
-    "depth": window.innerWidth < 768 ? 0 : 1,
+    "depth": window.innerWidth <= 480 ? 0 : 1,
     "shape": "square",
     "labels": {"align": "start", "valign":"top"},
     "color": "color",
