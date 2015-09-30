@@ -56,7 +56,7 @@ $default_size: 600px;
   #ring {
     @include rounded(50%);
     background-color: $darkbackground;
-    border: 1px solid #ccc;
+    border: 1px solid $lightlinkcolor; 
     height: 100%;
     overflow: hidden;
     position: relative;
@@ -107,14 +107,15 @@ $default_size: 600px;
       right: 18%;
 
       a {
-        @include transition(color 2s);
+        @include transition(color 2s, opacity 1s);
         border-bottom: 1px solid transparent;
-        color: $pri-w-highlight;
+        color: $lightlinkcolor;
         display: inline-block;
         font-family: $montserrat;
+        font-weight: 400;
         font-size: 75%;
         margin: 2%;
-        opacity: 1;
+        opacity: 0.8;
         text-transform: uppercase;
 
         i {
@@ -125,7 +126,7 @@ $default_size: 600px;
 
         &:hover {
           opacity: 1;
-          color: $pri-c-highlight;
+          color: white;
         }
       }
 
@@ -134,7 +135,7 @@ $default_size: 600px;
     #search_home {
       @include transition(text-shadow 1.5s, opacity 3s);
       bottom: 10%;
-      border-bottom: 1px solid $lightbordercolor;
+      border-bottom: 1px solid $darkbordercolor;
       border-radius: 2px;
       color: #fff;
       cursor: pointer;
@@ -155,7 +156,7 @@ $default_size: 600px;
       img {
         margin-bottom: -5px;
         margin-right: 0;
-        margin-top: 3px;
+        margin-top: 5px;
         padding-right: 3px;
         position: relative;
         top: 0;
@@ -164,20 +165,17 @@ $default_size: 600px;
     }
   }
 
-  #launch_vid {
+  #launch_vid img {
     @include transition(opacity 1s);
-    background-image: url('/static/img/home/play.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: $default_size/24;
-    height: $default_size/24;
+    width: $default_size/28;
+    height: $default_size/28;
     cursor: pointer;
     display: block;
     margin: 0 auto 3px;
-    opacity: 1;
+    opacity: 0.7;
 
     &:hover {
-      opacity: 0.5;
+      opacity: 1;
     }
   }
 
@@ -186,7 +184,7 @@ $default_size: 600px;
 @include keyframes(pulse) {
   0% {
     @include transform(scale(1));
-    opacity: 0.3;
+    opacity: 0.1;
   }
   100% {
     @include transform(scale(2));

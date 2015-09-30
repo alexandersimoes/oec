@@ -21,9 +21,11 @@
   <div id="ring">
     <img src="/static/img/home/stars.png" class="star-rotate">
     <img id="big_logo" src="/static/img/home/logo.png" alt="{{ _('The Observatory of Economic Complexity') }}">
-    <img id="observatory" src="/static/img/home/observatory.png">
+    <img id="observatory" src="/static/img/home/observatory.png"/>
     <p id="info">
-      <i id="launch_vid" title="Launch video"></i>
+      <i id="launch_vid" title="Launch video">
+        <img src="/static/img/home/play.png" alt="launch video"/>
+      </i>
       {{ _("We are the world's<br/>leading visualization engine<br/>for international trade data.") }}
       <br>
       <a href="{{ url_for('resources.about', lang=g.locale) }}">{{ _("Learn More") }}</a>
@@ -59,8 +61,8 @@
         .style("height", s + "px");
       d3.select("#info").transition().duration(timing)
         .style("font-size", s/35 + "px");
-      d3.select("#launch_vid").transition().duration(timing)
-        .style("width", s/24 + "px").style("height", s/24 + "px");
+      d3.select("#launch_vid img").transition().duration(timing)
+        .style("width", s/28 + "px").style("height", s/28 + "px");
       d3.select("#search_home").transition().duration(timing)
         .style("font-size", s/32 + "px");
     }
@@ -73,7 +75,7 @@
         .style("height", s + "px");
 
       d3.select("#info").style("font-size", s/35 + "px");
-      d3.select("#launch_vid").style("width", s/24 + "px").style("height", s/24 + "px");
+      d3.select("#launch_vid img").style("width", s/28 + "px").style("height", s/28 + "px");
       d3.select("#search_home").style("font-size", s/32 + "px");
 
       d3.select(".bg-frame").transition().duration(timing * 2)
