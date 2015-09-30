@@ -1,0 +1,417 @@
+{% extends "templates/nav.html" %}
+
+{% block head %}
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/styles.explore.css" />
+    {% if current_build.year_str|int > g.available_years[current_build.classification][0]  %}
+    <link rel="prev" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int-1) }}" />
+    {% endif %}
+    {% if current_build.year_str|int < g.available_years[current_build.classification][-1]  %}
+    <link rel="next" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int+1) }}" />
+    {% endif %}
+
+    <!-- Twitter "photo card" -->
+    <meta name="twitter:card" content="photo">
+    <meta name="twitter:title" content="{{ current_build.title()|striptags|safe }}">
+    <meta name="twitter:image:src" content="http://atlas.media.mit.edu/static/generated/{{ g.locale }}_{{ request.path.split('/')[1:-1]|join('_') }}.png">
+    <meta name="twitter:domain" content="atlas.media.mit.edu">
+    <meta name="twitter:url" content="http://atlas.media.mit.edu{{ request.path }}{% if g.locale != 'en' %}?lang={{ g.locale }}{% endif %}">
+
+    <!-- Facebook Properties -->
+    <meta property="og:image" content="http://atlas.media.mit.edu/static/generated/{{ g.locale }}_{{ request.path.split('/')[1:-1]|join('_') }}.png" />
+    <meta property="og:title" content="{{ current_build.title()|striptags|safe }}">
+    <meta property="og:url" content="http://atlas.media.mit.edu{{ request.path }}{% if g.locale != 'en' %}?lang={{ g.locale }}{% endif %}">
+    <meta property="og:site_name" content="The Observatory of Economic Complexity"/>
+    <meta property="og:type" content="website" />
+{% endblock %}
+
+{% block title %} - {{ current_build.title()|striptags }}{% endblock %}
+{% block description %}{{ current_build.question() }} {{ _('Data visualization of economic trade') }}.{% endblock %}
+
+{% block body %}
+
+<a id="collapse"><i class="fa fa-toggle-on"></i>Controls</a>
+
+<section>
+
+<aside id="explorer">
+
+  {% set current_url = current_build.url() %}
+  {% set current_app = current_build.viz.slug %}
+
+  {% macro build_list(builds) %}
+    {% set a = builds[0].viz.slug %}
+
+    <div class="app_menu{% if a == current_app %} open{% endif %}" data-app="{{ a }}">
+
+    {% for build in builds %}
+      <div class="build new">
+
+        <div class="build_icons {{ build.trade_flow }}">
+          <div class="build_icon origin {% if build.origin is string %}{{ build.origin }}{% else %}id{% endif %}"></div>
+          <div class="build_icon prod {% if build.prod is string %}{{ build.prod }}{% else %}id{% endif %}"></div>
+          <div class="build_icon dest {% if build.dest is string %}{{ build.dest }}{% else %}id{% endif %}"></div>
+        </div>
+
+        {% set build_url = build.url() %}
+        <a class="build_link{% if build_url == current_url %} active{% endif %}" href="/{{ g.locale }}/visualize/{{ build_url }}">{{ build.short_name() }}</a>
+      </div>
+    {% endfor %}
+
+    </div>
+  {% endmacro %}
+
+  {% set app = None %}
+  {% for builds in all_builds %}
+    {% if app == None %}<div class="app_button_group">{% endif %}
+    {% set app = builds[0].viz.slug %}
+    <div class="{{ app }} app_button{% if app == current_app %} open{% endif %}" data-app="{{ app }}">
+      <img src="/static/img/icons/app/app_{{ app }}.png">{{ builds[0].viz.name }}
+    </div>
+    {% if loop.index % 2 == 0 or loop.last %}
+    </div>
+      {% if loop.index % 2 == 0 %}
+      {{ build_list(all_builds[loop.index0 - 1]) }}
+      {% endif %}
+      {{ build_list(builds) }}
+    {% set app = None %}
+    {% endif %}
+  {% endfor %}
+
+  <div id="changers">
+    {% for ui in build_ui %}
+    <div class="ui" id="{{ ui.id }}"{% if ui.url %} data-url="{{ui.url}}"{% endif %}>
+      <h4>{{ ui.name }}</h4>
+      <select id="{{ ui.id }}_selector">
+        {% if ui.data %}
+          {% for option in ui.data %}
+          <option{% if option.conversion %} data-conversion="{{ option.conversion }}"{% endif %}
+          {% if option.icon %} data-image="{{ option.icon }}"{% endif %}
+          {% if option.color %} data-color="{{ option.color }}"{% endif %}
+          {% if ui.id == "product" %} data-style="knockout"{% endif %}
+          {% if option.keywords %} data-keywords="{{ option.keywords }}"{% endif %}
+          {% if option.display_id %} data-display_id="{{ option.display_id }}"{% endif %}
+          value="{% if option is string or option is number %}{{option|replace(" ", "_")}}{% else %}{{option.display_id}}{% endif %}"
+          {% if not ui.current or (ui.current|lower|replace(" ", "_") == option|lower|replace(" ", "_") or ui.current|lower|replace(" ", "_") == option.display_id) %}selected="selected"{% endif %}>
+            {% if option.name %}
+              {{ option.name }}
+            {% elif option.id %}
+              {{ option.id }}
+            {% else %}
+              {{ option }}
+            {% endif %}
+          </option>
+          {% endfor %}
+        {% endif %}
+      </select>
+    </div>
+    {% endfor %}
+
+    <button id="build">{{ _('Build Visualization') }}</button>
+
+  </div>
+</aside>
+
+<!-- Container for the visualization -->
+<content data-step="12" id="main_viz">
+  <section class="nav-section">
+
+    {% if current_build.viz.slug != "stacked" and current_build.viz.slug != "line" and current_build.year_str|int > g.available_years['sitc'][0] %}
+    <aside>
+      <a id="prev" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int-1) }}">
+        <h2 class="year-nav">
+          <i class="fa fa-angle-left"></i>
+           {{ current_build.year_str|int-1 }}
+        </h2>
+      </a>
+    </aside>
+    {% endif %}
+
+    <content>
+      <h1>{{ current_build.question()|safe }}</h1>
+    </content>
+
+    {% if current_build.viz.slug != "stacked" and current_build.viz.slug != "line" and current_build.year_str|int < g.available_years['sitc'][-1] %}
+    <aside>
+      <a id="next" href="/{{ g.locale }}/visualize/{{ current_build.url(year=current_build.year_str|int+1) }}">
+        <h2 class="year-nav">
+          {{ current_build.year_str|int+1 }}
+          <i class="fa fa-angle-right"></i>
+        </h2>
+      </a>
+    </aside>
+    {% endif %}
+  </section>
+
+  <iframe class="viz" scrolling="no" frameborder="0"></iframe>
+</content>
+
+</section>
+
+{% endblock %}
+
+{% block js %}
+<script>
+
+  d3.selectAll(".app_button").on(d3plus.client.pointer.click, function(){
+    var app = d3.select(this).attr("data-app");
+    d3.selectAll(".app_menu, .app_button")
+      .classed("open", function(){
+        return app == d3.select(this).attr("data-app");
+      })
+  });
+
+  var active = d3.select(".build_link.active");
+  if (!active.empty()) {
+    d3.select(active.node().parentNode.parentNode).select(".build_title").classed("active", true);
+  }
+
+  var attr_id = "{{ current_build.attr_type() }}_id",
+      app_type = "{{ current_build.viz.slug }}";
+
+  var same_origin = false,
+      in_the_wild = true,
+      in_explore_page = false;
+
+  try {
+    same_origin = window.parent.location.host == window.location.host;
+    in_the_wild = (window.parent.location.origin && window.parent.location.origin.indexOf("atlas.media.mit.edu") < 0) &&
+                  (window.parent.location.origin && window.parent.location.origin.indexOf("oec.media.mit.edu") < 0) &&
+                  (window.parent.location.origin && window.parent.location.origin.indexOf("localhost") < 0);
+    // in_explore_page = (window.location != window.parent.location) && !in_the_wild && (window.parent.location.pathname.indexOf("explore") >= 0 || window.parent.location.pathname.indexOf("profile") >= 0);
+    in_explore_page = (window.location != window.parent.location) && !in_the_wild && (window.parent.location.pathname.indexOf("explore") >= 0);
+  }
+  catch (e) {}
+
+  function activate_build_button(focus, form) {
+    d3.select("button#build").classed("active", form.focus(Object).previous !== false);
+  }
+
+  d3.selectAll("button#build").on("click", function(){
+
+    var classification = "{{ current_build.classification }}",
+        tf = d3.select("#trade_flow select").node(),
+        origin = "{{ current_build.origin.id_3char }}" || "{{ current_build.origin }}",
+        dest = "{{ current_build.dest.id_3char }}" || "{{ current_build.dest }}",
+        prod = "{{ current_build.prod.hs }}" || "{{ current_build.prod.sitc }}" || "{{ current_build.prod }}";
+
+    if (tf) {
+      tf = tf.value.toLowerCase();
+    }
+    else {
+      tf = "{{ current_build.trade_flow }}";
+    }
+
+    if (d3.select("#year select").node()){
+      var year = d3.select("#year select").node().value
+    }
+    else {
+      var year = d3.select("#start_year select").node().value
+      year += "."
+      year += d3.select("#end_year select").node().value
+    }
+
+    if(d3.select("#origin select").node()){
+      var originSelect = d3.select("#origin select").node()
+        , originOption = originSelect.options[originSelect.selectedIndex]
+      origin = originOption.getAttribute("data-display_id")
+    }
+
+    if(d3.select("#destination select").node()){
+      var destSelect = d3.select("#destination select").node()
+        , destOption = destSelect.options[destSelect.selectedIndex]
+      dest = destOption.getAttribute("data-display_id")
+    }
+    else if (d3.select("#origin select").node() && tf !== "eci" && tf !== "show") {
+      dest = "show";
+    }
+
+    if(d3.select("#classification select").node()){
+      classification = d3.select("#classification select").node().value.toLowerCase()
+    }
+
+    if(d3.select("#product select").node()){
+      var orig_classification = "{{ current_build.classification }}"
+        , prodSelect = d3.select("#product select").node()
+        , prodOption = prodSelect.options[prodSelect.selectedIndex]
+      if( orig_classification != classification ){
+        prod = prodOption.getAttribute("data-conversion")
+        if(!prod && classification == "sitc") { prod = "4232" }
+        if(!prod && classification == "hs") { prod = "1507" }
+      }
+      else {
+        prod = prodOption.getAttribute("data-display_id")
+      }
+    }
+
+    var curr_window = window
+    if(same_origin){
+      if(self!=top && !in_the_wild){
+        curr_window = window.parent
+      }
+    }
+
+    var new_url =  "/" + oec.locale + "/visualize/";
+    new_url += app_type + "/";
+    new_url += classification + "/";
+    new_url += tf + "/";
+    new_url += origin + "/";
+    new_url += dest + "/";
+    new_url += prod + "/";
+    new_url += year + "/";
+
+    // console.log(new_url)
+    curr_window.location = new_url
+
+    d3.event.preventDefault();
+  })
+
+  // Style control dropdowns
+  var width = d3.select("aside").node().offsetWidth;
+  d3.selectAll(".ui")
+    .each(function(d,i){
+
+      var element = d3.select(this).select("select");
+
+      var wide_dataset = this.id === "classification" && ["show", "eci"].indexOf("{{ current_build.trade_flow }}") >= 0;
+
+      var ui = d3plus.form()
+        .type(wide_dataset ? "toggle" : "drop")
+        .focus(false, activate_build_button)
+        .data(element)
+        .ui(oec.darkUI);
+
+      if (this.id.indexOf("year") >= 0) {
+        ui.search(false).order({"sort": "desc"}).data({"sort": true});
+        // if(this.id.indexOf("start") >=0 || this.id.indexOf("end") >=0){
+        //   ui.width(75)
+        // }
+      }
+      else if (this.id === "classification") {
+        ui.search(false).format({"text": function(d){ return d.toUpperCase(); }});
+      }
+
+      if (["origin","destination","product"].indexOf(this.id) >= 0) {
+
+        ui.alt("conversion")
+          .color("color")
+          .icon("icon")
+          .id("display_id")
+          .keywords("keywords")
+          .text("name")
+          .height({"secondary": 300})
+          .width(width)
+          .draw();
+
+        var country_match = ["origin","destination"].indexOf(this.id) >= 0 && ["origin_id","dest_id"].indexOf(attr_id) >= 0,
+            product_match = this.id == "product" && ["hs_id","sitc_id"].indexOf(attr_id) >= 0,
+            icon_style = this.id == "product" ? "knockout" : "default";
+
+        var url = this.getAttribute("data-url"), dests = ["origin","destination"].indexOf(this.id) >= 0;
+        load(url, function(d, v){
+
+          d = d.data.filter(function(a){
+            a.style = icon_style;
+            return a.weight && a.id.length !== 2;
+          }).sort(function(a, b) {
+            a = a.name.toLowerCase();
+            b = b.name.toLowerCase();
+            return a < b ? -1 : a > b ? 1 : 0;
+          });
+
+          if (dests) {
+            d.unshift({
+              "display_id": "all",
+              "id": "all",
+              "name": "All",
+              "icon": "/static/img/icons/app/app_geo_map.png",
+              "keywords": "world",
+              "style": "default",
+              "color": "#333333"
+            })
+          }
+
+          ui.data(d).draw();
+
+        });
+
+      }
+      else {
+        ui.width(this.id === "year" || wide_dataset ? width : width/2 - 10).draw();
+      }
+
+    })
+
+  var url = "{{ current_build.url() }}",
+      explorer = d3.select("#explorer"),
+      iframe = d3.select("iframe.viz"),
+      p = parseFloat(d3.select("content").style("margin-right"), 10),
+      navWidth = d3.select("#explorer").node().offsetWidth + p;
+
+  function resizeIframe() {
+
+    var n = window.innerWidth <= 768 || d3.select("#explorer").classed("small") ? 0 : navWidth,
+        w = window.innerWidth - n - p * 2,
+        m = window.innerHeight < window.innerWidth ? iframe.node().offsetTop : p * 2,
+        h = window.innerHeight - m - p,
+        viz = iframe.node().contentWindow.viz;
+
+    if (viz) {
+      iframe.transition().duration(500).style("height", h + "px").style("width", w + "px");
+      viz.height(h).width(w).draw();
+    }
+    else {
+      iframe.style("height", h + "px").style("width", w + "px");
+    }
+
+  }
+  resizeIframe();
+
+  d3.select("iframe.viz")
+    // .style("background-color", "red")
+    .attr("src", "/"+oec.locale+"/visualize/embed/"+url);
+
+  function toggle_controls() {
+    var small = explorer.node().className !== "small";
+    explorer.classed("small", small);
+    d3.select("#collapse").select("i").classed("fa-toggle-off", small);
+    d3.select("#collapse").select("i").classed("fa-toggle-on", !small);
+    setTimeout(resizeIframe, 500);
+  }
+
+  d3.select("#collapse").on("click", toggle_controls);
+  if (window.innerWidth < 768) toggle_controls();
+
+  resizeFunctions.push(resizeIframe);
+
+  if (RegExp('tour', 'gi').test(window.location.search)) {
+    var intro = introJs();
+    intro.setOptions({
+      tooltipPosition: "auto",
+      steps: [
+        {
+          intro: "The visualizations page contains 6 different types of charts or visualizations, here we see that the tree map type is selected.",
+          element: document.querySelector('div.app_button.open')
+        },
+        {
+          intro: "Tree maps allow users to view different slices of data such as viewing the products that are exported by a specific country (as shown to the right). Experiment with the different selections here to view other slices of the data.",
+          element: document.querySelector('div.app_menu.open')
+        },
+        {
+          intro: "Within each slice of the data, options can be changed to see different combinations of views. In this example we can see that the selected country has been chosen as the focus country but we could change that using the country dropdown menu. Once satisfied with your selections, click the build visualization button to update what is shown.",
+          element: document.querySelector("#changers")
+        },
+        {
+          intro: "Lastly, we see the visualization itself displaying the slice of data selected by the options on the left. We can interact with the visualization by hovering around and seeing contextual information in a tooltip or by clicking the visuzliation to reveal more info about the selection. There are also specific options for the visualization below.",
+          element: document.querySelector('content#main_viz')
+        },
+        {
+          intro: "This concludes the tour of the site. If at anytime you wish to repeat the tour click the 'Take a tour' button in the top navigation."
+        }
+      ],
+      scrollToElement: false
+    });
+    intro.start()
+  }
+
+</script>
+{% endblock %}

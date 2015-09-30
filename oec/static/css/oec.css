@@ -956,7 +956,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
         left: 0;
         position: absolute;
         top: 0;
@@ -1722,7 +1722,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
+      background: linear-gradient(to bottom, transparent, #212831);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -2100,6 +2100,34 @@ body.visualize {
                     position: absolute;
                     margin-top: 0px;
                     margin-left: -10px; }
+            body.visualize aside#explorer .app_menu .build.new {
+              -webkit-justify-content: flex-start;
+              -moz-justify-content: flex-start;
+              justify-content: flex-start;
+              -webkit-align-items: center;
+              align-items: center; }
+              body.visualize aside#explorer .app_menu .build.new .build_icons {
+                margin-right: 5px; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.export {
+                  background-color: red; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.import {
+                    background-color: blue; }
+                    body.visualize aside#explorer .app_menu .build.new .build_icons.show {
+                      background-color: green; }
+                      body.visualize aside#explorer .app_menu .build.new .build_icons.eci {
+                        background-color: purple; }
+                        body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon {
+                          border: 1px solid white;
+                          height: 13px;
+                          display: inline-block;
+                          margin-right: 5px;
+                          width: 13px; }
+                          body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.show {
+                            background-color: green; }
+                            body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.all {
+                              background-color: red; }
+                              body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.id {
+                                background-color: yellow; }
     body.visualize aside#explorer #changers {
       -webkit-justify-content: center;
       -moz-justify-content: center;

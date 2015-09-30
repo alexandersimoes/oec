@@ -416,7 +416,9 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
     for b in all_builds:
         builds_by_app[b.viz["slug"]].append(b)
 
-    return render_template("visualize/index.html",
+    page = "index_new" if request.args.get("beta") == "" else "index"
+
+    return render_template("visualize/{}.html".format(page),
         current_build = build, build_ui = ui,
         all_builds = builds_by_app.values())
 

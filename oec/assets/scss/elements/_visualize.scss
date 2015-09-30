@@ -250,6 +250,104 @@ body.visualize {
 
         }
 
+        // Melissa, these are the new visualize build styles. I separated them
+        // here so that the original page will still work. We should keep them
+        // separated until we merge them.
+        &.new {
+          @include justify(flex-start);
+          @include align-items(center);
+
+          .build_icons {
+            margin-right: 5px;
+
+            // These next few additional classes defined the "trade flow" of
+            // the build. In most cases they are just import/export, but there a
+            // couple of special cases.
+            &.export {
+              background-color: red;
+            }
+
+            &.import {
+              background-color: blue;
+            }
+
+            // Line chart showing Trade Balance (both imports and exports)
+            &.show {
+              background-color: green;
+            }
+
+            // Line chart showing ECI rankings
+            &.eci {
+              background-color: purple;
+            }
+
+            // This is the overall style for all build icons. They get
+            // additional classes based on their type and value.
+            .build_icon {
+              border: 1px solid white;
+              height: 13px;
+              display: inline-block;
+              margin-right: 5px;
+              width: 13px;
+
+              // These are the 3 shared classes each different value a type can
+              // have. Here's what they mean:
+              //  - "show": this attribute is being shown in the visualization
+              //  - "all": this attribute is not being used/filtered
+              //  - "id": this attribute is being filtered/selected
+              &.show {
+                background-color: green;
+              }
+              &.all {
+                background-color: red;
+              }
+              &.id {
+                background-color: yellow;
+              }
+
+              // These styles are overrides for the specific variable types.
+              &.origin {
+                &.show {
+
+                }
+                &.all {
+
+                }
+                &.id {
+
+                }
+              }
+
+              &.dest {
+                &.show {
+
+                }
+                &.all {
+
+                }
+                &.id {
+
+                }
+              }
+
+              &.prod {
+                &.show {
+
+                }
+                &.all {
+
+                }
+                &.id {
+
+                }
+              }
+
+            }
+
+          }
+
+        }
+
       }
 
     }
@@ -542,7 +640,7 @@ body.visualize {
         font-size: 14px;
         line-height: 1.3;
         padding: 6px 0 6px 3px;
-        
+
         &.tree_map:before {
           background-image: url("/static/img/icons/app/app_tree_map.png");
         }
