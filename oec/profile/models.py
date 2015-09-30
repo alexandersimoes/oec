@@ -155,7 +155,7 @@ class Country(Profile):
             exports_list = self.stringify_items(yop_exp, "export_val", "product")
             yop_imp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr, hs92_id_len=6).order_by(desc("import_val")).limit(5).all()
             imports_list = self.stringify_items(yop_imp, "import_val", "product")
-            p2 = _(u"The top exports %(of_country)s are %(exports_list)s, using the 1992 revision of the HS (Harmonized System) classification. Its top imports are %(imports_list)s.", country=self.attr.get_name(article="of"), exports_list=exports_list, imports_list=imports_list)
+            p2 = _(u"The top exports %(of_country)s are %(exports_list)s, using the 1992 revision of the HS (Harmonized System) classification. Its top imports are %(imports_list)s.", of_country=self.attr.get_name(article="of"), exports_list=exports_list, imports_list=imports_list)
             all_paragraphs.append(p2)
 
         ''' Paragraph #3
@@ -165,7 +165,7 @@ class Country(Profile):
             dest_list = self.stringify_items(yod_exp, "export_val", "dest")
             yod_imp = self.models.Yod.query.filter_by(year = self.year, dest = self.attr).order_by(desc("import_val")).limit(5).all()
             origin_list = self.stringify_items(yod_imp, "import_val", "origin")
-            p3 = _(u"The top export destinations %(of_country)s are %(destinations)s. The top import origins are %(origins)s.", country=self.attr.get_name(article="of"), destinations=dest_list, origins=origin_list)
+            p3 = _(u"The top export destinations %(of_country)s are %(destinations)s. The top import origins are %(origins)s.", of_country=self.attr.get_name(article="of"), destinations=dest_list, origins=origin_list)
             all_paragraphs.append(p3)
 
         ''' Paragraph #4
@@ -174,11 +174,11 @@ class Country(Profile):
         maritime_borders = self.attr.borders(maritime=True)
         if maritime_borders or land_borders:
             if maritime_borders and not land_borders:
-                p4 = _(u"%(country)s is an island and borders %(maritime_borders)s by sea.", country=self.attr.get_name(article=True), maritime_borders=self.stringify_items(maritime_borders))
+                p4 = _(u"%(country)s is an island and borders %(maritime_borders)s by sea.", country=self.attr.get_name(article=True).title(), maritime_borders=self.stringify_items(maritime_borders))
             if not maritime_borders and land_borders:
-                p4 = _(u"%(country)s borders %(land_borders)s.", country=self.attr.get_name(article=True), land_borders=self.stringify_items(land_borders))
+                p4 = _(u"%(country)s borders %(land_borders)s.", country=self.attr.get_name(article=True).title(), land_borders=self.stringify_items(land_borders))
             if maritime_borders and land_borders:
-                p4 = _(u"%(country)s borders %(land_borders)s by land and %(maritime_borders)s by sea.", country=self.attr.get_name(article=True), land_borders=self.stringify_items(land_borders), maritime_borders=self.stringify_items(maritime_borders))
+                p4 = _(u"%(country)s borders %(land_borders)s by land and %(maritime_borders)s by sea.", country=self.attr.get_name(article=True).title(), land_borders=self.stringify_items(land_borders), maritime_borders=self.stringify_items(maritime_borders))
             all_paragraphs.append(p4)
 
         return all_paragraphs

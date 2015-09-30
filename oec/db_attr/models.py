@@ -97,11 +97,11 @@ class Country(db.Model, AutoSerialize):
             ''' English '''
             # if lang == "en" and name.article and article:
             #     return "The {0}".format(name.name)
+            plural = getattr(name, "plural", 0)
+            gender = getattr(name, "gender", "m")
+            needed = getattr(name, "article", 0)
             
             if g.locale != "en":
-                plural = getattr(name, "plural", 0)
-                gender = getattr(name, "gender", "m")
-                needed = getattr(name, "article", 0)
             
                 if article == "the" or article is True:
                     if gender == "m" and needed:
@@ -121,6 +121,11 @@ class Country(db.Model, AutoSerialize):
                 if article:
                     return u"{} {}".format(article, name.name)
             
+            else:
+                if needed and (article is True or article == "the"):
+                    return u"{} {}".format("the", name.name)
+                elif needed:
+                    return u"{} {} {}".format(article, "the", name.name)
             return name.name
 
         #     ''' French '''
