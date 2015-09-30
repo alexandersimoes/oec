@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-29 17:44-0400\n"
+"POT-Creation-Date: 2015-09-30 12:42-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,7 +142,7 @@ msgstr ""
 msgid "Learn More"
 msgstr ""
 
-#: oec/html/home.html:21 oec/html/templates/nav.html:65
+#: oec/html/home.html:22 oec/html/templates/nav.html:65
 msgid "Search"
 msgstr ""
 
@@ -311,11 +311,11 @@ msgstr ""
 msgid "An emedded visualization."
 msgstr ""
 
-#: oec/html/visualize/index.html:28
+#: oec/html/visualize/index.html:28 oec/html/visualize/index_new.html:28
 msgid "Data visualization of economic trade"
 msgstr ""
 
-#: oec/html/visualize/index.html:108
+#: oec/html/visualize/index.html:108 oec/html/visualize/index_new.html:109
 msgid "Build Visualization"
 msgstr ""
 
@@ -373,7 +373,7 @@ msgstr ""
 #: oec/profile/models.py:158
 #, python-format
 msgid ""
-"The top exports of %(country)s are %(exports_list)s, using the 1992 "
+"The top exports %(of_country)s are %(exports_list)s, using the 1992 "
 "revision of the HS (Harmonized System) classification. Its top imports "
 "are %(imports_list)s."
 msgstr ""
@@ -381,7 +381,7 @@ msgstr ""
 #: oec/profile/models.py:168
 #, python-format
 msgid ""
-"The top export destinations of %(country)s are %(destinations)s. The top "
+"The top export destinations %(of_country)s are %(destinations)s. The top "
 "import origins are %(origins)s."
 msgstr ""
 
@@ -774,7 +774,7 @@ msgstr ""
 msgid "End Year"
 msgstr ""
 
-#: oec/visualize/views.py:488
+#: oec/visualize/views.py:490
 #, python-format
 msgid "Profile for %(attr)s"
 msgstr ""

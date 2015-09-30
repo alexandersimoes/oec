@@ -288,8 +288,8 @@ def num_format(number, key = None, labels = True):
     # If the language is not English, translate the suffix.
     if suffix:
         if g.locale != "en":
-            # suffix = u" {0}".format(plurals(key=suffix, n=n))
-            suffix = u"{0}".format(suffix)
+            suffix = u" {0}".format(plurals(key=suffix, n=n))
+            # suffix = u"{0}".format(suffix)
         n = u"{0}{1}".format(n,suffix)
 
     if key and labels:

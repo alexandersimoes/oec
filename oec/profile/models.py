@@ -205,14 +205,14 @@ class Country(Profile):
                                 year=self.year, country=self.attr.get_name(article=True), export_val=num_format(exp_val_stat["val"]), export_rank=exp_rank)
             if past_yo:
                 chg = "increased" if this_yo.export_val_growth_pct_5 >= 0 else "decreased"
-                export_subtitle += _(u"During the last five years the exports of %(country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. ",
-                                        country=self.attr.get_name(article=True), increased_decreased=chg, change_rate=num_format(this_yo.export_val_growth_pct_5*100), \
+                export_subtitle += _(u"During the last five years the exports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. ",
+                                        of_country=self.attr.get_name(article="of"), increased_decreased=chg, change_rate=num_format(this_yo.export_val_growth_pct_5*100), \
                                         past_export_val=num_format(past_yo.export_val), past_year=past_yr, current_export_val=num_format(this_yo.export_val), current_year=self.year)
             top_exports = yop_base.order_by(desc("export_val")).limit(2).all()
             if top_exports:
-                export_subtitle += _(u"The most recent exports are led by %(top_export)s, which represent %(top_export_pct)s%% of the total exports of %(country)s, followed by %(second_export)s, which account for %(second_export_pct)s%%.",
+                export_subtitle += _(u"The most recent exports are led by %(top_export)s, which represent %(top_export_pct)s%% of the total exports %(of_country)s, followed by %(second_export)s, which account for %(second_export_pct)s%%.",
                                         top_export=top_exports[0].product.get_profile_link(), top_export_pct=num_format((top_exports[0].export_val/exp_val_stat["val"])*100), \
-                                        country=self.attr.get_name(article=True), second_export=top_exports[1].product.get_profile_link(), second_export_pct=num_format((top_exports[1].export_val/exp_val_stat["val"])*100))
+                                        of_country=self.attr.get_name(article="of"), second_export=top_exports[1].product.get_profile_link(), second_export_pct=num_format((top_exports[1].export_val/exp_val_stat["val"])*100))
         imp_val_stat = filter(lambda s: s["key"] == "import_val", self.stats())
         if imp_val_stat:
             imp_val_stat = imp_val_stat.pop()
@@ -221,26 +221,26 @@ class Country(Profile):
                                 year=self.year, country=self.attr.get_name(article=True), import_val=num_format(imp_val_stat["val"]), import_rank=imp_rank)
             if past_yo:
                 chg = "increased" if this_yo.import_val_growth_pct_5 >= 0 else "decreased"
-                import_subtitle += _(u"During the last five years the imports of %(country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s. ",
-                                        country=self.attr.get_name(article=True), increased_decreased=chg, change_rate=num_format(this_yo.import_val_growth_pct_5*100), \
+                import_subtitle += _(u"During the last five years the imports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s. ",
+                                        of_country=self.attr.get_name(article="of"), increased_decreased=chg, change_rate=num_format(this_yo.import_val_growth_pct_5*100), \
                                         past_import_val=num_format(past_yo.import_val), past_year=past_yr, current_import_val=num_format(this_yo.import_val), current_year=self.year)
             top_imports = yop_base.order_by(desc("import_val")).limit(2).all()
             if top_imports:
-                import_subtitle += _(u"The most recent imports are led by %(top_import)s, which represent %(top_import_pct)s%% of the total imports of %(country)s, followed by %(second_import)s, which account for %(second_import_pct)s%%.",
+                import_subtitle += _(u"The most recent imports are led by %(top_import)s, which represent %(top_import_pct)s%% of the total imports %(of_country)s, followed by %(second_import)s, which account for %(second_import_pct)s%%.",
                                         top_import=top_imports[0].product.get_profile_link(), top_import_pct=num_format((top_imports[0].import_val/imp_val_stat["val"])*100), \
-                                        country=self.attr.get_name(article=True), second_import=top_imports[1].product.get_profile_link(), second_import_pct=num_format((top_imports[1].import_val/imp_val_stat["val"])*100))
+                                        of_country=self.attr.get_name(article="of"), second_import=top_imports[1].product.get_profile_link(), second_import_pct=num_format((top_imports[1].import_val/imp_val_stat["val"])*100))
 
         dests_tmap = Build("tree_map", "hs92", "export", self.attr, "show", "all", self.year)
         yod_exp = self.models.Yod.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
         if yod_exp:
             dest_list = self.stringify_items(yod_exp, "export_val", "dest")
-            dest_subtitle = _(u"The top export destinations of %(country)s are %(destinations)s.", country=self.attr.get_name(article=True), destinations=dest_list)
+            dest_subtitle = _(u"The top export destinations %(of_country)s are %(destinations)s.", of_country=self.attr.get_name(article="of"), destinations=dest_list)
 
         origins_tmap = Build("tree_map", "hs92", "import", self.attr, "show", "all", self.year)
         yod_imp = self.models.Yod.query.filter_by(year = self.year, dest = self.attr).order_by(desc("export_val")).limit(5).all()
         if yod_imp:
             origin_list = self.stringify_items(yod_imp, "export_val", "origin")
-            origin_subtitle = _(u"The top import origins of %(country)s are %(origins)s.", country=self.attr.get_name(article=True), origins=origin_list)
+            origin_subtitle = _(u"The top import origins %(of_country)s are %(origins)s.", of_country=self.attr.get_name(article="of"), origins=origin_list)
 
         # trade balance viz --
         first_yo = self.models.Yo.query.filter_by(year = available_years["hs92"][-1], country = self.attr).first()
@@ -285,8 +285,8 @@ class Country(Profile):
             eci = this_attr_yo.eci
             eci_rank = this_attr_yo.eci_rank
             if eci_rank:
-                subtitle = _(u"The economy of %(country)s has an Economic Complexity Index (ECI) of %(eci)s making it the %(eci_rank)s most complex country. ",
-                            country=self.attr.get_name(article=True), eci=num_format(eci), eci_rank=num_format(eci_rank, "ordinal"))
+                subtitle = _(u"The economy %(of_country)s has an Economic Complexity Index (ECI) of %(eci)s making it the %(eci_rank)s most complex country. ",
+                            of_country=self.attr.get_name(article="of"), eci=num_format(eci), eci_rank=num_format(eci_rank, "ordinal"))
             else:
                 subtitle = ""
             subtitle += _(u"%(country)s exports %(num_of_exports)s products with revealed comparative advantage " \
@@ -298,7 +298,7 @@ class Country(Profile):
             subtitle = ""
         product_space = Build("network", "hs92", "export", self.attr, "all", "show", self.year)
         ps_section = {
-            "title": _(u"Economic Complexity of %(country)s", country=self.attr.get_name()),
+            "title": _(u"Economic Complexity %(of_country)s", of_country=self.attr.get_name(article="of")),
             "subtitle": subtitle,
             "builds": [
                 {"title": _(u"Product Space"), "build": product_space, "subtitle": _(u"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure."), "tour":"The product space...", "seq":6}
@@ -316,9 +316,9 @@ class Country(Profile):
             if attr_yo_historic.eci_rank:
                 eci_delta = this_attr_yo.eci_rank - attr_yo_historic.eci_rank
                 inc_dec = _('increased') if eci_delta < 0 else _('decreased')
-                subtitle = _("""The Economic Complexity ranking of %(country)s has %(increased_or_decreased)s by %(rank_delta)s places 
+                subtitle = _("""The Economic Complexity ranking %(of_country)s has %(increased_or_decreased)s by %(rank_delta)s places 
                     over the past %(year_range)s years from %(old_eci)s in %(old_year)s to %(current_eci)s in %(current_year)s.""",
-                    country=self.attr.get_name(), increased_or_decreased=inc_dec,
+                    of_country=self.attr.get_name(article="of"), increased_or_decreased=inc_dec,
                     rank_delta=abs(eci_delta), year_range=year_range, old_eci=num_format(attr_yo_historic.eci_rank, "ordinal"),
                     old_year=start_year, current_eci=num_format(this_attr_yo.eci_rank, "ordinal"), current_year=self.year)
                 ps_section["builds"].append({"title": _(u"Economic Complexity Ranking"), "build": line_rankings, "subtitle": subtitle})
@@ -358,9 +358,9 @@ class Country(Profile):
                 "title": "Pantheon",
                 "source": "pantheon",
                 "builds": [
-                    {"title": u"Cultural Production of {}".format(self.attr.get_name(article=True)),
+                    {"title": _(u"Cultural Production %(of_country)s", of_country=self.attr.get_name(article="of")),
                     "iframe": pantheon_iframe,
-                    "subtitle": _(u"This treemap shows the cultural exports of %(country)s, as proxied by the production of globally famous historical characters.<br />%(pantheon_link)s", country=self.attr.get_name(), pantheon_link=pantheon_link),
+                    "subtitle": _(u"This treemap shows the cultural exports %(of_country)s, as proxied by the production of globally famous historical characters.<br />%(pantheon_link)s", of_country=self.attr.get_name(), pantheon_link=pantheon_link),
                     "tour":"Pantheon...", "seq":8
                     },
                 ]

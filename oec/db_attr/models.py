@@ -101,7 +101,7 @@ class Country(db.Model, AutoSerialize):
             gender = getattr(name, "gender", "m")
             needed = getattr(name, "article", 0)
             
-            if g.locale != "en":
+            if lang != "en":
             
                 if article == "the" or article is True:
                     if gender == "m" and needed:

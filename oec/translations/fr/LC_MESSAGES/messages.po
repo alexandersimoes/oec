@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-29 17:44-0400\n"
+"POT-Creation-Date: 2015-09-30 12:42-0400\n"
 "PO-Revision-Date: 2015-09-29 12:59-0400\n"
 "Last-Translator: \n"
 "Language-Team: fr <LL@li.org>\n"
@@ -21,46 +21,46 @@ msgstr ""
 #: oec/utils.py:223
 msgid "Trillion"
 msgid_plural "Trillions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "billion"
+msgstr[1] "billions"
 
 #: oec/utils.py:224
 msgid "Billion"
 msgid_plural "Billions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "milliard"
+msgstr[1] "milliards"
 
 #: oec/utils.py:225
 msgid "Million"
 msgid_plural "Millions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "million"
+msgstr[1] "millions"
 
 #: oec/utils.py:226
 msgid "Thousand"
 msgid_plural "Thousands"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "mille"
+msgstr[1] "mille"
 
 #: oec/utils.py:238
 msgctxt "0"
 msgid "th"
-msgstr ""
+msgstr "e"
 
 #: oec/utils.py:239
 msgctxt "1"
 msgid "st"
-msgstr ""
+msgstr "e"
 
 #: oec/utils.py:240
 msgctxt "2"
 msgid "nd"
-msgstr ""
+msgstr "e"
 
 #: oec/utils.py:241
 msgctxt "3"
 msgid "rd"
-msgstr ""
+msgstr "e"
 
 #: oec/utils.py:242
 msgctxt "4"
@@ -70,47 +70,47 @@ msgstr ""
 #: oec/utils.py:243
 msgctxt "5"
 msgid "th"
-msgstr ""
+msgstr "e"
 
 #: oec/utils.py:244
 msgctxt "6"
 msgid "th"
-msgstr ""
+msgstr "e"
 
 #: oec/utils.py:245
 msgctxt "7"
 msgid "th"
-msgstr ""
+msgstr "e"
 
 #: oec/utils.py:246
 msgctxt "8"
 msgid "th"
-msgstr ""
+msgstr "e"
 
 #: oec/utils.py:247
 msgctxt "9"
 msgid "th"
-msgstr ""
+msgstr "e"
 
 #: oec/db_attr/models.py:108
 msgid "article_the_m_p"
-msgstr ""
+msgstr "les"
 
 #: oec/db_attr/models.py:108
 msgid "article_the_m"
-msgstr ""
+msgstr "le"
 
 #: oec/db_attr/models.py:110
 msgid "article_the_f_p"
-msgstr ""
+msgstr "les"
 
 #: oec/db_attr/models.py:110
 msgid "article_the_f"
-msgstr ""
+msgstr "la"
 
 #: oec/db_attr/models.py:115
 msgid "article_of"
-msgstr ""
+msgstr "du"
 
 #: oec/db_attr/models.py:117
 msgid "article_of_m_p"
@@ -143,7 +143,7 @@ msgstr ""
 msgid "Learn More"
 msgstr ""
 
-#: oec/html/home.html:21 oec/html/templates/nav.html:65
+#: oec/html/home.html:22 oec/html/templates/nav.html:65
 msgid "Search"
 msgstr ""
 
@@ -319,17 +319,17 @@ msgstr "Un blog de développement des mises à jour du site"
 msgid "An emedded visualization."
 msgstr "Une visualisation emedded."
 
-#: oec/html/visualize/index.html:28
+#: oec/html/visualize/index.html:28 oec/html/visualize/index_new.html:28
 msgid "Data visualization of economic trade"
 msgstr "La visualisation des données des échanges économiques"
 
-#: oec/html/visualize/index.html:108
+#: oec/html/visualize/index.html:108 oec/html/visualize/index_new.html:109
 msgid "Build Visualization"
 msgstr "Construire Visualisation"
 
 #: oec/profile/models.py:38 oec/profile/models.py:47
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: oec/profile/models.py:69
 msgid "and"
@@ -349,7 +349,7 @@ msgstr "Importer"
 
 #: oec/profile/models.py:90
 msgid "GDP Per Capita"
-msgstr ""
+msgstr "PIB par habitant"
 
 #: oec/profile/models.py:134
 #, python-format
@@ -365,7 +365,7 @@ msgid ""
 "Complexity Index (ECI). "
 msgstr ""
 "et la %(eci_rank)s économie la plus complexe selon l'Indice de complexité"
-" économique (ECI)."
+" économique (ECI). "
 
 #: oec/profile/models.py:141
 #, python-format
@@ -383,37 +383,39 @@ msgstr ""
 msgid ""
 "In %(year)s the GDP %(of_country)s was $%(gdp)s and its GDP per capita "
 "was $%(gdp_pc)s."
-msgstr "En %(year)s, le PIB %(of_country)s était de %(gdp)s $ et son PIB par habitant était de %(gdp_pc)s $."
+msgstr ""
+"En %(year)s, le PIB %(of_country)s était de %(gdp)s $ et son PIB par "
+"habitant était de %(gdp_pc)s $."
 
 #: oec/profile/models.py:158
 #, python-format
 msgid ""
-"The top exports of %(country)s are %(exports_list)s, using the 1992 "
+"The top exports %(of_country)s are %(exports_list)s, using the 1992 "
 "revision of the HS (Harmonized System) classification. Its top imports "
 "are %(imports_list)s."
 msgstr ""
-"——-The top exports of %(country)s are %(exports_list)s, using the 1992 "
-"revision of the HS (Harmonized System) classification. Its top imports "
-"are %(imports_list)s."
+"Les principales exportations %(of_country)s sont %(exports_list)s en "
+"utilisant la révision de 1992 de la classification du SH (Système "
+"Harmonisé). Ses principales importations sont %(imports_list)s."
 
 #: oec/profile/models.py:168
 #, python-format
 msgid ""
-"The top export destinations of %(country)s are %(destinations)s. The top "
+"The top export destinations %(of_country)s are %(destinations)s. The top "
 "import origins are %(origins)s."
 msgstr ""
-"——The top export destinations of %(country)s are %(destinations)s. The "
-"top import origins are %(origins)s."
+"Les destinations %(of_country)s à l'exportation sont supérieurs "
+"%(destinations)s. Les origines top d'importation sont %(origins)s."
 
 #: oec/profile/models.py:177
 #, python-format
 msgid "%(country)s is an island and borders %(maritime_borders)s by sea."
-msgstr "—%(country)s is an island and borders %(maritime_borders)s by sea."
+msgstr "%(country)s est une île et borde %(maritime_borders)s par la mer."
 
 #: oec/profile/models.py:179
 #, python-format
 msgid "%(country)s borders %(land_borders)s."
-msgstr "—%(country)s borders %(land_borders)s."
+msgstr "%(country)s frontière avec %(land_borders)s."
 
 #: oec/profile/models.py:181
 #, python-format
@@ -421,8 +423,8 @@ msgid ""
 "%(country)s borders %(land_borders)s by land and %(maritime_borders)s by "
 "sea."
 msgstr ""
-"—%(country)s borders %(land_borders)s by land and %(maritime_borders)s by"
-" sea."
+"%(country)s frontière de %(land_borders)s par terre et "
+"%(maritime_borders)s par mer."
 
 #: oec/profile/models.py:205
 #, python-format
@@ -814,10 +816,10 @@ msgstr "Année de début"
 msgid "End Year"
 msgstr "Fin d'année"
 
-#: oec/visualize/views.py:488
+#: oec/visualize/views.py:490
 #, python-format
 msgid "Profile for %(attr)s"
-msgstr ""
+msgstr "Profil pour %(attr)s"
 
 #~ msgid "Loading"
 #~ msgstr "Chargement"
@@ -892,11 +894,5 @@ msgstr ""
 #~ msgstr "Total"
 
 #~ msgid ""
-#~ "In %(year)s the GDP of %(country)s "
-#~ "was $%(gdp)s and its GDP per "
-#~ "capita was $%(gdp_pc)s."
 #~ msgstr ""
-#~ "——- In %(year)s the GDP of "
-#~ "%(country)s was $%(gdp)s and its GDP "
-#~ "per capita was $%(gdp_pc)s."
 
