@@ -4,6 +4,17 @@
 
 {% block body %}
 
+<div id="launch">
+  <div class="modal_close">
+    <img src="/static/img/nav/x.png">
+    <div>[ esc ]</div>
+  </div>
+  <div class="modal_body">
+    <iframe src="https://player.vimeo.com/video/140639528" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <p><a href="https://vimeo.com/140639528">PilotPriest | The Last Goodbye</a> from <a href="https://vimeo.com/fatcatfilms">FatCat Films</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+  </div>
+</div>
+
 <div class="bg-frame">
   <div class="ring-pulse"></div>
   <div class="ring-pulse echo-ring"></div>
@@ -97,6 +108,28 @@
       window.location.href = '/en/profile/country/ita/?tour=true';
     });
   }
+
+  function launchVid() {
+    d3.select("#launch").style("visibility", "visible").classed("visible", true);
+    d3.selectAll(".modal_close").classed("open", true);
+
+    d3.select("body").on("keyup", function(){
+      if (d3.event.keyCode === 27) {
+        close_launch();
+      }
+    });
+
+  }
+
+  function close_launch() {
+    d3.select("#launch").classed("visible", false);
+    d3.selectAll(".modal_close").classed("open", false);
+    setTimeout(function(){
+      d3.select("#launch").style("visibility", "hidden");
+    }, 500);
+  }
+
+  d3.select(".modal_close").on("click", close_launch);
 
 </script>
 
