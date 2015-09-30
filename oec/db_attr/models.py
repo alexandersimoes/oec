@@ -5,6 +5,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from oec import db, available_years, excluded_countries
 from oec.utils import AutoSerialize, exist_or_404
 from oec.db_attr.abstract_models import ProdAttr, ProdNameAttr
+from flask.ext.babel import gettext as _
 
 class Country(db.Model, AutoSerialize):
 
@@ -94,72 +95,98 @@ class Country(db.Model, AutoSerialize):
         name = self.name.filter_by(lang=lang).first()
         if name:
             ''' English '''
-            if lang == "en" and name.article and article:
-                return "The {0}".format(name.name)
-
-            ''' French '''
-            if lang == "fr" and name.article and article=="the":
-                if name.plural:
-                    return u"les {0}".format(name.name)
-                elif any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
-                    return u"l'{0}".format(name.name)
-                elif name.gender == "m":
-                    return u"le {0}".format(name.name)
-                elif name.gender == "f":
-                    return u"la {0}".format(name.name)
-            if lang == "fr" and name.article and article=="of":
-                if name.plural:
-                    return u"des {0}".format(name.name)
-                elif any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
-                    return u"d'{0}".format(name.name)
-                elif name.gender == "m":
-                    return u"du {0}".format(name.name)
-                elif name.gender == "f":
-                    return u"de {0}".format(name.name)
-
-            ''' Spanish '''
-            if lang == "es" and name.article and article:
-                if name.gender == "m":
-                    if name.plural:
-                        return u"los {0}".format(name.name)
-                    return u"el {0}".format(name.name)
-                elif name.gender == "f":
-                    if name.plural:
-                        return u"las {0}".format(name.name)
-                    return u"la {0}".format(name.name)
-
-            ''' Italian '''
-            if lang == "it" and name.article and article:
-                if name.gender == "m":
-                    if name.plural:
-                        if any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
-                            return u"gli {0}".format(name.name)
-                        if (name.name[0].lower() == "s"
-                                and any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y'])) \
-                                or name.name[0].lower() == "z":
-                            return u"gli {0}".format(name.name)
-                        return u"i {0}".format(name.name)
+            # if lang == "en" and name.article and article:
+            #     return "The {0}".format(name.name)
+            
+            if g.locale != "en":
+                plural = getattr(name, "plural", 0)
+                gender = getattr(name, "gender", "m")
+                needed = getattr(name, "article", 0)
+            
+                if article == "the" or article is True:
+                    if gender == "m" and needed:
+                        article = _("article_the_m_p") if plural else _("article_the_m")
+                    elif gender == "f" and needed:
+                        article = _("article_the_f_p") if plural else _("article_the_f")
                     else:
-                        if (name.name[0].lower() == "s"
-                                and any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y'])) \
-                                or name.name[0].lower() == "z":
-                            return u"lo {0}".format(name.name)
-                        if any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
-                            return u"l'{0}".format(name.name)
-                        return u"il {0}".format(name.name)
-
-                elif name.gender == "f":
-                    if name.plural:
-                        if any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
-                            return u"le {0}".format(name.name)
-                        return u"le {0}".format(name.name)
-                    else:
-                        if any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
-                            return u"l'{0}".format(name.name)
-                        return u"la {0}".format(name.name)
-
+                        article = ""
+                if article == "of":
+                    if not needed:
+                        article = _("article_of")
+                    elif gender == "m":
+                        article = _("article_of_m_p") if plural else _("article_of_m")
+                    elif gender == "f":
+                        article = _("article_of_f_p") if plural else _("article_of_f")
+                
+                if article:
+                    return u"{} {}".format(article, name.name)
+            
             return name.name
-        return ""
+
+        #     ''' French '''
+        #     if lang == "fr" and name.article and article=="the":
+        #         if name.plural:
+        #             return u"les {0}".format(name.name)
+        #         elif any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
+        #             return u"l'{0}".format(name.name)
+        #         elif name.gender == "m":
+        #             return u"le {0}".format(name.name)
+        #         elif name.gender == "f":
+        #             return u"la {0}".format(name.name)
+        #
+        #     if lang == "fr" and name.article and article=="of":
+        #         if name.plural:
+        #             return u"des {0}".format(name.name)
+        #         elif any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
+        #             return u"d'{0}".format(name.name)
+        #         elif name.gender == "m":
+        #             return u"du {0}".format(name.name)
+        #         elif name.gender == "f":
+        #             return u"de {0}".format(name.name)
+        #
+        #     ''' Spanish '''
+        #     if lang == "es" and name.article and article:
+        #         if name.gender == "m":
+        #             if name.plural:
+        #                 return u"los {0}".format(name.name)
+        #             return u"el {0}".format(name.name)
+        #         elif name.gender == "f":
+        #             if name.plural:
+        #                 return u"las {0}".format(name.name)
+        #             return u"la {0}".format(name.name)
+        #
+        #     ''' Italian '''
+        #     if lang == "it" and name.article and article:
+        #         if name.gender == "m":
+        #             if name.plural:
+        #                 if any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
+        #                     return u"gli {0}".format(name.name)
+        #                 if (name.name[0].lower() == "s"
+        #                         and any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y'])) \
+        #                         or name.name[0].lower() == "z":
+        #                     return u"gli {0}".format(name.name)
+        #                 return u"i {0}".format(name.name)
+        #             else:
+        #                 if (name.name[0].lower() == "s"
+        #                         and any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y'])) \
+        #                         or name.name[0].lower() == "z":
+        #                     return u"lo {0}".format(name.name)
+        #                 if any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
+        #                     return u"l'{0}".format(name.name)
+        #                 return u"il {0}".format(name.name)
+        #
+        #         elif name.gender == "f":
+        #             if name.plural:
+        #                 if any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
+        #                     return u"le {0}".format(name.name)
+        #                 return u"le {0}".format(name.name)
+        #             else:
+        #                 if any(vowel == name.name[0].lower() for vowel in ['a', 'e', 'i', 'o', 'u', 'y']):
+        #                     return u"l'{0}".format(name.name)
+        #                 return u"la {0}".format(name.name)
+        #
+        #     return name.name
+        # return ""
 
     def get_display_id(self):
         return self.id_3char
