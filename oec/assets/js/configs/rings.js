@@ -19,9 +19,6 @@ configs.rings = function(build, container) {
     "id": ["nest","id"],
     "depth": 1,
     "labels": h > 400,
-    "size": "export_val",
-    "ui": [
-      {"method":share(build), "value":["Share"], "type":"button"}
-    ]
+    "size": "export_val"
   }
 }

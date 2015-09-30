@@ -381,6 +381,7 @@ body.visualize {
         .d3plus_node {
           border-color: rgba(255,255,255,0.4) !important;
         }
+
       }
 
       .ui#product .d3plus_node:not(.d3plus_button_active) {
@@ -512,6 +513,12 @@ body.visualize {
     width: 30px;
     margin: -8px 6px 0 0;
   }
+}
+
+// Style for download and share button images
+.d3plus_node img {
+  height: 17px;
+  width: 17px;
 }
 
 /* Styles for d3plus tooltips */

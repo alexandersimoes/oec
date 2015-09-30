@@ -25,8 +25,7 @@ configs.stacked = function(build, container) {
     },
     "ui": [
       depth_ui,
-      {"method":change_layout, "value":[{"Value": "linear"}, {"Share": "share"}], "label":"Layout"},
-      {"method":share(build), "value":["Share"], "type":"button"}
+      {"method":change_layout, "value":[{"Value": "linear"}, {"Share": "share"}], "label":"Layout"}
     ]
   }
 }

@@ -8,28 +8,27 @@ function change_layout(new_layout){
 
 configs.network = function(build, container) {
   if(build.attr_type == "sitc"){
-    var ui = [{"method":share(build), "value":["Share"], "type":"button"}];
+    var ui = [];
   }
   else {
     var ui = [
       {"method":change_layout, "label":"Layout", "value":[
-        {"Force Directed":"network_hs4"}, 
+        {"Force Directed":"network_hs4"},
         {"Circular Spring":"network_hs4_circular_spring"},
         {"Fruchterman Reingold":"network_hs4_fr"},
         {"Complexity Circles":"network_hs4_complexity_circles"},
         {"Community Circles":"network_hs4_community_circles"},
         {"Community Rectangles":"network_hs4_community_rectangles"},
-      ]},
-      {"method":share(build), "value":["Share"], "type":"button"}
-    ]
+      ]}
+    ];
   }
-  
+
   return {
     "active": {
       "value": function(d){
         return d.export_rca >= 1;
       },
-      "spotlight":true      
+      "spotlight":true
     },
     "color": "color",
     "depth": 1,

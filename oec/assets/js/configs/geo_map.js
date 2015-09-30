@@ -22,8 +22,7 @@ configs.geo_map = function(build, container) {
         {"Annual Growth Rate (5 year)": build.trade_flow+"_val_growth_pct_5"},
         {"Growth Value (1 year)": build.trade_flow+"_val_growth_val"},
         {"Growth Value (5 year)": build.trade_flow+"_val_growth_val_5"},
-      ]},
-      {"method":share(build), "value":["Share"], "type":"button"}
+      ]}
     ]
   }
 }

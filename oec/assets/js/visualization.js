@@ -34,6 +34,10 @@ var visualization = function(build, container) {
 
       if(text){
 
+        if (text.indexOf("<img") === 0) {
+          return text;
+        }
+
         if (key) {
           if(key.key === "display_id"){
             return text.toUpperCase();
@@ -85,12 +89,20 @@ var visualization = function(build, container) {
 
       var csv_data = format_csv_data(build.data, build.attrs, build);
 
+      viz.config(configs[build.viz.slug](build, container));
+
+      var ui = viz.ui() || [];
+      var suffix = !build.dark ? "_dark" : "";
+      ui = ui.concat([
+        {"method": share(build), "value": ["<img src='/static/img/profile/share" + suffix +".png' />"], "type": "button"},
+        {"method": download(container, csv_data), "value": ["<img src='/static/img/profile/download" + suffix +".png' />"], "type": "button"}
+      ])
+
       viz
         .data(build.data)
         .attrs(build.attrs)
-        .config(configs[build.viz.slug](build, container))
         .error(false)
-        .ui(viz.ui().concat([{"method":download(container, csv_data), "value":["Download"], "type":"button"}]))
+        .ui(ui)
         .draw();
 
       d3.select("#viz")

@@ -37,6 +37,10 @@ var visualization = function(build, container) {
 
       if(text){
 
+        if (text.indexOf("<img") === 0) {
+          return text;
+        }
+
         if (key) {
           if(key.key === "display_id"){
             return text.toUpperCase();
@@ -88,12 +92,20 @@ var visualization = function(build, container) {
 
       var csv_data = format_csv_data(build.data, build.attrs, build);
 
+      viz.config(configs[build.viz.slug](build, container));
+
+      var ui = viz.ui() || [];
+      var suffix = !build.dark ? "_dark" : "";
+      ui = ui.concat([
+        {"method": share(build), "value": ["<img src='/static/img/profile/share" + suffix +".png' />"], "type": "button"},
+        {"method": download(container, csv_data), "value": ["<img src='/static/img/profile/download" + suffix +".png' />"], "type": "button"}
+      ])
+
       viz
         .data(build.data)
         .attrs(build.attrs)
-        .config(configs[build.viz.slug](build, container))
         .error(false)
-        .ui(viz.ui().concat([{"method":download(container, csv_data), "value":["Download"], "type":"button"}]))
+        .ui(ui)
         .draw();
 
       d3.select("#viz")
@@ -386,8 +398,7 @@ configs.geo_map = function(build, container) {
         {"Annual Growth Rate (5 year)": build.trade_flow+"_val_growth_pct_5"},
         {"Growth Value (1 year)": build.trade_flow+"_val_growth_val"},
         {"Growth Value (5 year)": build.trade_flow+"_val_growth_val_5"},
-      ]},
-      {"method":share(build), "value":["Share"], "type":"button"}
+      ]}
     ]
   }
 }
@@ -403,8 +414,7 @@ configs.line = function(build, container) {
       "id": "test",
       "timeline": false,
       "x": "year",
-      "y": "trade",
-      "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
+      "y": "trade"
     }
 
   }
@@ -445,7 +455,7 @@ configs.line = function(build, container) {
       }
     });
 
-    var ui = [{"method":share(build), "value":["Share"], "type":"button"}];
+    var ui = [];
     if (build.dest !== "all") {
       ui.unshift({"method": "color", "value":[{"On": "highlight"},{"Off": "eci_color"}], "type":"toggle", "label": "Highlight"});
     }
@@ -490,10 +500,7 @@ configs.line = function(build, container) {
       "timeline": {
         "play": false
       },
-      "ui": [
-        depth_ui,
-        {"method":share(build), "value":["Share"], "type":"button"}
-      ]
+      "ui": [depth_ui]
     }
 
   }
@@ -510,28 +517,27 @@ function change_layout(new_layout){
 
 configs.network = function(build, container) {
   if(build.attr_type == "sitc"){
-    var ui = [{"method":share(build), "value":["Share"], "type":"button"}];
+    var ui = [];
   }
   else {
     var ui = [
       {"method":change_layout, "label":"Layout", "value":[
-        {"Force Directed":"network_hs4"}, 
+        {"Force Directed":"network_hs4"},
         {"Circular Spring":"network_hs4_circular_spring"},
         {"Fruchterman Reingold":"network_hs4_fr"},
         {"Complexity Circles":"network_hs4_complexity_circles"},
         {"Community Circles":"network_hs4_community_circles"},
         {"Community Rectangles":"network_hs4_community_rectangles"},
-      ]},
-      {"method":share(build), "value":["Share"], "type":"button"}
-    ]
+      ]}
+    ];
   }
-  
+
   return {
     "active": {
       "value": function(d){
         return d.export_rca >= 1;
       },
-      "spotlight":true      
+      "spotlight":true
     },
     "color": "color",
     "depth": 1,
@@ -580,10 +586,7 @@ configs.rings = function(build, container) {
     "id": ["nest","id"],
     "depth": 1,
     "labels": h > 400,
-    "size": "export_val",
-    "ui": [
-      {"method":share(build), "value":["Share"], "type":"button"}
-    ]
+    "size": "export_val"
   }
 }
 
@@ -596,10 +599,7 @@ configs.scatter = function(build, container) {
     "y": {
       "scale": "log",
       "value": build.trade_flow
-    },
-    "ui": [
-      {"method":share(build), "value":["Share"], "type":"button"}
-    ]
+    }
   }
 }
 
@@ -630,8 +630,7 @@ configs.stacked = function(build, container) {
     },
     "ui": [
       depth_ui,
-      {"method":change_layout, "value":[{"Value": "linear"}, {"Share": "share"}], "label":"Layout"},
-      {"method":share(build), "value":["Share"], "type":"button"}
+      {"method":change_layout, "value":[{"Value": "linear"}, {"Share": "share"}], "label":"Layout"}
     ]
   }
 }
@@ -695,8 +694,7 @@ configs.tree_map = function(build, container) {
         {"Annual Growth Rate (5 year)": build.trade_flow+"_val_growth_pct_5"},
         {"Growth Value (1 year)": build.trade_flow+"_val_growth_val"},
         {"Growth Value (5 year)": build.trade_flow+"_val_growth_val_5"},
-      ]},
-      {"method":share(build), "value":["Share"], "type":"button"}
+      ]}
     ]
   }
 }

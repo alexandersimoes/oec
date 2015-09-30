@@ -9,8 +9,7 @@ configs.line = function(build, container) {
       "id": "test",
       "timeline": false,
       "x": "year",
-      "y": "trade",
-      "ui": [{"method":share(build), "value":["Share"], "type":"button"}]
+      "y": "trade"
     }
 
   }
@@ -51,7 +50,7 @@ configs.line = function(build, container) {
       }
     });
 
-    var ui = [{"method":share(build), "value":["Share"], "type":"button"}];
+    var ui = [];
     if (build.dest !== "all") {
       ui.unshift({"method": "color", "value":[{"On": "highlight"},{"Off": "eci_color"}], "type":"toggle", "label": "Highlight"});
     }
@@ -96,10 +95,7 @@ configs.line = function(build, container) {
       "timeline": {
         "play": false
       },
-      "ui": [
-        depth_ui,
-        {"method":share(build), "value":["Share"], "type":"button"}
-      ]
+      "ui": [depth_ui]
     }
 
   }
