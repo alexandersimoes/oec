@@ -95,6 +95,7 @@ $default_size: 600px;
     }
 
     #info {
+      color: white;
       display: block;
       font-family: $source-sans;
       font-size: $default_size/35;
@@ -102,14 +103,13 @@ $default_size: 600px;
       line-height: 1.4;
       position: absolute;
       text-align: center;
-      bottom: 13%;
+      bottom: 12%;
       right: 18%;
 
       a {
-        @include transition(color 3s);
+        @include transition(color 2s);
         border-bottom: 1px solid transparent;
-        // color: $brightlinkcolor;
-        color: #f9a17a;
+        color: $pri-w-highlight;
         display: inline-block;
         font-family: $montserrat;
         font-size: 75%;
@@ -125,7 +125,7 @@ $default_size: 600px;
 
         &:hover {
           opacity: 1;
-          color: #fff;
+          color: $pri-c-highlight;
         }
       }
 
@@ -133,7 +133,6 @@ $default_size: 600px;
 
     #search_home {
       @include transition(text-shadow 1.5s, opacity 3s);
-      // border-bottom: 1px solid #eee;
       bottom: 10%;
       border-bottom: 1px solid $lightbordercolor;
       border-radius: 2px;
@@ -141,7 +140,7 @@ $default_size: 600px;
       cursor: pointer;
       display: block;
       font-family: $source-sans;
-      font-weight: 400;
+      font-weight: 300;
       left: 33%;
       opacity: 0.8;
       padding-bottom: 3px;
@@ -155,9 +154,8 @@ $default_size: 600px;
 
       img {
         margin-bottom: -5px;
-        //margin-left: -17%;
         margin-right: 0;
-        margin-top: 5px;
+        margin-top: 3px;
         padding-right: 3px;
         position: relative;
         top: 0;
@@ -167,16 +165,19 @@ $default_size: 600px;
   }
 
   #launch_vid {
-    @include transition(color 2s, opacity 1s);
-    color: white;
+    @include transition(opacity 1s);
+    background-image: url('/static/img/home/play.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: $default_size/24;
+    height: $default_size/24;
     cursor: pointer;
-    opacity: 0.7;
-    padding: 3px;
-    margin-left: -3px;
+    display: block;
+    margin: 0 auto 3px;
+    opacity: 1;
 
     &:hover {
-      color: $sec-w-highlight; 
-      opacity: 1;
+      opacity: 0.5;
     }
   }
 
