@@ -61,9 +61,9 @@ class Profile(object):
             else:
                 this_attr = i
             if val:
-                str_item = u"<a href='{}'>{}</a> ({})".format(this_attr.get_profile_url(), this_attr.get_name(), num_format(getattr(i, val), "export_val"))
+                str_item = u"<a href='{}'>{}</a> ({})".format(this_attr.get_profile_url(), this_attr.get_name(article="the"), num_format(getattr(i, val), "export_val"))
             else:
-                str_item = u"<a href='{}'>{}</a>".format(this_attr.get_profile_url(), this_attr.get_name())
+                str_item = u"<a href='{}'>{}</a>".format(this_attr.get_profile_url(), this_attr.get_name(article="the"))
             str_items.append(str_item)
         if len(items) > 1:
             str_items = u"{0} {1} {2}".format(", ".join(str_items[:-1]), _("and"), str_items[-1])

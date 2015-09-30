@@ -124,7 +124,7 @@ class Country(db.Model, AutoSerialize):
             else:
                 if needed and (article is True or article == "the"):
                     return u"{} {}".format("the", name.name)
-                elif needed:
+                elif needed and article:
                     return u"{} {} {}".format(article, "the", name.name)
             return name.name
 
