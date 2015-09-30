@@ -34,7 +34,8 @@ configs.line = function(build, container) {
 
     years = years.map(function(y){ return new Date("01/01/"+y)});
 
-    var heatmap = ["#282F6B", "#419391", "#AFD5E8", "#EACE3F", "#B35C1E", "#B22200"];
+    var heatmap = ["#282F6B", "#419391", "#AFD5E8", "#EACE3F", "#B35C1E", "#B22200"],
+        line_weight = 1;
     var color_scale = d3.scale.linear()
       .domain(d3plus.util.buckets([1, first_years], heatmap.length))
       .range(heatmap);
@@ -57,6 +58,7 @@ configs.line = function(build, container) {
 
     return {
       "color": build.dest !== "all" ? "highlight" : "eci_color",
+      "data": {"stroke": {"width": line_weight/2}},
       "id": "origin_id",
       "legend": false,
       "shape": {"interpolate": "monotone"},
