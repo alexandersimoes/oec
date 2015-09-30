@@ -683,23 +683,28 @@ body.home {
             opacity: 1;
             height: 16px;
             width: 16px; }
-            #search #search_close.open img, #search .modal_close.open img,
-            #launch #search_close.open img, #launch .modal_close.open img {
-              -webkit-transform: rotate(0deg);
-              -ms-transform: rotate(0deg);
-              transform: rotate(0deg); }
-              #search #search_close div, #search .modal_close div, #launch #search_close div,
-              #launch .modal_close div {
-                -webkit-transition: opacity 1s 2s;
-                -moz-transition: opacity 1s 2s;
-                -ms-transition: opacity 1s 2s;
-                -o-transition: opacity 1s 2s;
-                transition: opacity 1s 2s;
-                font-size: 9px;
-                margin: 1px 0 0 -4px;
-                opacity: 0.5;
-                position: absolute;
-                text-transform: uppercase; }
+            #search #search_close img:hover, #search #search_close img:focus,
+            #search .modal_close img:hover, #search .modal_close img:focus,
+            #launch #search_close img:hover, #launch #search_close img:focus,
+            #launch .modal_close img:hover, #launch .modal_close img:focus {
+              opacity: 0.7; }
+          #search #search_close.open img, #search .modal_close.open img,
+          #launch #search_close.open img, #launch .modal_close.open img {
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            transform: rotate(0deg); }
+            #search #search_close div, #search .modal_close div, #launch #search_close div,
+            #launch .modal_close div {
+              -webkit-transition: opacity 1s 2s;
+              -moz-transition: opacity 1s 2s;
+              -ms-transition: opacity 1s 2s;
+              -o-transition: opacity 1s 2s;
+              transition: opacity 1s 2s;
+              font-size: 9px;
+              margin: 1px 0 0 -4px;
+              opacity: 0.4;
+              position: absolute;
+              text-transform: uppercase; }
     #search .modal_body, #launch .modal_body {
       padding: 50px 35px;
       text-align: center; }
@@ -923,6 +928,25 @@ body.home {
                 -moz-box-shadow: 0 2px 0 #6297cb;
                 box-shadow: 0 2px 0 #6297cb;
                 border-bottom: none; }
+                #search #search_results .result:focus h1:after,
+                #search #search_results .result:active h1:after,
+                #launch #search_results .result:focus h1:after,
+                #launch #search_results .result:active h1:after {
+                  -webkit-animation: spin-right 1.5s linear infinite;
+                  -moz-animation: spin-right 1.5s linear infinite;
+                  -o-animation: spin-right 1.5s linear infinite;
+                  animation: spin-right 1.5s linear infinite;
+                  content: "";
+                  background-repeat: no-repeat;
+                  background-image: url("/static/img/nav/spinner.png");
+                  background-size: cover;
+                  display: inline-block;
+                  cursor: pointer;
+                  margin-left: 5px;
+                  top: 3px;
+                  width: 20px;
+                  height: 20px;
+                  position: relative; }
     #search #explore .result, #launch #explore .result {
       background-color: #3f464f !important; }
 #container {
@@ -958,7 +982,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
+        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
         left: 0;
         position: absolute;
         top: 0;
@@ -1724,7 +1748,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent, #212831);
+      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -2386,6 +2410,8 @@ body.visualize {
     font-weight: 300 !important;
     background-color: transparent !important;
     box-shadow: none !important; }
+    .d3plus_tooltip_large .d3plus_tooltip_close:hover {
+      opacity: 0.6 !important; }
 body.rankings {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
