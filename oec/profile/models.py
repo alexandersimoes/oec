@@ -35,7 +35,7 @@ class Profile(object):
     
     def facebook_url(self):
         link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
-        title = "{} {}".format(self.attr.get_name(), _('Profile'))
+        title = u"{} {}".format(self.attr.get_name(), _('Profile'))
         return u"http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
                 "display=popup&app_id={}&name={}&link={}&" \
                 "redirect_uri=http://atlas.media.mit.edu/close/&" \
@@ -44,7 +44,7 @@ class Profile(object):
     def twitter_url(self):
         link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
         lang_txt = u"&lang={}".format(g.locale) if g.locale != "en" else ""
-        title = "{} {}".format(self.attr.get_name(), _('Profile'))
+        title = u"{} {}".format(self.attr.get_name(), _('Profile'))
         return u"https://twitter.com/share?url={}{}&text={}&hashtags=oec" \
                 .format(link, lang_txt, title)
     def google_url(self):
