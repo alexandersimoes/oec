@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-30 15:31-0400\n"
+"POT-Creation-Date: 2015-09-30 18:14-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,21 +128,21 @@ msgid "article_of_f"
 msgstr ""
 
 #: oec/html/home.html:3 oec/html/home.html:23 oec/html/templates/nav.html:8
-#: oec/html/templates/nav.html:20
+#: oec/html/templates/nav.html:21
 msgid "The Observatory of Economic Complexity"
 msgstr ""
 
-#: oec/html/home.html:26
+#: oec/html/home.html:29
 msgid ""
 "We are the world's<br/>leading visualization engine<br/>for international"
 " trade data."
 msgstr ""
 
-#: oec/html/home.html:28
+#: oec/html/home.html:31
 msgid "Learn More"
 msgstr ""
 
-#: oec/html/home.html:33 oec/html/templates/nav.html:65
+#: oec/html/home.html:35 oec/html/templates/nav.html:66
 msgid "Search"
 msgstr ""
 
