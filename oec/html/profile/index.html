@@ -312,23 +312,17 @@
           path = d3.geo.path().projection(projection),
           country = topojson.feature(coords, coords.objects[key]).features[0];
 
-      // List of countries to only take largest land mass.
-      if (["nausa", "saecu"].indexOf(id) >= 0) {
-
-        var areas = [], test = d3plus.util.copy(country);
-        country.geometry.coordinates.forEach(function(c, i){
-          test.geometry.coordinates = [c];
-          areas.push(path.area(test))
-        })
-
-        var maxArea = d3.max(areas);
-        country.geometry.coordinates = country.geometry.coordinates.filter(function(c, i){
-          return areas[i] >= maxArea;
-        });
-
+      // List of countries specifying how many landmasses to zoom to:
+      var landmass = {
+        "nausa": 1,
+        "saecu": 1,
+        "afsyc": 1,
+        "asmys": 2,
+        "eugbr": 2,
+        "asjpn": 4
       }
-      // List of countries that should take the largest two land masses.
-      else if (["asmys", "eugbr"].indexOf(id) >= 0) {
+
+      if (landmass[id]) {
 
         var areas = [], test = d3plus.util.copy(country);
         country.geometry.coordinates.forEach(function(c, i){
@@ -337,7 +331,7 @@
         })
 
         var sorted = areas.slice().sort(function(a, b){ return b-a; });
-        var maxArea = sorted[1];
+        var maxArea = sorted[landmass[id] - 1];
         country.geometry.coordinates = country.geometry.coordinates.filter(function(c, i){
           return areas[i] >= maxArea;
         });
@@ -382,7 +376,7 @@
       }
 
       var b = path.bounds(country),
-          zoom = 0.70,
+          zoom = d3.min([(b[1][0] - b[0][0]) * 100, 0.9]),
           s = zoom / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
           t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
 
