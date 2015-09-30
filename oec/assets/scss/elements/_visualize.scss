@@ -516,9 +516,26 @@ body.visualize {
 }
 
 // Style for download and share button images
+
+#d3plus_drawer .d3plus_drawer_ui:nth-last-child(2) {
+  .d3plus_node {
+    border: 0 !important;
+    background-color: transparent !important;
+  }
+
+  & + .d3plus_drawer_ui .d3plus_node {
+    border: 0 !important;
+    background-color: transparent !important;
+  }
+}
+
 .d3plus_node img {
   height: 17px;
   width: 17px;
+
+  &:hover {
+    opacity: 0.6;
+  }
 }
 
 /* Styles for d3plus tooltips */
