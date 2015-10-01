@@ -1478,7 +1478,7 @@ body.profile {
               -webkit-flex: 1 1 40%;
               -ms-flex: 1 1 40%;
               flex: 1 1 40%;
-              margin: 10px 0 !important;
+              margin: 0 0 10px !important;
               min-width: 40%;   }
 }
             body.profile article .profile_header .stat .stat_text {
@@ -1509,6 +1509,9 @@ body.profile {
                   text-align: center;   }
                   body.profile article .profile_header .stat .stat_text h3 {
                     margin: 0 10px 0 0 !important;   }
+                    body.profile article .profile_header .stat .stat_text h3 .suffix {
+                      display: inline !important;
+                      vertical-align: middle;   }
 }
               @media all and (max-width: 600px) {
                 body.profile article .profile_header .stat .stat_text h3 {
@@ -1527,21 +1530,25 @@ body.profile {
                 font-size: 32px;
                 font-weight: 300;
                 text-align: right; }
-                body.profile article .profile_header .stat .stat_text sub {
-                  -webkit-box-flex: none;
-                  -moz-box-flex: none;
-                  -webkit-flex: none;
-                  -ms-flex: none;
-                  flex: none;
-                  font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-                  font-size: 14px;
-                  font-weight: 700;
-                  text-transform: uppercase; }
-                  body.profile article .profile_header .stat .stat_text sub .rank {
-                    display: block;
-                    font-size: 10px;
-                    font-weight: 400;
-                    white-space: nowrap; }
+                body.profile article .profile_header .stat .stat_text h3 .suffix {
+                  display: block;
+                  font-size: 12px;
+                  font-weight: 400; }
+              body.profile article .profile_header .stat .stat_text sub {
+                -webkit-box-flex: none;
+                -moz-box-flex: none;
+                -webkit-flex: none;
+                -ms-flex: none;
+                flex: none;
+                font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+                font-size: 14px;
+                font-weight: 700;
+                text-transform: uppercase; }
+                body.profile article .profile_header .stat .stat_text sub .rank {
+                  display: block;
+                  font-size: 10px;
+                  font-weight: 400;
+                  white-space: nowrap; }
       body.profile article .profile_header .stat .sparkline {
         height: 35px;
         margin: 10px 0; }
