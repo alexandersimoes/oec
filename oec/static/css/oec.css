@@ -1140,11 +1140,11 @@ body.home {
       display: block;   }
 }
     #hamburger img {
-      -webkit-transition: opacity 0.1s, transform 1s;
-      -moz-transition: opacity 0.1s, transform 1s;
-      -ms-transition: opacity 0.1s, transform 1s;
-      -o-transition: opacity 0.1s, transform 1s;
-      transition: opacity 0.1s, transform 1s;
+      -webkit-transition: opacity 0.1s, transform 0.8s;
+      -moz-transition: opacity 0.1s, transform 0.8s;
+      -ms-transition: opacity 0.1s, transform 0.8s;
+      -o-transition: opacity 0.1s, transform 0.8s;
+      transition: opacity 0.1s, transform 0.8s;
       opacity: 0.7; }
       #hamburger img.open {
         -webkit-transform: rotate(360deg);
