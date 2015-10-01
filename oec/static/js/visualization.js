@@ -282,7 +282,7 @@ configs.default = function(build, container) {
       "primary": highlight
     },
     "edges": {"color": edges},
-    // "focus": {"tooltip": false},
+    "focus": {"tooltip": window.innerWidth > 768},
     "font": {
       "color": text
     },
