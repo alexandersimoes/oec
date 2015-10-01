@@ -1035,7 +1035,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
         left: 0;
         position: absolute;
         top: 0;
@@ -1819,7 +1819,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
+      background: linear-gradient(to bottom, transparent, #212831);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -1966,13 +1966,11 @@ body.visualize {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased; }
-  @media all and (min-width: 769px) {
-    body.visualize #content #main_viz {
-      margin: 0 20px 0 -15px !important;   }
-}
+  body.visualize #content #main_viz {
+    margin: 0 20px 0 -15px !important; }
     @media all and (max-width: 768px) {
       body.visualize #content #main_viz {
-        margin: 0 20px 0;   }
+        margin: 0 !important;   }
 }
       body.visualize #content #main_viz .nav-section {
         -webkit-justify-content: center;
@@ -3310,22 +3308,27 @@ body.api {
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
   background-color: white;
   left: 50%;
-  margin-left: -130px;
+  margin-left: -200px;
   position: fixed;
   top: -100%;
-  width: 360px;
+  width: 400px;
   z-index: 31;
   -webkit-transition: -webkit-transform 0.3s ease-out;
   -moz-transition: -moz-transform 0.3s ease-out;
   -o-transition: -o-transform 0.3s ease-out;
   transition: transform 0.3s ease-out; }
-  .modal.active:before {
-    display: block; }
-    .modal.active .modal-dialog {
-      -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-      transform: translate(0, 0);
-      top: 30%; }
+  @media all and (max-width: 480px) {
+    .modal .modal-dialog {
+      margin-left: -125px;
+      width: 250px;   }
+}
+.modal.active:before {
+  display: block; }
+  .modal.active .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+    top: 30%; }
 
 .modal-header {
   padding: 10px 20px 0 20px; }

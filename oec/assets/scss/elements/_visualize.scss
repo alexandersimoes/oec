@@ -8,12 +8,11 @@ body.visualize {
   // }
 
   #content #main_viz {
-    @media all and (min-width: 769px) {
-      margin: 0 20px 0 -15px !important;
-    }
+
+    margin: 0 20px 0 -15px !important;
 
     @media all and (max-width: 768px) {
-      margin: 0 20px 0;
+      margin: 0 !important;
     }
 
     .nav-section {
@@ -380,7 +379,7 @@ body.visualize {
             // the build. In most cases they are just import/export, but there a
             // couple of special cases.
             &.export {
-              
+
               & > .build_icon {
                 &:after {
                   content: "";
@@ -461,7 +460,7 @@ body.visualize {
             }
 
             &.import {
-              
+
               & > .build_icon {
                 &:after {
                   content: "";
