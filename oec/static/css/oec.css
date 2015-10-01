@@ -2051,7 +2051,8 @@ body.visualize {
         opacity: 1; }
         @media all and (max-width: 768px) {
           body.visualize #collapse {
-            top: 41px;   }
+            left: 15px;
+            top: 45px;   }
 }
   body.visualize aside#explorer {
     -webkit-transition: margin-left 0.5s;

@@ -109,7 +109,8 @@ body.visualize {
     }
 
     @media all and (max-width: 768px) {
-      top: $header - 24;
+      left: 15px;
+      top: $header - 20;
     }
   }
 
@@ -380,7 +381,7 @@ body.visualize {
             // couple of special cases.
             &.export {
               @include transform(scaleX(-1));
-              
+
               & > .origin {
                 @include transform(scaleX(-1));
 
@@ -483,10 +484,10 @@ body.visualize {
                 }
 
               }
-              
+
               & > .prod {
                 @include transform(scaleX(-1));
-              
+
                 &.show {
                   &:after {
                     @include transform(scaleX(-1));
