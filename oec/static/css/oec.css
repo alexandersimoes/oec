@@ -318,11 +318,11 @@ ul.navLinks {
   background-color: #3f464f;
   display: block;
   height: 100vh;
-  left: -70vw;
+  left: -400px;
   overflow-y: scroll;
   position: fixed;
   top: 0;
-  width: 70vw;
+  width: 400px;
   z-index: 31; }
   #mobileNav.open {
     left: 0; }
@@ -1061,7 +1061,7 @@ body.home {
 }
         #container #content section aside {
           margin: 0 30px;
-          width: 70vw; }
+          width: 250px; }
           @media all and (max-width: 768px) {
             #container #content section aside {
               width: auto !important;   }
@@ -1140,16 +1140,19 @@ body.home {
       display: block;   }
 }
     #hamburger img {
-      -webkit-transition: opacity 0.1s, transform 0.8s;
-      -moz-transition: opacity 0.1s, transform 0.8s;
-      -ms-transition: opacity 0.1s, transform 0.8s;
-      -o-transition: opacity 0.1s, transform 0.8s;
-      transition: opacity 0.1s, transform 0.8s;
-      opacity: 0.7; }
+      -webkit-transition: opacity 0.1s, height 0.2s, transform 0.4s 0.1s;
+      -moz-transition: opacity 0.1s, height 0.2s, transform 0.4s 0.1s;
+      -ms-transition: opacity 0.1s, height 0.2s, transform 0.4s 0.1s;
+      -o-transition: opacity 0.1s, height 0.2s, transform 0.4s 0.1s;
+      transition: opacity 0.1s, height 0.2s, transform 0.4s 0.1s;
+      opacity: 0.7;
+      width: 17px;
+      height: 12px; }
       #hamburger img.open {
         -webkit-transform: rotate(360deg);
         -ms-transform: rotate(360deg);
-        transform: rotate(360deg); }
+        transform: rotate(360deg);
+        height: 2px; }
         #hamburger img:hover {
           opacity: 1; }
 
@@ -2052,7 +2055,7 @@ body.visualize {
     transition: margin-left 0.5s;
     margin: 30px 35px 0 20px !important; }
     body.visualize aside#explorer.small {
-      margin-left: -70vw !important; }
+      margin-left: -250px !important; }
       @media all and (max-width: 768px) {
         body.visualize aside#explorer {
           margin: 0 20px !important;   }
@@ -2618,6 +2621,11 @@ body.rankings {
         cursor: pointer; }
         body.rankings #container table th[data-sortable]:hover i {
           opacity: 1; }
+      @media all and (max-width: 500px) {
+        body.rankings #container table th[data-sortable].delta,
+        body.rankings #container table th[data-sortable].id {
+          display: none !important;   }
+}
     body.rankings #container table .rank {
       font-weight: bold;
       text-align: center;

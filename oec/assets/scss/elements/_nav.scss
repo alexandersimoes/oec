@@ -147,17 +147,15 @@ nav {
 }
 
 #mobileNav {
-  $sidebar = 70vw;
-
   @include transition(left 0.25s 0.2s);
   background-color: $l2-darkbackground;
   display: block;
   height: 100vh;
-  left: -$sidebar;
+  left: -$mobileNav;
   overflow-y: scroll;
   position: fixed;
   top: 0;
-  width: $sidebar;
+  width: $mobileNav;
   z-index: 31;
 
   &.open {

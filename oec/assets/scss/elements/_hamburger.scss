@@ -11,11 +11,14 @@
   }
 
   img {
-    @include transition(opacity 0.1s, transform 0.8s);
+    @include transition(opacity 0.1s, height 0.2s, transform 0.4s 0.1s);
     opacity: 0.7;
+    width: 17px;
+    height: 12px;
 
     &.open {
       @include transform(rotate(360deg));
+      height: 2px;
     }
 
     &:hover {
