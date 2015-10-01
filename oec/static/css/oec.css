@@ -1783,6 +1783,12 @@ body.profile {
           width: 50%;
           margin: 20px 25%;   }
 }
+  body.profile article.titled-section content {
+    margin: 30px 30px 30px 0 !important; }
+    @media all and (max-width: 768px) {
+      body.profile article.titled-section content {
+        margin: -30px 0 45px 0 !important;   }
+}
   @media all and (max-width: 768px) {
     body.profile article.titled-section section.subtitle-section aside {
       margin: 0 30px !important;   }
