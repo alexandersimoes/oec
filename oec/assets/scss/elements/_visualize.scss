@@ -186,12 +186,34 @@ body.visualize {
         margin: 35px 0 20px;
       }
 
+      h4 {
+        color: $medbordercolor;
+        font-size: 13px;
+        font-weight: 400;
+        margin: 0 0 10px;
+        display: none;
+      }
+
+      .build_header {
+        margin-left: -5px;
+
+        li {
+          color: $lightbordercolor;
+          font-size: 8px;
+          text-transform: uppercase;
+          font-weight: 700;
+          display: inline-block;
+          width: 32px;
+          text-align: center;
+        }
+      }
+
       .build {
         @include flex;
         font-family: $source-sans;
         font-size: 12px;
         font-weight: 400;
-        margin: 0 0 12px;
+        margin: 0 0 10px;
 
         &:last-child {
           margin-bottom: 0;
@@ -256,10 +278,54 @@ body.visualize {
         &.new {
           @include justify(flex-start);
           @include align-items(center);
+          margin: 0 0 12px !important;
+          
+          .export ~ .build_link.active {
+            //color: cornflowerblue;
+          }
+
+          .import ~ .build_link.active {
+            //color: salmon;
+          }
+
+          .build_link {
+            color: $lightbordercolor;
+            font-size: 13px;
+
+            &:hover {
+              color: white;
+            }
+          }
+
+          .build_link.active {
+            font-weight: 700;
+            color: white;
+
+            // &:before {
+            //   content: "\f0da";
+            //   font-family: FontAwesome;
+            //   opacity: 0.7;
+            //   position: absolute;
+            //   margin-top: 2px;
+            //   margin-left: -10px;
+            // }
+          }
+
+          &:hover {
+            .build_link:before {
+              content: "\f0da";
+              font-family: FontAwesome;
+              opacity: 0.4;
+              position: absolute;
+              margin-top: 2px;
+              margin-left: -10px;
+            }
+          }
 
           .build_icons {
-            margin-left: 0px;
-            margin-right: 15px;
+            margin-left: -5px;
+            margin-right: 8px;
+            min-width: 103px;
 
             // This is the overall style for all build icons. They get
             // additional classes based on their type and value.
@@ -278,7 +344,10 @@ body.visualize {
               //  - "id": this attribute is being filtered/selected
               &.show {
                 &:before {
-                  color: gold;
+                  color: #fff;
+                  border: 1px solid $pri-c-highlight;
+                  border-radius: 50%;
+                  padding: 4px;
                 }
               }
               &.all {
@@ -288,7 +357,7 @@ body.visualize {
               }
               &.id {
                 &:before {
-                  color: $medbordercolor;
+                  color: #fff;
                 }
               }
 
@@ -302,7 +371,7 @@ body.visualize {
                 &.show {
                   &:before {
                     // institution
-                    content: unicode("f19c");
+                    content: unicode("f0ac");
                   }
                 }
                 &.all {
@@ -315,7 +384,7 @@ body.visualize {
                 &.id {
                   &:before {
                     // institution
-                    content: unicode("f19c");
+                    content: unicode("f0ac");
                   }
                 }
               }
@@ -329,7 +398,7 @@ body.visualize {
                 &.show {
                   &:before {
                     // institution
-                    content: unicode("f19c");
+                    content: unicode("f0ac");
                   }
                 }
                 &.all {
@@ -342,7 +411,7 @@ body.visualize {
                 &.id {
                   &:before {
                     // institution
-                    content: unicode("f19c");
+                    content: unicode("f0ac");
                   }
                 }
               }
@@ -357,6 +426,7 @@ body.visualize {
                   &:before {
                     // truck
                     content: unicode("f0d1");
+
                   }
                 }
                 &.all {
@@ -381,13 +451,19 @@ body.visualize {
             &.export {
 
               & > .build_icon {
-                &:after {
-                  content: "";
-                  background-repeat: no-repeat;
-                  background-size: cover;
-                  width: 13px;
-                  height: 13px;
-                  position: absolute;
+                // &:after {
+                //   content: "";
+                //   background-repeat: no-repeat;
+                //   background-size: cover;
+                //   width: 13px;
+                //   height: 13px;
+                //   position: absolute;
+                // }
+
+                &.show {
+                  &:before {
+                    border: 1px solid cornflowerblue;
+                  }
                 }
               }
 
@@ -401,7 +477,7 @@ body.visualize {
 
                   & + .dest.all {
                     &:after {
-                      background-image: url('/static/img/visualize/many_one_exp.png') !important;
+                      //background-image: url('/static/img/visualize/many_one_exp.png') !important;
                       left: -8px;
                     }
                   }
@@ -462,27 +538,32 @@ body.visualize {
             &.import {
 
               & > .build_icon {
-                &:after {
-                  content: "";
-                  background-repeat: no-repeat;
-                  background-size: cover;
-                  width: 13px;
-                  height: 13px;
-                  position: absolute;
+                // &:after {
+                //   content: "";
+                //   background-repeat: no-repeat;
+                //   background-size: cover;
+                //   width: 13px;
+                //   height: 13px;
+                //   position: absolute;
+                // }
+
+                &.show {
+                  &:before {
+                    border: 1px solid salmon;
+                  }
                 }
               }
 
               & > .origin.id {
                 & + .prod.show {
                   &:after {
-                    @include transform(scaleX(-1));
                     background-image: url('/static/img/visualize/one_many_imp.png');
-                    right: -8px;
+                    left: -8px;
                   }
 
                   & + .dest.all {
                     &:after {
-                      background-image: url('/static/img/visualize/many_one_imp.png') !important;
+                      //background-image: url('/static/img/visualize/many_one_imp.png') !important;
                       left: -8px;
                     }
                   }
@@ -491,7 +572,7 @@ body.visualize {
                 & + .prod.id, & + .prod.all {
                   &:after {
                     background-image: url('/static/img/visualize/one_one_imp.png');
-                    right: -8px;
+                    left: -8px;
                   }
 
                   & + .dest.show {
@@ -520,34 +601,29 @@ body.visualize {
               & > .origin.show {
                 & + .prod.id {
                   &:after {
-                    @include transform(scaleX(-1));
                     background-image: url('/static/img/visualize/many_one_imp.png');
-                    right: -8px;
+                    left: -8px;
                   }
 
                   & + .dest.all {
                     &:after {
-                      background-image: url('/static/img/visualize/one_one_exp.png') !important;
+                      background-image: url('/static/img/visualize/one_one_imp.png') !important;
                       left: -8px;
                     }
                   }
                 }
               }
 
-              & > .prod {
-                @include transform(scaleX(-1));
-              }
-
             }
 
             // Line chart showing Trade Balance (both imports and exports)
             &.show {
-              background-color: green;
+              //background-color: green;
             }
 
             // Line chart showing ECI rankings
             &.eci {
-              background-color: purple;
+              //background-color: purple;
             }
 
           }

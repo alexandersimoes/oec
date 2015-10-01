@@ -42,10 +42,18 @@
     {% set a = builds[0].viz.slug %}
 
     <div class="app_menu{% if a == current_app %} open{% endif %}" data-app="{{ a }}">
+    
+    <h4 class="explorer-title">{{ _('Select Trade Scenario') }}</h4>
+    
+    <ul class="build_header">
+      <li>Origin</li>
+      <li>Product</li>
+      <li>Dest.</li>
+    </ul>
 
     {% for build in builds %}
       <div class="build new">
-
+        
         <div class="build_icons {{ build.trade_flow }}">
           <div class="build_icon origin {% if build.origin is string %}{{ build.origin }}{% else %}id{% endif %}"></div>
           <div class="build_icon prod {% if build.prod is string %}{{ build.prod }}{% else %}id{% endif %}"></div>
