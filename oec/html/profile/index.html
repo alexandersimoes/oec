@@ -442,7 +442,7 @@
     var w = d3.select("content").node().offsetWidth,
         h = window.innerWidth < 768 ? window.innerHeight : window.innerHeight * 0.7;
     builds.forEach(function(b, i){
-      var height = b.data && b.data.viz.slug === "network" ? w * 0.7 : h;
+      var height = b.data && b.data.viz.slug === "network" ? window.innerWidth > 768 ? w * 0.7 : w : h * 0.9;
       b.container.style("height", height + "px");
       b.top = b.container.node().offsetTop;
       if (w !== b.width || h !== b.height) {
