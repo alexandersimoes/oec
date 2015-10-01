@@ -2129,7 +2129,7 @@ body.visualize {
             font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
             font-size: 12px;
             font-weight: 400;
-            margin: 0 0 10px; }
+            margin: 0 0 12px; }
             body.visualize aside#explorer .app_menu .build:last-child {
               margin-bottom: 0; }
               body.visualize aside#explorer .app_menu .build .build_title {
@@ -2181,27 +2181,194 @@ body.visualize {
               -webkit-align-items: center;
               align-items: center; }
               body.visualize aside#explorer .app_menu .build.new .build_icons {
-                margin-right: 5px; }
+                margin-left: -13px;
+                margin-right: 13px; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon {
+                  height: 13px;
+                  display: inline-block;
+                  margin: 0 auto;
+                  position: relative;
+                  text-align: center;
+                  width: 36px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.show:before {
+                    color: gold; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.all:before {
+                    color: #535a63; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.id:before {
+                    color: #81919d; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.origin:before {
+                    font-family: FontAwesome;
+                    font-size: 13px; }
+                    body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.origin.show:before {
+                      content: "\f19c"; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.origin.all:before {
+                    content: "\f0ac";
+                    font-size: 15px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.origin.id:before {
+                    content: "\f19c"; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.dest:before {
+                    font-family: FontAwesome;
+                    font-size: 13px; }
+                    body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.dest.show:before {
+                      content: "\f19c"; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.dest.all:before {
+                    content: "\f0ac";
+                    font-size: 15px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.dest.id:before {
+                    content: "\f19c"; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.prod:before {
+                    font-family: FontAwesome;
+                    font-size: 13px; }
+                    body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.prod.show:before {
+                      content: "\f0d1"; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.prod.all:before {
+                    content: "\f0d1"; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.prod.id:before {
+                    content: "\f0d1"; }
                 body.visualize aside#explorer .app_menu .build.new .build_icons.export {
-                  background-color: red; }
-                  body.visualize aside#explorer .app_menu .build.new .build_icons.import {
-                    background-color: blue; }
-                    body.visualize aside#explorer .app_menu .build.new .build_icons.show {
-                      background-color: green; }
-                      body.visualize aside#explorer .app_menu .build.new .build_icons.eci {
-                        background-color: purple; }
-                        body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon {
-                          border: 1px solid white;
-                          height: 13px;
-                          display: inline-block;
-                          margin-right: 5px;
-                          width: 13px; }
-                          body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.show {
-                            background-color: green; }
-                            body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.all {
-                              background-color: red; }
-                              body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.id {
-                                background-color: yellow; }
+                  -webkit-transform: scaleX(-1);
+                  -ms-transform: scaleX(-1);
+                  transform: scaleX(-1); }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.export > .origin {
+                    -webkit-transform: scaleX(-1);
+                    -ms-transform: scaleX(-1);
+                    transform: scaleX(-1); }
+                    body.visualize aside#explorer .app_menu .build.new .build_icons.export > .origin.show:after {
+                      -webkit-transform: scaleX(-1);
+                      -ms-transform: scaleX(-1);
+                      transform: scaleX(-1);
+                      content: "";
+                      background-image: url('/static/img/visualize/many_one_exp.png');
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      width: 18px;
+                      height: 13px;
+                      position: absolute;
+                      left: -10px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.export > .prod {
+                    -webkit-transform: scaleX(-1);
+                    -ms-transform: scaleX(-1);
+                    transform: scaleX(-1); }
+                    body.visualize aside#explorer .app_menu .build.new .build_icons.export > .prod.show:after {
+                      -webkit-transform: scaleX(-1);
+                      -ms-transform: scaleX(-1);
+                      transform: scaleX(-1);
+                      content: "";
+                      background-image: url('/static/img/visualize/one_many_exp.png');
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      width: 18px;
+                      height: 13px;
+                      position: absolute;
+                      right: -10px; }
+                    body.visualize aside#explorer .app_menu .build.new .build_icons.export > .prod.all:after {
+                      -webkit-transform: scaleX(-1);
+                      -ms-transform: scaleX(-1);
+                      transform: scaleX(-1);
+                      content: "";
+                      background-image: url('/static/img/visualize/one_one_exp.png');
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      width: 18px;
+                      height: 13px;
+                      position: absolute;
+                      right: -10px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.export > .dest.show:after {
+                    content: "";
+                    background-image: url('/static/img/visualize/one_many_exp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    left: -12px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.export > .dest.id:after {
+                    content: "";
+                    background-image: url('/static/img/visualize/one_one_exp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    left: -12px; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.import > .origin {
+                  -webkit-transform: scaleX(-1);
+                  -ms-transform: scaleX(-1);
+                  transform: scaleX(-1); }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.import > .origin.show:after {
+                    -webkit-transform: scaleX(-1);
+                    -ms-transform: scaleX(-1);
+                    transform: scaleX(-1);
+                    content: "";
+                    background-image: url('/static/img/visualize/many_one_imp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    left: -10px; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.import > .prod {
+                  -webkit-transform: scaleX(-1);
+                  -ms-transform: scaleX(-1);
+                  transform: scaleX(-1); }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.import > .prod.show:after {
+                    -webkit-transform: scaleX(-1);
+                    -ms-transform: scaleX(-1);
+                    transform: scaleX(-1);
+                    content: "";
+                    background-image: url('/static/img/visualize/one_many_imp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    right: -10px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.import > .prod.all:after {
+                    -webkit-transform: scaleX(-1);
+                    -ms-transform: scaleX(-1);
+                    transform: scaleX(-1);
+                    content: "";
+                    background-image: url('/static/img/visualize/one_one_imp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    right: -10px; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.import > .dest.show:after {
+                  content: "";
+                  background-image: url('/static/img/visualize/one_many_imp.png');
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  width: 18px;
+                  height: 13px;
+                  position: absolute;
+                  left: -12px; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.import > .dest.id:after {
+                  content: "";
+                  background-image: url('/static/img/visualize/one_one_imp.png');
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  width: 18px;
+                  height: 13px;
+                  position: absolute;
+                  left: -12px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.import > .dest.id ~ .prod.show:after {
+                    -webkit-transform: scaleX(-1);
+                    -ms-transform: scaleX(-1);
+                    transform: scaleX(-1);
+                    content: "";
+                    background-image: url('/static/img/visualize/one_one_imp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    right: -10px; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.show {
+                  background-color: green; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.eci {
+                    background-color: purple; }
     body.visualize aside#explorer #changers {
       -webkit-justify-content: center;
       -moz-justify-content: center;

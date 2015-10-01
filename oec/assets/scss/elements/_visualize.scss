@@ -379,6 +379,7 @@ body.visualize {
             // the build. In most cases they are just import/export, but there a
             // couple of special cases.
             &.export {
+              @include transform(scaleX(-1));
               
               & > .origin {
                 @include transform(scaleX(-1));
