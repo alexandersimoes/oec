@@ -27,11 +27,11 @@
   &.visible {
     opacity: 1;
   }
-  
+
   #search_close img {
     background-color: $darkbackground;
   }
-  
+
   #search_close, .modal_close {
     cursor: pointer;
     padding: 15px;
@@ -55,7 +55,7 @@
     &.open img {
       @include transform(rotate(0deg));
     }
-    
+
     div {
       @include transition(opacity 1s 2s);
       font-size: 9px;
@@ -106,6 +106,11 @@
 
       .d3plus_toggle > * {
         margin: 0 5px !important;
+
+        @media all and (max-width: 480px) {
+          margin: 0 3px !important;
+        }
+
       }
 
       .d3plus_node {
@@ -125,7 +130,6 @@
 
           .d3plus_button_label {
             opacity: 1;
-            padding: 6px 10px !important;
             text-transform: uppercase;
 
             &:hover {
@@ -144,6 +148,11 @@
         padding: 6px 10px !important;
         text-transform: uppercase;
 
+        @media all and (max-width: 480px) {
+          font-size: 11px;
+          padding: 6px 0 !important;
+        }
+
         &:hover {
           opacity: 0.7 !important;
         }
@@ -159,9 +168,14 @@
     @include flex-wrap();
     @include align-content(flex-start);
     margin-top: 35px;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
     width: 93%;
     height: 100%;
+
+    @media all and (max-width: 480px) {
+      // @include flex-direction(column);
+    }
 
     h1 {
       @include flex-size(1);
@@ -190,10 +204,6 @@
         text-transform: uppercase;
       }
 
-      @media all and (max-width: 768px) {
-        @include flex-size(initial);
-      }
-
       .result {
         margin: 25px auto;
       }
@@ -215,6 +225,17 @@
       position: relative;
       text-align: left;
       z-index: 0;
+
+      @media all and (max-width: 480px) {
+        @include flex-size(initial);
+        margin: 10px;
+        height: 80px;
+      }
+
+      @media all and (max-width: 768px) {
+        min-width: auto;
+        max-width: auto;
+      }
 
       .button_cover {
         @include box();

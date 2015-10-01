@@ -381,20 +381,36 @@
 
   }
 
-  var search_mode = "all", search_query = "", attrs = {}, default_cutoff = 200;
+  var search_mode,
+      search_query = "",
+      attrs = {},
+      default_cutoff = 200,
+      search_form;
 
-  var search_form = d3plus.form()
-    .data("#search_mode_selector")
-    .focus(search_mode, function(d){
-      if (d !== search_mode) {
-        clear_search(d);
-      }
-    })
-    .font({
-      "size": 12
-    })
-    .ui({"padding": 8})
-    .draw()
+  setTimeout(function(){
+
+    search_mode = window.innerWidth < 500 ? "country" : "all";
+
+    if (search_mode !== "all") {
+      var option = d3.select("#search_mode_selector");
+      option.select("[value=all]").remove();
+      option.select("[value="+search_mode+"]").attr("selected", true);
+    }
+
+    search_form = d3plus.form()
+      .data("#search_mode_selector")
+      .focus(search_mode, function(d){
+        if (d !== search_mode) {
+          clear_search(d);
+        }
+      })
+      .font({
+        "size": 12
+      })
+      .ui({"padding": 8})
+      .draw();
+
+  }, 10);
 
   function filterData(a, q) {
     if (q.length) {
