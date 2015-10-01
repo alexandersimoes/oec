@@ -15,6 +15,7 @@ body.home {
 
   #container {
     margin-top: 0;
+    overflow: hidden;
   }
 
   footer {
@@ -41,8 +42,8 @@ $default_size: 600px;
 
   .ring-pulse {
     @include animation(pulse 8s ease-in infinite);
+    @include rounded(50%);
     border: 1px solid #fff;
-    border-radius: 50%;
     height: 100%;
     position: absolute;
     width: 100%;
@@ -56,7 +57,7 @@ $default_size: 600px;
   #ring {
     @include rounded(50%);
     background-color: $darkbackground;
-    border: 1px solid $lightlinkcolor; 
+    border: 1px solid $lightlinkcolor;
     height: 100%;
     overflow: hidden;
     position: relative;
@@ -134,9 +135,9 @@ $default_size: 600px;
 
     #search_home {
       @include transition(text-shadow 1.5s, opacity 3s);
+      @include rounded(2px);
       bottom: 10%;
       border-bottom: 1px solid $darkbordercolor;
-      border-radius: 2px;
       color: #fff;
       cursor: pointer;
       display: block;

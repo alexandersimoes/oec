@@ -409,7 +409,8 @@ body.home {
     body.home nav #logo, body.home nav #search_button {
       visibility: hidden; }
   body.home #container {
-    margin-top: 0; }
+    margin-top: 0;
+    overflow: hidden; }
     body.home footer {
       bottom: 0;
       left: 0;
@@ -430,8 +431,10 @@ body.home {
     -moz-animation: pulse 8s ease-in infinite;
     -o-animation: pulse 8s ease-in infinite;
     animation: pulse 8s ease-in infinite;
-    border: 1px solid #fff;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
     border-radius: 50%;
+    border: 1px solid #fff;
     height: 100%;
     position: absolute;
     width: 100%;
@@ -518,9 +521,11 @@ body.home {
           -ms-transition: text-shadow 1.5s, opacity 3s;
           -o-transition: text-shadow 1.5s, opacity 3s;
           transition: text-shadow 1.5s, opacity 3s;
+          -webkit-border-radius: 2px;
+          -moz-border-radius: 2px;
+          border-radius: 2px;
           bottom: 10%;
           border-bottom: 1px solid #63737f;
-          border-radius: 2px;
           color: #fff;
           cursor: pointer;
           display: block;
