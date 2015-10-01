@@ -53,10 +53,7 @@
         h = window.innerHeight - n - f,
         min = 300,
         max = 850,
-        s = d3.min([max, d3.max([Math.floor(d3.min([w - p, h - p])), min])]),
-        r = window.devicePixelRatio || 1;
-
-    s = s/r;
+        s = d3.min([max, d3.max([Math.floor(d3.min([w - p, h - p])), min])]);
 
     if (timing) {
       d3.select(".bg-frame").transition().duration(timing)
