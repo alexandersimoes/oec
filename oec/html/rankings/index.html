@@ -27,11 +27,17 @@
   </aside>
   <content>
     {% if category == "country" %}
-      <h1>{{ _('Economic Complexity Rankings') }} ({{ year }})</h1>
-      <a href="/{{ g.locale }}/rankings/hs92/">{{ _('Click here for Product Rankings') }} &raquo;</a>
+      <h1>
+        <a class="complexity_switch" href="/{{ g.locale }}/rankings/hs92/" data-tooltip="Switch to Product">{{ _('Economic Complexity') }}</a>
+        {{ _(' Rankings') }} ({{ year }})
+      </h1>
+      <!-- <a href="/{{ g.locale }}/rankings/hs92/">{{ _('Click here for Product Rankings') }} &raquo;</a> -->
     {% else %}
-      <h1>{{ _('Product Complexity Rankings') }} ({{ year }})</h1>
-      <a href="/{{ g.locale }}/rankings/country/">{{ _('Click here for Country Rankings') }} &raquo;</a>
+      <h1>
+        <a class="complexity_switch" href="/{{ g.locale }}/rankings/hs92/" data-tooltip="Switch to Country">{{ _('Product Complexity') }}</a>
+        {{ _(' Rankings') }} ({{ year }})
+      </h1>
+      <!-- <a href="/{{ g.locale }}/rankings/country/">{{ _('Click here for Country Rankings') }} &raquo;</a> -->
     {% endif %}
   </content>
   <aside>

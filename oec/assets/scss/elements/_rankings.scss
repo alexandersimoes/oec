@@ -67,15 +67,56 @@ body.rankings {
       content {
         text-align: center;
 
+        h1 a.complexity_switch {
+          border-bottom: 1px solid $l2-darkbackground;
+          padding-bottom: 2px;
+
+          &:before {
+            position: absolute;
+            color: $l2-darkbackground;
+            content: unicode("f074");
+            font-family: FontAwesome;
+            font-size: 20px;
+            top: 15px;
+            left: -25px;  
+          }
+          
+          &:hover {
+            color: $lightlinkcolor;
+            &:before {
+              color: $lightlinkcolor;
+            }
+          }
+
+          &:focus, &:active {
+            color: $lightlinkcolor;
+            border-bottom: 1px solid $lightbordercolor;
+          }
+        }
+
         @media all and (min-width: 769px) and (max-width: 955px) {
           h1 {
             font-size: 30px;
+
+            a.complexity_switch:before {
+              color: $l2-darkbackground;
+              font-size: 16px;
+              top: 10px;
+              left: -21px; 
+            }
           }
         }
         @media all and (max-width: 768px) {
           h1 {
             font-size: 20px;
             font-weight: 400;
+
+            a.complexity_switch:before {
+              color: $darkbordercolor;
+              font-size: 10px;
+              top: 8px;
+              left: -15px; 
+            }
           }
         }
       }
