@@ -208,6 +208,14 @@ body.rankings {
           }
 
         }
+
+        &.delta, &.id {
+
+          @media all and (max-width: 500px) {
+            display: none !important;
+          }
+
+        }
       }
 
       .rank {
