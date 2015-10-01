@@ -186,7 +186,7 @@ body.profile {
     }
 
     .share {
-      
+
       $icon-width = 25px;
 
       position: absolute;
@@ -223,7 +223,7 @@ body.profile {
         position: relative;
         right: -($icon-width + 3) * 3;
         top: 0;
-        
+
         i {
           @include transition(opacity 0.5s);
           display: inline-block;

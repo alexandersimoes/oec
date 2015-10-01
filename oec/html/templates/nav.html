@@ -9,17 +9,13 @@
     <img src="/static/img/nav/x.png" />
   </div>
 
-  <!-- <a id="logo" href="{{ url_for('general.home', lang=g.locale) }}">
-    <img src="/static/img/home/logo-sm.png" alt="{{ _('The Observatory of Economic Complexity') }}">
-  </a> -->
-
   <ul class="navLinks">
     <li id="home"{% if g.page_type == "home" %} class="active"{% endif %}>
       <a href="{{ url_for('general.home', lang=g.locale) }}">{{ _('Home') }}</a>
     </li>
+    {% include "includes/nav.html" %}
   </ul>
 
-  {% include "includes/nav.html" %}
 </div>
 
 <nav>
@@ -32,7 +28,9 @@
     <img src="/static/img/home/logo-sm.png" alt="{{ _('The Observatory of Economic Complexity') }}">
   </a>
 
-  {% include "includes/nav.html" %}
+  <ul class="navLinks">
+    {% include "includes/nav.html" %}
+  </ul>
 
   <div id="search_button">
     <img src="/static/img/nav/search.png" />
