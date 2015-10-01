@@ -47,53 +47,52 @@ msgstr[1] "אלפים"
 #: oec/utils.py:235
 msgctxt "0"
 msgid "th"
-msgstr ""
+msgstr "ה -"
 
 #: oec/utils.py:236
 msgctxt "1"
 msgid "st"
-msgstr ""
+msgstr "ה -"
 
 #: oec/utils.py:237
-#, fuzzy
 msgctxt "2"
 msgid "nd"
-msgstr "ו -"
+msgstr "ה -"
 
 #: oec/utils.py:238
 msgctxt "3"
 msgid "rd"
-msgstr ""
+msgstr "ה -"
 
 #: oec/utils.py:239
 msgctxt "4"
 msgid "th"
-msgstr ""
+msgstr "ה -"
 
 #: oec/utils.py:240
 msgctxt "5"
 msgid "th"
-msgstr ""
+msgstr "ה -"
 
 #: oec/utils.py:241
 msgctxt "6"
 msgid "th"
-msgstr ""
+msgstr "ה -"
 
 #: oec/utils.py:242
 msgctxt "7"
 msgid "th"
-msgstr ""
+msgstr "ה -"
 
 #: oec/utils.py:243
 msgctxt "8"
 msgid "th"
-msgstr ""
+msgstr "ה -"
 
 #: oec/utils.py:244
 msgctxt "9"
 msgid "th"
-msgstr ""
+msgstr "ה -"
 
 #: oec/html/home.html:3 oec/html/home.html:12 oec/html/templates/nav.html:8
 #: oec/html/templates/nav.html:20
@@ -464,7 +463,10 @@ msgstr "תמ\"ג לנפש"
 #: oec/profile/models.py:112
 #, python-format
 msgid "%(country)s is the %(econ_rank)s largest export economy in the world"
-msgstr ""
+msgstr "%(country)s"
+" היא הכלכלה"
+" %(econ_rank)s"
+" בגודלה ביצוא העולם"
 
 #: oec/profile/models.py:115
 #, python-format
@@ -732,4 +734,5 @@ msgstr "סוף השנה"
 #: oec/visualize/views.py:467
 #, python-format
 msgid "Profile for %(attr)s"
-msgstr ""
+msgstr "פרופיל "
+"%(attr)s"

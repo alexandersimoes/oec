@@ -96,13 +96,13 @@ class Country(db.Model, AutoSerialize):
         name = self.name.filter_by(lang=lang).first()
         vowels = ['a', 'e', 'i', 'o', 'u', 'y']
         if name:
-            ''' English '''
             # if lang == "en" and name.article and article:
             #     return "The {0}".format(name.name)
             plural = getattr(name, "plural", 0)
             gender = getattr(name, "gender", "m")
             needed = getattr(name, "article", 0)
             
+            # Romance Langs
             if lang in ('es','pt','fr','nl','it','de'):
             
                 if article == "the" or article is True:
@@ -123,6 +123,7 @@ class Country(db.Model, AutoSerialize):
                 if article:
                     return u"{} {}".format(article, name.name)
             
+            # Turkish
             elif lang == "tr":
                 
                 if article == "of":
@@ -130,11 +131,14 @@ class Country(db.Model, AutoSerialize):
                         return u"{}'nın".format(name.name)
                     return u"{}'ın".format(name.name)
             
+            # English
             elif lang == "en":
                 if needed and (article is True or article == "the"):
                     return u"{} {}".format("the", name.name)
                 elif needed and article:
                     return u"{} {} {}".format(article, "the", name.name)
+                elif article and (article is not True and article != "the"):
+                    return u"{} {}".format(article, name.name)
             
             return name.name
 
