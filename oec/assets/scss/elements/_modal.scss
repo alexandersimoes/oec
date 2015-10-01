@@ -54,15 +54,21 @@
     @include shadow();
     background-color: white;
     left: 50%;
-    margin-left: -130px;
+    margin-left: -200px;
     position: fixed;
     top: -100%;
-    width: 360px;
+    width: 400px;
     z-index: 31;
     -webkit-transition: -webkit-transform 0.3s ease-out;
        -moz-transition: -moz-transform 0.3s ease-out;
          -o-transition: -o-transform 0.3s ease-out;
             transition: transform 0.3s ease-out;
+
+    @media all and (max-width: 480px) {
+      margin-left: -125px;
+      width: 250px;
+    }
+
   }
 
   &.active {
