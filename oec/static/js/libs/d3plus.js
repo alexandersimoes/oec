@@ -10591,9 +10591,11 @@ module.exports = function(color) {
 
 
 },{}],53:[function(require,module,exports){
-var icon, ie, print, wiki;
+var icon, ie, print, touch, wiki;
 
 ie = require("../../client/ie.js");
+
+touch = require("../../client/touch.coffee");
 
 wiki = require("./wiki.coffee");
 
@@ -10653,8 +10655,11 @@ print.stack = function() {
         return e.indexOf("Error") !== 0 && e.indexOf("d3plus.js:") < 0 && e.indexOf("d3plus.min.js:") < 0;
       });
       if (stack.length && stack[0].length) {
-        splitter = (window.chrome ? "at " : "@");
-        url = stack[0].split(splitter)[1];
+        splitter = window.chrome ? "at " : "@";
+        url = stack[0];
+        if (url.indexOf(splitter) >= 0) {
+          url = url.split(splitter)[1];
+        }
         stack = url.split(":");
         if (stack.length === 3) {
           stack.pop();
@@ -10700,7 +10705,7 @@ print.wiki = function(url) {
 module.exports = print;
 
 
-},{"../../client/ie.js":39,"./wiki.coffee":54}],54:[function(require,module,exports){
+},{"../../client/ie.js":39,"../../client/touch.coffee":44,"./wiki.coffee":54}],54:[function(require,module,exports){
 module.exports = {
   active: "Segmenting-Data#active",
   aggs: "Custom-Aggregations",
@@ -27598,7 +27603,7 @@ module.exports = function(vars) {
     labelWidth += vars.ui.padding * 2;
     timelineHeight = vars.timeline.height.value || yearHeight + vars.ui.padding * 2;
     timelineWidth = labelWidth * years.length;
-    playbackWidth = labelWidth;
+    playbackWidth = timelineHeight;
     tallEnough = timelineHeight - vars.ui.padding * 2 >= yearHeight;
     availableWidth = vars.width.value - vars.ui.padding * 2;
     if (tallEnough && vars.timeline.play.value) {
@@ -27801,6 +27806,9 @@ module.exports = function(vars) {
         opacity = 0.5;
         color = textColor(vars.ui.color.primary.value);
       }
+      if (timelineOffset && vars.background.value && vars.background.value !== "none") {
+        color = d3.rgb(textColor(vars.background.value));
+      }
       color = d3.rgb(color);
       return "rgba(" + color.r + "," + color.g + "," + color.b + "," + opacity + ")";
     };
@@ -27849,7 +27857,7 @@ module.exports = function(vars) {
     } else {
       tickColor = vars.x.ticks.color;
     }
-    ticks.attr("transform", "translate(" + start_x + "," + vars.ui.padding + ")").transition().duration(vars.draw.timing).call(d3.svg.axis().scale(x).orient("top").ticks(function() {
+    ticks.attr("transform", "translate(" + start_x + "," + (vars.ui.padding + 1) + ")").transition().duration(vars.draw.timing).call(d3.svg.axis().scale(x).orient("top").ticks(function() {
       return year_ticks;
     }).tickFormat("").tickSize(-timelineHeight).tickPadding(0)).selectAll("line").attr("stroke-width", 1).attr("shape-rendering", "crispEdges").attr("stroke", function(d) {
       if (visible.indexOf(+d) >= 0) {
@@ -27859,7 +27867,7 @@ module.exports = function(vars) {
       }
     });
     ticks.selectAll("path").attr("fill", "none");
-    brush_group.attr("transform", "translate(" + start_x + "," + vars.ui.padding + ")").attr("opacity", 1).call(brush);
+    brush_group.attr("transform", "translate(" + start_x + "," + (vars.ui.padding + 1) + ")").attr("opacity", 1).call(brush);
     text.attr("pointer-events", "none");
     brush_group.selectAll("rect.background").attr("fill", "none").style("visibility", "visible").attr("height", timelineHeight).attr("shape-rendering", "crispEdges").on(events.move, function() {
       var c;
