@@ -50,12 +50,9 @@ def before_request():
     # if session['first_time'] and request.endpoint != "explore.embed" and request.endpoint != "general.home":
     #     flash("Welcome! We have recently redesigned the URL structure for the site to explicity include the language. The site should still function exactly the same as it had. <a href='https://github.com/alexandersimoes/oec/releases/tag/v2.2.0' target='_blank'>Read more about the implications of this update here</a>.", "first_time")
 
-    lang = request.args.get('lang', None)
-    if lang:
-        g.locale = get_locale(lang)
-
     if request.endpoint != 'static':
         g.locale = get_locale()
+        # raise Exception(g.locale)
 
 @babel.localeselector
 def get_locale(lang=None):
@@ -93,7 +90,7 @@ def set_lang(lang):
         flash(flash_txt, 'new_lang')
     return redirect(request.args.get('next') or \
                request.referrer or \
-               url_for('general.home', lang=g.locale))
+               url_for('.home', lang=g.locale))
 
 ###############################
 # 404 view
@@ -108,7 +105,9 @@ def page_not_found(e):
 # ---------------------------
 @mod.route('/')
 @mod.route('<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","mn","nl","ru","pt","tr","zh"):lang>/')
-def home(lang='en'):
+def home(lang=None):
+    if not lang:
+        return redirect(url_for('.home', lang='en'))
     g.page_type = "home"
     g.locale = get_locale(lang)
     return render_template("home.html")
