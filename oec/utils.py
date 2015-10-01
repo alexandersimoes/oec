@@ -231,7 +231,7 @@ def plurals(key=None, n=1):
         return unicode(plurals[key]) if key in plurals else None
     return plurals
 
-def num_format(number, key = None, labels = True):
+def num_format(number, key=None, labels=True, suffix_html=False):
 
     if key == "ordinal":
 
@@ -290,7 +290,10 @@ def num_format(number, key = None, labels = True):
         if g.locale != "en":
             suffix = u" {0}".format(plurals(key=suffix, n=n))
             # suffix = u"{0}".format(suffix)
-        n = u"{0}{1}".format(n,suffix)
+        if suffix_html:
+            n = u"{0}<span class='suffix'>{1}</span>".format(n,suffix)
+        else:
+            n = u"{0}{1}".format(n,suffix)
 
     if key and labels:
         affix = affixes(key)

@@ -29,7 +29,7 @@
           {% if "top" in stat.key %}
             {{ stat.val[2:]|upper }}
           {% elif stat.val %}
-            {{ stat.val|num_format(stat.key) }}
+            {{ stat.val|num_format(stat.key, suffix_html=True)|safe }}
           {% else %}
             &mdash;
           {% endif %}
