@@ -4,17 +4,28 @@
 {% block content %}
 
 <div id="mobileNav">
-  <a id="logo" href="{{ url_for('general.home', lang=g.locale) }}">
+
+  <div class="modal_close">
+    <img src="/static/img/nav/x.png" />
+  </div>
+
+  <!-- <a id="logo" href="{{ url_for('general.home', lang=g.locale) }}">
     <img src="/static/img/home/logo-sm.png" alt="{{ _('The Observatory of Economic Complexity') }}">
-  </a>
+  </a> -->
+
+  <ul class="navLinks">
+    <li id="home"{% if g.page_type == "home" %} class="active"{% endif %}>
+      <a href="{{ url_for('general.home', lang=g.locale) }}">{{ _('Home') }}</a>
+    </li>
+  </ul>
+
   {% include "includes/nav.html" %}
 </div>
 
 <nav>
 
   <a id="hamburger">
-    <!-- <i class="fa fa-bars"></i> -->
-    <img src="/static/img/nav/menu.png" />
+    <img id="hamburger_button" src="/static/img/nav/menu.png" />
   </a>
 
   <a id="logo" href="{{ url_for('general.home', lang=g.locale) }}">
@@ -124,10 +135,18 @@
 
   // Hamburger menu logic.
   d3.select("#hamburger").on("click", function(){
+    d3.select("#hamburger_button").classed("open", true);
     var open = d3.select("#mobileNav").classed("open");
     d3.select("#mobileNav").classed("open", !open);
     d3.select("#mask").classed("visible", !open);
     d3.select("body").classed("frozen", !open);
+  });
+
+  d3.select("#mobileNav .modal_close").on("click", function(){
+    d3.select("#hamburger_button").classed("open", false);
+    d3.select("#mobileNav").classed("open", false);
+    d3.select("#mask").classed("visible", false);
+    d3.select("body").classed("frozen", false);
   });
 
   // Logic for resizing the header, if present.
