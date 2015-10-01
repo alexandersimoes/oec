@@ -280,6 +280,10 @@
           return d.value || d.name || d.display_id;
         })
 
+      results.on("click", function(){
+        d3.select(this).classed("loading", true);
+      })
+
       results.exit().remove();
 
     }
