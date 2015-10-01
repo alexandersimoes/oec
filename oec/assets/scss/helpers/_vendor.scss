@@ -142,6 +142,14 @@
   transition: $animation;
 }
 
+@mixin wordwrap() {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+  white-space: initial !important;
+}
+
 @mixin placeholder {
 
   &::-webkit-input-placeholder {

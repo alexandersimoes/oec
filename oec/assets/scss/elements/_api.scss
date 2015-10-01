@@ -30,7 +30,7 @@ body.api {
       }
 
     }
-    
+
     h2 {
       line-height: 1.1;
       margin: 20px 0;
@@ -62,6 +62,11 @@ body.api {
 
       code {
         color: $sec-w-highlight;
+
+        @media all and (max-width: 480px) {
+          font-size: 12px;
+        }
+
       }
     }
 

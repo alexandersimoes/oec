@@ -18,6 +18,10 @@ body {
   }
 }
 
+.wordwrap {
+  @include wordwrap();
+}
+
 h1,h2,h3,h4 {
   -webkit-margin-before: 0em;
   -webkit-margin-after: 0em;
