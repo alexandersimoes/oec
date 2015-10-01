@@ -204,11 +204,18 @@
 
       if (resizeFunctions.length) {
 
-        var resize;
+        var resize,
+            oldWidth = window.innerWidth,
+            oldHeight = window.innerHeight,
+            mobile = oldWidth < 768;
 
         function resizeEnd() {
-          for (var i = 0; i < resizeFunctions.length; i++) {
-            resizeFunctions[i]();
+          if (oldWidth !== window.innerWidth || (!mobile && oldHeight !== window.innerHeight)) {
+            oldWidth = window.innerWidth;
+            oldHeight = window.innerHeight;
+            for (var i = 0; i < resizeFunctions.length; i++) {
+              resizeFunctions[i]();
+            }
           }
         }
 
