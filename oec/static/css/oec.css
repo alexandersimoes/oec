@@ -1473,6 +1473,11 @@ body.profile {
 }
           @media all and (max-width: 600px) {
             body.profile article .profile_header .stat {
+              -webkit-box-flex: 1 1 40%;
+              -moz-box-flex: 1 1 40%;
+              -webkit-flex: 1 1 40%;
+              -ms-flex: 1 1 40%;
+              flex: 1 1 40%;
               margin: 10px 0 !important;
               min-width: 40%;   }
 }
@@ -1506,19 +1511,11 @@ body.profile {
                     margin: 0 10px 0 0 !important;   }
 }
               @media all and (max-width: 600px) {
-                body.profile article .profile_header .stat .stat_text {
-                  -webkit-flex-direction: row;
-                  -moz-flex-direction: row;
-                  flex-direction: row;
-                  -webkit-justify-content: flex-start;
-                  -moz-justify-content: flex-start;
-                  justify-content: flex-start;
-                  text-align: left;   }
-                  body.profile article .profile_header .stat .stat_text h3 {
-                    font-size: 20px !important;
-                    margin: 0 10px !important;   }
-                    body.profile article .profile_header .stat .stat_text sub {
-                      font-size: 12px !important;   }
+                body.profile article .profile_header .stat .stat_text h3 {
+                  font-size: 20px !important;
+                  margin: 0 10px !important;   }
+                  body.profile article .profile_header .stat .stat_text sub {
+                    font-size: 12px !important;   }
 }
               body.profile article .profile_header .stat .stat_text h3 {
                 -webkit-box-flex: none;

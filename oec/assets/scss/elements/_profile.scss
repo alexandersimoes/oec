@@ -338,6 +338,7 @@ body.profile {
       }
 
       @media all and (max-width: 600px) {
+        @include flex-size(1 1 40%);
         margin: 10px 0 !important;
         min-width: 40%;
       }
@@ -358,9 +359,6 @@ body.profile {
         }
 
         @media all and (max-width: 600px) {
-          @include flex-direction(row);
-          @include justify(flex-start);
-          text-align: left;
           h3 {
             font-size: 20px !important;
             margin: 0 10px !important;
@@ -370,6 +368,12 @@ body.profile {
             font-size: 12px !important;
           }
         }
+        //
+        // @media all and (max-width: 600px) {
+        //   @include flex-direction(column);
+        //   @include justify(center);
+        //   text-align: center;
+        // }
 
         h3 {
           @include flex-size(none);
