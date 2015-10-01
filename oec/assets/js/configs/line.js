@@ -15,7 +15,7 @@ configs.line = function(build, container) {
   }
   else if (build.trade_flow === "eci") {
 
-    var unique_years = d3plus.util.uniques(build.data, "year");
+    var unique_years = build.year || d3plus.util.uniques(build.data, "year");
     var years = d3.range(unique_years[0], unique_years[unique_years.length - 1], 5);
     years = years.concat([unique_years[unique_years.length - 1]]);
     first_years = 0;
@@ -24,7 +24,7 @@ configs.line = function(build, container) {
     var oldest_year = build.data.reduce(function(obj, d){
       if (!obj[d.id]) obj[d.id] = [];
       if (d.year === years[0]) first_years++;
-      obj[d.id].push(d);
+      if (d.year >= years[0]) obj[d.id].push(d);
       return obj;
     }, {});
     for (var id in oldest_year) {
