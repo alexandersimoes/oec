@@ -191,7 +191,7 @@ body.visualize {
         font-family: $source-sans;
         font-size: 12px;
         font-weight: 400;
-        margin: 0 0 10px;
+        margin: 0 0 12px;
 
         &:last-child {
           margin-bottom: 0;
@@ -258,17 +258,307 @@ body.visualize {
           @include align-items(center);
 
           .build_icons {
-            margin-right: 5px;
+            margin-left: -13px;
+            margin-right: 13px;
+
+            // This is the overall style for all build icons. They get
+            // additional classes based on their type and value.
+            .build_icon {
+              height: 13px;
+              display: inline-block;
+              margin: 0 auto;
+              position: relative;
+              text-align: center;
+              width: 36px;
+
+              // These are the 3 shared classes each different value a type can
+              // have. Here's what they mean:
+              //  - "show": this attribute is being shown in the visualization
+              //  - "all": this attribute is not being used/filtered
+              //  - "id": this attribute is being filtered/selected
+              &.show {
+                &:before {
+                  color: gold;
+                }
+              }
+              &.all {
+                &:before {
+                  color: $l3-darkbackground;
+                }
+              }
+              &.id {
+                &:before {
+                  color: $medbordercolor;
+                }
+              }
+
+              // These styles are overrides for the specific variable types.
+              &.origin {
+                &:before {
+                  font-family: FontAwesome;
+                  font-size: 13px;
+                }
+
+                &.show {
+                  &:before {
+                    // institution
+                    content: unicode("f19c");
+                  }
+                }
+                &.all {
+                  &:before {
+                    // globe
+                    content: unicode("f0ac");
+                    font-size: 15px;
+                  }
+                }
+                &.id {
+                  &:before {
+                    // institution
+                    content: unicode("f19c");
+                  }
+                }
+              }
+
+              &.dest {
+                &:before {
+                  font-family: FontAwesome;
+                  font-size: 13px;
+                }
+
+                &.show {
+                  &:before {
+                    // institution
+                    content: unicode("f19c");
+                  }
+                }
+                &.all {
+                  &:before {
+                    // globe
+                    content: unicode("f0ac");
+                    font-size: 15px;
+                  }
+                }
+                &.id {
+                  &:before {
+                    // institution
+                    content: unicode("f19c");
+                  }
+                }
+              }
+
+              &.prod {
+                &:before {
+                  font-family: FontAwesome;
+                  font-size: 13px;
+                }
+
+                &.show {
+                  &:before {
+                    // truck
+                    content: unicode("f0d1");
+                  }
+                }
+                &.all {
+                  &:before {
+                    // truck
+                    content: unicode("f0d1");
+                  }
+                }
+                &.id {
+                  &:before {
+                    // truck
+                    content: unicode("f0d1");
+                  }
+                }
+              }
+
+            }
 
             // These next few additional classes defined the "trade flow" of
             // the build. In most cases they are just import/export, but there a
             // couple of special cases.
             &.export {
-              background-color: red;
+              
+              & > .origin {
+                @include transform(scaleX(-1));
+
+                &.show {
+                  &:after {
+                    @include transform(scaleX(-1));
+                    content: "";
+                    background-image: url('/static/img/visualize/many_one_exp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    left: -10px;
+                  }
+                }
+
+              }
+
+              & > .prod {
+                @include transform(scaleX(-1));
+
+                &.show {
+                  &:after {
+                    @include transform(scaleX(-1));
+                    content: "";
+                    background-image: url('/static/img/visualize/one_many_exp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    right: -10px;
+                  }
+                }
+
+                &.all {
+                  &:after {
+                    @include transform(scaleX(-1));
+                    content: "";
+                    background-image: url('/static/img/visualize/one_one_exp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    right: -10px;
+                  }
+                }
+
+              }
+
+              & > .dest {
+                &.show {
+                  &:after {
+                    content: "";
+                    background-image: url('/static/img/visualize/one_many_exp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    left: -12px;
+                  }
+                }
+
+                &.id {
+                  &:after {
+                    content: "";
+                    background-image: url('/static/img/visualize/one_one_exp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    left: -12px;
+                  }
+                }
+              }
+
             }
 
             &.import {
-              background-color: blue;
+
+              & > .origin {
+                @include transform(scaleX(-1));
+
+                &.show {
+                  &:after {
+                    @include transform(scaleX(-1));
+                    content: "";
+                    background-image: url('/static/img/visualize/many_one_imp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    left: -10px;
+                  }
+                }
+
+              }
+              
+              & > .prod {
+                @include transform(scaleX(-1));
+              
+                &.show {
+                  &:after {
+                    @include transform(scaleX(-1));
+                    content: "";
+                    background-image: url('/static/img/visualize/one_many_imp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    right: -10px;
+                  }
+                }
+
+                &.all {
+                  &:after {
+                    @include transform(scaleX(-1));
+                    content: "";
+                    background-image: url('/static/img/visualize/one_one_imp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    right: -10px;
+                  }
+                }
+
+              }
+
+              & > .dest {
+                &.show {
+                  &:after {
+                    content: "";
+                    background-image: url('/static/img/visualize/one_many_imp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    left: -12px;
+                  }
+                }
+
+                &.id {
+                  &:after {
+                    content: "";
+                    background-image: url('/static/img/visualize/one_one_imp.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 18px;
+                    height: 13px;
+                    position: absolute;
+                    left: -12px;
+                  }
+
+                  & ~ .prod.show {
+
+                    &:after {
+                      @include transform(scaleX(-1));
+                      content: "";
+                      background-image: url('/static/img/visualize/one_one_imp.png');
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      width: 18px;
+                      height: 13px;
+                      position: absolute;
+                      right: -10px;
+                    }
+                  }
+                }
+              }
+
             }
 
             // Line chart showing Trade Balance (both imports and exports)
@@ -279,69 +569,6 @@ body.visualize {
             // Line chart showing ECI rankings
             &.eci {
               background-color: purple;
-            }
-
-            // This is the overall style for all build icons. They get
-            // additional classes based on their type and value.
-            .build_icon {
-              border: 1px solid white;
-              height: 13px;
-              display: inline-block;
-              margin-right: 5px;
-              width: 13px;
-
-              // These are the 3 shared classes each different value a type can
-              // have. Here's what they mean:
-              //  - "show": this attribute is being shown in the visualization
-              //  - "all": this attribute is not being used/filtered
-              //  - "id": this attribute is being filtered/selected
-              &.show {
-                background-color: green;
-              }
-              &.all {
-                background-color: red;
-              }
-              &.id {
-                background-color: yellow;
-              }
-
-              // These styles are overrides for the specific variable types.
-              &.origin {
-                &.show {
-
-                }
-                &.all {
-
-                }
-                &.id {
-
-                }
-              }
-
-              &.dest {
-                &.show {
-
-                }
-                &.all {
-
-                }
-                &.id {
-
-                }
-              }
-
-              &.prod {
-                &.show {
-
-                }
-                &.all {
-
-                }
-                &.id {
-
-                }
-              }
-
             }
 
           }
