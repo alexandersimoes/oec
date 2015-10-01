@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import ast
 from flask import g
 from sqlalchemy import func
@@ -93,6 +94,7 @@ class Country(db.Model, AutoSerialize):
     def get_name(self, lang=None, article=None):
         lang = lang or getattr(g, "locale", "en")
         name = self.name.filter_by(lang=lang).first()
+        vowels = ['a', 'e', 'i', 'o', 'u', 'y']
         if name:
             ''' English '''
             # if lang == "en" and name.article and article:
@@ -120,6 +122,13 @@ class Country(db.Model, AutoSerialize):
                 
                 if article:
                     return u"{} {}".format(article, name.name)
+            
+            elif lang == "tr":
+                
+                if article == "of":
+                    if name.name[-1] in vowels:
+                        return u"{}'nın".format(name.name)
+                    return u"{}'ın".format(name.name)
             
             elif lang == "en":
                 if needed and (article is True or article == "the"):
