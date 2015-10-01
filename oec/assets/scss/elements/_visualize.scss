@@ -259,8 +259,8 @@ body.visualize {
           @include align-items(center);
 
           .build_icons {
-            margin-left: -13px;
-            margin-right: 13px;
+            margin-left: 0px;
+            margin-right: 15px;
 
             // This is the overall style for all build icons. They get
             // additional classes based on their type and value.
@@ -270,7 +270,7 @@ body.visualize {
               margin: 0 auto;
               position: relative;
               text-align: center;
-              width: 36px;
+              width: 32px;
 
               // These are the 3 shared classes each different value a type can
               // have. Here's what they mean:
@@ -380,185 +380,163 @@ body.visualize {
             // the build. In most cases they are just import/export, but there a
             // couple of special cases.
             &.export {
-              @include transform(scaleX(-1));
+              
+              & > .build_icon {
+                &:after {
+                  content: "";
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  width: 13px;
+                  height: 13px;
+                  position: absolute;
+                }
+              }
 
-              & > .origin {
-                @include transform(scaleX(-1));
-
-                &.show {
+              & > .origin.id {
+                & + .prod.show {
                   &:after {
                     @include transform(scaleX(-1));
-                    content: "";
-                    background-image: url('/static/img/visualize/many_one_exp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    left: -10px;
+                    background-image: url('/static/img/visualize/one_many_exp.png');
+                    right: -8px;
+                  }
+
+                  & + .dest.all {
+                    &:after {
+                      background-image: url('/static/img/visualize/many_one_exp.png') !important;
+                      left: -8px;
+                    }
                   }
                 }
 
+                & + .prod.id, & + .prod.all {
+                  &:after {
+                    background-image: url('/static/img/visualize/one_one_exp.png');
+                    right: -8px;
+                  }
+
+                  & + .dest.show {
+                    &:after {
+                      background-image: url('/static/img/visualize/one_many_exp.png') !important;
+                      left: -8px;
+                    }
+                  }
+                }
+
+                & ~ .dest.id {
+                  &:after {
+                    background-image: url('/static/img/visualize/one_one_exp.png') !important;
+                    left: -8px;
+                  }
+
+                  & ~ .prod.show {
+                    &:after {
+                      background-image: url('/static/img/visualize/one_one_exp.png') !important;
+                      left: -8px;
+                    }
+                  }
+                }
+              }
+
+              & > .origin.show {
+                & + .prod.id {
+                  &:after {
+                    @include transform(scaleX(-1));
+                    background-image: url('/static/img/visualize/many_one_exp.png');
+                    right: -8px;
+                  }
+
+                  & + .dest.all {
+                    &:after {
+                      background-image: url('/static/img/visualize/one_one_exp.png') !important;
+                      left: -8px;
+                    }
+                  }
+                }
               }
 
               & > .prod {
                 @include transform(scaleX(-1));
-
-                &.show {
-                  &:after {
-                    @include transform(scaleX(-1));
-                    content: "";
-                    background-image: url('/static/img/visualize/one_many_exp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    right: -10px;
-                  }
-                }
-
-                &.all {
-                  &:after {
-                    @include transform(scaleX(-1));
-                    content: "";
-                    background-image: url('/static/img/visualize/one_one_exp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    right: -10px;
-                  }
-                }
-
-              }
-
-              & > .dest {
-                &.show {
-                  &:after {
-                    content: "";
-                    background-image: url('/static/img/visualize/one_many_exp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    left: -12px;
-                  }
-                }
-
-                &.id {
-                  &:after {
-                    content: "";
-                    background-image: url('/static/img/visualize/one_one_exp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    left: -12px;
-                  }
-                }
               }
 
             }
 
             &.import {
+              
+              & > .build_icon {
+                &:after {
+                  content: "";
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  width: 13px;
+                  height: 13px;
+                  position: absolute;
+                }
+              }
 
-              & > .origin {
-                @include transform(scaleX(-1));
-
-                &.show {
+              & > .origin.id {
+                & + .prod.show {
                   &:after {
                     @include transform(scaleX(-1));
-                    content: "";
-                    background-image: url('/static/img/visualize/many_one_imp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    left: -10px;
+                    background-image: url('/static/img/visualize/one_many_imp.png');
+                    right: -8px;
+                  }
+
+                  & + .dest.all {
+                    &:after {
+                      background-image: url('/static/img/visualize/many_one_imp.png') !important;
+                      left: -8px;
+                    }
                   }
                 }
 
+                & + .prod.id, & + .prod.all {
+                  &:after {
+                    background-image: url('/static/img/visualize/one_one_imp.png');
+                    right: -8px;
+                  }
+
+                  & + .dest.show {
+                    &:after {
+                      background-image: url('/static/img/visualize/one_many_imp.png') !important;
+                      left: -8px;
+                    }
+                  }
+                }
+
+                & ~ .dest.id {
+                  &:after {
+                    background-image: url('/static/img/visualize/one_one_imp.png') !important;
+                    left: -8px;
+                  }
+
+                  & ~ .prod.show {
+                    &:after {
+                      background-image: url('/static/img/visualize/one_one_imp.png') !important;
+                      left: -8px;
+                    }
+                  }
+                }
+              }
+
+              & > .origin.show {
+                & + .prod.id {
+                  &:after {
+                    @include transform(scaleX(-1));
+                    background-image: url('/static/img/visualize/many_one_imp.png');
+                    right: -8px;
+                  }
+
+                  & + .dest.all {
+                    &:after {
+                      background-image: url('/static/img/visualize/one_one_exp.png') !important;
+                      left: -8px;
+                    }
+                  }
+                }
               }
 
               & > .prod {
                 @include transform(scaleX(-1));
-
-                &.show {
-                  &:after {
-                    @include transform(scaleX(-1));
-                    content: "";
-                    background-image: url('/static/img/visualize/one_many_imp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    right: -10px;
-                  }
-                }
-
-                &.all {
-                  &:after {
-                    @include transform(scaleX(-1));
-                    content: "";
-                    background-image: url('/static/img/visualize/one_one_imp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    right: -10px;
-                  }
-                }
-
-              }
-
-              & > .dest {
-                &.show {
-                  &:after {
-                    content: "";
-                    background-image: url('/static/img/visualize/one_many_imp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    left: -12px;
-                  }
-                }
-
-                &.id {
-                  &:after {
-                    content: "";
-                    background-image: url('/static/img/visualize/one_one_imp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    left: -12px;
-                  }
-
-                  & ~ .prod.show {
-
-                    &:after {
-                      @include transform(scaleX(-1));
-                      content: "";
-                      background-image: url('/static/img/visualize/one_one_imp.png');
-                      background-repeat: no-repeat;
-                      background-size: cover;
-                      width: 18px;
-                      height: 13px;
-                      position: absolute;
-                      right: -10px;
-                    }
-                  }
-                }
               }
 
             }

@@ -1035,7 +1035,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
+        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
         left: 0;
         position: absolute;
         top: 0;
@@ -1809,7 +1809,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent, #212831);
+      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -2195,15 +2195,15 @@ body.visualize {
               -webkit-align-items: center;
               align-items: center; }
               body.visualize aside#explorer .app_menu .build.new .build_icons {
-                margin-left: -13px;
-                margin-right: 13px; }
+                margin-left: 0px;
+                margin-right: 15px; }
                 body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon {
                   height: 13px;
                   display: inline-block;
                   margin: 0 auto;
                   position: relative;
                   text-align: center;
-                  width: 36px; }
+                  width: 32px; }
                   body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.show:before {
                     color: gold; }
                   body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.all:before {
@@ -2239,146 +2239,92 @@ body.visualize {
                     content: "\f0d1"; }
                   body.visualize aside#explorer .app_menu .build.new .build_icons .build_icon.prod.id:before {
                     content: "\f0d1"; }
-                body.visualize aside#explorer .app_menu .build.new .build_icons.export {
+                body.visualize aside#explorer .app_menu .build.new .build_icons.export > .build_icon:after {
+                  content: "";
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  width: 13px;
+                  height: 13px;
+                  position: absolute; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.export > .origin.id + .prod.show:after {
+                  -webkit-transform: scaleX(-1);
+                  -ms-transform: scaleX(-1);
+                  transform: scaleX(-1);
+                  background-image: url('/static/img/visualize/one_many_exp.png');
+                  right: -8px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.export > .origin.id + .prod.show + .dest.all:after {
+                    background-image: url('/static/img/visualize/many_one_exp.png') !important;
+                    left: -8px; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.export > .origin.id + .prod.id:after,
+                body.visualize aside#explorer .app_menu .build.new .build_icons.export > .origin.id + .prod.all:after {
+                  background-image: url('/static/img/visualize/one_one_exp.png');
+                  right: -8px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.export > .origin.id + .prod.id + .dest.show:after,
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.export > .origin.id + .prod.all + .dest.show:after {
+                    background-image: url('/static/img/visualize/one_many_exp.png') !important;
+                    left: -8px; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.export > .origin.id ~ .dest.id:after {
+                  background-image: url('/static/img/visualize/one_one_exp.png') !important;
+                  left: -8px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.export > .origin.id ~ .dest.id ~ .prod.show:after {
+                    background-image: url('/static/img/visualize/one_one_exp.png') !important;
+                    left: -8px; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.export > .origin.show + .prod.id:after {
+                  -webkit-transform: scaleX(-1);
+                  -ms-transform: scaleX(-1);
+                  transform: scaleX(-1);
+                  background-image: url('/static/img/visualize/many_one_exp.png');
+                  right: -8px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.export > .origin.show + .prod.id + .dest.all:after {
+                    background-image: url('/static/img/visualize/one_one_exp.png') !important;
+                    left: -8px; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.export > .prod {
                   -webkit-transform: scaleX(-1);
                   -ms-transform: scaleX(-1);
                   transform: scaleX(-1); }
-                  body.visualize aside#explorer .app_menu .build.new .build_icons.export > .origin {
-                    -webkit-transform: scaleX(-1);
-                    -ms-transform: scaleX(-1);
-                    transform: scaleX(-1); }
-                    body.visualize aside#explorer .app_menu .build.new .build_icons.export > .origin.show:after {
-                      -webkit-transform: scaleX(-1);
-                      -ms-transform: scaleX(-1);
-                      transform: scaleX(-1);
-                      content: "";
-                      background-image: url('/static/img/visualize/many_one_exp.png');
-                      background-repeat: no-repeat;
-                      background-size: cover;
-                      width: 18px;
-                      height: 13px;
-                      position: absolute;
-                      left: -10px; }
-                  body.visualize aside#explorer .app_menu .build.new .build_icons.export > .prod {
-                    -webkit-transform: scaleX(-1);
-                    -ms-transform: scaleX(-1);
-                    transform: scaleX(-1); }
-                    body.visualize aside#explorer .app_menu .build.new .build_icons.export > .prod.show:after {
-                      -webkit-transform: scaleX(-1);
-                      -ms-transform: scaleX(-1);
-                      transform: scaleX(-1);
-                      content: "";
-                      background-image: url('/static/img/visualize/one_many_exp.png');
-                      background-repeat: no-repeat;
-                      background-size: cover;
-                      width: 18px;
-                      height: 13px;
-                      position: absolute;
-                      right: -10px; }
-                    body.visualize aside#explorer .app_menu .build.new .build_icons.export > .prod.all:after {
-                      -webkit-transform: scaleX(-1);
-                      -ms-transform: scaleX(-1);
-                      transform: scaleX(-1);
-                      content: "";
-                      background-image: url('/static/img/visualize/one_one_exp.png');
-                      background-repeat: no-repeat;
-                      background-size: cover;
-                      width: 18px;
-                      height: 13px;
-                      position: absolute;
-                      right: -10px; }
-                  body.visualize aside#explorer .app_menu .build.new .build_icons.export > .dest.show:after {
-                    content: "";
-                    background-image: url('/static/img/visualize/one_many_exp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    left: -12px; }
-                  body.visualize aside#explorer .app_menu .build.new .build_icons.export > .dest.id:after {
-                    content: "";
-                    background-image: url('/static/img/visualize/one_one_exp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    left: -12px; }
-                body.visualize aside#explorer .app_menu .build.new .build_icons.import > .origin {
+                body.visualize aside#explorer .app_menu .build.new .build_icons.import > .build_icon:after {
+                  content: "";
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  width: 13px;
+                  height: 13px;
+                  position: absolute; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.import > .origin.id + .prod.show:after {
                   -webkit-transform: scaleX(-1);
                   -ms-transform: scaleX(-1);
-                  transform: scaleX(-1); }
-                  body.visualize aside#explorer .app_menu .build.new .build_icons.import > .origin.show:after {
-                    -webkit-transform: scaleX(-1);
-                    -ms-transform: scaleX(-1);
-                    transform: scaleX(-1);
-                    content: "";
-                    background-image: url('/static/img/visualize/many_one_imp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    left: -10px; }
+                  transform: scaleX(-1);
+                  background-image: url('/static/img/visualize/one_many_imp.png');
+                  right: -8px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.import > .origin.id + .prod.show + .dest.all:after {
+                    background-image: url('/static/img/visualize/many_one_imp.png') !important;
+                    left: -8px; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.import > .origin.id + .prod.id:after,
+                body.visualize aside#explorer .app_menu .build.new .build_icons.import > .origin.id + .prod.all:after {
+                  background-image: url('/static/img/visualize/one_one_imp.png');
+                  right: -8px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.import > .origin.id + .prod.id + .dest.show:after,
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.import > .origin.id + .prod.all + .dest.show:after {
+                    background-image: url('/static/img/visualize/one_many_imp.png') !important;
+                    left: -8px; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.import > .origin.id ~ .dest.id:after {
+                  background-image: url('/static/img/visualize/one_one_imp.png') !important;
+                  left: -8px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.import > .origin.id ~ .dest.id ~ .prod.show:after {
+                    background-image: url('/static/img/visualize/one_one_imp.png') !important;
+                    left: -8px; }
+                body.visualize aside#explorer .app_menu .build.new .build_icons.import > .origin.show + .prod.id:after {
+                  -webkit-transform: scaleX(-1);
+                  -ms-transform: scaleX(-1);
+                  transform: scaleX(-1);
+                  background-image: url('/static/img/visualize/many_one_imp.png');
+                  right: -8px; }
+                  body.visualize aside#explorer .app_menu .build.new .build_icons.import > .origin.show + .prod.id + .dest.all:after {
+                    background-image: url('/static/img/visualize/one_one_exp.png') !important;
+                    left: -8px; }
                 body.visualize aside#explorer .app_menu .build.new .build_icons.import > .prod {
                   -webkit-transform: scaleX(-1);
                   -ms-transform: scaleX(-1);
                   transform: scaleX(-1); }
-                  body.visualize aside#explorer .app_menu .build.new .build_icons.import > .prod.show:after {
-                    -webkit-transform: scaleX(-1);
-                    -ms-transform: scaleX(-1);
-                    transform: scaleX(-1);
-                    content: "";
-                    background-image: url('/static/img/visualize/one_many_imp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    right: -10px; }
-                  body.visualize aside#explorer .app_menu .build.new .build_icons.import > .prod.all:after {
-                    -webkit-transform: scaleX(-1);
-                    -ms-transform: scaleX(-1);
-                    transform: scaleX(-1);
-                    content: "";
-                    background-image: url('/static/img/visualize/one_one_imp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    right: -10px; }
-                body.visualize aside#explorer .app_menu .build.new .build_icons.import > .dest.show:after {
-                  content: "";
-                  background-image: url('/static/img/visualize/one_many_imp.png');
-                  background-repeat: no-repeat;
-                  background-size: cover;
-                  width: 18px;
-                  height: 13px;
-                  position: absolute;
-                  left: -12px; }
-                body.visualize aside#explorer .app_menu .build.new .build_icons.import > .dest.id:after {
-                  content: "";
-                  background-image: url('/static/img/visualize/one_one_imp.png');
-                  background-repeat: no-repeat;
-                  background-size: cover;
-                  width: 18px;
-                  height: 13px;
-                  position: absolute;
-                  left: -12px; }
-                  body.visualize aside#explorer .app_menu .build.new .build_icons.import > .dest.id ~ .prod.show:after {
-                    -webkit-transform: scaleX(-1);
-                    -ms-transform: scaleX(-1);
-                    transform: scaleX(-1);
-                    content: "";
-                    background-image: url('/static/img/visualize/one_one_imp.png');
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: 18px;
-                    height: 13px;
-                    position: absolute;
-                    right: -10px; }
                 body.visualize aside#explorer .app_menu .build.new .build_icons.show {
                   background-color: green; }
                   body.visualize aside#explorer .app_menu .build.new .build_icons.eci {
