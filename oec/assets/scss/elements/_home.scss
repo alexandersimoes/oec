@@ -5,7 +5,7 @@ body.home {
 
   nav {
     background: none;
-    position: static;
+    // position: static;
 
     #logo, #search_button {
       visibility: hidden;
@@ -14,6 +14,7 @@ body.home {
   }
 
   #container {
+    height: 100vh;
     margin-top: 0;
     overflow: hidden;
   }
@@ -36,7 +37,7 @@ $default_size: 600px;
 
 .bg-frame {
   height: $default_size;
-  @include margin(10px, auto, 20px, auto);
+  @include margin($header + 10px, auto, 20px, auto);
   position: relative;
   width: $default_size;
 

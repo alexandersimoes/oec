@@ -395,11 +395,11 @@ body.home {
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased; }
   body.home nav {
-    background: none;
-    position: static; }
+    background: none; }
     body.home nav #logo, body.home nav #search_button {
       visibility: hidden; }
   body.home #container {
+    height: 100vh;
     margin-top: 0;
     overflow: hidden; }
     body.home footer {
@@ -414,7 +414,7 @@ body.home {
 
 .bg-frame {
   height: 600px;
-  margin: 10px auto 20px auto ;
+  margin: 75px auto 20px auto ;
   position: relative;
   width: 600px; }
   .bg-frame .ring-pulse {
