@@ -102,6 +102,7 @@ body.profile {
       @include flex;
       @include align-items(center);
       @include flex-direction(row);
+      margin: 20px 10px;
 
       @media all and (max-width: 768px) {
         @include justify(center);
@@ -190,17 +191,19 @@ body.profile {
       $icon-width: 25px;
 
       position: absolute;
-      right: 0;
+      right: 3px;
       top: 0;
       padding: 13px;
       margin: -13px 0;
       cursor: pointer;
+      height: $icon-width - 3;
+      width: $icon-width - 3;
 
       img {
         @include transition(opacity 0.5s, transform 0.5s);
         opacity: 0.7;
-        height: 22px;
-        width: 22px;
+        height: $icon-width - 3;
+        width: $icon-width - 3;
       }
 
       &:hover img {
@@ -214,19 +217,20 @@ body.profile {
         position: absolute;
         top: 0;
         right: 30px;
-        width: ($icon-width + 3) * 3;
+        width: $icon-width * 2;
       }
 
       .drawer-content {
-        @include transition(right 1s, top 1s, opacity 1s 0.25s);
+        @include transition(right 1s, opacity 1s 0.25s);
         opacity: 0;
         position: relative;
-        right: -($icon-width + 3) * 3;
+        right: -($icon-width) * 2;
         top: 0;
 
         i {
           @include transition(opacity 0.5s);
           display: inline-block;
+          font-size: 17px;
           opacity: 0.7;
           text-align: center;
           width: $icon-width;
@@ -249,26 +253,30 @@ body.profile {
         }
       }
 
-      @media all and (max-width: 768px) {
+      @media all and (min-width: 769px) {
+        img {
+          display: none;
+        }
+
         .drawer {
-          height: ($icon-width + 3) * 3;
-          margin: 15px 0px 15px 13px;
-          top: 30px;
-          right: 0;
-          width: auto;
+          margin-top: 13px;
+          right: 4px;
+          width: $icon-width;
         }
 
         .drawer-content {
+          opacity: 1;
           right: 0;
-          top: -($icon-width + 3) * 3;
-        }
 
-        &.open {
-          .drawer-content {
-            top: 0;
+          i {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 5px;
           }
+
         }
       }
+
     }
 
     #stats {
@@ -280,7 +288,7 @@ body.profile {
       position: relative;
     }
 
-    #title, #stats {
+    #stats {
       margin: 20px;
 
       @media all and (max-width: 600px) {
@@ -294,7 +302,7 @@ body.profile {
         margin-left: 310px;
 
         @media all and (max-width: 768px) {
-          margin-left: 20px;
+          margin-left: 10px;
         }
 
       }

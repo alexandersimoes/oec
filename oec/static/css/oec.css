@@ -239,7 +239,7 @@ ul.navLinks {
                 display: block; }
                 ul.navLinks li .sub_menu ul li {
                   display: block;
-                  font-size: 11px;
+                  font-size: 11px !important;
                   padding: 5px 10px; }
                   ul.navLinks li .sub_menu ul li:hover {
                     opacity: 0.9; }
@@ -1283,7 +1283,8 @@ body.profile {
         align-items: center;
         -webkit-flex-direction: row;
         -moz-flex-direction: row;
-        flex-direction: row; }
+        flex-direction: row;
+        margin: 20px 10px; }
         @media all and (max-width: 768px) {
           body.profile article .profile_header #title {
             -webkit-justify-content: center;
@@ -1359,11 +1360,13 @@ body.profile {
             border-color: transparent; }
     body.profile article .profile_header .share {
       position: absolute;
-      right: 0;
+      right: 3px;
       top: 0;
       padding: 13px;
       margin: -13px 0;
-      cursor: pointer; }
+      cursor: pointer;
+      height: 22px;
+      width: 22px; }
       body.profile article .profile_header .share img {
         -webkit-transition: opacity 0.5s, transform 0.5s;
         -moz-transition: opacity 0.5s, transform 0.5s;
@@ -1382,16 +1385,16 @@ body.profile {
             position: absolute;
             top: 0;
             right: 30px;
-            width: 84px; }
+            width: 50px; }
             body.profile article .profile_header .share .drawer-content {
-              -webkit-transition: right 1s, top 1s, opacity 1s 0.25s;
-              -moz-transition: right 1s, top 1s, opacity 1s 0.25s;
-              -ms-transition: right 1s, top 1s, opacity 1s 0.25s;
-              -o-transition: right 1s, top 1s, opacity 1s 0.25s;
-              transition: right 1s, top 1s, opacity 1s 0.25s;
+              -webkit-transition: right 1s, opacity 1s 0.25s;
+              -moz-transition: right 1s, opacity 1s 0.25s;
+              -ms-transition: right 1s, opacity 1s 0.25s;
+              -o-transition: right 1s, opacity 1s 0.25s;
+              transition: right 1s, opacity 1s 0.25s;
               opacity: 0;
               position: relative;
-              right: -84px;
+              right: -50px;
               top: 0; }
               body.profile article .profile_header .share .drawer-content i {
                 -webkit-transition: opacity 0.5s;
@@ -1400,6 +1403,7 @@ body.profile {
                 -o-transition: opacity 0.5s;
                 transition: opacity 0.5s;
                 display: inline-block;
+                font-size: 17px;
                 opacity: 0.7;
                 text-align: center;
                 width: 25px;
@@ -1411,18 +1415,20 @@ body.profile {
         body.profile article .profile_header .share.open .drawer-content {
           opacity: 1;
           right: 0; }
-      @media all and (max-width: 768px) {
-        body.profile article .profile_header .share .drawer {
-          height: 84px;
-          margin: 15px 0px 15px 13px;
-          top: 30px;
-          right: 0;
-          width: auto;   }
-          body.profile article .profile_header .share .drawer-content {
-            right: 0;
-            top: -84px;   }
-            body.profile article .profile_header .share.open .drawer-content {
-              top: 0;   }
+      @media all and (min-width: 769px) {
+        body.profile article .profile_header .share img {
+          display: none;   }
+          body.profile article .profile_header .share .drawer {
+            margin-top: 13px;
+            right: 4px;
+            width: 25px;   }
+            body.profile article .profile_header .share .drawer-content {
+              opacity: 1;
+              right: 0;   }
+              body.profile article .profile_header .share .drawer-content i {
+                display: block;
+                font-size: 20px;
+                margin-bottom: 5px;   }
 }
     body.profile article .profile_header #stats {
       -webkit-justify-content: center;
@@ -1444,11 +1450,9 @@ body.profile {
       -webkit-flex-wrap: wrap;
       flex-wrap: wrap;
       position: relative; }
-      body.profile article .profile_header #title,
       body.profile article .profile_header #stats {
         margin: 20px; }
         @media all and (max-width: 600px) {
-          body.profile article .profile_header #title,
           body.profile article .profile_header #stats {
             margin: 0 10px !important;   }
 }
@@ -1458,7 +1462,7 @@ body.profile {
       @media all and (max-width: 768px) {
         body.profile article .profile_header.country #title,
         body.profile article .profile_header.country #stats {
-          margin-left: 20px;   }
+          margin-left: 10px;   }
 }
     body.profile article .profile_header:hover .author {
       opacity: 1; }
