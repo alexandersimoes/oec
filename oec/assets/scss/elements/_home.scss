@@ -93,6 +93,9 @@ $default_size: 600px;
       position: absolute;
       top: 14%;
       width: 100%;
+      @include rtl {
+        @include flip;
+      }
     }
 
     #info {

@@ -50,6 +50,15 @@
   filter: $filter;
 }
 
+@mixin flip {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+
 @mixin font-smoothing($font-smoothing) {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
