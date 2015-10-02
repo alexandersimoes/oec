@@ -30,7 +30,7 @@ body.visualize {
 
   #content #main_viz {
 
-    @include, margin(0, 20px, 0, -15px, !important);
+    @include margin(0, 20px, 0, -15px, !important);
 
     @media all and (max-width: 768px) {
       @include margin(0, 0, 0, 0, !important);
@@ -42,7 +42,7 @@ body.visualize {
       @include justify(space-between);
       @include align-items(baseline);
       @include padding(10px, 0, 10px, 0);
-      @include, margin(0, 0, 0, 0, !important);
+      @include margin(0, 0, 0, 0, !important);
 
       @media all and (max-width: 768px) {
         @include padding(0, 0, 10px, 0);
@@ -136,7 +136,7 @@ body.visualize {
 
   aside#explorer {
     @include transition(margin-left, 0.5s);
-    @include, margin(30px, 35px, 0, 20px, !important);
+    @include margin(30px, 35px, 0, 20px, !important);
 
     &.small {
       @include margin-left(-$sidebar !important);

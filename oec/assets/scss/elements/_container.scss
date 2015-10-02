@@ -139,7 +139,7 @@
     div {
       max-width: 770px;
       @include margin(0, auto, 0, auto);
-      @include, padding(0, 20px, 0, 20px);
+      @include padding(0, 20px, 0, 20px);
     }
 
     ul {

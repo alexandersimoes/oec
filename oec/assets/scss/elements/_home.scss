@@ -123,7 +123,7 @@ $default_size: 600px;
         text-transform: uppercase;
 
         i {
-          @include, transition(color, 3s);
+          @include transition(color, 3s);
           font-size: 70%;
           margin-top: 5%;
         }

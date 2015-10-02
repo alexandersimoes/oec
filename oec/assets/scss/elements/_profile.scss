@@ -217,7 +217,7 @@ body.profile {
         position: absolute;
         top: 0;
         @include right(30px);
-        width: $icon-width * 2;
+        width: $icon-width * 2 + 5;
       }
 
       .drawer-content {
@@ -326,8 +326,6 @@ body.profile {
 
     }
 
-    $stat_width: 160px;
-
     .stat {
       @include flex-size(1);
       @include flex;
@@ -335,18 +333,17 @@ body.profile {
       color: white;
       @include margin-right(30px);
       margin-top: 20px;
-      // min-width: $stat_width;
 
       &:last-child {
         @include margin-right(0);
       }
 
       @media all and (max-width: 1024px) {
-        @include margin(10px, 10px, 10px, 10px);
+        @include margin(10px, 10px, 10px, 10px !important);
       }
 
       @media all and (max-width: 600px) {
-        @include, flex-size(1, 1, 40%);
+        @include flex-size(1 1 40%);
         @include margin(0, 0, 10px, 0, !important);
         min-width: 40%;
       }
@@ -764,7 +761,7 @@ body.profile {
 
       .icon {
       @include flex-size(none);
-        @include, margin(3px, 15px, 0, 15px);
+        @include margin(3px, 15px, 0, 15px);
         max-height: 50px;
         z-index: 1;
       }
