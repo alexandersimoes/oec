@@ -312,11 +312,11 @@ nav {
           transform: rotate(180deg); }
 
 #mobileNav {
-  -webkit-transition: left 0.25s 0.2s;
-  -moz-transition: left 0.25s 0.2s;
-  -ms-transition: left 0.25s 0.2s;
-  -o-transition: left 0.25s 0.2s;
-  transition: left 0.25s 0.2s;
+  -webkit-transition: left 0.25s 0.2s, right 0.25s 0.2s;
+  -moz-transition: left 0.25s 0.2s, right 0.25s 0.2s;
+  -ms-transition: left 0.25s 0.2s, right 0.25s 0.2s;
+  -o-transition: left 0.25s 0.2s, right 0.25s 0.2s;
+  transition: left 0.25s 0.2s, right 0.25s 0.2s;
   background-color: #3f464f;
   bottom: 0;
   display: block;

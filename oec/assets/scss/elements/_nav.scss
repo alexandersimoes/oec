@@ -152,7 +152,7 @@ nav {
 }
 
 #mobileNav {
-  @include transition(left 0.25s 0.2s);
+  @include transition(left 0.25s 0.2s, right 0.25s 0.2s);
   background-color: $l2-darkbackground;
   bottom: 0;
   display: block;
