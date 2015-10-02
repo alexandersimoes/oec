@@ -486,11 +486,13 @@ def builds():
         tbl = globals()[build_args["classification"].title()]
         c = build_args["classification"]
         attr = tbl.query.filter(getattr(tbl,c)==build_args["prod_id"]).first()
+    attr_name = attr.get_name()
     profile = {
-        "title":gettext("Profile for %(attr)s", attr=attr.get_name()),
+        "title":gettext("Profile for %(attr)s", attr=attr_name),
         "url":attr.get_profile_url(),
         "icon":attr.get_icon(),
-        "color":attr.color
+        "color":attr.color,
+        "name":attr_name
     }
 
     return jsonify(profile=profile, builds=[{"title": b.question(), "url": b.url(), "viz": b.viz["slug"]} for b in all_builds])
