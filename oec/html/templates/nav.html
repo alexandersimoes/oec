@@ -382,6 +382,7 @@
   }
 
   var search_mode,
+      search_default,
       search_query = "",
       attrs = {},
       default_cutoff = 200,
@@ -390,6 +391,7 @@
   setTimeout(function(){
 
     search_mode = window.innerWidth < 500 ? "country" : "all";
+    search_default = search_mode;
 
     if (search_mode !== "all") {
       var option = d3.select("#search_mode_selector");
@@ -609,7 +611,7 @@
   }
 
   d3.select("#search_button").on("click", function(){
-    search("all");
+    search(search_default);
   });
 
   d3.select("#search_close").on("click", close_search);
