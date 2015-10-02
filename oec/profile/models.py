@@ -32,7 +32,7 @@ class Profile(object):
             return ast.literal_eval(p)
         else:
             return []
-    
+
     def facebook_url(self):
         link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
         title = u"{} {}".format(self.attr.get_name(), _('Profile'))
@@ -50,8 +50,8 @@ class Profile(object):
     def google_url(self):
         link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
         return u"https://plus.google.com/share?url={}&hl={}".format(link, g.locale)
-    
-    
+
+
     @staticmethod
     def stringify_items(items, val=None, attr=None):
         str_items = []
@@ -298,11 +298,12 @@ class Country(Profile):
         else:
             subtitle = ""
         product_space = Build("network", "hs92", "export", self.attr, "all", "show", self.year)
+        ps_text = _(u"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure.")
+        ps_text = u"{}</p><p>{}".format(ps_text, subtitle)
         ps_section = {
             "title": _(u"Economic Complexity %(of_country)s", of_country=self.attr.get_name(article="of")),
-            "subtitle": subtitle,
             "builds": [
-                {"title": _(u"Product Space"), "build": product_space, "subtitle": _(u"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure."), "tour":"The product space...", "seq":6}
+                {"title": _(u"Product Space"), "build": product_space, "subtitle": ps_text, "tour":"The product space...", "seq":6}
             ]
         }
 
@@ -317,7 +318,7 @@ class Country(Profile):
             if attr_yo_historic.eci_rank:
                 eci_delta = this_attr_yo.eci_rank - attr_yo_historic.eci_rank
                 inc_dec = _('increased') if eci_delta < 0 else _('decreased')
-                subtitle = _("""The Economic Complexity ranking %(of_country)s has %(increased_or_decreased)s by %(rank_delta)s places 
+                subtitle = _("""The Economic Complexity ranking %(of_country)s has %(increased_or_decreased)s by %(rank_delta)s places
                     over the past %(year_range)s years from %(old_eci)s in %(old_year)s to %(current_eci)s in %(current_year)s.""",
                     of_country=self.attr.get_name(article="of"), increased_or_decreased=inc_dec,
                     rank_delta=abs(eci_delta), year_range=year_range, old_eci=num_format(attr_yo_historic.eci_rank, "ordinal"),
