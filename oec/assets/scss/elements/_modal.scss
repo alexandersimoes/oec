@@ -99,7 +99,7 @@
   h3 {
     color: $darkbackground;
     font-size: 16px;
-    @include margin(10px 0, 5px, 0);
+    @include margin(10px, 0, 5px, 0);
 
     &:first-child {
     @include margin(0, 0, 0, 0);

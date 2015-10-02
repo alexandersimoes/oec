@@ -1153,6 +1153,7 @@ body.home {
   cursor: pointer;
   display: none;
   cursor: pointer;
+  margin: -15px 5px -15px 0 ;
   padding: 15px 15px 15px 15px ;
   z-index: 8; }
   @media all and (max-width: 950px) {
@@ -1783,6 +1784,7 @@ body.profile {
       -moz-box-shadow: none;
       box-shadow: none;
       border: none;
+      margin: 20px 0 0 0 ;
       width: 100%; }
       @media all and (max-width: 768px) {
         body.profile article.titled-section p img {
@@ -3359,7 +3361,8 @@ body.api {
   padding: 10px 20px 20px 20px ; }
   .modal-body h3 {
     color: #212831;
-    font-size: 16px; }
+    font-size: 16px;
+    margin: 10px 0 5px 0 ; }
     .modal-body h3:first-child {
       margin: 0 0 0 0 ; }
   .modal-body input {

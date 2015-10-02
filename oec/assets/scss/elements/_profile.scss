@@ -681,7 +681,7 @@ body.profile {
     p img {
       @include shadow(none);
       border: none;
-      @include margin(20px 0, 0, 0);
+      @include margin(20px, 0, 0, 0);
       width: 100%;
 
       @media all and (max-width: 768px) {
