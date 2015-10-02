@@ -860,25 +860,39 @@ body.profile {
     }
 
     .depth8 {
-    ,  @include margin-left(20px);
+      @include margin-left(20px);
     }
   }
 
   article {
+
+    &.sisters {
+
+      h1 {
+        margin-bottom: 30px;
+      }
+
+    }
+
+    &.pantheon, &.dataviva {
+
+      h1 {
+        border-top: 0;
+        img {
+          width: $sidebar;
+        }
+      }
+
+    }
+
     &.dataviva {
       background: white url('/static/img/dataviva.png') repeat-x 0 0;
       color: $black;
 
-      h1 {
-        border-top: 0;
-      }
-
       p {
         color: $black;
-        a:hover {
-          border-bottom: 0;
-        }
       }
+
     }
 
     &.pantheon {
@@ -887,14 +901,13 @@ body.profile {
 
       p {
         color: $black;
-        a:hover {
-          border-bottom: 0;
-        }
       }
 
-      h1 {
-        border-top: 0;
+      content {
+        overflow: hidden;
       }
+
     }
+
   }
 }

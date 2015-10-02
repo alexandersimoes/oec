@@ -1962,25 +1962,25 @@ body.profile {
       body.profile ul.hierarchy .depth6 {
         margin-left: 10px ; }
         body.profile ul.hierarchy .depth8 {
-          ,  @include margin-left(20px); }
+          margin-left: 20px ; }
+  body.profile article.sisters h1 {
+    margin-bottom: 30px; }
+  body.profile article.pantheon h1, body.profile article.dataviva h1 {
+    border-top: 0; }
+    body.profile article.pantheon h1 img, body.profile article.dataviva h1 img {
+      width: 250px; }
   body.profile article.dataviva {
     background: white url('/static/img/dataviva.png') repeat-x 0 0;
     color: #333; }
-    body.profile article.dataviva h1 {
-      border-top: 0; }
-      body.profile article.dataviva p {
-        color: #333; }
-        body.profile article.dataviva p a:hover {
-          border-bottom: 0; }
+    body.profile article.dataviva p {
+      color: #333; }
   body.profile article.pantheon {
     background-color: #F9F6E3;
     color: #333; }
     body.profile article.pantheon p {
       color: #333; }
-      body.profile article.pantheon p a:hover {
-        border-bottom: 0; }
-    body.profile article.pantheon h1 {
-      border-top: 0; }
+      body.profile article.pantheon content {
+        overflow: hidden; }
 body.visualize {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
@@ -2146,7 +2146,7 @@ body.visualize {
         opacity: 0.7;
         text-transform: uppercase; }
         body.visualize aside#explorer .app_button_group .app_button img {
-          ,  @include margin-right(3px);
+          margin-right: 3px ;
           width: 15px; }
           body.visualize aside#explorer .app_button_group .app_button:hover {
             cursor: pointer;
@@ -2242,7 +2242,7 @@ body.visualize {
                 opacity: 0.7;
                 position: absolute;
                 margin-top: 0px;
-                ,  @include margin-left(-10px); }
+                margin-left: -10px ; }
         body.visualize aside#explorer .app_menu .build.new {
           -webkit-justify-content: flex-start;
           -moz-justify-content: flex-start;
@@ -2425,7 +2425,7 @@ body.visualize {
           font-size: 13px;
           margin: 20px 0 20px 0 ;
           padding: 6px 10px 6px 10px ;
-          ,  @include text-align(right);
+          text-align: right ;
           text-transform: uppercase;
           width: 100%; }
           body.visualize aside#explorer #changers #build.hover {
@@ -2620,7 +2620,7 @@ body.visualize {
                               background-size: 15px 15px;
                               content: "";
                               display: block;
-                              ,  @include margin-right(8px);
+                              margin-right: 8px ;
                               left: -15px;
                               width: 15px;
                               height: 15px;

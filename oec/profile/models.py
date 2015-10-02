@@ -326,6 +326,11 @@ class Country(Profile):
                 ps_section["builds"].append({"title": _(u"Economic Complexity Ranking"), "build": line_rankings, "subtitle": subtitle})
         sections.append(ps_section)
 
+        sections.append({
+            "title": _(u"More on %(country)s from our sister sites", country=self.attr.get_name(article=True)),
+            "source": "sisters"
+        })
+
         ''' DataViva
         '''
         dv_country_id = "asrus" if self.attr.id == "eurus" else self.attr.id
@@ -333,16 +338,15 @@ class Country(Profile):
         dv_munic_origin_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false".format(dv_country_id)
         dv_munic_dest_subtitle = _(u"""
             This treemap shows the municipalities in Brazil that imported products from %(country)s.<br /><br />
-            DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
-            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
+            DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.
+            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'>Explore on DataViva &raquo;</a>
             """, country=self.attr.get_name(article=True), dv_country_id=dv_country_id)
         dv_munic_origin_subtitle = _(u"""
-            This treemap shows the municipalities in Brazil that exported products to %(country)s.<br /><br />
-            DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
-            <a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
+            This treemap shows the municipalities in Brazil that exported products to %(country)s.
+            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Explore on DataViva &raquo;</a>
             """, country=self.attr.get_name(article=True), dv_country_id=dv_country_id)
         dv_section = {
-            "title": u"More on {} from our sister sites".format(self.attr.get_name(article=True)),
+            "title": u"<a href='http://dataviva.info/' target='_blank'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>",
             "source": "dataviva",
             "builds": [
                 {"title": _(u"Brazilian Municipalities that import from %(country)s", country=self.attr.get_name(article=True)), "iframe": dv_munic_dest_iframe, "subtitle": dv_munic_dest_subtitle, "tour":"Profile pages also contain visualizations from other websites created by member of the OEC team. The following are 2 embeded visualization from DataViva, a similar visualization platorm centered around Brazilian data.", "seq":7},
@@ -355,14 +359,14 @@ class Country(Profile):
         '''
         if self.attr.id_2char:
             pantheon_iframe = "http://pantheon.media.mit.edu:5000/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/embed".format(self.attr.id_2char.upper())
-            pantheon_link = "<a target='_blank' href='http://pantheon.media.mit.edu:5000/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/'><img src='http://pantheon.media.mit.edu/pantheon_logo.png' /></a>".format(self.attr.id_2char.upper())
+            pantheon_link = "<a target='_blank' href='http://pantheon.media.mit.edu/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/'>Explore on Pantheon &raquo;</a>".format(self.attr.id_2char.upper())
             pantheon_section = {
-                "title": "Pantheon",
+                "title": "<a target='_blank' href='http://pantheon.media.mit.edu'><img src='http://pantheon.media.mit.edu/pantheon_logo.png' />",
                 "source": "pantheon",
                 "builds": [
                     {"title": _(u"Cultural Production %(of_country)s", of_country=self.attr.get_name(article="of")),
                     "iframe": pantheon_iframe,
-                    "subtitle": _(u"This treemap shows the cultural exports %(of_country)s, as proxied by the production of globally famous historical characters.<br />%(pantheon_link)s", of_country=self.attr.get_name(article="of"), pantheon_link=pantheon_link),
+                    "subtitle": _(u"This treemap shows the cultural exports %(of_country)s, as proxied by the production of globally famous historical characters.</p><p>%(pantheon_link)s", of_country=self.attr.get_name(article="of"), pantheon_link=pantheon_link),
                     "tour":"Pantheon...", "seq":8
                     },
                 ]

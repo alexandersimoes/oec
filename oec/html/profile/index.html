@@ -141,7 +141,7 @@
 <article class="titled-section{% if section.source %} {{ section.source }}{% endif %}">
   {% set title = section.title %}
   {% endif %}
-  <h1>{{ section.title }}</h1>
+  <h1>{{ section.title|safe }}</h1>
   {% if section.subtitle %}
   <section class="subtitle-section">
     <aside></aside>
@@ -436,20 +436,18 @@
       map.style("margin-top", "0px");
     }
 
-    var w = d3.select("content").node().offsetWidth,
-        h = window.innerWidth < 768 ? window.innerHeight : window.innerHeight * 0.7;
+    var h = window.innerWidth < 768 ? window.innerHeight : window.innerHeight * 0.7;
     builds.forEach(function(b, i){
+      var w = d3.select(b.container.node().parentNode).node().offsetWidth;
       var height = b.data && b.data.viz.slug === "network" ? window.innerWidth > 768 ? w * 0.7 : w : h * 0.9;
       b.container.style("height", height + "px");
       b.top = b.container.node().offsetTop;
       if (w !== b.width || h !== b.height) {
-        if (b.loaded) {
-          if (b.viz) {
-            b.viz.width(w).height(height).draw();
-          }
-          else {
-            b.container.style("width", w + "px");
-          }
+        if (b.viz) {
+          if (b.loaded) b.viz.width(w).height(height).draw();
+        }
+        else {
+          b.container.style("width", w + "px");
         }
         b.width = w;
         b.height = height;

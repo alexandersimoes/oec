@@ -169,7 +169,7 @@ body.visualize {
         text-transform: uppercase;
 
         img {
-        ,  @include margin-right(3px);
+          @include margin-right(3px);
           width: 15px;
         }
 
@@ -285,7 +285,7 @@ body.visualize {
                 opacity: 0.7;
                 position: absolute;
                 margin-top: 0px;
-              ,  @include margin-left(-10px);
+                @include margin-left(-10px);
               }
             }
 
@@ -702,7 +702,7 @@ body.visualize {
         font-size: 13px;
         @include margin(20px, 0, 20px, 0);
         @include padding(6px, 10px, 6px, 10px);
-      ,  @include text-align(right);
+        @include text-align(right);
         text-transform: uppercase;
         width: 100%;
 
@@ -1001,7 +1001,7 @@ body.visualize {
           background-size: 15px 15px;
           content: "";
           display: block;
-        ,  @include margin-right(8px);
+          @include margin-right(8px);
           @include left(-15px);
           width: 15px;
           height: 15px;
