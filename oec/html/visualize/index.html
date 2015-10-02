@@ -31,6 +31,15 @@
 
 <a id="collapse"><i class="fa fa-toggle-on"></i>Controls</a>
 
+<div id="visualize_share">
+  <a href="{{ current_build.facebook_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Facebook">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a href="{{ current_build.twitter_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Twitter">
+    <i class="fa fa-twitter"></i>
+  </a>
+</div>
+
 <section>
 
 <aside id="explorer">
@@ -150,6 +159,15 @@
 
 {% block js %}
 <script>
+
+  var share_links = {
+    "facebook": "{{ current_build.facebook_url() }}",
+    "twitter": "{{ current_build.twitter_url() }}"
+  }
+
+  d3.selectAll(".visualize_share").on("click", function(){
+
+  });
 
   d3.selectAll(".app_button").on(d3plus.client.pointer.click, function(){
     var app = d3.select(this).attr("data-app");

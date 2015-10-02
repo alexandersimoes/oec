@@ -239,7 +239,7 @@ ul.navLinks {
                 display: block; }
                 ul.navLinks li .sub_menu ul li {
                   display: block;
-                  font-size: 11px !important;
+                  font-size: 11px;
                   padding: 5px 10px; }
                   ul.navLinks li .sub_menu ul li:hover {
                     opacity: 0.9; }
@@ -1993,84 +1993,96 @@ body.visualize {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased; }
-  body.visualize #content #main_viz {
-    margin: 0 20px 0 -15px !important; }
-    @media all and (max-width: 768px) {
+  body.visualize #visualize_share {
+    position: fixed;
+    right: 13px;
+    top: 54px;
+    z-index: 21; }
+    body.visualize #visualize_share a {
+      font-size: 15px;
+      padding: 7px; }
+  body.visualize nav {
+    padding-bottom: 30px; }
+    body.visualize #container {
+      margin-top: 75px; }
       body.visualize #content #main_viz {
-        margin: 0 !important;   }
-}
-      body.visualize #content #main_viz .nav-section {
-        -webkit-justify-content: center;
-        -moz-justify-content: center;
-        justify-content: center;
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-flex-direction: row;
-        -moz-flex-direction: row;
-        flex-direction: row;
-        -webkit-justify-content: space-between;
-        -moz-justify-content: space-between;
-        justify-content: space-between;
-        -webkit-align-items: baseline;
-        align-items: baseline;
-        padding: 10px 0;
-        margin: 0 !important; }
+        margin: 0 20px 0 -15px !important; }
         @media all and (max-width: 768px) {
-          body.visualize #content #main_viz .nav-section {
-            padding: 0 0 10px;   }
+          body.visualize #content #main_viz {
+            margin: 0 !important;   }
 }
-          body.visualize #content #main_viz .nav-section aside {
-            width: auto !important;
-            margin: 0; }
-            body.visualize #content #main_viz .nav-section aside a {
-              color: #99BCD1; }
-              body.visualize #content #main_viz .nav-section aside a i {
-                margin-top: 3px; }
-                body.visualize #content #main_viz .nav-section aside a h2.year-nav {
-                  -webkit-transition: opacity 0.6s;
-                  -moz-transition: opacity 0.6s;
-                  -ms-transition: opacity 0.6s;
-                  -o-transition: opacity 0.6s;
-                  transition: opacity 0.6s;
-                  font-weight: 400;
-                  font-size: 26px;
-                  opacity: 0.6; }
-                  body.visualize #content #main_viz .nav-section aside a h2.year-nav:hover {
-                    opacity: 1; }
-                    @media all and (min-width: 860px) and (max-width: 960px) {
-                      body.visualize #content #main_viz .nav-section aside a h2.year-nav {
+          body.visualize #content #main_viz .nav-section {
+            -webkit-justify-content: center;
+            -moz-justify-content: center;
+            justify-content: center;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: row;
+            -moz-flex-direction: row;
+            flex-direction: row;
+            -webkit-justify-content: space-between;
+            -moz-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-align-items: baseline;
+            align-items: baseline;
+            padding: 10px 0;
+            margin: 0 !important; }
+            @media all and (max-width: 768px) {
+              body.visualize #content #main_viz .nav-section {
+                padding: 0 0 10px;   }
+}
+              body.visualize #content #main_viz .nav-section aside {
+                width: auto !important;
+                margin: 0; }
+                body.visualize #content #main_viz .nav-section aside a {
+                  color: #99BCD1; }
+                  body.visualize #content #main_viz .nav-section aside a i {
+                    margin-top: 3px; }
+                    body.visualize #content #main_viz .nav-section aside a h2.year-nav {
+                      -webkit-transition: opacity 0.6s;
+                      -moz-transition: opacity 0.6s;
+                      -ms-transition: opacity 0.6s;
+                      -o-transition: opacity 0.6s;
+                      transition: opacity 0.6s;
+                      font-weight: 400;
+                      font-size: 26px;
+                      opacity: 0.6; }
+                      body.visualize #content #main_viz .nav-section aside a h2.year-nav:hover {
+                        opacity: 1; }
+                        @media all and (min-width: 860px) and (max-width: 960px) {
+                          body.visualize #content #main_viz .nav-section aside a h2.year-nav {
+                            font-size: 22px;   }
+}
+                          @media all and (min-width: 501px) and (max-width: 859px) {
+                            body.visualize #content #main_viz .nav-section aside a h2.year-nav {
+                              font-size: 17px;   }
+}
+                            @media all and (max-width: 500px) {
+                              body.visualize #content #main_viz .nav-section aside a h2.year-nav {
+                                font-size: 14px;   }
+}
+            body.visualize #content #main_viz .nav-section content {
+              margin: 0; }
+              body.visualize #content #main_viz .nav-section content h1 {
+                text-align: center; }
+                @media all and (min-width: 920px) and (max-width: 1090px) {
+                  body.visualize #content #main_viz .nav-section content h1 {
+                    font-size: 30px;   }
+}
+                  @media all and (min-width: 860px) and (max-width: 919px) {
+                    body.visualize #content #main_viz .nav-section content h1 {
+                      font-size: 26px;   }
+}
+                    @media all and (min-width: 501px) and (max-width: 859px) {
+                      body.visualize #content #main_viz .nav-section content h1 {
                         font-size: 22px;   }
 }
-                      @media all and (min-width: 501px) and (max-width: 859px) {
-                        body.visualize #content #main_viz .nav-section aside a h2.year-nav {
-                          font-size: 17px;   }
-}
-                        @media all and (max-width: 500px) {
-                          body.visualize #content #main_viz .nav-section aside a h2.year-nav {
-                            font-size: 14px;   }
-}
-        body.visualize #content #main_viz .nav-section content {
-          margin: 0; }
-          body.visualize #content #main_viz .nav-section content h1 {
-            text-align: center; }
-            @media all and (min-width: 920px) and (max-width: 1090px) {
-              body.visualize #content #main_viz .nav-section content h1 {
-                font-size: 30px;   }
-}
-              @media all and (min-width: 860px) and (max-width: 919px) {
-                body.visualize #content #main_viz .nav-section content h1 {
-                  font-size: 26px;   }
-}
-                @media all and (min-width: 501px) and (max-width: 859px) {
-                  body.visualize #content #main_viz .nav-section content h1 {
-                    font-size: 22px;   }
-}
-                  @media all and (max-width: 500px) {
-                    body.visualize #content #main_viz .nav-section content h1 {
-                      font-size: 18px;   }
+                      @media all and (max-width: 500px) {
+                        body.visualize #content #main_viz .nav-section content h1 {
+                          font-size: 18px;   }
 }
   body.visualize #collapse {
     -webkit-transition: opacity 0.1s;
@@ -2083,7 +2095,7 @@ body.visualize {
     left: 20px;
     opacity: 0.7;
     position: fixed;
-    top: 57px;
+    top: 55px;
     z-index: 21; }
     body.visualize #collapse i {
       font-size: 16px;
@@ -2094,7 +2106,7 @@ body.visualize {
         @media all and (max-width: 950px) {
           body.visualize #collapse {
             left: 15px;
-            top: 45px;   }
+            top: 53px;   }
 }
   body.visualize aside#explorer {
     -webkit-transition: margin-left 0.5s;
