@@ -4,9 +4,9 @@
     @include transition(opacity 0.1s);
     color: $blue;
     display: inline-block;
-    margin: 10px 20px 0 0;
+    @include margin(10px, 20px, 0, 0);
     opacity: 0.8;
-    text-align: center;
+    @include text-align(center);
     width: 20px;
 
     &:hover {
@@ -32,7 +32,7 @@
   font-weight: 100;
   text-decoration: none;
   position: absolute;
-  right: 10px;
+  @include right(10px);
   top: 2px;
 
   &:hover {
@@ -45,7 +45,7 @@
 
   &#download {
     .modal-body {
-      text-align: center;
+    @include text-align(center);
     }
   }
 
@@ -53,8 +53,8 @@
     @include transform(translate(0, -500%));
     @include shadow();
     background-color: white;
-    left: 50%;
-    margin-left: -200px;
+    @include left(50%);
+    @include margin-left(-200px);
     position: fixed;
     top: -100%;
     width: 400px;
@@ -65,7 +65,7 @@
             transition: transform 0.3s ease-out;
 
     @media all and (max-width: 480px) {
-      margin-left: -125px;
+      @include margin-left(-125px);
       width: 250px;
     }
 
@@ -87,34 +87,34 @@
 }
 
 .modal-header {
-  padding: 10px 20px 0 20px;
+  @include padding(10px, 20px, 0, 20px);
   h2 {
     color: $blue;
   }
 }
 
 .modal-body {
-  padding: 10px 20px 20px 20px;
+  @include padding(10px, 20px, 20px, 20px);
 
   h3 {
     color: $darkbackground;
     font-size: 16px;
-    margin: 10px 0 5px 0;
+    @include margin(10px 0, 5px, 0);
 
     &:first-child {
-      margin: 0;
+    @include margin(0, 0, 0, 0);
     }
 
   }
 
   input {
-    border: solid 1px rgb(236, 236, 236);
+    border: solid 1px, rgb(236, 236, 236);
     color: #888;
     font-size: 12px;
     letter-spacing: 1px;
-    margin: 5px 0;
+    @include margin(5px, 0, 5px, 0);
     overflow: hidden;
-    padding: 3px;
+    @include padding(3px, 3px, 3px, 3px);
     width: 100%;
 
     &:focus {
@@ -129,7 +129,7 @@
     color: black;
     display: inline-block;
     font-size: 20px;
-    margin: 20px 20px 10px 16px;
+    @include margin(20px, 20px, 10px, 16px);
     opacity: 0.8;
     text-decoration: none;
 

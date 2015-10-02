@@ -9,13 +9,13 @@ body.visualize {
 
   #visualize_share {
     position: fixed;
-    right: 13px;
+    @include right(13px);
     top: $header - 11;
     z-index: 21;
 
     a {
       font-size: 15px;
-      padding: 7px;
+      @include padding(7px, 7px, 7px, 7px);
     }
 
   }
@@ -30,10 +30,10 @@ body.visualize {
 
   #content #main_viz {
 
-    margin: 0 20px 0 -15px !important;
+    @include, margin(0, 20px, 0, -15px, !important);
 
     @media all and (max-width: 768px) {
-      margin: 0 !important;
+      @include margin(0, 0, 0, 0, !important);
     }
 
     .nav-section {
@@ -41,17 +41,17 @@ body.visualize {
       @include flex-direction(row);
       @include justify(space-between);
       @include align-items(baseline);
-      padding: 10px 0;
-      margin: 0 !important;
+      @include padding(10px, 0, 10px, 0);
+      @include, margin(0, 0, 0, 0, !important);
 
       @media all and (max-width: 768px) {
-        padding: 0 0 10px;
+        @include padding(0, 0, 10px, 0);
       }
 
       aside {
         @include flex(1 auto);
         width: auto !important;
-        margin: 0;
+        @include margin(0, 0, 0, 0);
 
         a {
           color: $lightlinkcolor;
@@ -86,10 +86,10 @@ body.visualize {
       }
 
       content {
-        margin: 0;
+        @include margin(0, 0, 0, 0);
 
         h1 {
-          text-align: center;
+          @include text-align(center);
 
           @media all and (min-width: 920px) and (max-width: 1090px) {
             font-size: 30px;
@@ -112,7 +112,7 @@ body.visualize {
     @include transition(opacity 0.1s);
     color: white;
     font-size: 12px;
-    left: 20px;
+    @include left(20px);
     opacity: 0.7;
     position: fixed;
     top: $header - 10;
@@ -120,7 +120,7 @@ body.visualize {
 
     i {
       font-size: 16px;
-      margin-right: 4px;
+      @include margin-right(4px);
     }
 
     &:hover {
@@ -129,25 +129,25 @@ body.visualize {
     }
 
     @media all and (max-width: 950px) {
-      left: 15px;
+      @include left(15px);
       top: $header - 12;
     }
   }
 
   aside#explorer {
-    @include transition(margin-left 0.5s);
-    margin: 30px 35px 0 20px !important;
+    @include transition(margin-left, 0.5s);
+    @include, margin(30px, 35px, 0, 20px, !important);
 
     &.small {
-      margin-left: -$sidebar !important;
+      @include margin-left(-$sidebar !important);
     }
 
     @media all and (max-width: 768px) {
-      margin: 0 20px !important;
+      @include margin(0, 20px, 0, 20px, !important);
 
       &.small {
         display: none;
-        margin-left: 20px !important;
+        @include margin-left(20px !important);
       }
 
     }
@@ -164,12 +164,12 @@ body.visualize {
         display: inline-block;
         font-family: $montserrat;
         font-size: 14px;
-        padding: 5px;
+        @include padding(5px, 5px, 5px, 5px);
         opacity: 0.7;
         text-transform: uppercase;
 
         img {
-          margin-right: 3px;
+        ,  @include margin-right(3px);
           width: 15px;
         }
 
@@ -196,7 +196,7 @@ body.visualize {
       display: none;
       margin-top: -1px;
       margin-bottom: 5px;
-      padding: 10px;
+      @include padding(10px, 10px, 10px, 10px);
 
       &.open {
         display: block;
@@ -204,19 +204,19 @@ body.visualize {
 
       h3 {
         font-size: 16px;
-        margin: 35px 0 20px;
+        @include margin(35px, 0, 20px, 0);
       }
 
       h4 {
         color: $medbordercolor;
         font-size: 13px;
         font-weight: 400;
-        margin: 0 0 10px;
+        @include margin(0, 0, 10px, 0);
         display: none;
       }
 
       .build_header {
-        margin-left: -5px;
+        @include margin-left(-5px);
 
         li {
           color: $lightbordercolor;
@@ -225,7 +225,7 @@ body.visualize {
           font-weight: 700;
           display: inline-block;
           width: 32px;
-          text-align: center;
+          @include text-align(center);
         }
       }
 
@@ -234,7 +234,7 @@ body.visualize {
         font-family: $source-sans;
         font-size: 12px;
         font-weight: 400;
-        margin: 0 0 10px;
+        @include margin(0, 0, 10px, 0);
 
         &:last-child {
           margin-bottom: 0;
@@ -272,7 +272,7 @@ body.visualize {
                 font-family: FontAwesome;
                 position: absolute;
                 margin-top: 0px;
-                margin-left: -10px;
+                @include margin-left(-10px);
               }
             }
 
@@ -280,12 +280,12 @@ body.visualize {
               opacity: 0.9;
 
               &:before {
-                content: unicode("f0da");
+             ,   content: unicode("f0da");
                 font-family: FontAwesome;
                 opacity: 0.7;
                 position: absolute;
                 margin-top: 0px;
-                margin-left: -10px;
+              ,  @include margin-left(-10px);
               }
             }
 
@@ -299,7 +299,7 @@ body.visualize {
         &.new {
           @include justify(flex-start);
           @include align-items(center);
-          margin: 0 0 12px !important;
+          @include margin(0, 0, 12px, 0, !important);
 
           .export ~ .build_link.active {
             //color: cornflowerblue;
@@ -328,7 +328,7 @@ body.visualize {
             //   opacity: 0.7;
             //   position: absolute;
             //   margin-top: 2px;
-            //   margin-left: -10px;
+            //   @include margin-left(-10px);
             // }
           }
 
@@ -339,13 +339,13 @@ body.visualize {
               opacity: 0.4;
               position: absolute;
               margin-top: 2px;
-              margin-left: -10px;
+              @include margin-left(-10px);
             }
           }
 
           .build_icons {
-            margin-left: -5px;
-            margin-right: 8px;
+            @include margin-left(-5px);
+            @include margin-right(8px);
             min-width: 103px;
 
             // This is the overall style for all build icons. They get
@@ -353,9 +353,9 @@ body.visualize {
             .build_icon {
               height: 13px;
               display: inline-block;
-              margin: 0 auto;
+              @include margin(0, auto, 0, auto);
               position: relative;
-              text-align: center;
+              @include text-align(center);
               width: 32px;
 
               // These are the 3 shared classes each different value a type can
@@ -368,7 +368,7 @@ body.visualize {
                   color: #fff;
                   border: 1px solid $pri-c-highlight;
                   border-radius: 50%;
-                  padding: 4px;
+                  @include padding(4px, 4px, 4px, 4px);
                 }
               }
               &.all {
@@ -419,13 +419,13 @@ body.visualize {
                 &.show {
                   &:before {
                     // institution
-                    content: unicode("f0ac");
+                 ,   content: unicode("f0ac");
                   }
                 }
                 &.all {
                   &:before {
                     // globe
-                    content: unicode("f0ac");
+                  content: unicode("f0ac");
                     font-size: 15px;
                   }
                 }
@@ -493,13 +493,13 @@ body.visualize {
                   &:after {
                     @include transform(scaleX(-1));
                     background-image: url('/static/img/visualize/one_many_exp.png');
-                    right: -8px;
+                    @include right(-8px);
                   }
 
                   & + .dest.all {
                     &:after {
                       //background-image: url('/static/img/visualize/many_one_exp.png') !important;
-                      left: -8px;
+                      @include left(-8px);
                     }
                   }
                 }
@@ -507,13 +507,13 @@ body.visualize {
                 & + .prod.id, & + .prod.all {
                   &:after {
                     background-image: url('/static/img/visualize/one_one_exp.png');
-                    right: -8px;
+                    @include right(-8px);
                   }
 
                   & + .dest.show {
                     &:after {
                       background-image: url('/static/img/visualize/one_many_exp.png') !important;
-                      left: -8px;
+                      @include left(-8px);
                     }
                   }
                 }
@@ -521,13 +521,13 @@ body.visualize {
                 & ~ .dest.id {
                   &:after {
                     background-image: url('/static/img/visualize/one_one_exp.png') !important;
-                    left: -8px;
+                    @include left(-8px);
                   }
 
                   & ~ .prod.show {
                     &:after {
                       background-image: url('/static/img/visualize/one_one_exp.png') !important;
-                      left: -8px;
+                      @include left(-8px);
                     }
                   }
                 }
@@ -538,13 +538,13 @@ body.visualize {
                   &:after {
                     @include transform(scaleX(-1));
                     background-image: url('/static/img/visualize/many_one_exp.png');
-                    right: -8px;
+                    @include right(-8px);
                   }
 
                   & + .dest.all {
                     &:after {
                       background-image: url('/static/img/visualize/one_one_exp.png') !important;
-                      left: -8px;
+                      @include left(-8px);
                     }
                   }
                 }
@@ -579,13 +579,13 @@ body.visualize {
                 & + .prod.show {
                   &:after {
                     background-image: url('/static/img/visualize/one_many_imp.png');
-                    left: -8px;
+                    @include left(-8px);
                   }
 
                   & + .dest.all {
                     &:after {
                       //background-image: url('/static/img/visualize/many_one_imp.png') !important;
-                      left: -8px;
+                      @include left(-8px);
                     }
                   }
                 }
@@ -593,13 +593,13 @@ body.visualize {
                 & + .prod.id, & + .prod.all {
                   &:after {
                     background-image: url('/static/img/visualize/one_one_imp.png');
-                    left: -8px;
+                    @include left(-8px);
                   }
 
                   & + .dest.show {
                     &:after {
                       background-image: url('/static/img/visualize/one_many_imp.png') !important;
-                      left: -8px;
+                      @include left(-8px);
                     }
                   }
                 }
@@ -607,13 +607,13 @@ body.visualize {
                 & ~ .dest.id {
                   &:after {
                     background-image: url('/static/img/visualize/one_one_imp.png') !important;
-                    left: -8px;
+                    @include left(-8px);
                   }
 
                   & ~ .prod.show {
                     &:after {
                       background-image: url('/static/img/visualize/one_one_imp.png') !important;
-                      left: -8px;
+                      @include left(-8px);
                     }
                   }
                 }
@@ -623,13 +623,13 @@ body.visualize {
                 & + .prod.id {
                   &:after {
                     background-image: url('/static/img/visualize/many_one_imp.png');
-                    left: -8px;
+                    @include left(-8px);
                   }
 
                   & + .dest.all {
                     &:after {
                       background-image: url('/static/img/visualize/one_one_imp.png') !important;
-                      left: -8px;
+                      @include left(-8px);
                     }
                   }
                 }
@@ -668,7 +668,7 @@ body.visualize {
 
       h3 {
         font-size: 16px;
-        margin: 25px 0 5px;
+        @include margin(25px, 0, 5px, 0);
       }
 
       h4 {
@@ -679,7 +679,7 @@ body.visualize {
       }
 
       .ui {
-        margin: 12px 0 0 0;
+        @include margin(12px, 0, 0, 0);
 
         .d3plus_node {
           border-color: rgba(255,255,255,0.4) !important;
@@ -700,9 +700,9 @@ body.visualize {
         display: block;
         font-family: $montserrat;
         font-size: 13px;
-        margin: 20px 0;
-        padding: 6px 10px;
-        text-align: right;
+        @include margin(20px, 0, 20px, 0);
+        @include padding(6px, 10px, 6px, 10px);
+      ,  @include text-align(right);
         text-transform: uppercase;
         width: 100%;
 
@@ -751,9 +751,9 @@ body.visualize {
     @include transition(opacity 0.1s);
     color: $black;
     display: block;
-    margin: 10px 0 0 0;
+    @include margin(10px, 0, 0, 0);
     opacity: 0.75;
-    padding: 14px 24px 6px 4px;
+    @include padding(14px, 24px, 6px, 4px);
     position: relative;
     text-decoration: none;
     font-size: 13px;
@@ -774,14 +774,14 @@ body.visualize {
         font-weight: normal;
         line-height: 38px;
         position: absolute;
-        right: 12px;
+        @include right(12px);
         text-decoration: inherit;
     }
 
   }
 
   .d3plus_tooltip_container a.related {
-    padding: 6px 24px 6px 40px;
+    @include padding(6px, 24px, 6px, 40px);
 
     &:before {
       font-size: 12px;
@@ -792,9 +792,9 @@ body.visualize {
       content: "";
       display: block;
       height: 100%;
-      left: 0px;
+      @include left(0px);
       position: absolute;
-      text-align: center;
+      @include text-align(center);
       text-decoration: none;
       top: 0px;
       width: 38px;
@@ -803,7 +803,7 @@ body.visualize {
       background-image: url("/static/img/icons/app/app_tree_map_black.png");
     }
     &.rings:before {
-      background-image: url("/static/img/icons/app/app_rings_black.png");
+   background-image: url("/static/img/icons/app/app_rings_black.png");
     }
 
   }
@@ -814,7 +814,7 @@ body.visualize {
 
   .d3plus_tooltip_container a.profile img {
     width: 30px;
-    margin: -8px 6px 0 0;
+    @include margin(-8px, 6px, 0, 0);
   }
 }
 
@@ -864,21 +864,21 @@ body.visualize {
     color: #fff !important;
     font-size: 20px !important;
     line-height: 1.3 !important;
-    padding: 10px 6px !important;
+    @include padding(10px, 6px, 10px, 6px, !important);
   }
 
   .d3plus_tooltip_data_title {
     font-size: 18px !important;
     font-weight: 300 !important;
     color: #fff;
-    padding: 10px 3px 5px !important;
+    @include padding(10px, 3px, 5px, 3px, !important);
   }
 
   .d3plus_tooltip_focus_link {
     font-size: 14px;
     line-height: 1.2;
     width: 100%;
-    padding-left: 27px !important;
+    @include padding-left(27px !important);
 
     div {
       height: 16px !important;
@@ -893,7 +893,7 @@ body.visualize {
   .d3plus_tooltip_data_block {
     color: #ccc !important;
     font-size: 14px !important;
-    padding: 5px 6px !important;
+    @include padding(5px, 6px, 5px, 6px, !important);
 
     .d3plus_tooltip_data_name {
       font-weight: 400;
@@ -904,8 +904,8 @@ body.visualize {
       img {
         width: 40%;
         display: block;
-        text-align: center;
-        margin: 0 auto;
+        @include text-align(center);
+        @include margin(0, auto, 0, auto);
       }
 
       a {
@@ -921,13 +921,13 @@ body.visualize {
           font-size: 18px;
           font-weight: 400;
           margin-bottom: 10px;
-          text-align: center;
+          @include text-align(center);
         }
 
         &.related {
           font-size: 14px;
           line-height: 1.3;
-          padding: 6px 0;
+          @include padding(6px, 0, 6px, 0);
         }
       }
 
@@ -943,8 +943,8 @@ body.visualize {
     img {
         width: 20%;
         display: block;
-        text-align: center;
-        margin: 0 auto;
+        @include text-align(center);
+        @include margin(0, auto, 0, auto);
       }
 
     a {
@@ -960,13 +960,13 @@ body.visualize {
         font-size: 18px;
         font-weight: 400;
         margin-bottom: 10px;
-        text-align: center;
+        @include text-align(center);
       }
 
       &.related {
         font-size: 14px;
         line-height: 1.3;
-        padding: 6px 0 6px 3px;
+        @include padding(6px, 0, 6px, 3px);
 
         &.tree_map:before {
           background-image: url("/static/img/icons/app/app_tree_map.png");
@@ -993,7 +993,7 @@ body.visualize {
         }
 
         &.scatter:before {
-          background-image: url("/static/img/icons/app/app_scatter.png");
+       background-image: url("/static/img/icons/app/app_scatter.png");
         }
 
         &:before {
@@ -1001,8 +1001,8 @@ body.visualize {
           background-size: 15px 15px;
           content: "";
           display: block;
-          margin-right: 8px;
-          left: -15px;
+        ,  @include margin-right(8px);
+          @include left(-15px);
           width: 15px;
           height: 15px;
           position: absolute;
@@ -1015,7 +1015,7 @@ body.visualize {
 
   .d3plus_tooltip_close {
     top: 15px !important;
-    right: 15px !important;
+    @include right(15px !important);
     color: #ccc !important;
     font-size: 35px !important;
     font-weight: 300 !important;

@@ -10,17 +10,17 @@ body.rankings {
       @include flex-direction(row);
       @include justify(space-between);
       @include align-items(baseline);
-      padding: 30px 0 10px;
-      margin: 0 30px !important;
+      @include padding(30px, 0, 10px, 0);
+      @include margin(0, 30px, 0, 30px, !important);
 
       @media all and (min-width: 1100px) {
         max-width: 1058px;
-        margin: 0 auto !important;
+        @include margin(0, auto, 0, auto, !important);
       }
 
       @media all and (max-width: 550px) {
-        padding: 30px 0;
-        margin: 0 15px !important;
+        @include padding(30px, 0, 30px, 0);
+        @include margin(0, 15px, 0, 15px, !important);
       }
 
       @media all and (max-width: 768px) {
@@ -30,7 +30,7 @@ body.rankings {
       aside {
         @include flex(1 auto);
         width: auto !important;
-        margin: 0;
+        @include margin(0, 0, 0, 0);
 
         a {
           color: $lightlinkcolor;
@@ -59,13 +59,13 @@ body.rankings {
         }
 
         &:last-child {
-          text-align: right;
+          @include text-align(right);
         }
 
       }
 
       content {
-        text-align: center;
+        @include text-align(center);
 
         h1 a.complexity_switch {
           border-bottom: 1px solid $l2-darkbackground;
@@ -78,9 +78,9 @@ body.rankings {
             font-family: FontAwesome;
             font-size: 20px;
             top: 15px;
-            left: -25px;  
+            @include left(-25px);
           }
-          
+
           &:hover {
             color: $lightlinkcolor;
             &:before {
@@ -102,7 +102,7 @@ body.rankings {
               color: $l2-darkbackground;
               font-size: 16px;
               top: 10px;
-              left: -21px; 
+              @include left(-21px);
             }
           }
         }
@@ -115,7 +115,7 @@ body.rankings {
               color: $darkbordercolor;
               font-size: 10px;
               top: 8px;
-              left: -15px; 
+              @include left(-15px);
             }
           }
         }
@@ -127,9 +127,9 @@ body.rankings {
     }
 
     #explorer {
-      margin-left: -155px;
+      @include margin-left(-155px);
         @media all and (max-width: 1175px) {
-          margin: 0 30px 20px;
+          @include margin(0, 30px, 20px, 30px);
         }
 
       & ~ content {
@@ -144,7 +144,7 @@ body.rankings {
 
         h3 {
           font-size: $font-size;
-          margin: 13px 0 6px;
+          @include margin(13px, 0, 6px, 0);
         }
 
         .change_dataset {
@@ -168,8 +168,8 @@ body.rankings {
           font-size: 12px;
           font-weight: 200;
           height: 15px;
-          margin: 0 0 15px;
-          padding: 5px;
+          @include margin(0, 0, 15px, 0);
+          @include padding(5px, 5px, 5px, 5px);
           top: $font-size + 3;
           position: relative;
 
@@ -179,7 +179,7 @@ body.rankings {
           }
 
           i {
-            margin-right: 2px;
+            @include margin-right(2px);
             margin-top: 1px;
           }
 
@@ -203,7 +203,7 @@ body.rankings {
       margin-bottom: 20px;
 
       a {
-        margin-left: 7px;
+        @include margin-left(7px);
         color: white;
         font-weight: 700;
 
@@ -212,7 +212,7 @@ body.rankings {
           &:after {
             content: unicode("f105");
             font-family: FontAwesome;
-            padding-left: 7px;
+            @include padding-left(7px);
           }
         }
       }
@@ -223,7 +223,7 @@ body.rankings {
         i {
           @include transition(opacity 0.1s);
           display: inline-block;
-          margin-left: 5px;
+          @include margin-left(5px);
           padding-top: 3px;
           opacity: 0.5;
 
@@ -261,12 +261,12 @@ body.rankings {
 
       .rank {
         font-weight: bold;
-        text-align: center;
+        @include text-align(center);
         width: 50px;
       }
 
       .delta {
-        text-align: left;
+        @include text-align(left);
         width: 50px;
 
         .fa-caret-up {
@@ -280,7 +280,7 @@ body.rankings {
       }
 
       .id {
-        text-align: center;
+        @include text-align(center);
         width: 50px;
       }
 
@@ -289,7 +289,7 @@ body.rankings {
         @include align-items(center);
         @include justify(flex-start);
         img {
-          margin-right: 5px;
+          @include margin-right(5px);
           width: 20px;
         }
       }

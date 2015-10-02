@@ -2,8 +2,8 @@
   cursor: pointer;
   display: none;
   cursor: pointer;
-  margin: -15px 5px -15px 0;
-  padding: 15px;
+  @include margin(-15px 5px -15px, 0);
+  @include padding(15px, 15px, 15px, 15px);
   z-index: 8;
 
   @media all and (max-width: 950px) {
@@ -33,10 +33,10 @@
   bottom: 0;
   cursor: pointer;
   display: none;
-  left: 0;
+  @include left(0);
   opacity: 1;
   position: fixed;
-  right: 0;
+  @include right(0);
   top: 0;
   z-index: 30;
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ g.locale }}" {% if g.locale == 'ar' or g.locale == 'he' %}dir="rtl"{% endif %}>
+<html lang="{{ g.locale }}" dir="{{ g.dir }}">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@
 
     <link rel="shortcut icon" type="image/png" href="/static/img/favicon.ico?v=6">
 
-    <link type="text/css" rel="stylesheet" media="all" href="/static/css/oec.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="/static/css/oec-{{ g.dir }}.css" />
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/libs/font-awesome-4.3.0/css/font-awesome.min.css" />
     <link type="text/css" rel="stylesheet" media="all" href="/static/css/introjs.css" />
 
@@ -101,7 +101,7 @@
     {% endblock %}
 
   </head>
-  <body class="{% if g.page_type %}{{g.page_type}}{% endif %}{% if g.locale == 'ar' or g.locale == 'he' %} rtl{% endif %}">
+  <body class="{{ g.dir }}{% if g.page_type %} {{g.page_type}}{% endif %}">
 
     <form id="download" action="/en/visualize/download/" method="post">
       <div style="display:none;">

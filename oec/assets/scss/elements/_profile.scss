@@ -1,6 +1,6 @@
 body.profile.frozen {
   h1 {
-    margin: 0;
+    @include margin(0, 0, 0, 0);
     padding-top: 0;
   }
 }
@@ -10,11 +10,11 @@ body.profile {
 
   h1 {
     line-height: 1;
-    margin: 0 30px -5px;
+    @include margin(0, 30px, -5px, 30px);
     padding-top: 40px;
 
     @media all and (max-width: 768px) {
-      margin: 0px 30px;
+      @include margin(0px, 30px, 0px, 30px);
     }
   }
 
@@ -26,7 +26,7 @@ body.profile {
   article {
 
     aside {
-      margin: 30px !important;
+      @include margin(30px, 30px, 30px, 30px, !important);
 
       a.deep-link {
         @include transition(color 1s);
@@ -40,7 +40,7 @@ body.profile {
     }
 
     content {
-      margin: 30px !important;
+      @include margin(30px, 30px, 30px, 30px, !important);
     }
 
     &.intro-article {
@@ -49,7 +49,7 @@ body.profile {
 
       p {
         color: $black;
-        text-align: left;
+        @include text-align(left);
 
         a {
           color: $darklinkcolor;
@@ -94,7 +94,7 @@ body.profile {
     p img {
       @include shadow(none);
       border: none;
-      margin: 10px 0 0 0;
+      @include margin(10px, 0, 0, 0);
       width: 100%;
     }
 
@@ -102,7 +102,7 @@ body.profile {
       @include flex;
       @include align-items(center);
       @include flex-direction(row);
-      margin: 20px 10px;
+      @include margin(20px, 10px, 20px, 10px);
 
       @media all and (max-width: 768px) {
         @include justify(center);
@@ -111,7 +111,7 @@ body.profile {
       .icon {
         @include flex-size(none);
         height: 80px;
-        margin: 0 20px 0 0;
+        @include margin(0, 20px, 0, 0);
         width: 80px;
         z-index: 10;
 
@@ -124,8 +124,8 @@ body.profile {
 
       h1 {
         font-size: 65px;
-        margin: 0;
-        padding: 0;
+        @include margin(0, 0, 0, 0);
+        @include padding(0, 0, 0, 0);
 
         &:hover {
           cursor: pointer;
@@ -147,7 +147,7 @@ body.profile {
           @include transition(opacity 1s);
           opacity: 0;
           position: absolute;
-          margin-left: 15px;
+          @include margin-left(15px);
           margin-top: 2px;
           cursor: pointer;
 
@@ -170,12 +170,12 @@ body.profile {
       font-weight: 400;
       opacity: 0;
       position: absolute;
-      right: 7px;
+      @include right(7px);
       text-shadow: $shadow;
 
       i {
         display: inline-block;
-        margin: 2px 5px 0;
+        @include margin(2px, 5px, 0, 5px);
       }
 
       a {
@@ -191,10 +191,10 @@ body.profile {
       $icon-width: 25px;
 
       position: absolute;
-      right: 3px;
+      @include right(3px);
       top: 0;
-      padding: 13px;
-      margin: -13px 0;
+      @include padding(13px, 13px, 13px, 13px);
+      @include margin(-13px, 0, -13px, 0);
       cursor: pointer;
       height: $icon-width - 3;
       width: $icon-width - 3;
@@ -212,11 +212,11 @@ body.profile {
 
       .drawer {
         height: auto;
-        margin: 18px 8px 15px 0;
+        @include margin(18px, 8px, 15px, 0);
         overflow: hidden;
         position: absolute;
         top: 0;
-        right: 30px;
+        @include right(30px);
         width: $icon-width * 2;
       }
 
@@ -224,7 +224,7 @@ body.profile {
         @include transition(right 1s, opacity 1s 0.25s);
         opacity: 0;
         position: relative;
-        right: -($icon-width) * 2;
+        @include right(-($icon-width) * 2);
         top: 0;
 
         i {
@@ -232,7 +232,7 @@ body.profile {
           display: inline-block;
           font-size: 17px;
           opacity: 0.7;
-          text-align: center;
+          @include text-align(center);
           width: $icon-width;
           height: $icon-width;
 
@@ -249,7 +249,7 @@ body.profile {
 
         .drawer-content {
           opacity: 1;
-          right: 0;
+          @include right(0);
         }
       }
 
@@ -260,13 +260,13 @@ body.profile {
 
         .drawer {
           margin-top: 13px;
-          right: 4px;
+          @include right(4px);
           width: $icon-width;
         }
 
         .drawer-content {
           opacity: 1;
-          right: 0;
+          @include right(0);
 
           i {
             display: block;
@@ -289,20 +289,20 @@ body.profile {
     }
 
     #stats {
-      margin: 20px;
+      @include margin(20px, 20px, 20px, 20px);
 
       @media all and (max-width: 600px) {
-        margin: 0 10px !important;
+        @include margin(0, 10px, 0, 10px, !important);
       }
 
     }
 
     &.country {
       #title, #stats {
-        margin-left: 310px;
+        @include margin-left(310px);
 
         @media all and (max-width: 768px) {
-          margin-left: 10px;
+          @include margin-left(10px);
         }
 
       }
@@ -333,21 +333,21 @@ body.profile {
       @include flex;
       @include flex-direction(column);
       color: white;
-      margin-right: 30px;
+      @include margin-right(30px);
       margin-top: 20px;
       // min-width: $stat_width;
 
       &:last-child {
-        margin-right: 0;
+        @include margin-right(0);
       }
 
       @media all and (max-width: 1024px) {
-        margin: 10px;
+        @include margin(10px, 10px, 10px, 10px);
       }
 
       @media all and (max-width: 600px) {
-        @include flex-size(1 1 40%);
-        margin: 0 0 10px !important;
+        @include, flex-size(1, 1, 40%);
+        @include margin(0, 0, 10px, 0, !important);
         min-width: 40%;
       }
 
@@ -360,9 +360,9 @@ body.profile {
         @media all and (max-width: 1024px) {
           @include flex-direction(column);
           @include justify(center);
-          text-align: center;
+          @include text-align(center);
           h3 {
-            margin: 0 10px 0 0 !important;
+            @include margin(0, 10px, 0, 0, !important);
 
             .suffix {
               display: inline !important;
@@ -375,7 +375,7 @@ body.profile {
         @media all and (max-width: 600px) {
           h3 {
             font-size: 20px !important;
-            margin: 0 10px !important;
+            @include margin(0, 10px, 0, 10px, !important);
           }
 
           sub {
@@ -388,7 +388,7 @@ body.profile {
           font-family: $source-sans;
           font-size: 32px;
           font-weight: 300;
-          text-align: right;
+          @include text-align(right);
 
           .suffix {
             display: block;
@@ -416,7 +416,7 @@ body.profile {
 
       .sparkline {
         height: 35px;
-        margin: 10px 0;
+        @include margin(10px, 0, 10px, 0);
         // width: 90%;
 
         @media all and (max-width: 600px) {
@@ -449,7 +449,7 @@ body.profile {
       }
 
       .stat_flag {
-        text-align: center;
+        @include text-align(center);
         img {
           height: 60px;
           width: 60px;
@@ -469,7 +469,7 @@ body.profile {
     @include flex;
     @include flex-direction(column);
     color: white;
-    margin-right: 35px;
+    @include margin-right(35px);
     margin-top: 20px;
 
     .stat_text {
@@ -479,11 +479,11 @@ body.profile {
       @include justify(center);
 
       h3 {
-        @include flex-size(none);
+      @include flex-size(none);
         font-family: $source-sans;
         font-size: 32px;
         font-weight: 300;
-        margin: 0 10px 0 0 !important;
+        @include margin(0, 10px, 0, 0, !important);
       }
 
       sub {
@@ -503,7 +503,7 @@ body.profile {
 
     .sparkline {
       height: 35px;
-      margin: 10px 0;
+      @include margin(10px, 0, 10px, 0);
       width: 100%;
 
       .sparkpath {
@@ -527,12 +527,12 @@ body.profile {
 
     &#eci {
       color: $black;
-      // margin: 0;
+      // @include margin(0, 0, 0, 0);
       width: 100%;
 
       .stat_text {
         h3 {
-          @include flex-size(none);
+        @include flex-size(none);
           font-size: 70px;
           font-weight: 300;
         }
@@ -550,7 +550,7 @@ body.profile {
 
       .sparkline {
         height: 50px;
-        margin: 10px 0;
+        @include margin(10px, 0, 10px, 0);
         width: 100%;
 
         .sparkpath {
@@ -582,10 +582,10 @@ body.profile {
   article.intro-article {
 
     content {
-      margin: 45px 30px 30px 0 !important;
+      @include margin(45px, 30px, 30px, 0, !important);
 
       @media all and (max-width: 768px) {
-        margin: 0 30px 30px !important;
+        @include margin(0, 30px, 30px, 30px, !important);
       }
 
     }
@@ -600,10 +600,10 @@ body.profile {
     }
 
     div.columns p {
-      text-align: justify;
+      @include text-align(justify);
 
       @media all and (max-width: 768px) {
-        text-align: left;
+        @include text-align(left);
       }
     }
 
@@ -613,7 +613,7 @@ body.profile {
       background-color: rgba(255, 255, 255, 0.2);
       border: 1px solid #aaa;
       height: 250px;
-      // left: 35px;
+      // @include left(35px);
       // opacity: 0;
       opacity: 1;
       position: relative;
@@ -653,14 +653,14 @@ body.profile {
   article.viz-article {
 
     p {
-      text-align: left;
+      @include text-align(left);
     }
 
     content {
-      margin: 30px 30px 30px 0 !important;
+      @include margin(30px, 30px, 30px, 0, !important);
 
       @media all and (max-width: 768px) {
-        margin: -30px 0 45px 0 !important;
+        @include margin(-30px, 0, 45px, 0, !important);
       }
     }
   }
@@ -675,26 +675,26 @@ body.profile {
     }
 
     p {
-      text-align: left;
+      @include text-align(left);
     }
 
     p img {
       @include shadow(none);
       border: none;
-      margin: 20px 0 0 0;
+      @include margin(20px 0, 0, 0);
       width: 100%;
 
       @media all and (max-width: 768px) {
         width: 50%;
-        margin: 20px 25%;
+        @include margin(20px, 25%, 20px, 25%);
       }
     }
 
     content {
-      margin: 30px 30px 30px 0 !important;
+      @include margin(30px, 30px, 30px, 0, !important);
 
       @media all and (max-width: 768px) {
-        margin: -30px 0 45px 0 !important;
+        @include margin(-30px, 0, 45px, 0, !important);
       }
     }
 
@@ -702,12 +702,12 @@ body.profile {
 
       @media all and (max-width: 768px) {
         aside {
-          margin: 0 30px !important;
+          @include margin(0, 30px, 0, 30px, !important);
         }
       }
 
       content {
-        margin: 30px 0 !important;
+        @include margin(30px, 0, 30px, 0, !important);
 
         p {
           margin-bottom: 0 !important;
@@ -738,7 +738,7 @@ body.profile {
       .button_cover {
         background-color: rgba(0, 0, 0, 0.5);
         height: 100%;
-        left: 0;
+        @include left(0);
         position: absolute;
         top: 0;
         width: 100%;
@@ -747,7 +747,7 @@ body.profile {
       i {
         @include flex-size(none);
         font-size: 35px;
-        margin: 6px 10px 0;
+        @include margin(6px, 10px, 0, 10px);
         opacity: 0.8;
         z-index: 1;
       }
@@ -755,16 +755,16 @@ body.profile {
       h1 {
         font-size: 50px;
         line-height: 50px;
-        margin: 0;
+        @include margin(0, 0, 0, 0);
         opacity: 0.8;
-        padding: 0;
-        @include text-shadow(1px 1px 6px $darkbackground);
+        @include padding(0, 0, 0, 0);
+        @include text-shadow(1px 1px, 6px, $darkbackground);
         z-index: 1;
       }
 
       .icon {
-        @include flex-size(none);
-        margin: 3px 15px 0;
+      @include flex-size(none);
+        @include, margin(3px, 15px, 0, 15px);
         max-height: 50px;
         z-index: 1;
       }
@@ -777,25 +777,25 @@ body.profile {
 
       &.prev {
         @include justify(flex-start);
-        margin-right: 3px;
-        text-align: left;
+        @include margin-right(3px);
+        @include text-align(left);
         i {
-          padding-left: 20px;
+          @include padding-left(20px);
         }
         @media all and (max-width: 768px) {
-          margin-right: 0;
+          @include margin-right(0);
         }
       }
 
       &.next {
         @include justify(flex-end);
-        margin-left: 3px;
-        text-align: right;
+        @include margin-left(3px);
+        @include text-align(right);
         i {
-          padding-right: 20px;
+          @include padding-right(20px);
         }
         @media all and (max-width: 768px) {
-          margin-left: 0;
+          @include margin-left(0);
         }
       }
 
@@ -804,7 +804,7 @@ body.profile {
 
   ul.hierarchy.contents {
     border: 0;
-    padding-left: 0;
+    @include padding-left(0);
 
     &.country {
       margin-top: 20px;
@@ -831,14 +831,14 @@ body.profile {
     list-style-type: none;
     margin-bottom: 45px;
     overflow: scroll;
-    padding: 5px 20px 15px 15px;
+    @include padding(5px, 20px, 15px, 15px);
 
     @media all and (max-width: 768px) {
       margin-bottom: 0;
     }
 
     li {
-      padding: 3px 0;
+      @include padding(3px, 0, 3px, 0);
       a {
         color: $darklinkcolor;
         font-size: 16px;
@@ -859,11 +859,11 @@ body.profile {
     }
 
     .depth6 {
-      margin-left: 10px;
+      @include margin-left(10px);
     }
 
     .depth8 {
-      margin-left: 20px;
+    ,  @include margin-left(20px);
     }
   }
 

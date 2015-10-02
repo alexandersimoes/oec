@@ -1,28 +1,28 @@
 body.publications {
   background-color: $darkbackground;
-  
+
   p, h3 a {
     color: $black;
-    margin: 0 !important;
+    @include margin(0, 0, 0, 0, !important);
   }
 
   article {
-    padding: 70px 5%;
+    @include padding(70px, 5%, 70px, 5%);
     color: $black;
-    
+
     section {
-      padding: 30px;
+      @include padding(30px, 30px, 30px, 30px);
       max-width: 1054px;
-      margin: 0 auto;
-    
+      @include margin(0, auto, 0, auto);
+
       content {
-        margin: 0 !important;
+        @include margin(0, 0, 0, 0, !important);
 
         p {
             font-size: 18px;
             line-height: 1.5;
         }
-     
+
         div {
           display: inline-block;
           overflow: hidden;
@@ -90,7 +90,7 @@ body.publications {
             }
 
             h3 {
-              margin-right: 8px;
+              @include margin-right(8px);
             }
 
             h4 {
@@ -107,19 +107,19 @@ body.publications {
           }
 
           div:nth-child(2) {
-            float: left;
+            @include float(left);
             width: 16%;
-            margin-right: 5%;
+            @include margin-right(5%);
 
             @media all and (min-width: 769px) and (max-width: 1024px) {
-              margin-right: 3%;
+              @include margin-right(3%);
               h2 {
                 font-size: 26px;
               }
             }
 
             @media all and (max-width: 768px) {
-              margin-right: 0;
+              @include margin-right(0);
               width: 100%;
 
               h2 {
@@ -150,14 +150,14 @@ body.publications {
 
           div:nth-child(3) {
             width: 13%;
-            float: right;
-            margin-left: 3%;
-          
+            @include float(right);
+            @include margin-left(3%);
+
             @media all and (max-width: 768px) {
               width: 17%;
-              float: left;
-              margin-left: 0;
-              margin-right: 4%;
+              @include float(left);
+              @include margin-left(0);
+              @include margin-right(4%);
             }
           }
         }
@@ -177,14 +177,14 @@ body.publications {
 
     &.atlas {
       background: $darkbackground url('/static/img/publications/books/atlas-bg.png') repeat 50% 50%;
-      
+
       section {
         background-color: rgba(255,255,255,0.9);
-        
+
         content {
           div:nth-child(2) {
             width: 55%;
-            
+
             blockquote {
                 font-size: 18px;
                 margin-top: 20px;
@@ -201,17 +201,17 @@ body.publications {
 
           div:last-child {
             width: 40%;
-            margin-left: 4%;
+            @include margin-left(4%);
 
             h4 {
                 margin-top: 0;
             }
-            
+
             ul {
-            
+
               li {
-                padding-left: 0 !important;
-                margin-left: 0 !important;
+                @include padding-left(0 !important);
+                @include margin-left(0 !important);
                 color: $darklinkcolor;
 
                 a {
@@ -227,7 +227,7 @@ body.publications {
             @media all and (max-width: 768px) {
               width: 100%;
               margin-top: 4%;
-              margin-left: 0;
+              @include margin-left(0);
             }
           }
 
@@ -241,8 +241,8 @@ body.publications {
 
     &.papers {
       background: $lightbackground;
-      padding: 40px 5%;
-    
+      @include padding(40px, 5%, 40px, 5%);
+
       aside {
         width: 225px !important;
 
@@ -252,7 +252,7 @@ body.publications {
       }
 
       section {
-        padding: 30px 0;
+        @include padding(30px, 0, 30px, 0);
 
         content {
           div:nth-child(2) {
@@ -281,7 +281,7 @@ body.publications {
         @media all and (max-width: 768px) {
           font-size: 24px;
         }
-        
+
         a {
             color: #6d6e70;
         }
@@ -295,7 +295,7 @@ body.publications {
           margin-top: 5px;
         }
       }
-      
+
       p {
         color: $black;
 
@@ -313,4 +313,3 @@ body.publications {
 .book {
     width:100%;
 }
-

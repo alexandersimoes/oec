@@ -53,6 +53,7 @@ def before_request():
     if request.endpoint != 'static':
         g.locale = get_locale()
         # raise Exception(g.locale)
+        g.dir = "rtl" if g.locale in ("ar", "he") else "ltr"
 
 @babel.localeselector
 def get_locale(lang=None):

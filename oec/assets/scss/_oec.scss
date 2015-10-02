@@ -63,7 +63,7 @@ p {
   font-weight: 400;
   letter-spacing: 0.01em;
   line-height: 26px;
-  margin: 0 0 25px !important;
+  @include margin(0, 0, 25px, 0, !important);
   text-align: left;
 
   &:last-child {
@@ -72,7 +72,7 @@ p {
 
   sup {
     display: inline-block;
-    margin-left: 2px;
+    @include margin(2px);
     margin-top: -5px;
   }
 
@@ -120,7 +120,7 @@ table {
     th, td {
       font-size: 15px;
       line-height: 20px;
-      padding: 10px;
+      @include padding(10px);
 
     }
 
@@ -143,11 +143,11 @@ ol {
   font-family: $source-sans;
   font-size: 14px;
   line-height: 20px;
-  margin-left: 35px;
-  padding: 10px 0 20px;
+  @include margin(35px);
+  @include padding(10px, 0, 20px);
 
   li {
-    padding: 5px 0;
+    @include padding(5px, 0);
   }
 }
 
@@ -155,16 +155,16 @@ pre {
   @include shadow(inset 0 0 2px rgba(0, 0, 0, 0.25));
   background-color: $l2-darkbackground;
   color: #eee;
-  margin: 10px 0 20px;
+  @include margin(10px, 0, 20px);
   overflow-x: scroll;
-  padding: 20px 0;
+  @include padding(20px, 0);
   width: 100%;
 }
 
 blockquote {
   font-family: $source-sans;
   font-style: italic;
-  padding: 0px 30px;
+  @include padding(0px, 30px);
   margin-bottom: 20px;
 
   p {

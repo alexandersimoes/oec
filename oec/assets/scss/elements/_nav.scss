@@ -2,7 +2,7 @@ nav {
   ul.navLinks {
     #country, #product, #explore, #publications, #api {
       a {
-        padding: 25px 10px;
+        @include padding(25px, 10px, 25px, 10px);
       }
     }
   }
@@ -19,7 +19,7 @@ ul.navLinks {
     font-weight: 400;
     letter-spacing: 1px;
     opacity: 0.7;
-    padding: 5px 10px;
+    @include padding(5px, 10px, 5px, 10px);
     position: relative;
     text-transform: uppercase;
 
@@ -39,8 +39,8 @@ ul.navLinks {
     .sub_menu {
       background-color: $darkbackground;
       display: none;
-      left: -5px;
-      padding: 0 0 5px 5px;
+      @include left(-5px);
+      @include padding(0, 0, 5px, 5px);
       position: absolute;
       top: 25px;
       width: 125%;
@@ -56,7 +56,7 @@ ul.navLinks {
         li {
           display: block;
           font-size: 11px;
-          padding: 5px 10px;
+          @include padding(5px, 10px, 5px, 10px);
 
           &:hover {
             opacity: 0.9;
@@ -68,7 +68,7 @@ ul.navLinks {
             opacity: 0.4;
             position: absolute;
             margin-top: 2px;
-            margin-left: -10px;
+            @include margin-left(-10px);
           }
 
           &.active:before {
@@ -76,7 +76,7 @@ ul.navLinks {
             font-family: FontAwesome;
             position: absolute;
             margin-top: 2px;
-            margin-left: -10px;
+            @include margin-left(-10px);
           }
         }
 
@@ -93,14 +93,14 @@ ul.navLinks {
   // font-family: $open-sans;
   // font-size: 25px;
   // font-weight: 800;
-  margin: 0px;
-  padding: 5px 0;
+  @include margin(0px, 0px, 0px, 0px);
+  @include padding(5px, 0, 5px, 0);
   position: relative;
-  left: 17px;
+  @include left(17px);
   text-decoration: none;
 
   @media all and (max-width: 950px) {
-    left: 0;
+    @include left(0);
   }
 
 }
@@ -115,7 +115,7 @@ nav {
   top: 0;
   width: 100%;
   z-index: 20;
-  padding: 15px 0;
+  @include padding(15px, 0, 15px, 0);
 
   .navLinks {
     @include flex-direction(row);
@@ -128,8 +128,8 @@ nav {
 
   #search_button {
     cursor: pointer;
-    margin: -15px 0;
-    padding: 15px;
+    @include margin(-15px, 0, -15px, 0);
+    @include padding(15px, 15px, 15px, 15px);
 
     img {
       @include transition(opacity 0.1s, transform 0.5s);
@@ -157,7 +157,7 @@ nav {
   bottom: 0;
   display: block;
   // height: 100vh;
-  left: -$mobileNav;
+  @include left(-$mobileNav);
   overflow-y: scroll;
   position: fixed;
   top: 0;
@@ -165,26 +165,26 @@ nav {
   z-index: 31;
 
   &.open {
-    left: 0;
+    @include left(0);
   }
 
   .navLinks {
     @include flex-direction(column);
-    padding: 16px 14px 70px 40px;
+    @include padding(16px, 14px, 70px, 40px);
 
     li {
-      margin: 4px 0;
+      @include margin(4px, 0, 4px, 0);
 
       .sub_menu {
         background-color: transparent;
         display: block;
-        margin: 10px 0 0;
+        @include margin(10px, 0, 0, 0);
         padding-bottom: 0;
         position: static;
         width: auto;
 
         ul > li {
-          margin: 2px 0;
+          @include margin(2px, 0, 2px, 0);
         }
 
         li:last-child {
@@ -202,7 +202,7 @@ nav {
         background-size: cover;
         display: inline-block;
         cursor: pointer;
-        margin-left: 7px;
+        @include margin-left(7px);
         top: 1px;
         width: 12px;
         height: 12px;
@@ -216,8 +216,8 @@ nav {
   .modal_close {
     cursor: pointer;
     display: block;
-    margin: -15px 0;
-    padding: 15px;
+    @include margin(-15px, 0, -15px, 0);
+    @include padding(15px, 15px, 15px, 15px);
     position: absolute;
     top: 23px;
     width: 17px;

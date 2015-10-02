@@ -16,7 +16,7 @@ body.api {
 
     p {
       opacity: 0.9;
-      margin: 5px 0;
+      @include margin(5px, 0, 5px, 0);
     }
 
     section {
@@ -25,7 +25,7 @@ body.api {
         width: 180px;
 
         p {
-          text-align: left;
+          @include text-align(left);
         }
       }
 
@@ -33,7 +33,7 @@ body.api {
 
     h2 {
       line-height: 1.1;
-      margin: 20px 0;
+      @include margin(20px, 0, 20px, 0);
     }
 
     h3 {
@@ -54,7 +54,7 @@ body.api {
       margin-bottom: 20px;
 
       input {
-        padding: 5px 7px;
+        @include padding(5px, 7px, 5px, 7px);
         background-color: $l2-darkbackground;
         color: white;
         border: 0;
@@ -71,7 +71,7 @@ body.api {
     }
 
     pre {
-      padding: 7px 0;
+      @include padding(7px, 0, 7px, 0);
       margin-bottom: 7px;
     }
 
@@ -83,7 +83,7 @@ body.api {
       letter-spacing: 1px;
       margin-top: 0px;
       margin-bottom: 7px;
-      padding: 1px 4px;
+      @include padding(1px, 4px, 1px, 4px);
       white-space: nowrap;
 
       a {
@@ -97,7 +97,7 @@ body.api {
     }
 
     td.code {
-      // text-align: center;
+      // @include text-align(center);
       width: 120px;
     }
   }

@@ -28,22 +28,22 @@ body.about, body.resources, body.permissions, body.eci {
 
   h3 {
     line-height: 1.3;
-    margin: 20px 0;
+    @include margin(20px, 0, 20px, 0);
     font-size: 24px;
     opacity: 0.8;
   }
 
   h4 {
     line-height: 1.3;
-    margin: 15px 0;
+    @include margin(15px, 0, 15px, 0);
   }
 
   ol {
-    margin-left: 20px;
+    @include margin-left(20px);
   }
 
   blockquote {
-    margin: 15px 0;
+    @include, margin(15px, 0, 15px, 0);
   }
 
   p {
@@ -53,7 +53,7 @@ body.about, body.resources, body.permissions, body.eci {
 
 body.eci {
   h1 {
-    margin: 20px 0;
+    @include margin(20px, 0, 20px, 0);
   }
 
   h4, ol {
@@ -73,9 +73,9 @@ body.eci {
 $image_size: 150px;
 
 .member {
-  margin: 50px 0;
+  @include margin(50px, 0, 50px, 0);
   min-height: $image_size;
-  padding-left: $image_size + 30;
+  @include padding-left($image_size + 30);
   padding-top: 0;
   position: relative;
 
@@ -89,24 +89,24 @@ $image_size: 150px;
     content: "";
     display: block;
     height: $image_size;
-    margin-left: 0;
-    left: 0;
+  @include margin-left(0);
+    @include left(0);
     position: absolute;
     top: 0;
     width: $image_size;
   }
 
   h3, h4 {
-    margin: 0 !important;
+    @include margin(0, 0, 0, 0, !important);
   }
 
   @media all and (max-width: 500px) {
-    padding-left: 0;
+    @include padding-left(0);
     padding-top: $image_size + 30;
 
     &:before {
-      margin-left: -$image_size/2;
-      left: 50%;
+      @include margin-left(-$image_size/2);
+      @include left(50%);
     }
 
   }
@@ -115,7 +115,7 @@ $image_size: 150px;
     @include transition(text-shadow 0.1s);
     color: $brightlinkcolor !important;
     font-size: 24px;
-    margin: 8px 0 0 5px;
+    @include margin(8px, 0, 0, 5px);
     opacity: 0.6;
 
     &:hover {
@@ -133,12 +133,12 @@ $image_size: 150px;
 
   $past_size: 100px;
   .member {
-    margin: 30px 0 0;
+    @include margin(30px, 0, 0, 0);
     // max-width: 50%;
     min-width: 80%;
     min-height: $past_size;
-    padding-left: $past_size + 30;
-    padding-right: 15px;
+    @include padding-left($past_size + 30);
+    @include padding-right(15px);
 
     &:before {
       @include rounded($past_size);
@@ -149,12 +149,12 @@ $image_size: 150px;
 
     @media all and (max-width: 768px) and (max-width: 500px) {
       max-width: 100%;
-      padding-left: $past_size + 15;
-      padding-right: 0;
+      @include padding-left($past_size + 15);
+      @include padding-right(0);
       padding-top: 0;
       &:before {
-        left: 0;
-        margin-left: 0;
+        @include left(0);
+      @include margin-left(0);
       }
     }
 

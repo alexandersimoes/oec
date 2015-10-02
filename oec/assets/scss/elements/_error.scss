@@ -15,9 +15,9 @@ body.error {
 
   footer {
     bottom: 0;
-    left: 0;
+    @include left(0);
     position: fixed;
-    right: 0;
+    @include right(0);
 
     @media all and (max-width: 768px) {
       position: static;
@@ -33,13 +33,13 @@ body.error {
 
       .star-rotate {
         @include animation(spin-right 300s linear infinite);
-        left: 50%;
+        @include left(50%);
 	    top: 50%;
       }
 
       #observatory {
       	@include transform(rotate(180deg));
-        left: 8%;
+        @include left(8%);
         position: absolute;
         top: -5%;
         width: 100%;
@@ -52,9 +52,9 @@ body.error {
         font-weight: 300;
         line-height: 1.4;
         position: absolute;
-        text-align: center;
+        @include text-align(center);
         top: 15%;
-        left: 30%;
+        @include left(30%);
 	  }
     }
 

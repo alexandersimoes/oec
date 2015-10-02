@@ -2,7 +2,7 @@
   margin-top: $header;
 
   #content {
-    margin: 0 auto;
+    @include margin(0, auto, 0, auto);
 
     header {
       min-height: 150px;
@@ -25,14 +25,14 @@
         @media all and (max-width: 768px) {
           font-size: 35px;
           width: auto;
-          // text-align: center;
+         , // @include text-align(center);
         }
 
       }
 
       .header_image {
         @include gradient($darkbackground, rgba(33, 40, 49, 0));
-        left: 0;
+        @include left(0);
         position: absolute;
         top: 0;
         min-height: 150px;
@@ -65,7 +65,7 @@
       }
 
       aside {
-        margin: 0 30px;
+        @include margin(0, 30px, 0, 30px);
         width: $sidebar;
 
         @media all and (max-width: 768px) {
@@ -76,18 +76,18 @@
 
       content {
         @include flex-size(1);
-        margin: 0 30px 20px 0;
+        @include margin(0, 30px, 20px, 0);
 
         @media all and (max-width: 768px) {
-          margin: 0 30px;
+          @include margin(0, 30px, 0, 30px);
         }
 
         ul {
-          margin: 20px 0;
+          @include margin(20px, 0, 20px, 0);
 
           li {
-            margin-left: 30px;
-            padding: 5px 0;
+            @include margin-left(30px);
+            @include padding(5px, 0, 5px, 0);
           }
 
         }
@@ -106,8 +106,8 @@
   footer {
     color: $lightbackground;
     font-size: 10px;
-    margin: $header auto 5px;
-    text-align: center;
+    @include margin($header, auto, 5px, auto);
+    @include text-align(center);
 
     @media all and (max-width: 768px) {
       margin-top: 30px !important;
@@ -116,8 +116,8 @@
     a {
       color: $lightlinkcolor;
       &:hover {
-        @include text-shadow(0 0 1px #fff);
-        @include transition(text-shadow 1s);
+        @include text-shadow(0 0, 1px, #fff);
+        @include transition(text-shadow, 1s);
         color: #fff;
       }
     }
@@ -138,15 +138,15 @@
 
     div {
       max-width: 770px;
-      margin: 0 auto;
-      padding: 0 20px;
+      @include margin(0, auto, 0, auto);
+      @include, padding(0, 20px, 0, 20px);
     }
 
     ul {
       margin-top: 10px;
       li {
         display: inline-block;
-        margin: 1px 5px;
+        @include margin(1px, 5px, 1px, 5px);
       }
     }
 
