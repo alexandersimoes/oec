@@ -279,7 +279,7 @@ body.visualize {
           @include justify(flex-start);
           @include align-items(center);
           margin: 0 0 12px !important;
-          
+
           .export ~ .build_link.active {
             //color: cornflowerblue;
           }
@@ -313,7 +313,7 @@ body.visualize {
 
           &:hover {
             .build_link:before {
-              content: "\f0da";
+              content: unicode("f0da");
               font-family: FontAwesome;
               opacity: 0.4;
               position: absolute;
