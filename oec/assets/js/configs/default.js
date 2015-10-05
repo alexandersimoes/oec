@@ -18,6 +18,7 @@ configs.default = function(build, container) {
       var id_nesting = ["nest","id"];
     }
   }
+  icon.back = "fa-long-arrow-left";
 
   if (["eci", "show"].indexOf(build.trade_flow) >= 0) {
     tooltip_data.push("year");
@@ -175,6 +176,14 @@ configs.default = function(build, container) {
         "color": text,
         "family": ["Montserrat", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
         "weight": 400
+      },
+      "sub": {
+        "font": {
+          "color": text,
+          "family": ["Montserrat", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+          "size": 20,
+          "weight": 400
+        }
       }
     },
     "tooltip": tooltip,

@@ -139,6 +139,7 @@ configs.default = function(build, container) {
       var id_nesting = ["nest","id"];
     }
   }
+  icon.back = "fa-long-arrow-left";
 
   if (["eci", "show"].indexOf(build.trade_flow) >= 0) {
     tooltip_data.push("year");
@@ -296,6 +297,14 @@ configs.default = function(build, container) {
         "color": text,
         "family": ["Montserrat", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
         "weight": 400
+      },
+      "sub": {
+        "font": {
+          "color": text,
+          "family": ["Montserrat", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+          "size": 20,
+          "weight": 400
+        }
       }
     },
     "tooltip": tooltip,
@@ -412,9 +421,11 @@ configs.line = function(build, container) {
     //var heatmap = ["#282F6B", "#419391", "#AFD5E8", "#EACE3F", "#B35C1E", "#B22200"];
     var line_color = ["#4C447C", "#192C81", "#074F99", "#1796D6", "#3EB6B8", "#CDD76A", "#F19825", "#E00C24", "#935F4F"];
 
-    var line_weight = function(l, vars) {
-      return vars.color.value === "eci_color" ? 1 : l.origin_id === build.dest.id ? 2 : 1;
-    };
+    var normal_stroke = 1,
+        highlight_stroke = 2,
+        line_weight = function(l, vars) {
+          return vars.color.value === "eci_color" ? normal_stroke : l.origin_id === build.dest.id ? highlight_stroke : normal_stroke;
+        };
 
     var color_scale = d3.scale.linear()
       .domain(d3plus.util.buckets([1, first_years], line_color.length))
