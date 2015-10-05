@@ -410,8 +410,12 @@ configs.line = function(build, container) {
     years = years.map(function(y){ return new Date("01/01/"+y)});
 
     //var heatmap = ["#282F6B", "#419391", "#AFD5E8", "#EACE3F", "#B35C1E", "#B22200"];
-    var line_weight = 1;
     var line_color = ["#4C447C", "#192C81", "#074F99", "#1796D6", "#3EB6B8", "#CDD76A", "#F19825", "#E00C24", "#935F4F"];
+
+    var line_weight = function(l, vars) {
+      return vars.color.value === "eci_color" ? 1 : l.origin_id === build.dest.id ? 2 : 1;
+    };
+
     var color_scale = d3.scale.linear()
       .domain(d3plus.util.buckets([1, first_years], line_color.length))
       .range(line_color);
@@ -434,10 +438,14 @@ configs.line = function(build, container) {
 
     return {
       "color": build.dest !== "all" ? "highlight" : "eci_color",
-      "data": {"stroke": {"width": line_weight/2}},
       "id": "origin_id",
       "legend": false,
+      "order": {
+        "sort": "asc",
+        "value": line_weight
+      },
       "shape": {"interpolate": "monotone"},
+      "size": line_weight,
       "timeline": false,
       "x": {
         "ticks": years,
