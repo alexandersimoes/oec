@@ -49,6 +49,6 @@ do
       echo -e 'year\torigin\tdestination\t$prod_id\texport_val\timport_val' | bzip2 > year_origin_destination_$file_suffix.tsv.bz2
     fi
     
-    mysql -B -N -D oec -h c.media.mit.edu -u macro -p$OEC_DB_PW -e "select year, substring(origin_id, 3) as origin, substring(dest_id, 3) as destination, substring($1_id, 3) as $prod_id, IFNULL(export_val, ''), IFNULL(import_val, '') from $1_yodp where year=$i $xtra_mysql order by origin, destination, $prod_id" | bzip2 >> year_origin_destination_$file_suffix.tsv.bz2
+    mysql -B -N -D oec -h $OEC_DB_HOST -u macro -p$OEC_DB_PW -e "select year, substring(origin_id, 3) as origin, substring(dest_id, 3) as destination, substring($1_id, 3) as $prod_id, IFNULL(export_val, ''), IFNULL(import_val, '') from $1_yodp where year=$i $xtra_mysql order by origin, destination, $prod_id" | bzip2 >> year_origin_destination_$file_suffix.tsv.bz2
   done
 done

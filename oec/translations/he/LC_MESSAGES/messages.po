@@ -442,7 +442,7 @@ msgstr "סך הכל"
 
 #: oec/profile/models.py:48
 msgid "and"
-msgstr "ו -"
+msgstr "ו"
 
 #: oec/profile/models.py:69
 msgid "Economic Complexity"
@@ -471,12 +471,23 @@ msgstr "%(country)s"
 #: oec/profile/models.py:115
 #, python-format
 msgid " and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI). "
-msgstr ""
+msgstr " והכלכלה "
+"%(eci_rank)s"
+" המורכבת ביותר על פי הכלכלי המדד המורכבות (ECI)."
 
 #: oec/profile/models.py:119
 #, python-format
 msgid "In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s. "
-msgstr ""
+msgstr " בשנת"
+"%(year)s, %(country)s"
+" מיוצא "
+"%(export_val)s $"
+" ומיובאים "
+"%(import_val)s $"
+" וכתוצאה מכך מאזן סחר "
+"%(positive_negative)s"
+" של "
+"%(trade_delta)s $. "
 
 #: oec/profile/models.py:126
 #, python-format
@@ -496,17 +507,27 @@ msgstr ""
 #: oec/profile/models.py:155
 #, python-format
 msgid "%(country)s is an island and borders %(maritime_borders)s by sea."
-msgstr ""
+msgstr "%(country)s"
+" היא אי וגובלת "
+"%(maritime_borders)s"
+" בדרך ים."
 
 #: oec/profile/models.py:157
 #, python-format
 msgid "%(country)s borders %(land_borders)s."
-msgstr ""
+msgstr "%(country)s"
+" גובלת "
+"%(land_borders)s."
 
 #: oec/profile/models.py:159
 #, python-format
 msgid "%(country)s borders %(land_borders)s by land and %(maritime_borders)s by sea."
-msgstr ""
+msgstr "%(country)s"
+" גובלת "
+"%(land_borders)s"
+" ביבשה "
+"%(maritime_borders)s"
+" בדרך ים."
 
 #: oec/profile/models.py:183
 #, python-format
