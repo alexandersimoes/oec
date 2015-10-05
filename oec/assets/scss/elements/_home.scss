@@ -107,12 +107,13 @@ $default_size: 600px;
       font-weight: 300;
       line-height: 1.4;
       position: absolute;
+      @include text-shadow(-2px 0 5px $darkbackground);
       @include text-align(center);
-      bottom: 12%;
-      @include right(18%);
+      bottom: 18%;
+      @include right(14%);
 
       a {
-        @include transition(color 2s, opacity 1s);
+        @include transition(color 1s, opacity 0.5s);
         border-bottom: 1px solid transparent;
         color: $lightlinkcolor;
         display: inline-block;
@@ -123,22 +124,42 @@ $default_size: 600px;
         opacity: 0.8;
         text-transform: uppercase;
 
-        i {
-          @include transition(color, 3s);
-          font-size: 70%;
-          margin-top: 5%;
-        }
-
         &:hover {
           opacity: 1;
-          color: white;
+          color: $brightlinkcolor;
         }
       }
 
     }
 
+    #launch_vid {
+      @include transition(opacity 0.5s);
+      cursor: pointer;
+      position: absolute;
+      bottom: 17%;
+      right: 22%;
+      opacity: 0.6;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      img {
+        @include transition(opacity 1s);
+        width: $default_size/28;
+        height: $default_size/28;
+        display: inline-block;
+        @include margin(0, 5px, 0, auto);
+      }
+
+      span {
+        font-size: $default_size/45;
+        vertical-align: middle;
+      }
+    }
+
     #search_home {
-      @include transition(text-shadow 1.5s, opacity 3s);
+      @include transition(text-shadow 0.75s, opacity 1.5s);
       @include rounded(2px);
       bottom: 10%;
       border-bottom: 1px solid $darkbordercolor;
@@ -146,6 +167,7 @@ $default_size: 600px;
       cursor: pointer;
       display: block;
       font-family: $source-sans;
+      font-size: $default_size/32;
       font-weight: 300;
       @include left(33%);
       opacity: 0.8;
@@ -167,20 +189,6 @@ $default_size: 600px;
         top: 0;
         width: 6%;
       }
-    }
-  }
-
-  #launch_vid img {
-    @include transition(opacity 1s);
-    width: $default_size/28;
-    height: $default_size/28;
-    cursor: pointer;
-    display: block;
-    @include margin(0, auto, 3px, auto);
-    opacity: 0.7;
-
-    &:hover {
-      opacity: 1;
     }
   }
 
