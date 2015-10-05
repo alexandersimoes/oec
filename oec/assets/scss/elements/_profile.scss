@@ -665,6 +665,10 @@ body.profile {
   article.titled-section {
     h1 {
       border-top: 1px solid $darkbordercolor;
+      font-family: $montserrat;
+      font-size: 32px;
+      font-weight: 400;
+      text-transform: uppercase;
 
       @media all and (max-width: 768px) {
         border-top: 0;
@@ -867,9 +871,12 @@ body.profile {
   article {
 
     &.sisters {
+      @include gradient($darkbackground, $l3-darkbackground);
+      background-color: $l3-darkbackground;
 
       h1 {
-        margin-bottom: 30px;
+        border-top: 0;
+        padding-bottom: 30px;
       }
 
     }
@@ -879,18 +886,66 @@ body.profile {
       h1 {
         border-top: 0;
         img {
-          width: $sidebar;
+          &:hover {
+            opacity: 0.7;
+          }
+        }
+
+        @media all and (max-width: 768px) {
+          text-align: center;
         }
       }
 
     }
 
     &.dataviva {
-      background: white url('/static/img/dataviva.png') repeat-x 0 0;
+      background-color: white;
+      background-image: url('/static/img/dataviva.png'),
+                        // -moz-linear-gradient(top, $l3-darkbackground 0%, $medbordercolor 5%, rgba(255,255,255,0) 20%),
+                        // -webkit-gradient(linear, left top, left bottom, color-stop(0% $l3-darkbackground), color-stop(5%, $medbordercolor), color-stop(20%, rgba(255,255,255,0))),
+                        // -webkit-linear-gradient(top, $l3-darkbackground 0%, $medbordercolor 5%, rgba(255,255,255,0) 20%),
+                        // -o-linear-gradient(top, $l3-darkbackground 0%, $medbordercolor 5%, rgba(255,255,255,0) 20%),
+                        // -ms-linear-gradient(top, $l3-darkbackground 0%, $medbordercolor 5%, rgba(255,255,255,0) 20%),
+                        linear-gradient(to bottom, $l3-darkbackground 0%, $medbordercolor 5%, rgba(255,255,255,0) 20%),
+                        url('http://en.dataviva.info/static/img/bgs/city_small.jpg');
+      background-attachment: local, local, fixed;
+      background-repeat: repeat-x, no-repeat;
+      background-position: bottom, 50% 50%, left;
+      background-size: auto, auto, cover;
       color: $black;
+      padding-bottom: 30px;
 
       p {
         color: $black;
+      }
+
+      section {
+        aside {
+          background-color: rgba(255, 255, 255, 0.5);
+          @include padding(15px, 15px, 15px, 15px);
+          @include margin(20px, 20px, 20px, 20px, !important);
+
+          a {
+            color: #af1f24;
+            &:hover{
+              border-bottom: 1px solid #af1f24;
+            }
+          }
+        }
+
+        content {
+          @media all and (max-width: 768px) {
+            @include margin(0, 0, 20px, 0, !important);
+          }
+        }
+      }
+
+      h1 img {
+        width: $sidebar;
+
+        @media all and (max-width: 768px) {
+          padding-top: 0;
+        }
       }
 
     }
@@ -905,6 +960,21 @@ body.profile {
 
       content {
         overflow: hidden;
+      }
+
+      h1 img {
+        width: ($sidebar + 120);
+        padding-bottom: 20px;
+      }
+
+      section aside a {
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+
+        &:hover {
+          border-bottom: 1px solid black;
+        }
       }
 
     }
