@@ -487,8 +487,8 @@ class Product(Profile):
         elif len(self.attr.id) == 8:
             countries_top_export = countries_top.filter_by(top_export_hs6 = self.attr.id)
             countries_top_import = countries_top.filter_by(top_import_hs6 = self.attr.id)
-        countries_top_export = countries_top_export.all()
-        countries_top_import = countries_top_import.all()
+        countries_top_export = countries_top_export.order_by(desc('export_val')).limit(10).all()
+        countries_top_import = countries_top_import.order_by(desc('import_val')).limit(10).all()
         if countries_top_export:
             countries_top_export = self.stringify_items(countries_top_export, None, "country")
             p4.append(_(u"%(product)s the top export of %(countries)s.", product=self.attr.get_name(verb=True), countries=countries_top_export))
