@@ -205,8 +205,9 @@ configs.default = function(build, container) {
           return "/"+build.lang+"/visualize/builds/"+url_args;
         },
         "callback":function(data){
+          console.log(data);
           var buttons = [];
-          buttons.push("<a style='background-color:"+d3plus.color.legible(data.profile.color)+";' target='_top' href='"+data.profile.url+"' class='profile'><img src='"+data.profile.icon+"' />"+data.profile.title+"</a>");
+          buttons.push("<a style='background-color:"+d3plus.color.legible(data.profile.color)+";' target='_top' href='"+data.profile.url+"' class='profile'><img src='"+data.profile.icon+"' style='background-color:"+data.profile.color+"' />Go to profile ></a>");
           data.builds.forEach(function(b){
             buttons.push("<a target='_top' href='/"+build.lang+"/visualize/"+b.url+"' class='related "+b.viz+"'>"+b.title+"</a>");
           });

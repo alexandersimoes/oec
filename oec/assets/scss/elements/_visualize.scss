@@ -843,6 +843,10 @@ body.visualize {
 
 /* Styles for d3plus tooltips */
 
+.d3plus_tooltip_curtain {
+  opacity: 0.4 !important;
+}
+
 .d3plus_tooltip_large {
   color: #ccc !important;
   font-family: $source-sans !important;
@@ -858,6 +862,16 @@ body.visualize {
     border: 1px solid $darkbordercolor;
     color: #ccc;
     line-height: 1.4;
+  }
+
+  .d3plus_tooltip_body {
+    border-right: 1px solid $darkbordercolor;
+    height: 100%;
+    @include padding-right(10px !important);
+  }
+
+  .d3plus_tooltip_html {
+    padding-right: 0 !important;
   }
 
   .d3plus_tooltip_title {
@@ -939,17 +953,20 @@ body.visualize {
   }
 
   .d3plus_tooltip_html {
+    @include margin(6px, 12px, 6px, 12px);
 
     img {
-        width: 20%;
-        display: block;
-        @include text-align(center);
-        @include margin(0, auto, 0, auto);
+        display: inline-block;
+        vertical-align: text-bottom;
+        width: 25px;
+        @include margin(0, 10px, 0, auto);
       }
 
     a {
       color: #ccc;
       display: block;
+      position: relative;
+      @include left(-12px);
       width: 100%;
       &:hover {
         color: #fff;
@@ -960,7 +977,7 @@ body.visualize {
         font-size: 18px;
         font-weight: 400;
         margin-bottom: 10px;
-        @include text-align(center);
+        // @include text-align(center);
       }
 
       &.related {
