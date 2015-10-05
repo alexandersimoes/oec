@@ -492,15 +492,18 @@ body.home {
                 font-weight: 300;
                 line-height: 1.4;
                 position: absolute;
+                -webkit-text-shadow: -2px 0 5px #212831;
+                -moz-text-shadow: -2px 0 5px #212831;
+                text-shadow: -2px 0 5px #212831;
                 text-align: center ;
-                bottom: 12%;
-                left: 18%; }
+                bottom: 18%;
+                left: 14%; }
                 .bg-frame #ring #info a {
-                  -webkit-transition: color 2s, opacity 1s;
-                  -moz-transition: color 2s, opacity 1s;
-                  -ms-transition: color 2s, opacity 1s;
-                  -o-transition: color 2s, opacity 1s;
-                  transition: color 2s, opacity 1s;
+                  -webkit-transition: color 1s, opacity 0.5s;
+                  -moz-transition: color 1s, opacity 0.5s;
+                  -ms-transition: color 1s, opacity 0.5s;
+                  -o-transition: color 1s, opacity 0.5s;
+                  transition: color 1s, opacity 0.5s;
                   border-bottom: 1px solid transparent;
                   color: #99BCD1;
                   display: inline-block;
@@ -510,23 +513,41 @@ body.home {
                   margin: 2% 2% 2% 2% ;
                   opacity: 0.8;
                   text-transform: uppercase; }
-                  .bg-frame #ring #info a i {
-                    -webkit-transition: color, 3s;
-                    -moz-transition: color, 3s;
-                    -ms-transition: color, 3s;
-                    -o-transition: color, 3s;
-                    transition: color, 3s;
-                    font-size: 70%;
-                    margin-top: 5%; }
-                    .bg-frame #ring #info a:hover {
-                      opacity: 1;
-                      color: white; }
+                  .bg-frame #ring #info a:hover {
+                    opacity: 1;
+                    color: #6297cb; }
+        .bg-frame #ring #launch_vid {
+          -webkit-transition: opacity 0.5s;
+          -moz-transition: opacity 0.5s;
+          -ms-transition: opacity 0.5s;
+          -o-transition: opacity 0.5s;
+          transition: opacity 0.5s;
+          cursor: pointer;
+          position: absolute;
+          bottom: 17%;
+          right: 22%;
+          opacity: 0.6; }
+          .bg-frame #ring #launch_vid:hover {
+            opacity: 1; }
+            .bg-frame #ring #launch_vid img {
+              -webkit-transition: opacity 1s;
+              -moz-transition: opacity 1s;
+              -ms-transition: opacity 1s;
+              -o-transition: opacity 1s;
+              transition: opacity 1s;
+              width: 21.42857px;
+              height: 21.42857px;
+              display: inline-block;
+              margin: 0 auto 0 5px ; }
+              .bg-frame #ring #launch_vid span {
+                font-size: 13.33333px;
+                vertical-align: middle; }
         .bg-frame #ring #search_home {
-          -webkit-transition: text-shadow 1.5s, opacity 3s;
-          -moz-transition: text-shadow 1.5s, opacity 3s;
-          -ms-transition: text-shadow 1.5s, opacity 3s;
-          -o-transition: text-shadow 1.5s, opacity 3s;
-          transition: text-shadow 1.5s, opacity 3s;
+          -webkit-transition: text-shadow 0.75s, opacity 1.5s;
+          -moz-transition: text-shadow 0.75s, opacity 1.5s;
+          -ms-transition: text-shadow 0.75s, opacity 1.5s;
+          -o-transition: text-shadow 0.75s, opacity 1.5s;
+          transition: text-shadow 0.75s, opacity 1.5s;
           -webkit-border-radius: 2px;
           -moz-border-radius: 2px;
           border-radius: 2px;
@@ -536,6 +557,7 @@ body.home {
           cursor: pointer;
           display: block;
           font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+          font-size: 18.75px;
           font-weight: 300;
           right: 33%;
           opacity: 0.8;
@@ -555,20 +577,6 @@ body.home {
               position: relative;
               top: 0;
               width: 6%; }
-  .bg-frame #launch_vid img {
-    -webkit-transition: opacity 1s;
-    -moz-transition: opacity 1s;
-    -ms-transition: opacity 1s;
-    -o-transition: opacity 1s;
-    transition: opacity 1s;
-    width: 21.42857px;
-    height: 21.42857px;
-    cursor: pointer;
-    display: block;
-    margin: 0 auto 3px auto ;
-    opacity: 0.7; }
-    .bg-frame #launch_vid img:hover {
-      opacity: 1; }
 
 @-webkit-keyframes pulse {
   0% {
