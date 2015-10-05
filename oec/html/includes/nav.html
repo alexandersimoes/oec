@@ -32,11 +32,11 @@
   <a href="{{ url_for('resources.about', lang=g.locale) }}">{{ _('Resources') }}</a>
   <div class="sub_menu">
     <ul>
-      <li class="eci{% if g.page_sub_type == 'eci' %} active{% endif %}">
-        <a href="{{ url_for('resources.eci', lang=g.locale) }}">{{ _('Economic Complexity') }}</a>
-      </li>
       <li class="about{% if g.page_sub_type == 'about' %} active{% endif %}">
         <a href="{{ url_for('resources.about', lang=g.locale) }}">{{ _('About the Site') }}</a>
+      </li>
+      <li class="eci{% if g.page_sub_type == 'eci' %} active{% endif %}">
+        <a href="{{ url_for('resources.eci', lang=g.locale) }}">{{ _('Economic Complexity') }}</a>
       </li>
       <li class="faqs{% if g.page_sub_type == 'faqs' %} active{% endif %}">
         <a href="{{ url_for('resources.faqs', lang=g.locale) }}">{{ _('FAQs') }}</a>
