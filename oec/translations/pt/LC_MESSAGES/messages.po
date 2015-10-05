@@ -675,7 +675,7 @@ msgstr ""
 #: oec/profile/models.py:492
 #, python-format
 msgid "%(product)s also known as %(keywords)s."
-msgstr ""
+msgstr "%(product)s também é conhecido como %(keywords)s."
 
 #: oec/profile/models.py:496
 #, python-format
@@ -777,7 +777,7 @@ msgstr "Valor do Crescimento (5 anos)"
 
 #: oec/visualize/views.py:335
 msgid "Partner"
-msgstr ""
+msgstr "parceiro"
 
 #: oec/visualize/views.py:352
 msgid "Y Axis"

@@ -78,6 +78,13 @@ class Country(Profile):
         super(Country, self).__init__(classification, id)
         self.attr = attrs.Country.query.filter_by(id_3char = self.id).first()
         self.cached_stats = []
+    
+    def twitter_url(self):
+        link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
+        lang_txt = u"&lang={}".format(g.locale) if g.locale != "en" else ""
+        title = u"{} {}".format(self.attr.get_name(), _('Profile'))
+        return u"https://twitter.com/share?url={}{}&text={}&hashtags=oec,{}" \
+                .format(link, lang_txt, title, self.attr.get_name())
 
     def stats(self):
         if not self.cached_stats:
