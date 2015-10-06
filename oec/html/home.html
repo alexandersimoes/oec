@@ -125,7 +125,7 @@
 
     vimeo.api("play");
 
-    d3.select("body").on("keyup", function(){
+    d3.select("body").on("keyup.video", function(){
       if (d3.event.keyCode === 27) {
         close_launch();
       }
