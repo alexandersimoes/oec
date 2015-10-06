@@ -921,9 +921,9 @@ body.profile {
 
       section {
         aside {
-          background-color: rgba(255, 255, 255, 0.5);
+          background-color: rgba(255, 255, 255, 0.8);
           @include padding(15px, 15px, 15px, 15px);
-          @include margin(20px, 20px, 20px, 20px, !important);
+          @include margin(30px, 20px, 30px, 20px, !important);
 
           a {
             color: #af1f24;
