@@ -270,7 +270,7 @@
         border-bottom: none;
       }
 
-      &:focus h1:after, &:active h1:after {
+      &:active h1:after {
         @include animation(spin-right 1.5s linear infinite);
         content: "";
         background-repeat: no-repeat;

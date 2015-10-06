@@ -1018,9 +1018,7 @@ body.home {
                     -moz-box-shadow: 0 2px 0 #6297cb;
                     box-shadow: 0 2px 0 #6297cb;
                     border-bottom: none; }
-                    #search #search_results .result:focus h1:after,
                     #search #search_results .result:active h1:after,
-                    #launch #search_results .result:focus h1:after,
                     #launch #search_results .result:active h1:after {
                       -webkit-animation: spin-right 1.5s linear infinite;
                       -moz-animation: spin-right 1.5s linear infinite;
