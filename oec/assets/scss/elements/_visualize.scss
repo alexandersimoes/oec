@@ -31,7 +31,6 @@ body.visualize {
   #content #main_viz {
 
     @include margin(0, 20px, 0, -15px, !important);
-    @include font-smoothing(antialiased);
 
     @media all and (max-width: 768px) {
       @include margin(0, 0, 0, 0, !important);
@@ -137,7 +136,7 @@ body.visualize {
 
   aside#explorer {
     @include transition(margin-left, 0.5s);
-    @include margin(30px, 35px, 0, 20px, !important);
+    @include margin(60px, 35px, 0, 20px, !important);
 
     &.small {
       @include margin-left(-$sidebar !important);
@@ -165,7 +164,7 @@ body.visualize {
         display: inline-block;
         font-family: $montserrat;
         font-size: 14px;
-        @include padding(5px, 5px, 5px, 5px);
+        @include padding(2px, 5px, 2px, 5px);
         opacity: 0.7;
         text-transform: uppercase;
 
@@ -675,7 +674,7 @@ body.visualize {
       @include flex;
       @include justify(space-between);
       @include flex-wrap(wrap);
-      margin-top: 25px;
+      margin-top: 5px;
 
       h2 {
         font-size: 28px;
@@ -691,6 +690,7 @@ body.visualize {
         font-family: $montserrat;
         font-size: 12px;
         margin-bottom: 5px;
+        margin-top: -5px;
         text-transform: uppercase;
       }
 
@@ -716,7 +716,7 @@ body.visualize {
         display: block;
         font-family: $montserrat;
         font-size: 13px;
-        @include margin(20px, 0, 20px, 0);
+        @include margin(10px, 0, 20px, 0);
         @include padding(6px, 10px, 6px, 10px);
         @include text-align(right);
         text-transform: uppercase;
@@ -758,14 +758,15 @@ body.visualize {
   }
 
   .d3plus_tooltip_container {
+    @include font-smoothing(antialiased);
     font-family: $source-sans !important;
     font-weight: 400 !important;
   }
 
   .d3plus_tooltip_container a.related,
   .d3plus_tooltip_container a.profile {
-    @include transition(opacity 0.1s);
-    color: $black;
+    @include transition(opacity 0.5s);
+    color: #fff;
     display: block;
     @include margin(10px, 0, 0, 0);
     opacity: 0.75;
@@ -776,7 +777,7 @@ body.visualize {
     line-height: 1.3;
 
     &:hover {
-      opacity: 1;
+      opacity: 0.6;
     }
 
     &:after {
@@ -894,13 +895,12 @@ body.visualize {
         display: inline-block;
         line-height: 1.2;
         vertical-align: middle;
-        width: 90%;
+        width: 88%;
       }
 
       &:hover {
         h3:after {
           font-family: FontAwesome;
-          position: absolute;
           @include padding-left(7px);
 
           @include rtl {
@@ -1002,10 +1002,57 @@ body.visualize {
         }
 
         &.related {
+          @include transition(opacity 0.5s);
+          color: #fff;      
           font-size: 14px;
           line-height: 1.3;
           @include padding(6px, 0, 6px, 0);
+          &:hover {
+            opacity: 0.6;
+          }
         }
+
+        &.tree_map:before {
+          background-image: url("/static/img/icons/app/app_tree_map.png");
+        }
+
+        &.stacked:before {
+          background-image: url("/static/img/icons/app/app_stacked.png");
+        }
+
+        &.network:before {
+          background-image: url("/static/img/icons/app/app_network.png");
+        }
+
+        &.rings:before {
+          background-image: url("/static/img/icons/app/app_rings.png");
+        }
+
+        &.geo_map:before {
+          background-image: url("/static/img/icons/app/app_geo_map.png");
+        }
+
+        &.compare:before {
+          background-image: url("/static/img/icons/app/app_compare.png");
+        }
+
+        &.scatter:before {
+          background-image: url("/static/img/icons/app/app_scatter.png");
+        }
+
+        &:before {
+          background-repeat: no-repeat;
+          background-size: 15px 15px;
+          content: "";
+          display: inline-block;
+          @include margin-right(6px);
+          @include left(0px);
+          width: 13px;
+          height: 14px;
+          position: relative;
+          top: 1px;
+        }
+
       }
 
     }
@@ -1028,14 +1075,14 @@ body.visualize {
     }
 
     a.related {
-      @include transition(opacity 0.5s);
+      @include transition(opacity 0.1s);
       color: #fff;
       display: block;
       position: relative;
       @include left(15px);
       width: 100%;
       &:hover {
-        opacity: 0.5;
+        opacity: 0.6;
       }
 
       &.profile {
