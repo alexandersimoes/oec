@@ -159,7 +159,23 @@
       <p>{{ build.subtitle|safe }}</p>
       {% endif %}
       {% if not build.iframe %}
-      <p><a href="/{{ g.locale }}/visualize/{{ build.build.url() }}" class="deep-link">Explore on Visualizations page &raquo;</a>
+      <p><a href="/{{ g.locale }}/visualize/{{ build.build.url() }}" class="deep-link">Explore on Visualizations page &raquo;</a></p>
+      <p>
+        Share:
+        <a href="{{ build.build.twitter_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Twitter">
+          <i class="fa fa-twitter"></i>
+        </a>
+        <a href="{{ build.build.facebook_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Facebook">
+          <i class="fa fa-facebook"></i>
+        </a>
+        <a href="#" class="share_toggle" title="Get link">
+          Link
+        </a>
+        <div>Something to show/hide</div>
+        <a href="{{ build.build.facebook_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Facebook">
+          Embed
+        </a>
+      </p>
       {% endif %}
     </aside>
     <content>
@@ -534,6 +550,24 @@
   d3.select(".share").on("click", function(){
     d3.select(this).classed("open", !d3.select(this).classed("open"));
   });
+  
+  function gravdept_next(elem) {
+      do {
+          elem = elem.nextSibling;
+      } while (elem && elem.nodeType != 1);
+      return elem;                
+  }
+
+  function gravdept_toggle(elem) {
+      var nextElem = gravdept_next(elem);
+	
+      if (nextElem.style.display==='block') { nextElem.style.display='none'; }
+      else { nextElem.style.display='block'; }
+  }
+  
+  d3.selectAll(".share_toggle").on("click", function(){
+    gravdept_toggle(this)
+  })
 
 </script>
 {% endblock %}
