@@ -1119,3 +1119,22 @@ body.visualize {
     opacity: 0.7 !important;
   }
 }
+
+.viz_loader {
+  color: white;
+  display: none;
+  font-size: 16px;
+  height: 100%;
+  @include left(0);
+  padding: 8px 10px;
+  position: absolute;
+  @include text-align(left);
+  top: 0;
+  width: 100%;
+  z-index: 3;
+
+  &.visible {
+    display: block;
+  }
+
+}

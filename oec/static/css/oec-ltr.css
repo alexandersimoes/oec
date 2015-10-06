@@ -2800,6 +2800,21 @@ body.visualize {
   letter-spacing: 0.1em; }
   #d3plus_back_button:hover {
     opacity: 0.7 !important; }
+
+.viz_loader {
+  color: white;
+  display: none;
+  font-size: 16px;
+  height: 100%;
+  left: 0;
+  padding: 8px 10px;
+  position: absolute;
+  text-align: left ;
+  top: 0;
+  width: 100%;
+  z-index: 3; }
+  .viz_loader.visible {
+    display: block; }
 body.rankings {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;

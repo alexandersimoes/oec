@@ -2,6 +2,10 @@ var configs = {};
 
 var visualization = function(build, container) {
 
+  if (!d3plus.util.d3selection(container)) {
+    container = d3.select(container);
+  }
+
   var trade_flow = build.trade_flow,
       default_config = configs["default"](build, container);
 
@@ -11,6 +15,11 @@ var visualization = function(build, container) {
               .error("Loading Visualization")
               .edges({"color": default_config.edges.color})
               .draw();
+
+  container.append("div")
+    .attr("class", "viz_loader")
+    .text("Loading additional information...")
+    .style("background-color", build.dark ? "rgba(39, 47, 56, 0.4)" : "rgba(255, 255, 255, 0.4)");
 
   /* need to grab json network file for rings and product space */
   if(build.viz.slug == "network" || build.viz.slug == "rings"){

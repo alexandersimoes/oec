@@ -5,6 +5,10 @@ var configs = {};
 
 var visualization = function(build, container) {
 
+  if (!d3plus.util.d3selection(container)) {
+    container = d3.select(container);
+  }
+
   var trade_flow = build.trade_flow,
       default_config = configs["default"](build, container);
 
@@ -14,6 +18,11 @@ var visualization = function(build, container) {
               .error("Loading Visualization")
               .edges({"color": default_config.edges.color})
               .draw();
+
+  container.append("div")
+    .attr("class", "viz_loader")
+    .text("Loading additional information...")
+    .style("background-color", build.dark ? "rgba(39, 47, 56, 0.4)" : "rgba(255, 255, 255, 0.4)");
 
   /* need to grab json network file for rings and product space */
   if(build.viz.slug == "network" || build.viz.slug == "rings"){
@@ -195,6 +204,7 @@ configs.default = function(build, container) {
       },
       "html": {
         "url": function(focus_id){
+          container.select(".viz_loader").classed("visible", true);
           var display_id = focus_id.substring(2).replace("_export", "").replace("_import", "");
           var attr_type = build.attr_type.indexOf("hs") >= 0 ? "prod_id" : build.attr_type+"_id";
           var url_args = "?trade_flow="+build.trade_flow+"&classification="+build.classification+"&"+attr_type+"="+display_id+"&focus="+attr_type;
@@ -212,6 +222,7 @@ configs.default = function(build, container) {
           data.builds.forEach(function(b){
             buttons.push("<a target='_top' href='/"+build.lang+"/visualize/"+b.url+"' class='related "+b.viz+"'>"+b.title+"</a>");
           });
+          container.select(".viz_loader").classed("visible", false);
           return buttons.join("");
         }
       },
