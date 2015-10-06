@@ -208,7 +208,7 @@ configs.default = function(build, container) {
         "callback":function(data){
           console.log(data);
           var buttons = [];
-          buttons.push("<a style='background-color:"+d3plus.color.legible(data.profile.color)+";' target='_top' href='"+data.profile.url+"' class='profile'><img src='"+data.profile.icon+"' style='background-color:"+data.profile.color+"' />Go to profile ></a>");
+          buttons.push("<a target='_top' href='"+data.profile.url+"' class='profile'><img src='"+data.profile.icon+"'/><h3>"+data.profile.title+"</h3></a><h3 class='related_viz' style='color:"+d3plus.color.lighter(data.profile.color)+"'>Related Visualizations</h3>");
           data.builds.forEach(function(b){
             buttons.push("<a target='_top' href='/"+build.lang+"/visualize/"+b.url+"' class='related "+b.viz+"'>"+b.title+"</a>");
           });
