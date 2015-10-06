@@ -244,14 +244,14 @@ ul.navLinks {
                   ul.navLinks li .sub_menu ul li:hover {
                     opacity: 0.9; }
                     ul.navLinks li .sub_menu ul li:hover:before {
-                      content: "\f0da";
+                      content: "\f0d9";
                       font-family: FontAwesome;
                       opacity: 0.4;
                       position: absolute;
                       margin-top: 2px;
                       margin-right: -10px ; }
                       ul.navLinks li .sub_menu ul li.active:before {
-                        content: "\f0da";
+                        content: "\f0d9";
                         font-family: FontAwesome;
                         position: absolute;
                         margin-top: 2px;
@@ -2075,7 +2075,10 @@ body.visualize {
     body.visualize #container {
       margin-top: 75px; }
       body.visualize #content #main_viz {
-        margin: 0 -15px 0 20px !important; }
+        margin: 0 -15px 0 20px !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-font-smoothing: antialiased;
+        font-smoothing: antialiased; }
         @media all and (max-width: 768px) {
           body.visualize #content #main_viz {
             margin: 0 0 0 0 !important;   }
@@ -2306,7 +2309,7 @@ body.visualize {
               font-weight: 700;
               opacity: 1; }
               body.visualize aside#explorer .app_menu .build .build_list .build_link.active:before {
-                content: "\f0da";
+                content: "\f0d9";
                 font-family: FontAwesome;
                 position: absolute;
                 margin-top: 0px;
@@ -2314,7 +2317,7 @@ body.visualize {
             body.visualize aside#explorer .app_menu .build .build_list .build_link:hover {
               opacity: 0.9; }
               body.visualize aside#explorer .app_menu .build .build_list .build_link:hover:before {
-                ,   content: "\f0da";
+                content: "\f0d9";
                 font-family: FontAwesome;
                 opacity: 0.7;
                 position: absolute;
@@ -2336,7 +2339,7 @@ body.visualize {
             font-weight: 700;
             color: white; }
             body.visualize aside#explorer .app_menu .build.new:hover .build_link:before {
-              content: "\f0da";
+              content: "\f0d9";
               font-family: FontAwesome;
               opacity: 0.4;
               position: absolute;
@@ -2546,7 +2549,7 @@ body.visualize {
           body.visualize .d3plus_tooltip_container a.related:after,
           body.visualize .d3plus_tooltip_container a.profile:after {
             bottom: 2px;
-            content: "\f105";
+            content: "\f104";
             display: block;
             font-family: FontAwesome;
             font-size: 20px;
@@ -2613,30 +2616,46 @@ body.visualize {
         border: 1px solid #63737f;
         color: #ccc;
         line-height: 1.4; }
-        .d3plus_tooltip_large .d3plus_tooltip_body,
-        .d3plus_tooltip_small .d3plus_tooltip_body {
-          height: 100%;
-          padding-left: 10px !important ; }
-          .d3plus_tooltip_large .d3plus_tooltip_body .d3plus_tooltip_header,
-          .d3plus_tooltip_small .d3plus_tooltip_body .d3plus_tooltip_header {
-            margin-top: 15px; }
-            .d3plus_tooltip_large .d3plus_tooltip_body .d3plus_tooltip_header .d3plus_tooltip_icon,
-            .d3plus_tooltip_small .d3plus_tooltip_body .d3plus_tooltip_header .d3plus_tooltip_icon {
-              display: none !important; }
-              .d3plus_tooltip_large .d3plus_tooltip_body .d3plus_tooltip_header .d3plus_tooltip_title,
-              .d3plus_tooltip_small .d3plus_tooltip_body .d3plus_tooltip_header .d3plus_tooltip_title {
-                width: 100% !important;
-                max-width: 100% !important; }
-    .d3plus_tooltip_large .d3plus_tooltip_html,
-    .d3plus_tooltip_small .d3plus_tooltip_html {
-      margin-top: 15px !important;
-      padding-left: 0px !important ;
-      height: 87% !important; }
+        .d3plus_tooltip_large .d3plus_tooltip_container .related_viz,
+        .d3plus_tooltip_small .d3plus_tooltip_container .related_viz {
+          font-size: 12px;
+          padding: 15px 0 10px 0px ; }
+          .d3plus_tooltip_large .d3plus_tooltip_container a.profile h3,
+          .d3plus_tooltip_small .d3plus_tooltip_container a.profile h3 {
+            font-size: 16px;
+            display: inline-block;
+            line-height: 1.2;
+            vertical-align: middle;
+            width: 90%; }
+            .d3plus_tooltip_large .d3plus_tooltip_container a.profile:hover h3:after,
+            .d3plus_tooltip_small .d3plus_tooltip_container a.profile:hover h3:after {
+              font-family: FontAwesome;
+              position: absolute;
+              padding-right: 7px ;
+              content: "\f104"; }
+    .d3plus_tooltip_large .d3plus_tooltip_body,
+    .d3plus_tooltip_small .d3plus_tooltip_body {
+      height: 100%;
+      padding-left: 10px !important ; }
+      .d3plus_tooltip_large .d3plus_tooltip_body .d3plus_tooltip_header,
+      .d3plus_tooltip_small .d3plus_tooltip_body .d3plus_tooltip_header {
+        margin-top: 15px; }
+        .d3plus_tooltip_large .d3plus_tooltip_body .d3plus_tooltip_header .d3plus_tooltip_icon,
+        .d3plus_tooltip_small .d3plus_tooltip_body .d3plus_tooltip_header .d3plus_tooltip_icon {
+          display: none !important; }
+          .d3plus_tooltip_large .d3plus_tooltip_body .d3plus_tooltip_header .d3plus_tooltip_title,
+          .d3plus_tooltip_small .d3plus_tooltip_body .d3plus_tooltip_header .d3plus_tooltip_title {
+            width: 100% !important;
+            max-width: 100% !important; }
+    .d3plus_tooltip_large .d3plus_tooltip_icon,
+    .d3plus_tooltip_small .d3plus_tooltip_icon {
+      vertical-align: middle !important; }
       .d3plus_tooltip_large .d3plus_tooltip_title,
       .d3plus_tooltip_small .d3plus_tooltip_title {
         color: #fff !important;
         font-size: 20px !important;
         line-height: 1.3 !important;
+        vertical-align: middle !important;
         padding: 0px 6px 10px 6px !important; }
         .d3plus_tooltip_large .d3plus_tooltip_data_title,
         .d3plus_tooltip_small .d3plus_tooltip_data_title {
@@ -2696,83 +2715,74 @@ body.visualize {
       background-color: #63737f !important; }
       .d3plus_tooltip_large .d3plus_tooltip_html,
       .d3plus_tooltip_small .d3plus_tooltip_html {
-        margin: 6px 12px 6px 12px ; }
-        .d3plus_tooltip_large .d3plus_tooltip_html .related_viz,
-        .d3plus_tooltip_small .d3plus_tooltip_html .related_viz {
-          font-size: 12px;
-          padding: 15px 0 10px 0px ; }
-          .d3plus_tooltip_large .d3plus_tooltip_html img,
-          .d3plus_tooltip_small .d3plus_tooltip_html img {
-            display: inline-block;
-            vertical-align: middle;
-            width: 25px;
-            margin: 0 auto 0 10px ; }
-            .d3plus_tooltip_large .d3plus_tooltip_html a.profile h3,
-            .d3plus_tooltip_small .d3plus_tooltip_html a.profile h3 {
-              font-size: 16px;
-              display: inline-block;
-              line-height: 1.2;
-              vertical-align: middle;
-              width: 90%; }
-              .d3plus_tooltip_large .d3plus_tooltip_html a.profile:hover h3:after,
-              .d3plus_tooltip_small .d3plus_tooltip_html a.profile:hover h3:after {
-                font-family: FontAwesome;
-                padding-right: 7px ;
-                content: "\f104"; }
-        .d3plus_tooltip_large .d3plus_tooltip_html a.related,
-        .d3plus_tooltip_small .d3plus_tooltip_html a.related {
-          color: #ccc;
-          display: block;
-          position: relative;
-          right: 15px;
-          width: 100%; }
-          .d3plus_tooltip_large .d3plus_tooltip_html a.related:hover,
-          .d3plus_tooltip_small .d3plus_tooltip_html a.related:hover {
-            color: #fff; }
-            .d3plus_tooltip_large .d3plus_tooltip_html a.related.profile,
-            .d3plus_tooltip_small .d3plus_tooltip_html a.related.profile {
-              background-color: transparent !important;
-              font-size: 18px;
-              font-weight: 400;
-              margin-bottom: 10px; }
-              .d3plus_tooltip_large .d3plus_tooltip_html a.related.related,
-              .d3plus_tooltip_small .d3plus_tooltip_html a.related.related {
-                font-size: 14px;
-                line-height: 1.3;
-                padding: 6px 3px 6px 0 ; }
-                .d3plus_tooltip_large .d3plus_tooltip_html a.related.related.tree_map:before,
-                .d3plus_tooltip_small .d3plus_tooltip_html a.related.related.tree_map:before {
-                  background-image: url("/static/img/icons/app/app_tree_map.png"); }
-                  .d3plus_tooltip_large .d3plus_tooltip_html a.related.related.stacked:before,
-                  .d3plus_tooltip_small .d3plus_tooltip_html a.related.related.stacked:before {
-                    background-image: url("/static/img/icons/app/app_stacked.png"); }
-                    .d3plus_tooltip_large .d3plus_tooltip_html a.related.related.network:before,
-                    .d3plus_tooltip_small .d3plus_tooltip_html a.related.related.network:before {
-                      background-image: url("/static/img/icons/app/app_network.png"); }
-                      .d3plus_tooltip_large .d3plus_tooltip_html a.related.related.rings:before,
-                      .d3plus_tooltip_small .d3plus_tooltip_html a.related.related.rings:before {
-                        background-image: url("/static/img/icons/app/app_rings.png"); }
-                        .d3plus_tooltip_large .d3plus_tooltip_html a.related.related.geo_map:before,
-                        .d3plus_tooltip_small .d3plus_tooltip_html a.related.related.geo_map:before {
-                          background-image: url("/static/img/icons/app/app_geo_map.png"); }
-                          .d3plus_tooltip_large .d3plus_tooltip_html a.related.related.compare:before,
-                          .d3plus_tooltip_small .d3plus_tooltip_html a.related.related.compare:before {
-                            background-image: url("/static/img/icons/app/app_compare.png"); }
-                            .d3plus_tooltip_large .d3plus_tooltip_html a.related.related.scatter:before,
-                            .d3plus_tooltip_small .d3plus_tooltip_html a.related.related.scatter:before {
-                              background-image: url("/static/img/icons/app/app_scatter.png"); }
-                              .d3plus_tooltip_large .d3plus_tooltip_html a.related.related:before,
-                              .d3plus_tooltip_small .d3plus_tooltip_html a.related.related:before {
-                                background-repeat: no-repeat;
-                                background-size: 15px 15px;
-                                content: "";
-                                display: block;
-                                margin-left: 8px ;
-                                right: -15px;
-                                width: 15px;
-                                height: 15px;
-                                position: absolute;
-                                top: 8px; }
+        margin: 15px 12px 6px 12px ;
+        padding-left: 0px !important ;
+        height: 87% !important; }
+        .d3plus_tooltip_large .d3plus_tooltip_html img,
+        .d3plus_tooltip_small .d3plus_tooltip_html img {
+          display: inline-block;
+          vertical-align: middle;
+          width: 25px;
+          margin: 0 auto 0 10px ; }
+          .d3plus_tooltip_large .d3plus_tooltip_html a.related,
+          .d3plus_tooltip_small .d3plus_tooltip_html a.related {
+            -webkit-transition: opacity 0.5s;
+            -moz-transition: opacity 0.5s;
+            -ms-transition: opacity 0.5s;
+            -o-transition: opacity 0.5s;
+            transition: opacity 0.5s;
+            color: #fff;
+            display: block;
+            position: relative;
+            right: 15px;
+            width: 100%; }
+            .d3plus_tooltip_large .d3plus_tooltip_html a.related:hover,
+            .d3plus_tooltip_small .d3plus_tooltip_html a.related:hover {
+              opacity: 0.5; }
+              .d3plus_tooltip_large .d3plus_tooltip_html a.related.profile,
+              .d3plus_tooltip_small .d3plus_tooltip_html a.related.profile {
+                background-color: transparent !important;
+                font-size: 18px;
+                font-weight: 400;
+                margin-bottom: 10px; }
+                .d3plus_tooltip_large .d3plus_tooltip_html a.related.related,
+                .d3plus_tooltip_small .d3plus_tooltip_html a.related.related {
+                  font-size: 14px;
+                  line-height: 1.3;
+                  padding: 6px 3px 6px 0 ; }
+                  .d3plus_tooltip_large .d3plus_tooltip_html a.related.related.tree_map:before,
+                  .d3plus_tooltip_small .d3plus_tooltip_html a.related.related.tree_map:before {
+                    background-image: url("/static/img/icons/app/app_tree_map.png"); }
+                    .d3plus_tooltip_large .d3plus_tooltip_html a.related.related.stacked:before,
+                    .d3plus_tooltip_small .d3plus_tooltip_html a.related.related.stacked:before {
+                      background-image: url("/static/img/icons/app/app_stacked.png"); }
+                      .d3plus_tooltip_large .d3plus_tooltip_html a.related.related.network:before,
+                      .d3plus_tooltip_small .d3plus_tooltip_html a.related.related.network:before {
+                        background-image: url("/static/img/icons/app/app_network.png"); }
+                        .d3plus_tooltip_large .d3plus_tooltip_html a.related.related.rings:before,
+                        .d3plus_tooltip_small .d3plus_tooltip_html a.related.related.rings:before {
+                          background-image: url("/static/img/icons/app/app_rings.png"); }
+                          .d3plus_tooltip_large .d3plus_tooltip_html a.related.related.geo_map:before,
+                          .d3plus_tooltip_small .d3plus_tooltip_html a.related.related.geo_map:before {
+                            background-image: url("/static/img/icons/app/app_geo_map.png"); }
+                            .d3plus_tooltip_large .d3plus_tooltip_html a.related.related.compare:before,
+                            .d3plus_tooltip_small .d3plus_tooltip_html a.related.related.compare:before {
+                              background-image: url("/static/img/icons/app/app_compare.png"); }
+                              .d3plus_tooltip_large .d3plus_tooltip_html a.related.related.scatter:before,
+                              .d3plus_tooltip_small .d3plus_tooltip_html a.related.related.scatter:before {
+                                background-image: url("/static/img/icons/app/app_scatter.png"); }
+                                .d3plus_tooltip_large .d3plus_tooltip_html a.related.related:before,
+                                .d3plus_tooltip_small .d3plus_tooltip_html a.related.related:before {
+                                  background-repeat: no-repeat;
+                                  background-size: 15px 15px;
+                                  content: "";
+                                  display: block;
+                                  margin-left: 8px ;
+                                  right: -15px;
+                                  width: 15px;
+                                  height: 15px;
+                                  position: absolute;
+                                  top: 8px; }
     .d3plus_tooltip_large .d3plus_tooltip_close,
     .d3plus_tooltip_small .d3plus_tooltip_close {
       top: 15px !important;
@@ -2793,8 +2803,7 @@ body.visualize {
   -o-transition: opacity 0.5s;
   transition: opacity 0.5s;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 16px !important; }
+  letter-spacing: 0.1em; }
   #d3plus_back_button:hover {
     opacity: 0.7 !important; }
 body.rankings {

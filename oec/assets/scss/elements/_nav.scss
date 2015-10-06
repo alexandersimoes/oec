@@ -63,7 +63,12 @@ ul.navLinks {
           }
 
           &:hover:before {
-            content: unicode("f0da");
+            @include ltr {
+              content: unicode("f0da");
+            }
+            @include rtl {
+              content: unicode("f0d9");
+            }
             font-family: FontAwesome;
             opacity: 0.4;
             position: absolute;
@@ -72,7 +77,12 @@ ul.navLinks {
           }
 
           &.active:before {
-            content: unicode("f0da");
+            @include ltr {
+              content: unicode("f0da");
+            }
+            @include rtl {
+              content: unicode("f0d9");
+            }
             font-family: FontAwesome;
             position: absolute;
             margin-top: 2px;

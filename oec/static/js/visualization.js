@@ -206,7 +206,6 @@ configs.default = function(build, container) {
           return "/"+build.lang+"/visualize/builds/"+url_args;
         },
         "callback":function(data){
-          console.log(data);
           var buttons = [];
           buttons.push("<a target='_top' href='"+data.profile.url+"' class='profile'><img src='"+data.profile.icon+"'/><h3>"+data.profile.title+"</h3></a><h3 class='related_viz' style='color:"+d3plus.color.lighter(data.profile.color)+"'>Related Visualizations</h3>");
           data.builds.forEach(function(b){
@@ -302,7 +301,8 @@ configs.default = function(build, container) {
         "font": {
           "color": text,
           "family": ["Montserrat", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
-          "size": 20,
+          "size": 16,
+          "transform": "uppercase",
           "weight": 400
         }
       }
