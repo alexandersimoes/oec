@@ -99,13 +99,14 @@ var visualization = function(build, container) {
       ui = ui.concat([
         {"method": share(build), "value": ["<img src='/static/img/profile/share" + suffix +".png' />"], "type": "button"},
         {"method": download(container, csv_data), "value": ["<img src='/static/img/profile/download" + suffix +".png' />"], "type": "button"}
-      ])
+      ]);
 
       viz
         .data(build.data)
         .attrs(build.attrs)
         .error(false)
         .ui(ui)
+        .tooltip({"stacked": viz.width() < 768 ? true : false})
         .draw();
 
       d3.select("#viz")
@@ -192,7 +193,7 @@ configs.default = function(build, container) {
       "font": {
         "color": "#333"
       },
-      "html": window.innerWidth < 768 ? false : {
+      "html": {
         "url": function(focus_id){
           var display_id = focus_id.substring(2).replace("_export", "").replace("_import", "");
           var attr_type = build.attr_type.indexOf("hs") >= 0 ? "prod_id" : build.attr_type+"_id";

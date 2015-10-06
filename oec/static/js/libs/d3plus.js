@@ -20320,6 +20320,7 @@ module.exports = function(params) {
   params.style = params.style || "default"
   params.zindex = params.size == "small" ? 2000 : 500
   params.locale = params.locale || defaultLocale
+  params.stacked = params.stacked || false;
 
 
   var parentHeight = params.parent ? params.parent.node().offsetHeight
@@ -20418,7 +20419,7 @@ module.exports = function(params) {
     .style("background-color",params.background)
     .style("padding","6px")
 
-  if (params.fullscreen && params.html) {
+  if (params.fullscreen && params.html && !params.stacked) {
 
     w = params.parent ? params.parent.node().offsetWidth*0.75 : window.innerWidth*0.75
     h = params.parent ? parentHeight*0.75 : window.innerHeight*0.75
@@ -20771,7 +20772,7 @@ module.exports = function(params) {
 
   }
 
-  if (params.html && !params.fullscreen) {
+  if (params.html && (!params.fullscreen || params.stacked)) {
     data_container.append("div")
       .html(params.html)
     if (params.js) {
@@ -20791,7 +20792,7 @@ module.exports = function(params) {
 
   params.height = tooltip.node().offsetHeight || tooltip.node().getBoundingClientRect().height
 
-  if (params.html && params.fullscreen) {
+  if (params.html && params.fullscreen && !params.stacked) {
     var h = params.height-12
     var w = tooltip.node().offsetWidth-params.width-44
     container.append("div")
@@ -20814,9 +20815,9 @@ module.exports = function(params) {
   if (params.anchor.y != "center") params.height += params.arrow_offset
   else params.width += params.arrow_offset
 
-  if (params.data || (!params.fullscreen && params.html)) {
+  if (params.data || ((!params.fullscreen || params.stacked) && params.html)) {
 
-    if (!params.fullscreen) {
+    if (!params.fullscreen || params.stacked) {
       var limit = params.fixed ? parentHeight-params.y-10 : parentHeight-10
       var h = params.height < limit ? params.height : limit
     }
@@ -26161,6 +26162,7 @@ module.exports = function(params) {
         "mouseevents": mouse,
         "offset": offset,
         "parent": parent,
+        "stacked": vars.tooltip.stacked.value,
         "style": icon_style,
         "title": title,
         "description": params.description,
@@ -30001,6 +30003,10 @@ module.exports = {
     value: true
   },
   small: 225,
+  stacked: {
+    accepted: [Boolean],
+    value: false
+  },
   sub: {
     accepted: [false, Function, String],
     value: false

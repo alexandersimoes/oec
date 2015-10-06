@@ -96,13 +96,14 @@ var visualization = function(build, container) {
       ui = ui.concat([
         {"method": share(build), "value": ["<img src='/static/img/profile/share" + suffix +".png' />"], "type": "button"},
         {"method": download(container, csv_data), "value": ["<img src='/static/img/profile/download" + suffix +".png' />"], "type": "button"}
-      ])
+      ]);
 
       viz
         .data(build.data)
         .attrs(build.attrs)
         .error(false)
         .ui(ui)
+        .tooltip({"stacked": viz.width() < 768 ? true : false})
         .draw();
 
       d3.select("#viz")
