@@ -37,6 +37,11 @@ body {
     body.error {
       overflow: hidden; }
 
+@media screen and (max-device-width: 480px) {
+  body {
+    -webkit-text-size-adjust: none;   }
+}
+
 .wordwrap {
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -345,7 +350,7 @@ nav {
       flex-direction: column;
       padding: 16px 40px 70px 14px ; }
       #mobileNav .navLinks li {
-        margin: 4px 0 4px 0 ; }
+        margin: 3px 0 3px 0 ; }
         #mobileNav .navLinks li .sub_menu {
           background-color: transparent;
           display: block;

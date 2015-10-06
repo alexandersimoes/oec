@@ -184,7 +184,7 @@ nav {
     @include padding(16px, 14px, 70px, 40px);
 
     li {
-      @include margin(4px, 0, 4px, 0);
+      @include margin(3px, 0, 3px, 0);
 
       .sub_menu {
         background-color: transparent;
