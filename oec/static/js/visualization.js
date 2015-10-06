@@ -21,8 +21,7 @@ var visualization = function(build, container) {
 
   container.append("div")
     .attr("class", "viz_loader")
-    .text("Loading additional information...")
-    .style("background-color", build.dark ? "rgba(39, 47, 56, 0.4)" : "rgba(255, 255, 255, 0.4)");
+    .style("background-color", build.dark ? "rgb(129, 145, 157)" : "rgb(255, 255, 255)");
 
   /* need to grab json network file for rings and product space */
   if(build.viz.slug == "network" || build.viz.slug == "rings"){

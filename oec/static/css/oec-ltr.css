@@ -1072,7 +1072,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
+        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
         left: 0;
         position: absolute;
         top: 0;
@@ -1864,7 +1864,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent, #212831);
+      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -1996,7 +1996,7 @@ body.profile {
     background: -webkit-linear-gradient(top, #212831 0%, #535a63 100%);
     background: -o-linear-gradient(top, #212831 0%, #535a63 100%);
     background: -ms-linear-gradient(top, #212831 0%, #535a63 100%);
-    background: linear-gradient(to bottom, #212831, #535a63);
+    background: linear-gradient(to bottom, #212831 0%, #535a63 100%);
     background-color: #535a63; }
     body.profile article.sisters h1 {
       border-top: 0;
@@ -2012,8 +2012,8 @@ body.profile {
 }
   body.profile article.dataviva {
     background-color: white;
-    background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #535a63, #81919d 5%,
-        rgba(255, 255, 255, 0) 20%),
+    background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #535a63 0%,
+        #81919d 5%, rgba(255, 255, 255, 0) 20%),
         url('http://en.dataviva.info/static/img/bgs/city_small.jpg');
     background-attachment: local, local, fixed;
     background-repeat: repeat-x, no-repeat;
@@ -2024,9 +2024,9 @@ body.profile {
     body.profile article.dataviva p {
       color: #333; }
       body.profile article.dataviva section aside {
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255, 0.8);
         padding: 15px 15px 15px 15px ;
-        margin: 20px 20px 20px 20px !important; }
+        margin: 30px 20px 30px 20px !important; }
         body.profile article.dataviva section aside a {
           color: #af1f24; }
           body.profile article.dataviva section aside a:hover {
@@ -2807,19 +2807,57 @@ body.visualize {
     opacity: 0.7 !important; }
 
 .viz_loader {
-  color: white;
+  -webkit-animation: viz_loader 4s cubic-bezier(0.91, 0, 0.8, 0.51) 2s infinite;
+  -moz-animation: viz_loader 4s cubic-bezier(0.91, 0, 0.8, 0.51) 2s infinite;
+  -o-animation: viz_loader 4s cubic-bezier(0.91, 0, 0.8, 0.51) 2s infinite;
+  animation: viz_loader 4s cubic-bezier(0.91, 0, 0.8, 0.51) 2s infinite;
   display: none;
-  font-size: 16px;
-  height: 100%;
+  height: 7px;
   left: 0;
-  padding: 8px 10px;
+  margin: -6px 2px 0 2px ;
+  overflow: hidden;
   position: absolute;
   text-align: left ;
   top: 0;
-  width: 100%;
   z-index: 3; }
   .viz_loader.visible {
     display: block; }
+
+@-webkit-keyframes viz_loader {
+  0% {
+    opacity: 0.3;
+    width: 0%;   }
+    100% {
+      opacity: 1;
+      width: 100%;   }
+}
+
+@-moz-keyframes viz_loader {
+  0% {
+    opacity: 0.3;
+    width: 0%;   }
+    100% {
+      opacity: 1;
+      width: 100%;   }
+}
+
+@-o-keyframes viz_loader {
+  0% {
+    opacity: 0.3;
+    width: 0%;   }
+    100% {
+      opacity: 1;
+      width: 100%;   }
+}
+
+@keyframes viz_loader {
+  0% {
+    opacity: 0.3;
+    width: 0%;   }
+    100% {
+      opacity: 1;
+      width: 100%;   }
+}
 body.rankings {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
