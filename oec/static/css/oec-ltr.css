@@ -2779,6 +2779,18 @@ body.visualize {
       .d3plus_tooltip_large .d3plus_tooltip_close:hover,
       .d3plus_tooltip_small .d3plus_tooltip_close:hover {
         opacity: 0.6 !important; }
+
+#d3plus_back_button {
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  -ms-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 16px !important; }
+  #d3plus_back_button:hover {
+    opacity: 0.7 !important; }
 body.rankings {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
