@@ -405,7 +405,7 @@ body.home {
   font-smoothing: antialiased; }
   body.home nav {
     background: none; }
-    body.home nav #logo, body.home nav #search_button {
+    body.home nav #logo {
       visibility: hidden; }
   body.home #container {
     height: 100vh;
