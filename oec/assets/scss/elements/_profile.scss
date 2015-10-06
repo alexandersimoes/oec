@@ -608,39 +608,33 @@ body.profile {
       }
     }
 
-    #topojson {
-      // @include transition(opacity 1s);
-      @include flex-size(none);
-      background-color: rgba(255, 255, 255, 0.2);
-      border: 1px solid #aaa;
-      height: 250px;
-      // @include left(35px);
-      // opacity: 0;
-      opacity: 1;
-      position: relative;
-      // top: $header + 35px;
-      width: 250px;
-      z-index: 10;
+  }
 
-      &.loaded {
+  #topojson {
+    @include flex-size(none);
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid #aaa;
+    height: 250px;
+    @include left(35px);
+    opacity: 1;
+    position: absolute;
+    top: $header + 35px;
+    width: 250px;
+    z-index: 10;
+
+    .coords {
+      fill: white;
+      opacity: 0.25;
+      stroke: $darkbordercolor;
+
+      &.focus {
         opacity: 1;
       }
 
-      .coords {
-        fill: white;
-        opacity: 0.25;
-        stroke: $darkbordercolor;
+    }
 
-        &.focus {
-          opacity: 1;
-        }
-
-      }
-
-      @media all and (max-width: 768px) {
-        display: none;
-      }
-
+    @media all and (max-width: 768px) {
+      display: none;
     }
 
   }
@@ -811,14 +805,14 @@ body.profile {
     border: 0;
     @include padding-left(0);
 
-    &.country {
-      margin-top: 20px;
-
-      @media all and (max-width: 768px) {
-        margin-top: -20px;
-        margin-bottom: -20px;
-      }
-    }
+    // &.country {
+    //   margin-top: 20px;
+    //
+    //   @media all and (max-width: 768px) {
+    //     margin-top: -20px;
+    //     margin-bottom: -20px;
+    //   }
+    // }
 
     li a {
       color: $brightlinkcolor;
@@ -834,13 +828,8 @@ body.profile {
     font-weight: 400;
     line-height: 17px;
     list-style-type: none;
-    margin-bottom: 45px;
     overflow: scroll;
-    @include padding(5px, 20px, 15px, 15px);
-
-    @media all and (max-width: 768px) {
-      margin-bottom: 0;
-    }
+    @include padding(0, 20px, 0, 15px);
 
     li {
       @include padding(3px, 0, 3px, 0);

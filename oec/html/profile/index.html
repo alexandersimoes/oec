@@ -83,13 +83,16 @@
 </header>
 </article>
 
+{% if g.page_sub_type == "country" %}
+<div id="topojson"></div>
+{% endif %}
+
 <article class="intro-article">
 <section>
 
   <aside>
 
     {% if g.page_sub_type == "country" %}
-    <div id="topojson"></div>
     {% set extra = 2 %}
     {% else %}
     {% set extra = 1 %}
@@ -425,16 +428,6 @@
 
   }
 
-  var hierarchy = d3.select("ul.hierarchy");
-  if (!hierarchy.empty()) {
-    function hierarchyHeight() {
-      var ch = d3.select(".columns").node().offsetHeight;
-      hierarchy.style("max-height", ch + 60 + "px");
-    }
-    hierarchyHeight();
-    resizeFunctions.push(hierarchyHeight);
-  }
-
   var builds = [];
   d3.selectAll(".viz").each(function(d, i){
     builds.push({
@@ -448,13 +441,13 @@
 
   function resizeApps() {
 
-    if (window.innerWidth > 768) {
-      var header_height = d3.select("header").node().offsetHeight;
-      map.style("margin-top", -header_height-10 +"px");
-    }
-    else {
-      map.style("margin-top", "0px");
-    }
+    // if (window.innerWidth > 768) {
+    //   var header_height = d3.select("header").node().offsetHeight;
+    //   // map.style("margin-top", -header_height-10 +"px");
+    // }
+    // else {
+    //   // map.style("margin-top", "0px");
+    // }
 
     var h = window.innerWidth < 768 ? window.innerHeight : window.innerHeight * 0.7;
     builds.forEach(function(b, i){

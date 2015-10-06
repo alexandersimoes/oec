@@ -1078,7 +1078,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
         right: 0;
         position: absolute;
         top: 0;
@@ -1777,7 +1777,7 @@ body.profile {
       body.profile article.intro-article div.columns p {
         text-align: right ;   }
 }
-  body.profile article.intro-article #topojson {
+  body.profile #topojson {
     -webkit-box-flex: none;
     -moz-box-flex: none;
     -webkit-flex: none;
@@ -1786,20 +1786,20 @@ body.profile {
     background-color: rgba(255, 255, 255, 0.2);
     border: 1px solid #aaa;
     height: 250px;
+    right: 35px;
     opacity: 1;
-    position: relative;
+    position: absolute;
+    top: 100px;
     width: 250px;
     z-index: 10; }
-    body.profile article.intro-article #topojson.loaded {
-      opacity: 1; }
-      body.profile article.intro-article #topojson .coords {
-        fill: white;
-        opacity: 0.25;
-        stroke: #63737f; }
-        body.profile article.intro-article #topojson .coords.focus {
-          opacity: 1; }
+    body.profile #topojson .coords {
+      fill: white;
+      opacity: 0.25;
+      stroke: #63737f; }
+      body.profile #topojson .coords.focus {
+        opacity: 1; }
     @media all and (max-width: 768px) {
-      body.profile article.intro-article #topojson {
+      body.profile #topojson {
         display: none;   }
 }
   body.profile article.product ~ article.titled-section h1 {
@@ -1872,7 +1872,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
+      background: linear-gradient(to bottom, transparent, #212831);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -1955,13 +1955,6 @@ body.profile {
   body.profile ul.hierarchy.contents {
     border: 0;
     padding-right: 0 ; }
-    body.profile ul.hierarchy.contents.country {
-      margin-top: 20px; }
-      @media all and (max-width: 768px) {
-        body.profile ul.hierarchy.contents.country {
-          margin-top: -20px;
-          margin-bottom: -20px;   }
-}
     body.profile ul.hierarchy.contents li a {
       color: #6297cb; }
   body.profile ul.hierarchy {
@@ -1973,23 +1966,18 @@ body.profile {
     font-weight: 400;
     line-height: 17px;
     list-style-type: none;
-    margin-bottom: 45px;
     overflow: scroll;
-    padding: 5px 15px 15px 20px ; }
-    @media all and (max-width: 768px) {
-      body.profile ul.hierarchy {
-        margin-bottom: 0;   }
-}
-      body.profile ul.hierarchy li {
-        padding: 3px 0 3px 0 ; }
-        body.profile ul.hierarchy li a {
-          color: #5083b5;
-          font-size: 16px;
-          line-height: 1.3; }
-          body.profile ul.hierarchy li a:hover {
-            opacity: 0.7; }
-            body.profile ul.hierarchy li a span {
-              font-weight: 700; }
+    padding: 0 15px 0 20px ; }
+    body.profile ul.hierarchy li {
+      padding: 3px 0 3px 0 ; }
+      body.profile ul.hierarchy li a {
+        color: #5083b5;
+        font-size: 16px;
+        line-height: 1.3; }
+        body.profile ul.hierarchy li a:hover {
+          opacity: 0.7; }
+          body.profile ul.hierarchy li a span {
+            font-weight: 700; }
     body.profile ul.hierarchy .depth2 {
       font-size: 22px;
       line-height: 35px; }
@@ -2004,7 +1992,7 @@ body.profile {
     background: -webkit-linear-gradient(top, #212831 0%, #535a63 100%);
     background: -o-linear-gradient(top, #212831 0%, #535a63 100%);
     background: -ms-linear-gradient(top, #212831 0%, #535a63 100%);
-    background: linear-gradient(to bottom, #212831 0%, #535a63 100%);
+    background: linear-gradient(to bottom, #212831, #535a63);
     background-color: #535a63; }
     body.profile article.sisters h1 {
       border-top: 0;
@@ -2020,8 +2008,8 @@ body.profile {
 }
   body.profile article.dataviva {
     background-color: white;
-    background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #535a63 0%,
-        #81919d 5%, rgba(255, 255, 255, 0) 20%),
+    background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #535a63, #81919d 5%,
+        rgba(255, 255, 255, 0) 20%),
         url('http://en.dataviva.info/static/img/bgs/city_small.jpg');
     background-attachment: local, local, fixed;
     background-repeat: repeat-x, no-repeat;
