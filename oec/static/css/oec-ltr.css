@@ -1249,6 +1249,8 @@ body.profile {
         body.profile article aside a.deep-link:hover {
           border-bottom: none !important;
           color: #fff !important; }
+      body.profile article aside .share_input {
+        display: none; }
     body.profile article content {
       margin: 30px 30px 30px 30px !important; }
       body.profile article.intro-article {

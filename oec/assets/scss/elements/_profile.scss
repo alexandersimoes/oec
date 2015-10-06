@@ -37,6 +37,10 @@ body.profile {
           color: #fff !important;
         }
       }
+      
+      .share_input {
+        display: none;
+      }
     }
 
     content {
@@ -931,6 +935,7 @@ body.profile {
               border-bottom: 1px solid #af1f24;
             }
           }
+          
         }
 
         content {
