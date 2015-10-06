@@ -16,6 +16,24 @@ body {
   &.error {
     overflow: hidden;
   }
+
+  .fa-angle-left:before {
+    @include ltr {
+      content: unicode("f104");
+    }
+    @include rtl {
+      content: unicode("f105");
+    }
+  }
+
+  .fa-angle-right:before {
+    @include ltr {
+      content: unicode("f105");
+    }
+    @include rtl {
+      content: unicode("f104");
+    }
+  }
 }
 
 @media screen and (max-device-width: 480px){
@@ -198,7 +216,6 @@ section {
       }
 
     }
-
 }
 
 @import "elements/nav";

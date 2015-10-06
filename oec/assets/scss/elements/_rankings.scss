@@ -210,11 +210,22 @@ body.rankings {
         &:hover {
           border-bottom: 0;
           &:after {
-            content: unicode("f105");
+            @include ltr {
+              content: unicode("f105");
+            }
+            @include rtl {
+              content: unicode("f104");
+            }
             font-family: FontAwesome;
             @include padding-left(7px);
           }
         }
+      }
+      
+      th {
+       @include rtl {
+        text-align: right;
+       }
       }
 
       th[data-sortable] {
