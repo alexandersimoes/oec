@@ -110,7 +110,12 @@ $default_size: 600px;
       @include text-shadow(-2px 0 5px $darkbackground);
       @include text-align(center);
       bottom: 18%;
-      @include right(14%);
+      @include ltr {
+        right: 14%;
+      }
+      @include rtl {
+        left: 19%;
+      }
 
       a {
         @include transition(color 1s, opacity 0.5s);
@@ -137,8 +142,13 @@ $default_size: 600px;
       cursor: pointer;
       position: absolute;
       bottom: 17%;
-      right: 22%;
       opacity: 0.6;
+      @include rtl {
+        left: 23%;
+      }
+      @include ltr {
+        right: 22%;
+      }
 
       &:hover {
         opacity: 1;

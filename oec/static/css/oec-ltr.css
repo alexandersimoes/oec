@@ -519,8 +519,8 @@ body.home {
           cursor: pointer;
           position: absolute;
           bottom: 17%;
-          right: 22%;
-          opacity: 0.6; }
+          opacity: 0.6;
+          right: 22%; }
           .bg-frame #ring #launch_vid:hover {
             opacity: 1; }
             .bg-frame #ring #launch_vid img {

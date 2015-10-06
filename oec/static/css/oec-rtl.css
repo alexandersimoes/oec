@@ -497,7 +497,7 @@ body.home {
                 text-shadow: -2px 0 5px #212831;
                 text-align: center ;
                 bottom: 18%;
-                left: 14%; }
+                left: 19%; }
                 .bg-frame #ring #info a {
                   -webkit-transition: color 1s, opacity 0.5s;
                   -moz-transition: color 1s, opacity 0.5s;
@@ -525,8 +525,8 @@ body.home {
           cursor: pointer;
           position: absolute;
           bottom: 17%;
-          right: 22%;
-          opacity: 0.6; }
+          opacity: 0.6;
+          left: 23%; }
           .bg-frame #ring #launch_vid:hover {
             opacity: 1; }
             .bg-frame #ring #launch_vid img {
