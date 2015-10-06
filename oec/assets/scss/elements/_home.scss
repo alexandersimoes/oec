@@ -166,6 +166,7 @@ $default_size: 600px;
         font-size: $default_size/45;
         vertical-align: middle;
       }
+
     }
 
     #search_home {
@@ -202,6 +203,14 @@ $default_size: 600px;
     }
   }
 
+}
+
+#launch {
+  background-color: rgba(63, 70, 79, 0.8);
+
+  iframe {
+    @include shadow(0 0 200px rgba(0,0,0,0.6));
+  }
 }
 
 @include keyframes(pulse) {

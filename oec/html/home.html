@@ -10,7 +10,7 @@
     <div>[ esc ]</div>
   </div>
   <div class="modal_body">
-    <iframe src="https://player.vimeo.com/video/141271203?autoplay=1&color=ffffff&title=0&byline=0&portrait=0" width="700" height="394" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <iframe id="vimeo_embed" src="https://player.vimeo.com/video/141271203?autoplay=0&api=1&color=ffffff&title=0&byline=0&portrait=0" width="700" height="394" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
   </div>
 </div>
 
@@ -41,6 +41,7 @@
 
 {% block js %}
 
+<script src="/static/js/libs/froogaloop.min.js"></script>
 <script>
 
   var timing = 0;
@@ -117,9 +118,12 @@
     });
   }
 
+  var vimeo = $f(d3.select("#vimeo_embed").node());
   function launchVid() {
     d3.select("#launch").style("visibility", "visible").classed("visible", true);
     d3.select("#launch .modal_close").classed("open", true);
+
+    vimeo.api("play");
 
     d3.select("body").on("keyup", function(){
       if (d3.event.keyCode === 27) {
@@ -132,12 +136,13 @@
   function close_launch() {
     d3.select("#launch").classed("visible", false);
     d3.select("#launch .modal_close").classed("open", false);
+    vimeo.api("pause");
     setTimeout(function(){
       d3.select("#launch").style("visibility", "hidden");
     }, 500);
   }
 
-  d3.select("#launch .modal_close").on("click", close_launch);
+  d3.select("#launch .modal_close, #launch").on("click", close_launch);
 
 </script>
 
