@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-30 12:42-0400\n"
+"POT-Creation-Date: 2015-09-30 18:14-0400\n"
 "PO-Revision-Date: 2015-09-29 12:59-0400\n"
 "Last-Translator: \n"
 "Language-Team: fr <LL@li.org>\n"
@@ -128,22 +128,22 @@ msgstr "des"
 msgid "article_of_f"
 msgstr "de la"
 
-#: oec/html/home.html:3 oec/html/home.html:12 oec/html/templates/nav.html:8
-#: oec/html/templates/nav.html:20
+#: oec/html/home.html:3 oec/html/home.html:23 oec/html/templates/nav.html:8
+#: oec/html/templates/nav.html:21
 msgid "The Observatory of Economic Complexity"
 msgstr ""
 
-#: oec/html/home.html:15
+#: oec/html/home.html:29
 msgid ""
 "We are the world's<br/>leading visualization engine<br/>for international"
 " trade data."
 msgstr ""
 
-#: oec/html/home.html:17
+#: oec/html/home.html:31
 msgid "Learn More"
 msgstr ""
 
-#: oec/html/home.html:22 oec/html/templates/nav.html:65
+#: oec/html/home.html:35 oec/html/templates/nav.html:66
 msgid "Search"
 msgstr ""
 
@@ -404,7 +404,7 @@ msgid ""
 "The top export destinations %(of_country)s are %(destinations)s. The top "
 "import origins are %(origins)s."
 msgstr ""
-"Les destinations %(of_country)s à l'exportation sont supérieurs "
+"Les destinations supérieurs %(of_country)s à l'exportation sont "
 "%(destinations)s. Les origines top d'importation sont %(origins)s."
 
 #: oec/profile/models.py:177
@@ -415,7 +415,7 @@ msgstr "%(country)s est une île et borde %(maritime_borders)s par la mer."
 #: oec/profile/models.py:179
 #, python-format
 msgid "%(country)s borders %(land_borders)s."
-msgstr "%(country)s frontière avec %(land_borders)s."
+msgstr "%(country)s est adjacent %(land_borders)s."
 
 #: oec/profile/models.py:181
 #, python-format
@@ -423,7 +423,7 @@ msgid ""
 "%(country)s borders %(land_borders)s by land and %(maritime_borders)s by "
 "sea."
 msgstr ""
-"%(country)s frontière de %(land_borders)s par terre et "
+"%(country)s est adjacent de %(land_borders)s par terre et "
 "%(maritime_borders)s par mer."
 
 #: oec/profile/models.py:205
@@ -433,17 +433,17 @@ msgid ""
 "%(export_rank)s largest exporter in the world. "
 msgstr ""
 "En %(year)s %(country)s a exporté $%(export_val)s, ce qui en fait le "
-"%(export_rank)s exportateur du monde."
+"%(export_rank)s exportateur du monde. "
 
 #: oec/profile/models.py:210
 #, python-format
 msgid ""
-"During the last five years the exports of %(country)s have "
+"During the last five years the exports %(of_country)s have "
 "%(increased_decreased)s at an annualized rate of %(change_rate)s%%, from "
 "$%(past_export_val)s in %(past_year)s to $%(current_export_val)s in "
 "%(current_year)s. "
 msgstr ""
-"—— During the last five years the exports of %(country)s have "
+"—— During the last five years the exports %(of_country)s have "
 "%(increased_decreased)s at an annualized rate of %(change_rate)s%%, from "
 "$%(past_export_val)s in %(past_year)s to $%(current_export_val)s in "
 "%(current_year)s. "
@@ -452,11 +452,11 @@ msgstr ""
 #, python-format
 msgid ""
 "The most recent exports are led by %(top_export)s, which represent "
-"%(top_export_pct)s%% of the total exports of %(country)s, followed by "
+"%(top_export_pct)s%% of the total exports %(of_country)s, followed by "
 "%(second_export)s, which account for %(second_export_pct)s%%."
 msgstr ""
 "— — The most recent exports are led by %(top_export)s, which represent "
-"%(top_export_pct)s%% of the total exports of %(country)s, followed by "
+"%(top_export_pct)s%% of the total exports %(of_country)s, followed by "
 "%(second_export)s, which account for %(second_export_pct)s%%."
 
 #: oec/profile/models.py:221
@@ -466,17 +466,17 @@ msgid ""
 "%(import_rank)s largest importer in the world. "
 msgstr ""
 "En %(year)s %(country)s a importé $%(import_val)s, ce qui en fait le "
-"%(import_rank)s importateur du monde."
+"%(import_rank)s importateur du monde. "
 
 #: oec/profile/models.py:226
 #, python-format
 msgid ""
-"During the last five years the imports of %(country)s have "
+"During the last five years the imports %(of_country)s have "
 "%(increased_decreased)s at an annualized rate of %(change_rate)s%%, from "
 "$%(past_import_val)s in %(past_year)s to $%(current_import_val)s in "
 "%(current_year)s. "
 msgstr ""
-"—— During the last five years the imports of %(country)s have "
+"—— During the last five years the imports of %(of_country)s have "
 "%(increased_decreased)s at an annualized rate of %(change_rate)s%%, from "
 "$%(past_import_val)s in %(past_year)s to $%(current_import_val)s in "
 "%(current_year)s. "
@@ -485,22 +485,22 @@ msgstr ""
 #, python-format
 msgid ""
 "The most recent imports are led by %(top_import)s, which represent "
-"%(top_import_pct)s%% of the total imports of %(country)s, followed by "
+"%(top_import_pct)s%% of the total imports %(of_country)s, followed by "
 "%(second_import)s, which account for %(second_import_pct)s%%."
 msgstr ""
 "—— The most recent imports are led by %(top_import)s, which represent "
-"%(top_import_pct)s%% of the total imports of %(country)s, followed by "
+"%(top_import_pct)s%% of the total imports of %(of_country)s, followed by "
 "%(second_import)s, which account for %(second_import_pct)s%%."
 
 #: oec/profile/models.py:237
 #, python-format
-msgid "The top export destinations of %(country)s are %(destinations)s."
-msgstr "—— The top export destinations of %(country)s are %(destinations)s."
+msgid "The top export destinations %(of_country)s are %(destinations)s."
+msgstr "—— The top export destinations of %(of_country)s are %(destinations)s."
 
 #: oec/profile/models.py:243
 #, python-format
-msgid "The top import origins of %(country)s are %(origins)s."
-msgstr "—— The top import origins of %(country)s are %(origins)s."
+msgid "The top import origins %(of_country)s are %(origins)s."
+msgstr "—— The top import origins of %(of_country)s are %(origins)s."
 
 #: oec/profile/models.py:251 oec/profile/models.py:258
 msgid "positive"
@@ -552,7 +552,7 @@ msgstr ""
 #: oec/profile/models.py:289
 #, python-format
 msgid ""
-"The economy of %(country)s has an Economic Complexity Index (ECI) of "
+"The economy %(of_country)s has an Economic Complexity Index (ECI) of "
 "%(eci)s making it the %(eci_rank)s most complex country. "
 msgstr ""
 
@@ -567,7 +567,7 @@ msgstr ""
 
 #: oec/profile/models.py:301
 #, python-format
-msgid "Economic Complexity of %(country)s"
+msgid "Economic Complexity %(of_country)s"
 msgstr ""
 
 #: oec/profile/models.py:304
@@ -592,7 +592,7 @@ msgstr ""
 #: oec/profile/models.py:323
 #, python-format
 msgid ""
-"The Economic Complexity ranking of %(country)s has "
+"The Economic Complexity ranking %(of_country)s has "
 "%(increased_or_decreased)s by %(rank_delta)s places \n"
 "                    over the past %(year_range)s years from %(old_eci)s "
 "in %(old_year)s to %(current_eci)s in %(current_year)s."
@@ -644,10 +644,15 @@ msgstr ""
 msgid "Brazilian Municipalities that export to %(country)s"
 msgstr ""
 
+#: oec/profile/models.py:361
+#, python-format
+msgid "Cultural Production %(of_country)s"
+msgstr ""
+
 #: oec/profile/models.py:363
 #, python-format
 msgid ""
-"This treemap shows the cultural exports of %(country)s, as proxied by the"
+"This treemap shows the cultural exports %(of_country)s, as proxied by the"
 " production of globally famous historical characters.<br "
 "/>%(pantheon_link)s"
 msgstr ""
@@ -894,5 +899,32 @@ msgstr "Profil pour %(attr)s"
 #~ msgstr "Total"
 
 #~ msgid ""
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The economy of %(country)s has an "
+#~ "Economic Complexity Index (ECI) of "
+#~ "%(eci)s making it the %(eci_rank)s most"
+#~ " complex country. "
+#~ msgstr ""
+
+#~ msgid "Economic Complexity of %(country)s"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The Economic Complexity ranking of "
+#~ "%(country)s has %(increased_or_decreased)s by "
+#~ "%(rank_delta)s places \n"
+#~ "                    over the past "
+#~ "%(year_range)s years from %(old_eci)s in "
+#~ "%(old_year)s to %(current_eci)s in "
+#~ "%(current_year)s."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This treemap shows the cultural exports"
+#~ " of %(country)s, as proxied by the"
+#~ " production of globally famous historical"
+#~ " characters.<br />%(pantheon_link)s"
 #~ msgstr ""
 

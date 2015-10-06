@@ -365,16 +365,22 @@ class Country(Profile):
         ''' Pantheon
         '''
         if self.attr.id_2char:
-            pantheon_iframe = "http://pantheon.media.mit.edu:5000/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/embed".format(self.attr.id_2char.upper())
-            pantheon_link = "<a target='_blank' href='http://pantheon.media.mit.edu/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/'>Explore on Pantheon &raquo;</a>".format(self.attr.id_2char.upper())
+            pantheon_iframe_fields = "http://pantheon.media.mit.edu:5000/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/embed".format(self.attr.id_2char.upper())
+            pantheon_link_fields = "<a target='_blank' href='http://pantheon.media.mit.edu/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/'>Explore on Pantheon &raquo;</a>".format(self.attr.id_2char.upper())
+            pantheon_iframe_cities = "http://pantheon.media.mit.edu:5000/treemap/country_by_city/all/{}/-4000/2010/H15/pantheon/embed".format(self.attr.id_2char.upper())
+            pantheon_link_cities = "<a target='_blank' href='http://pantheon.media.mit.edu/treemap/country_by_city/{}/all/-4000/2010/H15/pantheon/'>Explore on Pantheon &raquo;</a>".format(self.attr.id_2char.upper())
             pantheon_section = {
                 "title": "<a target='_blank' href='http://pantheon.media.mit.edu'><img src='http://pantheon.media.mit.edu/pantheon_logo.png' />",
                 "source": "pantheon",
                 "builds": [
-                    {"title": _(u"Cultural Production %(of_country)s", of_country=self.attr.get_name(article="of")),
-                    "iframe": pantheon_iframe,
-                    "subtitle": _(u"This treemap shows the cultural exports %(of_country)s, as proxied by the production of globally famous historical characters.</p><p>%(pantheon_link)s", of_country=self.attr.get_name(article="of"), pantheon_link=pantheon_link),
+                    {"title": _(u"Globally Famous People %(of_country)s", of_country=self.attr.get_name(article="of")),
+                    "iframe": pantheon_iframe_fields,
+                    "subtitle": _(u"This treemap shows the cultural exports %(of_country)s, as proxied by the production of globally famous historical characters.</p><p>%(pantheon_link)s", of_country=self.attr.get_name(article="of"), pantheon_link=pantheon_link_fields),
                     "tour":"Pantheon...", "seq":8
+                    },
+                    {"title": _(u"Globally Famous People %(of_country)s by City", of_country=self.attr.get_name(article="of")),
+                    "iframe": pantheon_iframe_cities,
+                    "subtitle": _(u"This treemap shows the cultural exports %(of_country)s by city, as proxied by the production of globally famous historical characters.</p><p>%(pantheon_link)s", of_country=self.attr.get_name(article="of"), pantheon_link=pantheon_link_cities)
                     },
                 ]
             }
