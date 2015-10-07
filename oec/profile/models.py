@@ -369,9 +369,9 @@ class Country(Profile):
         ''' Pantheon
         '''
         if self.attr.id_2char:
-            pantheon_iframe_fields = "http://pantheon.media.mit.edu:5000/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/embed".format(self.attr.id_2char.upper())
+            pantheon_iframe_fields = "http://pantheon.media.mit.edu/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/embed".format(self.attr.id_2char.upper())
             pantheon_link_fields = "<a target='_blank' href='http://pantheon.media.mit.edu/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/'>Explore on Pantheon <i class='fa fa-external-link'></i></a>".format(self.attr.id_2char.upper())
-            pantheon_iframe_cities = "http://pantheon.media.mit.edu:5000/treemap/country_by_city/all/{}/-4000/2010/H15/pantheon/embed".format(self.attr.id_2char.upper())
+            pantheon_iframe_cities = "http://pantheon.media.mit.edu/treemap/country_by_city/all/{}/-4000/2010/H15/pantheon/embed".format(self.attr.id_2char.upper())
             pantheon_link_cities = "<a target='_blank' href='http://pantheon.media.mit.edu/treemap/country_by_city/{}/all/-4000/2010/H15/pantheon/'>Explore on Pantheon <i class='fa fa-external-link'></i></a>".format(self.attr.id_2char.upper())
             pantheon_section = {
                 "title": "<a target='_blank' href='http://pantheon.media.mit.edu'><img src='http://pantheon.media.mit.edu/pantheon_logo.png' />",
