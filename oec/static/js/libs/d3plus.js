@@ -19733,6 +19733,10 @@ module.exports = function(vars) {
 
 
 },{}],180:[function(require,module,exports){
+var rtl;
+
+rtl = require("../../client/rtl.coffee");
+
 module.exports = function(vars) {
   var anchor, dx, dy, ellipsis, fontSize, h, height, line, lineWidth, lines, mirror, newLine, placeWord, progress, reverse, rmod, rotate, rx, ry, space, start, textBox, translate, truncate, valign, width, words, wrap, x, y, yOffset;
   newLine = function(w, first) {
@@ -19755,7 +19759,7 @@ module.exports = function(vars) {
   } else {
     anchor = vars.align.value || vars.container.align || "start";
   }
-  if (anchor === "end") {
+  if (anchor === "end" || (anchor === "start" && rtl)) {
     dx = width;
   } else if (anchor === "middle") {
     dx = width / 2;
@@ -19921,7 +19925,7 @@ module.exports = function(vars) {
 };
 
 
-},{}],181:[function(require,module,exports){
+},{"../../client/rtl.coffee":42}],181:[function(require,module,exports){
 var flow, fontSizes, resize, wrap;
 
 flow = require("./flow.coffee");

@@ -361,7 +361,8 @@
   var url = "{{ current_build.url() }}",
       explorer = d3.select("#explorer"),
       iframe = d3.select("iframe.viz"),
-      p = parseFloat(d3.select("content").style("margin-right"), 10),
+      margin = d3plus.client.rtl ? "left" : "right",
+      p = parseFloat(d3.select("content").style("margin-" + margin), 10),
       navWidth = d3.select("#explorer").node().offsetWidth + p;
 
   function resizeIframe() {
