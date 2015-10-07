@@ -2130,17 +2130,45 @@ body.visualize {
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased; }
   body.visualize #visualize_share {
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    flex-direction: column;
     position: fixed;
     right: 13px;
     top: 54px;
     z-index: 21; }
-    body.visualize #visualize_share a {
-      font-size: 15px;
-      padding: 7px 7px 7px 7px ; }
+    @media all and (max-width: 768px) {
+      body.visualize #visualize_share {
+        display: none;   }
+}
+      body.visualize #visualize_share a {
+        cursor: pointer;
+        font-size: 15px;
+        padding: 3px 15px 3px 15px ;
+        margin: 0px -7px 0px -7px ;
+        text-align: center; }
+        body.visualize #visualize_share a i {
+          -webkit-transition: opacity 0.1s, color 0.3s;
+          -moz-transition: opacity 0.1s, color 0.3s;
+          -ms-transition: opacity 0.1s, color 0.3s;
+          -o-transition: opacity 0.1s, color 0.3s;
+          transition: opacity 0.1s, color 0.3s;
+          opacity: 0.7; }
+          body.visualize #visualize_share a:hover i {
+            opacity: 1;
+            color: #6297cb; }
   body.visualize nav {
     padding-bottom: 30px; }
     body.visualize #container {
-      margin-top: 75px; }
+      margin-top: 80px; }
       body.visualize #content #main_viz {
         margin: 0 20px 0 -15px !important; }
         @media all and (max-width: 768px) {
@@ -2178,11 +2206,11 @@ body.visualize {
                   body.visualize #content #main_viz .nav-section aside a i {
                     margin-top: 3px; }
                     body.visualize #content #main_viz .nav-section aside a h2.year-nav {
-                      -webkit-transition: opacity 0.6s;
-                      -moz-transition: opacity 0.6s;
-                      -ms-transition: opacity 0.6s;
-                      -o-transition: opacity 0.6s;
-                      transition: opacity 0.6s;
+                      -webkit-transition: opacity 0.5s;
+                      -moz-transition: opacity 0.5s;
+                      -ms-transition: opacity 0.5s;
+                      -o-transition: opacity 0.5s;
+                      transition: opacity 0.5s;
                       font-weight: 400;
                       font-size: 26px;
                       opacity: 0.6; }
@@ -2194,11 +2222,12 @@ body.visualize {
 }
                           @media all and (min-width: 501px) and (max-width: 859px) {
                             body.visualize #content #main_viz .nav-section aside a h2.year-nav {
-                              font-size: 17px;   }
+                              font-size: 18px;   }
 }
                             @media all and (max-width: 500px) {
                               body.visualize #content #main_viz .nav-section aside a h2.year-nav {
-                                font-size: 14px;   }
+                                font-size: 16px;
+                                padding: 0 5px 0 5px ;   }
 }
             body.visualize #content #main_viz .nav-section content {
               margin: 0 0 0 0 ; }

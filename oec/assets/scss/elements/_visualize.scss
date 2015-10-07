@@ -8,16 +8,36 @@ body.visualize {
   // }
 
   #visualize_share {
+    @include flex();
+    @include flex-direction(column);
     position: fixed;
     @include right(13px);
     top: $header - 11;
     z-index: 21;
 
-    a {
-      font-size: 15px;
-      @include padding(7px, 7px, 7px, 7px);
+    @media all and (max-width: 768px) {
+      display: none;
     }
 
+    a {
+      cursor: pointer;
+      font-size: 15px;
+      @include padding(3px, 15px, 3px, 15px);
+      @include margin(0px, -7px, 0px, -7px);
+      text-align: center;
+
+      i {
+        @include transition(opacity 0.1s, color 0.3s);
+        opacity: 0.7;
+      }
+
+      &:hover {
+        i {
+          opacity: 1;
+          color: $brightlinkcolor;
+        }
+      }
+    }
   }
 
   nav {
@@ -25,7 +45,7 @@ body.visualize {
   }
 
   #container {
-    margin-top: $header + 10px;
+    margin-top: $header + 15px;
   }
 
   #content #main_viz {
@@ -61,7 +81,7 @@ body.visualize {
           }
 
           h2.year-nav {
-            @include transition(opacity 0.6s);
+            @include transition(opacity 0.5s);
             font-weight: 400;
             font-size: 26px;
             opacity: 0.6;
@@ -75,11 +95,12 @@ body.visualize {
             }
 
             @media all and (min-width: 501px) and (max-width: 859px) {
-              font-size: 17px;
+              font-size: 18px;
             }
 
             @media all and (max-width: 500px) {
-              font-size: 14px;
+              font-size: 16px;
+              @include padding(0, 5px, 0, 5px);
             }
           }
         }
