@@ -201,7 +201,7 @@ section .columns {
         column-gap: 20px;   }
 }
 nav ul.navLinks {
-  margin-right: 19px; }
+  margin-left: 19px ; }
   nav ul.navLinks #country a, nav ul.navLinks #product a, nav ul.navLinks #explore a,
   nav ul.navLinks #publications a, nav ul.navLinks #api a {
     padding: 25px 10px 25px 10px ; }

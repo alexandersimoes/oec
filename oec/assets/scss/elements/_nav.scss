@@ -1,6 +1,6 @@
 nav {
   ul.navLinks {
-    margin-right: 19px;
+    @include margin-right(19px);
     #country, #product, #explore, #publications, #api {
       a {
         @include padding(25px, 10px, 25px, 10px);
