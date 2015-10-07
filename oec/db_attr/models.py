@@ -91,13 +91,12 @@ class Country(db.Model, AutoSerialize):
         lang = lang or getattr(g, "locale", "en")
         return self.name.filter_by(lang=lang).first().name
 
-    def get_name(self, lang=None, article=None):
+    def get_name(self, lang=None, article=None, verb=None):
         lang = lang or getattr(g, "locale", "en")
         name = self.name.filter_by(lang=lang).first()
         vowels = ['a', 'e', 'i', 'o', 'u', 'y']
         if name:
-            # if lang == "en" and name.article and article:
-            #     return "The {0}".format(name.name)
+            txt = name.name
             plural = getattr(name, "plural", 0)
             gender = getattr(name, "gender", "m")
             needed = getattr(name, "article", 0)
@@ -123,27 +122,33 @@ class Country(db.Model, AutoSerialize):
                 if article:
                     if lang == "fr":
                         if article.lower()[-1] in vowels and name.name.lower()[0] in vowels:
-                            return u"{}'{}".format("".join(article[:-1]), name.name)
-                    return u"{} {}".format(article, name.name)
+                            txt = u"{}'{}".format("".join(article[:-1]), name.name)
+                    else:
+                        txt = u"{} {}".format(article, name.name)
             
             # Turkish
             elif lang == "tr":
                 
                 if article == "of":
                     if name.name[-1] in vowels:
-                        return u"{}'nın".format(name.name)
-                    return u"{}'ın".format(name.name)
+                        txt = u"{}'nın".format(name.name)
+                    txt = u"{}'ın".format(name.name)
             
             # English
             elif lang == "en":
                 if needed and (article is True or article == "the"):
-                    return u"{} {}".format("the", name.name)
+                    txt = u"{} {}".format("the", name.name)
                 elif needed and article:
-                    return u"{} {} {}".format(article, "the", name.name)
+                    txt = u"{} {} {}".format(article, "the", name.name)
                 elif article and (article is not True and article != "the"):
-                    return u"{} {}".format(article, name.name)
+                    txt = u"{} {}".format(article, name.name)
             
-            return name.name
+            if verb == "is":
+                if lang != "en":
+                    verb = _("verb_is_p") if plural else _("verb_is")
+                txt = u"{} {}".format(txt, verb)
+            
+            return txt
 
         #     ''' French '''
         #     if lang == "fr" and name.article and article=="the":

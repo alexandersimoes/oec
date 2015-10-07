@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-10-06 15:29-0400\n"
+"POT-Creation-Date: 2015-10-06 20:17-0400\n"
 "PO-Revision-Date: 2015-09-29 12:59-0400\n"
 "Last-Translator: \n"
 "Language-Team: fr <LL@li.org>\n"
@@ -92,41 +92,49 @@ msgctxt "9"
 msgid "th"
 msgstr "e"
 
-#: oec/db_attr/models.py:110
+#: oec/db_attr/models.py:109
 msgid "article_the_m_p"
 msgstr "les"
 
-#: oec/db_attr/models.py:110
+#: oec/db_attr/models.py:109
 msgid "article_the_m"
 msgstr "le"
 
-#: oec/db_attr/models.py:112
+#: oec/db_attr/models.py:111
 msgid "article_the_f_p"
 msgstr "les"
 
-#: oec/db_attr/models.py:112
+#: oec/db_attr/models.py:111
 msgid "article_the_f"
 msgstr "la"
 
-#: oec/db_attr/models.py:117
+#: oec/db_attr/models.py:116
 msgid "article_of"
 msgstr "du"
 
-#: oec/db_attr/models.py:119
+#: oec/db_attr/models.py:118
 msgid "article_of_m_p"
 msgstr "des"
 
-#: oec/db_attr/models.py:119
+#: oec/db_attr/models.py:118
 msgid "article_of_m"
 msgstr "du"
 
-#: oec/db_attr/models.py:121
+#: oec/db_attr/models.py:120
 msgid "article_of_f_p"
 msgstr "des"
 
-#: oec/db_attr/models.py:121
+#: oec/db_attr/models.py:120
 msgid "article_of_f"
 msgstr "de la"
+
+#: oec/db_attr/models.py:148
+msgid "verb_is_p"
+msgstr "sont"
+
+#: oec/db_attr/models.py:148
+msgid "verb_is"
+msgstr "est"
 
 #: oec/html/home.html:3 oec/html/home.html:22 oec/html/templates/nav.html:28
 msgid "The Observatory of Economic Complexity"
@@ -361,9 +369,9 @@ msgstr "PIB par habitant"
 
 #: oec/profile/models.py:141
 #, python-format
-msgid "%(country)s is the %(econ_rank)s largest export economy in the world"
+msgid "%(country_is)s the %(econ_rank)s largest export economy in the world"
 msgstr ""
-"%(country)s est le %(econ_rank)s plus grande économie d'exportation dans "
+"%(country_is)s le %(econ_rank)s plus grande économie d'exportation dans "
 "le monde"
 
 #: oec/profile/models.py:144
@@ -929,63 +937,6 @@ msgstr "Profil pour %(attr)s"
 #~ msgid "Product Complexity Rankings"
 #~ msgstr "HS note produit"
 
-#~ msgid ""
-#~ "The Economic Complexity ranking %(of_country)s"
-#~ " has %(increased_or_decreased)s by %(rank_delta)s"
-#~ " places \n"
-#~ "                    over the past "
-#~ "%(year_range)s years from %(old_eci)s in "
-#~ "%(old_year)s to %(current_eci)s in "
-#~ "%(current_year)s."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "            This treemap shows the "
-#~ "municipalities in Brazil that imported "
-#~ "products from %(country)s.<br /><br />\n"
-#~ "            DataViva is a visualization "
-#~ "tool that provides official data on "
-#~ "trade, industries, and education throughout"
-#~ " Brazil. If you would like more "
-#~ "info or to create a similar site"
-#~ " get in touch with us at <a "
-#~ "href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />"
-#~ "\n"
-#~ "            <a target='_blank' "
-#~ "href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'><img"
-#~ " src='http://en.dataviva.info/static/img/nav/DataViva.png' "
-#~ "/></a>\n"
-#~ "            "
-#~ msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "            This treemap shows the "
-#~ "municipalities in Brazil that exported "
-#~ "products to %(country)s.<br /><br />\n"
-#~ "            DataViva is a visualization "
-#~ "tool that provides official data on "
-#~ "trade, industries, and education throughout"
-#~ " Brazil. If you would like more "
-#~ "info or to create a similar site"
-#~ " get in touch with us at <a "
-#~ "href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />"
-#~ "\n"
-#~ "            <a target='_blank' "
-#~ "href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'><img"
-#~ " src='http://en.dataviva.info/static/img/nav/DataViva.png' "
-#~ "/></a>\n"
-#~ "            "
-#~ msgstr ""
-
 #~ msgid "Cultural Production %(of_country)s"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "This treemap shows the cultural exports"
-#~ " %(of_country)s, as proxied by the "
-#~ "production of globally famous historical "
-#~ "characters.<br />%(pantheon_link)s"
 #~ msgstr ""
 

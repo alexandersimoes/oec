@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-10-06 15:29-0400\n"
+"POT-Creation-Date: 2015-10-06 20:17-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,40 +91,48 @@ msgctxt "9"
 msgid "th"
 msgstr ""
 
-#: oec/db_attr/models.py:110
+#: oec/db_attr/models.py:109
 msgid "article_the_m_p"
 msgstr ""
 
-#: oec/db_attr/models.py:110
+#: oec/db_attr/models.py:109
 msgid "article_the_m"
 msgstr ""
 
-#: oec/db_attr/models.py:112
+#: oec/db_attr/models.py:111
 msgid "article_the_f_p"
 msgstr ""
 
-#: oec/db_attr/models.py:112
+#: oec/db_attr/models.py:111
 msgid "article_the_f"
 msgstr ""
 
-#: oec/db_attr/models.py:117
+#: oec/db_attr/models.py:116
 msgid "article_of"
 msgstr ""
 
-#: oec/db_attr/models.py:119
+#: oec/db_attr/models.py:118
 msgid "article_of_m_p"
 msgstr ""
 
-#: oec/db_attr/models.py:119
+#: oec/db_attr/models.py:118
 msgid "article_of_m"
 msgstr ""
 
-#: oec/db_attr/models.py:121
+#: oec/db_attr/models.py:120
 msgid "article_of_f_p"
 msgstr ""
 
-#: oec/db_attr/models.py:121
+#: oec/db_attr/models.py:120
 msgid "article_of_f"
+msgstr ""
+
+#: oec/db_attr/models.py:148
+msgid "verb_is_p"
+msgstr ""
+
+#: oec/db_attr/models.py:148
+msgid "verb_is"
 msgstr ""
 
 #: oec/html/home.html:3 oec/html/home.html:22 oec/html/templates/nav.html:28
@@ -352,7 +360,7 @@ msgstr ""
 
 #: oec/profile/models.py:141
 #, python-format
-msgid "%(country)s is the %(econ_rank)s largest export economy in the world"
+msgid "%(country_is)s the %(econ_rank)s largest export economy in the world"
 msgstr ""
 
 #: oec/profile/models.py:144

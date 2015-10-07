@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-10-06 15:29-0400\n"
+"POT-Creation-Date: 2015-10-06 20:17-0400\n"
 "PO-Revision-Date: 2015-09-24 17:46-0400\n"
 "Last-Translator: \n"
 "Language-Team: es <LL@li.org>\n"
@@ -92,41 +92,49 @@ msgctxt "9"
 msgid "th"
 msgstr "º"
 
-#: oec/db_attr/models.py:110
+#: oec/db_attr/models.py:109
 msgid "article_the_m_p"
 msgstr "los"
 
-#: oec/db_attr/models.py:110
+#: oec/db_attr/models.py:109
 msgid "article_the_m"
 msgstr "el"
 
-#: oec/db_attr/models.py:112
+#: oec/db_attr/models.py:111
 msgid "article_the_f_p"
 msgstr "las"
 
-#: oec/db_attr/models.py:112
+#: oec/db_attr/models.py:111
 msgid "article_the_f"
 msgstr "la"
 
-#: oec/db_attr/models.py:117
+#: oec/db_attr/models.py:116
 msgid "article_of"
 msgstr "de"
 
-#: oec/db_attr/models.py:119
+#: oec/db_attr/models.py:118
 msgid "article_of_m_p"
 msgstr "de"
 
-#: oec/db_attr/models.py:119
+#: oec/db_attr/models.py:118
 msgid "article_of_m"
 msgstr "de"
 
-#: oec/db_attr/models.py:121
+#: oec/db_attr/models.py:120
 msgid "article_of_f_p"
 msgstr "de"
 
-#: oec/db_attr/models.py:121
+#: oec/db_attr/models.py:120
 msgid "article_of_f"
 msgstr "de"
+
+#: oec/db_attr/models.py:148
+msgid "verb_is_p"
+msgstr "son"
+
+#: oec/db_attr/models.py:148
+msgid "verb_is"
+msgstr "es"
 
 #: oec/html/home.html:3 oec/html/home.html:22 oec/html/templates/nav.html:28
 msgid "The Observatory of Economic Complexity"
@@ -361,8 +369,8 @@ msgstr "PIB per cápita"
 
 #: oec/profile/models.py:141
 #, python-format
-msgid "%(country)s is the %(econ_rank)s largest export economy in the world"
-msgstr "%(country)s es la %(econ_rank)s mayor economía de exportación en el mundo"
+msgid "%(country_is)s the %(econ_rank)s largest export economy in the world"
+msgstr "%(country_is)s la %(econ_rank)s mayor economía de exportación en el mundo"
 
 #: oec/profile/models.py:144
 #, python-format
@@ -627,8 +635,8 @@ msgid ""
 msgstr ""
 "El ranking de Complejidad Economica %(of_country)s "
 "%(increased_or_decreased)s %(rank_delta)s posiciones\n"
-"en los últimos %(year_range)s años, de %(old_eci)s "
-"en %(old_year)s hasta %(current_eci)s en %(current_year)s."
+"en los últimos %(year_range)s años, de %(old_eci)s en %(old_year)s hasta "
+"%(current_eci)s en %(current_year)s."
 
 #: oec/profile/models.py:333
 msgid "Economic Complexity Ranking"
@@ -677,22 +685,16 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"Este treemap muestra los municipios de"
-" Brasil que exportanproductos a "
+"Este treemap muestra los municipios de Brasil que exportanproductos a "
 "%(country)s.<br /><br />\n"
 "\n"
-"DataViva es una herramienta de "
-"visualización que distribuyte datos oficiales"
-" de comercio, industria, y educación "
-"para todo Brasil. Si desea crear "
-"un sitio similar escríbanosa <a "
-"href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />"
-"\n"
+"DataViva es una herramienta de visualización que distribuyte datos "
+"oficiales de comercio, industria, y educación para todo Brasil. Si desea "
+"crear un sitio similar escríbanosa <a "
+"href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />\n"
 "            <a target='_blank' "
 "href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'><img"
-" src='http://en.dataviva.info/static/img/nav/DataViva.png' "
-"/></a>"
-
+" src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>"
 
 #: oec/profile/models.py:359
 #, python-format
@@ -1011,50 +1013,7 @@ msgstr "Perfil para %(attr)s"
 #~ msgstr "Ranking de Productos por Complejidad Económica"
 
 #~ msgid ""
-#~ "The Economic Complexity ranking %(of_country)s"
-#~ " has %(increased_or_decreased)s by %(rank_delta)s"
-#~ " places \n"
-#~ "                    over the past "
-#~ "%(year_range)s years from %(old_eci)s in "
-#~ "%(old_year)s to %(current_eci)s in "
-#~ "%(current_year)s."
 #~ msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "            This treemap shows the "
-#~ "municipalities in Brazil that exported "
-#~ "products to %(country)s.<br /><br />\n"
-#~ "            DataViva is a visualization "
-#~ "tool that provides official data on "
-#~ "trade, industries, and education throughout"
-#~ " Brazil. If you would like more "
-#~ "info or to create a similar site"
-#~ " get in touch with us at <a "
-#~ "href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />"
-#~ "\n"
-#~ "            <a target='_blank' "
-#~ "href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'><img"
-#~ " src='http://en.dataviva.info/static/img/nav/DataViva.png' "
-#~ "/></a>\n"
-#~ "            "
-#~ msgstr ""
-#~ "\n"
-#~ "Este treemap muestra los municipios de"
-#~ " Brasil que exportanproductos a "
-#~ "%(country)s.<br /><br />\n"
-#~ "\n"
-#~ "DataViva es una herramienta de "
-#~ "visualización que distribuyte datos oficiales"
-#~ " de comercio, industria, y educación "
-#~ "para todo Brasil. Si desea crear "
-#~ "un sitio similar escríbanosa <a "
-#~ "href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />"
-#~ "\n"
-#~ "            <a target='_blank' "
-#~ "href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'><img"
-#~ " src='http://en.dataviva.info/static/img/nav/DataViva.png' "
-#~ "/></a>"
 
 #~ msgid "Cultural Production %(of_country)s"
 #~ msgstr "Producción Cultural %(of_country)s"

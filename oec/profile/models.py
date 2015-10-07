@@ -10,6 +10,9 @@ from oec.db_attr import models as attrs
 from oec.visualize.models import Build
 from config import FACEBOOK_ID
 
+def upperfirst(x):
+    return x[0].upper() + x[1:]
+
 class Profile(object):
 
     __metaclass__ = ABCMeta
@@ -137,8 +140,9 @@ class Country(Profile):
             # eci_rank = this_attr_yo.eci_rank
             formatted_vals = {"export_val":export_val, "import_val":import_val, "trade_delta":trade_delta}
             formatted_vals = {k: num_format(v) for k, v in formatted_vals.items()}
-            p1.append(_(u"%(country)s is the %(econ_rank)s largest export economy in the world",
-                        country=self.attr.get_name(article=True).title(), econ_rank=econ_rank))
+            country_is = upperfirst(self.attr.get_name(article=True, verb="is"))
+            p1.append(_(u"%(country_is)s the %(econ_rank)s largest export economy in the world",
+                        country_is=country_is, econ_rank=econ_rank))
             if this_attr_yo and this_attr_yo.eci_rank:
                 eci_rank = num_format(this_attr_yo.eci_rank, "ordinal") if this_attr_yo.eci_rank > 1 else ""
                 p1.append(_(" and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI). ", eci_rank=eci_rank))
