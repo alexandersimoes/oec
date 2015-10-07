@@ -7,6 +7,7 @@ configs.line = function(build, container) {
       "depth": 0,
       "icon": {"style": "knockout"},
       "id": "test",
+      "size": 2,
       "timeline": false,
       "x": "year",
       "y": "trade"

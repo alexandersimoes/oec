@@ -25431,6 +25431,9 @@ module.exports = function(nodes, vars) {
       return 0;
     }
     if (d.d3plus.shape === "line" && vars.size.value) {
+      if (vars.size.value.constructor === Number) {
+        return vars.size.value;
+      }
       v = value(vars, d, vars.size.value);
       if (v && v.length) {
         return d3.max(v);
