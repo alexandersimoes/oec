@@ -3109,7 +3109,13 @@ body.rankings {
           font-family: FontAwesome;
           font-size: 20px;
           top: 15px;
-          right: -25px; }
+          right: -25px;
+          -moz-transform: scaleX(-1);
+          -o-transform: scaleX(-1);
+          -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+          filter: FlipH;
+          -ms-filter: "FlipH"; }
           body.rankings #container #content .nav-section content h1 a.complexity_switch:hover {
             color: #99BCD1; }
             body.rankings #container #content .nav-section content h1 a.complexity_switch:hover:before {

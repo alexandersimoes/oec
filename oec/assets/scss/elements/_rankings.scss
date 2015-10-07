@@ -79,6 +79,10 @@ body.rankings {
             font-size: 20px;
             top: 15px;
             @include left(-25px);
+
+            @include rtl {
+              @include flip();
+            }
           }
 
           &:hover {
