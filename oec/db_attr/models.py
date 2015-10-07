@@ -121,6 +121,9 @@ class Country(db.Model, AutoSerialize):
                         article = _("article_of_f_p") if plural else _("article_of_f")
                 
                 if article:
+                    if lang == "fr":
+                        if article.lower()[-1] in vowels and name.name.lower()[0] in vowels:
+                            return u"{}'{}".format("".join(article[:-1]), name.name)
                     return u"{} {}".format(article, name.name)
             
             # Turkish
