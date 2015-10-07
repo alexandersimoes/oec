@@ -139,71 +139,64 @@ msgstr ""
 
 #: oec/html/home.html:3 oec/html/home.html:22 oec/html/templates/nav.html:28
 msgid "The Observatory of Economic Complexity"
-msgstr ""
+msgstr "आर्थिक जटिलता की वेधशाला"
 
 #: oec/html/home.html:25
 msgid ""
 "We are the world's<br/>leading visualization engine<br/>for international"
 " trade data."
-msgstr ""
+msgstr "हम अंतरराष्ट्रीय व्यापार डेटा के लिए दृश्य इंजन <br/> अग्रणी दुनिया की <br/> हैं।"
 
 #: oec/html/home.html:27
 msgid "Learn More"
-msgstr ""
+msgstr "और अधिक जानें"
 
 #: oec/html/home.html:35 oec/html/templates/nav.html:75
-#, fuzzy
 msgid "Search"
-msgstr "वर्ष"
+msgstr "खोज"
 
 #: oec/html/general/api.html:4
 msgid ""
 "Application programming interface (API) for querying the raw data used "
 "throughout The Observatory of Economic Complexity."
-msgstr ""
-"आर्थिक जटिलता की ऑब्जर्वेटरी में हर जगह इस्तेमाल किये गये कच्चे आँकड़ें "
-"जानने के लिए एप्लीकेशन प्रोग्रामिंग इंटरफेस (एपीआई)."
+msgstr "आर्थिक जटिलता की वेधशाला भर में इस्तेमाल कच्चे डेटा क्वेरी के लिए एप्लीकेशन प्रोग्रामिंग इंटरफेस (एपीआई)।"
 
 #: oec/html/general/publications.html:3 oec/html/general/publications.html:11
 msgid "Books"
-msgstr ""
+msgstr "किताबें"
 
 #: oec/html/general/publications.html:13 oec/html/profile/index.html:63
 msgid "Photo by"
-msgstr ""
+msgstr "द्वारा तसवीर"
 
 #: oec/html/includes/nav.html:2 oec/html/includes/nav.html:18
-#, fuzzy
 msgid "Countries"
-msgstr "देश"
+msgstr "देशों"
 
 #: oec/html/includes/nav.html:6 oec/html/includes/nav.html:21
-#, fuzzy
 msgid "Products"
 msgstr "उत्पाद"
 
 #: oec/html/includes/nav.html:10
-#, fuzzy
 msgid "Visualizations"
-msgstr "विज़ुअलाइज़ेशन बनाएँ"
+msgstr "दृश्यावलोकन"
 
 #: oec/html/includes/nav.html:14
 msgid "Rankings"
 msgstr "रैंकिंग"
 
 #: oec/html/includes/nav.html:28
-#, fuzzy
 msgid "Publications"
-msgstr "श्रेणीकरण"
+msgstr "प्रकाशन"
 
 #: oec/html/includes/nav.html:32
 msgid "Resources"
-msgstr ""
+msgstr "साधन"
 
 #: oec/html/includes/nav.html:36 oec/html/resources/about.html:3
 #: oec/html/resources/eci.html:3
 msgid "About the Site"
-msgstr ""
+msgstr "साइट के बारे में"
 
 #: oec/html/includes/nav.html:39 oec/html/rankings/index.html:31
 msgid "Economic Complexity"
@@ -211,29 +204,28 @@ msgstr ""
 
 #: oec/html/includes/nav.html:42
 msgid "FAQs"
-msgstr ""
+msgstr "पूछे जाने वाले प्रश्न"
 
 #: oec/html/includes/nav.html:45 oec/html/resources/data.html:10
 msgid "Data Sources"
-msgstr ""
+msgstr "डाटा के स्रोत"
 
 #: oec/html/includes/nav.html:48 oec/html/resources/permissions.html:3
 #: oec/html/resources/permissions.html:10
 msgid "Permissions"
-msgstr ""
+msgstr "अनुमतियां"
 
 #: oec/html/includes/nav.html:55
 msgid "API"
-msgstr ""
+msgstr "API"
 
 #: oec/html/includes/nav.html:59
 msgid "Take a tour"
-msgstr ""
+msgstr "एक टूर लें"
 
 #: oec/html/rankings/index.html:22
-#, fuzzy
 msgid "Prev. Year"
-msgstr "पिछले वर्ष"
+msgstr "पिछला। साल"
 
 #: oec/html/rankings/index.html:32 oec/html/rankings/index.html:38
 #, fuzzy
@@ -255,62 +247,60 @@ msgstr ""
 
 #: oec/html/rankings/index.html:47 oec/html/rankings/index.html:69
 msgid "Next Year"
-msgstr "अगले वर्ष"
+msgstr "अगले साल"
 
 #: oec/html/rankings/index.html:63
 msgid "Previous Year"
-msgstr "पिछले वर्ष"
+msgstr "पिछला साल"
 
 #: oec/html/rankings/index.html:78 oec/visualize/views.py:379
 msgid "Dataset"
-msgstr ""
+msgstr "डाटासेट"
 
 #: oec/html/rankings/index.html:90 oec/rankings/views.py:122
 #: oec/visualize/views.py:404
 msgid "Year"
-msgstr "वर्ष"
+msgstr "साल"
 
 #: oec/html/rankings/index.html:100
 msgid "Depth"
-msgstr ""
+msgstr "गहराई"
 
 #: oec/html/rankings/index.html:110
-#, fuzzy
 msgid "Download Current Year"
-msgstr "चालू वर्ष"
+msgstr "वर्तमान वर्ष में डाउनलोड करें"
 
 #: oec/html/rankings/index.html:115
 msgid "Download All Years"
-msgstr ""
+msgstr "सभी वर्षों डाउनलोड"
 
 #: oec/html/resources/about.html:5 oec/html/resources/eci.html:5
 msgid ""
 "Photos and descriptions of the team members involved in the creation of "
 "The Observatory."
-msgstr "ऑब्जर्वेटरी के निर्माण में शामिल सदस्य"
+msgstr "तस्वीरें और वेधशाला के निर्माण में शामिल टीम के सदस्यों का विवरण।"
 
 #: oec/html/resources/about.html:11
 msgid "About the Observatory"
-msgstr ""
+msgstr "वेधशाला के बारे में"
 
 #: oec/html/resources/about.html:47
-#, fuzzy
 msgid "Current Team"
-msgstr "चालू वर्ष"
+msgstr "मौजूदा टीम"
 
 #: oec/html/resources/about.html:51
 msgid "Past Contributors"
-msgstr ""
+msgstr "विगत योगदानकर्ता"
 
 #: oec/html/resources/data_classifications.html:4
 msgid ""
 "HS, SITC, and Country classification with their corresponding IDs and "
 "values."
-msgstr "आईडी और मूल्यों के अनुरूप HS, SITC और देश का वर्गीकरण"
+msgstr "उनके इसी आईडी और मूल्यों के साथ एच एस, एसआईटीसी, और देश वर्गीकरण।"
 
 #: oec/html/resources/eci.html:20
 msgid "What is Economic Complexity?"
-msgstr ""
+msgstr "आर्थिक जटिलता क्या है?"
 
 #: oec/html/resources/eci.html:35
 msgid "How is Economic Complexity calculated?"
@@ -326,7 +316,7 @@ msgstr ""
 
 #: oec/html/resources/updates.html:4
 msgid "A Development blog of updates to the site."
-msgstr "हाल की अपडेट्स का ब्लॉग"
+msgstr "साइट पर अद्यतन के एक विकास ब्लॉग।"
 
 #: oec/html/templates/nav.html:14
 msgid "Home"
@@ -593,9 +583,8 @@ msgid ""
 msgstr ""
 
 #: oec/profile/models.py:337
-#, fuzzy
 msgid "Economic Complexity Ranking"
-msgstr "एचएस उत्पादो की रैंकिंग"
+msgstr "आर्थिक जटिलता रैंकिंग"
 
 #: oec/profile/models.py:341
 #, python-format
