@@ -1076,7 +1076,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
+        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
         left: 0;
         position: absolute;
         top: 0;
@@ -1253,10 +1253,14 @@ body.profile {
         body.profile article aside a.deep-link:hover {
           border-bottom: none !important;
           color: #fff !important; }
-      body.profile article aside a .fa-external-link {
+      body.profile article aside .fa-external-link {
         font-size: 13px;
         vertical-align: middle;
         margin-left: 3px ; }
+        @media all and (max-width: 768px) {
+          body.profile article aside p.explore_link {
+            margin-bottom: 10px !important;   }
+}
       body.profile article aside .share_container {
         -webkit-justify-content: center;
         -moz-justify-content: center;
@@ -1266,33 +1270,64 @@ body.profile {
         display: -ms-flexbox;
         display: -webkit-flex;
         display: flex;
-        -webkit-align-content: flex-start;
-        align-content: flex-start; }
-        body.profile article aside .share_container .share_icons_container {
-          -webkit-box-flex: 1;
-          -moz-box-flex: 1;
-          -webkit-flex: 1;
-          -ms-flex: 1;
-          flex: 1;
-          -webkit-justify-content: center;
-          -moz-justify-content: center;
-          justify-content: center;
-          display: -webkit-box;
-          display: -moz-box;
-          display: -ms-flexbox;
-          display: -webkit-flex;
-          display: flex;
-          -webkit-justify-content: space-between;
-          -moz-justify-content: space-between;
-          justify-content: space-between; }
-          body.profile article aside .share_container .share_input_container {
-            -webkit-box-flex: 2;
-            -moz-box-flex: 2;
-            -webkit-flex: 2;
-            -ms-flex: 2;
-            flex: 2; }
-            body.profile article aside .share_container .share_input {
-              display: none; }
+        -webkit-justify-content: space-between;
+        -moz-justify-content: space-between;
+        justify-content: space-between;
+        -webkit-align-items: center;
+        align-items: center; }
+        @media all and (max-width: 768px) {
+          body.profile article aside .share_container {
+            margin: 0 0 25px 0 ;   }
+}
+          body.profile article aside .share_container .share_icons_container {
+            -webkit-box-flex: 1;
+            -moz-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            -webkit-justify-content: center;
+            -moz-justify-content: center;
+            justify-content: center;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-justify-content: space-between;
+            -moz-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-align-items: center;
+            align-items: center; }
+            body.profile article aside .share_container .share_icons_container a {
+              -webkit-transition: color 0.5s;
+              -moz-transition: color 0.5s;
+              -ms-transition: color 0.5s;
+              -o-transition: color 0.5s;
+              transition: color 0.5s;
+              color: #99BCD1;
+              cursor: pointer;
+              height: 23px;
+              margin: 2px 0 2px 0 ; }
+              body.profile article aside .share_container .share_icons_container a:hover {
+                color: #fff; }
+        body.profile article aside .share_container .share_input_container {
+          -webkit-box-flex: 2;
+          -moz-box-flex: 2;
+          -webkit-flex: 2;
+          -ms-flex: 2;
+          flex: 2;
+          margin-top: -4px; }
+          body.profile article aside .share_container .share_input_container .share_input {
+            background-color: #3f464f;
+            border: 0;
+            color: white;
+            display: none;
+            margin-left: 10px ;
+            padding: 5px 7px 5px 7px; }
+            @media all and (max-width: 768px) {
+              body.profile article aside .share_container .share_input_container .share_input {
+                width: 90%;   }
+}
     body.profile article content {
       margin: 30px 30px 30px 30px !important; }
       body.profile article.intro-article {
@@ -1909,7 +1944,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent, #212831);
+      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -2029,7 +2064,7 @@ body.profile {
     background: -webkit-linear-gradient(top, #212831 0%, #535a63 100%);
     background: -o-linear-gradient(top, #212831 0%, #535a63 100%);
     background: -ms-linear-gradient(top, #212831 0%, #535a63 100%);
-    background: linear-gradient(to bottom, #212831, #535a63);
+    background: linear-gradient(to bottom, #212831 0%, #535a63 100%);
     background-color: #535a63; }
     body.profile article.sisters h1 {
       border-top: 0;
@@ -2045,8 +2080,8 @@ body.profile {
 }
   body.profile article.dataviva {
     background-color: white;
-    background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #535a63, #81919d 5%,
-        rgba(255, 255, 255, 0) 20%),
+    background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #535a63 0%,
+        #81919d 5%, rgba(255, 255, 255, 0) 20%),
         url('http://en.dataviva.info/static/img/bgs/city_small.jpg');
     background-attachment: local, local, fixed;
     background-repeat: repeat-x, no-repeat;

@@ -162,7 +162,7 @@
       <p>{{ build.subtitle|safe }}</p>
       {% endif %}
       {% if not build.iframe %}
-      <p>
+      <p class="explore_link">
         <a href="/{{ g.locale }}/visualize/{{ build.build.url() }}" class="deep-link" target="_blank">Explore on Visualizations page <i class="fa fa-external-link"></i></a>
       </p>
       <div class="share_container">
@@ -181,12 +181,9 @@
           </a>
         </div>
         <div class="share_input_container">
-          <div class='share_input share_short_url'>
-            <input type="text" value="http://atlas.media.mit.edu/{{ g.locale }}/visualize/{{ build.build.url() }}" />
-          </div>
-          <div class='share_input share_embed_url'>
-            <input type="text" value='&lt;iframe width="560" height="315" src="http://atlas.media.mit.edu/{{ g.locale }}/visualize/embed/{{ build.build.url() }}?controls=false" frameborder="0" &gt;&lt;/iframe&gt;' />
-          </div>
+            <input class="share_input share_short_url" type="text" value="http://atlas.media.mit.edu/{{ g.locale }}/visualize/{{ build.build.url() }}" />
+
+            <input class="share_input share_embed_url" type="text" value='&lt;iframe width="560" height="315" src="http://atlas.media.mit.edu/{{ g.locale }}/visualize/embed/{{ build.build.url() }}?controls=false" frameborder="0" &gt;&lt;/iframe&gt;' />
         </div>
       </div>
       {% endif %}
@@ -569,12 +566,17 @@
   }
   
   d3.selectAll(".share_toggle").on("click", function(){
-    var target_div = d3.select(this).attr("data-target")
-    d3.select(this.parentNode.parentNode).selectAll(".share_input").style("display", "none")
-    target_div = d3.select(this.parentNode.parentNode).select("."+target_div)
-    target_div.style("display", "inline-block");
+    var target_icon = d3.select(this).attr("data-target");
+
+    d3.select(this.parentNode.parentNode).selectAll(".share_input").style("display", "none");
+
+    target_icon = d3.select(this.parentNode.parentNode).select("."+target_icon);
+
+    target_icon.style("display", "inline-block");
+    
     d3.event.preventDefault();
   })
+
 
 </script>
 {% endblock %}
