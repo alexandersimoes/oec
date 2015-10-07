@@ -1257,8 +1257,35 @@ body.profile {
         font-size: 13px;
         vertical-align: middle;
         margin-left: 3px ; }
-      body.profile article aside .share_input {
-        display: none; }
+      body.profile article aside .share_container {
+        -webkit-justify-content: center;
+        -moz-justify-content: center;
+        justify-content: center;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: row;
+        -moz-flex-direction: row;
+        flex-direction: row;
+        -webkit-align-content: flex-start;
+        align-content: flex-start;
+        -webkit-justify-content: space-between;
+        -moz-justify-content: space-between;
+        justify-content: space-between; }
+        body.profile article aside .share_container .share_icons_container {
+          -webkit-flex-direction: row;
+          -moz-flex-direction: row;
+          flex-direction: row; }
+          body.profile article aside .share_container .share_input_container {
+            -webkit-box-flex: 2;
+            -moz-box-flex: 2;
+            -webkit-flex: 2;
+            -ms-flex: 2;
+            flex: 2; }
+            body.profile article aside .share_container .share_input {
+              display: none; }
     body.profile article content {
       margin: 30px 30px 30px 30px !important; }
       body.profile article.intro-article {

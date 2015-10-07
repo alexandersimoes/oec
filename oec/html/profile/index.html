@@ -162,27 +162,33 @@
       <p>{{ build.subtitle|safe }}</p>
       {% endif %}
       {% if not build.iframe %}
-      <p><a href="/{{ g.locale }}/visualize/{{ build.build.url() }}" class="deep-link" target="_blank">Explore on Visualizations page <i class="fa fa-external-link"></i></a></p>
       <p>
-        <a href="{{ build.build.twitter_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Twitter">
-          <i class="fa fa-twitter"></i>
-        </a>
-        <a href="{{ build.build.facebook_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Facebook">
-          <i class="fa fa-facebook"></i>
-        </a>
-        <a href="#" class="share_toggle" data-target='share_short_url' title="Get Link to Visualization">
-          <i class="fa fa-link"></i>
-        </a>
-        <a href="#" class="share_toggle" data-target='share_embed_url' title="Get Embed URL">
-          <i class="fa fa-image"></i>
-        </a>
-        <div class='share_input share_short_url'>
-          <input type="text" value="http://atlas.media.mit.edu/{{ g.locale }}/visualize/{{ build.build.url() }}" />
-        </div>
-        <div class='share_input share_embed_url'>
-          <input type="text" value='&lt;iframe width="560" height="315" src="http://atlas.media.mit.edu/{{ g.locale }}/visualize/embed/{{ build.build.url() }}?controls=false" frameborder="0" &gt;&lt;/iframe&gt;' />
-        </div>
+        <a href="/{{ g.locale }}/visualize/{{ build.build.url() }}" class="deep-link" target="_blank">Explore on Visualizations page <i class="fa fa-external-link"></i></a>
       </p>
+      <div class="share_container">
+        <div class="share_icons_container">
+          <a href="{{ build.build.twitter_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Twitter">
+            <i class="fa fa-twitter"></i>
+          </a>
+          <a href="{{ build.build.facebook_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Facebook">
+            <i class="fa fa-facebook"></i>
+          </a>
+          <a href="#" class="share_toggle" data-target='share_short_url' title="Direct URL">
+            <i class="fa fa-link"></i>
+          </a>
+          <a href="#" class="share_toggle" data-target='share_embed_url' title="Embed URL">
+            <i class="fa fa-image"></i>
+          </a>
+        </div>
+        <div class="share_input_container">
+          <div class='share_input share_short_url'>
+            <input type="text" value="http://atlas.media.mit.edu/{{ g.locale }}/visualize/{{ build.build.url() }}" />
+          </div>
+          <div class='share_input share_embed_url'>
+            <input type="text" value='&lt;iframe width="560" height="315" src="http://atlas.media.mit.edu/{{ g.locale }}/visualize/embed/{{ build.build.url() }}?controls=false" frameborder="0" &gt;&lt;/iframe&gt;' />
+          </div>
+        </div>
+      </div>
       {% endif %}
     </aside>
     <content>
@@ -566,7 +572,7 @@
     var target_div = d3.select(this).attr("data-target")
     d3.select(this.parentNode.parentNode).selectAll(".share_input").style("display", "none")
     target_div = d3.select(this.parentNode.parentNode).select("."+target_div)
-    target_div.style("display", "block");
+    target_div.style("display", "inline-block");
     d3.event.preventDefault();
   })
 

@@ -50,8 +50,23 @@ body.profile {
         }
       }
       
-      .share_input {
-        display: none;
+      .share_container {
+        @include flex();
+        @include flex-direction(row);
+        @include align-content(flex-start);
+        @include justify(space-between);
+
+        .share_icons_container {
+          @include flex-direction(row);
+        }
+
+        .share_input_container {
+          @include flex-size(2);
+        }
+
+        .share_input {
+          display: none;
+        }
       }
     }
 
