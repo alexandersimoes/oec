@@ -56,10 +56,9 @@ msgid "st"
 msgstr ""
 
 #: oec/utils.py:240
-#, fuzzy
 msgctxt "2"
 msgid "nd"
-msgstr "и"
+msgstr ""
 
 #: oec/utils.py:241
 msgctxt "3"
