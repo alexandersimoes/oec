@@ -109,12 +109,17 @@ var visualization = function(build, container) {
         {"method": download(container, csv_data), "value": ["<img src='/static/img/profile/download" + suffix +".png' />"], "type": "button"}
       ]);
 
+      var viz_width = viz.width();
+
       viz
         .data(build.data)
         .attrs(build.attrs)
         .error(false)
         .ui(ui)
-        .tooltip({"stacked": viz.width() < 768 ? true : false})
+        .tooltip({
+          "large": viz_width < 768 ? viz_width * 0.9 : 150,
+          "stacked": viz_width < 768 ? true : false
+        })
         .draw();
 
       d3.select("#viz")
@@ -190,11 +195,6 @@ configs.default = function(build, container) {
     heatmap = ["#3B447A", "#419391", "#AFD5E8", "#EACE3F", "#B35C1E", "#B22200"];
   }
 
-  var large_tooltip_width = 150;
-  if (window.location.href.indexOf("/visualize/") > 0 && window.innerWidth > 400) {
-    large_tooltip_width = 250;
-  }
-
   var tooltip = {
       "children": false,
       "curtain": {"color": curtain},
@@ -226,7 +226,6 @@ configs.default = function(build, container) {
         }
       },
       "small": 200,
-      "large": large_tooltip_width,
       "value": tooltip_data
     }
 

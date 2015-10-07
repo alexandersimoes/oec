@@ -60,11 +60,6 @@ configs.default = function(build, container) {
     heatmap = ["#3B447A", "#419391", "#AFD5E8", "#EACE3F", "#B35C1E", "#B22200"];
   }
 
-  var large_tooltip_width = 150;
-  if (window.location.href.indexOf("/visualize/") > 0 && window.innerWidth > 400) {
-    large_tooltip_width = 250;
-  }
-
   var tooltip = {
       "children": false,
       "curtain": {"color": curtain},
@@ -96,7 +91,6 @@ configs.default = function(build, container) {
         }
       },
       "small": 200,
-      "large": large_tooltip_width,
       "value": tooltip_data
     }
 

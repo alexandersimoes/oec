@@ -106,12 +106,17 @@ var visualization = function(build, container) {
         {"method": download(container, csv_data), "value": ["<img src='/static/img/profile/download" + suffix +".png' />"], "type": "button"}
       ]);
 
+      var viz_width = viz.width();
+
       viz
         .data(build.data)
         .attrs(build.attrs)
         .error(false)
         .ui(ui)
-        .tooltip({"stacked": viz.width() < 768 ? true : false})
+        .tooltip({
+          "large": viz_width < 768 ? viz_width * 0.9 : 150,
+          "stacked": viz_width < 768 ? true : false
+        })
         .draw();
 
       d3.select("#viz")
