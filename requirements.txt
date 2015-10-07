@@ -22,10 +22,6 @@ simplejson
 textblob
 fuzzywuzzy
 
-# Required for displaying releases from github
-markdown
-python-dateutil
-
 # JS compiler
 Flask-Assets
 

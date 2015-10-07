@@ -146,25 +146,6 @@ def data_classifications(data_type):
     return render_template("resources/data_classifications.html", items=items, headers=headers,
                             title=title, data_type=data_type, id_col=id_col)
 
-@mod.route('/updates/')
-def updates():
-    g.page_type = "about"
-    g.sub_page_type = "updates"
-    releases = json.load(urllib2.urlopen("https://api.github.com/repos/alexandersimoes/oec/releases"))
-    updates = []
-    for r in releases:
-        u = {
-            "title": r["name"],
-            "body": markdown(r["body"]),
-            "date": {
-                "human": parser.parse(r["published_at"]).strftime("%A, %b %d %Y"),
-                "meta": r["published_at"]
-            },
-            "url": r["html_url"]
-        }
-        updates.append(u)
-    return render_template("about/updates.html", updates=updates)
-
 @mod.route('/translations/')
 def translations():
     g.page_type = "about"

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from operator import itemgetter
 from datetime import datetime
-from markdown import markdown
 from flask import Blueprint, render_template, g, request, current_app, \
                     session, redirect, url_for, flash, abort, jsonify, \
                     get_flashed_messages, Response
