@@ -49,15 +49,14 @@ body.profile {
           }
         }
       }
-      
+
       .share_container {
         @include flex();
-        @include flex-direction(row);
-        @include align-content(flex-start);
-        @include justify(space-between);
 
         .share_icons_container {
-          @include flex-direction(row);
+          @include flex-size(1);
+          @include flex();
+          @include justify(space-between);
         }
 
         .share_input_container {

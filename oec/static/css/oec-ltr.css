@@ -1076,7 +1076,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
         left: 0;
         position: absolute;
         top: 0;
@@ -1266,18 +1266,25 @@ body.profile {
         display: -ms-flexbox;
         display: -webkit-flex;
         display: flex;
-        -webkit-flex-direction: row;
-        -moz-flex-direction: row;
-        flex-direction: row;
         -webkit-align-content: flex-start;
-        align-content: flex-start;
-        -webkit-justify-content: space-between;
-        -moz-justify-content: space-between;
-        justify-content: space-between; }
+        align-content: flex-start; }
         body.profile article aside .share_container .share_icons_container {
-          -webkit-flex-direction: row;
-          -moz-flex-direction: row;
-          flex-direction: row; }
+          -webkit-box-flex: 1;
+          -moz-box-flex: 1;
+          -webkit-flex: 1;
+          -ms-flex: 1;
+          flex: 1;
+          -webkit-justify-content: center;
+          -moz-justify-content: center;
+          justify-content: center;
+          display: -webkit-box;
+          display: -moz-box;
+          display: -ms-flexbox;
+          display: -webkit-flex;
+          display: flex;
+          -webkit-justify-content: space-between;
+          -moz-justify-content: space-between;
+          justify-content: space-between; }
           body.profile article aside .share_container .share_input_container {
             -webkit-box-flex: 2;
             -moz-box-flex: 2;
@@ -1902,7 +1909,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
+      background: linear-gradient(to bottom, transparent, #212831);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -2022,7 +2029,7 @@ body.profile {
     background: -webkit-linear-gradient(top, #212831 0%, #535a63 100%);
     background: -o-linear-gradient(top, #212831 0%, #535a63 100%);
     background: -ms-linear-gradient(top, #212831 0%, #535a63 100%);
-    background: linear-gradient(to bottom, #212831 0%, #535a63 100%);
+    background: linear-gradient(to bottom, #212831, #535a63);
     background-color: #535a63; }
     body.profile article.sisters h1 {
       border-top: 0;
@@ -2038,8 +2045,8 @@ body.profile {
 }
   body.profile article.dataviva {
     background-color: white;
-    background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #535a63 0%,
-        #81919d 5%, rgba(255, 255, 255, 0) 20%),
+    background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #535a63, #81919d 5%,
+        rgba(255, 255, 255, 0) 20%),
         url('http://en.dataviva.info/static/img/bgs/city_small.jpg');
     background-attachment: local, local, fixed;
     background-repeat: repeat-x, no-repeat;
