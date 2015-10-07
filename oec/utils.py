@@ -4,6 +4,7 @@ from jinja2 import Markup
 from babel.numbers import format_decimal
 from flask import abort, current_app, jsonify, request, g, get_flashed_messages, url_for
 from flask.ext.babel import gettext, pgettext, ngettext
+from werkzeug.routing import BaseConverter
 from datetime import datetime, date, timedelta
 from math import ceil
 from decimal import *
@@ -304,3 +305,38 @@ def num_format(number, key=None, labels=True, suffix_html=False):
             return "{0}%".format(n)
 
     return n
+
+class YearConverter(BaseConverter):
+
+    def to_python(self, value):
+        from oec import available_years
+        all_years = [item for sublist in available_years.values() for item in sublist]
+        min_year = min(all_years)
+        max_year = max(all_years)
+
+        '''force int conversion'''
+        try:
+            years = [int(y) for y in value.split('.')]
+        except ValueError:
+            raise ValidationError()
+
+        '''treat as range'''
+        if len(years) == 2:
+            years = range(years[0], years[1]+1)
+        elif len(years) > 2:
+            years = range(years[0], years[1]+1, years[2])
+
+        '''clamp years based on min/max available years for all classifications'''
+        try:
+            clamped_min = years.index(min_year)
+        except ValueError:
+            clamped_min = 0
+        try:
+            clamped_max = years.index(max_year)
+        except ValueError:
+            clamped_max = len(years)-1
+
+        return years
+
+    def to_url(self, values):
+        return '.'.join(str(value) for value in values)

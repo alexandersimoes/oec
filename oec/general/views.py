@@ -20,7 +20,6 @@ import csv
 from cStringIO import StringIO
 from random import choice
 
-
 mod = Blueprint('general', __name__, url_prefix='/')
 
 from oec import app, db, babel, random_countries, available_years
@@ -135,6 +134,24 @@ def api():
 def publications():
     g.page_type = "publications"
     return render_template("general/publications.html")
+
+@mod.route('<lang>/explore/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/')
+@mod.route('<lang>/explore/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year:year>/')
+def explore_legacy_redir(lang, app_name, classification, trade_flow, origin_id, dest_id, prod_id, year=None):
+    redirect_url = url_for('visualize.visualize', lang=lang, app_name=app_name, \
+                    classification=classification, trade_flow=trade_flow, \
+                    origin_id=origin_id, dest_id=dest_id, prod_id=prod_id, \
+                    year=year)
+    return redirect(redirect_url)
+
+@mod.route('<lang>/explore/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/')
+@mod.route('<lang>/explore/embed/<app_name>/<classification>/<trade_flow>/<origin_id>/<dest_id>/<prod_id>/<year:year>/')
+def embed_legacy_redir(lang, app_name, classification, trade_flow, origin_id, dest_id, \
+                prod_id, year=available_years['hs92'][-1]):
+    return redirect(url_for('visualize.embed', lang=lang, app_name=app_name, \
+                        classification=classification, trade_flow=trade_flow, \
+                        origin_id=origin_id, dest_id=dest_id, prod_id=prod_id, \
+                        year=year))
 
 @mod.route('embed/<app_name>/<trade_flow>/<origin>/<dest>/<product>/')
 @mod.route('embed/<app_name>/<trade_flow>/<origin>/<dest>/<product>/<year>/')

@@ -9,7 +9,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.babel import Babel
 # for new filters
 from utils import Momentjs, formatter, strip_html, jinja_split, format_currency, \
-                    format_percent, langify, num_format
+                    format_percent, langify, num_format, YearConverter
 from werkzeug.contrib.fixers import ProxyFix
 # for caching views
 from flask.ext.cache import Cache
@@ -78,6 +78,9 @@ app.jinja_env.filters['format_currency'] = format_currency
 app.jinja_env.filters['format_percent'] = format_percent
 app.jinja_env.filters['langify'] = langify
 app.jinja_env.filters['num_format'] = num_format
+
+# add custom url arg converter
+app.url_map.converters['year'] = YearConverter
 
 # Load the modules for each different section of the site
 for view in ["db_attr", "db_data", "general", "profile", "rankings", "resources", "visualize"]:
