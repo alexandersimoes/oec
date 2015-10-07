@@ -87,7 +87,7 @@ configs.default = function(build, container) {
         },
         "callback":function(data){
           var buttons = [];
-          buttons.push("<a target='_top' href='"+data.profile.url+"' class='profile'><img src='"+data.profile.icon+"'/><h3>"+data.profile.title+"</h3></a><h3 class='related_viz' style='color:"+d3plus.color.lighter(data.profile.color)+"'>Related Visualizations</h3>");
+          buttons.push("<a target='_top' href='"+data.profile.url+"' class='profile' style='color:"+d3plus.color.lighter(data.profile.color)+"'><img src='"+data.profile.icon+"'/><h3>"+data.profile.title+"</h3></a><h3 class='related_viz'>Related Visualizations</h3>");
           data.builds.forEach(function(b){
             buttons.push("<a target='_top' href='/"+build.lang+"/visualize/"+b.url+"' class='related "+b.viz+"'>"+b.title+"</a>");
           });

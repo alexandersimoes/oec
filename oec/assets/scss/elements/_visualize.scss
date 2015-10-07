@@ -748,7 +748,6 @@ body.visualize {
     .d3plus_tooltip_data_value {
       font-weight: 700 !important;
     }
-
   }
 
   .d3plus_tooltip_title, .d3plus_tooltip_footer {
@@ -758,7 +757,6 @@ body.visualize {
   }
 
   .d3plus_tooltip_container {
-    @include font-smoothing(antialiased);
     font-family: $source-sans !important;
     font-weight: 400 !important;
   }
@@ -821,13 +819,12 @@ body.visualize {
       top: 0px;
       width: 38px;
     }
-    &.tree_map:before {
-      background-image: url("/static/img/icons/app/app_tree_map_black.png");
-    }
-    &.rings:before {
-   background-image: url("/static/img/icons/app/app_rings_black.png");
-    }
-
+   //  &.tree_map:before {
+   //    background-image: url("/static/img/icons/app/app_tree_map_black.png");
+   //  }
+   //  &.rings:before {
+   // background-image: url("/static/img/icons/app/app_rings_black.png");
+   //  }
   }
 
   .d3plus_tooltip_container a.profile {
@@ -869,7 +866,14 @@ body.visualize {
   opacity: 0.4 !important;
 }
 
+.d3plus_tooltip_small {
+  .d3plus_tooltip_title {
+    @include padding(10px, 6px, 10px, 6px, !important);
+  }
+}
+
 .d3plus_tooltip_large, .d3plus_tooltip_small {
+  @include font-smoothing(antialiased);
   color: #ccc !important;
   font-family: $source-sans !important;
 
@@ -883,23 +887,28 @@ body.visualize {
     border: 1px solid $darkbordercolor;
     color: #ccc;
     line-height: 1.4;
+    @include padding(3px, 3px, 4px, 3px, !important);
 
-    .related_viz {
+    h3.related_viz {
+      color: $medbordercolor;
       font-size: 12px;
       @include padding(15px, 0px, 10px, 0);
     }
 
     a.profile {
+      @include flex();
+      @include flex-direction(row);
+      @include align-items(center);
+      @include justify(flex-start);
+
       h3 {
         font-size: 16px;
         display: inline-block;
         line-height: 1.2;
         vertical-align: middle;
-        width: 88%;
-      }
+        width: auto;
 
-      &:hover {
-        h3:after {
+        &:after {
           font-family: FontAwesome;
           @include padding-left(7px);
 
@@ -907,19 +916,26 @@ body.visualize {
             content: unicode("f104");
           }
           @include ltr {
+            position: absolute;
             content: unicode("f105");
           }
         }
+      }
+
+      &:hover {
+        opacity: 0.8;
       }
     }
   }
 
   .d3plus_tooltip_body {
     height: 100%;
-    @include padding-right(10px !important);
+    background-color: $l2-darkbackground;
+    border: 1px solid $darkbordercolor;
+    @include padding-right(0px !important);
 
     .d3plus_tooltip_header {
-      margin-top: 15px;
+      padding-top: 5px;
 
       .d3plus_tooltip_icon {
         display: none !important;
@@ -932,6 +948,12 @@ body.visualize {
     }
   }
 
+  .d3plus_tooltip_html {
+    @include padding(0,0,0,0, !important);
+    word-wrap: break-word;
+    overflow: scroll;
+  }
+
   .d3plus_tooltip_icon {
     vertical-align: middle !important;
   }
@@ -939,16 +961,20 @@ body.visualize {
   .d3plus_tooltip_title {
     color: #fff !important;
     font-size: 20px !important;
-    line-height: 1.3 !important;
+    font-weight: 400;
+    line-height: 1.2 !important;
     vertical-align: middle !important;
-    @include padding(0px, 6px, 10px, 6px, !important);
+    @include padding(10px, 6px, 10px, 6px, !important);
   }
 
   .d3plus_tooltip_data_title {
-    font-size: 18px !important;
-    font-weight: 300 !important;
-    color: #fff;
-    @include padding(0px, 6px, 10px, 6px, !important);
+    color: $medbordercolor;
+    font-family: $montserrat !important;
+    font-weight: 400 !important;
+    letter-spacing: 1px;
+    line-height: 1.15;
+    @include padding(15px, 0px, 10px, 0, !important);
+    text-transform: uppercase;
   }
 
   .d3plus_tooltip_focus_link {
@@ -979,26 +1005,31 @@ body.visualize {
     & ~ div {
 
       img {
-        width: 40%;
-        display: block;
-        @include text-align(center);
-        @include margin(0, auto, 0, auto);
+        display: inline-block;
+        vertical-align: middle;
+        width: 25px;
+        @include margin(0, 5px, 0, 0);
       }
 
       a {
-        color: #ccc;
         display: block;
         width: 100%;
-        &:hover {
-          color: #fff;
-        }
 
         &.profile {
+          @include padding(0, 0, 2px, 3px);
+          width: 98%;
           background-color: transparent !important;
           font-size: 18px;
           font-weight: 400;
-          margin-bottom: 10px;
-          @include text-align(center);
+          @include margin(10px, 0, 10px, 0);
+
+          &:before {
+            display: none;
+          }
+        }
+
+        & ~ h3.related_viz {
+          @include padding(5px, 0, 10px, 0);
         }
 
         &.related {
@@ -1007,8 +1038,21 @@ body.visualize {
           font-size: 14px;
           line-height: 1.3;
           @include padding(6px, 0, 6px, 0);
-          &:hover {
-            opacity: 0.6;
+          &:hover{
+            opacity: 0.8;
+
+            &:after {
+              font-family: FontAwesome;
+              @include padding-left(5px);
+
+              @include rtl {
+                content: unicode("f104");
+              }
+              @include ltr {
+                position: absolute;
+                content: unicode("f105");
+              }
+            }
           }
         }
 
@@ -1071,7 +1115,7 @@ body.visualize {
       display: inline-block;
       vertical-align: middle;
       width: 25px;
-      @include margin(0, 10px, 0, auto);
+      @include margin(0, 5px, 0, 0);
     }
 
     a.related {
@@ -1080,9 +1124,67 @@ body.visualize {
       display: block;
       position: relative;
       @include left(15px);
-      width: 100%;
+      width: 97%;
+      font-size: 14px;
+      line-height: 1.3;
+      @include padding(6px, 0, 6px, 3px);
+
       &:hover {
-        opacity: 0.6;
+        opacity: 0.8;
+
+        &:after {
+          font-family: FontAwesome;
+          @include padding-left(5px);
+
+          @include rtl {
+            content: unicode("f104");
+          }
+          @include ltr {
+            position: absolute;
+            content: unicode("f105");
+          }
+        }
+      }
+
+      &.tree_map:before {
+        background-image: url("/static/img/icons/app/app_tree_map.png");
+      }
+
+      &.stacked:before {
+        background-image: url("/static/img/icons/app/app_stacked.png");
+      }
+
+      &.network:before {
+        background-image: url("/static/img/icons/app/app_network.png");
+      }
+
+      &.rings:before {
+        background-image: url("/static/img/icons/app/app_rings.png");
+      }
+
+      &.geo_map:before {
+        background-image: url("/static/img/icons/app/app_geo_map.png");
+      }
+
+      &.compare:before {
+        background-image: url("/static/img/icons/app/app_compare.png");
+      }
+
+      &.scatter:before {
+        background-image: url("/static/img/icons/app/app_scatter.png");
+      }
+
+      &:before {
+        background-repeat: no-repeat;
+        background-size: 15px 15px;
+        content: "";
+        display: block;
+        @include margin-right(8px);
+        @include left(-15px);
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        top: 8px;
       }
 
       &.profile {
@@ -1092,68 +1194,21 @@ body.visualize {
         margin-bottom: 10px;
       }
 
-      &.related {
-        font-size: 14px;
-        line-height: 1.3;
-        @include padding(6px, 0, 6px, 3px);
-
-        &.tree_map:before {
-          background-image: url("/static/img/icons/app/app_tree_map.png");
-        }
-
-        &.stacked:before {
-          background-image: url("/static/img/icons/app/app_stacked.png");
-        }
-
-        &.network:before {
-          background-image: url("/static/img/icons/app/app_network.png");
-        }
-
-        &.rings:before {
-          background-image: url("/static/img/icons/app/app_rings.png");
-        }
-
-        &.geo_map:before {
-          background-image: url("/static/img/icons/app/app_geo_map.png");
-        }
-
-        &.compare:before {
-          background-image: url("/static/img/icons/app/app_compare.png");
-        }
-
-        &.scatter:before {
-       background-image: url("/static/img/icons/app/app_scatter.png");
-        }
-
-        &:before {
-          background-repeat: no-repeat;
-          background-size: 15px 15px;
-          content: "";
-          display: block;
-          @include margin-right(8px);
-          @include left(-15px);
-          width: 15px;
-          height: 15px;
-          position: absolute;
-          top: 8px;
-        }
-
-      }
     }
   }
+}
 
-  .d3plus_tooltip_close {
-    top: 15px !important;
-    right: 10px !important;
-    color: #ccc !important;
-    font-size: 35px !important;
-    font-weight: 300 !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
+.d3plus_tooltip_close {
+  top: 15px !important;
+  right: 10px !important;
+  color: #ccc !important;
+  font-size: 35px !important;
+  font-weight: 300 !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
 
-    &:hover {
-      opacity: 0.6 !important;
-    }
+  &:hover {
+    opacity: 0.6 !important;
   }
 }
 
@@ -1168,11 +1223,12 @@ body.visualize {
 }
 
 .viz_loader {
-  @include animation(viz_loader 4s cubic-bezier(0.91, 0, 0.8, 0.51) 2s infinite);
+  @include animation(viz_loader 3s cubic-bezier(0.91, 0, 0.8, 0.51) infinite);
   display: none;
-  height: 7px;
+  height: 2px;
   @include left(0);
-  @include margin(-6px, 2px, 0, 2px);
+  @include margin(-1px, 2px, 0, 2px);
+  opacity: 0.5;
   overflow: hidden;
   position: absolute;
   @include text-align(left);
@@ -1187,11 +1243,9 @@ body.visualize {
 
 @include keyframes(viz_loader) {
   0% {
-    opacity: 0.3;
     width: 0%;
   }
   100% {
-    opacity: 1;
     width: 100%;
   }
 }
