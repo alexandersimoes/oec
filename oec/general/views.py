@@ -15,7 +15,6 @@ from oec.general.search import Search
 from oec.translations.lookup import get_translations
 
 import time, urllib2, json
-from dateutil import parser
 
 import csv
 from cStringIO import StringIO
