@@ -1584,7 +1584,8 @@ body.profile {
                 body.profile article .profile_header .stat .stat_text h3 .suffix {
                   display: block;
                   font-size: 12px;
-                  font-weight: 400; }
+                  font-weight: 400;
+                  max-width: 90px; }
               body.profile article .profile_header .stat .stat_text sub {
                 -webkit-box-flex: none;
                 -moz-box-flex: none;
