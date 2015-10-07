@@ -101,15 +101,19 @@ configs.line = function(build, container) {
     }
 
     return {
+      "color": "color",
       "depth": build.attr_type == "dest" || build.attr_type == "origin" ? 1 : 0,
       "shape": "line",
-      "x": "year",
-      "y": {"scale": "linear"},
-      "color": "color",
+      "size": 2,
       "timeline": {
         "play": false
       },
-      "ui": [depth_ui]
+      "ui": [depth_ui],
+      "x": "year",
+      "y": {
+        "scale": "linear",
+        "value": build.trade_flow + "_val"
+      }
     }
 
   }

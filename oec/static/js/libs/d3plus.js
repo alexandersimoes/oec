@@ -32555,19 +32555,12 @@ line.filter = function(vars, data) {
 line.requirements = ["data", "x", "y"];
 
 line.setup = function(vars) {
-  var axis, size, y;
+  var axis;
   if (!vars.axes.discrete) {
     axis = vars.time.value === vars.y.value ? "y" : "x";
     vars.self[axis]({
       scale: "discrete"
     });
-  }
-  y = vars[vars.axes.opposite];
-  size = vars.size;
-  if ((!y.value && size.value) || (size.changed && size.previous === y.value)) {
-    vars.self[vars.axes.opposite](size.value);
-  } else if ((!size.value && y.value) || (y.changed && y.previous === size.value)) {
-    vars.self.size(y.value);
   }
 };
 
