@@ -514,7 +514,7 @@
   d3.select("body").on("keyup", function(){
 
     // Site key events when search is closed
-    if (!d3.select("#search").classed("visible")) {
+    if (!d3.select("#search").classed("visible") && document.activeElement.tagName.toLowerCase() !== "input") {
 
       // Press "s" for search
       if (d3.event.keyCode === 83) {
