@@ -27,10 +27,12 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 # Load default configuration from config.py
 app.config.from_object('config')
 
+cache_timeout = 604800
 if DEBUG:
-
     from flask.ext.scss import Scss
     Scss(app)
+    # override cache timeout
+    cache_timeout = 0
 
 from flask.ext.assets import Environment, Bundle
 assets = Environment(app)

@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, g, request, current_app, \
 from flask.ext.babel import gettext
 from sqlalchemy.sql.expression import func
 
-from oec import app, db, babel, view_cache, random_countries, available_years
+from oec import app, db, babel, view_cache, random_countries, available_years, cache_timeout
 from oec.utils import make_query, make_cache_key
 from oec.db_attr import models as attr_models
 from oec.general.views import get_locale
@@ -63,7 +63,7 @@ def sanitize(id_3char):
         flash(msg+"<script>redirect('"+redirect_url+"', 10)</script>")
 
 @mod.route('/country/<attr_id>/')
-# @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
+@view_cache.cached(timeout=cache_timeout, key_prefix=make_cache_key)
 def profile_country(attr_id="usa"):
     c = Country("hs92", attr_id)
     if not c.attr: abort(404)
@@ -71,7 +71,7 @@ def profile_country(attr_id="usa"):
     return render_template("profile/index.html", profile=c)
 
 @mod.route('/<any("sitc","hs92","hs96","hs02","hs07"):attr_type>/<attr_id>/')
-# @view_cache.cached(timeout=604800, key_prefix=make_cache_key)
+@view_cache.cached(timeout=cache_timeout, key_prefix=make_cache_key)
 def profile_product(attr_type, attr_id="7108"):
     p = Product(attr_type, attr_id)
     if not p.attr: abort(404)
