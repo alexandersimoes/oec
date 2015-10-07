@@ -453,7 +453,7 @@
       if (categories.length) {
         var a = categories.pop();
         if (!attrs[a]) {
-          load("/attr/" + a, function(d){
+          load("/attr/" + a + "/" + oec.locale + "/", function(d){
             attrs[a] = d.data.filter(function(d){
                 return d.weight && d.display_id && d.id.length > 2;
               }).sort(function(a, b){
