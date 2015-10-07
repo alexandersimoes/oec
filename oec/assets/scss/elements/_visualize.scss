@@ -133,15 +133,25 @@ body.visualize {
     @include transition(opacity 0.1s);
     color: white;
     font-size: 12px;
-    @include left(20px);
     opacity: 0.7;
-    position: fixed;
-    top: $header - 10;
+    position: absolute;
+    top: $header + 35;
+    width: $sidebar;
     z-index: 21;
 
+    & .fa-toggle-on {
+      @include left(250px);
+    }
+
+    & .fa-toggle-off {
+      @include left(10px);
+    }
+
     i {
+      @include transition(left 1s, right 1s);
       font-size: 16px;
       @include margin-right(4px);
+      position: relative;
     }
 
     &:hover {
@@ -157,7 +167,9 @@ body.visualize {
 
   aside#explorer {
     @include transition(margin-left, 0.5s);
-    @include margin(60px, 35px, 0, 20px, !important);
+    @include margin(0, 35px, 0, 20px, !important);
+    position: relative;
+    top: 60px;
 
     &.small {
       @include margin-left(-$sidebar !important);
@@ -165,6 +177,7 @@ body.visualize {
 
     @media all and (max-width: 768px) {
       @include margin(0, 20px, 0, 20px, !important);
+      top: 0;
 
       &.small {
         display: none;
