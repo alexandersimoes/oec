@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-10-07 13:08-0400\n"
-"PO-Revision-Date: 2015-10-07 14:15-0400\n"
+"PO-Revision-Date: 2015-10-07 18:03-0400\n"
 "Last-Translator: \n"
 "Language-Team: it <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -96,47 +96,47 @@ msgstr " °"
 
 #: oec/db_attr/models.py:109
 msgid "article_the_m_p"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:109
 msgid "article_the_m"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:111
 msgid "article_the_f_p"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:111
 msgid "article_the_f"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:116
 msgid "article_of"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:118
 msgid "article_of_m_p"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:118
 msgid "article_of_m"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:120
 msgid "article_of_f_p"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:120
 msgid "article_of_f"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:148
 msgid "verb_is_p"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:148
 msgid "verb_is"
-msgstr ""
+msgstr " "
 
 #: oec/html/home.html:3 oec/html/home.html:22 oec/html/templates/nav.html:28
 msgid "The Observatory of Economic Complexity"

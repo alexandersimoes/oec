@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-10-07 13:08-0400\n"
-"PO-Revision-Date: 2015-10-07 14:52-0400\n"
+"PO-Revision-Date: 2015-10-07 18:03-0400\n"
 "Last-Translator: \n"
 "Language-Team: nl <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -47,53 +47,52 @@ msgstr[1] "Duizenden"
 #: oec/utils.py:238
 msgctxt "0"
 msgid "th"
-msgstr ""
+msgstr " "
 
 #: oec/utils.py:239
 msgctxt "1"
 msgid "st"
-msgstr ""
+msgstr " "
 
 #: oec/utils.py:240
-#, fuzzy
 msgctxt "2"
 msgid "nd"
-msgstr "en"
+msgstr " "
 
 #: oec/utils.py:241
 msgctxt "3"
 msgid "rd"
-msgstr ""
+msgstr " "
 
 #: oec/utils.py:242
 msgctxt "4"
 msgid "th"
-msgstr ""
+msgstr " "
 
 #: oec/utils.py:243
 msgctxt "5"
 msgid "th"
-msgstr ""
+msgstr " "
 
 #: oec/utils.py:244
 msgctxt "6"
 msgid "th"
-msgstr ""
+msgstr " "
 
 #: oec/utils.py:245
 msgctxt "7"
 msgid "th"
-msgstr ""
+msgstr " "
 
 #: oec/utils.py:246
 msgctxt "8"
 msgid "th"
-msgstr ""
+msgstr " "
 
 #: oec/utils.py:247
 msgctxt "9"
 msgid "th"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:109
 msgid "article_the_m_p"

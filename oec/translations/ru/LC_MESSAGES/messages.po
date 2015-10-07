@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-10-07 13:08-0400\n"
-"PO-Revision-Date: 2015-10-07 16:21-0400\n"
+"PO-Revision-Date: 2015-10-07 18:02-0400\n"
 "Last-Translator: \n"
 "Language-Team: ru <LL@li.org>\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 "
@@ -26,118 +26,122 @@ msgid "Trillion"
 msgid_plural "Trillions"
 msgstr[0] "триллион"
 msgstr[1] "триллионы"
+msgstr[2] ""
 
 #: oec/utils.py:224
 msgid "Billion"
 msgid_plural "Billions"
 msgstr[0] "миллиард"
 msgstr[1] "Миллиарды"
+msgstr[2] ""
 
 #: oec/utils.py:225
 msgid "Million"
 msgid_plural "Millions"
 msgstr[0] "миллиона"
 msgstr[1] "Миллионы"
+msgstr[2] ""
 
 #: oec/utils.py:226
 msgid "Thousand"
 msgid_plural "Thousands"
 msgstr[0] "Тысяча"
 msgstr[1] "тысячи"
+msgstr[2] ""
 
 #: oec/utils.py:238
 msgctxt "0"
 msgid "th"
-msgstr ""
+msgstr "-"
 
 #: oec/utils.py:239
 msgctxt "1"
 msgid "st"
-msgstr ""
+msgstr "-"
 
 #: oec/utils.py:240
 msgctxt "2"
 msgid "nd"
-msgstr ""
+msgstr "-"
 
 #: oec/utils.py:241
 msgctxt "3"
 msgid "rd"
-msgstr ""
+msgstr "-"
 
 #: oec/utils.py:242
 msgctxt "4"
 msgid "th"
-msgstr ""
+msgstr "-"
 
 #: oec/utils.py:243
 msgctxt "5"
 msgid "th"
-msgstr ""
+msgstr "-"
 
 #: oec/utils.py:244
 msgctxt "6"
 msgid "th"
-msgstr ""
+msgstr "-"
 
 #: oec/utils.py:245
 msgctxt "7"
 msgid "th"
-msgstr ""
+msgstr "-"
 
 #: oec/utils.py:246
 msgctxt "8"
 msgid "th"
-msgstr ""
+msgstr "-"
 
 #: oec/utils.py:247
 msgctxt "9"
 msgid "th"
-msgstr ""
+msgstr "-"
 
 #: oec/db_attr/models.py:109
 msgid "article_the_m_p"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:109
 msgid "article_the_m"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:111
 msgid "article_the_f_p"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:111
 msgid "article_the_f"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:116
 msgid "article_of"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:118
 msgid "article_of_m_p"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:118
 msgid "article_of_m"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:120
 msgid "article_of_f_p"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:120
 msgid "article_of_f"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:148
 msgid "verb_is_p"
-msgstr ""
+msgstr " "
 
 #: oec/db_attr/models.py:148
 msgid "verb_is"
-msgstr ""
+msgstr " "
 
 #: oec/html/home.html:3 oec/html/home.html:22 oec/html/templates/nav.html:28
 msgid "The Observatory of Economic Complexity"
