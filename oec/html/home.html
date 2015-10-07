@@ -118,6 +118,10 @@
     });
   }
 
+  d3.select("#vimeo_embed")
+    .attr("width", window.innerWidth * 0.8)
+    .attr("height", window.innerWidth * 0.8 * (9/16));
+
   var vimeo = $f(d3.select("#vimeo_embed").node());
   function launchVid() {
     d3.select("#launch").style("visibility", "visible").classed("visible", true);
