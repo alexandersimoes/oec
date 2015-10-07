@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  1.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-23 13:14-0400\n"
+"POT-Creation-Date: 2015-10-07 13:08-0400\n"
 "PO-Revision-Date: 2013-12-27 15:28-0500\n"
 "Last-Translator: sudha Kumari Kumari <kumars04@mit.edu>\n"
 "Language-Team: hi <LL@li.org>\n"
@@ -16,139 +16,145 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 1.3\n"
+"Generated-By: Babel 2.0\n"
 
-#: oec/utils.py:220
+#: oec/utils.py:223
 msgid "Trillion"
 msgid_plural "Trillions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: oec/utils.py:221
+#: oec/utils.py:224
 msgid "Billion"
 msgid_plural "Billions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: oec/utils.py:222
+#: oec/utils.py:225
 msgid "Million"
 msgid_plural "Millions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: oec/utils.py:223
+#: oec/utils.py:226
 msgid "Thousand"
 msgid_plural "Thousands"
 msgstr[0] ""
 msgstr[1] ""
 
-#: oec/utils.py:235
+#: oec/utils.py:238
 msgctxt "0"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:236
+#: oec/utils.py:239
 msgctxt "1"
 msgid "st"
 msgstr ""
 
-#: oec/utils.py:237
+#: oec/utils.py:240
 #, fuzzy
 msgctxt "2"
 msgid "nd"
 msgstr "और"
 
-#: oec/utils.py:238
+#: oec/utils.py:241
 msgctxt "3"
 msgid "rd"
 msgstr ""
 
-#: oec/utils.py:239
+#: oec/utils.py:242
 msgctxt "4"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:240
+#: oec/utils.py:243
 msgctxt "5"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:241
+#: oec/utils.py:244
 msgctxt "6"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:242
+#: oec/utils.py:245
 msgctxt "7"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:243
+#: oec/utils.py:246
 msgctxt "8"
 msgid "th"
 msgstr ""
 
-#: oec/utils.py:244
+#: oec/utils.py:247
 msgctxt "9"
 msgid "th"
 msgstr ""
 
-#: oec/html/home.html:3 oec/html/home.html:12 oec/html/templates/nav.html:8
-#: oec/html/templates/nav.html:20
+#: oec/db_attr/models.py:109
+msgid "article_the_m_p"
+msgstr ""
+
+#: oec/db_attr/models.py:109
+msgid "article_the_m"
+msgstr ""
+
+#: oec/db_attr/models.py:111
+msgid "article_the_f_p"
+msgstr ""
+
+#: oec/db_attr/models.py:111
+msgid "article_the_f"
+msgstr ""
+
+#: oec/db_attr/models.py:116
+msgid "article_of"
+msgstr ""
+
+#: oec/db_attr/models.py:118
+msgid "article_of_m_p"
+msgstr ""
+
+#: oec/db_attr/models.py:118
+msgid "article_of_m"
+msgstr ""
+
+#: oec/db_attr/models.py:120
+msgid "article_of_f_p"
+msgstr ""
+
+#: oec/db_attr/models.py:120
+msgid "article_of_f"
+msgstr ""
+
+#: oec/db_attr/models.py:148
+msgid "verb_is_p"
+msgstr ""
+
+#: oec/db_attr/models.py:148
+msgid "verb_is"
+msgstr ""
+
+#: oec/html/home.html:3 oec/html/home.html:22 oec/html/templates/nav.html:28
 msgid "The Observatory of Economic Complexity"
 msgstr ""
 
-#: oec/html/home.html:15
+#: oec/html/home.html:25
 msgid ""
 "We are the world's<br/>leading visualization engine<br/>for international"
 " trade data."
 msgstr ""
 
-#: oec/html/home.html:17
+#: oec/html/home.html:27
 msgid "Learn More"
 msgstr ""
 
-#: oec/html/home.html:21 oec/html/templates/nav.html:64
+#: oec/html/home.html:35 oec/html/templates/nav.html:75
 #, fuzzy
 msgid "Search"
 msgstr "वर्ष"
-
-#: oec/html/about/data.html:4
-msgid ""
-"HS, SITC, and Country classification with their corresponding IDs and "
-"values."
-msgstr "आईडी और मूल्यों के अनुरूप HS, SITC और देश का वर्गीकरण"
-
-#: oec/html/about/index.html:3 oec/html/includes/nav.html:38
-msgid "About the Site"
-msgstr ""
-
-#: oec/html/about/index.html:5
-msgid ""
-"Photos and descriptions of the team members involved in the creation of "
-"The Observatory."
-msgstr "ऑब्जर्वेटरी के निर्माण में शामिल सदस्य"
-
-#: oec/html/about/index.html:11
-msgid "About the Observatory"
-msgstr ""
-
-#: oec/html/about/index.html:29
-msgid "What is Economic Complexity?"
-msgstr ""
-
-#: oec/html/about/index.html:61
-#, fuzzy
-msgid "Current Team"
-msgstr "चालू वर्ष"
-
-#: oec/html/about/index.html:65
-msgid "Past Contributors"
-msgstr ""
-
-#: oec/html/about/updates.html:4
-msgid "A Development blog of updates to the site."
-msgstr "हाल की अपडेट्स का ब्लॉग"
 
 #: oec/html/general/api.html:4
 msgid ""
@@ -158,11 +164,6 @@ msgstr ""
 "आर्थिक जटिलता की ऑब्जर्वेटरी में हर जगह इस्तेमाल किये गये कच्चे आँकड़ें "
 "जानने के लिए एप्लीकेशन प्रोग्रामिंग इंटरफेस (एपीआई)."
 
-#: oec/html/general/permissions.html:3 oec/html/general/permissions.html:10
-#: oec/html/includes/nav.html:47
-msgid "Permissions"
-msgstr ""
-
 #: oec/html/general/publications.html:3 oec/html/general/publications.html:11
 msgid "Books"
 msgstr ""
@@ -171,47 +172,61 @@ msgstr ""
 msgid "Photo by"
 msgstr ""
 
-#: oec/html/includes/nav.html:4 oec/html/includes/nav.html:20
+#: oec/html/includes/nav.html:2 oec/html/includes/nav.html:18
 #, fuzzy
 msgid "Countries"
 msgstr "देश"
 
-#: oec/html/includes/nav.html:8 oec/html/includes/nav.html:23
+#: oec/html/includes/nav.html:6 oec/html/includes/nav.html:21
 #, fuzzy
 msgid "Products"
 msgstr "उत्पाद"
 
-#: oec/html/includes/nav.html:12
+#: oec/html/includes/nav.html:10
 #, fuzzy
 msgid "Visualizations"
 msgstr "विज़ुअलाइज़ेशन बनाएँ"
 
-#: oec/html/includes/nav.html:16
+#: oec/html/includes/nav.html:14
 msgid "Rankings"
 msgstr "रैंकिंग"
 
-#: oec/html/includes/nav.html:30
+#: oec/html/includes/nav.html:28
 #, fuzzy
 msgid "Publications"
 msgstr "श्रेणीकरण"
 
-#: oec/html/includes/nav.html:34
+#: oec/html/includes/nav.html:32
 msgid "Resources"
 msgstr ""
 
-#: oec/html/includes/nav.html:41
+#: oec/html/includes/nav.html:36 oec/html/resources/about.html:3
+#: oec/html/resources/eci.html:3
+msgid "About the Site"
+msgstr ""
+
+#: oec/html/includes/nav.html:39 oec/html/rankings/index.html:31
+msgid "Economic Complexity"
+msgstr ""
+
+#: oec/html/includes/nav.html:42
 msgid "FAQs"
 msgstr ""
 
-#: oec/html/includes/nav.html:44 oec/html/resources/data.html:10
+#: oec/html/includes/nav.html:45 oec/html/resources/data.html:10
 msgid "Data Sources"
 msgstr ""
 
-#: oec/html/includes/nav.html:54
+#: oec/html/includes/nav.html:48 oec/html/resources/permissions.html:3
+#: oec/html/resources/permissions.html:10
+msgid "Permissions"
+msgstr ""
+
+#: oec/html/includes/nav.html:55
 msgid "API"
 msgstr ""
 
-#: oec/html/includes/nav.html:58
+#: oec/html/includes/nav.html:59
 msgid "Take a tour"
 msgstr ""
 
@@ -220,279 +235,160 @@ msgstr ""
 msgid "Prev. Year"
 msgstr "पिछले वर्ष"
 
-#: oec/html/rankings/index.html:30
-msgid "Economic Complexity Rankings"
+#: oec/html/rankings/index.html:32 oec/html/rankings/index.html:38
+#, fuzzy
+msgid " Rankings"
+msgstr "रैंकिंग"
+
+#: oec/html/rankings/index.html:34
+msgid "Click here for Product Rankings"
 msgstr ""
 
-#: oec/html/rankings/index.html:32
+#: oec/html/rankings/index.html:37 oec/profile/models.py:407
 #, fuzzy
-msgid "Product Complexity Rankings"
-msgstr "एचएस उत्पादो की रैंकिंग"
+msgid "Product Complexity"
+msgstr "उत्पाद का नाम"
 
-#: oec/html/rankings/index.html:39 oec/html/rankings/index.html:61
-#: oec/html/visualize/index_old.html:40
+#: oec/html/rankings/index.html:40
+msgid "Click here for Country Rankings"
+msgstr ""
+
+#: oec/html/rankings/index.html:47 oec/html/rankings/index.html:69
 msgid "Next Year"
 msgstr "अगले वर्ष"
 
-#: oec/html/rankings/index.html:55 oec/html/visualize/index_old.html:36
+#: oec/html/rankings/index.html:63
 msgid "Previous Year"
 msgstr "पिछले वर्ष"
 
-#: oec/html/rankings/index.html:70 oec/visualize/views.py:360
+#: oec/html/rankings/index.html:78 oec/visualize/views.py:379
 msgid "Dataset"
 msgstr ""
 
-#: oec/html/rankings/index.html:82 oec/rankings/views.py:119
-#: oec/visualize/views.py:385
+#: oec/html/rankings/index.html:90 oec/rankings/views.py:122
+#: oec/visualize/views.py:404
 msgid "Year"
 msgstr "वर्ष"
 
-#: oec/html/rankings/index.html:92
+#: oec/html/rankings/index.html:100
 msgid "Depth"
 msgstr ""
 
-#: oec/html/rankings/index.html:102
+#: oec/html/rankings/index.html:110
 #, fuzzy
 msgid "Download Current Year"
 msgstr "चालू वर्ष"
 
-#: oec/html/rankings/index.html:107
+#: oec/html/rankings/index.html:115
 msgid "Download All Years"
+msgstr ""
+
+#: oec/html/resources/about.html:5 oec/html/resources/eci.html:5
+msgid ""
+"Photos and descriptions of the team members involved in the creation of "
+"The Observatory."
+msgstr "ऑब्जर्वेटरी के निर्माण में शामिल सदस्य"
+
+#: oec/html/resources/about.html:11
+msgid "About the Observatory"
+msgstr ""
+
+#: oec/html/resources/about.html:47
+#, fuzzy
+msgid "Current Team"
+msgstr "चालू वर्ष"
+
+#: oec/html/resources/about.html:51
+msgid "Past Contributors"
+msgstr ""
+
+#: oec/html/resources/data_classifications.html:4
+msgid ""
+"HS, SITC, and Country classification with their corresponding IDs and "
+"values."
+msgstr "आईडी और मूल्यों के अनुरूप HS, SITC और देश का वर्गीकरण"
+
+#: oec/html/resources/eci.html:20
+msgid "What is Economic Complexity?"
+msgstr ""
+
+#: oec/html/resources/eci.html:35
+msgid "How is Economic Complexity calculated?"
+msgstr ""
+
+#: oec/html/resources/eci.html:90
+msgid "Who makes what?"
 msgstr ""
 
 #: oec/html/resources/faqs.html:10
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#: oec/html/visualize/embed.html:7 oec/html/visualize/embed_new.html:3
+#: oec/html/resources/updates.html:4
+msgid "A Development blog of updates to the site."
+msgstr "हाल की अपडेट्स का ब्लॉग"
+
+#: oec/html/templates/nav.html:14
+msgid "Home"
+msgstr ""
+
+#: oec/html/visualize/embed.html:3
 msgid "An emedded visualization."
 msgstr "एक एम्बेडेड विज़ुअलाइज़ेशन."
 
-#: oec/html/visualize/embed.html:12 oec/html/visualize/embed.html:811
-msgid "Loading"
-msgstr "लदाई"
-
-#: oec/html/visualize/embed.html:19 oec/html/visualize/embed.html:52
-#: oec/html/visualize/embed.html:341 oec/html/visualize/embed.html:343
-msgid "Value"
-msgstr "मूल्य"
-
-#: oec/html/visualize/embed.html:20 oec/html/visualize/embed.html:338
-#: oec/translations/lookup.py:9
-msgid "Percent"
-msgstr "प्रतिशत"
-
-#: oec/html/visualize/embed.html:28
-msgid "Continent"
-msgstr "महाद्वीप"
-
-#: oec/html/visualize/embed.html:30 oec/rankings/views.py:87
-#: oec/visualize/views.py:299
-msgid "Country"
-msgstr "देश"
-
-#: oec/html/visualize/embed.html:33 oec/html/visualize/embed.html:54
-msgid "Category"
-msgstr "श्रेणी"
-
-#: oec/html/visualize/embed.html:35
-msgid "4 Digit"
-msgstr ""
-
-#: oec/html/visualize/embed.html:37
-msgid "6 Digit"
-msgstr ""
-
-#: oec/html/visualize/embed.html:44
-msgid "Gross"
-msgstr "सकल"
-
-#: oec/html/visualize/embed.html:45
-msgid "Net"
-msgstr "शुद्ध"
-
-#: oec/html/visualize/embed.html:56 oec/html/visualize/embed.html:354
-#: oec/translations/lookup.py:24 oec/translations/lookup.py:28
-msgid "Annual Growth Rate (1 year)"
-msgstr "वार्षिक वृद्धि दर (1 वर्ष)"
-
-#: oec/html/visualize/embed.html:57 oec/html/visualize/embed.html:355
-#: oec/translations/lookup.py:25 oec/translations/lookup.py:29
-msgid "Annual Growth Rate (5 year)"
-msgstr "वार्षिक वृद्धि दर (5 वर्ष)"
-
-#: oec/html/visualize/embed.html:58 oec/html/visualize/embed.html:356
-#: oec/translations/lookup.py:26 oec/translations/lookup.py:30
-msgid "Growth Value (1 year)"
-msgstr "वृद्धिमूल्य (1 वर्ष)"
-
-#: oec/html/visualize/embed.html:59 oec/html/visualize/embed.html:357
-#: oec/translations/lookup.py:27 oec/translations/lookup.py:31
-msgid "Growth Value (5 year)"
-msgstr "वृद्धिमूल्य (5 वर्ष)"
-
-#: oec/html/visualize/embed.html:64
-msgid "All Years"
-msgstr "सभी साल"
-
-#: oec/html/visualize/embed.html:75 oec/html/visualize/embed.html:985
-msgid "View as Text"
-msgstr "टेक्स्ट के रूप में देखें"
-
-#: oec/html/visualize/embed.html:76
-msgid "Fullscreen"
-msgstr "फुलस्क्रीन"
-
-#: oec/html/visualize/embed.html:114 oec/html/visualize/index.html:106
-msgid "Build Visualization"
-msgstr "विज़ुअलाइज़ेशन बनाएँ"
-
-#: oec/html/visualize/embed.html:117
-msgid "Download"
-msgstr "डाउनलोड"
-
-#: oec/html/visualize/embed.html:125
-msgid "Embed"
-msgstr "लागू करें"
-
-#: oec/html/visualize/embed.html:130
-msgid "Share"
-msgstr "हिस्सा"
-
-#: oec/html/visualize/embed.html:146
-msgid "Short URL"
-msgstr "यूआरएल संक्षेप में"
-
-#: oec/html/visualize/embed.html:339 oec/translations/lookup.py:23
-msgid "ID"
-msgstr "आईडी"
-
-#: oec/html/visualize/embed.html:340 oec/translations/lookup.py:10
-msgid "Export Value"
-msgstr "निर्यात मूल्य"
-
-#: oec/html/visualize/embed.html:341
-msgid "Net Export"
-msgstr "शुद्ध निर्यात"
-
-#: oec/html/visualize/embed.html:342 oec/translations/lookup.py:12
-msgid "Import Value"
-msgstr "आयात मूल्य"
-
-#: oec/html/visualize/embed.html:343
-msgid "Net Import"
-msgstr "शुद्ध आयात"
-
-#: oec/html/visualize/embed.html:344 oec/translations/lookup.py:14
-msgid "Market Value"
-msgstr "बाजार मूल्य"
-
-#: oec/html/visualize/embed.html:345 oec/translations/lookup.py:15
-#: oec/visualize/views.py:351
-msgid "Export"
-msgstr "निर्यात"
-
-#: oec/html/visualize/embed.html:346 oec/translations/lookup.py:16
-#: oec/visualize/views.py:352
-msgid "Import"
-msgstr "आयात"
-
-#: oec/html/visualize/embed.html:347 oec/translations/lookup.py:17
-#: oec/visualize/views.py:338
-msgid "GDP"
-msgstr "सकल घरेलू उत्पाद"
-
-#: oec/html/visualize/embed.html:348 oec/translations/lookup.py:18
-#: oec/visualize/views.py:339
-msgid "GDPpc (constant '05 US$)"
-msgstr "GDPpc (निरंतर '05 अमेरिकी डॉलर)"
-
-#: oec/html/visualize/embed.html:349 oec/translations/lookup.py:19
-#: oec/visualize/views.py:340
-msgid "GDPpc (current US$)"
-msgstr "GDPpc (वर्तमान अमेरिकी डॉलर)"
-
-#: oec/html/visualize/embed.html:350 oec/translations/lookup.py:20
-#: oec/visualize/views.py:341
-msgid "GDPpc PPP (constant '11)"
-msgstr "GDPpc पीपीपी (निरंतर '11)"
-
-#: oec/html/visualize/embed.html:351 oec/translations/lookup.py:21
-#: oec/visualize/views.py:342
-msgid "GDPpc PPP (current)"
-msgstr "GDPpc पीपीपी (वर्तमान)"
-
-#: oec/html/visualize/embed.html:352 oec/translations/lookup.py:22
-msgid "ECI"
-msgstr "ECI"
-
-#: oec/html/visualize/embed.html:361
-msgid "value"
-msgstr "मूल्य"
-
-#: oec/html/visualize/embed.html:362
-msgid "percentage"
-msgstr "प्रतिशतता"
-
-#: oec/html/visualize/embed.html:392
-msgid "Brought to you by"
-msgstr "यूआरएल संक्षेप में"
-
-#: oec/html/visualize/embed.html:479
-msgid "Total World Trade"
-msgstr "कुल वर्ल्ड ट्रेड"
-
-#: oec/html/visualize/embed.html:482
-msgid "Total Country Trade"
-msgstr "कुल देश के व्यापार"
-
-#: oec/html/visualize/embed.html:980
-msgid "View as App"
-msgstr "अनुप्रयोग के रूप में देखें"
-
-#: oec/html/visualize/index.html:28 oec/html/visualize/index_old.html:30
+#: oec/html/visualize/index.html:28 oec/html/visualize/index_new.html:28
 msgid "Data visualization of economic trade"
 msgstr "आर्थिक व्यापार का डेटा विज़ुअलाइज़ेशन"
 
-#: oec/html/visualize/index_old.html:97
-msgid "Total"
-msgstr "संपूर्ण"
+#: oec/html/visualize/index.html:117 oec/html/visualize/index_new.html:117
+msgid "Build Visualization"
+msgstr "विज़ुअलाइज़ेशन बनाएँ"
 
-#: oec/profile/models.py:48
+#: oec/html/visualize/index_new.html:46
+msgid "Select Trade Scenario"
+msgstr ""
+
+#: oec/profile/models.py:41 oec/profile/models.py:50 oec/profile/models.py:88
+msgid "Profile"
+msgstr ""
+
+#: oec/profile/models.py:72
 msgid "and"
 msgstr "और"
 
-#: oec/profile/models.py:69
-msgid "Economic Complexity"
-msgstr ""
+#: oec/profile/models.py:100
+#, fuzzy
+msgid "Econ Complexity"
+msgstr "उत्पाद का नाम"
 
-#: oec/profile/models.py:69 oec/profile/models.py:249 oec/profile/models.py:348
+#: oec/profile/models.py:100 oec/profile/models.py:279
+#: oec/profile/models.py:407
 #, fuzzy
 msgid "Exports"
 msgstr "निर्यात"
 
-#: oec/profile/models.py:69 oec/profile/models.py:250
+#: oec/profile/models.py:100 oec/profile/models.py:280
 #, fuzzy
 msgid "Imports"
 msgstr "आयात"
 
-#: oec/profile/models.py:69
+#: oec/profile/models.py:100
 msgid "GDP Per Capita"
 msgstr ""
 
-#: oec/profile/models.py:112
+#: oec/profile/models.py:144
 #, python-format
-msgid "%(country)s is the %(econ_rank)s largest export economy in the world"
+msgid "%(country_is)s the %(econ_rank)s largest export economy in the world"
 msgstr ""
 
-#: oec/profile/models.py:115
+#: oec/profile/models.py:148
 #, python-format
 msgid ""
 " and the %(eci_rank)s most complex economy according to the Economic "
 "Complexity Index (ECI). "
 msgstr ""
 
-#: oec/profile/models.py:119
+#: oec/profile/models.py:152
 #, python-format
 msgid ""
 "In %(year)s, %(country)s exported $%(export_val)s and imported "
@@ -500,133 +396,133 @@ msgid ""
 "$%(trade_delta)s. "
 msgstr ""
 
-#: oec/profile/models.py:126
+#: oec/profile/models.py:159
 #, python-format
 msgid ""
-"In %(year)s the GDP of %(country)s was $%(gdp)s and its GDP per capita "
+"In %(year)s the GDP %(of_country)s was $%(gdp)s and its GDP per capita "
 "was $%(gdp_pc)s."
 msgstr ""
 
-#: oec/profile/models.py:136
+#: oec/profile/models.py:169
 #, python-format
 msgid ""
-"The top exports of %(country)s are %(exports_list)s, using the 1992 "
+"The top exports %(of_country)s are %(exports_list)s, using the 1992 "
 "revision of the HS (Harmonized System) classification. Its top imports "
 "are %(imports_list)s."
 msgstr ""
 
-#: oec/profile/models.py:146
+#: oec/profile/models.py:179
 #, python-format
 msgid ""
-"The top export destinations of %(country)s are %(destinations)s. The top "
+"The top export destinations %(of_country)s are %(destinations)s. The top "
 "import origins are %(origins)s."
 msgstr ""
 
-#: oec/profile/models.py:155
+#: oec/profile/models.py:188
 #, python-format
 msgid "%(country)s is an island and borders %(maritime_borders)s by sea."
 msgstr ""
 
-#: oec/profile/models.py:157
+#: oec/profile/models.py:190
 #, python-format
 msgid "%(country)s borders %(land_borders)s."
 msgstr ""
 
-#: oec/profile/models.py:159
+#: oec/profile/models.py:192
 #, python-format
 msgid ""
 "%(country)s borders %(land_borders)s by land and %(maritime_borders)s by "
 "sea."
 msgstr ""
 
-#: oec/profile/models.py:183
+#: oec/profile/models.py:216
 #, python-format
 msgid ""
 "In %(year)s %(country)s exported $%(export_val)s, making it the "
 "%(export_rank)s largest exporter in the world. "
 msgstr ""
 
-#: oec/profile/models.py:188
+#: oec/profile/models.py:221
 #, python-format
 msgid ""
-"During the last five years the exports of %(country)s have "
+"During the last five years the exports %(of_country)s have "
 "%(increased_decreased)s at an annualized rate of %(change_rate)s%%, from "
 "$%(past_export_val)s in %(past_year)s to $%(current_export_val)s in "
 "%(current_year)s. "
 msgstr ""
 
-#: oec/profile/models.py:193
+#: oec/profile/models.py:227
 #, python-format
 msgid ""
-"The most recent exports are led by %(top_export)s, which represent "
-"%(top_export_pct)s%% of the total exports of %(country)s, followed by "
+"The most recent exports are led by %(top_export)s which represent "
+"%(top_export_pct)s%% of the total exports %(of_country)s, followed by "
 "%(second_export)s, which account for %(second_export_pct)s%%."
 msgstr ""
 
-#: oec/profile/models.py:199
+#: oec/profile/models.py:233
 #, python-format
 msgid ""
 "In %(year)s %(country)s imported $%(import_val)s, making it the "
 "%(import_rank)s largest importer in the world. "
 msgstr ""
 
-#: oec/profile/models.py:204
+#: oec/profile/models.py:238
 #, python-format
 msgid ""
-"During the last five years the imports of %(country)s have "
+"During the last five years the imports %(of_country)s have "
 "%(increased_decreased)s at an annualized rate of %(change_rate)s%%, from "
 "$%(past_import_val)s in %(past_year)s to $%(current_import_val)s in "
 "%(current_year)s. "
 msgstr ""
 
-#: oec/profile/models.py:213
+#: oec/profile/models.py:243
 #, python-format
 msgid ""
-"The most recent imports are led by %(top_import)s, which represent "
-"%(top_import_pct)s%% of the total imports of %(country)s, followed by "
+"The most recent imports are led by %(top_import)s which represent "
+"%(top_import_pct)s%% of the total imports %(of_country)s, followed by "
 "%(second_import)s, which account for %(second_import_pct)s%%."
 msgstr ""
 
-#: oec/profile/models.py:219
+#: oec/profile/models.py:249
 #, python-format
-msgid "The top export destinations of %(country)s are %(destinations)s."
+msgid "The top export destinations %(of_country)s are %(destinations)s."
 msgstr ""
 
-#: oec/profile/models.py:225
+#: oec/profile/models.py:255
 #, python-format
-msgid "The top import origins of %(country)s are %(origins)s."
+msgid "The top import origins %(of_country)s are %(origins)s."
 msgstr ""
 
-#: oec/profile/models.py:233 oec/profile/models.py:240
+#: oec/profile/models.py:263 oec/profile/models.py:270
 msgid "positive"
 msgstr ""
 
-#: oec/profile/models.py:233 oec/profile/models.py:240
+#: oec/profile/models.py:263 oec/profile/models.py:270
 msgid "negative"
 msgstr ""
 
-#: oec/profile/models.py:234 oec/profile/models.py:241
+#: oec/profile/models.py:264 oec/profile/models.py:271
 #, fuzzy
 msgid "exports"
 msgstr "निर्यात"
 
-#: oec/profile/models.py:234 oec/profile/models.py:241
+#: oec/profile/models.py:264 oec/profile/models.py:271
 #, fuzzy
 msgid "imports"
 msgstr "आयात"
 
-#: oec/profile/models.py:236
+#: oec/profile/models.py:266
 #, python-format
 msgid ""
 "As of %(year)s %(country)s had a %(positive_negative)s trade balance of "
 "$%(net_trade)s in net %(exports_imports)s."
 msgstr ""
 
-#: oec/profile/models.py:243
+#: oec/profile/models.py:273
 msgid "still"
 msgstr ""
 
-#: oec/profile/models.py:245
+#: oec/profile/models.py:275
 #, python-format
 msgid ""
 " As compared to their trade balance in %(year)s when they %(still)s had a"
@@ -634,26 +530,26 @@ msgid ""
 "%(exports_imports)s."
 msgstr ""
 
-#: oec/profile/models.py:251
+#: oec/profile/models.py:281
 msgid "Trade Balance"
 msgstr ""
 
-#: oec/profile/models.py:252
+#: oec/profile/models.py:282
 msgid "Destinations"
 msgstr ""
 
-#: oec/profile/models.py:253
+#: oec/profile/models.py:283
 msgid "Origins"
 msgstr ""
 
-#: oec/profile/models.py:271
+#: oec/profile/models.py:301
 #, python-format
 msgid ""
-"The economy of %(country)s has an Economic Complexity Index (ECI) of "
+"The economy %(of_country)s has an Economic Complexity Index (ECI) of "
 "%(eci)s making it the %(eci_rank)s most complex country. "
 msgstr ""
 
-#: oec/profile/models.py:278
+#: oec/profile/models.py:308
 #, python-format
 msgid ""
 "%(country)s exports %(num_of_exports)s products with revealed comparative"
@@ -662,24 +558,51 @@ msgid ""
 "of a product’s global market)."
 msgstr ""
 
-#: oec/profile/models.py:283
-#, python-format
-msgid "Economic Complexity of %(country)s"
-msgstr ""
-
-#: oec/profile/models.py:286
-#, fuzzy
-msgid "Product Space"
-msgstr "उत्पाद"
-
-#: oec/profile/models.py:286
+#: oec/profile/models.py:312
 msgid ""
 "The product space is a network connecting products that are likely to be "
 "co-exported and can be used to predict the evolution of a country’s "
 "export structure."
 msgstr ""
 
-#: oec/profile/models.py:300
+#: oec/profile/models.py:315
+#, python-format
+msgid "Economic Complexity %(of_country)s"
+msgstr ""
+
+#: oec/profile/models.py:317
+#, fuzzy
+msgid "Product Space"
+msgstr "उत्पाद"
+
+#: oec/profile/models.py:331
+msgid "increased"
+msgstr ""
+
+#: oec/profile/models.py:331
+msgid "decreased"
+msgstr ""
+
+#: oec/profile/models.py:336
+#, python-format
+msgid ""
+"The Economic Complexity ranking %(of_country)s has "
+"%(increased_or_decreased)s by %(rank_delta)s places\n"
+"                    over the past %(year_range)s years from %(old_eci)s "
+"in %(old_year)s to %(current_eci)s in %(current_year)s."
+msgstr ""
+
+#: oec/profile/models.py:337
+#, fuzzy
+msgid "Economic Complexity Ranking"
+msgstr "एचएस उत्पादो की रैंकिंग"
+
+#: oec/profile/models.py:341
+#, python-format
+msgid "More on %(country)s from our sister sites"
+msgstr ""
+
+#: oec/profile/models.py:354
 #, python-format
 msgid ""
 "\n"
@@ -688,139 +611,225 @@ msgid ""
 "            DataViva is a visualization tool that provides official data "
 "on trade, industries, and education throughout Brazil. If you would like "
 "more info or to create a similar site get in touch with us at <a "
-"href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />\n"
-"            <a target='_blank' "
-"href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'><img"
-" src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>\n"
+"href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.\n"
+"            </p><p><a target='_blank' "
+"href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'>Explore"
+" on DataViva &raquo;</a>\n"
 "            "
 msgstr ""
 
-#: oec/profile/models.py:305
+#: oec/profile/models.py:358
 #, python-format
 msgid ""
 "\n"
 "            This treemap shows the municipalities in Brazil that exported"
-" products to %(country)s.<br /><br />\n"
-"            DataViva is a visualization tool that provides official data "
-"on trade, industries, and education throughout Brazil. If you would like "
-"more info or to create a similar site get in touch with us at <a "
-"href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />\n"
-"            <a target='_blank' "
-"href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'><img"
-" src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>\n"
+" products to %(country)s.\n"
+"            </p><p><a target='_blank' "
+"href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Explore"
+" on DataViva &raquo;</a>\n"
 "            "
 msgstr ""
 
-#: oec/profile/models.py:310
+#: oec/profile/models.py:363
 #, python-format
 msgid "Brazilian Municipalities that import from %(country)s"
 msgstr ""
 
-#: oec/profile/models.py:311
+#: oec/profile/models.py:364
 #, python-format
 msgid "Brazilian Municipalities that export to %(country)s"
 msgstr ""
 
-#: oec/profile/models.py:327
+#: oec/profile/models.py:380
 #, python-format
-msgid ""
-"This treemap shows the cultural exports of %(country)s, as proxied by the"
-" production of globally famous historical characters.<br "
-"/>%(pantheon_link)s"
+msgid "Globally Famous People %(of_country)s"
 msgstr ""
 
-#: oec/profile/models.py:348
-#, fuzzy
-msgid "Product Complexity"
-msgstr "उत्पाद का नाम"
+#: oec/profile/models.py:382
+#, python-format
+msgid ""
+"This treemap shows the cultural exports %(of_country)s, as proxied by the"
+" production of globally famous historical "
+"characters.</p><p>%(pantheon_link)s"
+msgstr ""
 
-#: oec/profile/models.py:348
+#: oec/profile/models.py:385
+#, python-format
+msgid "Globally Famous People %(of_country)s by City"
+msgstr ""
+
+#: oec/profile/models.py:387
+#, python-format
+msgid ""
+"This treemap shows the cultural exports %(of_country)s by city, as "
+"proxied by the production of globally famous historical "
+"characters.</p><p>%(pantheon_link)s"
+msgstr ""
+
+#: oec/profile/models.py:407
 msgid "Top Exporter"
 msgstr ""
 
-#: oec/profile/models.py:348
+#: oec/profile/models.py:407
 #, fuzzy
 msgid "Top Importer"
 msgstr "शुद्ध आयात"
 
-#: oec/profile/models.py:411
+#: oec/profile/models.py:470
 #, python-format
 msgid "%(product)s the %(economic_rank)s most traded product"
 msgstr ""
 
-#: oec/profile/models.py:415
+#: oec/profile/models.py:474
 #, python-format
 msgid ""
 " and the %(pci_rank)s most complex product according to the <a "
 "href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>"
 msgstr ""
 
-#: oec/profile/models.py:427
+#: oec/profile/models.py:486
 #, python-format
 msgid ""
 "The top exporters of %(product)s are %(exporters)s. The top importers are"
 " %(importers)s."
 msgstr ""
 
-#: oec/profile/models.py:445
+#: oec/profile/models.py:504
 #, python-format
 msgid "%(product)s the top export of %(countries)s."
 msgstr ""
 
-#: oec/profile/models.py:448
+#: oec/profile/models.py:507
 #, python-format
 msgid "%(product)s the top import of %(countries)s."
 msgstr ""
 
-#: oec/profile/models.py:456
+#: oec/profile/models.py:515
 #, python-format
 msgid "%(product)s also known as %(keywords)s."
 msgstr ""
 
-#: oec/profile/models.py:460
+#: oec/profile/models.py:519
 #, python-format
 msgid "%(product)s a %(product_id_length)s digit %(classification)s product."
 msgstr ""
 
-#: oec/rankings/views.py:87 oec/rankings/views.py:94
+#: oec/rankings/views.py:85
 msgid "Rank"
 msgstr "रैंक"
 
-#: oec/rankings/views.py:94 oec/visualize/views.py:326
+#: oec/rankings/views.py:87 oec/translations/lookup.py:24
+msgid "ID"
+msgstr "आईडी"
+
+#: oec/rankings/views.py:90 oec/visualize/views.py:320
+#: oec/visualize/views.py:335
+msgid "Country"
+msgstr "देश"
+
+#: oec/rankings/views.py:97 oec/visualize/views.py:343
 msgid "Product"
 msgstr "उत्पाद"
+
+#: oec/translations/lookup.py:9
+msgid "Percent"
+msgstr "प्रतिशत"
+
+#: oec/translations/lookup.py:10
+msgid "Export Value"
+msgstr "निर्यात मूल्य"
 
 #: oec/translations/lookup.py:11
 #, fuzzy
 msgid "Net Export Value"
 msgstr "निर्यात मूल्य"
 
+#: oec/translations/lookup.py:12
+msgid "Import Value"
+msgstr "आयात मूल्य"
+
 #: oec/translations/lookup.py:13
 #, fuzzy
 msgid "Net Import Value"
 msgstr "आयात मूल्य"
 
-#: oec/visualize/views.py:317
+#: oec/translations/lookup.py:14
+msgid "Market Value"
+msgstr "बाजार मूल्य"
+
+#: oec/translations/lookup.py:15 oec/visualize/views.py:368
+msgid "Export"
+msgstr "निर्यात"
+
+#: oec/translations/lookup.py:16 oec/visualize/views.py:369
+msgid "Import"
+msgstr "आयात"
+
+#: oec/translations/lookup.py:17 oec/visualize/views.py:355
+msgid "GDP"
+msgstr "सकल घरेलू उत्पाद"
+
+#: oec/translations/lookup.py:18 oec/visualize/views.py:356
+msgid "GDPpc (constant '05 US$)"
+msgstr "GDPpc (निरंतर '05 अमेरिकी डॉलर)"
+
+#: oec/translations/lookup.py:19 oec/visualize/views.py:357
+msgid "GDPpc (current US$)"
+msgstr "GDPpc (वर्तमान अमेरिकी डॉलर)"
+
+#: oec/translations/lookup.py:20 oec/visualize/views.py:358
+msgid "GDPpc PPP (constant '11)"
+msgstr "GDPpc पीपीपी (निरंतर '11)"
+
+#: oec/translations/lookup.py:21 oec/visualize/views.py:359
+msgid "GDPpc PPP (current)"
+msgstr "GDPpc पीपीपी (वर्तमान)"
+
+#: oec/translations/lookup.py:22
+msgid "ECI"
+msgstr "ECI"
+
+#: oec/translations/lookup.py:23
+msgid "ECI Rank"
+msgstr ""
+
+#: oec/translations/lookup.py:25 oec/translations/lookup.py:29
+msgid "Annual Growth Rate (1 year)"
+msgstr "वार्षिक वृद्धि दर (1 वर्ष)"
+
+#: oec/translations/lookup.py:26 oec/translations/lookup.py:30
+msgid "Annual Growth Rate (5 year)"
+msgstr "वार्षिक वृद्धि दर (5 वर्ष)"
+
+#: oec/translations/lookup.py:27 oec/translations/lookup.py:31
+msgid "Growth Value (1 year)"
+msgstr "वृद्धिमूल्य (1 वर्ष)"
+
+#: oec/translations/lookup.py:28 oec/translations/lookup.py:32
+msgid "Growth Value (5 year)"
+msgstr "वृद्धिमूल्य (5 वर्ष)"
+
+#: oec/visualize/views.py:335
 msgid "Partner"
 msgstr ""
 
-#: oec/visualize/views.py:335
+#: oec/visualize/views.py:352
 msgid "Y Axis"
 msgstr "वाई एक्सिस"
 
-#: oec/visualize/views.py:348
+#: oec/visualize/views.py:365
 msgid "Trade Flow"
 msgstr "व्यापार प्रवाह"
 
-#: oec/visualize/views.py:372
+#: oec/visualize/views.py:391
 msgid "Start Year"
 msgstr "प्रारम्भिक वर्ष"
 
-#: oec/visualize/views.py:378
+#: oec/visualize/views.py:397
 msgid "End Year"
 msgstr "समाप्ति वर्ष"
 
-#: oec/visualize/views.py:467
+#: oec/visualize/views.py:491
 #, python-format
 msgid "Profile for %(attr)s"
 msgstr ""
@@ -958,5 +967,194 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Population"
+#~ msgstr ""
+
+#~ msgid "Economic Complexity Rankings"
+#~ msgstr ""
+
+#~ msgid "Loading"
+#~ msgstr "लदाई"
+
+#~ msgid "Value"
+#~ msgstr "मूल्य"
+
+#~ msgid "Continent"
+#~ msgstr "महाद्वीप"
+
+#~ msgid "Category"
+#~ msgstr "श्रेणी"
+
+#~ msgid "4 Digit"
+#~ msgstr ""
+
+#~ msgid "6 Digit"
+#~ msgstr ""
+
+#~ msgid "Gross"
+#~ msgstr "सकल"
+
+#~ msgid "Net"
+#~ msgstr "शुद्ध"
+
+#~ msgid "All Years"
+#~ msgstr "सभी साल"
+
+#~ msgid "View as Text"
+#~ msgstr "टेक्स्ट के रूप में देखें"
+
+#~ msgid "Fullscreen"
+#~ msgstr "फुलस्क्रीन"
+
+#~ msgid "Download"
+#~ msgstr "डाउनलोड"
+
+#~ msgid "Embed"
+#~ msgstr "लागू करें"
+
+#~ msgid "Share"
+#~ msgstr "हिस्सा"
+
+#~ msgid "Short URL"
+#~ msgstr "यूआरएल संक्षेप में"
+
+#~ msgid "value"
+#~ msgstr "मूल्य"
+
+#~ msgid "percentage"
+#~ msgstr "प्रतिशतता"
+
+#~ msgid "Brought to you by"
+#~ msgstr "यूआरएल संक्षेप में"
+
+#~ msgid "Total World Trade"
+#~ msgstr "कुल वर्ल्ड ट्रेड"
+
+#~ msgid "Total Country Trade"
+#~ msgstr "कुल देश के व्यापार"
+
+#~ msgid "View as App"
+#~ msgstr "अनुप्रयोग के रूप में देखें"
+
+#~ msgid "Total"
+#~ msgstr "संपूर्ण"
+
+#~ msgid "%(country)s is the %(econ_rank)s largest export economy in the world"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "In %(year)s the GDP of %(country)s "
+#~ "was $%(gdp)s and its GDP per "
+#~ "capita was $%(gdp_pc)s."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The top exports of %(country)s are "
+#~ "%(exports_list)s, using the 1992 revision "
+#~ "of the HS (Harmonized System) "
+#~ "classification. Its top imports are "
+#~ "%(imports_list)s."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The top export destinations of "
+#~ "%(country)s are %(destinations)s. The top "
+#~ "import origins are %(origins)s."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "During the last five years the "
+#~ "exports of %(country)s have "
+#~ "%(increased_decreased)s at an annualized rate"
+#~ " of %(change_rate)s%%, from $%(past_export_val)s"
+#~ " in %(past_year)s to $%(current_export_val)s "
+#~ "in %(current_year)s. "
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The most recent exports are led by"
+#~ " %(top_export)s, which represent "
+#~ "%(top_export_pct)s%% of the total exports "
+#~ "of %(country)s, followed by %(second_export)s,"
+#~ " which account for %(second_export_pct)s%%."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "During the last five years the "
+#~ "imports of %(country)s have "
+#~ "%(increased_decreased)s at an annualized rate"
+#~ " of %(change_rate)s%%, from $%(past_import_val)s"
+#~ " in %(past_year)s to $%(current_import_val)s "
+#~ "in %(current_year)s. "
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The most recent imports are led by"
+#~ " %(top_import)s, which represent "
+#~ "%(top_import_pct)s%% of the total imports "
+#~ "of %(country)s, followed by %(second_import)s,"
+#~ " which account for %(second_import_pct)s%%."
+#~ msgstr ""
+
+#~ msgid "The top export destinations of %(country)s are %(destinations)s."
+#~ msgstr ""
+
+#~ msgid "The top import origins of %(country)s are %(origins)s."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The economy of %(country)s has an "
+#~ "Economic Complexity Index (ECI) of "
+#~ "%(eci)s making it the %(eci_rank)s most"
+#~ " complex country. "
+#~ msgstr ""
+
+#~ msgid "Economic Complexity of %(country)s"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "            This treemap shows the "
+#~ "municipalities in Brazil that imported "
+#~ "products from %(country)s.<br /><br />\n"
+#~ "            DataViva is a visualization "
+#~ "tool that provides official data on "
+#~ "trade, industries, and education throughout"
+#~ " Brazil. If you would like more "
+#~ "info or to create a similar site"
+#~ " get in touch with us at <a "
+#~ "href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />"
+#~ "\n"
+#~ "            <a target='_blank' "
+#~ "href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'><img"
+#~ " src='http://en.dataviva.info/static/img/nav/DataViva.png' "
+#~ "/></a>\n"
+#~ "            "
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "            This treemap shows the "
+#~ "municipalities in Brazil that exported "
+#~ "products to %(country)s.<br /><br />\n"
+#~ "            DataViva is a visualization "
+#~ "tool that provides official data on "
+#~ "trade, industries, and education throughout"
+#~ " Brazil. If you would like more "
+#~ "info or to create a similar site"
+#~ " get in touch with us at <a "
+#~ "href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />"
+#~ "\n"
+#~ "            <a target='_blank' "
+#~ "href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'><img"
+#~ " src='http://en.dataviva.info/static/img/nav/DataViva.png' "
+#~ "/></a>\n"
+#~ "            "
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This treemap shows the cultural exports"
+#~ " of %(country)s, as proxied by the"
+#~ " production of globally famous historical"
+#~ " characters.<br />%(pantheon_link)s"
 #~ msgstr ""
 
