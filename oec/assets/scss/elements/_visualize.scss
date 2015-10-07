@@ -708,22 +708,43 @@ body.visualize {
       }
 
       #build {
-        @include transition(background-color 1s);
-        border: 1px solid white;
-        background-color: $darkbackground;
+        -webkit-user-select: none;
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: transparent;
+        background-color: $darkbordercolor;
+        border: 0;
+        border-radius: 2px;
         color: white;
         cursor: pointer;
         display: block;
         font-family: $montserrat;
         font-size: 13px;
         @include margin(10px, 0, 20px, 0);
-        @include padding(6px, 10px, 6px, 10px);
-        @include text-align(right);
+        @include padding(9px, 10px, 9px, 10px);
+        outline: none;
+        position: relative;
+        @include text-align(center);
+        @include text-shadow(0 1px 1px rgba(0,0,0,0.1));
         text-transform: uppercase;
         width: 100%;
+        
+        
+        &:after {
+          position: absolute;
+          content: "";
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          border-radius: 2px;
+        }
 
-        &.hover {
-          background-color: $darkbordercolor;
+        &:hover:after {
+          box-shadow: inset 0 -2px rgba(0,0,0,0.3);
+        }
+
+        &:active:after {
+          box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);
         }
 
       }
