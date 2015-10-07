@@ -32,11 +32,11 @@ if DEBUG:
     from flask.ext.scss import Scss
     Scss(app)
 
-    from flask.ext.assets import Environment, Bundle
-    assets = Environment(app)
-    assets.load_path.append(os.path.join(oec_dir, "assets/js/"))
-    js = Bundle("warning.js", "visualization.js", "configs/*.js", "helpers/*.js", output="js/visualization.js")
-    assets.register("js", js)
+from flask.ext.assets import Environment, Bundle
+assets = Environment(app)
+assets.load_path.append(os.path.join(oec_dir, "assets/js/"))
+js = Bundle("warning.js", "visualization.js", "configs/*.js", "helpers/*.js", output="js/visualization.js")
+assets.register("js", js)
 
 # DB connection object
 db = SQLAlchemy(app)
