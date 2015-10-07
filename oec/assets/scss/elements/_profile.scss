@@ -37,6 +37,18 @@ body.profile {
           color: #fff !important;
         }
       }
+
+      a {
+        .fa-external-link {
+          font-size: 13px;
+          vertical-align: middle;
+          @include margin-left(3px);
+
+          @include rtl {
+            @include flip();
+          }
+        }
+      }
       
       .share_input {
         display: none;

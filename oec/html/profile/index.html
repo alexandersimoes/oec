@@ -162,7 +162,7 @@
       <p>{{ build.subtitle|safe }}</p>
       {% endif %}
       {% if not build.iframe %}
-      <p><a href="/{{ g.locale }}/visualize/{{ build.build.url() }}" class="deep-link">Explore on Visualizations page &raquo;</a></p>
+      <p><a href="/{{ g.locale }}/visualize/{{ build.build.url() }}" class="deep-link" target="_blank">Explore on Visualizations page <i class="fa fa-external-link"></i></a></p>
       <p>
         <a href="{{ build.build.twitter_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Twitter">
           <i class="fa fa-twitter"></i>

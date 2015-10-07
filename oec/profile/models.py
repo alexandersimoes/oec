@@ -350,11 +350,11 @@ class Country(Profile):
         dv_munic_dest_subtitle = _(u"""
             This treemap shows the municipalities in Brazil that imported products from %(country)s.<br /><br />
             DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.
-            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'>Explore on DataViva &raquo;</a>
+            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>
             """, country=self.attr.get_name(article=True), dv_country_id=dv_country_id)
         dv_munic_origin_subtitle = _(u"""
             This treemap shows the municipalities in Brazil that exported products to %(country)s.
-            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Explore on DataViva &raquo;</a>
+            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>
             """, country=self.attr.get_name(article=True), dv_country_id=dv_country_id)
         dv_section = {
             "title": u"<a href='http://dataviva.info/' target='_blank'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>",
@@ -370,9 +370,9 @@ class Country(Profile):
         '''
         if self.attr.id_2char:
             pantheon_iframe_fields = "http://pantheon.media.mit.edu:5000/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/embed".format(self.attr.id_2char.upper())
-            pantheon_link_fields = "<a target='_blank' href='http://pantheon.media.mit.edu/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/'>Explore on Pantheon &raquo;</a>".format(self.attr.id_2char.upper())
+            pantheon_link_fields = "<a target='_blank' href='http://pantheon.media.mit.edu/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/'>Explore on Pantheon <i class='fa fa-external-link'></i></a>".format(self.attr.id_2char.upper())
             pantheon_iframe_cities = "http://pantheon.media.mit.edu:5000/treemap/country_by_city/all/{}/-4000/2010/H15/pantheon/embed".format(self.attr.id_2char.upper())
-            pantheon_link_cities = "<a target='_blank' href='http://pantheon.media.mit.edu/treemap/country_by_city/{}/all/-4000/2010/H15/pantheon/'>Explore on Pantheon &raquo;</a>".format(self.attr.id_2char.upper())
+            pantheon_link_cities = "<a target='_blank' href='http://pantheon.media.mit.edu/treemap/country_by_city/{}/all/-4000/2010/H15/pantheon/'>Explore on Pantheon <i class='fa fa-external-link'></i></a>".format(self.attr.id_2char.upper())
             pantheon_section = {
                 "title": "<a target='_blank' href='http://pantheon.media.mit.edu'><img src='http://pantheon.media.mit.edu/pantheon_logo.png' />",
                 "source": "pantheon",
