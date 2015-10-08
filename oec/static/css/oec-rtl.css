@@ -2306,9 +2306,9 @@ body.visualize {
       body.visualize #collapse .fa-toggle-on {
         right: 250px; }
         body.visualize #collapse .fa-toggle-on ~ .viz_menu {
-          background-position: left -10px top 128px, left -10px top 160px, left -10px top 192px,
-                    left -10px top 224px, left -10px top 256px, left -10px top 288px,
-                    left -10px top 320px; }
+          background-position: right -10px top 128px, right -10px top 160px, right -10px top 192px,
+                    right -10px top 224px, right -10px top 256px, right -10px top 288px,
+                    right -10px top 320px; }
     body.visualize #collapse .fa-toggle-off {
       right: 0px;
       padding: 0 6px 6px 6px ;
@@ -2323,8 +2323,8 @@ body.visualize {
                 url('/static/img/icons/app/app_scatter.png');
         background-attachment: fixed;
         background-repeat: no-repeat;
-        background-position: left 8px top 128px, left 8px top 160px, left 8px top 192px, left 8px top 224px,
-                left 8px top 256px, left 8px top 288px, left 8px top 320px;
+        background-position: right 8px top 128px, right 8px top 160px, right 8px top 192px, right 8px top 224px,
+                right 8px top 256px, right 8px top 288px, right 8px top 320px;
         background-size: 15px 15px;
         opacity: 1;
         width: 30px;
@@ -2343,13 +2343,13 @@ body.visualize {
         @media all and (max-width: 768px) {
           body.visualize #collapse {
             top: -25px;
-            left: 0px;   }
+            right: 0px;   }
             body.visualize #collapse i {
               right: 0 !important;
-              padding: 0px 0 17px 15px !important;
-              -webkit-transform: rotate(90deg);
-              -ms-transform: rotate(90deg);
-              transform: rotate(90deg);
+              -webkit-transform: rotate(270deg) scaleX(-1);
+              -ms-transform: rotate(270deg) scaleX(-1);
+              transform: rotate(270deg) scaleX(-1);
+              padding: 0px 15px 17px 0px !important;
               background-color: transparent !important;   }
               body.visualize #collapse .viz_menu {
                 display: none;   }

@@ -2334,10 +2334,10 @@ body.visualize {
             left: 0px;   }
             body.visualize #collapse i {
               left: 0 !important;
-              padding: 0px 15px 17px 0 !important;
               -webkit-transform: rotate(90deg);
               -ms-transform: rotate(90deg);
               transform: rotate(90deg);
+              padding: 0px 15px 17px 0 !important;
               background-color: transparent !important;   }
               body.visualize #collapse .viz_menu {
                 display: none;   }
