@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-10-07 13:08-0400\n"
-"PO-Revision-Date: 2015-10-07 18:03-0400\n"
+"PO-Revision-Date: 2015-10-08 13:05-0400\n"
 "Last-Translator: \n"
 "Language-Team: nl <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -234,7 +234,7 @@ msgstr "Vorige. jaar"
 
 #: oec/html/rankings/index.html:32 oec/html/rankings/index.html:38
 msgid " Rankings"
-msgstr "Rankings"
+msgstr " Rankings"
 
 #: oec/html/rankings/index.html:34
 msgid "Click here for Product Rankings"
@@ -377,8 +377,8 @@ msgid ""
 " and the %(eci_rank)s most complex economy according to the Economic Complexity "
 "Index (ECI). "
 msgstr ""
-"en de %(eci_rank)s meest complexe economie volgens de Economic Complexity Index "
-"(ECI)."
+" en de %(eci_rank)s meest complexe economie volgens de Economic Complexity Index "
+"(ECI). "
 
 #: oec/profile/models.py:152
 #, python-format
@@ -388,7 +388,7 @@ msgid ""
 msgstr ""
 "In %(year)s exporteerde %(country)s $ %(export_val)s en $ %(import_val)s "
 "geïmporteerd, wat resulteert in een %(positive_negative)s handelsbalans van $ "
-"%(trade_delta)s."
+"%(trade_delta)s. "
 
 #: oec/profile/models.py:159
 #, python-format
@@ -443,7 +443,7 @@ msgid ""
 "largest exporter in the world. "
 msgstr ""
 "In %(year)s exporteerde %(country)s $ %(export_val)s, waardoor het de "
-"%(export_rank)s grootste exporteur in de wereld."
+"%(export_rank)s grootste exporteur in de wereld. "
 
 #: oec/profile/models.py:221
 #, python-format
@@ -455,7 +455,7 @@ msgid ""
 msgstr ""
 "In de afgelopen vijf jaar is de export %(of_country)s is %(increased_decreased)s "
 "op jaarbasis van %(change_rate)s%%, van $ %(past_export_val)s in %(past_year)s "
-"tot $ %(current_export_val)s in %(current_year)s."
+"tot $ %(current_export_val)s in %(current_year)s. "
 
 #: oec/profile/models.py:227
 #, python-format
@@ -475,7 +475,7 @@ msgid ""
 "largest importer in the world. "
 msgstr ""
 "In %(year)s %(country)s ingevoerde $ %(import_val)s, waardoor het de "
-"%(import_rank)s grootste importeur ter wereld."
+"%(import_rank)s grootste importeur ter wereld. "
 
 #: oec/profile/models.py:238
 #, python-format
@@ -487,7 +487,7 @@ msgid ""
 msgstr ""
 "In de afgelopen vijf jaar is de invoer %(of_country)s is %(increased_decreased)s "
 "op jaarbasis van %(change_rate)s%%, van $ %(past_import_val)s in %(past_year)s "
-"tot $ %(current_import_val)s in %(current_year)s."
+"tot $ %(current_import_val)s in %(current_year)s. "
 
 #: oec/profile/models.py:243
 #, python-format
@@ -545,7 +545,7 @@ msgid ""
 " As compared to their trade balance in %(year)s when they %(still)s had a "
 "%(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s."
 msgstr ""
-"In vergelijking met hun handelsbalans in %(year)s toen ze %(still)s een "
+" In vergelijking met hun handelsbalans in %(year)s toen ze %(still)s een "
 "%(positive_negative)s handelsbalans van $ %(net_trade)s in de netto-"
 "%(exports_imports)s."
 
@@ -568,7 +568,7 @@ msgid ""
 "making it the %(eci_rank)s most complex country. "
 msgstr ""
 "De economie %(of_country)s heeft een Economic Complexity Index (ECI) van %(eci)s "
-"waardoor het de %(eci_rank)s meest complexe land."
+"waardoor het de %(eci_rank)s meest complexe land. "
 
 #: oec/profile/models.py:308
 #, python-format
@@ -648,10 +648,9 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"Dit treemap toont de gemeenten in Brazilië dat producten geïmporteerd uit "
-"%(country)s.<br /><br />\n"
-".\n"
-"             DataViva is een visualisatie tool die officiële gegevens verschaft "
+"            Dit boom kaart toont de gemeenten in Brazilië dat producten "
+"geïmporteerd uit %(country)s.<br /><br />\n"
+"            DataViva is een visualisatie tool die officiële gegevens verschaft "
 "over de handel, industrie en onderwijs in Brazilië. Als u graag meer informatie "
 "of voor het maken van een vergelijkbare site contact met ons op <a href='mailto:"
 "oec@media.mit.edu'>oec@media.mit.edu</a>.\n"
@@ -672,8 +671,8 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"Dit treemap toont de gemeenten in Brazilië die producten geëxporteerd naar "
-"%(country)s.\n"
+"            Dit boom kaart toont de gemeenten in Brazilië die producten "
+"geëxporteerd naar %(country)s.\n"
 "            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/"
 "tree_map/secex/all/all/%(dv_country_id)s/bra/?"
 "size=export_val&controls=false'>Explore on DataViva &raquo;</a>\n"
@@ -700,7 +699,7 @@ msgid ""
 "This treemap shows the cultural exports %(of_country)s, as proxied by the "
 "production of globally famous historical characters.</p><p>%(pantheon_link)s"
 msgstr ""
-"Dit treemap toont de culturele export %(of_country)s, zoals proxy door de "
+"Dit boom kaart toont de culturele export %(of_country)s, zoals proxy door de "
 "productie van wereldwijd bekende historische figuren.</p><p>%(pantheon_link)s"
 
 #: oec/profile/models.py:385
@@ -714,8 +713,8 @@ msgid ""
 "This treemap shows the cultural exports %(of_country)s by city, as proxied by "
 "the production of globally famous historical characters.</p><p>%(pantheon_link)s"
 msgstr ""
-"Dit treemap toont de culturele export %(of_country)s door de stad, zoals proxy "
-"door de productie van wereldwijd bekende historische figuren.</p><p>"
+"Dit boom kaart toont de culturele export %(of_country)s door de stad, zoals "
+"proxy door de productie van wereldwijd bekende historische figuren.</p><p>"
 "%(pantheon_link)s"
 
 #: oec/profile/models.py:407
@@ -737,7 +736,7 @@ msgid ""
 " and the %(pci_rank)s most complex product according to the <a href='/en/"
 "rankings/hs92/'>Product Complexity Index (PCI)</a>"
 msgstr ""
-"en de %(pci_rank)s meest complexe product volgens de <a href='/en/rankings/"
+" en de %(pci_rank)s meest complexe product volgens de <a href='/en/rankings/"
 "hs92/'>Product Complexity Index (PCI)</a>"
 
 #: oec/profile/models.py:486
