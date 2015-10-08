@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-10-07 13:08-0400\n"
-"PO-Revision-Date: 2015-10-07 17:55-0400\n"
+"PO-Revision-Date: 2015-10-08 12:46-0400\n"
 "Last-Translator: \n"
 "Language-Team: tr <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -230,7 +230,7 @@ msgstr "Önceki. Yıl"
 
 #: oec/html/rankings/index.html:32 oec/html/rankings/index.html:38
 msgid " Rankings"
-msgstr "Sıralaması"
+msgstr " Sıralaması"
 
 #: oec/html/rankings/index.html:34
 msgid "Click here for Product Rankings"
@@ -373,8 +373,8 @@ msgid ""
 " and the %(eci_rank)s most complex economy according to the Economic Complexity "
 "Index (ECI). "
 msgstr ""
-"ve %(eci_rank)s en karmaşık ekonomi Ekonomik Karmaşıklık Endeksi (ECI) göre "
-"değişir."
+" ve %(eci_rank)s en karmaşık ekonomi Ekonomik Karmaşıklık Endeksi (ECI) göre "
+"değişir. "
 
 #: oec/profile/models.py:152
 #, python-format
@@ -438,7 +438,7 @@ msgid ""
 "largest exporter in the world. "
 msgstr ""
 "%(year)s yılında %(country)s dünyadaki %(export_rank)s büyük ihracatçısı "
-"yaparak %(export_val)s $ ihraç etti."
+"yaparak %(export_val)s $ ihraç etti. "
 
 #: oec/profile/models.py:221
 #, python-format
@@ -450,7 +450,7 @@ msgid ""
 msgstr ""
 "Son beş yıl boyunca %(of_country)s ihracatı %(current_year)s yılında $ "
 "%(current_export_val)s, %(past_year)s yılında %(past_export_val)s $ dan,%% "
-"%(change_rate)s oranında yıllık bazda artış %(increased_decreased)s."
+"%(change_rate)s oranında yıllık bazda artış %(increased_decreased)s. "
 
 #: oec/profile/models.py:227
 #, python-format
@@ -470,7 +470,7 @@ msgid ""
 "largest importer in the world. "
 msgstr ""
 "%(year)s yılında %(country)s dünyadaki %(import_rank)s büyük ithalatçısı haline "
-"$ %(import_val)s ithal."
+"$ %(import_val)s ithal. "
 
 #: oec/profile/models.py:238
 #, python-format
@@ -482,7 +482,7 @@ msgid ""
 msgstr ""
 "Son beş yıl boyunca %(of_country)s ithalatı %(current_year)s yılında $ "
 "%(current_import_val)s, %(past_year)s yılında %(past_import_val)s $ dan,%% "
-"%(change_rate)s oranında yıllık bazda artış %(increased_decreased)s."
+"%(change_rate)s oranında yıllık bazda artış %(increased_decreased)s. "
 
 #: oec/profile/models.py:243
 #, python-format
@@ -541,7 +541,7 @@ msgid ""
 "%(positive_negative)s trade balance of $%(net_trade)s in net "
 "%(exports_imports)s."
 msgstr ""
-"%(year)s yılında kendi ticaret dengesinde ile karşılaştırıldığında %(still)s "
+" %(year)s yılında kendi ticaret dengesinde ile karşılaştırıldığında %(still)s "
 "net %(exports_imports)s %(net_trade)s $ bir %(positive_negative)s ticaret "
 "dengesi vardı."
 
@@ -564,7 +564,7 @@ msgid ""
 "making it the %(eci_rank)s most complex country. "
 msgstr ""
 "%(of_country)s ekonomisi %(eci)s Ekonomik Karmaşıklık İndeksi (ECI) o "
-"%(eci_rank)s en karmaşık ülkesi yapma vardır."
+"%(eci_rank)s en karmaşık ülkesi yapma vardır. "
 
 #: oec/profile/models.py:308
 #, python-format
@@ -613,8 +613,9 @@ msgid ""
 "%(old_year)s to %(current_eci)s in %(current_year)s."
 msgstr ""
 "%(of_country)s Ekonomik Karmaşıklık sıralamasında %(current_year)s yılında "
-"%(current_eci)s, %(old_year)s yılında %(old_eci)s ila son %(year_range)s yılda "
-"%(rank_delta)s yerlere %(increased_or_decreased)s."
+"%(current_eci)s, %(old_year)s yılında\n"
+"                    %(old_eci)s ila son %(year_range)s yılda %(rank_delta)s "
+"yerlere %(increased_or_decreased)s."
 
 #: oec/profile/models.py:337
 msgid "Economic Complexity Ranking"
@@ -641,8 +642,8 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"Bu treemap %(country)s ürünlerini ithal Brezilya'da belediyeleri gösterir.<br /"
-"><br />\n"
+"            Bu treemap %(country)s ürünlerini ithal Brezilya'da belediyeleri "
+"gösterir.<br /><br />\n"
 "             DataViva Brezilya boyunca ticaret, sanayi, eğitim ile ilgili resmi "
 "verileri sağlayan bir görselleştirme aracıdır. Daha fazla bilgi istiyorum ya "
 "oluşturmak için ise benzer bir yer bizimle temasa de olsun <a href='mailto:"
@@ -664,7 +665,8 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"Bu treemap %(country)s ürün ihraç Brezilya'da belediyeleri gösterir.\n"
+"            Bu treemap %(country)s ürün ihraç Brezilya'da belediyeleri "
+"gösterir.\n"
 "            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/"
 "tree_map/secex/all/all/%(dv_country_id)s/bra/?"
 "size=export_val&controls=false'>Explore on DataViva &raquo;</a>\n"
@@ -727,7 +729,7 @@ msgid ""
 " and the %(pci_rank)s most complex product according to the <a href='/en/"
 "rankings/hs92/'>Product Complexity Index (PCI)</a>"
 msgstr ""
-"ve %(pci_rank)s en karmaşık ürün göre <a href='/en/rankings/hs92/'>Product "
+" ve %(pci_rank)s en karmaşık ürün göre <a href='/en/rankings/hs92/'>Product "
 "Complexity Index (PCI)</a>"
 
 #: oec/profile/models.py:486
