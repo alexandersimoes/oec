@@ -41,7 +41,8 @@ class Profile(object):
         title = u"{} {}".format(self.attr.get_name(), _('Profile'))
         return u"http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
                 "display=popup&app_id={}&name={}&link={}&" \
-                "redirect_uri=https://atlas.media.mit.edu/close/" \
+                "redirect_uri=https://atlas.media.mit.edu/close/&" \
+                "picture=https://atlas.media.mit.edu/static/img/facebook.jpg" \
                 .format(FACEBOOK_ID, title, link)
     def twitter_url(self):
         link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
