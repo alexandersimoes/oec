@@ -60,8 +60,8 @@ Adding the Observatory to computer via virtualenv
         * only necessary if using filesystem caching
 8. Updating translations (if something is changed)
 
-        pybabel extract -F babel.cfg -o messages.pot oec
-        pybabel update -i messages.pot -d oec/translations
+        pybabel extract -F babel.cfg -o messages.pot oec --no-location --omit-header --no-wrap
+        pybabel update -i messages.pot -d oec/translations --no-location --omit-header --no-wrap
         pybabel compile -d oec/translations
 
 
