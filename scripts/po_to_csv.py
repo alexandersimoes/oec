@@ -20,7 +20,6 @@ def read_po(pofile, lang):
                 for_found = foreign_regex.findall(trans, re.DOTALL)
                 foreign_txt = clean_str(for_found[0])
                 all_trans.append([english_txt, foreign_txt])
-                raw_input([english_txt, foreign_txt])
     
     with open('{}_trans.tsv'.format(lang), 'w') as fp:
         a = csv.writer(fp, delimiter='\t')
