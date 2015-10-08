@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-10-07 13:08-0400\n"
-"PO-Revision-Date: 2015-10-07 18:03-0400\n"
+"PO-Revision-Date: 2015-10-08 12:55-0400\n"
 "Last-Translator: \n"
 "Language-Team: it <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -234,7 +234,7 @@ msgstr "L'anno scorso"
 
 #: oec/html/rankings/index.html:32 oec/html/rankings/index.html:38
 msgid " Rankings"
-msgstr "Classifiche"
+msgstr " Classifiche"
 
 #: oec/html/rankings/index.html:34
 msgid "Click here for Product Rankings"
@@ -380,8 +380,8 @@ msgid ""
 " and the %(eci_rank)s most complex economy according to the Economic Complexity "
 "Index (ECI). "
 msgstr ""
-"e la %(eci_rank)s economia più complessi a seconda della complessità economica "
-"Index (ECI)."
+" e la %(eci_rank)s economia più complessi a seconda della complessità economica "
+"Index (ECI). "
 
 #: oec/profile/models.py:152
 #, python-format
@@ -391,7 +391,7 @@ msgid ""
 msgstr ""
 "Nel %(year)s, %(country)s ha esportato $ %(export_val)s e importati $ "
 "%(import_val)s, con un conseguente saldo commerciale %(positive_negative)s di $ "
-"%(trade_delta)s."
+"%(trade_delta)s. "
 
 #: oec/profile/models.py:159
 #, python-format
@@ -446,7 +446,7 @@ msgid ""
 "largest exporter in the world. "
 msgstr ""
 "Nel %(year)s %(country)s ha esportato $ %(export_val)s, il che rende il "
-"%(export_rank)s più grande esportatore al mondo."
+"%(export_rank)s più grande esportatore al mondo. "
 
 #: oec/profile/models.py:221
 #, python-format
@@ -459,7 +459,7 @@ msgstr ""
 "Nel corso degli ultimi cinque anni, le esportazioni %(of_country)s sono "
 "%(increased_decreased)s ad un tasso annualizzato del %(change_rate)s%%, da $ "
 "%(past_export_val)s nel %(past_year)s a %(current_export_val)s $ nel "
-"%(current_year)s."
+"%(current_year)s. "
 
 #: oec/profile/models.py:227
 #, python-format
@@ -479,7 +479,7 @@ msgid ""
 "largest importer in the world. "
 msgstr ""
 "Nel %(year)s %(country)s ha importato $ %(import_val)s, il che rende il "
-"%(import_rank)s più grande importatore al mondo."
+"%(import_rank)s più grande importatore al mondo. "
 
 #: oec/profile/models.py:238
 #, python-format
@@ -492,7 +492,7 @@ msgstr ""
 "Negli ultimi cinque anni le importazioni %(of_country)s sono "
 "%(increased_decreased)s ad un tasso annualizzato del %(change_rate)s%%, da $ "
 "%(past_import_val)s nel %(past_year)s a %(current_import_val)s $ nel "
-"%(current_year)s."
+"%(current_year)s. "
 
 #: oec/profile/models.py:243
 #, python-format
@@ -552,7 +552,7 @@ msgid ""
 "%(positive_negative)s trade balance of $%(net_trade)s in net "
 "%(exports_imports)s."
 msgstr ""
-"Rispetto alla loro bilancia commerciale nel %(year)s, quando avevano %(still)s "
+" Rispetto alla loro bilancia commerciale nel %(year)s, quando avevano %(still)s "
 "un saldo commerciale %(positive_negative)s di $ %(net_trade)s in "
 "%(exports_imports)s nette."
 
@@ -575,7 +575,7 @@ msgid ""
 "making it the %(eci_rank)s most complex country. "
 msgstr ""
 "L'economia %(of_country)s ha un indice economico Complessità (ECI) %(eci)s che "
-"lo rende il %(eci_rank)s paese più complesse."
+"lo rende il %(eci_rank)s paese più complesse. "
 
 #: oec/profile/models.py:308
 #, python-format
@@ -627,8 +627,8 @@ msgid ""
 msgstr ""
 "La complessità economica ranking %(of_country)s è %(increased_or_decreased)s di "
 "%(rank_delta)s posti\n"
-"nel corso degli ultimi %(year_range)s anni da %(old_eci)s nel %(old_year)s a "
-"%(current_eci)s nel %(current_year)s."
+"                    nel corso degli ultimi %(year_range)s anni da %(old_eci)s "
+"nel %(old_year)s a %(current_eci)s nel %(current_year)s."
 
 #: oec/profile/models.py:337
 msgid "Economic Complexity Ranking"
@@ -655,8 +655,8 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"Questo treemap mostra i comuni in Brasile che importavano prodotti dalla "
-"%(country)s.<br /><br />\n"
+"            Questo treemap mostra i comuni in Brasile che importavano prodotti "
+"dalla %(country)s.<br /><br />\n"
 "             DataViva è uno strumento di visualizzazione che fornisce dati "
 "ufficiali sul commercio, le industrie e l'educazione in tutto il Brasile. Se "
 "desiderate maggiori informazioni o per creare un sito simile entrare in "
@@ -678,8 +678,8 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"Questo treemap mostra i comuni in Brasile che hanno esportato prodotti per "
-"%(country)s. \n"
+"            Questo treemap mostra i comuni in Brasile che hanno esportato "
+"prodotti per %(country)s.\n"
 "            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/"
 "tree_map/secex/all/all/%(dv_country_id)s/bra/?"
 "size=export_val&controls=false'>Explore on DataViva &raquo;</a>\n"
@@ -744,7 +744,7 @@ msgid ""
 " and the %(pci_rank)s most complex product according to the <a href='/en/"
 "rankings/hs92/'>Product Complexity Index (PCI)</a>"
 msgstr ""
-"e il %(pci_rank)s prodotto più complesso secondo il <a href='/en/rankings/"
+" e il %(pci_rank)s prodotto più complesso secondo il <a href='/en/rankings/"
 "hs92/'>Product Complexity Index (PCI)</a>"
 
 #: oec/profile/models.py:486
