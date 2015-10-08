@@ -41,8 +41,8 @@ class Profile(object):
         title = u"{} {}".format(self.attr.get_name(), _('Profile'))
         return u"http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
                 "display=popup&app_id={}&name={}&link={}&" \
-                "redirect_uri=http://atlas.media.mit.edu/close/&" \
-                "picture=http://atlas.media.mit.edu/static/img/touchicon.png" \
+                "redirect_uri=https://atlas.media.mit.edu/close/&" \
+                "picture=https://atlas.media.mit.edu/static/img/touchicon.png" \
                 .format(FACEBOOK_ID, title, link)
     def twitter_url(self):
         link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
@@ -81,7 +81,7 @@ class Country(Profile):
         super(Country, self).__init__(classification, id)
         self.attr = attrs.Country.query.filter_by(id_3char = self.id).first()
         self.cached_stats = []
-    
+
     def twitter_url(self):
         link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
         lang_txt = u"&lang={}".format(g.locale) if g.locale != "en" else ""

@@ -8,7 +8,7 @@
 
     {% if "/visualize/" not in request.path %}
     <!-- Facebook Properties -->
-    <meta property="og:image" content="http://atlas.media.mit.edu/static/img/facebook.jpg" />
+    <meta property="og:image" content="https://atlas.media.mit.edu/static/img/facebook.jpg" />
     {% endif %}
 
     <title>OEC{% block title %}{% endblock %}</title>
@@ -123,7 +123,7 @@
           <h3>{{ _('Short URL') }}</h3>
           <input type="text" class="short_url" onfocus="this.select()" onMouseUp="return false" value="">
           <h3>{{ _('Embed') }}</h3>
-          <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://atlas.media.mit.edu/?controls=false&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
+          <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://atlas.media.mit.edu/?controls=false&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
           <h3>{{ _('Social Media') }}</h3>
           <a href="" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=300')" id="Facebook" title="Facebook">
             <i class="fa fa-facebook"></i>

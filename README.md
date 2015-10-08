@@ -45,7 +45,7 @@ Adding the Observatory to computer via virtualenv
 
         pip install -r requirements.txt
 5. Create a MySQL database on your local machine
-6. Import the latest dump of the database from [atlas.media.mit.edu/static/db/](http://atlas.media.mit.edu/static/db/)
+6. Import the latest dump of the database from [atlas.media.mit.edu/static/db/](https://atlas.media.mit.edu/static/db/)
 
         mysql -u username -p -h localhost DB_NAME < oec_xxxx-xx-xx.sql
 7. Be sure to create the following local environment variables
