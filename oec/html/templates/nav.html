@@ -75,10 +75,10 @@
     <input id="search_input" type="text" placeholder="{{ _('Search') }}" />
     <div id="search_modes">
       <select id="search_mode_selector">
-        <option value="all" selected>No Filter</option>
-        <option value="country">Countries</option>
-        <option value="hs92">Products</option>
-        <option value="explore">Visualizations</option>
+        <option value="all" selected>{{ _('No Filter') }}</option>
+        <option value="country">{{ _('Countries') }}</option>
+        <option value="hs92">{{ _('Products') }}</option>
+        <option value="explore">{{ _('Visualizations') }}</option>
       </select>
     </div>
   </div>
@@ -335,11 +335,10 @@
       }
     }
 
-    var titles = {
-      "country": "Countries",
-      "hs92": "Products",
-      "explore": "Visualizations"
-    }
+    var titles = {};
+    d3.select("#search_mode_selector").selectAll("option").each(function(){
+      titles[this.value] = this.innerHTML;
+    })
 
     var group_data = [];
     ["country", "hs92", "explore"].forEach(function(g){
