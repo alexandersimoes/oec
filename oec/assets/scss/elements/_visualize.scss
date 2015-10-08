@@ -7,50 +7,39 @@ body.visualize {
   //   }
   // }
 
-  #visualize_share {
-    @include flex();
-    @include flex-direction(column);
-    position: fixed;
-    @include right(13px);
-    top: $header - 11;
-    z-index: 21;
-
-    @media all and (max-width: 768px) {
-      display: none;
-    }
-
-    a {
-      cursor: pointer;
-      font-size: 15px;
-      @include padding(3px, 15px, 3px, 15px);
-      @include margin(0px, -7px, 0px, -7px);
-      text-align: center;
-
-      i {
-        @include transition(opacity 0.1s, color 0.3s);
-        opacity: 0.7;
-      }
-
-      &:hover {
-        i {
-          opacity: 1;
-          color: $brightlinkcolor;
-        }
-      }
-    }
+  #content > section {
+    position: relative;
   }
 
   nav {
     padding-bottom: 30px;
+
+    @media all and (max-width: 768px) {
+      padding-bottom: 5px;
+    }
   }
 
   #container {
-    margin-top: $header + 15px;
+    margin-top: $header;
+
+    @media all and (max-width: 768px) {
+      margin-top: $header - 10;
+      padding-top: 25px;
+    }
+  }
+  
+  #explorer.small ~ #main_viz {
+    @include margin(0, 20px, 0, 5px, !important);
+
+    @media all and (max-width: 768px) {
+      @include margin(0, 0, 0, 0, !important);
+    }
   }
 
   #content #main_viz {
-
-    @include margin(0, 20px, 0, -15px, !important);
+    
+    //@include margin(0, 20px, 0, -15px, !important);
+    @include margin(0, 20px, 0, -5px, !important);
 
     @media all and (max-width: 768px) {
       @include margin(0, 0, 0, 0, !important);
@@ -98,9 +87,12 @@ body.visualize {
               font-size: 18px;
             }
 
+            @media all and (max-width: 768px) {
+              @include padding(0, 5px, 0, 5px);
+            }
+
             @media all and (max-width: 500px) {
               font-size: 16px;
-              @include padding(0, 5px, 0, 5px);
             }
           }
         }
@@ -129,29 +121,103 @@ body.visualize {
     }
   }
 
+  #visualize_share {
+    @include flex();
+    @include flex-direction(column);
+    position: fixed;
+    @include right(13px);
+    top: $header - 11;
+    z-index: 21;
+
+    @media all and (max-width: 768px) {
+      display: none;
+    }
+
+    a {
+      cursor: pointer;
+      font-size: 15px;
+      @include padding(3px, 15px, 3px, 15px);
+      @include margin(0px, -7px, 0px, -7px);
+      text-align: center;
+
+      i {
+        @include transition(opacity 0.1s, color 0.3s);
+        opacity: 0.7;
+      }
+
+      &:hover {
+        i {
+          opacity: 1;
+          color: $brightlinkcolor;
+        }
+      }
+    }
+  }
+
   #collapse {
     @include transition(opacity 0.1s);
     color: white;
     font-size: 12px;
     opacity: 0.7;
     position: absolute;
-    top: $header + 35;
-    width: $sidebar;
-    z-index: 21;
+    top: 30px;
+    @include left(0px);
+    z-index: 18;
+    height: 100%;
+    width: 30px;
 
-    & .fa-toggle-on {
-      @include left(250px);
+    .viz_menu {
+      @include transition(background-position 0.5s, opacity 2s);
+      opacity: 0;
     }
 
-    & .fa-toggle-off {
-      @include left(10px);
+    .fa-toggle-on {
+      @include left(250px);
+
+      ~ .viz_menu {
+        background-position: left -10px top 128px,
+                             left -10px top 160px,
+                             left -10px top 192px,
+                             left -10px top 224px,
+                             left -10px top 256px,
+                             left -10px top 288px,
+                             left -10px top 320px;
+      }
+    }
+
+    .fa-toggle-off {
+      @include left(0px);
+      @include padding(0, 6px, 6px, 6px);
+      background-color: $darkbackground;
+
+      ~ .viz_menu {
+        background-image: url('/static/img/icons/app/app_tree_map.png'),
+                          url('/static/img/icons/app/app_stacked.png'),
+                          url('/static/img/icons/app/app_network.png'),
+                          url('/static/img/icons/app/app_rings.png'),
+                          url('/static/img/icons/app/app_geo_map.png'),
+                          url('/static/img/icons/app/app_line.png'),
+                          url('/static/img/icons/app/app_scatter.png');
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: left 8px top 128px,
+                             left 8px top 160px,
+                             left 8px top 192px,
+                             left 8px top 224px,
+                             left 8px top 256px,
+                             left 8px top 288px,
+                             left 8px top 320px;
+        background-size: 15px 15px;
+        opacity: 1;
+        width: 30px;
+        height: 100%;
+      }
     }
 
     i {
-      @include transition(left 1s, right 1s);
+      @include transition(left 0.5s, right 0.5s);
       font-size: 16px;
-      @include margin-right(4px);
-      position: relative;
+      position: absolute;
     }
 
     &:hover {
@@ -159,15 +225,27 @@ body.visualize {
       opacity: 1;
     }
 
-    @media all and (max-width: 950px) {
-      @include left(15px);
-      top: $header - 12;
+    @media all and (max-width: 768px) {
+      top: -25px;
+      left: 0px;
+
+      i {
+        @include left(0 !important);
+        @include padding(0px, 15px, 17px, 0, !important);
+        @include transform(rotate(90deg));
+        background-color: transparent !important;
+      }
+
+      .viz_menu {
+        display: none;
+      }
     }
   }
 
   aside#explorer {
     @include transition(margin-left, 0.5s);
-    @include margin(0, 35px, 0, 20px, !important);
+    //@include margin(0, 35px, 0, 20px, !important);
+    @include margin(0, 25px, 0, 20px, !important);
     position: relative;
     top: 60px;
 
@@ -177,10 +255,13 @@ body.visualize {
 
     @media all and (max-width: 768px) {
       @include margin(0, 20px, 0, 20px, !important);
+      @include transition(height 3s);
       top: 0;
+      height: auto;
 
       &.small {
         display: none;
+        height: 0;
         @include margin-left(20px !important);
       }
 

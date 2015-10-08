@@ -29,7 +29,7 @@
 
 {% block body %}
 
-<a id="collapse"><i class="fa fa-toggle-on"></i></a>
+<section>
 
 <div id="visualize_share">
   <a href="{{ current_build.facebook_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Facebook">
@@ -40,7 +40,10 @@
   </a>
 </div>
 
-<section>
+<a id="collapse">
+  <i class="fa fa-toggle-on"></i>
+  <div class="viz_menu"></div>
+</a>
 
 <aside id="explorer">
 
