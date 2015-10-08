@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-10-07 13:08-0400\n"
-"PO-Revision-Date: 2015-10-07 18:04-0400\n"
+"PO-Revision-Date: 2015-10-08 13:01-0400\n"
 "Last-Translator: \n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -234,7 +234,7 @@ msgstr "Vorheriges Jahr"
 
 #: oec/html/rankings/index.html:32 oec/html/rankings/index.html:38
 msgid " Rankings"
-msgstr "Rankings"
+msgstr " Rankings"
 
 #: oec/html/rankings/index.html:34
 msgid "Click here for Product Rankings"
@@ -377,8 +377,8 @@ msgid ""
 " and the %(eci_rank)s most complex economy according to the Economic Complexity "
 "Index (ECI). "
 msgstr ""
-"und der %(eci_rank)s komplexeste Wirtschaft nach dem Index der wirtschaftlichen "
-"Komplexität."
+" und der %(eci_rank)s komplexeste Wirtschaft nach dem Index der "
+"wirtschaftlichen Komplexität. "
 
 #: oec/profile/models.py:152
 #, python-format
@@ -444,7 +444,7 @@ msgid ""
 "largest exporter in the world. "
 msgstr ""
 "Im Jahr %(year)s exportierte %(country)s $ %(export_val)s, so dass es die "
-"%(export_rank)s größte Exporteur der Welt."
+"%(export_rank)s größte Exporteur der Welt. "
 
 #: oec/profile/models.py:221
 #, python-format
@@ -457,7 +457,7 @@ msgstr ""
 "In den letzten fünf Jahren haben sich die Exporte %(of_country)s haben bei "
 "einer Jahresrate von %(change_rate)s%% im Jahr %(past_year)s auf $ "
 "%(current_export_val)s im Jahr %(current_year)s %(increased_decreased)s, von "
-"%(past_export_val)s $."
+"%(past_export_val)s $. "
 
 #: oec/profile/models.py:227
 #, python-format
@@ -477,7 +477,7 @@ msgid ""
 "largest importer in the world. "
 msgstr ""
 "Im Jahr %(year)s nach %(country)s eingeführt $ %(import_val)s, so dass es die "
-"%(import_rank)s größte Importeur der Welt."
+"%(import_rank)s größte Importeur der Welt. "
 
 #: oec/profile/models.py:238
 #, python-format
@@ -490,7 +490,7 @@ msgstr ""
 "In den letzten fünf Jahren haben sich die Einfuhren %(of_country)s haben bei "
 "einer Jahresrate von %(change_rate)s%% im Jahr %(past_year)s auf $ "
 "%(current_import_val)s im Jahr %(current_year)s %(increased_decreased)s, von "
-"%(past_import_val)s $."
+"%(past_import_val)s $. "
 
 #: oec/profile/models.py:243
 #, python-format
@@ -549,7 +549,7 @@ msgid ""
 "%(positive_negative)s trade balance of $%(net_trade)s in net "
 "%(exports_imports)s."
 msgstr ""
-"Im Vergleich zu ihren Handelsbilanz im Jahr %(year)s, als sie %(still)s hatten "
+" Im Vergleich zu ihren Handelsbilanz im Jahr %(year)s, als sie %(still)s hatten "
 "eine %(positive_negative)s Handelsbilanz von $ %(net_trade)s in die Netto"
 "%(exports_imports)s."
 
@@ -572,7 +572,7 @@ msgid ""
 "making it the %(eci_rank)s most complex country. "
 msgstr ""
 "Die Wirtschaft %(of_country)s hat ein Wirtschafts- Complexity Index (ECI) von "
-"%(eci)s und ist damit die %(eci_rank)s komplexesten Land."
+"%(eci)s und ist damit die %(eci_rank)s komplexesten Land. "
 
 #: oec/profile/models.py:308
 #, python-format
@@ -623,9 +623,10 @@ msgid ""
 "%(old_year)s to %(current_eci)s in %(current_year)s."
 msgstr ""
 "Der Wirtschafts- Komplexität Ranking %(of_country)s wurde um %(rank_delta)s "
-"Plätze \n"
-"in den vergangenen %(year_range)s Jahren ab %(old_eci)s in %(old_year)s bis "
-"%(current_eci)s im Jahr %(current_year)s %(increased_or_decreased)s."
+"Plätze\n"
+"                    in den vergangenen %(year_range)s Jahren ab %(old_eci)s in "
+"%(old_year)s bis %(current_eci)s im Jahr %(current_year)s "
+"%(increased_or_decreased)s."
 
 #: oec/profile/models.py:337
 msgid "Economic Complexity Ranking"
@@ -652,15 +653,16 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"Diese treemap zeigt die Gemeinden in Brasilien, die aus %(country)s "
-"eingeführten Waren.<br /><br />\n"
+"            Diese Baum Karte zeigt die Gemeinden in Brasilien, die aus "
+"%(country)s eingeführten Waren.<br /><br />\n"
 "DataViva ist ein Visualisierungs-Tool, das offizielle Daten über Handel, "
 "Industrie und Bildung in ganz Brasilien bietet. Wenn Sie weitere Informationen "
 "wünschen oder erstellen Sie eine ähnliche Website mit uns in Kontakt zu "
 "bekommen <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.\n"
 "            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/"
 "tree_map/secex/all/all/%(dv_country_id)s/bra/?"
-"size=import_val&controls=false'>Explore on DataViva &raquo;</a>"
+"size=import_val&controls=false'>Explore on DataViva &raquo;</a>\n"
+"            "
 
 #: oec/profile/models.py:358
 #, python-format
@@ -674,11 +676,12 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"Diese treemap zeigt die Gemeinden in Brasilien, die Produkte nach %(country)s "
-"exportiert.\n"
-"</p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/"
-"secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Explore on "
-"DataViva &raquo;</a>"
+"            Diese Baum Karte zeigt die Gemeinden in Brasilien, die Produkte "
+"nach %(country)s exportiert.\n"
+"            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/"
+"tree_map/secex/all/all/%(dv_country_id)s/bra/?"
+"size=export_val&controls=false'>Explore on DataViva &raquo;</a>\n"
+"            "
 
 #: oec/profile/models.py:363
 #, python-format
@@ -701,7 +704,7 @@ msgid ""
 "This treemap shows the cultural exports %(of_country)s, as proxied by the "
 "production of globally famous historical characters.</p><p>%(pantheon_link)s"
 msgstr ""
-"Diese treemap zeigt die Kulturexporte %(of_country)s, wie die Produktion von "
+"Diese Baum Karte zeigt die Kulturexporte %(of_country)s, wie die Produktion von "
 "weltweit bekannten historischen Persönlichkeiten Proxy.</p><p>%(pantheon_link)s"
 
 #: oec/profile/models.py:385
@@ -715,9 +718,9 @@ msgid ""
 "This treemap shows the cultural exports %(of_country)s by city, as proxied by "
 "the production of globally famous historical characters.</p><p>%(pantheon_link)s"
 msgstr ""
-"Diese treemap zeigt die Kulturexporte %(of_country)s von Stadt, wie sie in der "
-"Produktion von weltweit bekannten historischen Persönlichkeiten Proxy.</p><p>"
-"%(pantheon_link)s"
+"Diese Baum Karte zeigt die Kulturexporte %(of_country)s von Stadt, wie sie in "
+"der Produktion von weltweit bekannten historischen Persönlichkeiten Proxy.</"
+"p><p>%(pantheon_link)s"
 
 #: oec/profile/models.py:407
 msgid "Top Exporter"
@@ -738,7 +741,7 @@ msgid ""
 " and the %(pci_rank)s most complex product according to the <a href='/en/"
 "rankings/hs92/'>Product Complexity Index (PCI)</a>"
 msgstr ""
-"und die %(pci_rank)s komplexe Produkt gemäß der <a href='/en/rankings/"
+" und die %(pci_rank)s komplexe Produkt gemäß der <a href='/en/rankings/"
 "hs92/'>Product Complexity Index (PCI)</a>"
 
 #: oec/profile/models.py:486
