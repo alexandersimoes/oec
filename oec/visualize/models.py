@@ -284,8 +284,7 @@ class Build(object):
         link = u"https://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
         return u"http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
                 "display=popup&app_id={}&name={} ({})&link={}&" \
-                "redirect_uri=https://atlas.media.mit.edu/close/&" \
-                "picture=https://atlas.media.mit.edu/static/img/touchicon.png" \
+                "redirect_uri=https://atlas.media.mit.edu/close/" \
                 .format(FACEBOOK_ID, self.title(), self.year_str, link)
     def twitter_url(self):
         link = u"https://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
