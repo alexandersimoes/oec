@@ -344,26 +344,47 @@ class Country(Profile):
 
         ''' DataViva
         '''
-        dv_country_id = "asrus" if self.attr.id == "eurus" else self.attr.id
-        dv_munic_dest_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false".format(dv_country_id)
-        dv_munic_origin_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false".format(dv_country_id)
-        dv_munic_dest_subtitle = _(u"""
-            This treemap shows the municipalities in Brazil that imported products from %(country)s.<br /><br />
-            DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.
-            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>
-            """, country=self.attr.get_name(article=True), dv_country_id=dv_country_id)
-        dv_munic_origin_subtitle = _(u"""
-            This treemap shows the municipalities in Brazil that exported products to %(country)s.
-            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>
-            """, country=self.attr.get_name(article=True), dv_country_id=dv_country_id)
-        dv_section = {
-            "title": u"<a href='http://dataviva.info/' target='_blank'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>",
-            "source": "dataviva",
-            "builds": [
-                {"title": _(u"Brazilian Municipalities that import from %(country)s", country=self.attr.get_name(article=True)), "iframe": dv_munic_dest_iframe, "subtitle": dv_munic_dest_subtitle, "tour":"Profile pages also contain visualizations from other websites created by member of the OEC team. The following are 2 embeded visualization from DataViva, a similar visualization platorm centered around Brazilian data.", "seq":7},
-                {"title": _(u"Brazilian Municipalities that export to %(country)s", country=self.attr.get_name(article=True)), "iframe": dv_munic_origin_iframe, "subtitle": dv_munic_origin_subtitle},
-            ]
-        }
+        if self.attr.id == "sabra":
+            dv_geo_map = "http://en.dataviva.info/apps/embed/geo_map/secex/all/all/all/bra/?color=export_val&controls=false&year=2013"
+            dv_wages = "http://en.dataviva.info/apps/embed/bar/rais/all/all/all/bra/?controls=false&year=2013"
+            dv_geo_map_subtitle = _(u"""
+                This map shows the exports of Brazil by state.<br /><br />
+                DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.
+                </p><p><a target='_blank' href='http://en.dataviva.info/apps/builder/geo_map/secex/all/all/all/bra/?color=export_val&controls=false&year=2013'>Explore on DataViva <i class='fa fa-external-link'></i></a>
+                """)
+            dv_wages_subtitle = _(u"""
+                This bar chart shows the wage distribution for the working population in Brazil.
+                </p><p><a target='_blank' href='http://en.dataviva.info/apps/builder/bar/rais/all/all/all/bra/?controls=false&year=2013'>Explore on DataViva <i class='fa fa-external-link'></i></a>
+                """)
+            dv_section = {
+                "title": u"<a href='http://dataviva.info/' target='_blank'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>",
+                "source": "dataviva",
+                "builds": [
+                    {"title": _(u"State Exports"), "iframe": dv_geo_map, "subtitle": dv_geo_map_subtitle, "tour":"Profile pages also contain visualizations from other websites created by member of the OEC team. The following are 2 embeded visualization from DataViva, a similar visualization platorm centered around Brazilian data.", "seq":7},
+                    {"title": _(u"Wage Distribution"), "iframe": dv_wages, "subtitle": dv_wages_subtitle},
+                ]
+            }
+        else:
+            dv_country_id = "asrus" if self.attr.id == "eurus" else self.attr.id
+            dv_munic_dest_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false".format(dv_country_id)
+            dv_munic_origin_iframe = "http://dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false".format(dv_country_id)
+            dv_munic_dest_subtitle = _(u"""
+                This treemap shows the municipalities in Brazil that imported products from %(country)s.<br /><br />
+                DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.
+                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>
+                """, country=self.attr.get_name(article=True), dv_country_id=dv_country_id)
+            dv_munic_origin_subtitle = _(u"""
+                This treemap shows the municipalities in Brazil that exported products to %(country)s.
+                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>
+                """, country=self.attr.get_name(article=True), dv_country_id=dv_country_id)
+            dv_section = {
+                "title": u"<a href='http://dataviva.info/' target='_blank'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>",
+                "source": "dataviva",
+                "builds": [
+                    {"title": _(u"Brazilian Municipalities that import from %(country)s", country=self.attr.get_name(article=True)), "iframe": dv_munic_dest_iframe, "subtitle": dv_munic_dest_subtitle, "tour":"Profile pages also contain visualizations from other websites created by member of the OEC team. The following are 2 embeded visualization from DataViva, a similar visualization platorm centered around Brazilian data.", "seq":7},
+                    {"title": _(u"Brazilian Municipalities that export to %(country)s", country=self.attr.get_name(article=True)), "iframe": dv_munic_origin_iframe, "subtitle": dv_munic_origin_subtitle},
+                ]
+            }
         sections.append(dv_section)
 
         ''' Pantheon
