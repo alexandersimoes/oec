@@ -21,43 +21,66 @@ body.about, body.resources, body.permissions, body.eci {
   }
 
   h2 {
-    color: $pri-w-highlight;
+    color: $brightlinkcolor;
+    font-size: 34px;
     line-height: 1.1;
     margin-bottom: 15px;
   }
 
+  h4 {
+    color: $lightbordercolor;
+    line-height: 1.3;
+    font-size: 22px;
+    @include margin(15px, 0, 15px, 0);
+  }
+
+  ol {
+    @include margin-left(20px);
+    margin-top: 0;
+  }
+
+  blockquote {
+    @include margin(25px, 0, 25px, 0);
+  }
+
+  p {
+    opacity: 0.8;
+  }
+}
+
+body.about {
   h3 {
     line-height: 1.3;
     @include margin(20px, 0, 20px, 0);
     font-size: 24px;
     opacity: 0.8;
   }
+}
 
-  h4 {
+body.resources {
+  h3 {
+    color: $brightlinkcolor;
     line-height: 1.3;
-    @include margin(15px, 0, 15px, 0);
-  }
-
-  ol {
-    @include margin-left(20px);
-  }
-
-  blockquote {
-    @include margin(15px, 0, 15px, 0);
-  }
-
-  p {
-    opacity: 0.9;
+    @include margin(25px, 0, 10px, 0);
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.8;
   }
 }
 
 body.eci {
   h1 {
+    color: $brightlinkcolor;
     @include margin(20px, 0, 20px, 0);
   }
 
-  h4, ol {
-    color: $pri-w-highlight;
+  h4 {
+    color: $medbordercolor;
+    font-size: 26px;
+  }
+
+  ol {
+    opacity: 0.9;
   }
 
   li span.calc {
@@ -95,6 +118,11 @@ $image_size: 150px;
     top: 0;
     width: $image_size;
   }
+  
+  h3 {
+    color: $lightlinkcolor !important;
+    font-size: 18px !important;
+  }
 
   h3, h4 {
     @include margin(0, 0, 0, 0, !important);
@@ -114,8 +142,8 @@ $image_size: 150px;
   & h3 a {
     @include transition(text-shadow 0.1s);
     color: $brightlinkcolor !important;
-    font-size: 24px;
-    @include margin(8px, 0, 0, 5px);
+    font-size: 18px;
+    @include margin(0, 5px, 0, 5px);
     opacity: 0.6;
 
     &:hover {
