@@ -59,11 +59,11 @@ class Country(db.Model, AutoSerialize):
     hs07_yod_origin = db.relationship("db_data.hs07_models.Yod", primaryjoin = ('db_data.hs07_models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     hs07_yop_origin = db.relationship("db_data.hs07_models.Yop", primaryjoin = ('db_data.hs07_models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
 
-    # sitc_yodp_origin = db.relationship("db_data.sitc_models.Yodp", primaryjoin = ('db_data.sitc_models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
-    # sitc_yodp_dest = db.relationship("db_data.sitc_models.Yodp", primaryjoin = ('db_data.sitc_models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
-    # sitc_yod_dest = db.relationship("db_data.sitc_models.Yod", primaryjoin = ('db_data.sitc_models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
-    # sitc_yod_origin = db.relationship("db_data.sitc_models.Yod", primaryjoin = ('db_data.sitc_models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
-    # sitc_yop_origin = db.relationship("db_data.sitc_models.Yop", primaryjoin = ('db_data.sitc_models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    sitc_yodp_origin = db.relationship("db_data.sitc_models.Yodp", primaryjoin = ('db_data.sitc_models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    sitc_yodp_dest = db.relationship("db_data.sitc_models.Yodp", primaryjoin = ('db_data.sitc_models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    sitc_yod_dest = db.relationship("db_data.sitc_models.Yod", primaryjoin = ('db_data.sitc_models.Yod.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')
+    sitc_yod_origin = db.relationship("db_data.sitc_models.Yod", primaryjoin = ('db_data.sitc_models.Yod.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
+    sitc_yop_origin = db.relationship("db_data.sitc_models.Yop", primaryjoin = ('db_data.sitc_models.Yop.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
 
     # sitc_yodp_origin = db.relationship("db_sitc.models.Yodp", primaryjoin = ('db_sitc.models.Yodp.origin_id == Country.id'), backref = 'origin', lazy = 'dynamic')
     # sitc_yodp_dest = db.relationship("db_sitc.models.Yodp", primaryjoin = ('db_sitc.models.Yodp.dest_id == Country.id'), backref = 'dest', lazy = 'dynamic')

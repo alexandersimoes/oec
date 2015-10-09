@@ -513,8 +513,8 @@ class Product(Profile):
         # find out which countries this product is their #1 export/import
         countries_top = self.models.Yo.query.filter_by(year = self.year)
         if len(self.attr.id) == 6:
-            countries_top_export = countries_top.filter_by(top_export_hs4 = self.attr.id)
-            countries_top_import = countries_top.filter_by(top_import_hs4 = self.attr.id)
+            countries_top_export = countries_top.filter_by(top_export = self.attr.id) if self.classification == "sitc" else countries_top.filter_by(top_export_hs4 = self.attr.id)
+            countries_top_import = countries_top.filter_by(top_import = self.attr.id) if self.classification == "sitc" else countries_top.filter_by(top_import_hs4 = self.attr.id)
         elif len(self.attr.id) == 8:
             countries_top_export = countries_top.filter_by(top_export_hs6 = self.attr.id)
             countries_top_import = countries_top.filter_by(top_import_hs6 = self.attr.id)
