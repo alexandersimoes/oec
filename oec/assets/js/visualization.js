@@ -114,7 +114,7 @@ var visualization = function(build, container) {
         .error(false)
         .ui(ui)
         .tooltip({
-          "large": viz_width < 768 ? viz_width * 0.9 : 150,
+          "large": viz_width < 768 ? viz_width * 0.9 : 200,
           "stacked": viz_width < 768 ? true : false
         })
         .draw();
