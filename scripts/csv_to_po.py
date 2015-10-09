@@ -38,7 +38,7 @@ def write_po(popath, csvfile):
         found = False
         for line in pofile:
             if found:
-                comment_char = "#" if commented_out else ""
+                comment_char = "#~ " if commented_out else ""
                 new_lines.append('{}msgstr "{}"\n'.format(comment_char, found))
                 found = False
                 continue
