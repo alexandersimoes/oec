@@ -125,10 +125,10 @@
           <h3>{{ _('Embed') }}</h3>
           <input type="text" class="embed_code" onfocus="this.select()" onMouseUp="return false" value="&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://atlas.media.mit.edu/?controls=false&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;">
           <h3>{{ _('Social Media') }}</h3>
-          <a href="" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=300')" id="Facebook" title="Facebook">
+          <a href="" class="share_button" target="_blank" onclick="javascript:popup(this.href);return false;" id="Facebook" title="Facebook">
             <i class="fa fa-facebook"></i>
           </a>
-          <a href="" class="share_button" target="_blank" onclick="return !window.open(this.href, 'Twitter', 'width=640,height=300')" id="Twitter" title="Tweet" data-lang="{{ g.locale }}"  xml:lang="{{ g.locale }}">
+          <a href="" class="share_button" target="_blank" onclick="javascript:popup(this.href);return false;" id="Twitter" title="Tweet" data-lang="{{ g.locale }}"  xml:lang="{{ g.locale }}">
             <i class="fa fa-twitter"></i>
           </a>
         </div>

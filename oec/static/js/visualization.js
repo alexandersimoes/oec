@@ -951,3 +951,12 @@ function share(build){
   }
 
 }
+
+function popup(href) {
+  var width = 600,
+      height = 400,
+      left = window.screenLeft + window.innerWidth/2 - width/2,
+      top = window.screenTop + window.innerHeight/2 - height/2;
+  window.open(href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=" + height + ",width=" + width + ",left=" + left + ",top=" + top);
+  return false;
+}

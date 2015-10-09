@@ -68,10 +68,10 @@
   <div class="share">
     <div class="drawer">
       <div class="drawer-content">
-        <a href="{{ profile.facebook_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Facebook">
+        <a href="{{ profile.facebook_url() }}" onclick="javascript:popup(this.href);return false;" title="Share on Facebook">
           <i class="fa fa-facebook"></i>
         </a>
-        <a href="{{ profile.twitter_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Twitter">
+        <a href="{{ profile.twitter_url() }}" onclick="javascript:popup(this.href);return false;" title="Share on Twitter">
           <i class="fa fa-twitter"></i>
         </a>
       </div>
@@ -167,10 +167,10 @@
       </p>
       <div class="share_container">
         <div class="share_icons_container">
-          <a href="{{ build.build.twitter_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Twitter">
+          <a href="{{ build.build.twitter_url() }}" onclick="javascript:popup(this.href);return false;" title="Share on Twitter">
             <i class="fa fa-twitter"></i>
           </a>
-          <a href="{{ build.build.facebook_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Facebook">
+          <a href="{{ build.build.facebook_url() }}" onclick="javascript:popup(this.href);return false;" title="Share on Facebook">
             <i class="fa fa-facebook"></i>
           </a>
           <a href="#" class="share_toggle" data-target='share_short_url' title="Direct URL">
@@ -550,21 +550,21 @@
   d3.select(".share").on("click", function(){
     d3.select(this).classed("open", !d3.select(this).classed("open"));
   });
-  
+
   function gravdept_next(elem) {
       do {
           elem = elem.nextSibling;
       } while (elem && elem.nodeType != 1);
-      return elem;                
+      return elem;
   }
 
   function gravdept_toggle(elem) {
       var nextElem = gravdept_next(elem);
-	
+
       if (nextElem.style.display==='block') { nextElem.style.display='none'; }
       else { nextElem.style.display='block'; }
   }
-  
+
   d3.selectAll(".share_toggle").on("click", function(){
     var target_icon = d3.select(this).attr("data-target");
 
@@ -573,7 +573,7 @@
     target_icon = d3.select(this.parentNode.parentNode).select("."+target_icon);
 
     target_icon.style("display", "inline-block");
-    
+
     d3.event.preventDefault();
   })
 

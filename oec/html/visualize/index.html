@@ -32,10 +32,10 @@
 <section>
 
 <div id="visualize_share">
-  <a href="{{ current_build.facebook_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share Visualization">
+  <a href="{{ current_build.facebook_url() }}" onclick="javascript:popup(this.href);return false;" title="Share on Facebook">
     <i class="fa fa-facebook"></i>
   </a>
-  <a href="{{ current_build.twitter_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share Visualization">
+  <a href="{{ current_build.twitter_url() }}" onclick="javascript:popup(this.href);return false;" title="Share on Twitter">
     <i class="fa fa-twitter"></i>
   </a>
 </div>
