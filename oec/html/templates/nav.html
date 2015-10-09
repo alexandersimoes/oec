@@ -244,6 +244,14 @@
   resizeFunctions.push(resizeCanvas);
   // scrollFunctions.push(resizeHeader);
 
+  function no_results() {
+
+    d3.select("#search_results").append("h1")
+      .classed("search-error", true)
+      .text("We couldn’t find any results.");
+
+  }
+
   function add_results(container, data) {
 
     function draw(container, data) {
@@ -296,13 +304,14 @@
 
       d3.json(data, function(error, d){
         viz_loading.remove();
-        if (!error) {
-          draw(container, d.explore);
+        if (error || !d.explore) {
+          no_results();
         }
         else {
-          draw(container, []);
+          draw(container, d.explore);
         }
       });
+
     }
     else {
       draw(container, data);
@@ -372,9 +381,7 @@
     }
     else if (search_query.length) {
 
-      d3.select("#search_results").append("h1")
-        .classed("search-error", true)
-        .text("We couldn’t find any results.");
+      no_results();
 
     }
 
