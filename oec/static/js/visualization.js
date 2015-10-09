@@ -291,7 +291,13 @@ configs.default = function(build, container) {
     },
     "legend": {"filters":true},
     "messages": {
-      "branding": true,
+      "branding": {
+        "image": {
+          "light": "/static/img/d3plus/icon-transparent.png",
+          "dark": "/static/img/d3plus/icon-transparent-invert.png"
+        },
+        "value": true
+      },
       "font": {"color": text},
       "style": "large"
     },
