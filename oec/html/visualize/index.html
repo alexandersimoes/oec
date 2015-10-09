@@ -40,10 +40,16 @@
   </a>
 </div>
 
-<a id="collapse">
-  <i class="fa fa-toggle-on"></i>
-  <div class="viz_menu"></div>
-</a>
+<div id="collapse-container">
+  <a id="collapse">
+    <i class="fa fa-toggle-on"></i>
+    <div class="viz_menu"></div>
+  </a>
+  <a id="collapse-text-container">
+    <span class="collapse-text">Close</span>
+    <span class="collapse-text">Controls</span>
+  </a>
+</div>
 
 <aside id="explorer">
 
@@ -394,13 +400,15 @@
   function toggle_controls() {
     var small = explorer.node().className !== "small";
     explorer.classed("small", small);
+    d3.select("#collapse-text-container").classed("to-open", !d3.select("#collapse-text-container").classed("to-open"));
     d3.select("#collapse").select("i").classed("fa-toggle-off", small);
     d3.select("#collapse").select("i").classed("fa-toggle-on", !small);
     setTimeout(resizeIframe, 500);
   }
 
   d3.select("#collapse").on("click", toggle_controls);
-  if (window.innerWidth < 768) toggle_controls();
+  d3.select("#collapse-text-container").on("click", toggle_controls);
+  // if (window.innerWidth < 768) toggle_controls();
 
   resizeFunctions.push(resizeIframe);
 
