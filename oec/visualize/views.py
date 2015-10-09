@@ -272,7 +272,7 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
     }
     all_placed = False
 
-    if build.trade_flow != "eci" and build.viz["slug"] not in ("scatter", "geo_map"):
+    if build.trade_flow != "eci" and build.viz["slug"] not in ("scatter", "geo_map") and build.origin != "show":
         if isinstance(build.origin, Country):
             origin_country = build.origin.serialize()
         else:
@@ -288,9 +288,10 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
 
     dest_country = False
     prod_exists = isinstance(build.prod, (Sitc, Hs92, Hs96, Hs02, Hs07))
+
     if isinstance(build.dest, Country):
         dest_country = build.dest.serialize()
-    elif not all_placed and not prod_exists and build.viz["slug"] != "scatter":
+    elif not all_placed and not prod_exists and build.viz["slug"] in ("tree_map", "line", "stacked"):
         dest_country = all_country
 
     if dest_country:
