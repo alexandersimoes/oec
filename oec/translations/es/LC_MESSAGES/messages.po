@@ -379,7 +379,7 @@ msgid ""
 " and the %(eci_rank)s most complex economy according to the Economic "
 "Complexity Index (ECI). "
 msgstr ""
-"y la %(eci_rank)s economía más compleja según el Índice de Complejidad "
+" y la %(eci_rank)s economía más compleja según el Índice de Complejidad "
 "Económica (ECI). "
 
 #: oec/profile/models.py:152
