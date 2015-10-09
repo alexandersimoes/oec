@@ -123,10 +123,12 @@ body.visualize {
 
   #visualize_share {
     @include flex();
-    @include flex-direction(column);
+    @include flex-direction(row);
     position: fixed;
-    @include right(13px);
-    top: $header - 11;
+    //@include right(13px);
+    top: $header - 15;
+    width: 100%;
+    @include padding-left(147px);
     z-index: 21;
 
     @media all and (max-width: 768px) {
@@ -134,21 +136,21 @@ body.visualize {
     }
 
     a {
+      color: $brightlinkcolor;
       cursor: pointer;
       font-size: 15px;
-      @include padding(3px, 15px, 3px, 15px);
-      @include margin(0px, -7px, 0px, -7px);
+      @include padding(15px, 8px, 15px, 8px);
+      @include margin(0px, 0px, 0px, 0px);
       text-align: center;
 
       i {
-        @include transition(opacity 0.1s, color 0.3s);
+        @include transition(opacity 0.1s);
         opacity: 0.7;
       }
 
       &:hover {
         i {
           opacity: 1;
-          color: $brightlinkcolor;
         }
       }
     }
@@ -313,7 +315,7 @@ body.visualize {
       letter-spacing: 0.05em;
       font-weight: 400;
       position: relative;
-      top: 0px;
+      top: -17px;
     }
     
     @media all and (min-width: 769px) {
@@ -327,7 +329,7 @@ body.visualize {
 
     &.to-open {
       .collapse-text {
-        top: -17px;
+        top: 0px;
       }
     }
   }

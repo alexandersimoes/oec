@@ -1076,7 +1076,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
+        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
         left: 0;
         position: absolute;
         top: 0;
@@ -1944,7 +1944,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent, #212831);
+      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -2064,7 +2064,7 @@ body.profile {
     background: -webkit-linear-gradient(top, #212831 0%, #535a63 100%);
     background: -o-linear-gradient(top, #212831 0%, #535a63 100%);
     background: -ms-linear-gradient(top, #212831 0%, #535a63 100%);
-    background: linear-gradient(to bottom, #212831, #535a63);
+    background: linear-gradient(to bottom, #212831 0%, #535a63 100%);
     background-color: #535a63; }
     body.profile article.sisters h1 {
       border-top: 0;
@@ -2080,8 +2080,8 @@ body.profile {
 }
   body.profile article.dataviva {
     background-color: white;
-    background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #535a63, #81919d 5%,
-        rgba(255, 255, 255, 0) 20%),
+    background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #535a63 0%,
+        #81919d 5%, rgba(255, 255, 255, 0) 20%),
         url('http://en.dataviva.info/static/img/bgs/city_small.jpg');
     background-attachment: local, local, fixed;
     background-repeat: repeat-x, no-repeat;
@@ -2242,33 +2242,34 @@ body.visualize {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-    -webkit-flex-direction: column;
-    -moz-flex-direction: column;
-    flex-direction: column;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    flex-direction: row;
     position: fixed;
-    right: 13px;
-    top: 54px;
+    top: 50px;
+    width: 100%;
+    padding-left: 147px ;
     z-index: 21; }
     @media all and (max-width: 768px) {
       body.visualize #visualize_share {
         display: none;   }
 }
       body.visualize #visualize_share a {
+        color: #6297cb;
         cursor: pointer;
         font-size: 15px;
-        padding: 3px 15px 3px 15px ;
-        margin: 0px -7px 0px -7px ;
+        padding: 15px 8px 15px 8px ;
+        margin: 0px 0px 0px 0px ;
         text-align: center; }
         body.visualize #visualize_share a i {
-          -webkit-transition: opacity 0.1s, color 0.3s;
-          -moz-transition: opacity 0.1s, color 0.3s;
-          -ms-transition: opacity 0.1s, color 0.3s;
-          -o-transition: opacity 0.1s, color 0.3s;
-          transition: opacity 0.1s, color 0.3s;
+          -webkit-transition: opacity 0.1s;
+          -moz-transition: opacity 0.1s;
+          -ms-transition: opacity 0.1s;
+          -o-transition: opacity 0.1s;
+          transition: opacity 0.1s;
           opacity: 0.7; }
           body.visualize #visualize_share a:hover i {
-            opacity: 1;
-            color: #6297cb; }
+            opacity: 1; }
   body.visualize #collapse-container {
     position: relative;
     top: 30px; }
@@ -2390,7 +2391,7 @@ body.visualize {
         letter-spacing: 0.05em;
         font-weight: 400;
         position: relative;
-        top: 0px; }
+        top: -17px; }
         @media all and (min-width: 769px) {
           body.visualize #collapse-text-container {
             display: none;
@@ -2401,7 +2402,7 @@ body.visualize {
               display: inline-block;   }
 }
             body.visualize #collapse-text-container.to-open .collapse-text {
-              top: -17px; }
+              top: 0px; }
   body.visualize aside#explorer {
     -webkit-transition: margin-left, 0.5s, height 3s;
     -moz-transition: margin-left, 0.5s, height 3s;

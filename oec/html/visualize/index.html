@@ -32,10 +32,10 @@
 <section>
 
 <div id="visualize_share">
-  <a href="{{ current_build.facebook_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Facebook">
+  <a href="{{ current_build.facebook_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share Visualization">
     <i class="fa fa-facebook"></i>
   </a>
-  <a href="{{ current_build.twitter_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share on Twitter">
+  <a href="{{ current_build.twitter_url() }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=250,width=560');return false;" title="Share Visualization">
     <i class="fa fa-twitter"></i>
   </a>
 </div>
@@ -46,8 +46,8 @@
     <div class="viz_menu"></div>
   </a>
   <a id="collapse-text-container">
-    <span class="collapse-text">Close</span>
     <span class="collapse-text">Controls</span>
+    <span class="collapse-text">Close</span>
   </a>
 </div>
 
@@ -394,7 +394,6 @@
   resizeIframe();
 
   d3.select("iframe.viz")
-    // .style("background-color", "red")
     .attr("src", "/"+oec.locale+"/visualize/embed/"+url);
 
   function toggle_controls() {
@@ -408,7 +407,7 @@
 
   d3.select("#collapse").on("click", toggle_controls);
   d3.select("#collapse-text-container").on("click", toggle_controls);
-  // if (window.innerWidth < 768) toggle_controls();
+  if (window.innerWidth < 768) toggle_controls();
 
   resizeFunctions.push(resizeIframe);
 
