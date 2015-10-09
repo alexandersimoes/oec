@@ -379,7 +379,7 @@
     var n = window.innerWidth <= 768 || d3.select("#explorer").classed("small") ? 0 : navWidth,
         w = window.innerWidth - n - p * 2,
         m = window.innerHeight < window.innerWidth ? iframe.node().offsetTop : p * 2,
-        h = window.innerHeight - m - p,
+        h = window.innerHeight - m - p * 4,
         viz = iframe.node().contentWindow.viz;
 
     if (viz) {
