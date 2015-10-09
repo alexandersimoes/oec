@@ -248,7 +248,7 @@
 
     d3.select("#search_results").append("h1")
       .classed("search-error", true)
-      .text("We couldn’t find any results.");
+      .text(oec.translations.no_results);
 
   }
 
@@ -300,7 +300,7 @@
 
       var viz_loading = container.append("div")
         .attr("class", "search-loading")
-        .text("Loading...");
+        .text(oec.translations.loading);
 
       d3.json(data, function(error, d){
         viz_loading.remove();
@@ -442,7 +442,7 @@
 
     d3.select("#search_results").append("h1")
       .classed("search-loading", true)
-      .text("Searching...");
+      .text(oec.translations.loading);
 
     var m = search_mode === "all" ? "" : "&mode=" + search_mode;
 

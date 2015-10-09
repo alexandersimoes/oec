@@ -12,7 +12,7 @@ var visualization = function(build, container) {
   var viz = d3plus.viz()
               .container(container)
               .config(default_config)
-              .error("Loading Visualization")
+              .error(oec.translations.loading_viz)
               .edges({"color": default_config.edges.color})
               .draw();
 

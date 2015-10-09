@@ -31,4 +31,9 @@ def get_translations():
         "import_val_growth_val": _('Growth Value (1 year)'),
         "import_val_growth_val_5": _('Growth Value (5 year)'),
 
+        # Javascript UI
+        "loading": _("Loading..."),
+        "loading_viz": _("Loading Visualization"),
+        "no_results": _("We couldn't find any results.")
+
     }
