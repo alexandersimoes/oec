@@ -8,7 +8,6 @@ depths=(4 6)
 prod_id=$1
 if [[ $1 == "hs92" ]]; then
   start_year=1995
-  file_suffix=sitc_rev2
 fi
 if [[ $1 == "hs96" ]]; then
   start_year=1998
