@@ -3451,34 +3451,51 @@ body.about, body.resources, body.permissions, body.eci {
     line-height: 1;
     margin-bottom: 20px; }
     body.about h2, body.resources h2, body.permissions h2, body.eci h2 {
-      color: #a4b500;
+      color: #6297cb;
+      font-size: 34px;
       line-height: 1.1;
       margin-bottom: 15px; }
-      body.about h3, body.resources h3, body.permissions h3, body.eci h3 {
+      body.about h4, body.resources h4, body.permissions h4, body.eci h4 {
+        color: #bbbdc0;
         line-height: 1.3;
-        margin: 20px 0 20px 0 ;
-        font-size: 24px;
-        opacity: 0.8; }
-        body.about h4, body.resources h4, body.permissions h4, body.eci h4 {
-          line-height: 1.3;
-          margin: 15px 0 15px 0 ; }
-          body.about ol, body.resources ol, body.permissions ol, body.eci ol {
-            margin-left: 20px ; }
-            body.about blockquote, body.resources blockquote, body.permissions blockquote,
-            body.eci blockquote {
-              margin: 15px 0 15px 0 ; }
-              body.about p, body.resources p, body.permissions p, body.eci p {
-                opacity: 0.9; }
+        font-size: 22px;
+        margin: 15px 0 15px 0 ; }
+        body.about ol, body.resources ol, body.permissions ol, body.eci ol {
+          margin-left: 20px ;
+          margin-top: 0; }
+          body.about blockquote, body.resources blockquote, body.permissions blockquote,
+          body.eci blockquote {
+            margin: 25px 0 25px 0 ; }
+            body.about p, body.resources p, body.permissions p, body.eci p {
+              opacity: 0.8; }
+
+body.about h3 {
+  line-height: 1.3;
+  margin: 20px 0 20px 0 ;
+  font-size: 24px;
+  opacity: 0.8; }
+
+body.resources h3 {
+  color: #6297cb;
+  line-height: 1.3;
+  margin: 25px 0 10px 0 ;
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0.8; }
 
 body.eci h1 {
+  color: #6297cb;
   margin: 20px 0 20px 0 ; }
-  body.eci h4, body.eci ol {
-    color: #a4b500; }
-    body.eci li span.calc {
-      color: #fff; }
-      body.eci .calc {
-        position: relative;
-        top: 3px; }
+  body.eci h4 {
+    color: #81919d;
+    font-size: 26px; }
+    body.eci ol {
+      opacity: 0.9; }
+      body.eci li span.calc {
+        color: #fff; }
+        body.eci .calc {
+          position: relative;
+          top: 3px; }
 
 .member {
   margin: 50px 0 50px 0 ;
@@ -3506,15 +3523,18 @@ body.eci h1 {
     position: absolute;
     top: 0;
     width: 150px; }
-    .member h3, .member h4 {
-      margin: 0 0 0 0 !important; }
-      @media all and (max-width: 500px) {
-        .member {
-          padding-left: 0 ;
-          padding-top: 180px;   }
-          .member:before {
-            margin-left: -75px ;
-            left: 50%;   }
+    .member h3 {
+      color: #99BCD1 !important;
+      font-size: 18px !important; }
+      .member h3, .member h4 {
+        margin: 0 0 0 0 !important; }
+        @media all and (max-width: 500px) {
+          .member {
+            padding-left: 0 ;
+            padding-top: 180px;   }
+            .member:before {
+              margin-left: -75px ;
+              left: 50%;   }
 }
   .member h3 a {
     -webkit-transition: text-shadow 0.1s;
@@ -3523,8 +3543,8 @@ body.eci h1 {
     -o-transition: text-shadow 0.1s;
     transition: text-shadow 0.1s;
     color: #6297cb !important;
-    font-size: 24px;
-    margin: 8px 0 0 5px ;
+    font-size: 18px;
+    margin: 0 5px 0 5px ;
     opacity: 0.6; }
     .member h3 a:hover {
       border-bottom: 0 !important;
@@ -3811,26 +3831,27 @@ body.api {
   body.api #container #content {
     max-width: 1200px; }
     body.api #container #content a {
-      color: #20a898;
+      color: #99BCD1;
       text-decoration: none; }
       body.api #container #content a:hover {
         padding-bottom: 2px;
-        border-bottom: 1px dotted #20a898; }
+        border-bottom: 1px dotted #99BCD1; }
     body.api #container #content p {
       opacity: 0.9;
       margin: 5px 0 5px 0 ; }
       body.api #container #content section aside {
         width: 180px; }
         body.api #container #content section aside p {
+          color: #81919d;
           text-align: left ; }
     body.api #container #content h2 {
       line-height: 1.1;
       margin: 20px 0 20px 0 ; }
       body.api #container #content h3 {
-        font-size: 20px;
+        font-size: 16px;
         margin-bottom: 10px;
         opacity: 0.8;
-        color: #a4b500; }
+        color: #6297cb; }
         body.api #container #content h4 {
           line-height: 1.3; }
           body.api #container #content table {
@@ -3844,7 +3865,7 @@ body.api {
               color: white;
               border: 0; }
               body.api #container #content table code {
-                color: #f9a17a; }
+                color: white; }
                 @media all and (max-width: 480px) {
                   body.api #container #content table code {
                     font-size: 12px;   }
@@ -3863,10 +3884,10 @@ body.api {
         padding: 1px 4px 1px 4px ;
         white-space: nowrap; }
         body.api #container #content code a {
-          color: #20a898; }
+          color: #54a6f2; }
           body.api #container #content code a:hover {
             opacity: 1;
-            border-bottom: 1px dotted #20a898 !important; }
+            border-bottom: 1px dotted #54a6f2 !important; }
     body.api #container #content td.code {
       width: 120px; }
 #share a.share_button {

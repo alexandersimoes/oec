@@ -41,8 +41,8 @@ class Profile(object):
         title = u"{} {}".format(self.attr.get_name(), _('Profile'))
         return u"http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
                 "display=popup&app_id={}&name={}&link={}&" \
-                "redirect_uri=https://atlas.media.mit.edu/close/&" \
-                "picture=https://atlas.media.mit.edu/static/img/facebook.jpg" \
+                "redirect_uri=http://atlas.media.mit.edu/close/&" \
+                "picture=http://atlas.media.mit.edu/static/img/facebook.jpg" \
                 .format(FACEBOOK_ID, title, link)
     def twitter_url(self):
         link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
@@ -566,6 +566,11 @@ class Product(Profile):
 
         sections.append(trade_section)
 
+        sections.append({
+            "title": _(u"More on %(country)s from our sister sites", country=self.attr.get_name(article=True)),
+            "source": "sisters"
+        })
+
         ''' DataViva Section
         '''
         if self.classification == "hs92":
@@ -585,7 +590,7 @@ class Product(Profile):
                 <a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
                 """.format(dv_hs.get_name(), self.attr.id)
             dv_section = {
-                "title": u"More on {} from our sister sites".format(self.attr.get_name()),
+                "title": u"<a href='http://dataviva.info/' target='_blank'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>",
                 "source": "dataviva",
                 "builds": [
                     {"title": u"{} exporters in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_exporters_iframe, "subtitle": dv_munic_exporters_subtitle},

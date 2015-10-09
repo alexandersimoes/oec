@@ -6,11 +6,11 @@ body.api {
     max-width: 1200px;
 
     a {
-      color: $pri-c-highlight;
+      color: $lightlinkcolor;
       text-decoration: none;
       &:hover {
         padding-bottom: 2px;
-        border-bottom: 1px dotted $pri-c-highlight;
+        border-bottom: 1px dotted $lightlinkcolor;
       }
     }
 
@@ -25,6 +25,7 @@ body.api {
         width: 180px;
 
         p {
+          color: $medbordercolor;
           @include text-align(left);
         }
       }
@@ -37,10 +38,10 @@ body.api {
     }
 
     h3 {
-      font-size: 20px;
+      font-size: 16px;
       margin-bottom: 10px;
       opacity: 0.8;
-      color: $pri-w-highlight;
+      color: $brightlinkcolor;
     }
 
     h4 {
@@ -61,7 +62,7 @@ body.api {
       }
 
       code {
-        color: $sec-w-highlight;
+        color: white;
 
         @media all and (max-width: 480px) {
           font-size: 12px;
@@ -87,10 +88,10 @@ body.api {
       white-space: nowrap;
 
       a {
-        color: $pri-c-highlight;
+        color: $l-brightlinkcolor;
         &:hover {
           opacity: 1;
-          border-bottom: 1px dotted $pri-c-highlight !important;
+          border-bottom: 1px dotted $l-brightlinkcolor !important;
         }
       }
 

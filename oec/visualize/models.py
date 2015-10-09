@@ -281,19 +281,19 @@ class Build(object):
         )
 
     def facebook_url(self):
-        link = u"https://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
+        link = u"http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
         return u"http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
                 "display=popup&app_id={}&name={}&link={}&" \
-                "redirect_uri=https://atlas.media.mit.edu/close/&" \
-                "picture=https://atlas.media.mit.edu/static/img/facebook.jpg" \
+                "redirect_uri=http://atlas.media.mit.edu/close/&" \
+                "picture=http://atlas.media.mit.edu/static/img/facebook.jpg" \
                 .format(FACEBOOK_ID, self.title(), link)
     def twitter_url(self):
-        link = u"https://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
+        link = u"http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
         lang_txt = u"&lang={}".format(g.locale) if g.locale != "en" else ""
         return u"https://twitter.com/share?url={}{}&text={}&hashtags=oec" \
                 .format(link, lang_txt, self.title())
     def google_url(self):
-        link = u"https://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
+        link = u"http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
         return u"https://plus.google.com/share?url={}&hl={}" \
                 .format(link, g.locale)
 
