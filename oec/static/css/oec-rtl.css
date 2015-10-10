@@ -2259,8 +2259,7 @@ body.visualize {
     flex-direction: row;
     position: fixed;
     top: 45px;
-    width: 100%;
-    padding-right: 147px ;
+    margin-right: 61% ;
     z-index: 21; }
     @media all and (max-width: 768px) {
       body.visualize #visualize_share {

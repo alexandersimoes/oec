@@ -2247,8 +2247,7 @@ body.visualize {
     flex-direction: row;
     position: fixed;
     top: 45px;
-    width: 100%;
-    padding-left: 147px ;
+    margin-left: 61% ;
     z-index: 21; }
     @media all and (max-width: 768px) {
       body.visualize #visualize_share {

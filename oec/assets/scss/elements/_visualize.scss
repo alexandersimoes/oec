@@ -127,8 +127,7 @@ body.visualize {
     position: fixed;
     //@include right(13px);
     top: $header - 20;
-    width: 100%;
-    @include padding-left(147px);
+    @include margin-left(61%);
     z-index: 21;
 
     @media all and (max-width: 768px) {
