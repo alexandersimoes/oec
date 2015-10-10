@@ -50,7 +50,7 @@ body.profile {
 
       p.explore_link {
         @media all and (max-width: 768px) {
-          margin-bottom: 10px !important;
+          margin-bottom: 13px !important;
         }
       }
 
@@ -60,7 +60,7 @@ body.profile {
         @include align-items(center);
 
         @media all and (max-width: 768px) {
-          @include margin(0, 0, 25px, 0);
+          @include margin(0, 0, 20px, 0);
         }
 
         .share_icons_container {
@@ -90,12 +90,17 @@ body.profile {
             background-color: #3f464f;
             border: 0;
             color: white;
-            display: none;
+            // display: none;
             @include margin-left(10px);
             padding: 5px 7px 5px 7px;
 
             @media all and (max-width: 768px) {
-              width: 90%;
+              width: 84%;
+              @include margin-left(11%);
+            }
+
+            &.share_embed_url {
+              display: none;
             }
           }
         }

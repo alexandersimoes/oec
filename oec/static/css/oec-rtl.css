@@ -1271,7 +1271,7 @@ body.profile {
         -ms-filter: "FlipH"; }
         @media all and (max-width: 768px) {
           body.profile article aside p.explore_link {
-            margin-bottom: 10px !important;   }
+            margin-bottom: 13px !important;   }
 }
       body.profile article aside .share_container {
         -webkit-justify-content: center;
@@ -1289,7 +1289,7 @@ body.profile {
         align-items: center; }
         @media all and (max-width: 768px) {
           body.profile article aside .share_container {
-            margin: 0 0 25px 0 ;   }
+            margin: 0 0 20px 0 ;   }
 }
           body.profile article aside .share_container .share_icons_container {
             -webkit-box-flex: 1;
@@ -1333,13 +1333,15 @@ body.profile {
             background-color: #3f464f;
             border: 0;
             color: white;
-            display: none;
             margin-right: 10px ;
             padding: 5px 7px 5px 7px; }
             @media all and (max-width: 768px) {
               body.profile article aside .share_container .share_input_container .share_input {
-                width: 90%;   }
+                width: 84%;
+                margin-right: 11% ;   }
 }
+              body.profile article aside .share_container .share_input_container .share_input.share_embed_url {
+                display: none; }
     body.profile article content {
       margin: 30px 30px 30px 30px !important; }
       body.profile article.intro-article {
