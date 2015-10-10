@@ -31,15 +31,6 @@
 
 <section>
 
-<div id="visualize_share">
-  <a href="{{ current_build.facebook_url() }}" onclick="javascript:popup(this.href);return false;" title="Share on Facebook">
-    <i class="fa fa-facebook"></i>
-  </a>
-  <a href="{{ current_build.twitter_url() }}" onclick="javascript:popup(this.href);return false;" title="Share on Twitter">
-    <i class="fa fa-twitter"></i>
-  </a>
-</div>
-
 <div id="collapse-container">
   <a id="collapse">
     <i class="fa fa-toggle-on"></i>
@@ -127,6 +118,15 @@
 
   </div>
 </aside>
+
+<div id="visualize_share">
+  <a href="{{ current_build.facebook_url() }}" onclick="javascript:popup(this.href);return false;" title="Share on Facebook">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a href="{{ current_build.twitter_url() }}" onclick="javascript:popup(this.href);return false;" title="Share on Twitter">
+    <i class="fa fa-twitter"></i>
+  </a>
+</div>
 
 <!-- Container for the visualization -->
 <content data-step="12" id="main_viz">

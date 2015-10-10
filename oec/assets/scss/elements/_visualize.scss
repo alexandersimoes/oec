@@ -12,7 +12,7 @@ body.visualize {
   }
 
   nav {
-    padding-bottom: 30px;
+    padding-bottom: 0px;
 
     @media all and (max-width: 768px) {
       padding-bottom: 5px;
@@ -24,7 +24,7 @@ body.visualize {
 
     @media all and (max-width: 768px) {
       margin-top: $header - 10;
-      padding-top: 25px;
+      padding-top: 15px;
     }
   }
   
@@ -74,6 +74,7 @@ body.visualize {
             font-weight: 400;
             font-size: 26px;
             opacity: 0.6;
+            @include padding(0, 10px, 0, 10px);
 
             &:hover {
               opacity: 1;
@@ -120,15 +121,20 @@ body.visualize {
       }
     }
   }
+  
+  #explorer.small ~ #visualize_share {
+    @include left(49%);
+  }
 
   #visualize_share {
+    @include transition(left 0.5s, right 0.5s);
     @include flex();
     @include flex-direction(row);
     position: fixed;
     //@include right(13px);
     top: $header - 20;
-    @include margin-left(61%);
-    z-index: 21;
+    @include left(60%);
+    z-index: 19;
 
     @media all and (max-width: 768px) {
       display: none;
@@ -194,6 +200,7 @@ body.visualize {
     }
 
     i {
+      color: $lightlinkcolor;
       @include transition(left 0.5s, right 0.5s);
       font-size: 16px;
       position: absolute;
@@ -307,6 +314,7 @@ body.visualize {
 
     .collapse-text {
       @include transition(top 0.25s ease-in-out);
+      color: $medbordercolor;
       display: block;
       font-size: 13px;
       @include text-align(right);

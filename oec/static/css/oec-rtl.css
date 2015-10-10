@@ -2146,7 +2146,7 @@ body.visualize {
   body.visualize #content > section {
     position: relative; }
     body.visualize nav {
-      padding-bottom: 30px; }
+      padding-bottom: 0px; }
       @media all and (max-width: 768px) {
         body.visualize nav {
           padding-bottom: 5px;   }
@@ -2156,7 +2156,7 @@ body.visualize {
     @media all and (max-width: 768px) {
       body.visualize #container {
         margin-top: 55px;
-        padding-top: 25px;   }
+        padding-top: 15px;   }
 }
   body.visualize #explorer.small ~ #main_viz {
     margin: 0 5px 0 20px !important; }
@@ -2208,7 +2208,8 @@ body.visualize {
                   transition: opacity 0.5s;
                   font-weight: 400;
                   font-size: 26px;
-                  opacity: 0.6; }
+                  opacity: 0.6;
+                  padding: 0 10px 0 10px ; }
                   body.visualize #content #main_viz .nav-section aside a h2.year-nav:hover {
                     opacity: 1; }
                     @media all and (min-width: 860px) and (max-width: 960px) {
@@ -2247,42 +2248,49 @@ body.visualize {
                     body.visualize #content #main_viz .nav-section content h1 {
                       font-size: 18px;   }
 }
-  body.visualize #visualize_share {
-    -webkit-justify-content: center;
-    -moz-justify-content: center;
-    justify-content: center;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: row;
-    -moz-flex-direction: row;
-    flex-direction: row;
-    position: fixed;
-    top: 45px;
-    margin-right: 61% ;
-    z-index: 21; }
-    @media all and (max-width: 768px) {
-      body.visualize #visualize_share {
-        display: none;   }
+  body.visualize #explorer.small ~ #visualize_share {
+    right: 49%; }
+    body.visualize #visualize_share {
+      -webkit-transition: left 0.5s, right 0.5s;
+      -moz-transition: left 0.5s, right 0.5s;
+      -ms-transition: left 0.5s, right 0.5s;
+      -o-transition: left 0.5s, right 0.5s;
+      transition: left 0.5s, right 0.5s;
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      justify-content: center;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: row;
+      -moz-flex-direction: row;
+      flex-direction: row;
+      position: fixed;
+      top: 45px;
+      right: 60%;
+      z-index: 19; }
+      @media all and (max-width: 768px) {
+        body.visualize #visualize_share {
+          display: none;   }
 }
-      body.visualize #visualize_share a {
-        color: #6297cb;
-        cursor: pointer;
-        font-size: 15px;
-        padding: 15px 8px 15px 8px ;
-        margin: 0px 0px 0px 0px ;
-        text-align: center; }
-        body.visualize #visualize_share a i {
-          -webkit-transition: opacity 0.1s;
-          -moz-transition: opacity 0.1s;
-          -ms-transition: opacity 0.1s;
-          -o-transition: opacity 0.1s;
-          transition: opacity 0.1s;
-          opacity: 0.7; }
-          body.visualize #visualize_share a:hover i {
-            opacity: 1; }
+        body.visualize #visualize_share a {
+          color: #6297cb;
+          cursor: pointer;
+          font-size: 15px;
+          padding: 15px 8px 15px 8px ;
+          margin: 0px 0px 0px 0px ;
+          text-align: center; }
+          body.visualize #visualize_share a i {
+            -webkit-transition: opacity 0.1s;
+            -moz-transition: opacity 0.1s;
+            -ms-transition: opacity 0.1s;
+            -o-transition: opacity 0.1s;
+            transition: opacity 0.1s;
+            opacity: 0.7; }
+            body.visualize #visualize_share a:hover i {
+              opacity: 1; }
   body.visualize #collapse-container {
     position: relative;
     top: 30px; }
@@ -2334,6 +2342,7 @@ body.visualize {
           transition: background-position 0.5s, opacity 2s;
           opacity: 0; }
           body.visualize #collapse i {
+            color: #99BCD1;
             -webkit-transition: left 0.5s, right 0.5s;
             -moz-transition: left 0.5s, right 0.5s;
             -ms-transition: left 0.5s, right 0.5s;
@@ -2397,6 +2406,7 @@ body.visualize {
         -ms-transition: top 0.25s ease-in-out;
         -o-transition: top 0.25s ease-in-out;
         transition: top 0.25s ease-in-out;
+        color: #81919d;
         display: block;
         font-size: 13px;
         text-align: left ;
