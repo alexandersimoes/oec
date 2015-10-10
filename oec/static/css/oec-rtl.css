@@ -2070,14 +2070,14 @@ body.profile {
         body.profile ul.hierarchy .depth8 {
           margin-right: 20px ; }
   body.profile article.sisters {
-    background: -moz-linear-gradient(top, #212831 0%, #535a63 100%);
+    background-color: #81919d;
+    background: -moz-linear-gradient(top, #212831 0%, #5c656f 95%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #212831),
-        color-stop(100%, #535a63));
-    background: -webkit-linear-gradient(top, #212831 0%, #535a63 100%);
-    background: -o-linear-gradient(top, #212831 0%, #535a63 100%);
-    background: -ms-linear-gradient(top, #212831 0%, #535a63 100%);
-    background: linear-gradient(to bottom, #212831 0%, #535a63 100%);
-    background-color: #535a63; }
+        color-stop(100%, #5c656f));
+    background: -webkit-linear-gradient(top, #212831 0%, #5c656f 95%);
+    background: -o-linear-gradient(top, #212831 0%, #5c656f 95%);
+    background: -ms-linear-gradient(top, #212831 0%, #5c656f 95%);
+    background: linear-gradient(to bottom, #212831 0%, #5c656f 95%); }
     body.profile article.sisters h1 {
       border-top: 0;
       padding-bottom: 30px; }
@@ -2091,8 +2091,8 @@ body.profile {
         text-align: center;   }
 }
   body.profile article.dataviva {
-    background-color: white;
-    background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #535a63 0%,
+    background-color: #81919d;
+    background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #5c656f 0%,
         #81919d 5%, rgba(255, 255, 255, 0) 20%),
         url('http://en.dataviva.info/static/img/bgs/city_small.jpg');
     background-attachment: local, local, fixed;

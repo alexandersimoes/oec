@@ -99,7 +99,7 @@
     {% endif %}
 
     <ul class="hierarchy contents {{ g.page_sub_type }}">
-      <li class="depth2">Contents</li>
+      <li class="depth2">{{ _('Visualizations') }}</li>
 
       {% for section in profile.sections()[:extra] %}
       {% for build in section.builds %}

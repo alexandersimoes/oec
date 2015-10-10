@@ -924,8 +924,13 @@ body.profile {
   article {
 
     &.sisters {
-      @include gradient($darkbackground, $l3-darkbackground);
-      background-color: $l3-darkbackground;
+      background-color: $medbordercolor;
+      background: -moz-linear-gradient(top, $darkbackground 0%, $l4-darkbackground 95%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $darkbackground), color-stop(100%, $l4-darkbackground));
+      background: -webkit-linear-gradient(top, $darkbackground 0%, $l4-darkbackground 95%);
+      background: -o-linear-gradient(top, $darkbackground 0%, $l4-darkbackground 95%);
+      background: -ms-linear-gradient(top, $darkbackground 0%, $l4-darkbackground 95%);
+      background: linear-gradient(to bottom, $darkbackground 0%, $l4-darkbackground 95%);
 
       h1 {
         border-top: 0;
@@ -952,14 +957,14 @@ body.profile {
     }
 
     &.dataviva {
-      background-color: white;
+      background-color: $medbordercolor;
       background-image: url('/static/img/dataviva.png'),
                         // -moz-linear-gradient(top, $l3-darkbackground 0%, $medbordercolor 5%, rgba(255,255,255,0) 20%),
                         // -webkit-gradient(linear, left top, left bottom, color-stop(0% $l3-darkbackground), color-stop(5%, $medbordercolor), color-stop(20%, rgba(255,255,255,0))),
                         // -webkit-linear-gradient(top, $l3-darkbackground 0%, $medbordercolor 5%, rgba(255,255,255,0) 20%),
                         // -o-linear-gradient(top, $l3-darkbackground 0%, $medbordercolor 5%, rgba(255,255,255,0) 20%),
                         // -ms-linear-gradient(top, $l3-darkbackground 0%, $medbordercolor 5%, rgba(255,255,255,0) 20%),
-                        linear-gradient(to bottom, $l3-darkbackground 0%, $medbordercolor 5%, rgba(255,255,255,0) 20%),
+                        linear-gradient(to bottom, $l4-darkbackground 0%, $medbordercolor 5%, rgba(255,255,255,0) 20%),
                         url('http://en.dataviva.info/static/img/bgs/city_small.jpg');
       background-attachment: local, local, fixed;
       background-repeat: repeat-x, no-repeat;
