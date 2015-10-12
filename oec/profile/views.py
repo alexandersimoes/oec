@@ -14,11 +14,15 @@ from random import choice
 from oec.profile.models import Country, Product
 
 @app.route('/profile/country/')
+def country_profile_redirect_nolang_noattr():
+    return redirect(url_for('profile.profile_country_redirect', lang=g.locale))
 @app.route('/profile/country/<attr_id>/')
 def country_profile_redirect_nolang(attr_id=None):
     return redirect(url_for('profile.profile_country', lang=g.locale, attr_id=attr_id))
 
 @app.route('/profile/<attr_type>/')
+def prod_profile_redirect_nolang_noattr(attr_type=None, attr_id=None):
+    return redirect(url_for('profile.profile_product_redirect', lang=g.locale, attr_type=attr_type))
 @app.route('/profile/<attr_type>/<attr_id>/')
 def prod_profile_redirect_nolang(attr_type=None, attr_id=None):
     return redirect(url_for('profile.profile_product', lang=g.locale, attr_type=attr_type, attr_id=attr_id))

@@ -172,7 +172,7 @@ def embed_legacy(app_name, trade_flow, origin, dest, product, year=2012):
 
 @mod.route('country/<country_id>/')
 def profile_country_legacy(country_id):
-    return redirect(url_for('profile.profile_country', attr_id=country_id))
+    return redirect(url_for('profile.profile_country', lang=g.locale, attr_id=country_id))
 
 @mod.route('hs4/<hs_id>/')
 def profile_hs_legacy(hs_id):
