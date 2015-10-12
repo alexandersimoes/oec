@@ -174,8 +174,8 @@ class Country(Profile):
         yod_exp = self.models.Yod.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
         if yod_exp:
             dest_list = self.stringify_items(yod_exp, "export_val", "dest")
-            yod_imp = self.models.Yod.query.filter_by(year = self.year, dest = self.attr).order_by(desc("import_val")).limit(5).all()
-            origin_list = self.stringify_items(yod_imp, "import_val", "origin")
+            yod_imp = self.models.Yod.query.filter_by(year = self.year, dest = self.attr).order_by(desc("export_val")).limit(5).all()
+            origin_list = self.stringify_items(yod_imp, "export_val", "origin")
             p3 = _(u"The top export destinations %(of_country)s are %(destinations)s. The top import origins are %(origins)s.", of_country=self.attr.get_name(article="of"), destinations=dest_list, origins=origin_list)
             all_paragraphs.append(p3)
 
