@@ -23,22 +23,22 @@ msgstr ""
 #: oec/utils.py:223
 msgid "Trillion"
 msgid_plural "Trillions"
-msgstr[0] "trilyonlarca"
+msgstr[0] "trilyon"
 
 #: oec/utils.py:224
 msgid "Billion"
 msgid_plural "Billions"
-msgstr[0] "Milyarlarca"
+msgstr[0] "Milyar"
 
 #: oec/utils.py:225
 msgid "Million"
 msgid_plural "Millions"
-msgstr[0] "Milyonlarca"
+msgstr[0] "Milyon"
 
 #: oec/utils.py:226
 msgid "Thousand"
 msgid_plural "Thousands"
-msgstr[0] "Binlerce"
+msgstr[0] "Bin"
 
 #: oec/utils.py:238
 msgctxt "0"
