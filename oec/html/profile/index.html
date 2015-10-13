@@ -305,9 +305,9 @@
   var map = d3.select("#topojson");
   if (!map.empty()) {
 
-    load("/static/json/country_coords.json", function(coords){
+    load("/static/json/country_coords.json?v=2", function(coords){
 
-      var key = d3.keys(coords.objects)[0],
+      var key = "countries",
           id = "{{ profile.attr.id }}",
           width = 250,
           height = width;

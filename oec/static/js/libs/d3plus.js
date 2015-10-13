@@ -17963,16 +17963,13 @@ module.exports = function( vars ) {
 }
 
 },{"../form.js":103}],159:[function(require,module,exports){
-var intersectPoints, lineIntersection, pointInPoly, pointInSegmentBox, polyInsidePoly, print, rayIntersectsSegment, rotatePoint, rotatePoly, segmentsIntersect, simplify, squaredDist;
-
-print = require("../core/console/print.coffee");
+var intersectPoints, lineIntersection, pointInPoly, pointInSegmentBox, polyInsidePoly, rayIntersectsSegment, rotatePoint, rotatePoly, segmentsIntersect, simplify, squaredDist;
 
 simplify = require("simplify-js");
 
 module.exports = function(poly, options) {
   var aRatio, aRatios, angle, angleRad, angleStep, angles, area, aspectRatioStep, aspectRatios, bBox, boxHeight, boxWidth, centroid, events, height, i, insidePoly, j, k, l, left, len, len1, len2, len3, m, maxArea, maxAspectRatio, maxHeight, maxRect, maxWidth, maxx, maxy, minAspectRatio, minSqDistH, minSqDistW, minx, miny, modifOrigins, origOrigin, origin, origins, p, p1H, p1W, p2H, p2W, rectPoly, ref, ref1, ref2, ref3, ref4, ref5, ref6, ref7, ref8, right, rndPoint, rndX, rndY, tempPoly, tolerance, width, widthStep, x0, y0;
   if (poly.length < 3) {
-    print.error('polygon has to have at least 3 points');
     return null;
   }
   events = [];
@@ -18028,7 +18025,6 @@ module.exports = function(poly, options) {
   }
   area = Math.abs(d3.geom.polygon(poly).area());
   if (area === 0) {
-    print.error('polygon has 0 area');
     return null;
   }
   ref = d3.extent(poly, function(d) {
@@ -18381,7 +18377,7 @@ intersectPoints = function(poly, origin, alpha) {
 };
 
 
-},{"../core/console/print.coffee":53,"simplify-js":8}],160:[function(require,module,exports){
+},{"simplify-js":8}],160:[function(require,module,exports){
 module.exports = function(radians, distance, shape) {
   var adjacentLegLength, coords, diagonal, oppositeLegLength;
   coords = {
@@ -18453,6 +18449,9 @@ offset = require("../geom/offset.coffee");
 
 module.exports = function(path) {
   var angle, i, j, last, len, length, o, obtuse, p, poly, prev, radius, segments, start, step, width;
+  if (!path) {
+    return [];
+  }
   path = path.slice(1).slice(0, -1).split(/L|A/);
   poly = [];
   for (j = 0, len = path.length; j < len; j++) {
@@ -22516,12 +22515,16 @@ labels = {};
 
 module.exports = function(vars, selection, enter, exit) {
   var projection, size_change;
-  projection = d3.geo[vars.coords.projection.value]().center(vars.coords.center);
+  projection = d3.geo[vars.coords.projection.value]();
+  if (projection.center) {
+    projection.center(vars.coords.center);
+  }
   if (!vars.zoom.scale) {
     vars.zoom.scale = 1;
   }
   vars.zoom.area = 1 / vars.zoom.scale / vars.zoom.scale;
   vars.path = d3.geo.path().projection(projection);
+  selection.selectAll("path").attr("d", vars.path).call(shapeStyle, vars);
   enter.append("path").attr("id", function(d) {
     return d.id;
   }).attr("class", "d3plus_data").attr("d", vars.path).call(shapeStyle, vars);
@@ -22533,7 +22536,7 @@ module.exports = function(vars, selection, enter, exit) {
   size_change = vars.old_height !== vars.height.viz || vars.height.changed || vars.old_width !== vars.width.viz || vars.width.changed;
   vars.old_height = vars.height.viz;
   vars.old_width = vars.width.viz;
-  if (vars.coords.changed || size_change || vars.coords.mute.changed || vars.coords.solo.changed || vars.type.changed || vars.text.changed) {
+  if (vars.coords.changed || size_change || vars.coords.mute.changed || vars.coords.solo.changed || vars.type.changed || vars.text.changed || vars.coords.projection.changed) {
     vars.zoom.bounds = null;
     vars.zoom.reset = true;
     vars.zoom.coords = {};
@@ -28682,11 +28685,12 @@ module.exports = {
     accepted: ["auto", "height", "width"],
     value: "auto"
   },
+  key: false,
   mute: filter(false),
   padding: 20,
   process: process,
   projection: {
-    accepted: ["mercator", "equirectangular"],
+    accepted: ["albers", "albersUsa", "azimuthalEqualArea", "azimuthalEquidistant", "conicConformal", "conicEqualArea", "conicEquidistant", "equirectangular", "gnomonic", "mercator", "orthographic", "stereographic", "transverseMercator", Function],
     value: "mercator"
   },
   solo: filter(false),
@@ -30729,7 +30733,7 @@ geo_map = function(vars) {
   var coords, features, key, mute, solo, topo;
   topojson.presimplify(vars.coords.value);
   coords = vars.coords.value;
-  key = d3.keys(coords.objects)[0];
+  key = vars.coords.key || d3.keys(coords.objects)[0];
   topo = topojson.feature(coords, coords.objects[key]);
   features = topo.features;
   solo = vars.coords.solo.value;

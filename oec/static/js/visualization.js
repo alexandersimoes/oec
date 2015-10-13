@@ -374,6 +374,7 @@ configs.geo_map = function(build, container) {
     "color": build.trade_flow+"_val",
     "coords": {
       "center": [10,0],
+      "key": "countries",
       "padding": 0,
       "mute": ["anata"],
       "value": "/static/json/country_coords.json"
