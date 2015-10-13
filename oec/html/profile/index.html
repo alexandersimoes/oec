@@ -1,7 +1,13 @@
 {% extends "templates/nav.html" %}
 
 {% set title = profile.title() %}
-{% block title %} - {{ title }}{% endblock %}
+{% block title %}
+{% if g.page_sub_type == "country" %}
+ - {{ profile.attr.get_name() }} ({{ profile.attr.get_display_id()|upper }}) {{_('Exports')}}, {{_('Imports')}}, {{_('and')}} {{_('Trade Partners')}}
+{% else %}
+ - {{ profile.attr.get_name() }} ({{ profile.classification|upper }}: {{ profile.attr.get_display_id() }}) {{_('Product Trade')}}, {{_('Exporters')}} {{_('and')}} {{_('Importers')}}
+{% endif %}
+{% endblock %}
 
 {% block body %}
 
