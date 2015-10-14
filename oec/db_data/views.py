@@ -53,8 +53,10 @@ def yd(**kwargs):
     return make_response(make_query(getattr(g.prod_models, "Yd"), request.args, g.locale, **kwargs))
 
 @mod.route('/<trade_flow>/all/all/all/<prod_id>/')
+@mod.route('/<trade_flow>/all/wld/all/show/')
 @mod.route('/<trade_flow>/<year>/all/all/<prod_id>/')
 @mod.route('/<trade_flow>/<year>/all/all/show/')
+@mod.route('/<trade_flow>/<year>/wld/all/show/')
 @crossdomain(origin='*')
 def yp(**kwargs):
     return make_response(make_query(getattr(g.prod_models, "Yp"), \
