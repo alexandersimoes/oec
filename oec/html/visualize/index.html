@@ -245,7 +245,10 @@
     if(d3.select("#destination select").node()){
       var destSelect = d3.select("#destination select").node()
         , destOption = destSelect.options[destSelect.selectedIndex]
-      dest = destOption.getAttribute("data-display_id")
+      var new_dest = destOption.getAttribute("data-display_id")
+      if (new_dest !== "all") {
+        dest = new_dest;
+      }
     }
     else if (d3.select("#origin select").node() && tf !== "eci" && tf !== "show") {
       dest = "show";
