@@ -302,9 +302,9 @@ class Build(object):
 
         origin, dest, prod = None, None, None
         if isinstance(self.origin, Country):
-            origin=self.origin.get_name()
+            origin=self.origin.get_name(article="the")
         if isinstance(self.dest, Country):
-            dest=self.dest.get_name()
+            dest=self.dest.get_name(article="the")
         if isinstance(self.prod, (Hs92, Hs96, Hs02, Hs07, Sitc)):
             prod=self.prod.get_name()
 
@@ -320,9 +320,9 @@ class Build(object):
 
         origin, dest, prod = None, None, None
         if isinstance(self.origin, Country):
-            origin=self.origin.get_name()
+            origin=self.origin.get_name(article="the")
         if isinstance(self.dest, Country):
-            dest=self.dest.get_name()
+            dest=self.dest.get_name(article="the")
         if isinstance(self.prod, (Hs92, Hs96, Hs02, Hs07, Sitc)):
             prod=self.prod.get_name()
 
