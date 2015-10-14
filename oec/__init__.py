@@ -17,6 +17,8 @@ from werkzeug.contrib.fixers import ProxyFix
 
 from config import DEBUG
 
+from opbeat.contrib.flask import Opbeat
+
 ''' Base directory of where the site is held '''
 oec_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -91,6 +93,9 @@ for view in ["db_attr", "db_data", "general", "profile", "rankings", "resources"
     app.register_blueprint(mod)
 
 app.wsgi_app = ProxyFix(app.wsgi_app)
+
+# opbeat initialization
+opbeat = Opbeat(app)
 
 if __name__ == '__main__':
     app.run()

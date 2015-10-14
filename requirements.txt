@@ -31,3 +31,6 @@ Flask-Scss
 # Cache helper scripts
 selenium
 click
+
+# Opbeat for logging errors
+opbeat[flask]
