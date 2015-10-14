@@ -46,8 +46,10 @@ def yo(**kwargs):
     return make_response(make_query(q, request.args, g.locale, getattr(g.prod_models, "Yo"), **kwargs))
 
 @mod.route('/<trade_flow>/all/all/<dest_id>/all/')
+@mod.route('/<trade_flow>/all/wld/<dest_id>/all/')
 @mod.route('/<trade_flow>/<year>/all/<dest_id>/all/')
 @mod.route('/<trade_flow>/<year>/all/show/all/')
+@mod.route('/<trade_flow>/<year>/wld/show/all/')
 @crossdomain(origin='*')
 def yd(**kwargs):
     return make_response(make_query(getattr(g.prod_models, "Yd"), request.args, g.locale, **kwargs))
@@ -92,11 +94,22 @@ def yop_dest(**kwargs):
 
 @mod.route('/<trade_flow>/all/all/<dest_id>/show/')
 @mod.route('/<trade_flow>/<year>/all/<dest_id>/show/')
+@mod.route('/<trade_flow>/all/wld/<dest_id>/show/')
+@mod.route('/<trade_flow>/<year>/wld/<dest_id>/show/')
 @crossdomain(origin='*')
 def ydp(**kwargs):
     return make_response(make_query(getattr(g.prod_models, "Ydp"), \
         request.args, g.locale, classification=g.prod_classification, \
         output_depth=g.output_depth, **kwargs))
+
+@mod.route('/<trade_flow>/all/all/show/<prod_id>/')
+@mod.route('/<trade_flow>/<year>/all/show/<prod_id>/')
+@mod.route('/<trade_flow>/all/wld/show/<prod_id>/')
+@mod.route('/<trade_flow>/<year>/wld/show/<prod_id>/')
+@crossdomain(origin='*')
+def ydp_dest(**kwargs):
+    return make_response(make_query(getattr(g.prod_models, "Ydp"), \
+        request.args, g.locale, classification=g.prod_classification, **kwargs))
 
 ############################################################
 # ----------------------------------------------------------
