@@ -34,7 +34,7 @@ def before_request():
     g.supported_langs = current_app.config.get('LANGUAGES')
     g.supported_langs = sorted(g.supported_langs.iteritems(), key=lambda x: x[1].lower())
     g.available_years = available_years
-    g.cache_version = 7
+    g.cache_version = 9
     g.translations = json.dumps(get_translations())
 
     # Save variable in session so we can determine if this is the user's

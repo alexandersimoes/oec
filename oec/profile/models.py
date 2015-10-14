@@ -582,12 +582,12 @@ class Product(Profile):
             dv_munic_exporters_subtitle = u"""
                 This treemap shows the municipalities in Brazil that export {}.<br /><br />
                 DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
-                <a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
+                </p><p><a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val'>Explore on DataViva <i class='fa fa-external-link'></i></a>
                 """.format(dv_hs.get_name(), self.attr.id)
             dv_munic_importers_subtitle = u"""
                 This treemap shows the municipalities in Brazil that import {}.<br />.<br />
                 DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
-                <a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>
+                </p><p><a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val'>Explore on DataViva <i class='fa fa-external-link'></i></a>
                 """.format(dv_hs.get_name(), self.attr.id)
             dv_section = {
                 "title": u"<a href='http://dataviva.info/' target='_blank'><img src='http://en.dataviva.info/static/img/nav/DataViva.png' /></a>",
