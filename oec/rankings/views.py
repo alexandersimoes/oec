@@ -119,8 +119,8 @@ def rankings(category=None, year=None):
     rankings = rankings.all()
 
     if download:
-        cols = [["year", gettext("Year")]] + cols
-        writer.writerow([[c[0], unicode(c[1]).encode("utf-8")] for c in cols])
+        cols = [{"id":"year", "name":gettext("Year")}] + cols
+        writer.writerow(filter(None, [unicode(c["name"]).encode("utf-8") for c in cols]))
         for r in rankings:
             writer.writerow([r[2].year, \
                             getattr(r[2], rank), \
