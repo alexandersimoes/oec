@@ -47,6 +47,7 @@ def rankings_redirect():
 # don't cache because downloading will not be possible
 # @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
 def rankings(category=None, year=None):
+    category = "hs92" if category == "hs" else category
     if category == "country":
         g.page_sub_type = "countries"
     else:
