@@ -156,18 +156,18 @@ def embed_legacy_redir(lang, app_name, classification, trade_flow, origin_id, de
 @mod.route('embed/<app_name>/<trade_flow>/<origin>/<dest>/<product>/')
 @mod.route('embed/<app_name>/<trade_flow>/<origin>/<dest>/<product>/<year>/')
 def embed_legacy(app_name, trade_flow, origin, dest, product, year=2012):
-    c = 'sitc' if int(year) < 1995 else 'hs'
+    c = 'sitc' if int(year) < 1995 else 'hs92'
     if product != "show" and product != "all":
-        prod = Hs.query.filter_by(hs=product).first()
-        c = 'hs'
+        prod = Hs92.query.filter_by(hs92=product).first()
+        c = 'hs92'
         if not prod:
             c = 'sitc'
             prod = Sitc.query.filter_by(sitc=product).first()
         product = prod.id
     lang = request.args.get('lang', g.locale)
-    redirect_url = url_for('explore.embed', lang=g.locale, app_name=app_name, \
+    redirect_url = url_for('visualize.embed', lang=g.locale, app_name=app_name, \
                 classification=c, trade_flow=trade_flow, origin_id=origin, \
-                dest_id=dest, prod_id=product, year=year)
+                dest_id=dest, prod_id=product, year=[year])
     return redirect(redirect_url+"?controls=false")
 
 @mod.route('country/<country_id>/')
