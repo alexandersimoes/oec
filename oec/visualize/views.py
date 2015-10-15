@@ -349,7 +349,7 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
     years = set()
     for d in available_years:
         [years.add(y) for y in available_years[d] if (build.trade_flow == "eci" and y >= 1964) or (build.viz["slug"] == "scatter" and y >= 1980) or (build.viz["slug"] != "scatter" and build.trade_flow != "eci")]
-
+    
     if build.viz["slug"] in ("stacked", "line"):
         ui.append({
             "id": "start_year",
