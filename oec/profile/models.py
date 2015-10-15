@@ -97,13 +97,21 @@ class Country(Profile):
             else:
                 attr = self.attr
             start_year = earliest_data.get(attr.id, 1980)
-            all_stats = [("eci", _('Econ Complexity')), ("export_val", _('Exports')), ("import_val", _('Imports')), ("gdp_pc_current_ppp", _('GDP Per Capita'))]
+            if self.attr.id == "xxwld":
+                all_stats = [("export_val", _('Exports')), ("population", _('Population')), ("gdp", _('GDP')), ("gdp_pc_current_ppp", _('GDP Per Capita'))]
+            else:
+                all_stats = [("eci", _('Econ Complexity')), ("export_val", _('Exports')), ("import_val", _('Imports')), ("gdp_pc_current_ppp", _('GDP Per Capita'))]
             for s, s_title in all_stats:
                 if "val" in s:
-                    yo_historic = db_data.sitc_models.Yo.query.filter_by(country=attr).filter(db_data.sitc_models.Yo.year >= start_year).all()
-                    # raise Exception([x.export_val for x in yo_historic])
-                    yo_base_q = self.models.Yo.query.filter_by(year=self.year)
-                    this_yo = yo_base_q.filter_by(country=attr).first()
+                    if self.attr.id == "xxwld":
+                        yo_historic = db.session.query(func.sum(self.models.Yo.export_val)).group_by(self.models.Yo.year).filter(self.models.Yo.year >= start_year).all()
+                        this_yo = {s: db.session.query(func.sum(self.models.Yo.export_val)).filter_by(year = self.year).first()}
+                        # raise Exception(yo_historic)
+                    else:
+                        yo_historic = db_data.sitc_models.Yo.query.filter_by(country=attr).filter(db_data.sitc_models.Yo.year >= start_year).all()
+                        # raise Exception([x.export_val for x in yo_historic])
+                        yo_base_q = self.models.Yo.query.filter_by(year=self.year)
+                        this_yo = yo_base_q.filter_by(country=attr).first()
                 else:
                     start_year = max(1990, start_year) if "gdp" in s else start_year
                     yo_historic = attrs.Yo.query.filter_by(country=attr).filter(attrs.Yo.year >= start_year).all()
@@ -111,15 +119,25 @@ class Country(Profile):
                     yo_base_q = attrs.Yo.query.filter_by(year=self.year)
                     this_yo = yo_base_q.filter_by(country=attr).first()
 
-                res = yo_base_q.order_by(desc(s)).all()
-                val = getattr(this_yo, s, None)
+                if isinstance(this_yo, dict):
+                    val = this_yo[s][0]
+                    sparkline = [float(yh[0]) if yh[0] is not None else 0 for yh in yo_historic]
+                else:
+                    val = getattr(this_yo, s, None)
+                    sparkline = [float(getattr(yh, s)) if getattr(yh, s) is not None else 0 for yh in yo_historic]
+
                 if val:
-                    my_stat = {"key":s, "rank":res.index(this_yo)+1, "total":len(res), "title":s_title, \
+                    my_stat = {"key":s, "title":s_title, \
                                 "val":val, "sparkline":{
                                     "start": start_year, "end": available_years["sitc"][-1], \
-                                    "val": [float(getattr(yh, s)) if getattr(yh, s) is not None else 0 for yh in yo_historic]
+                                    "val": sparkline
                                 }
                               }
+                    if self.attr.id != "xxwld":
+                        res = yo_base_q.order_by(desc(s)).all()
+                        my_stat["rank"] = res.index(this_yo)+1
+                        my_stat["total"] = len(res)
+
                     self.cached_stats.append(my_stat)
         return self.cached_stats
 
@@ -127,70 +145,82 @@ class Country(Profile):
         all_paragraphs = []
         ''' Paragraph #1
         '''
-        this_yo = self.models.Yo.query.filter_by(year = self.year, country = self.attr).first()
-        all_yo = self.models.Yo.query.filter_by(year = self.year).order_by(desc("export_val")).all()
-        if this_yo:
-            p1 = []
-            econ_rank = num_format(all_yo.index(this_yo) + 1, "ordinal") if all_yo.index(this_yo) else ""
-            export_val = this_yo.export_val
-            import_val = this_yo.import_val
-            trade_balance = u"positive" if export_val > import_val else u"negative"
-            trade_delta = abs(export_val - import_val)
-            this_attr_yo = attrs.Yo.query.filter_by(year = self.year, country = self.attr).first()
-            # eci_rank = this_attr_yo.eci_rank
-            formatted_vals = {"export_val":export_val, "import_val":import_val, "trade_delta":trade_delta}
-            formatted_vals = {k: num_format(v) for k, v in formatted_vals.items()}
-            country_is = upperfirst(self.attr.get_name(article=True, verb="is"))
-            p1.append(_(u"%(country_is)s the %(econ_rank)s largest export economy in the world",
-                        country_is=country_is, econ_rank=econ_rank))
-            if this_attr_yo and this_attr_yo.eci_rank:
-                eci_rank = num_format(this_attr_yo.eci_rank, "ordinal") if this_attr_yo.eci_rank > 1 else ""
-                p1.append(_(" and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI). ", eci_rank=eci_rank))
-            else:
-                p1.append(". ")
-            p1.append(_(u"In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s. ",
-                        year=self.year, country=self.attr.get_name(article=True), export_val=formatted_vals["export_val"], import_val=formatted_vals["import_val"], positive_negative=trade_balance, trade_delta=formatted_vals["trade_delta"]))
-            if this_attr_yo:
-                gdp = this_attr_yo.gdp
-                gdp_pc = this_attr_yo.gdp_pc_current
-                formatted_vals = {"gdp":gdp, "gdp_pc":gdp_pc}
+        if self.attr.id == "xxwld":
+            export_val = num_format(db.session.query(func.sum(self.models.Yo.export_val)).filter_by(year = self.year).first()[0], "export_val")
+            all_paragraphs.append(_(u"The total world trade in %(year)s was %(export_val)s.",
+                        year=self.year, export_val=export_val))
+
+            exports = self.stringify_items(self.models.Yp.query.filter_by(year = self.year, hs92_id_len=6).order_by(desc("export_val")).limit(10).all(), "export_val", "product")
+            all_paragraphs.append(_(u"The 10 most traded products by dollar amount are %(exports_list)s, using the 1992 revision of the HS (Harmonized System) classification.", exports_list=exports))
+
+            origins = self.stringify_items(self.models.Yo.query.filter_by(year = self.year).order_by(desc("export_val")).limit(10).all(), "export_val", "country")
+            all_paragraphs.append(_(u"The top 10 exporting countries are %(origins_list)s.", origins_list=origins))
+            # raise Exception(all_paragraphs[1])
+        else:
+            this_yo = self.models.Yo.query.filter_by(year = self.year, country = self.attr).first()
+            all_yo = self.models.Yo.query.filter_by(year = self.year).order_by(desc("export_val")).all()
+            if this_yo:
+                p1 = []
+                econ_rank = num_format(all_yo.index(this_yo) + 1, "ordinal") if all_yo.index(this_yo) else ""
+                export_val = this_yo.export_val
+                import_val = this_yo.import_val
+                trade_balance = u"positive" if export_val > import_val else u"negative"
+                trade_delta = abs(export_val - import_val)
+                this_attr_yo = attrs.Yo.query.filter_by(year = self.year, country = self.attr).first()
+                # eci_rank = this_attr_yo.eci_rank
+                formatted_vals = {"export_val":export_val, "import_val":import_val, "trade_delta":trade_delta}
                 formatted_vals = {k: num_format(v) for k, v in formatted_vals.items()}
-                p1.append(_(u"In %(year)s the GDP %(of_country)s was $%(gdp)s and its GDP per capita was $%(gdp_pc)s.",
-                            year=self.year, of_country=self.attr.get_name(article="of"), gdp=formatted_vals['gdp'], gdp_pc=formatted_vals['gdp_pc']))
-            all_paragraphs.append("".join(p1))
+                country_is = upperfirst(self.attr.get_name(article=True, verb="is"))
+                p1.append(_(u"%(country_is)s the %(econ_rank)s largest export economy in the world",
+                            country_is=country_is, econ_rank=econ_rank))
+                if this_attr_yo and this_attr_yo.eci_rank:
+                    eci_rank = num_format(this_attr_yo.eci_rank, "ordinal") if this_attr_yo.eci_rank > 1 else ""
+                    p1.append(_(" and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI). ", eci_rank=eci_rank))
+                else:
+                    p1.append(". ")
+                p1.append(_(u"In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s. ",
+                            year=self.year, country=self.attr.get_name(article=True), export_val=formatted_vals["export_val"], import_val=formatted_vals["import_val"], positive_negative=trade_balance, trade_delta=formatted_vals["trade_delta"]))
+                if this_attr_yo:
+                    gdp = this_attr_yo.gdp
+                    gdp_pc = this_attr_yo.gdp_pc_current
+                    formatted_vals = {"gdp":gdp, "gdp_pc":gdp_pc}
+                    formatted_vals = {k: num_format(v) for k, v in formatted_vals.items()}
+                    p1.append(_(u"In %(year)s the GDP %(of_country)s was $%(gdp)s and its GDP per capita was $%(gdp_pc)s.",
+                                year=self.year, of_country=self.attr.get_name(article="of"), gdp=formatted_vals['gdp'], gdp_pc=formatted_vals['gdp_pc']))
+                all_paragraphs.append("".join(p1))
 
-        ''' Paragraph #2
-        '''
-        yop_exp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr, hs92_id_len=6).order_by(desc("export_val")).limit(5).all()
-        if yop_exp:
-            exports_list = self.stringify_items(yop_exp, "export_val", "product")
-            yop_imp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr, hs92_id_len=6).order_by(desc("import_val")).limit(5).all()
-            imports_list = self.stringify_items(yop_imp, "import_val", "product")
-            p2 = _(u"The top exports %(of_country)s are %(exports_list)s, using the 1992 revision of the HS (Harmonized System) classification. Its top imports are %(imports_list)s.", of_country=self.attr.get_name(article="of"), exports_list=exports_list, imports_list=imports_list)
-            all_paragraphs.append(p2)
+            ''' Paragraph #2
+            '''
+            yop_exp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr, hs92_id_len=6).order_by(desc("export_val")).limit(5).all()
+            if yop_exp:
+                exports_list = self.stringify_items(yop_exp, "export_val", "product")
+                yop_imp = self.models.Yop.query.filter_by(year = self.year, origin = self.attr, hs92_id_len=6).order_by(desc("import_val")).limit(5).all()
+                imports_list = self.stringify_items(yop_imp, "import_val", "product")
+                p2 = _(u"The top exports %(of_country)s are %(exports_list)s, using the 1992 revision of the HS (Harmonized System) classification. Its top imports are %(imports_list)s.", of_country=self.attr.get_name(article="of"), exports_list=exports_list, imports_list=imports_list)
+                all_paragraphs.append(p2)
 
-        ''' Paragraph #3
-        '''
-        yod_exp = self.models.Yod.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
-        if yod_exp:
-            dest_list = self.stringify_items(yod_exp, "export_val", "dest")
-            yod_imp = self.models.Yod.query.filter_by(year = self.year, dest = self.attr).order_by(desc("export_val")).limit(5).all()
-            origin_list = self.stringify_items(yod_imp, "export_val", "origin")
-            p3 = _(u"The top export destinations %(of_country)s are %(destinations)s. The top import origins are %(origins)s.", of_country=self.attr.get_name(article="of"), destinations=dest_list, origins=origin_list)
-            all_paragraphs.append(p3)
+            ''' Paragraph #3
+            '''
+            yod_exp = self.models.Yod.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
+            if yod_exp:
+                dest_list = self.stringify_items(yod_exp, "export_val", "dest")
+                yod_imp = self.models.Yod.query.filter_by(year = self.year, dest = self.attr).order_by(desc("export_val")).limit(5).all()
+                origin_list = self.stringify_items(yod_imp, "export_val", "origin")
+                p3 = _(u"The top export destinations %(of_country)s are %(destinations)s. The top import origins are %(origins)s.", of_country=self.attr.get_name(article="of"), destinations=dest_list, origins=origin_list)
+                all_paragraphs.append(p3)
 
-        ''' Paragraph #4
-        '''
-        land_borders = self.attr.borders()
-        maritime_borders = self.attr.borders(maritime=True)
-        if maritime_borders or land_borders:
-            if maritime_borders and not land_borders:
-                p4 = _(u"%(country)s is an island and borders %(maritime_borders)s by sea.", country=self.attr.get_name(article=True).title(), maritime_borders=self.stringify_items(maritime_borders))
-            if not maritime_borders and land_borders:
-                p4 = _(u"%(country)s borders %(land_borders)s.", country=self.attr.get_name(article=True).title(), land_borders=self.stringify_items(land_borders))
-            if maritime_borders and land_borders:
-                p4 = _(u"%(country)s borders %(land_borders)s by land and %(maritime_borders)s by sea.", country=self.attr.get_name(article=True).title(), land_borders=self.stringify_items(land_borders), maritime_borders=self.stringify_items(maritime_borders))
-            all_paragraphs.append(p4)
+            ''' Paragraph #4
+            '''
+            land_borders = self.attr.borders()
+            maritime_borders = self.attr.borders(maritime=True)
+            if maritime_borders or land_borders:
+                if maritime_borders and not land_borders:
+                    p4 = _(u"%(country)s is an island and borders %(maritime_borders)s by sea.", country=self.attr.get_name(article=True).title(), maritime_borders=self.stringify_items(maritime_borders))
+                if not maritime_borders and land_borders:
+                    p4 = _(u"%(country)s borders %(land_borders)s.", country=self.attr.get_name(article=True).title(), land_borders=self.stringify_items(land_borders))
+                if maritime_borders and land_borders:
+                    p4 = _(u"%(country)s borders %(land_borders)s by land and %(maritime_borders)s by sea.", country=self.attr.get_name(article=True).title(), land_borders=self.stringify_items(land_borders), maritime_borders=self.stringify_items(maritime_borders))
+                all_paragraphs.append(p4)
 
         return all_paragraphs
 
@@ -211,9 +241,11 @@ class Country(Profile):
         exp_val_stat = filter(lambda s: s["key"] == "export_val", self.stats())
         if exp_val_stat:
             exp_val_stat = exp_val_stat.pop()
-            exp_rank = num_format(exp_val_stat["rank"], "ordinal") if exp_val_stat["rank"] > 1 else ""
-            export_subtitle = _(u"In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world. ",
-                                year=self.year, country=self.attr.get_name(article=True), export_val=num_format(exp_val_stat["val"]), export_rank=exp_rank)
+            export_subtitle = ""
+            if self.attr.id != "xxwld":
+                exp_rank = num_format(exp_val_stat["rank"], "ordinal") if exp_val_stat["rank"] > 1 else ""
+                export_subtitle += _(u"In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world. ",
+                                    year=self.year, country=self.attr.get_name(article=True), export_val=num_format(exp_val_stat["val"]), export_rank=exp_rank)
             if past_yo:
                 chg = "increased" if this_yo.export_val_growth_pct_5 >= 0 else "decreased"
                 export_subtitle += _(u"During the last five years the exports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. ",
@@ -228,9 +260,11 @@ class Country(Profile):
         imp_val_stat = filter(lambda s: s["key"] == "import_val", self.stats())
         if imp_val_stat:
             imp_val_stat = imp_val_stat.pop()
-            imp_rank = num_format(imp_val_stat["rank"], "ordinal") if imp_val_stat["rank"] > 1 else ""
-            import_subtitle = _(u"In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world. ",
-                                year=self.year, country=self.attr.get_name(article=True), import_val=num_format(imp_val_stat["val"]), import_rank=imp_rank)
+            import_subtitle = ""
+            if self.attr.id != "xxwld":
+                imp_rank = num_format(imp_val_stat["rank"], "ordinal") if imp_val_stat["rank"] > 1 else ""
+                import_subtitle += _(u"In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world. ",
+                                    year=self.year, country=self.attr.get_name(article=True), import_val=num_format(imp_val_stat["val"]), import_rank=imp_rank)
             if past_yo:
                 chg = "increased" if this_yo.import_val_growth_pct_5 >= 0 else "decreased"
                 import_subtitle += _(u"During the last five years the imports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s. ",
