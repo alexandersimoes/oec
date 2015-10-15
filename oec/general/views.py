@@ -163,7 +163,7 @@ def embed_legacy(app_name, trade_flow, origin, dest, product, year=2012):
         if not prod:
             c = 'sitc'
             prod = Sitc.query.filter_by(sitc=product).first()
-        product = prod.id
+        product = prod.get_display_id()
     lang = request.args.get('lang', g.locale)
     redirect_url = url_for('visualize.embed', lang=g.locale, app_name=app_name, \
                 classification=c, trade_flow=trade_flow, origin_id=origin, \
