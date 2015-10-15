@@ -38,7 +38,7 @@ def attrs(attr="country", lang='en'):
         .add_entity(Attr_data) \
         .filter(Attr_name.lang == lang)
     
-    total_weight = sum([a[2].export_val for a in q.all() if a[2]])
+    total_weight = sum(filter(None, [a[2].export_val for a in q.all() if a[2]]))
 
     for attr, attr_name, attr_data in q.all():
         attr = attr.serialize()
