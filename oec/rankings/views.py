@@ -18,8 +18,8 @@ from cStringIO import StringIO
 from oec import utils
 
 @app.route('/rankings/')
-@app.route('/rankings/<category>/')
-@app.route('/rankings/<category>/<int:year>/')
+@app.route('/rankings/<any("country","sitc","hs","hs92","hs96","hs02","hs07"):category>/')
+@app.route('/rankings/<any("country","sitc","hs","hs92","hs96","hs02","hs07"):category>/<int:year>/')
 def rankings_redirect_nolang(category=None, year=None):
     if category:
         redirect_url = url_for('rankings.rankings', lang=g.locale, category=category, year=year)
@@ -42,8 +42,8 @@ def get_profile_owner(endpoint, values):
 def rankings_redirect():
     return redirect(url_for('.rankings', lang=g.locale, category="country"))
 
-@mod.route('/<category>/')
-@mod.route('/<category>/<int:year>/')
+@mod.route('/<any("country","sitc","hs","hs92","hs96","hs02","hs07"):category>/')
+@mod.route('/<any("country","sitc","hs","hs92","hs96","hs02","hs07"):category>/<int:year>/')
 # don't cache because downloading will not be possible
 # @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
 def rankings(category=None, year=None):
