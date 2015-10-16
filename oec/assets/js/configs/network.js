@@ -25,10 +25,10 @@ configs.network = function(build, container) {
 
   return {
     "active": {
-      "value": function(d){
+      "value": build.origin.id !== "xxwld" ? function(d){
         return d.export_rca >= 1;
-      },
-      "spotlight":true
+      } : false,
+      "spotlight": true
     },
     "color": "color",
     "depth": 1,
