@@ -330,18 +330,21 @@
       }
 
       // List of countries that get cropped in the regular projection
-      var rotate = ["eurus"].indexOf(id) >= 0 ? -155 : 0,
-          projection = d3.geo.mercator().rotate([rotate,0]),
-          path = d3.geo.path().projection(projection);
+      var projection = d3.geo.mercator(),
+          path;
 
       if (id === "xxwld") {
 
-          projection
-            .scale(40)
-            .translate([width/2, height/2]);
+        projection.scale(40).translate([width/2, height/2]);
+        path = d3.geo.path().projection(projection);
 
       }
       else {
+
+        var rotate = rotate = ["eurus"].indexOf(id) >= 0 ? -155 : 0;
+
+        projection.scale(1).translate([0,0]).rotate([rotate,0]);
+        path = d3.geo.path().projection(projection);
 
         coords.objects[key].geometries = [];
         geo_ids.forEach(function(g){
@@ -375,7 +378,7 @@
           });
 
         }
-        else if (id !== "xxwld") {
+        else {
 
           // Logic for removing small/far away geometries.
           var test = d3plus.util.copy(country),
@@ -414,7 +417,7 @@
         }
 
         var b = path.bounds(country),
-            zoom = id === "xxwld" ? 1 : d3.min([(b[1][0] - b[0][0]) * 100, 0.9]),
+            zoom = d3.min([(b[1][0] - b[0][0]) * 100, 0.9]),
             s = zoom / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
             t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
 
