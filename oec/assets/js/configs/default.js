@@ -70,7 +70,7 @@ configs.default = function(build, container) {
         "url": function(focus_id){
           container.select(".viz_loader").classed("visible", true);
           var display_id = focus_id.substring(2).replace("_export", "").replace("_import", "");
-          var attr_type = build.attr_type.indexOf("hs") >= 0 ? "prod_id" : build.attr_type+"_id";
+          var attr_type = (build.attr_type.indexOf("hs") >= 0 || build.attr_type=="sitc") ? "prod_id" : build.attr_type+"_id";
           var url_args = "?trade_flow="+build.trade_flow+"&classification="+build.classification+"&"+attr_type+"="+display_id+"&focus="+attr_type;
           ['origin', 'dest', 'prod'].forEach(function(filter){
             if(typeof build[filter] != "string"){
