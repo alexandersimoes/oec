@@ -329,8 +329,17 @@
         geo_ids = ["eubel", "eulux"];
       }
 
+      // List of countries that get cropped in the regular projection
+      var rotate = ["eurus"].indexOf(id) >= 0 ? -155 : 0,
+          projection = d3.geo.mercator().rotate([rotate,0]),
+          path = d3.geo.path().projection(projection);
+
       if (id === "xxwld") {
-        coords.objects[key].geometries = coords.objects[key].lookup.all;
+
+          projection
+            .scale(40)
+            .translate([width/2, height/2]);
+
       }
       else {
 
@@ -338,101 +347,90 @@
         geo_ids.forEach(function(g){
           coords.objects[key].geometries.push(coords.objects[key].lookup[g]);
         });
-      }
 
-      // List of countries that get cropped in the regular projection
-      var rotate = ["eurus"].indexOf(id) >= 0 ? -155 : 0;
+        var country = topojson.feature(coords, coords.objects[key]).features[0];
 
-      var projection = d3.geo.mercator().rotate([rotate,0]).scale(1).translate([0, 0]),
-          path = d3.geo.path().projection(projection),
-          country = topojson.feature(coords, coords.objects[key]).features;
+        // List of countries specifying how many landmasses to zoom to:
+        var landmass = {
+          "nausa": 1,
+          "saecu": 1,
+          "afsyc": 1,
+          "asmys": 2,
+          "eugbr": 2,
+          "asjpn": 4
+        }
 
-      if (id === "xxwld") {
-        country = country.filter(function(c){
-          return c.id === "eurus";
-        })[0]
-      }
-      else {
-        country = country[0];
-      }
+        if (landmass[id]) {
 
-      // List of countries specifying how many landmasses to zoom to:
-      var landmass = {
-        "nausa": 1,
-        "saecu": 1,
-        "afsyc": 1,
-        "asmys": 2,
-        "eugbr": 2,
-        "asjpn": 4
-      }
+          var areas = [], test = d3plus.util.copy(country);
+          country.geometry.coordinates.forEach(function(c, i){
+            test.geometry.coordinates = [c];
+            areas.push(path.area(test))
+          })
 
-      if (landmass[id]) {
+          var sorted = areas.slice().sort(function(a, b){ return b-a; });
+          var maxArea = sorted[landmass[id] - 1];
+          country.geometry.coordinates = country.geometry.coordinates.filter(function(c, i){
+            return areas[i] >= maxArea;
+          });
 
-        var areas = [], test = d3plus.util.copy(country);
-        country.geometry.coordinates.forEach(function(c, i){
-          test.geometry.coordinates = [c];
-          areas.push(path.area(test))
-        })
+        }
+        else if (id !== "xxwld") {
 
-        var sorted = areas.slice().sort(function(a, b){ return b-a; });
-        var maxArea = sorted[landmass[id] - 1];
-        country.geometry.coordinates = country.geometry.coordinates.filter(function(c, i){
-          return areas[i] >= maxArea;
-        });
+          // Logic for removing small/far away geometries.
+          var test = d3plus.util.copy(country),
+              areas = [],
+              areaMax = 0,
+              distances = [],
+              center = path.centroid(country);
 
-      }
-      else if (id !== "xxwld") {
+          country.geometry.coordinates = country.geometry.coordinates.filter(function(c){
 
-        // Logic for removing small/far away geometries.
-        var test = d3plus.util.copy(country),
-            areas = [],
-            areaMax = 0,
-            distances = [],
-            center = path.centroid(country);
-
-        country.geometry.coordinates = country.geometry.coordinates.filter(function(c){
-
-          test.geometry.coordinates = [c];
-          var area = path.area(test);
-          if (area > 0) {
-            areas.push(area);
-            if (area > areaMax) {
-              areaMax = area;
+            test.geometry.coordinates = [c];
+            var area = path.area(test);
+            if (area > 0) {
+              areas.push(area);
+              if (area > areaMax) {
+                areaMax = area;
+              }
+              distances.push(d3plus.network.distance(path.centroid(test), center))
+              return true;
             }
-            distances.push(d3plus.network.distance(path.centroid(test), center))
-            return true;
-          }
-          else {
-            return false;
-          }
+            else {
+              return false;
+            }
 
-        });
+          });
 
-        var distanceCutoff = d3.quantile(distances.reduce(function(arr, dist, i) {
-          if (dist) arr.push(areas[i]/dist);
-          return arr;
-        }, []), 0.9);
+          var distanceCutoff = d3.quantile(distances.reduce(function(arr, dist, i) {
+            if (dist) arr.push(areas[i]/dist);
+            return arr;
+          }, []), 0.9);
 
-        country.geometry.coordinates = country.geometry.coordinates.filter(function(c, i){
-          return distances[i] === 0 || areas[i]/distances[i] >= distanceCutoff;
-        });
+          country.geometry.coordinates = country.geometry.coordinates.filter(function(c, i){
+            return distances[i] === 0 || areas[i]/distances[i] >= distanceCutoff;
+          });
+
+        }
+
+        var b = path.bounds(country),
+            zoom = id === "xxwld" ? 1 : d3.min([(b[1][0] - b[0][0]) * 100, 0.9]),
+            s = zoom / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
+            t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+
+        projection
+          .scale(s)
+          .translate(t);
 
       }
-
-      var b = path.bounds(country),
-          zoom = id === "xxwld" ? 1 : d3.min([(b[1][0] - b[0][0]) * 100, 0.9]),
-          s = zoom / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
-          t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
 
       coords.objects[key].geometries = coords.objects[key].lookup.all;
+
       var countries = topojson.feature(coords, coords.objects[key]);
 
-      projection
-        .scale(s)
-        .translate(t);
-
-      var scale = 0.5;
+      // var scale = 0.5;
       var group = svg.append("g")
+        .attr("id", "topojson-" + id)
         // .attr("transform", "translate("+(width*(scale/2))+","+(height*(scale/2))+")scale("+scale+","+scale+")");
 
       group.selectAll("path").data(countries.features)

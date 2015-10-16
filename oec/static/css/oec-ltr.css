@@ -1076,7 +1076,7 @@ body.home {
         background: -webkit-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -o-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
         background: -ms-linear-gradient(top, #212831 0%, rgba(33, 40, 49, 0) 100%);
-        background: linear-gradient(to bottom, #212831 0%, rgba(33, 40, 49, 0) 100%);
+        background: linear-gradient(to bottom, #212831, rgba(33, 40, 49, 0));
         left: 0;
         position: absolute;
         top: 0;
@@ -1872,9 +1872,11 @@ body.profile {
       stroke: #63737f; }
       body.profile #topojson .coords.focus {
         opacity: 1; }
-    @media all and (max-width: 768px) {
-      body.profile #topojson {
-        display: none;   }
+    body.profile #topojson #topojson-xxwld .coords {
+      stroke: white !important; }
+      @media all and (max-width: 768px) {
+        body.profile #topojson {
+          display: none;   }
 }
   body.profile article.product ~ article.titled-section h1 {
     border-top: 0; }
@@ -1946,7 +1948,7 @@ body.profile {
       background: -webkit-linear-gradient(top, transparent 0%, #212831 100%);
       background: -o-linear-gradient(top, transparent 0%, #212831 100%);
       background: -ms-linear-gradient(top, transparent 0%, #212831 100%);
-      background: linear-gradient(to bottom, transparent 0%, #212831 100%);
+      background: linear-gradient(to bottom, transparent, #212831);
       background-attachment: center center;
       background-position: fixed;
       background-repeat: no-repeat;
@@ -2067,7 +2069,7 @@ body.profile {
     background: -webkit-linear-gradient(top, #212831 0%, #5c656f 95%);
     background: -o-linear-gradient(top, #212831 0%, #5c656f 95%);
     background: -ms-linear-gradient(top, #212831 0%, #5c656f 95%);
-    background: linear-gradient(to bottom, #212831 0%, #5c656f 95%); }
+    background: linear-gradient(to bottom, #212831, #5c656f 95%); }
     body.profile article.sisters h1 {
       border-top: 0;
       padding-bottom: 30px; }
@@ -2082,8 +2084,8 @@ body.profile {
 }
   body.profile article.dataviva {
     background-color: #81919d;
-    background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #5c656f 0%,
-        #81919d 5%, rgba(255, 255, 255, 0) 20%),
+    background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #5c656f, #81919d 5%,
+        rgba(255, 255, 255, 0) 20%),
         url('http://en.dataviva.info/static/img/bgs/city_small.jpg');
     background-attachment: local, local, fixed;
     background-repeat: repeat-x, no-repeat;

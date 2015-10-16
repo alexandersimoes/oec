@@ -698,6 +698,10 @@ body.profile {
 
     }
 
+    #topojson-xxwld .coords {
+      stroke: white !important;
+    }
+
     @media all and (max-width: 768px) {
       display: none;
     }
