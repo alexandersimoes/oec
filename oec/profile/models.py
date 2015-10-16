@@ -5,7 +5,7 @@ from sqlalchemy import desc, func
 from flask import g
 from flask.ext.babel import gettext as _
 from oec import db, db_data, available_years, earliest_data
-from oec.utils import num_format
+from oec.utils import median, num_format
 from oec.db_attr import models as attrs
 from oec.visualize.models import Build
 from config import FACEBOOK_ID
@@ -147,8 +147,7 @@ class Country(Profile):
         '''
         if self.attr.id == "xxwld":
             export_val = num_format(db.session.query(func.sum(self.models.Yo.export_val)).filter_by(year = self.year).first()[0], "export_val")
-            all_paragraphs.append(_(u"The total world trade in %(year)s was %(export_val)s.",
-                        year=self.year, export_val=export_val))
+            all_paragraphs.append(_(u"The total world trade in %(year)s was %(export_val)s.", year=self.year, export_val=export_val))
 
             exports = self.stringify_items(self.models.Yp.query.filter_by(year = self.year, hs92_id_len=6).order_by(desc("export_val")).limit(10).all(), "export_val", "product")
             all_paragraphs.append(_(u"The 10 most traded products by dollar amount are %(exports_list)s, using the 1992 revision of the HS (Harmonized System) classification.", exports_list=exports))
@@ -228,123 +227,161 @@ class Country(Profile):
         sections = []
         ''' Trade Section
         '''
-        export_subtitle, import_subtitle, dest_subtitle, origin_subtitle = [None]*4
 
-        export_tmap = Build("tree_map", "hs92", "export", self.attr, "all", "show", self.year)
-        import_tmap = Build("tree_map", "hs92", "import", self.attr, "all", "show", self.year)
+        if self.attr.id == "xxwld":
 
-        yop_base = self.models.Yop.query.filter_by(year = self.year, origin = self.attr, hs92_id_len=6)
-        # get growth
-        past_yr = self.year - 5
-        past_yo = self.models.Yo.query.filter_by(year = past_yr, country = self.attr).first()
-        this_yo = self.models.Yo.query.filter_by(year = self.year, country = self.attr).first()
-        exp_val_stat = filter(lambda s: s["key"] == "export_val", self.stats())
-        if exp_val_stat:
-            exp_val_stat = exp_val_stat.pop()
-            export_subtitle = ""
-            if self.attr.id != "xxwld":
-                exp_rank = num_format(exp_val_stat["rank"], "ordinal") if exp_val_stat["rank"] > 1 else ""
-                export_subtitle += _(u"In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world. ",
-                                    year=self.year, country=self.attr.get_name(article=True), export_val=num_format(exp_val_stat["val"]), export_rank=exp_rank)
-            if past_yo:
-                chg = "increased" if this_yo.export_val_growth_pct_5 >= 0 else "decreased"
-                export_subtitle += _(u"During the last five years the exports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. ",
-                                        of_country=self.attr.get_name(article="of"), increased_decreased=chg, change_rate=num_format(this_yo.export_val_growth_pct_5*100), \
-                                        past_export_val=num_format(past_yo.export_val), past_year=past_yr, current_export_val=num_format(this_yo.export_val), current_year=self.year)
-            top_exports = yop_base.order_by(desc("export_val")).limit(2).all()
-            if top_exports:
-                # raise Exception(top_exports[0].product.get_profile_link(), num_format((top_exports[0].export_val/exp_val_stat["val"])*100), self.attr.get_name(article="of"), top_exports[1].product.get_profile_link(), num_format((top_exports[1].export_val/exp_val_stat["val"])*100))
-                export_subtitle += _(u"The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total exports %(of_country)s, followed by %(second_export)s, which account for %(second_export_pct)s%%.",
-                                        top_export=top_exports[0].product.get_profile_link(), top_export_pct=num_format((top_exports[0].export_val/exp_val_stat["val"])*100), \
-                                        of_country=self.attr.get_name(article="of"), second_export=top_exports[1].product.get_profile_link(), second_export_pct=num_format((top_exports[1].export_val/exp_val_stat["val"])*100))
-        imp_val_stat = filter(lambda s: s["key"] == "import_val", self.stats())
-        if imp_val_stat:
-            imp_val_stat = imp_val_stat.pop()
-            import_subtitle = ""
-            if self.attr.id != "xxwld":
-                imp_rank = num_format(imp_val_stat["rank"], "ordinal") if imp_val_stat["rank"] > 1 else ""
-                import_subtitle += _(u"In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world. ",
-                                    year=self.year, country=self.attr.get_name(article=True), import_val=num_format(imp_val_stat["val"]), import_rank=imp_rank)
-            if past_yo:
-                chg = "increased" if this_yo.import_val_growth_pct_5 >= 0 else "decreased"
-                import_subtitle += _(u"During the last five years the imports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s. ",
-                                        of_country=self.attr.get_name(article="of"), increased_decreased=chg, change_rate=num_format(this_yo.import_val_growth_pct_5*100), \
-                                        past_import_val=num_format(past_yo.import_val), past_year=past_yr, current_import_val=num_format(this_yo.import_val), current_year=self.year)
-            top_imports = yop_base.order_by(desc("import_val")).limit(2).all()
-            if top_imports:
-                import_subtitle += _(u"The most recent imports are led by %(top_import)s which represent %(top_import_pct)s%% of the total imports %(of_country)s, followed by %(second_import)s, which account for %(second_import_pct)s%%.",
-                                        top_import=top_imports[0].product.get_profile_link(), top_import_pct=num_format((top_imports[0].import_val/imp_val_stat["val"])*100), \
-                                        of_country=self.attr.get_name(article="of"), second_import=top_imports[1].product.get_profile_link(), second_import_pct=num_format((top_imports[1].import_val/imp_val_stat["val"])*100))
+            export_tmap = Build("tree_map", "hs92", "export", self.attr, "all", "show", self.year)
+            this_yo = self.models.Yo.query.filter_by(year = self.year).all()
 
-        dests_tmap = Build("tree_map", "hs92", "export", self.attr, "show", "all", self.year)
-        yod_exp = self.models.Yod.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
-        if yod_exp:
-            dest_list = self.stringify_items(yod_exp, "export_val", "dest")
-            dest_subtitle = _(u"The top export destinations %(of_country)s are %(destinations)s.", of_country=self.attr.get_name(article="of"), destinations=dest_list)
+            export_val = sum([o.export_val for o in this_yo])
+            export_subtitle = _(u"The total world trade in %(year)s was %(export_val)s. ", year=self.year, export_val=num_format(export_val, "export_val"))
 
-        origins_tmap = Build("tree_map", "hs92", "import", self.attr, "show", "all", self.year)
-        yod_imp = self.models.Yod.query.filter_by(year = self.year, dest = self.attr).order_by(desc("export_val")).limit(5).all()
-        if yod_imp:
-            origin_list = self.stringify_items(yod_imp, "export_val", "origin")
-            origin_subtitle = _(u"The top import origins %(of_country)s are %(origins)s.", of_country=self.attr.get_name(article="of"), origins=origin_list)
+            past_yr = self.year - 5
+            past_yo = self.models.Yo.query.filter_by(year = past_yr).all()
+            growth_val = median([o.export_val_growth_pct_5 for o in this_yo])
+            chg = "increased" if growth_val >= 0 else "decreased"
+            export_subtitle += _(u"During the last five years exports have %(increased_decreased)s at a median annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. ",
+                                    increased_decreased=chg, change_rate=num_format(growth_val*100), \
+                                    past_export_val=num_format(sum([o.export_val for o in past_yo])), past_year=past_yr, current_export_val=num_format(export_val), current_year=self.year)
 
-        # trade balance viz --
-        first_yo = self.models.Yo.query.filter_by(year = available_years["hs92"][-1], country = self.attr).first()
-        tb_subtitle = ""
-        tb_build = Build("line", "hs92", "show", self.attr, "all", "all", available_years["hs92"])
-        if first_yo:
-            net_trade = this_yo.export_val - this_yo.import_val
-            trade_balance = _("positive") if net_trade >= 0 else _("negative")
-            trade_direction = _("exports") if net_trade >= 0 else _("imports")
-            tb_subtitle = _(u"As of %(year)s %(country)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s.",
-                            year=self.year, country=self.attr.get_name(article=True), positive_negative=trade_balance, net_trade=num_format(abs(net_trade)), exports_imports=trade_direction)
-            old_yo = self.models.Yo.query.filter_by(year = available_years["hs92"][0], country = self.attr).first()
-            if old_yo:
-                old_net_trade = old_yo.export_val - old_yo.import_val
-                old_trade_balance = _("positive") if old_net_trade >= 0 else _("negative")
-                old_trade_direction = _("exports") if old_net_trade >= 0 else _("imports")
-                is_diff = True if old_trade_balance != trade_balance else False
-                still_or_not = _("still") if old_trade_balance == trade_balance else ""
-                tb_subtitle += _(u" As compared to their trade balance in %(year)s when they %(still)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s.",
-                                year=available_years["hs92"][0], still=still_or_not, positive_negative=old_trade_balance, net_trade=num_format(abs(old_net_trade)), exports_imports=old_trade_direction)
+            top_exports = self.models.Yp.query.filter_by(year = self.year, hs92_id_len=6).order_by(desc("export_val")).limit(2).all()
+            export_subtitle += _(u"The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total products exported, followed by %(second_export)s, which account for %(second_export_pct)s%%. ",
+                                    top_export=top_exports[0].product.get_profile_link(), top_export_pct=num_format((top_exports[0].export_val/export_val)*100), \
+                                    second_export=top_exports[1].product.get_profile_link(), second_export_pct=num_format((top_exports[1].export_val/export_val)*100))
 
-        trade_section = {
-            "builds": [
-                {"title": _(u"Exports"), "build": export_tmap, "subtitle": export_subtitle, "tour":"This is just a test", "seq":5},
-                {"title": _(u"Imports"), "build": import_tmap, "subtitle": import_subtitle},
-                {"title": _(u"Trade Balance"), "build": tb_build, "subtitle": tb_subtitle},
-                {"title": _(u"Destinations"), "build": dests_tmap, "subtitle": dest_subtitle},
-                {"title": _(u"Origins"), "build": origins_tmap, "subtitle": origin_subtitle},
-            ]
-        }
+            origins_tmap = Build("tree_map", "hs92", "import", self.attr, "show", "all", self.year)
+            yo_exp = self.models.Yo.query.filter_by(year = self.year).order_by(desc("export_val")).limit(5).all()
+            origin_list = self.stringify_items(yo_exp, "export_val", "country")
+            origin_subtitle = _(u"The top exporters globally are %(origins)s.", origins=origin_list)
+
+            trade_section = {
+                "builds": [
+                    {"title": _(u"Exports"), "build": export_tmap, "subtitle": export_subtitle, "tour":"This is just a test", "seq":5},
+                    {"title": _(u"Origins"), "build": origins_tmap, "subtitle": origin_subtitle},
+                ]
+            }
+
+        else:
+
+            export_subtitle, import_subtitle, dest_subtitle, origin_subtitle = [None]*4
+
+            export_tmap = Build("tree_map", "hs92", "export", self.attr, "all", "show", self.year)
+            import_tmap = Build("tree_map", "hs92", "import", self.attr, "all", "show", self.year)
+
+            yop_base = self.models.Yop.query.filter_by(year = self.year, origin = self.attr, hs92_id_len=6)
+            # get growth
+            past_yr = self.year - 5
+            past_yo = self.models.Yo.query.filter_by(year = past_yr, country = self.attr).first()
+            this_yo = self.models.Yo.query.filter_by(year = self.year, country = self.attr).first()
+            exp_val_stat = filter(lambda s: s["key"] == "export_val", self.stats())
+            if exp_val_stat:
+                exp_val_stat = exp_val_stat.pop()
+                export_subtitle = ""
+                if self.attr.id != "xxwld":
+                    exp_rank = num_format(exp_val_stat["rank"], "ordinal") if exp_val_stat["rank"] > 1 else ""
+                    export_subtitle += _(u"In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world. ",
+                                        year=self.year, country=self.attr.get_name(article=True), export_val=num_format(exp_val_stat["val"]), export_rank=exp_rank)
+                if past_yo:
+                    chg = "increased" if this_yo.export_val_growth_pct_5 >= 0 else "decreased"
+                    export_subtitle += _(u"During the last five years the exports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. ",
+                                            of_country=self.attr.get_name(article="of"), increased_decreased=chg, change_rate=num_format(this_yo.export_val_growth_pct_5*100), \
+                                            past_export_val=num_format(past_yo.export_val), past_year=past_yr, current_export_val=num_format(this_yo.export_val), current_year=self.year)
+                top_exports = yop_base.order_by(desc("export_val")).limit(2).all()
+                if top_exports:
+                    # raise Exception(top_exports[0].product.get_profile_link(), num_format((top_exports[0].export_val/exp_val_stat["val"])*100), self.attr.get_name(article="of"), top_exports[1].product.get_profile_link(), num_format((top_exports[1].export_val/exp_val_stat["val"])*100))
+                    export_subtitle += _(u"The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total exports %(of_country)s, followed by %(second_export)s, which account for %(second_export_pct)s%%.",
+                                            top_export=top_exports[0].product.get_profile_link(), top_export_pct=num_format((top_exports[0].export_val/exp_val_stat["val"])*100), \
+                                            of_country=self.attr.get_name(article="of"), second_export=top_exports[1].product.get_profile_link(), second_export_pct=num_format((top_exports[1].export_val/exp_val_stat["val"])*100))
+            imp_val_stat = filter(lambda s: s["key"] == "import_val", self.stats())
+            if imp_val_stat:
+                imp_val_stat = imp_val_stat.pop()
+                import_subtitle = ""
+                if self.attr.id != "xxwld":
+                    imp_rank = num_format(imp_val_stat["rank"], "ordinal") if imp_val_stat["rank"] > 1 else ""
+                    import_subtitle += _(u"In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world. ",
+                                        year=self.year, country=self.attr.get_name(article=True), import_val=num_format(imp_val_stat["val"]), import_rank=imp_rank)
+                if past_yo:
+                    chg = "increased" if this_yo.import_val_growth_pct_5 >= 0 else "decreased"
+                    import_subtitle += _(u"During the last five years the imports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s. ",
+                                            of_country=self.attr.get_name(article="of"), increased_decreased=chg, change_rate=num_format(this_yo.import_val_growth_pct_5*100), \
+                                            past_import_val=num_format(past_yo.import_val), past_year=past_yr, current_import_val=num_format(this_yo.import_val), current_year=self.year)
+                top_imports = yop_base.order_by(desc("import_val")).limit(2).all()
+                if top_imports:
+                    import_subtitle += _(u"The most recent imports are led by %(top_import)s which represent %(top_import_pct)s%% of the total imports %(of_country)s, followed by %(second_import)s, which account for %(second_import_pct)s%%.",
+                                            top_import=top_imports[0].product.get_profile_link(), top_import_pct=num_format((top_imports[0].import_val/imp_val_stat["val"])*100), \
+                                            of_country=self.attr.get_name(article="of"), second_import=top_imports[1].product.get_profile_link(), second_import_pct=num_format((top_imports[1].import_val/imp_val_stat["val"])*100))
+
+            dests_tmap = Build("tree_map", "hs92", "export", self.attr, "show", "all", self.year)
+            yod_exp = self.models.Yod.query.filter_by(year = self.year, origin = self.attr).order_by(desc("export_val")).limit(5).all()
+            if yod_exp:
+                dest_list = self.stringify_items(yod_exp, "export_val", "dest")
+                dest_subtitle = _(u"The top export destinations %(of_country)s are %(destinations)s.", of_country=self.attr.get_name(article="of"), destinations=dest_list)
+
+            origins_tmap = Build("tree_map", "hs92", "import", self.attr, "show", "all", self.year)
+            yod_imp = self.models.Yod.query.filter_by(year = self.year, dest = self.attr).order_by(desc("export_val")).limit(5).all()
+            if yod_imp:
+                origin_list = self.stringify_items(yod_imp, "export_val", "origin")
+                origin_subtitle = _(u"The top import origins %(of_country)s are %(origins)s.", of_country=self.attr.get_name(article="of"), origins=origin_list)
+
+            # trade balance viz --
+            first_yo = self.models.Yo.query.filter_by(year = available_years["hs92"][-1], country = self.attr).first()
+            tb_subtitle = ""
+            tb_build = Build("line", "hs92", "show", self.attr, "all", "all", available_years["hs92"])
+            if first_yo:
+                net_trade = this_yo.export_val - this_yo.import_val
+                trade_balance = _("positive") if net_trade >= 0 else _("negative")
+                trade_direction = _("exports") if net_trade >= 0 else _("imports")
+                tb_subtitle = _(u"As of %(year)s %(country)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s.",
+                                year=self.year, country=self.attr.get_name(article=True), positive_negative=trade_balance, net_trade=num_format(abs(net_trade)), exports_imports=trade_direction)
+                old_yo = self.models.Yo.query.filter_by(year = available_years["hs92"][0], country = self.attr).first()
+                if old_yo:
+                    old_net_trade = old_yo.export_val - old_yo.import_val
+                    old_trade_balance = _("positive") if old_net_trade >= 0 else _("negative")
+                    old_trade_direction = _("exports") if old_net_trade >= 0 else _("imports")
+                    is_diff = True if old_trade_balance != trade_balance else False
+                    still_or_not = _("still") if old_trade_balance == trade_balance else ""
+                    tb_subtitle += _(u" As compared to their trade balance in %(year)s when they %(still)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s.",
+                                    year=available_years["hs92"][0], still=still_or_not, positive_negative=old_trade_balance, net_trade=num_format(abs(old_net_trade)), exports_imports=old_trade_direction)
+
+            trade_section = {
+                "builds": [
+                    {"title": _(u"Exports"), "build": export_tmap, "subtitle": export_subtitle, "tour":"This is just a test", "seq":5},
+                    {"title": _(u"Imports"), "build": import_tmap, "subtitle": import_subtitle},
+                    {"title": _(u"Trade Balance"), "build": tb_build, "subtitle": tb_subtitle},
+                    {"title": _(u"Destinations"), "build": dests_tmap, "subtitle": dest_subtitle},
+                    {"title": _(u"Origins"), "build": origins_tmap, "subtitle": origin_subtitle},
+                ]
+            }
+
         sections.append(trade_section)
 
         ''' Product Space Section
         '''
-        num_exports_w_rca = db.session.query(func.count(self.models.Yop.hs92_id)) \
-                    .filter_by(year = self.year, origin = self.attr) \
-                    .filter(self.models.Yop.export_rca >= 1) \
-                    .filter(func.char_length(self.models.Yop.hs92_id)==6) \
-                    .scalar()
-        this_attr_yo = attrs.Yo.query.filter_by(year = self.year, country = self.attr).first()
-        if this_attr_yo:
-            eci = this_attr_yo.eci
-            eci_rank = this_attr_yo.eci_rank
-            if eci_rank:
-                subtitle = _(u"The economy %(of_country)s has an Economic Complexity Index (ECI) of %(eci)s making it the %(eci_rank)s most complex country. ",
-                            of_country=self.attr.get_name(article="of"), eci=num_format(eci), eci_rank=num_format(eci_rank, "ordinal"))
-            else:
-                subtitle = ""
-            subtitle += _(u"%(country)s exports %(num_of_exports)s products with revealed comparative advantage " \
-                u"(meaning that its share of global exports is larger than what " \
-                u"would be expected from the size of its export economy " \
-                u"and from the size of a product’s global market).",
-                country=self.attr.get_name(article=True), num_of_exports=num_exports_w_rca)
-        else:
-            subtitle = ""
+        subtitle = False
+        if self.attr.id != "xxwld":
+            num_exports_w_rca = db.session.query(func.count(self.models.Yop.hs92_id)) \
+                        .filter_by(year = self.year, origin = self.attr) \
+                        .filter(self.models.Yop.export_rca >= 1) \
+                        .filter(func.char_length(self.models.Yop.hs92_id)==6) \
+                        .scalar()
+            this_attr_yo = attrs.Yo.query.filter_by(year = self.year, country = self.attr).first()
+            if this_attr_yo:
+                eci = this_attr_yo.eci
+                eci_rank = this_attr_yo.eci_rank
+                if eci_rank:
+                    subtitle = _(u"The economy %(of_country)s has an Economic Complexity Index (ECI) of %(eci)s making it the %(eci_rank)s most complex country. ",
+                                of_country=self.attr.get_name(article="of"), eci=num_format(eci), eci_rank=num_format(eci_rank, "ordinal"))
+                else:
+                    subtitle = ""
+                subtitle += _(u"%(country)s exports %(num_of_exports)s products with revealed comparative advantage " \
+                    u"(meaning that its share of global exports is larger than what " \
+                    u"would be expected from the size of its export economy " \
+                    u"and from the size of a product’s global market).",
+                    country=self.attr.get_name(article=True), num_of_exports=num_exports_w_rca)
         product_space = Build("network", "hs92", "export", self.attr, "all", "show", self.year)
         ps_text = _(u"The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure.")
-        ps_text = u"{}</p><p>{}".format(ps_text, subtitle)
+        if subtitle:
+            ps_text = u"{}</p><p>{}".format(ps_text, subtitle)
         ps_section = {
             "title": _(u"Economic Complexity %(of_country)s", of_country=self.attr.get_name(article="of")),
             "builds": [
@@ -354,11 +391,20 @@ class Country(Profile):
 
         ''' ECI Ranking Section
         '''
-        if this_attr_yo and this_attr_yo.eci != None:
+        if self.attr.id == "xxwld":
+            line_rankings = Build("line", "sitc", "eci", "show", "all", "all", [y for y in available_years["sitc"] if y >= 1964])
+            start_year = 1980
+            start_year = max(1964, start_year) if start_year != 1980 else 1964
+            year_range = self.year - start_year
+            subtitle = _("""The Economic Complexities of each country visualized over the past %(year_range)s years.""", year_range=year_range)
+            ps_section["builds"].append({"title": _(u"Economic Complexity Ranking"), "build": line_rankings, "subtitle": subtitle})
+
+        elif this_attr_yo and this_attr_yo.eci != None:
             line_rankings = Build("line", "sitc", "eci", "show", self.attr, "all", [y for y in available_years["sitc"] if y >= 1964])
             start_year = earliest_data.get(self.attr.id, 1980)
             start_year = max(1964, start_year) if start_year != 1980 else 1964
             year_range = self.year - start_year
+
             attr_yo_historic = attrs.Yo.query.filter_by(country=self.attr).filter(attrs.Yo.year == start_year).first()
             if attr_yo_historic.eci_rank:
                 eci_delta = this_attr_yo.eci_rank - attr_yo_historic.eci_rank
@@ -368,7 +414,7 @@ class Country(Profile):
                     of_country=self.attr.get_name(article="of"), increased_or_decreased=inc_dec,
                     rank_delta=abs(eci_delta), year_range=year_range, old_eci=num_format(attr_yo_historic.eci_rank, "ordinal"),
                     old_year=start_year, current_eci=num_format(this_attr_yo.eci_rank, "ordinal"), current_year=self.year)
-                ps_section["builds"].append({"title": _(u"Economic Complexity Ranking"), "build": line_rankings, "subtitle": subtitle})
+            ps_section["builds"].append({"title": _(u"Economic Complexity Ranking"), "build": line_rankings, "subtitle": subtitle})
         sections.append(ps_section)
 
         sections.append({
