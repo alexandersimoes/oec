@@ -18,7 +18,7 @@ from sqlalchemy import not_
 from random import choice
 from config import FACEBOOK_ID
 
-mod = Blueprint('visualize', __name__, url_prefix='/<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","mn","nl","ru","pt","tr","zh"):lang>/visualize')
+mod = Blueprint('visualize', __name__, url_prefix='/<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","mn","nl","ru","pt","tr","vi","zh"):lang>/visualize')
 
 @mod.url_value_preprocessor
 def get_profile_owner(endpoint, values):

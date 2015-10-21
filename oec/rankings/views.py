@@ -27,7 +27,7 @@ def rankings_redirect_nolang(category=None, year=None):
         redirect_url = url_for('rankings.rankings_redirect', lang=g.locale)
     return redirect(redirect_url)
 
-mod = Blueprint('rankings', __name__, url_prefix='/<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","mn","nl","ru","pt","tr","zh"):lang>/rankings')
+mod = Blueprint('rankings', __name__, url_prefix='/<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","mn","nl","ru","pt","tr","vi","zh"):lang>/rankings')
 
 @mod.before_request
 def before_request():

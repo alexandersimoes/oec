@@ -102,7 +102,7 @@ def page_not_found(e):
 # General views
 # ---------------------------
 @mod.route('/')
-@mod.route('<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","mn","nl","ru","pt","tr","zh"):lang>/')
+@mod.route('<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","mn","nl","ru","pt","tr","vi","zh"):lang>/')
 def home(lang=None):
     if not lang:
         return redirect(url_for('.home', lang='en'))

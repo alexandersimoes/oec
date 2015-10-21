@@ -4,7 +4,7 @@ from flask import Blueprint, g, render_template
 from oec import app
 from oec.general.views import get_locale
 
-mod = Blueprint('resources', __name__, url_prefix='/<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","mn","nl","ru","pt","tr","zh"):lang>/resources')
+mod = Blueprint('resources', __name__, url_prefix='/<any("ar","de","el","en","es","fr","he","hi","it","ja","ko","mn","nl","ru","pt","tr","vi","zh"):lang>/resources')
 
 @mod.url_value_preprocessor
 def get_profile_owner(endpoint, values):
