@@ -64,6 +64,7 @@ LANGUAGES = {
     'ru': u'Pyccĸий',
     'pt': u'Português',
     'tr': u'Tϋrkçe',
+    'vi': u'Tiếng Việt',
     'zh': u'简化中国'
 }
 
