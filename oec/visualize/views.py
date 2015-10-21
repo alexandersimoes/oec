@@ -444,9 +444,9 @@ def builds():
 
 
     if focus == "origin_id":
-        attr = Country.query.filter_by(id_3char=build_args["origin_id"]).first()
+        attr = Country.query.filter_by(id_3char=build_args["origin_id"]).first() or Country.query.filter(Country.id.endswith(build_args["origin_id"])).first()
     elif focus == "dest_id":
-        attr = Country.query.filter_by(id_3char=build_args["dest_id"]).first()
+        attr = Country.query.filter_by(id_3char=build_args["dest_id"]).first() or Country.query.filter(Country.id.endswith(build_args["dest_id"])).first()
     elif focus == "prod_id":
         tbl = globals()[build_args["classification"].title()]
         c = build_args["classification"]
