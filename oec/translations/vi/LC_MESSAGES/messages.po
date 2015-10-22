@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-10-21 17:48-0400\n"
-"PO-Revision-Date: 2015-10-21 17:48-0400\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-10-22 16:06-0400\n"
 "Language-Team: vi <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+"Last-Translator: \n"
+"Language: vi\n"
+"X-Generator: Poedit 1.8.6\n"
 
 msgid "Trillion"
 msgid_plural "Trillions"
@@ -36,76 +37,76 @@ msgstr[0] ""
 
 msgctxt "0"
 msgid "th"
-msgstr ""
+msgstr " "
 
 msgctxt "1"
 msgid "st"
-msgstr ""
+msgstr " "
 
 msgctxt "2"
 msgid "nd"
-msgstr ""
+msgstr " "
 
 msgctxt "3"
 msgid "rd"
-msgstr ""
+msgstr " "
 
 msgctxt "4"
 msgid "th"
-msgstr ""
+msgstr " "
 
 msgctxt "5"
 msgid "th"
-msgstr ""
+msgstr " "
 
 msgctxt "6"
 msgid "th"
-msgstr ""
+msgstr " "
 
 msgctxt "7"
 msgid "th"
-msgstr ""
+msgstr " "
 
 msgctxt "8"
 msgid "th"
-msgstr ""
+msgstr " "
 
 msgctxt "9"
 msgid "th"
-msgstr ""
+msgstr " "
 
 msgid "article_the_m_p"
-msgstr ""
+msgstr " "
 
 msgid "article_the_m"
-msgstr ""
+msgstr " "
 
 msgid "article_the_f_p"
-msgstr ""
+msgstr " "
 
 msgid "article_the_f"
-msgstr ""
+msgstr " "
 
 msgid "article_of"
-msgstr ""
+msgstr " "
 
 msgid "article_of_m_p"
-msgstr ""
+msgstr " "
 
 msgid "article_of_m"
-msgstr ""
+msgstr " "
 
 msgid "article_of_f_p"
-msgstr ""
+msgstr " "
 
 msgid "article_of_f"
-msgstr ""
+msgstr " "
 
 msgid "verb_is_p"
-msgstr ""
+msgstr " "
 
 msgid "verb_is"
-msgstr ""
+msgstr " "
 
 msgid "The Observatory of Economic Complexity"
 msgstr ""
@@ -168,7 +169,7 @@ msgid "Take a tour"
 msgstr ""
 
 msgid "Exports"
-msgstr ""
+msgstr "xuất khẩu"
 
 msgid "Imports"
 msgstr ""
@@ -322,15 +323,15 @@ msgstr ""
 
 #, python-format
 msgid "%(country_is)s the %(econ_rank)s largest export economy in the world"
-msgstr ""
+msgstr "%(country_is)s đứng thứ %(econ_rank)s trong lĩnh vực xuất khẩu trên nền kinh tế thế giới"
 
 #, python-format
 msgid " and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI). "
-msgstr ""
+msgstr " và là nền kinh tế phức tạp đứng thứ %(eci_rank)s dựa trên mục lục Kinh Tế Phức Tạp "
 
 #, python-format
 msgid "In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s. "
-msgstr ""
+msgstr "Trong năm %(year)s, %(country)s đã xuất khẩu $%(export_val)s và nhập khẩu $%(import_val)s, dẫn đến cán cân thương mại giá trị %(positive_negative)s $%(trade_delta)s. "
 
 #, python-format
 msgid "In %(year)s the GDP %(of_country)s was $%(gdp)s and its GDP per capita was $%(gdp_pc)s."
@@ -338,11 +339,11 @@ msgstr ""
 
 #, python-format
 msgid "The top exports %(of_country)s are %(exports_list)s, using the 1992 revision of the HS (Harmonized System) classification. Its top imports are %(imports_list)s."
-msgstr ""
+msgstr "Những thị trường xuất khẩu lớn nhất của %(of_country)s là %(exports_list)s, theo phiên bản năm 1992 của sự phân loại HS (Hệ Thống Hài Hoà). Nhập khẩu hàng đầu của mình là %(imports_list)s."
 
 #, python-format
 msgid "The top export destinations %(of_country)s are %(destinations)s. The top import origins are %(origins)s."
-msgstr ""
+msgstr "Những thị trường xuất khẩu lớn nhất của %(of_country)s là %(destinations)s. Nguồn gốc nhập khẩu hàng đầu là %(origins)s."
 
 #, python-format
 msgid "%(country)s is an island and borders %(maritime_borders)s by sea."
@@ -362,7 +363,7 @@ msgstr ""
 
 #, python-format
 msgid "During the last five years exports have %(increased_decreased)s at a median annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. "
-msgstr ""
+msgstr "Trong năm năm qua, xuất khẩu từ đã %(increased_decreased)s vào tỷ lệ %(change_rate)s%% hàng năm, từ $ %(past_export_val)s trong năm %(past_year)s tới $ %(current_export_val)s trong năm %(current_year)s. "
 
 #, python-format
 msgid "The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total products exported, followed by %(second_export)s, which account for %(second_export_pct)s%%. "
@@ -401,27 +402,27 @@ msgstr ""
 
 #, python-format
 msgid "The top export destinations %(of_country)s are %(destinations)s."
-msgstr ""
+msgstr "Những thị trường xuất khẩu lớn nhất của %(of_country)s là %(destinations)s."
 
 #, python-format
 msgid "The top import origins %(of_country)s are %(origins)s."
 msgstr ""
 
 msgid "positive"
-msgstr ""
+msgstr "tích cực"
 
 msgid "negative"
-msgstr ""
+msgstr "tiêu cực"
 
 msgid "exports"
-msgstr ""
+msgstr "xuất khẩu"
 
 msgid "imports"
 msgstr ""
 
 #, python-format
 msgid "As of %(year)s %(country)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s."
-msgstr ""
+msgstr "Tính đến year %(year)s, %(country)s nhận thấy một cán cân thương mại giá trị %(positive_negative)s $%(net_trade)s trong ròng %(exports_imports)s."
 
 msgid "still"
 msgstr ""
@@ -472,6 +473,8 @@ msgid ""
 "The Economic Complexity ranking %(of_country)s has %(increased_or_decreased)s by %(rank_delta)s places\n"
 "                    over the past %(year_range)s years from %(old_eci)s in %(old_year)s to %(current_eci)s in %(current_year)s."
 msgstr ""
+"Vị trí Kinh Tế Phức Tạp của %(of_country)s đã  %(increased_or_decreased)s bởi %(rank_delta)s hạng\n"
+"                    trong khoảng thời gian %(year_range)s năm từ %(old_eci)s vào năm %(old_year)s đến %(current_eci)s vào năm %(current_year)s."
 
 #, python-format
 msgid "More on %(country)s from our sister sites"
@@ -484,6 +487,11 @@ msgid ""
 "                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/all/bra/?size=import_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
 "                "
 msgstr ""
+"\n"
+"                Sơ đồ này cho thấy những thành phố trong Brazil đã nhập khẩu sản phẩm từ %(country)s.<br /><br />\n"
+"                DataViva là một công cụ trực quan để cung cấp các số liệu chính thức về thương mại, công nghiệp, và giáo dục tại Brazil. Để tìm hiểu thêm hoặc tạo một trang web tương tự, xin liên lạc chúng tôi qua địa chỉ email <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.\n"
+"                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'>Explore on DataViva &raquo;</a>\n"
+"                "
 
 msgid "Imports of Brazil by Municipality"
 msgstr ""
@@ -525,6 +533,10 @@ msgid ""
 "                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
 "                "
 msgstr ""
+"\n"
+"                Sơ đồ này cho thấy những thành phố trong Brazil đã nhập khẩu sản phẩm từ %(country)s.\n"
+"                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Khám phá trên DataViva &raquo;</a>\n"
+"                "
 
 #, python-format
 msgid "Brazilian Municipalities that import from %(country)s"
@@ -540,7 +552,7 @@ msgstr ""
 
 #, python-format
 msgid "This treemap shows the cultural exports %(of_country)s, as proxied by the production of globally famous historical characters.</p><p>%(pantheon_link)s"
-msgstr ""
+msgstr "Sơ đồ này cho thấy những sản phẩm xuất khẩu liên quan đến xuất khẩu văn hóa của %(of_country)s, được đại diện bởi việc sản xuất.</p><p>%(pantheon_link)s"
 
 #, python-format
 msgid "Globally Famous People %(of_country)s by City"
@@ -677,4 +689,3 @@ msgstr ""
 #, python-format
 msgid "Profile for %(attr)s"
 msgstr ""
-
