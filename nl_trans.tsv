@@ -1,0 +1,147 @@
+article_the_m_p	de
+article_the_m	de
+article_the_f_p	de
+article_the_f	de
+article_of	van
+article_of_m_p	van
+article_of_m	van
+article_of_f_p	van
+article_of_f	van
+verb_is_p	is
+verb_is	is
+The Observatory of Economic Complexity	Het Observatorium van Economische Complexiteit
+We are the world's<br/>leading visualization engine<br/>for international trade data.	We zijn 's werelds toonaangevende<br/>visualisatie engine voor de internationale<br/>handel van gegevens.
+Learn More	Leer meer
+Search	zoeken
+Application programming interface (API) for querying the raw data used throughout The Observatory of Economic Complexity.	Application programming interface (API) voor het opvragen van de ruwe data gebruikt in Het Observatorium van Economische Complexiteit.
+Books	Boeken
+Photo by	Foto door
+Countries	Landen
+Products	Producten
+Visualizations	Visualisaties
+Rankings	Rankings
+Publications	Publicaties
+Resources	Middelen
+About the Site	Over de Site
+Economic Complexity	Economische Complexiteit
+FAQs	Veelgestelde vragen
+Data Sources	Data bronnen
+Permissions	Machtigingen
+API	API
+Take a tour	Neem een rondleiding
+Prev. Year	Vorige. jaar
+Rankings	 Rankings
+Click here for Product Rankings	Klik hier voor het product Rankings
+Product Complexity	Product Complexiteit
+Click here for Country Rankings	Klik hier voor de Country Rankings
+Next Year	Volgend jaar
+Previous Year	Vorig jaar
+Dataset	Dataset
+Year	Jaar
+Depth	Diepte
+Download Current Year	Download Huidig jaar
+Download All Years	Download Alle jaren
+Photos and descriptions of the team members involved in the creation of The Observatory.	Foto's en beschrijvingen van de teamleden betrokken bij de oprichting van The Observatory.
+About the Observatory	Over het Observatorium
+Current Team	huidige Team
+Past Contributors	verleden medewerkers
+HS, SITC, and Country classification with their corresponding IDs and values.	HS, SITC en Land indeling met de bijbehorende ID's en waarden.
+What is Economic Complexity?	Wat is Economic Complexity?
+How is Economic Complexity calculated?	Hoe wordt Economic Complexity berekend?
+Who makes what?	Wie maakt wat?
+Frequently Asked Questions	Veel gestelde vragen
+A Development blog of updates to the site.	Een Development blog van updates op de site
+Home	Thuis
+An emedded visualization.	Een emedded visualisatie.
+Data visualization of economic trade	Data visualisatie van de economische handel
+Build Visualization	Bouwen Visualisatie
+Select Trade Scenario	Selecteer Trade Scenario
+Profile	Profiel
+and	en
+Econ Complexity	Econ Complexiteit
+Exports	Export
+Imports	Import
+GDP Per Capita	BBP per inwoner
+%(country_is)s the %(econ_rank)s largest export economy in the world	%(country_is)s de %(econ_rank)s grootste exportmarkt economie in de wereld
+ and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI). 	 en de %(eci_rank)s meest complexe economie volgens de Economic Complexity Index (ECI). 
+In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s. 	In %(year)s exporteerde %(country)s $ %(export_val)s en $ %(import_val)s geïmporteerd, wat resulteert in een %(positive_negative)s handelsbalans van $ %(trade_delta)s. 
+In %(year)s the GDP %(of_country)s was $%(gdp)s and its GDP per capita was $%(gdp_pc)s.	In %(year)s het BBP %(of_country)s was $ %(gdp)s en het BBP per hoofd van de bevolking was $ %(gdp_pc)s.
+The top exports %(of_country)s are %(exports_list)s, using the 1992 revision of the HS (Harmonized System) classification. Its top imports are %(imports_list)s.	De top uitvoer %(of_country)s zijn %(exports_list)s, met behulp van de 1992 herziening van de HS (Harmonized System) classificatie. De top invoer %(imports_list)s.
+The top export destinations %(of_country)s are %(destinations)s. The top import origins are %(origins)s.	De top exportbestemmingen %(of_country)s zijn %(destinations)s. De top import oorsprong zijn %(origins)s.
+%(country)s is an island and borders %(maritime_borders)s by sea.	%(country)s is een eiland en grenst aan %(maritime_borders)s over zee.
+%(country)s borders %(land_borders)s.	%(country)s grenst aan %(land_borders)s.
+%(country)s borders %(land_borders)s by land and %(maritime_borders)s by sea.	%(country)s grenst aan %(land_borders)s over land en %(maritime_borders)s door de zee.
+In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world. 	In %(year)s exporteerde %(country)s $ %(export_val)s, waardoor het de %(export_rank)s grootste exporteur in de wereld. 
+During the last five years the exports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. 	In de afgelopen vijf jaar is de export %(of_country)s is %(increased_decreased)s op jaarbasis van %(change_rate)s%%, van $ %(past_export_val)s in %(past_year)s tot $ %(current_export_val)s in %(current_year)s. 
+The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total exports %(of_country)s, followed by %(second_export)s, which account for %(second_export_pct)s%%.	De meest recente export wordt geleid door %(top_export)s dat %(top_export_pct)s%% van de totale uitvoer %(of_country)s, gevolgd door %(second_export)s, die goed zijn voor %(second_export_pct)s%% vertegenwoordigen.
+In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world. 	In %(year)s %(country)s ingevoerde $ %(import_val)s, waardoor het de %(import_rank)s grootste importeur ter wereld. 
+During the last five years the imports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s. 	In de afgelopen vijf jaar is de invoer %(of_country)s is %(increased_decreased)s op jaarbasis van %(change_rate)s%%, van $ %(past_import_val)s in %(past_year)s tot $ %(current_import_val)s in %(current_year)s. 
+The most recent imports are led by %(top_import)s which represent %(top_import_pct)s%% of the total imports %(of_country)s, followed by %(second_import)s, which account for %(second_import_pct)s%%.	De meest recente invoer worden geleid door %(top_import)s dat %(top_import_pct)s%% van de totale invoer %(of_country)s vertegenwoordigen, gevolgd door %(second_import)s, die goed zijn voor %(second_import_pct)s%%.
+The top export destinations %(of_country)s are %(destinations)s.	De top exportbestemmingen %(of_country)s zijn %(destinations)s.
+The top import origins %(of_country)s are %(origins)s.	De top import oorsprong %(of_country)s zijn %(origins)s.
+positive	positief
+negative	negatief
+exports	export
+imports	import
+As of %(year)s %(country)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s.	Vanaf %(year)s %(country)s had een %(positive_negative)s handelsbalans van $ %(net_trade)s in de netto-%(exports_imports)s.
+still	nog
+ As compared to their trade balance in %(year)s when they %(still)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s.	 In vergelijking met hun handelsbalans in %(year)s toen ze %(still)s een %(positive_negative)s handelsbalans van $ %(net_trade)s in de netto-%(exports_imports)s.
+Trade Balance	Handelsbalans
+Destinations	Bestemmingen
+Origins	Origins
+The economy %(of_country)s has an Economic Complexity Index (ECI) of %(eci)s making it the %(eci_rank)s most complex country. 	De economie %(of_country)s heeft een Economic Complexity Index (ECI) van %(eci)s waardoor het de %(eci_rank)s meest complexe land. 
+%(country)s exports %(num_of_exports)s products with revealed comparative advantage (meaning that its share of global exports is larger than what would be expected from the size of its export economy and from the size of a product’s global market).	%(country)s exporteert %(num_of_exports)s producten met geopenbaard comparatief voordeel (wat betekent dat het aandeel in de wereldwijde export is groter dan wat zou worden verwacht van de omvang van de export en de economie van de grootte van een product de wereldwijde markt).
+The product space is a network connecting products that are likely to be co-exported and can be used to predict the evolution of a country’s export structure.	Het product ruimte is een netwerk waarin producten die waarschijnlijk mede uitgevoerd en kan worden gebruikt om de ontwikkeling van de uitvoer van een land structuur voorspellen.
+Economic Complexity %(of_country)s	Economische Complexiteit %(of_country)s
+Product Space	Product Space
+increased	gestegen
+decreased	gedaald
+The Economic Complexity ranking %(of_country)s has %(increased_or_decreased)s by %(rank_delta)s places\n                    over the past %(year_range)s years from %(old_eci)s in %(old_year)s to %(current_eci)s in %(current_year)s.	Het Economisch Complexiteit ranking %(of_country)s is %(increased_or_decreased)s met %(rank_delta)s plaatsen\n                    in de afgelopen %(year_range)s jaar van %(old_eci)s in %(old_year)s-%(current_eci)s in %(current_year)s.
+Economic Complexity Ranking	Economische Complexiteit Ranking
+More on %(country)s from our sister sites	Meer op %(country)s van onze nevensites
+\n            This treemap shows the municipalities in Brazil that imported products from %(country)s.<br /><br />\n            DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.\n            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'>Explore on DataViva &raquo;</a>\n            	\n            Dit boom kaart toont de gemeenten in Brazilië dat producten geïmporteerd uit %(country)s.<br /><br />\n            DataViva is een visualisatie tool die officiële gegevens verschaft over de handel, industrie en onderwijs in Brazilië. Als u graag meer informatie of voor het maken van een vergelijkbare site contact met ons op <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.\n            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'>Explore on DataViva &raquo;</a>\n            
+\n            This treemap shows the municipalities in Brazil that exported products to %(country)s.\n            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Explore on DataViva &raquo;</a>\n            	\n            Dit boom kaart toont de gemeenten in Brazilië die producten geëxporteerd naar %(country)s.\n            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Explore on DataViva &raquo;</a>\n            
+Brazilian Municipalities that import from %(country)s	Braziliaanse Gemeenten die importeren uit %(country)s
+Brazilian Municipalities that export to %(country)s	Braziliaanse Gemeenten die exporteren naar %(country)s
+Globally Famous People %(of_country)s	Wereldwijd Beroemdheden %(of_country)s
+This treemap shows the cultural exports %(of_country)s, as proxied by the production of globally famous historical characters.</p><p>%(pantheon_link)s	Dit boom kaart toont de culturele export %(of_country)s, zoals proxy door de productie van wereldwijd bekende historische figuren.</p><p>%(pantheon_link)s
+Globally Famous People %(of_country)s by City	Wereldwijd Beroemde Mensen %(of_country)s door de stad
+This treemap shows the cultural exports %(of_country)s by city, as proxied by the production of globally famous historical characters.</p><p>%(pantheon_link)s	Dit boom kaart toont de culturele export %(of_country)s door de stad, zoals proxy door de productie van wereldwijd bekende historische figuren.</p><p>%(pantheon_link)s
+Top Exporter	Top Exporteur
+Top Importer	Top Importeur
+%(product)s the %(economic_rank)s most traded product	%(product)s de %(economic_rank)s meest verhandelde product
+ and the %(pci_rank)s most complex product according to the <a href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>	 en de %(pci_rank)s meest complexe product volgens de <a href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>
+The top exporters of %(product)s are %(exporters)s. The top importers are %(importers)s.	De top exporteurs van %(product)s zijn %(exporters)s. De top importeurs %(importers)s.
+%(product)s the top export of %(countries)s.	%(product)s de top export van %(countries)s.
+%(product)s the top import of %(countries)s.	%(product)s de top import van %(countries)s.
+%(product)s also known as %(keywords)s.	%(product)s ook bekend als %(keywords)s.
+%(product)s a %(product_id_length)s digit %(classification)s product.	%(product)s een %(product_id_length)s-cijferige %(classification)s product.
+Rank	Rang
+ID	ID
+Country	Land
+Product	Product
+Percent	Procent
+Export Value	Exportwaarde
+Net Export Value	Netto Export Waarde
+Import Value	Invoerwaarde
+Net Import Value	Netto invoerwaarde
+Market Value	Marktwaarde
+Export	Export
+Import	Import
+GDP	BBP
+GDPpc (constant '05 US$)	BBPpc (constante '05 US $)
+GDPpc (current US$)	BBPpc (huidige US $)
+GDPpc PPP (constant '11)	BBPpc PPP (constante '11)
+GDPpc PPP (current)	BBPpc PPP (huidige)
+ECI	ECI
+ECI Rank	ECI Rank
+Annual Growth Rate (1 year)	Annual Growth Rate (1 jaar)
+Annual Growth Rate (5 year)	Annual Growth Rate (5 jaar)
+Growth Value (1 year)	Groei Value (1 jaar)
+Growth Value (5 year)	Groei Waarde (5 jaar)
+Partner	Partner
+Y Axis	Y-as
+Trade Flow	Trade Flow
+Start Year	Start Jaar
+End Year	Einde Jaar
+Profile for %(attr)s	Profiel voor %(attr)s
