@@ -107,8 +107,10 @@ def main(file_path, lang, cls):
             
                 try:
                     cursor.execute(sql, indicies+data_vals+data_vals)
-                except:
-                    print "Error with:", indicies
+                except MySQLdb.Error, e:
+                    print "Error %d: %s" % (e.args[0], e.args[1])
+                    print indicies
+                    # sys.exit()
                     
 
 if __name__ == "__main__":
