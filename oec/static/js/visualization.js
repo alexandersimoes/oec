@@ -321,6 +321,16 @@ configs.default = function(build, container) {
           "transform": "uppercase",
           "weight": 400
         }
+      },
+      "total": {
+        "font": {
+          "color": text,
+          "family": ["Montserrat", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+          "size": 16,
+          "transform": "uppercase",
+          "weight": 400
+        },
+        "value": ["line", "scatter"].indexOf(build.viz.slug) < 0 
       }
     },
     "tooltip": tooltip,
@@ -373,7 +383,6 @@ configs.geo_map = function(build, container) {
   return {
     "color": build.trade_flow+"_val",
     "coords": {
-      "center": [10,0],
       "key": "countries",
       "padding": 0,
       "mute": ["anata"],
@@ -381,11 +390,6 @@ configs.geo_map = function(build, container) {
     },
     "depth": 1,
     "size": "export_val",
-    "x": "eci",
-    "y": {
-      "scale": "log",
-      "value": build.trade_flow
-    },
     "ui": [
       {"method":show_all_years, "value":["Show all years"], "type":"button"},
       {"method":"color", "value": [
