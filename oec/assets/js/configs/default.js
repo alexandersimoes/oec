@@ -186,6 +186,16 @@ configs.default = function(build, container) {
           "transform": "uppercase",
           "weight": 400
         }
+      },
+      "total": {
+        "font": {
+          "color": text,
+          "family": ["Montserrat", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+          "size": 16,
+          "transform": "uppercase",
+          "weight": 400
+        },
+        "value": ["line", "scatter"].indexOf(build.viz.slug) < 0 
       }
     },
     "tooltip": tooltip,
