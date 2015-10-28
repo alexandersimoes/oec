@@ -14,10 +14,12 @@ def read_po(pofile, lang):
     foreign_regex = re.compile('msgstr(.*)', re.DOTALL)
     for trans in found[1:]:
         if "msgid_plural" not in trans and "msgctxt" not in trans:
-            eng_found = eng_regex.findall(trans, re.DOTALL)
+
+            eng_found = eng_regex.findall(trans)
+
             if eng_found:
                 english_txt = clean_str(eng_found[0])
-                for_found = foreign_regex.findall(trans, re.DOTALL)
+                for_found = foreign_regex.findall(trans)
                 foreign_txt = clean_str(for_found[0])
                 all_trans.append([english_txt, foreign_txt])
     
