@@ -2,7 +2,12 @@ function share(build){
 
   return function(){
     var lang = build.lang;
-    var same_origin = window.parent.location.host == window.location.host;
+    try {
+      var same_origin = window.parent.location.host == window.location.host;
+    }
+    catch (e) {
+      var same_origin = false;
+    }
     var url = encodeURIComponent("/"+lang+"/visualize/"+build.url)
 
     // make post request to server for short URL

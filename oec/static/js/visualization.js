@@ -86,7 +86,13 @@ var visualization = function(build, container) {
   })
 
   /* If not on the explore page, show the title! */
-  if (window.parent.location.href.indexOf("/embed/") > 0) {
+  try {
+    var same_origin = window.parent.location.host == window.location.host;
+  }
+  catch (e) {
+    var same_origin = false;
+  }
+  if (same_origin && window.parent.location.href.indexOf("/embed/") > 0) {
     viz.title(build.title.toUpperCase());
   }
 
@@ -160,7 +166,13 @@ configs.default = function(build, container) {
   }
 
   var background = "none", curtain = "black", text = "#333333";
-  if(window.parent.location.host == window.location.host){
+  try {
+    var same_origin = window.parent.location.host == window.location.host;
+  }
+  catch (e) {
+    var same_origin = false;
+  }
+  if(same_origin){
     if (window.location.href.indexOf("/profile/") > 0) {
       background = d3.select(container.node().parentNode.parentNode.parentNode).style("background-color");
     }
@@ -330,7 +342,7 @@ configs.default = function(build, container) {
           "transform": "uppercase",
           "weight": 400
         },
-        "value": ["line", "scatter"].indexOf(build.viz.slug) < 0 
+        "value": ["line", "scatter"].indexOf(build.viz.slug) < 0
       }
     },
     "tooltip": tooltip,
@@ -925,7 +937,12 @@ function share(build){
 
   return function(){
     var lang = build.lang;
-    var same_origin = window.parent.location.host == window.location.host;
+    try {
+      var same_origin = window.parent.location.host == window.location.host;
+    }
+    catch (e) {
+      var same_origin = false;
+    }
     var url = encodeURIComponent("/"+lang+"/visualize/"+build.url)
 
     // make post request to server for short URL

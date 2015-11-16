@@ -25,7 +25,13 @@ configs.default = function(build, container) {
   }
 
   var background = "none", curtain = "black", text = "#333333";
-  if(window.parent.location.host == window.location.host){
+  try {
+    var same_origin = window.parent.location.host == window.location.host;
+  }
+  catch (e) {
+    var same_origin = false;
+  }
+  if(same_origin){
     if (window.location.href.indexOf("/profile/") > 0) {
       background = d3.select(container.node().parentNode.parentNode.parentNode).style("background-color");
     }
@@ -195,7 +201,7 @@ configs.default = function(build, container) {
           "transform": "uppercase",
           "weight": 400
         },
-        "value": ["line", "scatter"].indexOf(build.viz.slug) < 0 
+        "value": ["line", "scatter"].indexOf(build.viz.slug) < 0
       }
     },
     "tooltip": tooltip,
