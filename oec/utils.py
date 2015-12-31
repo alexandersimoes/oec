@@ -218,7 +218,8 @@ def affixes(key):
     lookup = {
         "export_val": ["$", ""],
         "import_val": ["$", ""],
-        "gdp": ["$", ""]
+        "gdp": ["$", ""],
+        "gdp_pc_current_ppp": ["$", ""]
     }
     if key in lookup:
         return lookup[key]
