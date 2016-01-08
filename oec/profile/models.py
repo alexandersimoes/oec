@@ -181,7 +181,7 @@ class Country(Profile):
                             year=self.year, country=self.attr.get_name(article=True), export_val=formatted_vals["export_val"], import_val=formatted_vals["import_val"], positive_negative=trade_balance, trade_delta=formatted_vals["trade_delta"]))
                 if this_attr_yo:
                     gdp = this_attr_yo.gdp
-                    gdp_pc = this_attr_yo.gdp_pc_current_ppp
+                    gdp_pc = this_attr_yo.gdp_pc_current_ppp or this_attr_yo.gdp_pc_current
                     formatted_vals = {"gdp":gdp, "gdp_pc":gdp_pc}
                     formatted_vals = {k: num_format(v) for k, v in formatted_vals.items()}
                     p1.append(_(u"In %(year)s the GDP %(of_country)s was $%(gdp)s and its GDP per capita was $%(gdp_pc)s.",
