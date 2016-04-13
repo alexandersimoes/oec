@@ -41,7 +41,7 @@ Adding the Observatory to computer via virtualenv
 3. Activate this newly created environment
 
         . /path/to/oec/bin/activate
-4  Install required software
+4. Install required software
 
         mysql
 5. Install the required Python libraries
