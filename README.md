@@ -44,6 +44,8 @@ Adding the Observatory to computer via virtualenv
 4. Install required software
 
         mysql
+        # if using homebrew, not install ONLY the client
+        brew install mysql --client-only --universal
 5. Install the required Python libraries
 
         pip install -r requirements.txt
