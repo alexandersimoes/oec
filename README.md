@@ -37,18 +37,21 @@ Adding the Observatory to computer via virtualenv
         git clone https://github.com/alexandersimoes/oec.git
 2. Create the virtual environment
 
-        mkvirtualenv oec
+        virtualenv oec
 3. Activate this newly created environment
 
-        workon oec
-4. Install the required Python libraries
+        . /path/to/oec/bin/activate
+4  Install required software
+
+        mysql
+5. Install the required Python libraries
 
         pip install -r requirements.txt
-5. Create a MySQL database on your local machine
-6. Import the latest dump of the database from [atlas.media.mit.edu/static/db/](https://atlas.media.mit.edu/static/db/)
+6. Create a MySQL database on your local machine
+7. Import the latest dump of the database from [atlas.media.mit.edu/static/db/](https://atlas.media.mit.edu/static/db/)
 
         mysql -u username -p -h localhost DB_NAME < oec_xxxx-xx-xx.sql
-7. Be sure to create the following local environment variables
+8. Be sure to create the following local environment variables
 
         export OEC_SECRET_KEY=some_s3cret_k3y
         export OEC_DB_USER=my_db_username
@@ -58,7 +61,7 @@ Adding the Observatory to computer via virtualenv
         * export CACHE_DIR=/home/
 
         * only necessary if using filesystem caching
-8. Updating translations (if something is changed)
+9. Updating translations (if something is changed)
 
         pybabel extract -F babel.cfg -o messages.pot oec --no-location --omit-header --no-wrap
         pybabel update -i messages.pot -d oec/translations --no-location --omit-header --no-wrap
