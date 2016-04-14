@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2016-04-13 18:52-0400\n"
-"PO-Revision-Date: 2016-04-13 18:34-0400\n"
+"PO-Revision-Date: 2016-04-14 11:31-0400\n"
 "Last-Translator: \n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.3\n"
+"X-Generator: Poedit 1.8.7\n"
 
 msgid "Trillion"
 msgid_plural "Trillions"
@@ -179,16 +180,16 @@ msgid "and"
 msgstr "と"
 
 msgid "Trade Partners"
-msgstr ""
+msgstr "貿易パートナー"
 
 msgid "Product Trade"
-msgstr ""
+msgstr "製品の貿易"
 
 msgid "Exporters"
-msgstr ""
+msgstr "輸出"
 
 msgid "Importers"
-msgstr ""
+msgstr "輸入"
 
 msgid "Prev. Year"
 msgstr "前年"
@@ -257,25 +258,25 @@ msgid "A Development blog of updates to the site."
 msgstr "サイトの更新の開発ブログ"
 
 msgid "Share"
-msgstr ""
+msgstr "シェア"
 
 msgid "Short URL"
-msgstr ""
+msgstr "ショートURL"
 
 msgid "Embed"
-msgstr ""
+msgstr "埋め込みます"
 
 msgid "Social Media"
-msgstr ""
+msgstr "ソーシャルメディア"
 
 msgid "Download"
-msgstr ""
+msgstr "ダウンロード"
 
 msgid "Home"
 msgstr "ホーム"
 
 msgid "No Filter"
-msgstr ""
+msgstr "フィルター設定なし"
 
 msgid "An emedded visualization."
 msgstr "emedded可視化"
@@ -284,10 +285,10 @@ msgid "Data visualization of economic trade"
 msgstr "経済貿易のデータの可視化"
 
 msgid "Controls"
-msgstr ""
+msgstr "フィルター設定なし"
 
 msgid "Close"
-msgstr ""
+msgstr "閉じる"
 
 msgid "Build Visualization"
 msgstr "可視化の構築"
@@ -299,7 +300,7 @@ msgid "Profile"
 msgstr "プロファイル"
 
 msgid "Population"
-msgstr ""
+msgstr "人口"
 
 msgid "GDP"
 msgstr "国内総生産"
@@ -312,15 +313,15 @@ msgstr "経済複雑性"
 
 #, python-format
 msgid "The total world trade in %(year)s was %(export_val)s."
-msgstr ""
+msgstr "%(year)s年の世界の総貿易は%(export_val)sでした。"
 
 #, python-format
 msgid "The 10 most traded products by dollar amount are %(exports_list)s, using the 1992 revision of the HS (Harmonized System) classification."
-msgstr ""
+msgstr "金額で10ほとんどの取引商品は、HS（統一システム）の分類の1992年改訂版を使用して、%(exports_list)sです。"
 
 #, python-format
 msgid "The top 10 exporting countries are %(origins_list)s."
-msgstr ""
+msgstr "トップ10の輸出国は%(origins_list)sです。"
 
 #, python-format
 msgid "%(country_is)s the %(econ_rank)s largest export economy in the world"
@@ -360,19 +361,19 @@ msgstr "%(country)s海沿いの土地と%(maritime_borders)s%(land_borders)sと�
 
 #, python-format
 msgid "The total world trade in %(year)s was %(export_val)s. "
-msgstr ""
+msgstr "%(year)s年の世界の総貿易は%(export_val)sでした。 "
 
 #, python-format
 msgid "During the last five years exports have %(increased_decreased)s at a median annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. "
-msgstr ""
+msgstr "過去5年間で輸出は%(current_year)s年に$%(current_export_val)sに%(past_year)s年に$%(past_export_val)sから、%(change_rate)s%%の中央値は年率で%(increased_decreased)s。 "
 
 #, python-format
 msgid "The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total products exported, followed by %(second_export)s, which account for %(second_export_pct)s%%. "
-msgstr ""
+msgstr "%(second_export_pct)s%%を占めて%(second_export)sに続いて、エクスポート、全製品の%(top_export_pct)s%%を表す%(top_export)sが主導している最新の輸出、。 "
 
 #, python-format
 msgid "The top exporters globally are %(origins)s."
-msgstr ""
+msgstr "トップ輸出は世界的に%(origins)sです。"
 
 msgid "Origins"
 msgstr "輸入元"
@@ -458,7 +459,7 @@ msgstr "プロダクトスペース"
 
 #, python-format
 msgid "The Economic Complexities of each country visualized over the past %(year_range)s years."
-msgstr ""
+msgstr "それぞれの国の経済複雑さは、過去%(year_range)s年間で可視化しました。"
 
 msgid "Economic Complexity Ranking"
 msgstr "経済複雑性ランキング"
@@ -488,9 +489,15 @@ msgid ""
 "                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/all/bra/?size=import_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
 "                "
 msgstr ""
+"\n"
+"このツリーマップは、国際的に製品を輸入し、ブラジルの自治体を示しています。<br /><br />\n"
+"\n"
+"DataVivaは、ブラジル全体での貿易、産業、教育上の公式データを提供して可視化ツールです。あなたはより多くの情報をしたいと思いますか、似たようなサイトは、このメールアドレスで私達と連絡を取って作成する場合。 <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.\n"
+"                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/all/bra/?size=import_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
+"                "
 
 msgid "Imports of Brazil by Municipality"
-msgstr ""
+msgstr "市によるブラジルの輸入"
 
 msgid ""
 "\n"
@@ -499,6 +506,12 @@ msgid ""
 "                </p><p><a target='_blank' href='http://en.dataviva.info/apps/builder/geo_map/secex/all/all/all/bra/?color=export_val&controls=false&year=2013'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
 "                "
 msgstr ""
+"\n"
+"このマップは、国家によるブラジルの輸出を示しています。\n"
+"\n"
+"                DataVivaは、ブラジル全体での貿易、産業、教育上の公式データを提供して可視化ツールです。あなたはより多くの情報をしたいと思いますか、似たようなサイトは、このメールアドレスで私達と連絡を取って作成する場合。<a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.\n"
+"                </p><p><a target='_blank' href='http://en.dataviva.info/apps/builder/geo_map/secex/all/all/all/bra/?color=export_val&controls=false&year=2013'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
+"                "
 
 msgid ""
 "\n"
@@ -506,12 +519,16 @@ msgid ""
 "                </p><p><a target='_blank' href='http://en.dataviva.info/apps/builder/bar/rais/all/all/all/bra/?controls=false&year=2013'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
 "                "
 msgstr ""
+"\n"
+"この棒グラフは、ブラジルの労働人口のための賃金分布を示しています。\n"
+"                </p><p><a target='_blank' href='http://en.dataviva.info/apps/builder/bar/rais/all/all/all/bra/?controls=false&year=2013'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
+"                "
 
 msgid "State Exports"
-msgstr ""
+msgstr "国家輸出"
 
 msgid "Wage Distribution"
-msgstr ""
+msgstr "賃金分布"
 
 #, python-format
 msgid ""
@@ -521,6 +538,11 @@ msgid ""
 "                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
 "                "
 msgstr ""
+"\n"
+"このツリーマップは、%(country)sから製品を輸入し、ブラジルの自治体を示しています。<br /><br />\n"
+"DataVivaは、ブラジル全体での貿易、産業、教育上の公式データを提供して可視化ツールです。あなたはより多くの情報をしたいと思いますか、似たようなサイトは、このメールアドレスで私達と連絡を取って作成する場合。<a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.\n"
+"                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
+"                "
 
 #, python-format
 msgid ""
@@ -529,6 +551,10 @@ msgid ""
 "                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
 "                "
 msgstr ""
+"\n"
+"このツリーマップは、%(country)sに製品を輸出し、ブラジルの自治体を示しています。\n"
+"                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
+"                "
 
 #, python-format
 msgid "Brazilian Municipalities that import from %(country)s"
@@ -655,13 +681,13 @@ msgid "Growth Value (5 year)"
 msgstr "成長値（5年）"
 
 msgid "Loading..."
-msgstr ""
+msgstr "読み込んでいます..."
 
 msgid "Loading Visualization"
-msgstr ""
+msgstr "読み込んで可視化"
 
 msgid "We couldn't find any results."
-msgstr ""
+msgstr "我々は、任意の結果を見つけることができませんでした。"
 
 msgid "Partner"
 msgstr "パートナー"
@@ -705,4 +731,3 @@ msgstr "%(attr)sのプロフィール"
 #~ "このツリーマップは、%(country)sに製品を輸出し、ブラジルの自治体を示しています。\n"
 #~ "            </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Explore on DataViva &raquo;</a>\n"
 #~ "            "
-
