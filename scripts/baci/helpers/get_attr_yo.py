@@ -12,7 +12,10 @@ def get_attr_yo(year):
     indicators = {
         "population": "SP.POP.TOTL",
         "gdp": "NY.GDP.MKTP.CD",
-        "gdp_pc": "NY.GDP.PCAP.CD"
+        "gdp_pc_current": "NY.GDP.PCAP.CD",
+        "gdp_pc_constant": "NY.GDP.PCAP.KD",
+        "gdp_pc_current_ppp": "NY.GDP.PCAP.PP.CD",
+        "gdp_pc_constant_ppp": "NY.GDP.PCAP.PP.KD"
     }
     cursor.execute("select id_2char, id from attr_country where id_2char is not null;")
     id_crosswalk = {r[0].upper():r[1] for r in cursor.fetchall()}

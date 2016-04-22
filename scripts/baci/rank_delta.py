@@ -10,7 +10,17 @@
         --index_cols=hs92_id \
         --strcasts=hs92_id \
         -o data/baci/2012
-
+    
+    ECI --
+    python scripts/baci/rank_delta.py \
+        data/baci/2013/hs92_attr_yo.tsv.bz2 \
+        data/baci/2012/hs92_attr_yo.tsv.bz2 \
+        --rank_col=eci_rank \
+        --index_cols=origin_id \
+        -o data/baci/2012
+    
+    or via MySQL --
+    select b.year, b.origin_id, a.eci_rank-b.eci_rank as eci_rank_delta from attr_yo as a, attr_yo as b where a.year = 2012 and b.year = 2013 and a.origin_id=b.origin_id;
 """
 
 ''' Import statements '''
