@@ -154,8 +154,10 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
         direction = "top_{}".format(tf) if classification == "sitc" else "top_{}_hs4".format(tf)
         product = getattr(data_tbls, "Yo").query.filter_by(year=year[-1]) \
                         .filter_by(country=origin).first()
-        product = defaults[classification] if not product else getattr(product, direction)
-        product = prod_tbl.query.get(product)
+        if product and getattr(product, direction):
+            product = getattr(product, direction)
+        else:
+            product = defaults[classification]
 
     return (origin, dest, product)
 
@@ -253,12 +255,14 @@ def visualize(app_name, classification, trade_flow, origin_id, dest_id, prod_id,
         flash(redir[0])
         return redirect(redir[1])
 
+    '''get this build'''
+    build = Build(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
+    if build.title() is None and build.question() is None:
+        abort(404)
+
     '''get every possible build for sub nav'''
     origin, dest, prod = get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trade_flow)
     all_builds = get_all_builds(classification, origin_id, dest_id, prod_id, year, {"origin":origin, "dest":dest, "prod":prod})
-
-    '''get this build'''
-    build = Build(app_name, classification, trade_flow, origin_id, dest_id, prod_id, year)
 
     '''create the ui array for the current build'''
     ui = []

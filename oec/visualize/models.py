@@ -298,7 +298,10 @@ class Build(object):
                 .format(link, g.locale)
 
     def title(self):
-        title = build_metadata[self.id][self.trade_flow]["title"]
+        try:
+            title = build_metadata[self.id][self.trade_flow]["title"]
+        except KeyError:
+            return None
 
         origin, dest, prod = None, None, None
         if isinstance(self.origin, Country):
@@ -316,7 +319,10 @@ class Build(object):
         return u"{} ({})".format(title, years)
 
     def question(self):
-        question = build_metadata[self.id][self.trade_flow]["question"]
+        try:
+            question = build_metadata[self.id][self.trade_flow]["question"]
+        except KeyError:
+            return None
 
         origin, dest, prod = None, None, None
         if isinstance(self.origin, Country):
