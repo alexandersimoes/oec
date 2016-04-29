@@ -30,9 +30,9 @@ def findFiles (path, filter):
 @click.command()
 @click.option('-d', '--dir', default='.', type=click.Path(exists=True), prompt=False, help='Directory for tsv files.')
 @click.option('-a', '--attr_type', help='Attribute Type', type=click.Choice(['hs', 'sitc']), default='hs')
-@click.option('-r', '--revision', help='Product Classification Revision', type=click.Choice(['92', '96', '02', '07']), default='92')
+@click.option('-r', '--revision', help='Product Classification Revision', type=click.Choice(['92', '96', '02', '07']), default=None)
 def main(dir, attr_type, revision):
-    attr_revision = "{}{}".format(attr_type, revision)
+    attr_revision = "{}{}".format(attr_type, revision) if revision else attr_type
     
     for f in findFiles(dir, '{}*.tsv*'.format(attr_revision)):
         bzipped = False
@@ -49,7 +49,7 @@ def main(dir, attr_type, revision):
         if m:
             tbl = m.group(1)
             if "attr" in tbl:
-                tbl = tbl.replace('hs{}_'.format(revision), '')
+                tbl = tbl.replace('hs{}_'.format(revision), '').replace('sitc_', '')
                 if bzipped: os.remove(f)
                 continue
             # return dbname + "_" + m.group(1)

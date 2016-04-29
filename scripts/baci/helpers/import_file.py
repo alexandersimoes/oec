@@ -1,15 +1,27 @@
 import pandas as pd
-import os, sys, bz2, gzip, zipfile, rarfile
-from __init__ import country_lookup
+import os, sys, bz2, gzip, zipfile, rarfile, MySQLdb
+from cStringIO import StringIO
+
+
+''' Connect to DB '''
+db = MySQLdb.connect(host="localhost", user=os.environ["OEC_DB_USER"], 
+                        passwd=os.environ["OEC_DB_PW"], 
+                        db=os.environ["OEC_DB_NAME"])
+db.autocommit(1)
+cursor = db.cursor()
 
 '''
     Columns:
-    v - value in thousands of US dollars
-    q - quantity in tons 
-    i - exporter
-    j - importer
-    k - hs6
-    t - year
+    0 - Period
+    1 - Trade Flow
+    2 - Reporter
+    3 - Partner
+    4 - Commodity Code
+    5 - Commodity Description
+    6 - Trade Value
+    7 - NetWeight (kg)
+    8 - Unit
+    9 - Trade Quantity
 '''
 
 def get_file(full_path):
@@ -38,55 +50,83 @@ def get_file(full_path):
     # print "Reading from file", file_name
     return file
 
-def import_file(file_path, hs_id_col):
+def import_file(file_path):
     
-    def hs6_converter(hs6):
-        leading2 = int(hs6[:2])
-        if leading2 <= 5: return "{}{}".format("01", hs6)
-        if leading2 <= 14: return "{}{}".format("02", hs6)
-        if leading2 <= 15: return "{}{}".format("03", hs6)
-        if leading2 <= 24: return "{}{}".format("04", hs6)
-        if leading2 <= 27: return "{}{}".format("05", hs6)
-        if leading2 <= 38: return "{}{}".format("06", hs6)
-        if leading2 <= 40: return "{}{}".format("07", hs6)
-        if leading2 <= 43: return "{}{}".format("08", hs6)
-        if leading2 <= 46: return "{}{}".format("09", hs6)
-        if leading2 <= 49: return "{}{}".format("10", hs6)
-        if leading2 <= 63: return "{}{}".format("11", hs6)
-        if leading2 <= 67: return "{}{}".format("12", hs6)
-        if leading2 <= 70: return "{}{}".format("13", hs6)
-        if leading2 <= 71: return "{}{}".format("14", hs6)
-        if leading2 <= 83: return "{}{}".format("15", hs6)
-        if leading2 <= 85: return "{}{}".format("16", hs6)
-        if leading2 <= 89: return "{}{}".format("17", hs6)
-        if leading2 <= 92: return "{}{}".format("18", hs6)
-        if leading2 <= 93: return "{}{}".format("19", hs6)
-        if leading2 <= 96: return "{}{}".format("20", hs6)
-        if leading2 <= 97: return "{}{}".format("21", hs6)
-        if leading2 <= 99: return "{}{}".format("22", hs6)
-        return "{}{}".format("xx", hs6)
+    def get_country_lookup():
+        cursor.execute("select comtrade_name, id from attr_country where comtrade_name is not null;")
+        cs = {}
+        for c in cursor.fetchall():
+            c_list, c_id = c
+            for c in c_list.split("|"):
+                cs[c.strip()] = c_id
+        return cs
+
+    def get_sitc_lookup():
+        cursor.execute("select concat('S2-', sitc), id from attr_sitc;")
+        return {c[0]:c[1] for c in cursor.fetchall()}
     
     ''' Need to multiply by $1000 for nominal val'''
     def val_converter(val):
         return float(val)*1000
     
-    def country_converter(c):
-        try:
-            return country_lookup[int(c)]
-        except:
-            raise Exception("Can't find country with ID: {}".format(c))
+    raw_file = get_file(file_path)
     
-    f = get_file(file_path)
+    '''This is a HUGE bug on the part of COMTRADE, they have quotes inside 
+        quotes which fucks up the CSV reading!!! So we replace all instances of
+        the word "improved" with double quotes to 'improved' with single quotes.
+        Maybe they should have used tabs...  '''
+    raw_file = raw_file.read()
+    raw_file = StringIO(raw_file.replace('"improved"', "'improved'"))
     
-    '''Open CSV file'''
-    baci_df = pd.read_csv(f, \
-                            sep=',', \
-                            converters={
-                                "hs6":hs6_converter, 
-                                "v":val_converter, 
-                                "i":country_converter, 
-                                "j":country_converter})
-    baci_df = baci_df[["hs6", "i", "j", "v"]]
-    baci_df.columns = [hs_id_col, "origin_id", "dest_id", "export_val"]
+    comtrade = pd.read_csv(raw_file, sep=',')
     
-    return baci_df
+    crit_drop_wld = comtrade['Partner'] != 'World'
+    crit_sitc4 = comtrade['Commodity Code'].str.len()==7
+    crit_exports = comtrade['Trade Flow'] == 'Export'
+    crit_imports = comtrade['Trade Flow'] == 'Import'
+    
+    exports = comtrade[crit_drop_wld & crit_sitc4 & crit_exports]
+    imports = comtrade[crit_drop_wld & crit_sitc4 & crit_imports]
+    
+    exports = exports[['Reporter', 'Partner', 'Commodity Code', 'Trade Value']]
+    exports.columns = ['origin_id', 'dest_id', 'sitc_id', 'export_val']
+    exports = exports.set_index(['origin_id', 'dest_id', 'sitc_id'])
+    
+    imports = imports[['Reporter', 'Partner', 'Commodity Code', 'Trade Value']]
+    imports.columns = ['origin_id', 'dest_id', 'sitc_id', 'import_val']
+    imports = imports.set_index(['origin_id', 'dest_id', 'sitc_id'])
+    
+    yodp = exports.join(imports, how='outer')
+    
+    yodp = yodp.reset_index(level=['origin_id', 'dest_id', 'sitc_id'])
+
+    country_lookup = get_country_lookup()
+    sitc_lookup = get_sitc_lookup()
+    
+    yodp["origin_id"].replace(country_lookup, inplace=True)
+    yodp["dest_id"].replace(country_lookup, inplace=True)
+    yodp["sitc_id"].replace(sitc_lookup, inplace=True)
+    
+    # need to aggregate on duplicate indexes
+    yodp.groupby(yodp.index).sum()
+    
+    yodp = yodp.set_index(['origin_id', 'dest_id', 'sitc_id'])
+    
+    missing_sitc = set([])
+    for sitc in yodp.index.get_level_values(2):
+        if 'S2-' in sitc: missing_sitc.add(sitc)
+    
+    missing_countries = set([])
+    for c in yodp.index.get_level_values(0):
+        if len(c) > 5: missing_countries.add(c)
+    for c in yodp.index.get_level_values(1):
+        if len(c) > 5: missing_countries.add(c)
+        
+    # print yodp.head()
+    print; print
+    print missing_sitc
+    print; print
+    print missing_countries
+    # sys.exit()
+    
+    return yodp

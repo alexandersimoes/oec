@@ -24,9 +24,10 @@ def parse_table_name(t):
     if m:
         return m.group(1)
          
-def do_growth(t_name, tbl, tbl_prev, cols, years_ago=1, revision=92):
+def do_growth(t_name, tbl, tbl_prev, cols, years_ago=1, revision=None):
     '''Growth rate'''
-    pk_lookup = {"o": "origin_id", "d": "dest_id", "p": "hs{}_id".format(revision)}
+    prod_id = "hs{}_id".format(revision) if revision else "sitc_id"
+    pk_lookup = {"o": "origin_id", "d": "dest_id", "p": prod_id}
     t_namelook = t_name.split("_")[1]
     pk = [pk_lookup[letter] for letter in t_namelook if letter != 'y']
 
@@ -58,7 +59,7 @@ def do_growth(t_name, tbl, tbl_prev, cols, years_ago=1, revision=92):
 @click.option('-c', '--cols', prompt='Columns separated by commas to compute growth', type=str, required=True)
 @click.option('-y', '--years', prompt='years between data points', type=int, required=False, default=1)
 @click.option('-s', '--strcasts', type=str, required=False)
-@click.option('-r', '--revision', help='HS Revision', type=click.Choice(['92', '96', '02', '07']), default='92')
+@click.option('-r', '--revision', help='HS Revision', type=click.Choice(['92', '96', '02', '07']), default=None)
 @click.option('output_path', '--output', '-o', help='Path to save files to.', type=click.Path(), required=True, prompt="Output path")
 def main(original_file, growth_file, cols, output_path, revision, years, strcasts):
     start = time.time()

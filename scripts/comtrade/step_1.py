@@ -100,6 +100,8 @@ def main(year):
     
     yodp = exports.join(imports, how='outer')
     
+    print yodp.head()
+    
     yodp = yodp.reset_index(level=['origin_id', 'destination_id', 'sitc_id'])
 
     country_lookup = get_country_lookup()
