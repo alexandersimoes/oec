@@ -101,6 +101,10 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
     if app_name in ["stacked", "line"] and len(year) < 2:
         msg = "Need to specify a range of years"
         year = [available_years[classification][0], available_years[classification][-1]]
+    '''Check that scatter is in acceptable year range 1980+'''
+    if app_name == "scatter" and not year:
+        msg = "GDP data only available from 1980 onwards. "
+        year = [1980]
 
     if msg:
         redirect_url = url_for('.visualize', lang=g.locale, app_name=app_name, \
