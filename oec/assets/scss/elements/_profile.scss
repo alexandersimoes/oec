@@ -947,7 +947,7 @@ body.profile {
 
     }
 
-    &.pantheon, &.dataviva {
+    &.pantheon, &.dataviva, &.datausa {
 
       h1 {
         border-top: 0;
@@ -959,6 +959,31 @@ body.profile {
 
         @media all and (max-width: 768px) {
           text-align: center;
+        }
+      }
+
+    }
+
+    &.datausa {
+      background-color: #e9e9e9;
+
+      h1 a img {
+        width: 200px;
+      }
+
+      p {
+        color: rgba(51, 51, 51, 0.93);
+      }
+
+      section aside h2 {
+        display: none;
+      }
+
+      section aside a {
+        color: #ef6145;
+
+        &:hover {
+          border-bottom: 1px solid #ef6145;
         }
       }
 

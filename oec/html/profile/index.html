@@ -117,6 +117,10 @@
       <li class="depth6"><a href="#dataviva">DataViva</a></li>
       {% endif %}
 
+      {% if profile.id == "usa" %}
+      <li class="depth6"><a href="#datausa">Data USA</a></li>
+      {% endif %}
+
       {% if g.page_sub_type == "country" %}
       <li class="depth6"><a href="#pantheon">Pantheon</a></li>
       {% endif %}
@@ -163,7 +167,8 @@
   {% for build in section.builds %}
   <section {% if build.tour %}data-position="floating" data-step="{{ build.seq }}" data-intro="{{ build.tour }}"{% endif %}>
     <aside>
-      <h2><a name="{% if section.source %}{{ section.source }}{% else %}{{ build.title|replace(" ","_") }}{% endif %}" class="anchor"></a>{{ build.title }}</h2>
+      <a name="{% if section.source %}{{ section.source }}{% else %}{{ build.title|replace(" ","_") }}{% endif %}" class="anchor"></a>
+      <h2>{{ build.title }}</h2>
       {% if build.subtitle %}
       <p>{{ build.subtitle|safe }}</p>
       {% endif %}

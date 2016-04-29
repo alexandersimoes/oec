@@ -481,6 +481,29 @@ class Country(Profile):
             }
         sections.append(dv_section)
 
+        ''' Data USA
+        '''
+        if self.attr.id == "nausa":
+            us_geo = "http://datausa.io/profile/geo/united-states/economy/income_geo/?viz=True"
+            us_geo_text = _(u"""
+                This map shows the states in the United States colored by median income.<br /><br />
+                Data USA is the most comprehensive visualization of U.S. public data. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.
+                </p><p><a target='_blank' href='http://datausa.io/profile/geo/united-states/#income_geo'>Explore on Data USA <i class='fa fa-external-link'></i></a>
+                """)
+            us_distro = "http://datausa.io/profile/geo/united-states/economy/income_distro/?viz=True"
+            us_distro_text = _(u"""
+                This bar chart shows the wage distribution in the United States.</p><p><a target='_blank' href='http://datausa.io/profile/geo/united-states/#income_distro'>Explore on Data USA <i class='fa fa-external-link'></i></a>
+                """)
+            us_section = {
+                "title": u"<a href='http://datausa.io/' target='_blank'><img src='/static/img/profile/datausa.png' /></a>",
+                "source": "datausa",
+                "builds": [
+                    {"title": _(u"Income by Location"), "iframe": us_geo, "subtitle": us_geo_text, "tour":"Profile pages also contain visualizations from other websites created by member of the OEC team. The following are 2 embeded visualization from Data USA, a similar visualization platorm centered around sub-national US data.", "seq":7},
+                    {"title": _(u"Income by Location"), "iframe": us_distro, "subtitle": us_distro_text}
+                ]
+            }
+            sections.append(us_section)
+
         ''' Pantheon
         '''
         pantheon_id = "all" if self.attr.id == "xxwld" else self.attr.id_2char
