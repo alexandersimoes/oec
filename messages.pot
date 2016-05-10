@@ -518,6 +518,23 @@ msgstr ""
 msgid "Brazilian Municipalities that export to %(country)s"
 msgstr ""
 
+msgid ""
+"\n"
+"                This map shows the states in the United States colored by median income.<br /><br />\n"
+"                Data USA is the most comprehensive visualization of U.S. public data. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.\n"
+"                </p><p><a target='_blank' href='http://datausa.io/profile/geo/united-states/#income_geo'>Explore on Data USA <i class='fa fa-external-link'></i></a>\n"
+"                "
+msgstr ""
+
+msgid ""
+"\n"
+"                This bar chart shows the wage distribution in the United States.</p><p><a target='_blank' href='http://datausa.io/profile/geo/united-states/#income_distro'>Explore on Data USA <i class='fa fa-external-link'></i></a>\n"
+"                "
+msgstr ""
+
+msgid "Income by Location"
+msgstr ""
+
 #, python-format
 msgid "Globally Famous People %(of_country)s"
 msgstr ""
@@ -598,10 +615,10 @@ msgstr ""
 msgid "Market Value"
 msgstr ""
 
-msgid "Export"
+msgid "Export RCA"
 msgstr ""
 
-msgid "Import"
+msgid "Import RCA"
 msgstr ""
 
 msgid "GDPpc (constant '05 US$)"
@@ -650,6 +667,12 @@ msgid "Y Axis"
 msgstr ""
 
 msgid "Trade Flow"
+msgstr ""
+
+msgid "Export"
+msgstr ""
+
+msgid "Import"
 msgstr ""
 
 msgid "Start Year"
