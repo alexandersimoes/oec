@@ -79,24 +79,24 @@ def sanitize(app_name, classification, trade_flow, origin, dest, product, year):
     if origin == "twn" and dest != "all":
         c = Country.query.filter_by(id_3char=origin).first()
         origin = "chn"
-        msg = "Bilateral trade not available for {0}. ".format(c.get_name())
+        msg = u"Bilateral trade not available for {}. ".format(c.get_name())
     if "hs" in classification:
         if origin in ["nam", "lso", "bwa", "swz"]:
             c = Country.query.filter_by(id_3char=origin).first()
             origin = "zaf"
-            msg = "{0} reports their trade under South Africa in the HS classification. ".format(c.get_name())
+            msg = u"{} reports their trade under South Africa in the HS classification. ".format(c.get_name())
         if dest in ["nam", "lso", "bwa", "swz"]:
             c = Country.query.filter_by(id_3char=dest).first()
             dest = "zaf"
-            msg = "{0} reports their trade under South Africa in the HS classification. ".format(c.get_name())
+            msg = u"{} reports their trade under South Africa in the HS classification. ".format(c.get_name())
         if origin in ["bel", "lux"]:
             c = Country.query.filter_by(id_3char=origin).first()
             origin = "blx"
-            msg = "{0} reports their trade under Belgium-Luxembourg in the HS classification. ".format(c.get_name())
+            msg = u"{} reports their trade under Belgium-Luxembourg in the HS classification. ".format(c.get_name())
         if dest in ["bel", "lux"]:
             c = Country.query.filter_by(id_3char=dest).first()
             dest = "blx"
-            msg = "{0} reports their trade under Belgium-Luxembourg in the HS classification. ".format(c.get_name())
+            msg = u"{} reports their trade under Belgium-Luxembourg in the HS classification. ".format(c.get_name())
     '''Check that stacked has given year range'''
     if app_name in ["stacked", "line"] and len(year) < 2:
         msg = "Need to specify a range of years"
