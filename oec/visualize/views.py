@@ -14,7 +14,7 @@ from oec import db_data, db_attr
 from oec.general.views import get_locale
 from oec.visualize.models import Build, get_all_builds, Short
 from sqlalchemy.sql.expression import func
-from sqlalchemy import not_
+from sqlalchemy import not_, desc
 from random import choice
 from config import FACEBOOK_ID
 
@@ -117,19 +117,26 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
     prod_tbl = getattr(db_attr.models, classification.capitalize())
     data_tbls = getattr(db_data, "{}_models".format(classification))
 
-    origin = Country.query.filter_by(id_3char=origin_id).first()
-    dest = Country.query.filter_by(id_3char=dest_id).first()
+    origin = Country.query.filter_by(id_3char=origin_id).first() if origin_id else origin_id
+    dest = Country.query.filter_by(id_3char=dest_id).first() if dest_id else dest_id
     product = prod_tbl.query.filter(getattr(prod_tbl, classification) == prod_id).first()
 
     defaults = {"origin":"nausa", "dest":"aschn", "hs92":"010101", "hs96":"010101", "hs02":"010101", "hs07":"010101", "sitc":"105722"}
 
     if not origin:
-        # find the largest exporter or importer of given product
-        direction = "top_exporter" if trade_flow == "export" else "top_importer"
-        origin = getattr(data_tbls, "Yp").query.filter_by(year=year[-1]) \
-                        .filter_by(product=product).first()
-        origin = defaults["origin"] if not origin else getattr(origin, direction)
-        origin = Country.query.get(origin)
+        if dest:
+            origin = getattr(data_tbls, "Yod").query \
+                .filter_by(year=year[-1]) \
+                .filter_by(dest=dest) \
+                .order_by(desc("export_val")).first()
+            origin = origin.origin if origin else defaults["origin"]
+        else:
+            # find the largest exporter or importer of given product
+            direction = "top_exporter" if trade_flow == "export" else "top_importer"
+            origin = getattr(data_tbls, "Yp").query.filter_by(year=year[-1]) \
+                            .filter_by(product=product).first()
+            origin = defaults["origin"] if not origin else getattr(origin, direction)
+            origin = Country.query.get(origin)
 
     if not dest:
         if product:
@@ -138,7 +145,7 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
             dest = getattr(data_tbls, "Yp").query.filter_by(year=year[-1]) \
                             .filter_by(product=product).first()
             if not dest:
-              dest = Country.query.get("nausa")
+              dest = Country.query.get(defaults["dest"])
             else:
               dest = Country.query.get(getattr(dest, direction))
         else:
@@ -148,7 +155,7 @@ def get_origin_dest_prod(origin_id, dest_id, prod_id, classification, year, trad
                             .filter_by(country=origin).first()
             dest = defaults["dest"] if not dest else getattr(dest, direction)
             if not dest:
-                dest = Country.query.get("nausa")
+                dest = Country.query.get(defaults["dest"])
             else:
                 dest = Country.query.get(dest)
 
@@ -432,9 +439,13 @@ def builds():
     build_args["year"] = request.args.get('year', available_years[build_args["classification"]][-1])
     build_args["defaults"] = {"origin":"nausa", "dest":"aschn", "prod":"010101"}
     build_args["viz"] = ["tree_map", "rings"]
+    
+    if build_args["origin_id"] == build_args["dest_id"]:
+        origin_dest_prod = get_origin_dest_prod(None, build_args["dest_id"], build_args["prod_id"], build_args["classification"], [build_args["year"]], "export")
+        build_args["dest_id"] = origin_dest_prod[0].id_3char
+    
     all_builds = get_all_builds(**build_args)
-
-    # raise Exception(build_args, all_builds[-1])
+    
     '''
         Need some way of ranking these build...
     '''
