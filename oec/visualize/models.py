@@ -102,7 +102,7 @@ build_metadata = { \
     5: {
         "export": {
             "title": u"Product Space of {origin}",
-            "question": u"What does {origin} export?",
+            "question": u"What are the export opportunities of {origin}?",
             "short_name": "Product Space",
             "category": "Country"
         }
@@ -110,7 +110,7 @@ build_metadata = { \
     6: {
         "export": {
             "title": u"Connections of {prod} in {origin}",
-            "question": u"Where does {origin} export {prod} to?",
+            "question": u"What does {origin} export that is similar to {prod}?",
             "short_name": "Product Connections",
             "category": "Country"
         }
