@@ -446,6 +446,10 @@ def builds():
     
     all_builds = get_all_builds(**build_args)
     
+    if build_args["origin_id"] and build_args["dest_id"]:
+        build_args["origin_id"], build_args["dest_id"] = build_args["dest_id"], build_args["origin_id"]
+        all_builds = get_all_builds(**build_args) + all_builds
+    
     '''
         Need some way of ranking these build...
     '''
