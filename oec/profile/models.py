@@ -9,6 +9,10 @@ from oec.utils import median, num_format
 from oec.db_attr import models as attrs
 from oec.visualize.models import Build
 from config import FACEBOOK_ID
+# import different sections
+from oec.profile.sections.dataviva import make_dv_section
+from oec.profile.sections.datausa import make_us_section
+from oec.profile.sections.pantheon import make_pantheon_section
 
 def upperfirst(x):
     return x[0].upper() + x[1:]
@@ -409,8 +413,7 @@ class Country(Profile):
             if attr_yo_historic.eci_rank:
                 eci_delta = this_attr_yo.eci_rank - attr_yo_historic.eci_rank
                 inc_dec = _('increased') if eci_delta < 0 else _('decreased')
-                subtitle = _("""The Economic Complexity ranking %(of_country)s has %(increased_or_decreased)s by %(rank_delta)s places
-                    over the past %(year_range)s years from %(old_eci)s in %(old_year)s to %(current_eci)s in %(current_year)s.""",
+                subtitle = _("The Economic Complexity ranking %(of_country)s has %(increased_or_decreased)s by %(rank_delta)s places over the past %(year_range)s years from %(old_eci)s in %(old_year)s to %(current_eci)s in %(current_year)s.",
                     of_country=self.attr.get_name(article="of"), increased_or_decreased=inc_dec,
                     rank_delta=abs(eci_delta), year_range=year_range, old_eci=num_format(attr_yo_historic.eci_rank, "ordinal"),
                     old_year=start_year, current_eci=num_format(this_attr_yo.eci_rank, "ordinal"), current_year=self.year)
@@ -424,84 +427,13 @@ class Country(Profile):
 
         ''' DataViva
         '''
-        if self.attr.id == "xxwld":
-            dv_munic_dest_iframe = "http://legacy.dataviva.info/apps/embed/tree_map/secex/all/all/all/bra/?size=import_val&controls=false"
-            dv_munic_dest_subtitle = _(u"""
-                This treemap shows the municipalities in Brazil that imported products internationally.<br /><br />
-                DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.
-                </p><p><a target='_blank' href='http://dataviva.info/'>Explore on DataViva <i class='fa fa-external-link'></i></a>
-                """, country=self.attr.get_name(article=True))
-            dv_section = {
-                "title": u"<a href='http://dataviva.info/' target='_blank'><img src='/static/img/dataviva_logo.png' /></a>",
-                "source": "dataviva",
-                "builds": [
-                    {"title": _(u"Imports of Brazil by Municipality"), "iframe": dv_munic_dest_iframe, "subtitle": dv_munic_dest_subtitle, "tour":"Profile pages also contain visualizations from other websites created by member of the OEC team. The following are 2 embeded visualization from DataViva, a similar visualization platorm centered around Brazilian data.", "seq":7}
-                ]
-            }
-        elif self.attr.id == "sabra":
-            dv_geo_map = "http://legacy.dataviva.info/apps/embed/geo_map/secex/all/all/all/bra/?color=export_val&controls=false&year=2013"
-            dv_wages = "http://legacy.dataviva.info/apps/embed/bar/rais/all/all/all/bra/?controls=false&year=2013"
-            dv_geo_map_subtitle = _(u"""
-                This map shows the exports of Brazil by state.<br /><br />
-                DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.
-                </p><p><a target='_blank' href='http://dataviva.info/en/location/all'>Explore on DataViva <i class='fa fa-external-link'></i></a>
-                """)
-            dv_wages_subtitle = _(u"""
-                This bar chart shows the wage distribution for the working population in Brazil.
-                </p><p><a target='_blank' href='http://dataviva.info/en/location/all'>Explore on DataViva <i class='fa fa-external-link'></i></a>
-                """)
-            dv_section = {
-                "title": u"<a href='http://dataviva.info/' target='_blank'><img src='/static/img/dataviva_logo.png' /></a>",
-                "source": "dataviva",
-                "builds": [
-                    {"title": _(u"State Exports"), "iframe": dv_geo_map, "subtitle": dv_geo_map_subtitle, "tour":"Profile pages also contain visualizations from other websites created by member of the OEC team. The following are 2 embeded visualization from DataViva, a similar visualization platorm centered around Brazilian data.", "seq":7},
-                    {"title": _(u"Wage Distribution"), "iframe": dv_wages, "subtitle": dv_wages_subtitle},
-                ]
-            }
-        else:
-            dv_country_id = "asrus" if self.attr.id == "eurus" else self.attr.id
-            dv_munic_dest_iframe = "http://legacy.dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=import_val&controls=false".format(dv_country_id)
-            dv_munic_origin_iframe = "http://legacy.dataviva.info/apps/embed/tree_map/secex/all/all/{}/bra/?size=export_val&controls=false".format(dv_country_id)
-            dv_munic_dest_subtitle = _(u"""
-                This treemap shows the municipalities in Brazil that imported products from %(country)s.<br /><br />
-                DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.
-                </p><p><a target='_blank' href='http://dataviva.info/en/trade_partner/%(dv_country_id)s'>Explore on DataViva <i class='fa fa-external-link'></i></a>
-                """, country=self.attr.get_name(article=True), dv_country_id=dv_country_id)
-            dv_munic_origin_subtitle = _(u"""
-                This treemap shows the municipalities in Brazil that exported products to %(country)s.
-                </p><p><a target='_blank' href='http://dataviva.info/en/trade_partner/%(dv_country_id)s'>Explore on DataViva <i class='fa fa-external-link'></i></a>
-                """, country=self.attr.get_name(article=True), dv_country_id=dv_country_id)
-            dv_section = {
-                "title": u"<a href='http://dataviva.info/' target='_blank'><img src='/static/img/dataviva_logo.png' /></a>",
-                "source": "dataviva",
-                "builds": [
-                    {"title": _(u"Brazilian Municipalities that import from %(country)s", country=self.attr.get_name(article=True)), "iframe": dv_munic_dest_iframe, "subtitle": dv_munic_dest_subtitle, "tour":"Profile pages also contain visualizations from other websites created by member of the OEC team. The following are 2 embeded visualization from DataViva, a similar visualization platorm centered around Brazilian data.", "seq":7},
-                    {"title": _(u"Brazilian Municipalities that export to %(country)s", country=self.attr.get_name(article=True)), "iframe": dv_munic_origin_iframe, "subtitle": dv_munic_origin_subtitle},
-                ]
-            }
+        dv_section = make_dv_section(self)
         sections.append(dv_section)
 
         ''' Data USA
         '''
         if self.attr.id == "nausa":
-            us_geo = "http://datausa.io/profile/geo/united-states/economy/income_geo/?viz=True"
-            us_geo_text = _(u"""
-                This map shows the states in the United States colored by median income.<br /><br />
-                Data USA is the most comprehensive visualization of U.S. public data. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.
-                </p><p><a target='_blank' href='http://datausa.io/profile/geo/united-states/#income_geo'>Explore on Data USA <i class='fa fa-external-link'></i></a>
-                """)
-            us_distro = "http://datausa.io/profile/geo/united-states/economy/income_distro/?viz=True"
-            us_distro_text = _(u"""
-                This bar chart shows the wage distribution in the United States.</p><p><a target='_blank' href='http://datausa.io/profile/geo/united-states/#income_distro'>Explore on Data USA <i class='fa fa-external-link'></i></a>
-                """)
-            us_section = {
-                "title": u"<a href='http://datausa.io/' target='_blank'><img src='/static/img/profile/datausa.png' /></a>",
-                "source": "datausa",
-                "builds": [
-                    {"title": _(u"Income by Location"), "iframe": us_geo, "subtitle": us_geo_text, "tour":"Profile pages also contain visualizations from other websites created by member of the OEC team. The following are 2 embeded visualization from Data USA, a similar visualization platorm centered around sub-national US data.", "seq":7},
-                    {"title": _(u"Income by Location"), "iframe": us_distro, "subtitle": us_distro_text}
-                ]
-            }
+            us_section = make_us_section()
             sections.append(us_section)
 
         ''' Pantheon
@@ -510,27 +442,10 @@ class Country(Profile):
         if pantheon_id:
             if self.attr.id != "xxwld":
                 pantheon_id = pantheon_id.upper()
-            pantheon_iframe_fields = "http://pantheon.media.mit.edu/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/embed".format(pantheon_id)
-            pantheon_link_fields = "<a target='_blank' href='http://pantheon.media.mit.edu/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/'>Explore on Pantheon <i class='fa fa-external-link'></i></a>".format(pantheon_id)
-            pantheon_iframe_cities = "http://pantheon.media.mit.edu/treemap/country_by_city/all/{}/-4000/2010/H15/pantheon/embed".format(pantheon_id)
-            pantheon_link_cities = "<a target='_blank' href='http://pantheon.media.mit.edu/treemap/country_by_city/{}/all/-4000/2010/H15/pantheon/'>Explore on Pantheon <i class='fa fa-external-link'></i></a>".format(pantheon_id)
-            pantheon_section = {
-                "title": "<a target='_blank' href='http://pantheon.media.mit.edu'><img src='http://pantheon.media.mit.edu/pantheon_logo.png' />",
-                "source": "pantheon",
-                "builds": [
-                    {"title": _(u"Globally Famous People %(of_country)s", of_country=self.attr.get_name(article="of")),
-                    "iframe": pantheon_iframe_fields,
-                    "subtitle": _(u"This treemap shows the cultural exports %(of_country)s, as proxied by the production of globally famous historical characters.</p><p>%(pantheon_link)s", of_country=self.attr.get_name(article="of"), pantheon_link=pantheon_link_fields),
-                    "tour":"Pantheon...", "seq":8
-                    },
-                    {"title": _(u"Globally Famous People %(of_country)s by City", of_country=self.attr.get_name(article="of")),
-                    "iframe": pantheon_iframe_cities,
-                    "subtitle": _(u"This treemap shows the cultural exports %(of_country)s by city, as proxied by the production of globally famous historical characters.</p><p>%(pantheon_link)s", of_country=self.attr.get_name(article="of"), pantheon_link=pantheon_link_cities)
-                    },
-                ]
-            }
+            
+            pantheon_section = make_pantheon_section(pantheon_id, self.attr)
             sections.append(pantheon_section)
-
+        
         return sections
 
 class Product(Profile):

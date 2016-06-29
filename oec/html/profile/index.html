@@ -170,7 +170,15 @@
       <a name="{% if section.source %}{{ section.source }}{% else %}{{ build.title|replace(" ","_") }}{% endif %}" class="anchor"></a>
       <h2>{{ build.title }}</h2>
       {% if build.subtitle %}
-      <p>{{ build.subtitle|safe }}</p>
+      
+      {% if build.subtitle is string %}
+        <p>{{ build.subtitle|safe }}</p>
+      {% else %}
+        {% for pg in build.subtitle %}
+        <p>{{ pg|safe }}</p>
+        {% endfor %}      
+      {% endif %}
+      
       {% endif %}
       {% if not build.iframe %}
       <p class="explore_link">
