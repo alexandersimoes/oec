@@ -452,103 +452,11 @@ msgid "decreased"
 msgstr ""
 
 #, python-format
-msgid ""
-"The Economic Complexity ranking %(of_country)s has %(increased_or_decreased)s by %(rank_delta)s places\n"
-"                    over the past %(year_range)s years from %(old_eci)s in %(old_year)s to %(current_eci)s in %(current_year)s."
+msgid "The Economic Complexity ranking %(of_country)s has %(increased_or_decreased)s by %(rank_delta)s places over the past %(year_range)s years from %(old_eci)s in %(old_year)s to %(current_eci)s in %(current_year)s."
 msgstr ""
 
 #, python-format
 msgid "More on %(country)s from our sister sites"
-msgstr ""
-
-msgid ""
-"\n"
-"                This treemap shows the municipalities in Brazil that imported products internationally.<br /><br />\n"
-"                DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.\n"
-"                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/all/bra/?size=import_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
-"                "
-msgstr ""
-
-msgid "Imports of Brazil by Municipality"
-msgstr ""
-
-msgid ""
-"\n"
-"                This map shows the exports of Brazil by state.<br /><br />\n"
-"                DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.\n"
-"                </p><p><a target='_blank' href='http://en.dataviva.info/apps/builder/geo_map/secex/all/all/all/bra/?color=export_val&controls=false&year=2013'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
-"                "
-msgstr ""
-
-msgid ""
-"\n"
-"                This bar chart shows the wage distribution for the working population in Brazil.\n"
-"                </p><p><a target='_blank' href='http://en.dataviva.info/apps/builder/bar/rais/all/all/all/bra/?controls=false&year=2013'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
-"                "
-msgstr ""
-
-msgid "State Exports"
-msgstr ""
-
-msgid "Wage Distribution"
-msgstr ""
-
-#, python-format
-msgid ""
-"\n"
-"                This treemap shows the municipalities in Brazil that imported products from %(country)s.<br /><br />\n"
-"                DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.\n"
-"                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=import_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
-"                "
-msgstr ""
-
-#, python-format
-msgid ""
-"\n"
-"                This treemap shows the municipalities in Brazil that exported products to %(country)s.\n"
-"                </p><p><a target='_blank' href='http://dataviva.info/apps/builder/tree_map/secex/all/all/%(dv_country_id)s/bra/?size=export_val&controls=false'>Explore on DataViva <i class='fa fa-external-link'></i></a>\n"
-"                "
-msgstr ""
-
-#, python-format
-msgid "Brazilian Municipalities that import from %(country)s"
-msgstr ""
-
-#, python-format
-msgid "Brazilian Municipalities that export to %(country)s"
-msgstr ""
-
-msgid ""
-"\n"
-"                This map shows the states in the United States colored by median income.<br /><br />\n"
-"                Data USA is the most comprehensive visualization of U.S. public data. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.\n"
-"                </p><p><a target='_blank' href='http://datausa.io/profile/geo/united-states/#income_geo'>Explore on Data USA <i class='fa fa-external-link'></i></a>\n"
-"                "
-msgstr ""
-
-msgid ""
-"\n"
-"                This bar chart shows the wage distribution in the United States.</p><p><a target='_blank' href='http://datausa.io/profile/geo/united-states/#income_distro'>Explore on Data USA <i class='fa fa-external-link'></i></a>\n"
-"                "
-msgstr ""
-
-msgid "Income by Location"
-msgstr ""
-
-#, python-format
-msgid "Globally Famous People %(of_country)s"
-msgstr ""
-
-#, python-format
-msgid "This treemap shows the cultural exports %(of_country)s, as proxied by the production of globally famous historical characters.</p><p>%(pantheon_link)s"
-msgstr ""
-
-#, python-format
-msgid "Globally Famous People %(of_country)s by City"
-msgstr ""
-
-#, python-format
-msgid "This treemap shows the cultural exports %(of_country)s by city, as proxied by the production of globally famous historical characters.</p><p>%(pantheon_link)s"
 msgstr ""
 
 msgid "Top Exporter"
@@ -583,6 +491,82 @@ msgstr ""
 
 #, python-format
 msgid "%(product)s a %(product_id_length)s digit %(classification)s product."
+msgstr ""
+
+msgid "This map shows the states in the United States colored by median income."
+msgstr ""
+
+#, python-format
+msgid "Data USA is the most comprehensive visualization of U.S. public data. If you would like more info or to create a similar site get in touch with us at %(oec_email)s."
+msgstr ""
+
+msgid "Explore on Data USA"
+msgstr ""
+
+msgid "This bar chart shows the wage distribution in the United States."
+msgstr ""
+
+msgid "Income by Location"
+msgstr ""
+
+msgid "This treemap shows the municipalities in Brazil that imported products internationally."
+msgstr ""
+
+#, python-format
+msgid "DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at %(oec_email)s."
+msgstr ""
+
+msgid "Explore on DataViva"
+msgstr ""
+
+msgid "Imports of Brazil by Municipality"
+msgstr ""
+
+msgid "This map shows the exports of Brazil by state."
+msgstr ""
+
+msgid "This bar chart shows the wage distribution for the working population in Brazil."
+msgstr ""
+
+msgid "State Exports"
+msgstr ""
+
+msgid "Wage Distribution"
+msgstr ""
+
+#, python-format
+msgid "This treemap shows the municipalities in Brazil that imported products from %(country)s."
+msgstr ""
+
+#, python-format
+msgid "This treemap shows the municipalities in Brazil that exported products to %(country)s."
+msgstr ""
+
+#, python-format
+msgid "Brazilian Municipalities that import from %(country)s"
+msgstr ""
+
+#, python-format
+msgid "Brazilian Municipalities that export to %(country)s"
+msgstr ""
+
+#, python-format
+msgid "This treemap shows the cultural exports %(of_country)s, as proxied by the production of globally famous historical characters"
+msgstr ""
+
+msgid "Explore on Pantheon"
+msgstr ""
+
+#, python-format
+msgid "This treemap shows the cultural exports %(of_country)s by city, as proxied by the production of globally famous historical characters."
+msgstr ""
+
+#, python-format
+msgid "Globally Famous People %(of_country)s"
+msgstr ""
+
+#, python-format
+msgid "Globally Famous People %(of_country)s by City"
 msgstr ""
 
 msgid "Rank"
