@@ -535,7 +535,7 @@ class Product(Profile):
             p2 = _(u"%(product)s the %(economic_rank)s most traded product", product=self.attr.get_name(verb=True), economic_rank=econ_rank)
             pci_rank = this_yp.pci_rank
             if pci_rank:
-                pci_ranking_link = "<a href='/en/rankings/hs92/'>{} (PCI)</a>".format(_(u"Product Complexity Index"))
+                pci_ranking_link = u"<a href='/en/rankings/hs92/'>{} (PCI)</a>".format(_(u"Product Complexity Index"))
                 pci_rank = num_format(pci_rank, "ordinal") if pci_rank > 1 else ""
                 p2 += u" "
                 p2 += _(u"and the %(pci_rank)s most complex product according to the %(pci_ranking_link)s", pci_rank=pci_rank, pci_ranking_link=pci_ranking_link)
@@ -594,20 +594,20 @@ class Product(Profile):
         ''' Trade Section
         '''
         trade_section = {
-            "title": u"{} Trade".format(self.attr.get_name()),
+            "title": _(u"%(product_name)s Trade.", product_name=self.attr.get_name()),
             "builds": []
         }
 
         exporters = Build("tree_map", self.classification, "export", "show", "all", self.attr, self.year)
-        exporters_subtitle = u"This treemap shows the share of countries that export {}.".format(self.attr.get_name())
+        exporters_subtitle = _(u"This treemap shows the share of countries that export %(product)s.", product=self.attr.get_name())
         trade_section["builds"].append({"title": u"Exporters", "build": exporters, "subtitle": exporters_subtitle})
 
         importers = Build("tree_map", self.classification, "import", "show", "all", self.attr, self.year)
-        importers_subtitle = u"This treemap shows the share of countries that import {}.".format(self.attr.get_name())
+        importers_subtitle = _(u"This treemap shows the share of countries that import %(product)s.", product=self.attr.get_name())
         trade_section["builds"].append({"title": u"Importers", "build": importers, "subtitle": importers_subtitle})
 
         rings = Build("rings", self.classification, "export", "all", "all", self.attr, self.year)
-        rings_subtitle = u"This visualization shows products that are likely to be exported by countries that export {}.".format(self.attr.get_name())
+        rings_subtitle = _(u"This visualization shows products that are likely to be exported by countries that export %(product)s.", product=self.attr.get_name())
         trade_section["builds"].append({"title": u"Product Connections", "build": rings, "subtitle": rings_subtitle})
 
         sections.append(trade_section)
@@ -620,29 +620,8 @@ class Product(Profile):
         ''' DataViva Section
         '''
         if self.classification == "hs92":
-            dv_hs = self.attr
-            if len(dv_hs.id) > 6:
-                dv_hs = self.attr_cls.query.get(self.attr.id[:6])
-            dv_munic_exporters_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val".format(dv_hs.id)
-            dv_munic_importers_iframe = "http://en.dataviva.info/apps/embed/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val".format(dv_hs.id)
-            dv_munic_exporters_subtitle = u"""
-                This treemap shows the municipalities in Brazil that export {}.<br /><br />
-                DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
-                </p><p><a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=export_val'>Explore on DataViva <i class='fa fa-external-link'></i></a>
-                """.format(dv_hs.get_name(), self.attr.id)
-            dv_munic_importers_subtitle = u"""
-                This treemap shows the municipalities in Brazil that import {}.<br />.<br />
-                DataViva is a visualization tool that provides official data on trade, industries, and education throughout Brazil. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.<br />
-                </p><p><a target='_blank' href='http://en.dataviva.info/apps/builder/tree_map/secex/all/{}/all/bra/?controls=false&size=import_val'>Explore on DataViva <i class='fa fa-external-link'></i></a>
-                """.format(dv_hs.get_name(), self.attr.id)
-            dv_section = {
-                "title": u"<a href='http://dataviva.info/' target='_blank'><img src='/static/img/dataviva_logo.png' /></a>",
-                "source": "dataviva",
-                "builds": [
-                    {"title": u"{} exporters in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_exporters_iframe, "subtitle": dv_munic_exporters_subtitle},
-                    {"title": u"{} importers in Brazil".format(dv_hs.get_name()), "iframe": dv_munic_importers_iframe, "subtitle": dv_munic_importers_subtitle},
-                ]
-            }
+            
+            dv_section = make_dv_section(self)
             sections.append(dv_section)
-
+            
         return sections

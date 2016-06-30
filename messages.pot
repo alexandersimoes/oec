@@ -100,6 +100,9 @@ msgstr ""
 msgid "Learn More"
 msgstr ""
 
+msgid "Watch a video"
+msgstr ""
+
 msgid "Search"
 msgstr ""
 
@@ -167,6 +170,9 @@ msgid "Exporters"
 msgstr ""
 
 msgid "Importers"
+msgstr ""
+
+msgid "Explore on Visualizations page"
 msgstr ""
 
 msgid "Product Complexity"
@@ -471,6 +477,22 @@ msgstr ""
 msgid "%(product)s a %(product_id_length)s digit %(classification)s product."
 msgstr ""
 
+#, python-format
+msgid "%(product_name)s Trade."
+msgstr ""
+
+#, python-format
+msgid "This treemap shows the share of countries that export %(product)s."
+msgstr ""
+
+#, python-format
+msgid "This treemap shows the share of countries that import %(product)s."
+msgstr ""
+
+#, python-format
+msgid "This visualization shows products that are likely to be exported by countries that export %(product)s."
+msgstr ""
+
 msgid "This map shows the states in the United States colored by median income."
 msgstr ""
 
@@ -526,6 +548,14 @@ msgstr ""
 
 #, python-format
 msgid "Brazilian Municipalities that export to %(country)s"
+msgstr ""
+
+#, python-format
+msgid "This treemap shows the municipalities in Brazil that export %(product)s."
+msgstr ""
+
+#, python-format
+msgid "This treemap shows the municipalities in Brazil that import %(product)s."
 msgstr ""
 
 #, python-format
