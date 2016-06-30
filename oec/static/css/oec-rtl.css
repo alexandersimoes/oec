@@ -508,7 +508,8 @@ body.home {
                 text-shadow: -2px 0 5px #212831;
                 text-align: center ;
                 bottom: 18%;
-                left: 19%; }
+                left: 19%;
+                width: 36%; }
                 .bg-frame #ring #info a {
                   -webkit-transition: color 1s, opacity 0.5s;
                   -moz-transition: color 1s, opacity 0.5s;

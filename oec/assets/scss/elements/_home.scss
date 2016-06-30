@@ -116,6 +116,7 @@ $default_size: 600px;
       @include rtl {
         left: 19%;
       }
+      width: 36%;
 
       a {
         @include transition(color 1s, opacity 0.5s);

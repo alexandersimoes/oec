@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-29 18:48-0400\n"
+"POT-Creation-Date: 2016-06-30 00:06-0400\n"
 "PO-Revision-Date: 2013-12-27 15:29-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: pt\n"
@@ -107,16 +107,16 @@ msgid "article_of_f"
 msgstr "da"
 
 msgid "verb_is_p"
-msgstr ""
+msgstr "é"
 
 msgid "verb_is"
-msgstr ""
+msgstr "é"
 
 msgid "The Observatory of Economic Complexity"
 msgstr "O Observatório da Complexidade Econômica"
 
-msgid "We are the world's<br/>leading visualization engine<br/>for international trade data."
-msgstr "Motor de visualização<br/>principal do mundo para dados do<br/>comércio internacional."
+msgid "We are the world's leading visualization engine for international trade data."
+msgstr "Motor de visualização principal do mundo para dados do comércio internacional."
 
 msgid "Learn More"
 msgstr "Ajuda"
@@ -169,9 +169,6 @@ msgstr "Permissões"
 msgid "API"
 msgstr "API"
 
-msgid "Take a tour"
-msgstr ""
-
 msgid "Exports"
 msgstr "Exportação"
 
@@ -193,26 +190,8 @@ msgstr "Exportadores"
 msgid "Importers"
 msgstr "Importadores"
 
-msgid "Prev. Year"
-msgstr "Ano anterior"
-
-msgid " Rankings"
-msgstr " Rankings"
-
-msgid "Click here for Product Rankings"
-msgstr "Clique aqui para Rankings do Produto"
-
 msgid "Product Complexity"
 msgstr "Complexidade do produto"
-
-msgid "Click here for Country Rankings"
-msgstr "Clique aqui para Rankings do País"
-
-msgid "Next Year"
-msgstr "Próximo ano"
-
-msgid "Previous Year"
-msgstr "Ano anterior"
 
 msgid "Dataset"
 msgstr "Dataset"
@@ -315,7 +294,7 @@ msgstr "Complexidade Econômica"
 
 #, python-format
 msgid "The total world trade in %(year)s was %(export_val)s."
-msgstr ""
+msgstr "O total do comércio mundial em %(year)s foi de %(export_val)s."
 
 #, python-format
 msgid "The 10 most traded products by dollar amount are %(exports_list)s, using the 1992 revision of the HS (Harmonized System) classification."
@@ -330,11 +309,11 @@ msgid "%(country_is)s the %(econ_rank)s largest export economy in the world"
 msgstr "%(country_is)s a %(econ_rank)s maior economia de exportação no mundo"
 
 #, python-format
-msgid " and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI). "
-msgstr " e na economia mais complexa %(eci_rank)s acordo com o Índice de Complexidade Econômico (ICE). "
+msgid "and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI)."
+msgstr "e na economia mais complexa %(eci_rank)s acordo com o Índice de Complexidade Econômico (ICE)."
 
 #, python-format
-msgid "In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s. "
+msgid "In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s."
 msgstr "Em %(year)s, %(country)s exportou US $ %(export_val)s e importou US $ %(import_val)s, resultando em um saldo comercial positivo de US $ %(trade_delta)s."
 
 #, python-format
@@ -362,15 +341,11 @@ msgid "%(country)s borders %(land_borders)s by land and %(maritime_borders)s by 
 msgstr "%(country)s faz fronteira com %(land_borders)s por terra e %(maritime_borders)s por mar."
 
 #, python-format
-msgid "The total world trade in %(year)s was %(export_val)s. "
-msgstr ""
+msgid "During the last five years exports have %(increased_decreased)s at a median annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s."
+msgstr "Durante os últimos cinco anos, as exportações %(increased_decreased)s a uma taxa anualizada média de %(change_rate)s%% a partir de $ %(past_export_val)s em %(past_year)s para US $ %(current_export_val)s em %(current_year)s."
 
 #, python-format
-msgid "During the last five years exports have %(increased_decreased)s at a median annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. "
-msgstr ""
-
-#, python-format
-msgid "The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total products exported, followed by %(second_export)s, which account for %(second_export_pct)s%%. "
+msgid "The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total products exported, followed by %(second_export)s, which account for %(second_export_pct)s%%."
 msgstr "As exportações mais recentes são liderados por %(top_export)s, que representam %(top_export_pct)s%% das exportações totais de %(of_country), seguido pelo %(second_export)s, que respondem por %(second_export_pct)s%%."
 
 #, python-format
@@ -381,24 +356,24 @@ msgid "Origins"
 msgstr "Origins"
 
 #, python-format
-msgid "In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world. "
+msgid "In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world."
 msgstr "Em %(year)s, %(country)s exportou US $ %(export_val)s, tornando-se o %(export_rank)s maior exportador do mundo."
 
 #, python-format
-msgid "During the last five years the exports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. "
-msgstr "Durante os últimos cinco anos, as exportações %(of_country)s %(increased_decreased)s a uma taxa anualizada de %(change_rate)s%%, a partir de $ %(past_export_val)s em %(past_year)s para $ %(current_export_val)s em %(current_year)s. "
+msgid "During the last five years the exports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s."
+msgstr "Durante os últimos cinco anos, as exportações %(of_country)s %(increased_decreased)s a uma taxa anualizada de %(change_rate)s%%, a partir de $ %(past_export_val)s em %(past_year)s para $ %(current_export_val)s em %(current_year)s."
 
 #, python-format
 msgid "The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total exports %(of_country)s, followed by %(second_export)s, which account for %(second_export_pct)s%%."
 msgstr "As exportações mais recentes são liderados por %(top_export)s, que representam %(top_export_pct)s%% das exportações totais de %(of_country), seguido pelo %(second_export)s, que respondem por %(second_export_pct)s%%."
 
 #, python-format
-msgid "In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world. "
+msgid "In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world."
 msgstr "Em %(year)s, %(country)s importou US $ %(import_val)s, tornando-se o %(import_rank)s maior importador do mundo."
 
 #, python-format
-msgid "During the last five years the imports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s. "
-msgstr "Durante os últimos cinco anos, as importações %(of_country)s %(increased_decreased)s a uma taxa anualizada de %(change_rate)s%%, a partir de $ %(past_import_val)s em %(past_year)s para $ %(current_import_val)s em %(current_year)s. "
+msgid "During the last five years the imports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s."
+msgstr "Durante os últimos cinco anos, as importações %(of_country)s %(increased_decreased)s a uma taxa anualizada de %(change_rate)s%%, a partir de $ %(past_import_val)s em %(past_year)s para $ %(current_import_val)s em %(current_year)s."
 
 #, python-format
 msgid "The most recent imports are led by %(top_import)s which represent %(top_import_pct)s%% of the total imports %(of_country)s, followed by %(second_import)s, which account for %(second_import_pct)s%%."
@@ -432,8 +407,8 @@ msgid "still"
 msgstr "ainda"
 
 #, python-format
-msgid " As compared to their trade balance in %(year)s when they %(still)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s."
-msgstr " Em comparação com a sua balança comercial em %(year)s, quando eles %(still)s tinham um saldo comercial %(positive_negative)s de US $ %(net_trade)s no %(exports_imports)s líquidas."
+msgid "As compared to their trade balance in %(year)s when they %(still)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s."
+msgstr "Em comparação com a sua balança comercial em %(year)s, quando eles %(still)s tinham um saldo comercial %(positive_negative)s de US $ %(net_trade)s no %(exports_imports)s líquidas."
 
 msgid "Trade Balance"
 msgstr "Balança comercial"
@@ -442,7 +417,7 @@ msgid "Destinations"
 msgstr "Destino"
 
 #, python-format
-msgid "The economy %(of_country)s has an Economic Complexity Index (ECI) of %(eci)s making it the %(eci_rank)s most complex country. "
+msgid "The economy %(of_country)s has an Economic Complexity Index (ECI) of %(eci)s making it the %(eci_rank)s most complex country."
 msgstr "A economia %(of_country)s tem um Índice de Complexidade Econômico (ICE) de %(eci)s tornando-o %(eci_rank)s país mais complexo."
 
 #, python-format
@@ -460,25 +435,25 @@ msgid "Product Space"
 msgstr "Produto"
 
 #, python-format
-msgid "The Economic Complexities of each country visualized over the past %(year_range)s years."
-msgstr ""
+msgid "The Economic Complexity of each country visualized over the past %(year_range)s years."
+msgstr "A complexidade económica de cada país visualizados ao longo dos últimos %(year_range)s anos."
 
 msgid "Economic Complexity Ranking"
-msgstr "HS Rankings produtos"
+msgstr "Ranking da Complexidade Económica"
 
 msgid "increased"
-msgstr "cresceu"
+msgstr "aumentou"
 
 msgid "decreased"
 msgstr "diminuiu"
 
 #, python-format
 msgid "The Economic Complexity ranking %(of_country)s has %(increased_or_decreased)s by %(rank_delta)s places over the past %(year_range)s years from %(old_eci)s in %(old_year)s to %(current_eci)s in %(current_year)s."
-msgstr ""
+msgstr "O ranking complexidade económica %(of_country)s %(increased_or_decreased)s em %(rank_delta)s locais ao longo dos últimos %(year_range)s anos a partir de %(old_eci)s em %(old_year)s para %(current_eci)s em %(current_year)s."
 
 #, python-format
-msgid "More on %(country)s from our sister sites"
-msgstr ""
+msgid "More on %(country)s from our other sites"
+msgstr "Mais sobre a %(country)s de nossos outros sites"
 
 msgid "Top Exporter"
 msgstr "Top Exportador"
@@ -488,15 +463,18 @@ msgstr "Top Importador"
 
 #, python-format
 msgid "%(product)s the %(economic_rank)s most traded product"
-msgstr ""
+msgstr "%(product)s do %(economic_rank)s produtos mais negociados"
+
+msgid "Product Complexity Index"
+msgstr "Índice de Produtos Complexidade"
 
 #, python-format
-msgid " and the %(pci_rank)s most complex product according to the <a href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>"
-msgstr ""
+msgid "and the %(pci_rank)s most complex product according to the %(pci_ranking_link)s"
+msgstr "e a %(pci_rank)s produto mais complexo de acordo com a %(pci_ranking_link)s"
 
 #, python-format
 msgid "The top exporters of %(product)s are %(exporters)s. The top importers are %(importers)s."
-msgstr ""
+msgstr "Os principais exportadores de %(product)s são %(exporters)s. Os principais importadores são %(importers)s."
 
 #, python-format
 msgid "%(product)s the top export of %(countries)s."
@@ -689,41 +667,3 @@ msgstr "Fim Ano"
 #, python-format
 msgid "Profile for %(attr)s"
 msgstr "Perfil para %(attr)s"
-
-#~ msgid "Economic Complexity Rankings"
-#~ msgstr "Ranking da Complexidade Económica"
-
-#~ msgid "Product Complexity Rankings"
-#~ msgstr "HS Rankings produtos"
-
-#~ msgid ""
-#~ msgstr ""
-
-#~ msgid "Cultural Production %(of_country)s"
-#~ msgstr "Produção Cultural %(of_country)s"
-
-#~ msgid ""
-#~ "The Economic Complexity ranking %(of_country)s has %(increased_or_decreased)s by %(rank_delta)s places\n"
-#~ "                    over the past %(year_range)s years from %(old_eci)s in %(old_year)s to %(current_eci)s in %(current_year)s."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "                This map shows the states in the United States colored by median income.<br /><br />\n"
-#~ "                Data USA is the most comprehensive visualization of U.S. public data. If you would like more info or to create a similar site get in touch with us at <a href='mailto:oec@media.mit.edu'>oec@media.mit.edu</a>.\n"
-#~ "                </p><p><a target='_blank' href='http://datausa.io/profile/geo/united-states/#income_geo'>Explore on Data USA <i class='fa fa-external-link'></i></a>\n"
-#~ "                "
-#~ msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "                This bar chart shows the wage distribution in the United States.</p><p><a target='_blank' href='http://datausa.io/profile/geo/united-states/#income_distro'>Explore on Data USA <i class='fa fa-external-link'></i></a>\n"
-#~ "                "
-#~ msgstr ""
-
-#~ msgid "This treemap shows the cultural exports %(of_country)s, as proxied by the production of globally famous historical characters.</p><p>%(pantheon_link)s"
-#~ msgstr ""
-
-#~ msgid "This treemap shows the cultural exports %(of_country)s by city, as proxied by the production of globally famous historical characters.</p><p>%(pantheon_link)s"
-#~ msgstr ""
-

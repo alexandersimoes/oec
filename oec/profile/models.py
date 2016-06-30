@@ -178,16 +178,17 @@ class Country(Profile):
                             country_is=country_is, econ_rank=econ_rank))
                 if this_attr_yo and this_attr_yo.eci_rank:
                     eci_rank = num_format(this_attr_yo.eci_rank, "ordinal") if this_attr_yo.eci_rank > 1 else ""
-                    p1.append(_(" and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI). ", eci_rank=eci_rank))
+                    p1 = p1 + [u" ", _("and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI).", eci_rank=eci_rank), u" "]
                 else:
                     p1.append(". ")
-                p1.append(_(u"In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s. ",
+                p1.append(_(u"In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s.",
                             year=self.year, country=self.attr.get_name(article=True), export_val=formatted_vals["export_val"], import_val=formatted_vals["import_val"], positive_negative=trade_balance, trade_delta=formatted_vals["trade_delta"]))
                 if this_attr_yo:
                     gdp = this_attr_yo.gdp
                     gdp_pc = this_attr_yo.gdp_pc_current_ppp or this_attr_yo.gdp_pc_current
                     formatted_vals = {"gdp":gdp, "gdp_pc":gdp_pc}
                     formatted_vals = {k: num_format(v) for k, v in formatted_vals.items()}
+                    p1.append(u" ")
                     p1.append(_(u"In %(year)s the GDP %(of_country)s was $%(gdp)s and its GDP per capita was $%(gdp_pc)s.",
                                 year=self.year, of_country=self.attr.get_name(article="of"), gdp=formatted_vals['gdp'], gdp_pc=formatted_vals['gdp_pc']))
                 all_paragraphs.append("".join(p1))
@@ -238,21 +239,23 @@ class Country(Profile):
             this_yo = self.models.Yo.query.filter_by(year = self.year).all()
 
             export_val = sum([o.export_val for o in this_yo])
-            export_subtitle = _(u"The total world trade in %(year)s was %(export_val)s. ", year=self.year, export_val=num_format(export_val, "export_val"))
+            export_subtitle = _(u"The total world trade in %(year)s was %(export_val)s.", year=self.year, export_val=num_format(export_val, "export_val"))
+            export_subtitle += u" "
 
             past_yr = self.year - 5
             past_yo = self.models.Yo.query.filter_by(year = past_yr).all()
             growth_val = median([o.export_val_growth_pct_5 for o in this_yo])
             chg = "increased" if growth_val >= 0 else "decreased"
-            export_subtitle += _(u"During the last five years exports have %(increased_decreased)s at a median annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. ",
+            export_subtitle += _(u"During the last five years exports have %(increased_decreased)s at a median annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s.",
                                     increased_decreased=chg, change_rate=num_format(growth_val*100), \
                                     past_export_val=num_format(sum([o.export_val for o in past_yo])), past_year=past_yr, current_export_val=num_format(export_val), current_year=self.year)
+            export_subtitle += u" "
 
             top_exports = self.models.Yp.query.filter_by(year = self.year, hs92_id_len=6).order_by(desc("export_val")).limit(2).all()
-            export_subtitle += _(u"The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total products exported, followed by %(second_export)s, which account for %(second_export_pct)s%%. ",
+            export_subtitle += _(u"The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total products exported, followed by %(second_export)s, which account for %(second_export_pct)s%%.",
                                     top_export=top_exports[0].product.get_profile_link(), top_export_pct=num_format((top_exports[0].export_val/export_val)*100), \
                                     second_export=top_exports[1].product.get_profile_link(), second_export_pct=num_format((top_exports[1].export_val/export_val)*100))
-
+            
             origins_tmap = Build("tree_map", "hs92", "import", self.attr, "show", "all", self.year)
             yo_exp = self.models.Yo.query.filter_by(year = self.year).order_by(desc("export_val")).limit(5).all()
             origin_list = self.stringify_items(yo_exp, "export_val", "country")
@@ -260,7 +263,7 @@ class Country(Profile):
 
             trade_section = {
                 "builds": [
-                    {"title": _(u"Exports"), "build": export_tmap, "subtitle": export_subtitle, "tour":"This is just a test", "seq":5},
+                    {"title": _(u"Exports"), "build": export_tmap, "subtitle": export_subtitle},
                     {"title": _(u"Origins"), "build": origins_tmap, "subtitle": origin_subtitle},
                 ]
             }
@@ -283,13 +286,15 @@ class Country(Profile):
                 export_subtitle = ""
                 if self.attr.id != "xxwld":
                     exp_rank = num_format(exp_val_stat["rank"], "ordinal") if exp_val_stat["rank"] > 1 else ""
-                    export_subtitle += _(u"In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world. ",
+                    export_subtitle += _(u"In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world.",
                                         year=self.year, country=self.attr.get_name(article=True), export_val=num_format(exp_val_stat["val"]), export_rank=exp_rank)
+                    export_subtitle += u" "
                 if past_yo:
                     chg = "increased" if this_yo.export_val_growth_pct_5 >= 0 else "decreased"
-                    export_subtitle += _(u"During the last five years the exports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. ",
+                    export_subtitle += _(u"During the last five years the exports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s.",
                                             of_country=self.attr.get_name(article="of"), increased_decreased=chg, change_rate=num_format(this_yo.export_val_growth_pct_5*100), \
                                             past_export_val=num_format(past_yo.export_val), past_year=past_yr, current_export_val=num_format(this_yo.export_val), current_year=self.year)
+                    export_subtitle += u" "
                 top_exports = yop_base.order_by(desc("export_val")).limit(2).all()
                 if top_exports:
                     # raise Exception(top_exports[0].product.get_profile_link(), num_format((top_exports[0].export_val/exp_val_stat["val"])*100), self.attr.get_name(article="of"), top_exports[1].product.get_profile_link(), num_format((top_exports[1].export_val/exp_val_stat["val"])*100))
@@ -302,13 +307,15 @@ class Country(Profile):
                 import_subtitle = ""
                 if self.attr.id != "xxwld":
                     imp_rank = num_format(imp_val_stat["rank"], "ordinal") if imp_val_stat["rank"] > 1 else ""
-                    import_subtitle += _(u"In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world. ",
+                    import_subtitle += _(u"In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world.",
                                         year=self.year, country=self.attr.get_name(article=True), import_val=num_format(imp_val_stat["val"]), import_rank=imp_rank)
+                    import_subtitle += u" "
                 if past_yo:
                     chg = "increased" if this_yo.import_val_growth_pct_5 >= 0 else "decreased"
-                    import_subtitle += _(u"During the last five years the imports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s. ",
+                    import_subtitle += _(u"During the last five years the imports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s.",
                                             of_country=self.attr.get_name(article="of"), increased_decreased=chg, change_rate=num_format(this_yo.import_val_growth_pct_5*100), \
                                             past_import_val=num_format(past_yo.import_val), past_year=past_yr, current_import_val=num_format(this_yo.import_val), current_year=self.year)
+                    import_subtitle += u" "
                 top_imports = yop_base.order_by(desc("import_val")).limit(2).all()
                 if top_imports:
                     import_subtitle += _(u"The most recent imports are led by %(top_import)s which represent %(top_import_pct)s%% of the total imports %(of_country)s, followed by %(second_import)s, which account for %(second_import_pct)s%%.",
@@ -344,7 +351,8 @@ class Country(Profile):
                     old_trade_direction = _("exports") if old_net_trade >= 0 else _("imports")
                     is_diff = True if old_trade_balance != trade_balance else False
                     still_or_not = _("still") if old_trade_balance == trade_balance else ""
-                    tb_subtitle += _(u" As compared to their trade balance in %(year)s when they %(still)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s.",
+                    tb_subtitle += u" "
+                    tb_subtitle += _(u"As compared to their trade balance in %(year)s when they %(still)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s.",
                                     year=available_years["hs92"][0], still=still_or_not, positive_negative=old_trade_balance, net_trade=num_format(abs(old_net_trade)), exports_imports=old_trade_direction)
 
             trade_section = {
@@ -373,8 +381,9 @@ class Country(Profile):
                 eci = this_attr_yo.eci
                 eci_rank = this_attr_yo.eci_rank
                 if eci_rank:
-                    subtitle = _(u"The economy %(of_country)s has an Economic Complexity Index (ECI) of %(eci)s making it the %(eci_rank)s most complex country. ",
+                    subtitle = _(u"The economy %(of_country)s has an Economic Complexity Index (ECI) of %(eci)s making it the %(eci_rank)s most complex country.",
                                 of_country=self.attr.get_name(article="of"), eci=num_format(eci), eci_rank=num_format(eci_rank, "ordinal"))
+                    subtitle += u" "
                 else:
                     subtitle = ""
                 subtitle += _(u"%(country)s exports %(num_of_exports)s products with revealed comparative advantage " \
@@ -400,7 +409,7 @@ class Country(Profile):
             start_year = 1980
             start_year = max(1964, start_year) if start_year != 1980 else 1964
             year_range = self.year - start_year
-            subtitle = _("""The Economic Complexities of each country visualized over the past %(year_range)s years.""", year_range=year_range)
+            subtitle = _("The Economic Complexity of each country visualized over the past %(year_range)s years.", year_range=year_range)
             ps_section["builds"].append({"title": _(u"Economic Complexity Ranking"), "build": line_rankings, "subtitle": subtitle})
 
         elif this_attr_yo and this_attr_yo.eci != None:
@@ -421,7 +430,7 @@ class Country(Profile):
         sections.append(ps_section)
 
         sections.append({
-            "title": _(u"More on %(country)s from our sister sites", country=self.attr.get_name(article=True)),
+            "title": _(u"More on %(country)s from our other sites", country=self.attr.get_name(article=True)),
             "source": "sisters"
         })
 
@@ -526,8 +535,10 @@ class Product(Profile):
             p2 = _(u"%(product)s the %(economic_rank)s most traded product", product=self.attr.get_name(verb=True), economic_rank=econ_rank)
             pci_rank = this_yp.pci_rank
             if pci_rank:
+                pci_ranking_link = "<a href='/en/rankings/hs92/'>{} (PCI)</a>".format(_(u"Product Complexity Index"))
                 pci_rank = num_format(pci_rank, "ordinal") if pci_rank > 1 else ""
-                p2 += _(u" and the %(pci_rank)s most complex product according to the <a href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>", pci_rank=pci_rank)
+                p2 += u" "
+                p2 += _(u"and the %(pci_rank)s most complex product according to the %(pci_ranking_link)s", pci_rank=pci_rank, pci_ranking_link=pci_ranking_link)
             p2 += "."
             all_paragraphs.append(p2)
 
@@ -602,7 +613,7 @@ class Product(Profile):
         sections.append(trade_section)
 
         sections.append({
-            "title": _(u"More on %(country)s from our sister sites", country=self.attr.get_name(article=True)),
+            "title": _(u"More on %(country)s from our other sites", country=self.attr.get_name(article=True)),
             "source": "sisters"
         })
 

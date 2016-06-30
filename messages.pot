@@ -94,7 +94,7 @@ msgstr ""
 msgid "The Observatory of Economic Complexity"
 msgstr ""
 
-msgid "We are the world's<br/>leading visualization engine<br/>for international trade data."
+msgid "We are the world's leading visualization engine for international trade data."
 msgstr ""
 
 msgid "Learn More"
@@ -148,9 +148,6 @@ msgstr ""
 msgid "API"
 msgstr ""
 
-msgid "Take a tour"
-msgstr ""
-
 msgid "Exports"
 msgstr ""
 
@@ -172,25 +169,7 @@ msgstr ""
 msgid "Importers"
 msgstr ""
 
-msgid "Prev. Year"
-msgstr ""
-
-msgid " Rankings"
-msgstr ""
-
-msgid "Click here for Product Rankings"
-msgstr ""
-
 msgid "Product Complexity"
-msgstr ""
-
-msgid "Click here for Country Rankings"
-msgstr ""
-
-msgid "Next Year"
-msgstr ""
-
-msgid "Previous Year"
 msgstr ""
 
 msgid "Dataset"
@@ -309,11 +288,11 @@ msgid "%(country_is)s the %(econ_rank)s largest export economy in the world"
 msgstr ""
 
 #, python-format
-msgid " and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI). "
+msgid "and the %(eci_rank)s most complex economy according to the Economic Complexity Index (ECI)."
 msgstr ""
 
 #, python-format
-msgid "In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s. "
+msgid "In %(year)s, %(country)s exported $%(export_val)s and imported $%(import_val)s, resulting in a %(positive_negative)s trade balance of $%(trade_delta)s."
 msgstr ""
 
 #, python-format
@@ -341,15 +320,11 @@ msgid "%(country)s borders %(land_borders)s by land and %(maritime_borders)s by 
 msgstr ""
 
 #, python-format
-msgid "The total world trade in %(year)s was %(export_val)s. "
+msgid "During the last five years exports have %(increased_decreased)s at a median annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s."
 msgstr ""
 
 #, python-format
-msgid "During the last five years exports have %(increased_decreased)s at a median annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. "
-msgstr ""
-
-#, python-format
-msgid "The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total products exported, followed by %(second_export)s, which account for %(second_export_pct)s%%. "
+msgid "The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total products exported, followed by %(second_export)s, which account for %(second_export_pct)s%%."
 msgstr ""
 
 #, python-format
@@ -360,11 +335,11 @@ msgid "Origins"
 msgstr ""
 
 #, python-format
-msgid "In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world. "
+msgid "In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world."
 msgstr ""
 
 #, python-format
-msgid "During the last five years the exports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s. "
+msgid "During the last five years the exports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s."
 msgstr ""
 
 #, python-format
@@ -372,11 +347,11 @@ msgid "The most recent exports are led by %(top_export)s which represent %(top_e
 msgstr ""
 
 #, python-format
-msgid "In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world. "
+msgid "In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world."
 msgstr ""
 
 #, python-format
-msgid "During the last five years the imports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s. "
+msgid "During the last five years the imports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s."
 msgstr ""
 
 #, python-format
@@ -411,7 +386,7 @@ msgid "still"
 msgstr ""
 
 #, python-format
-msgid " As compared to their trade balance in %(year)s when they %(still)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s."
+msgid "As compared to their trade balance in %(year)s when they %(still)s had a %(positive_negative)s trade balance of $%(net_trade)s in net %(exports_imports)s."
 msgstr ""
 
 msgid "Trade Balance"
@@ -421,7 +396,7 @@ msgid "Destinations"
 msgstr ""
 
 #, python-format
-msgid "The economy %(of_country)s has an Economic Complexity Index (ECI) of %(eci)s making it the %(eci_rank)s most complex country. "
+msgid "The economy %(of_country)s has an Economic Complexity Index (ECI) of %(eci)s making it the %(eci_rank)s most complex country."
 msgstr ""
 
 #, python-format
@@ -439,7 +414,7 @@ msgid "Product Space"
 msgstr ""
 
 #, python-format
-msgid "The Economic Complexities of each country visualized over the past %(year_range)s years."
+msgid "The Economic Complexity of each country visualized over the past %(year_range)s years."
 msgstr ""
 
 msgid "Economic Complexity Ranking"
@@ -456,7 +431,7 @@ msgid "The Economic Complexity ranking %(of_country)s has %(increased_or_decreas
 msgstr ""
 
 #, python-format
-msgid "More on %(country)s from our sister sites"
+msgid "More on %(country)s from our other sites"
 msgstr ""
 
 msgid "Top Exporter"
@@ -469,8 +444,11 @@ msgstr ""
 msgid "%(product)s the %(economic_rank)s most traded product"
 msgstr ""
 
+msgid "Product Complexity Index"
+msgstr ""
+
 #, python-format
-msgid " and the %(pci_rank)s most complex product according to the <a href='/en/rankings/hs92/'>Product Complexity Index (PCI)</a>"
+msgid "and the %(pci_rank)s most complex product according to the %(pci_ranking_link)s"
 msgstr ""
 
 #, python-format

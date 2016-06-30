@@ -19,7 +19,6 @@
     <a id="prev" href="/{{ g.locale }}/rankings/{{ category }}/{{ year-1 }}/">
       <h2 class="year-nav">
         <i class="fa fa-angle-left"></i>
-        <!-- {{ _('Prev. Year') }} -->
         {{ year-1 }}
       </h2>
     </a>
@@ -27,24 +26,15 @@
   </aside>
   <content>
     {% if category == "country" %}
-      <h1>
-        <a class="complexity_switch" href="/{{ g.locale }}/rankings/hs92/" data-tooltip="Switch to Product">{{ _('Economic Complexity') }}</a>
-        {{ _(' Rankings') }} ({{ year }})
-      </h1>
-      <!-- <a href="/{{ g.locale }}/rankings/hs92/">{{ _('Click here for Product Rankings') }} &raquo;</a> -->
+      <h1><a class="complexity_switch" href="/{{ g.locale }}/rankings/hs92/" data-tooltip="Switch to Product">{{ _('Economic Complexity') }}</a> {{ _('Rankings') }} ({{ year }})</h1>
     {% else %}
-      <h1>
-        <a class="complexity_switch" href="/{{ g.locale }}/rankings/country/" data-tooltip="Switch to Country">{{ _('Product Complexity') }}</a>
-        {{ _(' Rankings') }} ({{ year }})
-      </h1>
-      <!-- <a href="/{{ g.locale }}/rankings/country/">{{ _('Click here for Country Rankings') }} &raquo;</a> -->
+      <h1><a class="complexity_switch" href="/{{ g.locale }}/rankings/country/" data-tooltip="Switch to Country">{{ _('Product Complexity') }}</a> {{ _('Rankings') }} ({{ year }})</h1>
     {% endif %}
   </content>
   <aside>
     {% if year < g.available_years[category][-1]  %}
     <a id="next" href="/{{ g.locale }}/rankings/{{ category }}/{{ year+1 }}/">
       <h2 class="year-nav">
-        <!-- {{ _('Next Year') }} -->
         {{ year+1 }}
         <i class="fa fa-angle-right"></i>
       </h2>
@@ -56,20 +46,6 @@
 <section>
 
   <aside id="explorer">
-
-    <!-- {% if year > g.available_years[category][0]  %}
-    <a id="prev" href="/{{ g.locale }}/rankings/{{ category }}/{{ year-1 }}/">
-      <i class="fa fa-arrow-left"></i>
-      {{ _('Previous Year') }}
-    </a>
-    {% endif %}
-
-    {% if year < g.available_years[category][-1]  %}
-    <a id="next" href="/{{ g.locale }}/rankings/{{ category }}/{{ year+1 }}/">
-      {{ _('Next Year') }}
-      <i class="fa fa-arrow-right"></i>
-    </a>
-    {% endif %} -->
 
     <div id="rank_changers" class="{% if category == "country" %}eci-changer{% else %}pci-changer{% endif %}">
 
