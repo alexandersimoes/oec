@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-30 00:06-0400\n"
+"POT-Creation-Date: 2016-06-30 15:44-0400\n"
 "PO-Revision-Date: 2013-12-27 15:29-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: pt\n"
@@ -121,6 +121,9 @@ msgstr "Motor de visualização principal do mundo para dados do comércio inter
 msgid "Learn More"
 msgstr "Ajuda"
 
+msgid "Watch a video"
+msgstr "Veja o vídeo"
+
 msgid "Search"
 msgstr "Pesquisar"
 
@@ -189,6 +192,9 @@ msgstr "Exportadores"
 
 msgid "Importers"
 msgstr "Importadores"
+
+msgid "Explore on Visualizations page"
+msgstr "Explorar no Visualizations página"
 
 msgid "Product Complexity"
 msgstr "Complexidade do produto"
@@ -298,11 +304,11 @@ msgstr "O total do comércio mundial em %(year)s foi de %(export_val)s."
 
 #, python-format
 msgid "The 10 most traded products by dollar amount are %(exports_list)s, using the 1992 revision of the HS (Harmonized System) classification."
-msgstr "As exportações principais %(of_country)s são %(exports_list)s, usando o 1992 revisão da classificação HS (Sistema Harmonizado).."
+msgstr "As exportações principais são %(exports_list)s, usando o 1992 revisão da classificação HS (Sistema Harmonizado).."
 
 #, python-format
 msgid "The top 10 exporting countries are %(origins_list)s."
-msgstr "Os 10 principais países exportadores %(of_country)s são %(origins)s."
+msgstr "Os 10 principais países exportadores são %(origins_list)s."
 
 #, python-format
 msgid "%(country_is)s the %(econ_rank)s largest export economy in the world"
@@ -365,7 +371,7 @@ msgstr "Durante os últimos cinco anos, as exportações %(of_country)s %(increa
 
 #, python-format
 msgid "The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total exports %(of_country)s, followed by %(second_export)s, which account for %(second_export_pct)s%%."
-msgstr "As exportações mais recentes são liderados por %(top_export)s, que representam %(top_export_pct)s%% das exportações totais de %(of_country), seguido pelo %(second_export)s, que respondem por %(second_export_pct)s%%."
+msgstr "As exportações mais recentes são liderados por %(top_export)s, que representam %(top_export_pct)s%% das exportações totais de %(of_country)s, seguido pelo %(second_export)s, que respondem por %(second_export_pct)s%%."
 
 #, python-format
 msgid "In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world."
@@ -377,7 +383,7 @@ msgstr "Durante os últimos cinco anos, as importações %(of_country)s %(increa
 
 #, python-format
 msgid "The most recent imports are led by %(top_import)s which represent %(top_import_pct)s%% of the total imports %(of_country)s, followed by %(second_import)s, which account for %(second_import_pct)s%%."
-msgstr "As importações mais recentes são liderados por %(top_import)s, que representam %(top_import_pct)s%% das importações totais de %(of_country), seguido pelo %(second_import)s, que respondem por %(second_import_pct)s%%."
+msgstr "As importações mais recentes são liderados por %(top_import)s, que representam %(top_import_pct)s%% das importações totais de %(of_country)s, seguido pelo %(second_import)s, que respondem por %(second_import_pct)s%%."
 
 #, python-format
 msgid "The top export destinations %(of_country)s are %(destinations)s."
@@ -492,6 +498,22 @@ msgstr "%(product)s também é conhecido como %(keywords)s."
 msgid "%(product)s a %(product_id_length)s digit %(classification)s product."
 msgstr "%(product)s um produto %(classification)s de %(product_id_length)s dígitos."
 
+#, python-format
+msgid "%(product_name)s Trade."
+msgstr "Comércio de %(product_name)s"
+
+#, python-format
+msgid "This treemap shows the share of countries that export %(product)s."
+msgstr "Este treemap mostra a participação de países que exportam %(product)s."
+
+#, python-format
+msgid "This treemap shows the share of countries that import %(product)s."
+msgstr "Este treemap mostra a participação de países que importam %(product)s."
+
+#, python-format
+msgid "This visualization shows products that are likely to be exported by countries that export %(product)s."
+msgstr "Esta visualização mostra os produtos que são susceptíveis de ser exportados por países que exportam %(product)s."
+
 msgid "This map shows the states in the United States colored by median income."
 msgstr "Este mapa mostra os estados dos Estados Unidos coloridas de renda mediana."
 
@@ -548,6 +570,14 @@ msgstr "Municípios brasileiros que importam da %(country)s"
 #, python-format
 msgid "Brazilian Municipalities that export to %(country)s"
 msgstr "Municípios brasileiros que exportam da %(country)s"
+
+#, python-format
+msgid "This treemap shows the municipalities in Brazil that export %(product)s."
+msgstr "Este treemap mostra os municípios no Brasil que exportam %(product)s."
+
+#, python-format
+msgid "This treemap shows the municipalities in Brazil that import %(product)s."
+msgstr "Este treemap mostra os municípios no Brasil que importam %(product)s."
 
 #, python-format
 msgid "This treemap shows the cultural exports %(of_country)s, as proxied by the production of globally famous historical characters"
