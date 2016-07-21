@@ -491,6 +491,7 @@
     builds.forEach(function(b, i){
       var w = d3.select(b.container.node().parentNode).node().offsetWidth;
       var height = b.data && b.data.viz.slug === "network" ? window.innerWidth > 768 ? w * 0.7 : w : h * 0.9;
+      height = height > 600 ? 600 : height;
       b.container.style("height", height + "px");
       b.top = b.container.node().offsetTop;
       if (w !== b.width || h !== b.height) {
