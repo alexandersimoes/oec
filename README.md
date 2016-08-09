@@ -156,5 +156,5 @@ environment=PATH="/home/macro/venv/oec/bin", OEC_SECRET_KEY="oec-secret-key", OE
 ```
 $ sudo supervisorctl reread
 $ sudo supervisorctl update
-$ sudo supervisorctl status oec
+$ sudo supervisorctl status oec 
 ```
