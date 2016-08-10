@@ -385,6 +385,8 @@ class Hs07_name(db.Model, AutoSerialize, ProdNameAttr):
 class Sitc(ProdAttr):
     __tablename__ = 'attr_sitc'
     sitc = db.Column(db.String(6))
+    pini = db.Column(db.Float())
+    pini_class = db.Column(db.Integer)
 
     name = db.relationship("Sitc_name", backref="sitc", lazy="dynamic")
     yodp_product = db.relationship("db_data.sitc_models.Yodp", backref = 'product', lazy = 'dynamic')
@@ -421,6 +423,8 @@ class Yo(db.Model, AutoSerialize):
     pc_constant = db.Column(db.Float())
     pc_current = db.Column(db.Float())
     notpc_constant = db.Column(db.Float())
+    gini = db.Column(db.Float())
+    xgini = db.Column(db.Float())
 
     def __repr__(self):
         return '<Yo %d.%s>' % (self.year, self.origin_id)

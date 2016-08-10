@@ -16,6 +16,9 @@ function format_data(raw_data, attrs, build){
     if(net_val > 0){
       d["net_"+build.trade_flow+"_val"] = net_val;
     }
+    if(build.viz.slug == "network" && build.trade_flow === "gini"){
+      // console.log(d)
+    }
   })
 
   // special case for line chart of trade balance (need to duplicate data)
@@ -50,10 +53,23 @@ function format_data(raw_data, attrs, build){
 function format_attrs(raw_attrs, build){
   var attrs = {};
   var attr_id = attr_id = build.attr_type + "_id";
+  var bin_lookup = {
+    "bin0": "#4575b4",
+    "bin1": "#91bfdb",
+    "bin2": "#fee090",
+    "bin3": "#fc8d59",
+    "bin4": "#D73038"
+  }
 
   raw_attrs.data.forEach(function(d){
-    d.nest = d.id.substr(0, 2);
-    attrs[d.id] = d
+    // d.nest = d.id.substr(0, 2);
+    d.nest = "bin"+d.pini_class;
+    attrs[d.id] = d;
+    
+    if(build.viz.slug == "network" && build.trade_flow === "gini"){
+      attrs[d.id]["color"] = bin_lookup[d.nest];
+    }
+    
     if(attr_id == "origin_id" || attr_id == "dest_id"){
       attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
     }
@@ -64,6 +80,14 @@ function format_attrs(raw_attrs, build){
       attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
     }
   })
+
+  if(build.viz.slug == "network" && build.trade_flow === "gini"){
+    attrs["bin0"] = {"color":"#4575b4","id":"bin0","icon":null,"name":"Bin 0"}
+    attrs["bin1"] = {"color":"#91bfdb","id":"bin1","icon":null,"name":"Bin 1"}
+    attrs["bin2"] = {"color":"#fee090","id":"bin2","icon":null,"name":"Bin 2"}
+    attrs["bin3"] = {"color":"#fc8d59","id":"bin3","icon":null,"name":"Bin 3"}
+    attrs["bin4"] = {"color":"#D73038","id":"bin4","icon":null,"name":"Bin 4"}
+  }
 
   // for geo map, get rid of small island nations that don't exist
   // in geography

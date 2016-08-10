@@ -105,6 +105,12 @@ build_metadata = { \
             "question": u"What are the export opportunities of {origin}?",
             "short_name": "Product Space",
             "category": "Country"
+        },
+        "gini": {
+            "title": u"GINI Product Space of {origin}",
+            "question": u"What is the Product Gini of the exports of {origin}?",
+            "short_name": "GINI Product Space",
+            "category": "Country"
         }
     },
     6: {
