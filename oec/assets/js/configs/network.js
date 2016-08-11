@@ -22,6 +22,11 @@ configs.network = function(build, container) {
       ]}
     ];
   }
+  
+  var legend = {"filters":true};
+  if(build.trade_flow === "gini"){
+    legend["order"] = "text";
+  }
 
   return {
     "active": {
@@ -39,6 +44,7 @@ configs.network = function(build, container) {
     //     }
     // },
     "id": ["nest","id"],
+    "legend": legend,
     "nodes": {
       "overlap": 1.1,
     },

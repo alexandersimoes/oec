@@ -45,6 +45,10 @@ configs.default = function(build, container) {
     text = d3plus.color.text(background);
     curtain = background;
   }
+  
+  if(build.viz.slug == "network" && build.trade_flow === "gini"){
+    tooltip_data.push("pini");
+  }
 
   var edges = "#ddd",
       grid = "#ccc",

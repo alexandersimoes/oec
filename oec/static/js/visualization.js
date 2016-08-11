@@ -186,6 +186,10 @@ configs.default = function(build, container) {
     text = d3plus.color.text(background);
     curtain = background;
   }
+  
+  if(build.viz.slug == "network" && build.trade_flow === "gini"){
+    tooltip_data.push("pini");
+  }
 
   var edges = "#ddd",
       grid = "#ccc",
@@ -561,6 +565,11 @@ configs.network = function(build, container) {
       ]}
     ];
   }
+  
+  var legend = {"filters":true};
+  if(build.trade_flow === "gini"){
+    legend["order"] = "text";
+  }
 
   return {
     "active": {
@@ -578,6 +587,7 @@ configs.network = function(build, container) {
     //     }
     // },
     "id": ["nest","id"],
+    "legend": legend,
     "nodes": {
       "overlap": 1.1,
     },
@@ -748,7 +758,7 @@ function format_data(raw_data, attrs, build){
       d["net_"+build.trade_flow+"_val"] = net_val;
     }
     if(build.viz.slug == "network" && build.trade_flow === "gini"){
-      // console.log(d)
+      d.nest = attrs[d.id].nest
     }
   })
 
@@ -797,10 +807,6 @@ function format_attrs(raw_attrs, build){
     d.nest = "bin"+d.pini_class;
     attrs[d.id] = d;
     
-    if(build.viz.slug == "network" && build.trade_flow === "gini"){
-      attrs[d.id]["color"] = bin_lookup[d.nest];
-    }
-    
     if(attr_id == "origin_id" || attr_id == "dest_id"){
       attrs[d.id]["icon"] = "/static/img/icons/country/country_"+d.id+".png"
     }
@@ -810,14 +816,19 @@ function format_attrs(raw_attrs, build){
     else if(attr_id == "sitc_id"){
       attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_"+d.id.substr(0, 2)+".png"
     }
+    
+    if(build.viz.slug == "network" && build.trade_flow === "gini"){
+      attrs[d.id]["color"] = bin_lookup[d.nest];
+      attrs[d.id]["icon"] = "/static/img/icons/sitc/sitc_90.png";
+    }
   })
 
   if(build.viz.slug == "network" && build.trade_flow === "gini"){
-    attrs["bin0"] = {"color":"#4575b4","id":"bin0","icon":null,"name":"Bin 0"}
-    attrs["bin1"] = {"color":"#91bfdb","id":"bin1","icon":null,"name":"Bin 1"}
-    attrs["bin2"] = {"color":"#fee090","id":"bin2","icon":null,"name":"Bin 2"}
-    attrs["bin3"] = {"color":"#fc8d59","id":"bin3","icon":null,"name":"Bin 3"}
-    attrs["bin4"] = {"color":"#D73038","id":"bin4","icon":null,"name":"Bin 4"}
+    attrs["bin0"] = {"color":"#4575b4","id":"bin0","nest":"bin0","icon":"/static/img/icons/sitc/sitc_90.png","name":"Product GINI < 32.8"}
+    attrs["bin1"] = {"color":"#91bfdb","id":"bin1","nest":"bin1","icon":"/static/img/icons/sitc/sitc_90.png","name":"Product GINI 32.8 - 38.6"}
+    attrs["bin2"] = {"color":"#fee090","id":"bin2","nest":"bin2","icon":"/static/img/icons/sitc/sitc_90.png","name":"Product GINI 38.7 - 41.9"}
+    attrs["bin3"] = {"color":"#fc8d59","id":"bin3","nest":"bin3","icon":"/static/img/icons/sitc/sitc_90.png","name":"Product GINI 42.0 - 45.7"}
+    attrs["bin4"] = {"color":"#D73038","id":"bin4","nest":"bin4","icon":"/static/img/icons/sitc/sitc_90.png","name":"Product GINI > 45.7"}
   }
 
   // for geo map, get rid of small island nations that don't exist
