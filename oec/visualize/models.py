@@ -474,6 +474,16 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
                 prod = "show",
                 year = year)
             all_builds.append(build)
+            
+            build = Build(
+                viz = v["slug"],
+                classification = "sitc",
+                trade_flow = "gini",
+                origin = origin_id,
+                dest = "all",
+                prod = "show",
+                year = year)
+            all_builds.append(build)
 
         elif v["slug"] == "rings":
             '''rings has 1 builds'''
