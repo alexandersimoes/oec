@@ -106,6 +106,12 @@ class Rca(object):
     export_rca = db.Column(db.Float())
     import_rca = db.Column(db.Float())
 
+class OppGain(object):
+    density = db.Column(db.Float())
+    opp_gain = db.Column(db.Float())
+    normalized_opp_gain_density = db.Column(db.Float())
+
+
 class Pci(object):
     pci = db.Column(db.Float())
     pci_rank = db.Column(db.Integer)
