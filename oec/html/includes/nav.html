@@ -29,23 +29,23 @@
 </li>
 
 <li id="resources"{% if g.page_type == "resources" %} class="active"{% endif %}>
-  <a href="{{ url_for('resources.about', lang=g.locale) }}">{{ _('Resources') }}</a>
+  <a href="{{ url_for('resources.about', lang=g.locale) }}">{{ _('About') }}</a>
   <div class="sub_menu">
     <ul>
-      <li class="about{% if g.page_sub_type == 'about' %} active{% endif %}">
-        <a href="{{ url_for('resources.about', lang=g.locale) }}">{{ _('About the Site') }}</a>
+      <li class="data{% if g.page_sub_type == 'data' %} active{% endif %}">
+        <a href="{{ url_for('resources.data', lang=g.locale) }}">{{ _('Data') }}</a>
       </li>
       <li class="eci{% if g.page_sub_type == 'eci' %} active{% endif %}">
         <a href="{{ url_for('resources.eci', lang=g.locale) }}">{{ _('Economic Complexity') }}</a>
       </li>
-      <li class="faqs{% if g.page_sub_type == 'faqs' %} active{% endif %}">
-        <a href="{{ url_for('resources.faqs', lang=g.locale) }}">{{ _('FAQs') }}</a>
-      </li>
-      <li class="data{% if g.page_sub_type == 'data' %} active{% endif %}">
-        <a href="{{ url_for('resources.data', lang=g.locale) }}">{{ _('Data Sources') }}</a>
+      <li class="about{% if g.page_sub_type == 'about' %} active{% endif %}">
+        <a href="{{ url_for('resources.about', lang=g.locale) }}">{{ _('The Site') }}</a>
       </li>
       <li class="permissions{% if g.page_sub_type == 'permissions' %} active{% endif %}">
         <a href="{{ url_for('resources.permissions', lang=g.locale) }}">{{ _('Permissions') }}</a>
+      </li>
+      <li class="faqs{% if g.page_sub_type == 'faqs' %} active{% endif %}">
+        <a href="{{ url_for('resources.faqs', lang=g.locale) }}">{{ _('FAQs') }}</a>
       </li>
     </ul>
   </div>
