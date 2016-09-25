@@ -419,7 +419,7 @@ class Country(Profile):
             year_range = self.year - start_year
 
             attr_yo_historic = attrs.Yo.query.filter_by(country=self.attr).filter(attrs.Yo.year == start_year).first()
-            if attr_yo_historic.eci_rank:
+            if attr_yo_historic and attr_yo_historic.eci_rank != None:
                 eci_delta = this_attr_yo.eci_rank - attr_yo_historic.eci_rank
                 inc_dec = _('increased') if eci_delta < 0 else _('decreased')
                 subtitle = _("The Economic Complexity ranking %(of_country)s has %(increased_or_decreased)s by %(rank_delta)s places over the past %(year_range)s years from %(old_eci)s in %(old_year)s to %(current_eci)s in %(current_year)s.",
