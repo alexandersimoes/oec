@@ -255,7 +255,7 @@ class Country(Profile):
             export_subtitle += _(u"The most recent exports are led by %(top_export)s which represent %(top_export_pct)s%% of the total products exported, followed by %(second_export)s, which account for %(second_export_pct)s%%.",
                                     top_export=top_exports[0].product.get_profile_link(), top_export_pct=num_format((top_exports[0].export_val/export_val)*100), \
                                     second_export=top_exports[1].product.get_profile_link(), second_export_pct=num_format((top_exports[1].export_val/export_val)*100))
-            
+
             origins_tmap = Build("tree_map", "hs92", "import", self.attr, "show", "all", self.year)
             yo_exp = self.models.Yo.query.filter_by(year = self.year).order_by(desc("export_val")).limit(5).all()
             origin_list = self.stringify_items(yo_exp, "export_val", "country")
@@ -402,6 +402,13 @@ class Country(Profile):
             ]
         }
 
+        ''' PGI Section
+        '''
+        if self.attr.id != "xxwld":
+            pgi_product_space = Build("network", "sitc", "pgi", self.attr, "all", "show", self.year)
+            subtitle = _("The PGI values of products exported by %(country)s.", country=self.attr.get_name(article=True))
+            ps_section["builds"].append({"title": _(u"PGI Product Space"), "build": pgi_product_space, "subtitle": subtitle})
+
         ''' ECI Ranking Section
         '''
         if self.attr.id == "xxwld":
@@ -451,10 +458,10 @@ class Country(Profile):
         if pantheon_id:
             if self.attr.id != "xxwld":
                 pantheon_id = pantheon_id.upper()
-            
+
             pantheon_section = make_pantheon_section(pantheon_id, self.attr)
             sections.append(pantheon_section)
-        
+
         return sections
 
 class Product(Profile):
@@ -620,8 +627,8 @@ class Product(Profile):
         ''' DataViva Section
         '''
         if self.classification == "hs92":
-            
+
             dv_section = make_dv_section(self)
             sections.append(dv_section)
-            
+
         return sections

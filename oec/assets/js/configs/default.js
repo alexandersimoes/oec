@@ -24,6 +24,10 @@ configs.default = function(build, container) {
     tooltip_data.push("year");
   }
 
+  if (build.trade_flow === "pgi") {
+    tooltip_data.push("pini");
+  }
+
   var background = "none", curtain = "black", text = "#333333";
   try {
     var same_origin = window.parent.location.host == window.location.host;
@@ -115,7 +119,8 @@ configs.default = function(build, container) {
       "pci": "mean",
       "eci": "mean",
       "export_rca": "mean",
-      "import_rca": "mean"
+      "import_rca": "mean",
+      "pini": "mean"
     },
     "axes": {
       "background": {
@@ -176,7 +181,7 @@ configs.default = function(build, container) {
       "value": build.trade_flow+"_val",
       "threshold": false
     },
-    "text": {"nest":"name", "id":["name", "display_id"]},
+    "text": {"nest":"name", "id":["name", "display_id"], "pini_class":"pini_class"},
     "time": {"value": "year", "solo": build.year },
     "title": {
       "font": {

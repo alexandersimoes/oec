@@ -23,7 +23,7 @@ all_viz = [
     2. tmap/stacked of countries that export/import a product
     3. tmap/stacked of products exported/imported from a destination
     4. tmap/stacked of destinations that a country exports a product to
-    5. network of product space
+    5. network of product space and PGI product space
     6. rings
     7. scatter of PCI by GDP
     8. line chart of trade balance
@@ -104,6 +104,12 @@ build_metadata = { \
             "title": u"Product Space of {origin}",
             "question": u"What are the export opportunities of {origin}?",
             "short_name": "Product Space",
+            "category": "Country"
+        },
+        "pgi": {
+            "title": u"PGI Product Space of {origin}",
+            "question": u"What are the PGI values of the products exported by {origin}?",
+            "short_name": "PGI Product Space",
             "category": "Country"
         }
     },
@@ -457,12 +463,21 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
                     all_builds.append(build)
 
         elif v["slug"] == "network":
-            '''network aka product space only has 1 build'''
+            '''network aka product space has 2 builds'''
 
             build = Build(
                 viz = v["slug"],
                 classification = classification,
                 trade_flow = "export",
+                origin = origin_id,
+                dest = "all",
+                prod = "show",
+                year = year)
+            all_builds.append(build)
+            build = Build(
+                viz = v["slug"],
+                classification = "sitc",
+                trade_flow = "pgi",
                 origin = origin_id,
                 dest = "all",
                 prod = "show",

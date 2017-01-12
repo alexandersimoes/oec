@@ -439,17 +439,17 @@ def builds():
     build_args["year"] = request.args.get('year', available_years[build_args["classification"]][-1])
     build_args["defaults"] = {"origin":"nausa", "dest":"aschn", "prod":"010101"}
     build_args["viz"] = ["tree_map", "rings"]
-    
+
     if build_args["origin_id"] == build_args["dest_id"]:
         origin_dest_prod = get_origin_dest_prod(None, build_args["dest_id"], build_args["prod_id"], build_args["classification"], [build_args["year"]], "export")
         build_args["dest_id"] = origin_dest_prod[0].id_3char
-    
+
     all_builds = get_all_builds(**build_args)
-    
+
     if build_args["origin_id"] and build_args["dest_id"]:
         build_args["origin_id"], build_args["dest_id"] = build_args["dest_id"], build_args["origin_id"]
         all_builds = get_all_builds(**build_args) + all_builds
-    
+
     '''
         Need some way of ranking these build...
     '''

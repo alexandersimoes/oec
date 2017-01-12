@@ -23,6 +23,30 @@ configs.network = function(build, container) {
     ];
   }
 
+  if(build.trade_flow === "pgi"){
+    var colors = ["#f1eef6", "#bdc9e1", "#74a9cf", "#0570b0"];
+    var color = function(d){
+      if(d.id.constructor === Array){
+        var thisId = d.id[0].id;
+      }
+      else {
+        var thisId = d.id;
+      }
+      if(build.attrs[thisId]){
+        if(build.attrs[thisId]["pini_class"]){
+          return colors[build.attrs[thisId]["pini_class"] - 1]
+        }
+      }
+      // console.log(d)
+      return "blue";
+    };
+    var id = ["nest","id"];
+  }
+  else {
+    var color = "color";
+    var id = ["pini_class","id"];
+  }
+
   return {
     "active": {
       "value": build.origin.id !== "xxwld" ? function(d){
@@ -30,7 +54,7 @@ configs.network = function(build, container) {
       } : false,
       "spotlight": true
     },
-    "color": "color",
+    "color": color,
     "depth": 1,
     // "edges": {
     //     "value": "/static/json/just_edges.json",
@@ -38,7 +62,7 @@ configs.network = function(build, container) {
     //       return network.edges
     //     }
     // },
-    "id": ["nest","id"],
+    "id": id,
     "nodes": {
       "overlap": 1.1,
     },
