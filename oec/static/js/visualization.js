@@ -584,11 +584,11 @@ configs.network = function(build, container) {
       // console.log(d)
       return "blue";
     };
-    var id = ["nest","id"];
+    var id = ["pini_class","id"];
   }
   else {
     var color = "color";
-    var id = ["pini_class","id"];
+    var id = ["nest","id"];
   }
 
   return {
@@ -767,6 +767,7 @@ function format_data(raw_data, attrs, build){
   // go through raw data and set each items nest and id vars properly
   // also calculate net values
   data.forEach(function(d){
+    d.pini_class = attrs[d[attr_id]].pini_class;
     d.nest = d[attr_id].substr(0, 2)
     if(attr_id.indexOf("hs") == 0){
       d.nest_mid = d[attr_id].substr(0, 6)

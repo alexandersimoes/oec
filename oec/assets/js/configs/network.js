@@ -40,11 +40,11 @@ configs.network = function(build, container) {
       // console.log(d)
       return "blue";
     };
-    var id = ["nest","id"];
+    var id = ["pini_class","id"];
   }
   else {
     var color = "color";
-    var id = ["pini_class","id"];
+    var id = ["nest","id"];
   }
 
   return {

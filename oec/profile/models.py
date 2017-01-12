@@ -404,10 +404,10 @@ class Country(Profile):
 
         ''' PGI Section
         '''
-        if self.attr.id != "xxwld":
-            pgi_product_space = Build("network", "sitc", "pgi", self.attr, "all", "show", self.year)
-            subtitle = _("The PGI values of products exported by %(country)s.", country=self.attr.get_name(article=True))
-            ps_section["builds"].append({"title": _(u"PGI Product Space"), "build": pgi_product_space, "subtitle": subtitle})
+        # if self.attr.id != "xxwld":
+        #     pgi_product_space = Build("network", "sitc", "pgi", self.attr, "all", "show", self.year)
+        #     subtitle = _("The PGI values of products exported by %(country)s.", country=self.attr.get_name(article=True))
+        #     ps_section["builds"].append({"title": _(u"PGI Product Space"), "build": pgi_product_space, "subtitle": subtitle})
 
         ''' ECI Ranking Section
         '''
