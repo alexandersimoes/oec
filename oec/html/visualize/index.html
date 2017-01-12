@@ -49,11 +49,10 @@
 
   {% macro build_list(builds) %}
     {% set a = builds[0].viz.slug %}
-    {% set pre_cat = "init" %}
     <div class="app_menu{% if a == current_app %} open{% endif %}" data-app="{{ a }}">
     {% for build in builds %}
-      {% if pre_cat != build.category() %}
-        {% if pre_cat != "init" %}</div></div>{% endif %}
+      {% if loop.index == 1 or builds[loop.index0 - 1].category() != build.category() %}
+        {% if loop.index != 1 %}</div></div>{% endif %}
         <div class="build">
         {% if build.category() != None %}
           <div class="build_title">{{ build.category() }}</div>
@@ -61,7 +60,6 @@
         <div class="build_list">
       {% endif %}
 
-      {% set pre_cat = build.category() %}
       {% set build_url = build.url() %}
       <a class="build_link{% if build_url == current_url %} active{% endif %}" href="/{{ g.locale }}/visualize/{{ build_url }}">{{ build.short_name() }}</a>
     {% endfor %}
@@ -70,7 +68,7 @@
 
   {% set app = None %}
   {% for builds in all_builds %}
-    {% if app == None %}<div class="app_button_group">{% endif %}
+    {% if loop.index % 2 == 1 %}<div class="app_button_group">{% endif %}
     {% set app = builds[0].viz.slug %}
     <div class="{{ app }} app_button{% if app == current_app %} open{% endif %}" data-app="{{ app }}">
       <img src="/static/img/icons/app/app_{{ app }}.png">{{ builds[0].viz.name }}
@@ -81,7 +79,6 @@
       {{ build_list(all_builds[loop.index0 - 1]) }}
       {% endif %}
       {{ build_list(builds) }}
-    {% set app = None %}
     {% endif %}
   {% endfor %}
 
