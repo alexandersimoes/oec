@@ -24,7 +24,9 @@ configs.network = function(build, container) {
   }
 
   if(build.trade_flow === "pgi"){
-    var colors = ["#f1eef6", "#bdc9e1", "#74a9cf", "#0570b0"];
+    // var colors = ["#f1eef6", "#bdc9e1", "#74a9cf", "#0570b0"];
+    var colors = ['#ffffcc','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#0c2c84']
+    var color_scale = d3.scale.quantile().range(d3.range(7)).domain([32, 53]);
     var color = function(d){
       if(d.id.constructor === Array){
         var thisId = d.id[0].id;
@@ -33,8 +35,9 @@ configs.network = function(build, container) {
         var thisId = d.id;
       }
       if(build.attrs[thisId]){
-        if(build.attrs[thisId]["pini_class"]){
-          return colors[build.attrs[thisId]["pini_class"] - 1]
+        if(build.attrs[thisId]["pini"]){
+          return colors[color_scale(build.attrs[thisId]["pini"])]
+          // return colors[build.attrs[thisId]["pini_class"] - 1]
         }
       }
       // console.log(d)

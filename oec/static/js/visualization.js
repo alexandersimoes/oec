@@ -568,7 +568,9 @@ configs.network = function(build, container) {
   }
 
   if(build.trade_flow === "pgi"){
-    var colors = ["#f1eef6", "#bdc9e1", "#74a9cf", "#0570b0"];
+    // var colors = ["#f1eef6", "#bdc9e1", "#74a9cf", "#0570b0"];
+    var colors = ['#ffffcc','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#0c2c84']
+    var color_scale = d3.scale.quantile().range(d3.range(7)).domain([32, 53]);
     var color = function(d){
       if(d.id.constructor === Array){
         var thisId = d.id[0].id;
@@ -577,8 +579,9 @@ configs.network = function(build, container) {
         var thisId = d.id;
       }
       if(build.attrs[thisId]){
-        if(build.attrs[thisId]["pini_class"]){
-          return colors[build.attrs[thisId]["pini_class"] - 1]
+        if(build.attrs[thisId]["pini"]){
+          return colors[color_scale(build.attrs[thisId]["pini"])]
+          // return colors[build.attrs[thisId]["pini_class"] - 1]
         }
       }
       // console.log(d)
@@ -763,11 +766,16 @@ function format_data(raw_data, attrs, build){
   var data = raw_data.data;
   var opposite_trade_flow = build.trade_flow == "export" ? "import" : "export";
   var attr_id = attr_id = build.attr_type + "_id";
+  var pini_domain = [32, 53];
+  var pini_scale = d3.scale.quantile().range(d3.range(7)).domain(pini_domain);
+  var pini_buckets = [32].concat(pini_scale.quantiles()).concat([53])
 
   // go through raw data and set each items nest and id vars properly
   // also calculate net values
   data.forEach(function(d){
-    d.pini_class = attrs[d[attr_id]].pini_class;
+    // d.pini_class = attrs[d[attr_id]].pini_class;
+    var bucket = pini_scale(attrs[d[attr_id]].pini);
+    d.pini_class = "Pinis ("+pini_buckets[bucket]+" - "+pini_buckets[bucket+1]+")";
     d.nest = d[attr_id].substr(0, 2)
     if(attr_id.indexOf("hs") == 0){
       d.nest_mid = d[attr_id].substr(0, 6)
