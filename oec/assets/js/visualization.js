@@ -42,6 +42,10 @@ var visualization = function(build, container) {
 
       if(text){
 
+        if (text === "pini") {
+          return "PGI Value";
+        }
+
         if (text.indexOf("<img") === 0) {
           return text;
         }

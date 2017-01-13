@@ -6,6 +6,11 @@ function change_layout(new_layout){
   }).draw();
 }
 
+function getParameterByName(name) {
+  var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
 configs.network = function(build, container) {
   if(build.attr_type == "sitc"){
     var ui = [];
@@ -25,7 +30,10 @@ configs.network = function(build, container) {
 
   if(build.trade_flow === "pgi"){
     // var colors = ["#f1eef6", "#bdc9e1", "#74a9cf", "#0570b0"];
-    var colors = ['#ffffcc','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#0c2c84']
+    // var colors = ['#ffffcc','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#0c2c84']
+    var cool_colors = ["#0e0092", "#2e34a4", "#3d5cb7", "#4483c9", "#44abdb", "#38d5ed", "#00ffff"];
+    var warm_colors = ['#710000','#9a0a04','#be2404','#db3f02','#f05d00','#fc7b00','#ff9a00'];
+    var colors = ['#ff0000','#ff7300','#ffb700','#fdff00','#c1ff26','#82ff50','#00ff7d'];
     var color_scale = d3.scale.quantile().range(d3.range(7)).domain([32, 53]);
     var color = function(d){
       if(d.id.constructor === Array){
@@ -36,6 +44,12 @@ configs.network = function(build, container) {
       }
       if(build.attrs[thisId]){
         if(build.attrs[thisId]["pini"]){
+          if(getParameterByName('colors') === "warm"){
+            return warm_colors[color_scale(build.attrs[thisId]["pini"])]
+          }
+          if(getParameterByName('colors') === "cool"){
+            return cool_colors[color_scale(build.attrs[thisId]["pini"])]
+          }
           return colors[color_scale(build.attrs[thisId]["pini"])]
           // return colors[build.attrs[thisId]["pini_class"] - 1]
         }

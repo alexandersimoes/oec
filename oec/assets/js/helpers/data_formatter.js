@@ -12,7 +12,7 @@ function format_data(raw_data, attrs, build){
   data.forEach(function(d){
     // d.pini_class = attrs[d[attr_id]].pini_class;
     var bucket = pini_scale(attrs[d[attr_id]].pini);
-    d.pini_class = "Pinis ("+pini_buckets[bucket]+" - "+pini_buckets[bucket+1]+")";
+    d.pini_class = "PGIs ("+pini_buckets[bucket]+" - "+pini_buckets[bucket+1]+")";
     d.nest = d[attr_id].substr(0, 2)
     if(attr_id.indexOf("hs") == 0){
       d.nest_mid = d[attr_id].substr(0, 6)
