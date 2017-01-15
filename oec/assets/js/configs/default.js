@@ -165,7 +165,7 @@ configs.default = function(build, container) {
       },
       "padding": 15
     },
-    "legend": {"filters":true},
+    "legend": {"filters":true, "order":"text"},
     "messages": {
       "branding": {
         "image": {

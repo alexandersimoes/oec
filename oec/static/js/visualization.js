@@ -310,7 +310,7 @@ configs.default = function(build, container) {
       },
       "padding": 15
     },
-    "legend": {"filters":true},
+    "legend": {"filters":true, "order":"text"},
     "messages": {
       "branding": {
         "image": {
@@ -582,6 +582,9 @@ configs.network = function(build, container) {
     var cool_colors = ["#0e0092", "#2e34a4", "#3d5cb7", "#4483c9", "#44abdb", "#38d5ed", "#00ffff"];
     var warm_colors = ['#710000','#9a0a04','#be2404','#db3f02','#f05d00','#fc7b00','#ff9a00'];
     var colors = ['#ff0000','#ff7300','#ffb700','#fdff00','#c1ff26','#82ff50','#00ff7d'];
+    // var colors = ["#016AA3", "#5493CC", "#96BCEB", "#D7E4F6", "#F7A78B", "#D87442", "#9D511C"]
+    var diverging_colors2 = ["#225ea8", "#41b6c4", "#a1dab4", "#ffffcc", '#fee8c8','#fdbb84','#e34a33']
+    var diverging_colors = ["#2166ac", "#67a9cf", "#d1e5f0", "#f7f7f7", "#fddbc7", "#ef8a62", "#b2182b"]
     var color_scale = d3.scale.quantile().range(d3.range(7)).domain([32, 53]);
     var color = function(d){
       if(d.id.constructor === Array){
@@ -597,6 +600,12 @@ configs.network = function(build, container) {
           }
           if(getParameterByName('colors') === "cool"){
             return cool_colors[color_scale(build.attrs[thisId]["pini"])]
+          }
+          if(getParameterByName('colors') === "diverging"){
+            return diverging_colors[color_scale(build.attrs[thisId]["pini"])]
+          }
+          if(getParameterByName('colors') === "diverging2"){
+            return diverging_colors2[color_scale(build.attrs[thisId]["pini"])]
           }
           return colors[color_scale(build.attrs[thisId]["pini"])]
           // return colors[build.attrs[thisId]["pini_class"] - 1]
