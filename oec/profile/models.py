@@ -406,7 +406,7 @@ class Country(Profile):
         '''
         if self.attr.id != "xxwld":
             pgi_product_space = Build("network", "sitc", "pgi", self.attr, "all", "show", self.year)
-            subtitle = _("The PGI values of products exported by %(country)s. For more information on how PGI values are calculated please see the following papers: %(paper1)s and %(paper2)s.", country=self.attr.get_name(article=True), paper1="<a href='https://arxiv.org/abs/1505.07907'>Linking Economic Complexity, Institutions and Income Inequality</a>", paper2="<a href='https://arxiv.org/abs/1701.03770'>The structural constraints of income inequality in Latin America</a>")
+            subtitle = _("The PGI values of products exported by %(country)s. For more information on how PGI values are calculated please see the following papers: %(paper1)s and %(paper2)s.", country=self.attr.get_name(article=True), paper1="<a target='_blank' href='https://arxiv.org/abs/1505.07907'>Linking Economic Complexity, Institutions and Income Inequality</a>", paper2="<a target='_blank' href='https://arxiv.org/abs/1701.03770'>The structural constraints of income inequality in Latin America</a>")
             ps_section["builds"].append({"title": _(u"PGI Product Space"), "build": pgi_product_space, "subtitle": subtitle})
 
         ''' ECI Ranking Section
