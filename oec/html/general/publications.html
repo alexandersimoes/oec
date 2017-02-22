@@ -1,6 +1,6 @@
 {% extends "templates/nav.html" %}
 
-{% block title %} - {{ _("Books") }}{% endblock %}
+{% block title %} - {{ _("Publications") }}{% endblock %}
 
 {% block body %}
 
@@ -110,6 +110,27 @@
 
 <section>
   <aside>
+    <img class="book" src="/static/img/publications/papers/inequality.png">
+  </aside>
+
+  <content>
+    <h3>
+      <a target="_blank" href="http://www.sciencedirect.com/science/article/pii/S0305750X15309876">
+        Linking Economic Complexity, Institutions and Income Inequality
+      </a>
+    </h3>
+    <div>
+      <h4>2017</h4>
+    </div>
+    <div>
+      <h4>Dominik Hartmann, Miguel R. Guevara, Cristian Jara-Figueroa, Manuel Aristarána, César A. Hidalgo</h4>
+      <p>A country’s mix of products predicts its subsequent pattern of diversification and economic growth. But does this product mix also predict income inequality? Here we combine methods from econometrics, network science, and economic complexity to show that countries exporting complex products—as measured by the Economic Complexity Index—have lower levels of income inequality than countries exporting simpler products. Using multivariate regression analysis, we show that economic complexity is a significant and negative predictor of income inequality and that this relationship is robust to controlling for aggregate measures of income, institutions, export concentration, and human capital.</p>
+    </div>
+  </content>
+</section>
+
+<section>
+  <aside>
     <img class="book" src="/static/img/publications/papers/structuralconstraintslatam.png">
   </aside>
   <content>
@@ -165,27 +186,6 @@
     <div>
       <h4>C.A. Hidalgo, E. Castañer</h4>
       <p>The Amenity Space, was built by using a dataset summarizing the precise location of millions of amenities, introducing a clustering algorithm to identify neighborhoods, and then using the identified neighborhoods to map the probability that two amenities will be co-located in one of them. The Amenity Space is used to build a recommender system that identifies the amenities missing in a neighborhood given its current pattern of specialization.</p>
-    </div>
-  </content>
-</section>
-
-<section>
-  <aside>
-    <img class="book" src="/static/img/publications/papers/inequality.png">
-  </aside>
-
-  <content>
-    <h3>
-      <a target="_blank" href="http://arxiv.org/abs/1505.07907">
-        Linking Economic Complexity, Institutions and Income Inequality
-      </a>
-    </h3>
-    <div>
-      <h4>2015</h4>
-    </div>
-    <div>
-      <h4>D. Hartmann, M. Guevara, C. Jara-Figueroa, M. Aristarán, C.A. Hidalgo</h4>
-      <p>The mix of products that a country exports predicts that country's subsequent pattern of diversification and economic growth. But does this product mix also predict income inequality?</p>
     </div>
   </content>
 </section>
