@@ -305,8 +305,8 @@ configs.default = function(build, container) {
     "id": id_nesting,
     "labels": {
       "font": {
-        "family": ["HelveticaNeue-CondensedBold", "HelveticaNeue-Condensed", "Helvetica-Condensed", "Arial Narrow", "sans-serif"],
-        "weight": 800
+        "family": ["Fira Sans Condensed", "Helvetica Neue Condensed", "Helvetica Condensed", "Helvetica Neue", "Helvetica", "Arial Narrow", "Arial", "sans-serif"],
+        "weight": 700
       },
       "padding": 15
     },
