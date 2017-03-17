@@ -49,9 +49,9 @@ db = SQLAlchemy(app)
 view_cache = Cache(app)
 
 # Global Latest Year Variables
-available_years = {"sitc": range(1962, 2015), "hs92": range(1995, 2015), \
-                    "hs96": range(1998, 2015), "hs02": range(2003, 2015), \
-                    "hs07": range(2008, 2015), "country": range(1962, 2015)}
+available_years = {"sitc": range(1962, 2015), "hs92": range(1995, 2016), \
+                    "hs96": range(1998, 2016), "hs02": range(2003, 2016), \
+                    "hs07": range(2008, 2016), "country": range(1962, 2016)}
 
 # Global for excluded countries
 excluded_countries = ["ocglp", "xxwld", "asymd", "eumco", "saguf", "euksv", \
