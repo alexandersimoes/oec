@@ -405,7 +405,7 @@ class Country(Profile):
         ''' PGI Section
         '''
         if self.attr.id != "xxwld":
-            pgi_product_space = Build("network", "sitc", "pgi", self.attr, "all", "show", self.year)
+            pgi_product_space = Build("network", "sitc", "pgi", self.attr, "all", "show", available_years["sitc"][-1])
             subtitle = _("In this version of the product space products are colored according to their Product Gini Index, or PGI. The PGI of a product is the level of income inequality that we expect for the countries that export a product. For more information see: %(paper1)s and %(paper2)s.", country=self.attr.get_name(article=True), paper1="<a target='_blank' href='https://arxiv.org/abs/1505.07907'>Linking Economic Complexity, Institutions and Income Inequality</a>", paper2="<a target='_blank' href='https://arxiv.org/abs/1701.03770'>The structural constraints of income inequality in Latin America</a>")
             ps_section["builds"].append({"title": _(u"Complexity and Income Inequality"), "build": pgi_product_space, "subtitle": subtitle})
 
