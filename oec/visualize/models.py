@@ -1,7 +1,7 @@
 import json, string, random
 from datetime import datetime
 from flask import g, url_for
-from oec import db
+from oec import db, available_years
 from oec.db_attr.models import Country, Hs92, Hs96, Hs02, Hs07, Sitc
 from config import FACEBOOK_ID
 
@@ -242,6 +242,7 @@ class Build(object):
 
     def year_to_str(self, year):
         if len(year) == 1:
+            print self.viz, self.classification, year[0]
             return year[0]
         else:
             interval = year[1] - year[0]
@@ -481,7 +482,7 @@ def get_all_builds(classification, origin_id, dest_id, prod_id, year, defaults, 
                 origin = origin_id,
                 dest = "all",
                 prod = "show",
-                year = year)
+                year = min(year, available_years["sitc"][-1]))
             all_builds.append(build)
 
         elif v["slug"] == "rings":
