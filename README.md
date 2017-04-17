@@ -73,8 +73,8 @@ Adding the Observatory to computer via virtualenv
         python run.py runserver
 
 
-#Deploying to a linux server
-###Step 1: Install virtual environments and pip
+# Deploying to a linux server
+### Step 1: Install virtual environments and pip
 ```$ sudo apt-get install python-virtualenv python-pip git libmysqlclient-dev python-dev```
 
 ###Step 2: Create virtual environment
@@ -84,13 +84,13 @@ Adding the Observatory to computer via virtualenv
 ###Step 3: Pull in app from github
 ```$ git clone https://github.com/alexandersimoes/oec.git -b v3.0 —-single-branch```
 
-###Step 4: Install python requirements
+### Step 4: Install python requirements
 ```$ pip install -r requirements.txt```
 
 ###Step 5: Install gunicorn
 ```$ pip install gunicorn```
 
-###Step 6: Set environment vars
+### Step 6: Set environment vars
 ```
 export OEC_SECRET_KEY=yet_another_supers3cret_k35y
 export OEC_DB_USER=oec_user
@@ -101,7 +101,7 @@ export CACHE_DIR=/home/macro/sites/oec/cache
 export OEC_PRODUCTION=1
 ```
 
-###Step 7: Make cache directory
+### Step 7: Make cache directory
 ```$ mkdir /home/macro/sites/oec/cache```
 
 ###Step 7: Create nginx config 
@@ -133,13 +133,13 @@ server {
 ###Step 8: Create dir for logs
 ```$ mkdir /home/macro/sites/oec/logs```
 
-###Step 9: Check nginx config
+### Step 9: Check nginx config
 ```$ sudo nginx -t```
 
 ###Step 10: Using supervisor to autostart/manage gunicorn process
 ```sudo apt-get install supervisor```
 
-###Step 11: Create supervisor config
+### Step 11: Create supervisor config
 ```$ sudo nano /etc/supervisor/conf.d/oec.conf```
 
 ```
