@@ -77,17 +77,17 @@ Adding the Observatory to computer via virtualenv
 ### Step 1: Install virtual environments and pip
 ```$ sudo apt-get install python-virtualenv python-pip git libmysqlclient-dev python-dev```
 
-###Step 2: Create virtual environment
+### Step 2: Create virtual environment
 ```$ virtualenv oec```
 ```$ source oec/bin/activate```
 
-###Step 3: Pull in app from github
+### Step 3: Pull in app from github
 ```$ git clone https://github.com/alexandersimoes/oec.git -b v3.0 —-single-branch```
 
 ### Step 4: Install python requirements
 ```$ pip install -r requirements.txt```
 
-###Step 5: Install gunicorn
+### Step 5: Install gunicorn
 ```$ pip install gunicorn```
 
 ### Step 6: Set environment vars
@@ -104,7 +104,7 @@ export OEC_PRODUCTION=1
 ### Step 7: Make cache directory
 ```$ mkdir /home/macro/sites/oec/cache```
 
-###Step 7: Create nginx config 
+### Step 8: Create nginx config 
 ```$ sudo nano /etc/nginx/sites-available/oec.conf```
 
 ```
@@ -130,13 +130,13 @@ server {
 ```
 ```$ sudo ln -s /etc/nginx/sites-available/oec.conf /etc/nginx/sites-enabled/```
  
-###Step 8: Create dir for logs
+### Step 9: Create dir for logs
 ```$ mkdir /home/macro/sites/oec/logs```
 
-### Step 9: Check nginx config
+### Step 10: Check nginx config
 ```$ sudo nginx -t```
 
-###Step 10: Using supervisor to autostart/manage gunicorn process
+### Step 11: Using supervisor to autostart/manage gunicorn process
 ```sudo apt-get install supervisor```
 
 ### Step 11: Create supervisor config
@@ -152,7 +152,7 @@ redirect_stderr = true
 environment=PATH="/home/macro/venv/oec/bin", OEC_SECRET_KEY="oec-secret-key", OEC_DB_USER="oec_user", OEC_DB_PW="oec_pw", OEC_DB_HOST="localhost", OEC_DB_NAME="oec", CACHE_DIR="/home/macro/sites/oec/cache", OEC_PRODUCTION="1"
 ```
 
-###Step 13: Start up supervisor
+### Step 12: Start up supervisor
 ```
 $ sudo supervisorctl reread
 $ sudo supervisorctl update
