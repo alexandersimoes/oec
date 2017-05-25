@@ -311,6 +311,10 @@ class Build(object):
             return None
 
         origin, dest, prod = None, None, None
+        if self.origin == "all":
+            origin="all countries"
+        if self.dest == "all":
+            dest="all countries"
         if isinstance(self.origin, Country):
             origin=self.origin.get_name(article="the")
         if isinstance(self.dest, Country):
@@ -332,6 +336,10 @@ class Build(object):
             return None
 
         origin, dest, prod = None, None, None
+        if self.origin == "all":
+            origin="the world"
+        if self.dest == "all":
+            dest="the world"
         if isinstance(self.origin, Country):
             origin=self.origin.get_name(article="the")
         if isinstance(self.dest, Country):
