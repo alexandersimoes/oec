@@ -2116,6 +2116,20 @@
               color: #ef6145; }
               body.profile article.datausa section aside a:hover {
                 border-bottom: 1px solid #ef6145; }
+    body.profile article.dataafrica {
+      background-color: #DDD; }
+      body.profile article.dataafrica h1 a img {
+        width: 226px; }
+        body.profile article.dataafrica p {
+          color: #FFF; }
+          body.profile article.dataafrica section aside p {
+            color: #222; }
+            body.profile article.dataafrica section aside h2 {
+              display: none; }
+              body.profile article.dataafrica section aside a {
+                color: #74E19A; }
+                body.profile article.dataafrica section aside a:hover {
+                  border-bottom: 1px solid #74E19A; }
     body.profile article.dataviva {
       background-color: #81919d;
       background-image: url('/static/img/dataviva.png'), linear-gradient(to bottom, #5c656f 0%,

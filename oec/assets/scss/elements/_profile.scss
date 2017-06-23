@@ -989,6 +989,37 @@ body.profile {
 
     }
 
+    &.dataafrica {
+      background-color: #DDD;
+
+      h1 a img {
+        width: 226px;
+      }
+
+      p {
+        color: #FFF;
+      }
+
+      section aside {
+        p {
+          color: #222;
+        }
+
+        h2 {
+          display: none;
+        }
+
+        a {
+          color: #74E19A;
+
+          &:hover {
+            border-bottom: 1px solid #74E19A;
+          }
+        }
+      }
+
+    }
+
     &.dataviva {
       background-color: $medbordercolor;
       background-image: url('/static/img/dataviva.png'),

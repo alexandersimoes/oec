@@ -4,7 +4,7 @@ from abc import ABCMeta
 from sqlalchemy import desc, func
 from flask import g
 from flask.ext.babel import gettext as _
-from oec import db, db_data, available_years, earliest_data
+from oec import db, db_data, available_years, earliest_data, data_africa_countries
 from oec.utils import median, num_format
 from oec.db_attr import models as attrs
 from oec.visualize.models import Build
@@ -12,6 +12,7 @@ from config import FACEBOOK_ID
 # import different sections
 from oec.profile.sections.dataviva import make_dv_section
 from oec.profile.sections.datausa import make_us_section
+from oec.profile.sections.dataafrica import make_africa_section
 from oec.profile.sections.pantheon import make_pantheon_section
 
 def upperfirst(x):
@@ -451,6 +452,14 @@ class Country(Profile):
         if self.attr.id == "nausa":
             us_section = make_us_section()
             sections.append(us_section)
+
+        ''' Data Africa
+        '''
+        if any(country[0] == self.attr.id for country in data_africa_countries):
+            da_country = filter(lambda x:x[0]==self.attr.id, data_africa_countries)
+            africa_section = make_africa_section(self, da_country[0])
+            sections.append(africa_section)
+            # raise Exception("found dataafrican country: {}".format(da_country[0]))
 
         ''' Pantheon
         '''
