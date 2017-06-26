@@ -4,7 +4,8 @@ from flask import Blueprint, render_template, g, request, current_app, \
 from flask.ext.babel import gettext
 from sqlalchemy.sql.expression import func
 
-from oec import app, db, babel, view_cache, random_countries, available_years, cache_timeout
+from oec import app, db, babel, view_cache, random_countries, available_years, \
+                    cache_timeout, data_africa_countries
 from oec.utils import make_query, make_cache_key
 from oec.db_attr import models as attr_models
 from oec.general.views import get_locale
@@ -72,7 +73,8 @@ def profile_country(attr_id="usa"):
     c = Country("hs92", attr_id)
     if not c.attr: abort(404)
     g.page_sub_type = "country"
-    return render_template("profile/index.html", profile=c)
+    da_countries = [da[0][2:] for da in data_africa_countries]
+    return render_template("profile/index.html", profile=c, data_africa_countries=da_countries)
 
 @mod.route('/<any("sitc","hs92","hs96","hs02","hs07"):attr_type>/<attr_id>/')
 @view_cache.cached(timeout=cache_timeout, key_prefix=make_cache_key)

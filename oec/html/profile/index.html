@@ -121,6 +121,10 @@
       <li class="depth6"><a href="#datausa">Data USA</a></li>
       {% endif %}
 
+      {% if profile.id in data_africa_countries %}
+      <li class="depth6"><a href="#dataafrica">Data Africa</a></li>
+      {% endif %}
+
       {% if g.page_sub_type == "country" %}
       <li class="depth6"><a href="#pantheon">Pantheon</a></li>
       {% endif %}
@@ -170,15 +174,15 @@
       <a name="{% if section.source %}{{ section.source }}{% else %}{{ build.title|replace(" ","_") }}{% endif %}" class="anchor"></a>
       <h2>{{ build.title }}</h2>
       {% if build.subtitle %}
-      
+
       {% if build.subtitle is string %}
         <p>{{ build.subtitle|safe }}</p>
       {% else %}
         {% for pg in build.subtitle %}
         <p>{{ pg|safe }}</p>
-        {% endfor %}      
+        {% endfor %}
       {% endif %}
-      
+
       {% endif %}
       {% if not build.iframe %}
       <p class="explore_link">
