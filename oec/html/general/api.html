@@ -7,7 +7,7 @@
 input.tt-hint,
 input#product-search,
 input#country-search {
-  width: 280px;  
+  width: 280px;
 }
 .tt-dropdown-menu {
   min-width: 160px;
@@ -22,14 +22,14 @@ input#country-search {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
-  
+
   position: absolute;
   top: 100%;
   left: 0px;
   z-index: 100;
   display: none;
   right: auto;
-  
+
   text-align: left;
   width: 280px;
 }
@@ -169,7 +169,7 @@ input#country-search {
       <tbody>
         <tr>
           <td class="code"><code>####</code></td>
-          <td>Any year between <code>1962</code> and <code>2012</code>.</td>
+          <td>Any year between <code>1962</code> and <code>2015</code>.</td>
         </tr>
         <tr>
           <td class="code"><code>####.####</code></td>
@@ -254,14 +254,14 @@ input#country-search {
     </p>
   </aside>
   <content>
-    <code class="wordwrap">http://atlas.media.mit.edu/hs/export/2010/usa/all/show/</code>
+    <code class="wordwrap">http://atlas.media.mit.edu/hs92/export/2010/usa/all/show/</code>
     <pre>
   {
     "data": [
       {
         "export_rca": 2.31506,
         "export_val": 391879514.8,
-        "hs_id": "010101",
+        "hs92_id": "010101",
         "import_rca": 0.953058,
         "import_val": 247872199.21,
         "origin_id": "nausa",
@@ -270,7 +270,7 @@ input#country-search {
       {
         "export_rca": 0.219569,
         "export_val": 132221725.59,
-        "hs_id": "010102",
+        "hs92_id": "010102",
         "import_rca": 1.74591,
         "import_val": 1615371811.24,
         "origin_id": "nausa",
@@ -582,12 +582,12 @@ input#country-search {
 <script src="http://atlaslegacy.media.mit.edu/static/js/libs/jquery/jquery-1.7.1.min.js"></script>
 <script src="http://atlaslegacy.media.mit.edu/static/js/libs/typeahead.min.js"></script>
 <script>
-$('#product-search').typeahead({                   
+$('#product-search').typeahead({
   name: 'products',
   local: $('#product-search').data()["source"],
   limit: 5
 });
-$('#country-search').typeahead({                                
+$('#country-search').typeahead({
   name: 'country',
   local: $('#country-search').data()["source"],
   limit: 5
