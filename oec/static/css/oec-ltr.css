@@ -3281,26 +3281,29 @@
           padding: 10px;
           margin: 0 !important; }
           body.rankings #container #content section.settings-section content ul.settings-list {
-            -webkit-justify-content: center;
-            -moz-justify-content: center;
-            justify-content: center;
-            display: -webkit-box;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
             border: 1px solid #63737f;
             border-radius: 4px; }
-            body.rankings #container #content section.settings-section content ul.settings-list li {
-              margin: 0 0 0 8px;
-              white-space: nowrap;
-              padding: 0; }
-              body.rankings #container #content section.settings-section content ul.settings-list li a {
-                border-radius: 4px;
-                display: inline-block;
-                padding: 4px 6px; }
-                body.rankings #container #content section.settings-section content ul.settings-list li a.active {
-                  background-color: #212831; }
+            @media all and (min-width: 376px) {
+              body.rankings #container #content section.settings-section content ul.settings-list {
+                -webkit-justify-content: center;
+                -moz-justify-content: center;
+                justify-content: center;
+                display: -webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;   }
+}
+              body.rankings #container #content section.settings-section content ul.settings-list li {
+                margin: 0 0 0 8px;
+                white-space: nowrap;
+                padding: 0; }
+                body.rankings #container #content section.settings-section content ul.settings-list li a {
+                  border-radius: 4px;
+                  display: inline-block;
+                  padding: 4px 6px; }
+                  body.rankings #container #content section.settings-section content ul.settings-list li a.active {
+                    background-color: #212831; }
           body.rankings #container #content section.settings-section content.settings-attr {
             flex: 1; }
     body.rankings #container #content section.ranking-section {
@@ -3323,6 +3326,10 @@
             content: "\f105";
             font-family: FontAwesome;
             padding-left: 7px ; }
+      @media all and (max-width: 740px) {
+        body.rankings #container table tr .sparkline-col {
+          display: none !important;   }
+}
       body.rankings #container table th[data-sortable] {
         display: table-cell !important; }
         body.rankings #container table th[data-sortable] i {

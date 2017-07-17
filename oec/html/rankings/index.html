@@ -83,7 +83,7 @@
             <td class="{{ c }}">{{ r[c.id] }}</td>
             {% endif %}
           {% endfor %}
-          <td class="country"><div class="sparkline" data-array="{{ r['data-array'] }}"></div></td>
+          <td class="country sparkline-col"><div class="sparkline" data-array="{{ r['data-array'] }}"></div></td>
           {% else %}
           <td class="rank"><span>{{ r[2]["pci_rank"] }}</span></td>
           <td class="delta">

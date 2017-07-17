@@ -31,18 +31,15 @@ body.rankings {
         padding: 10px;
         margin: 0 !important;
         ul.settings-list {
-          @include flex;
+          @media all and (min-width: 376px) {
+            @include flex;
+          }
           border: 1px solid #63737f;
           border-radius: 4px;
           li {
             margin: 0 0 0 8px;
             white-space: nowrap;
             padding: 0;
-            // &:not(:last-child):after {
-            //   content: '\2022';
-            //   display: inline-block;
-            //   padding: 4px 0 0 7px;
-            // }
             a {
               border-radius: 4px;
               display: inline-block;
@@ -97,6 +94,14 @@ body.rankings {
         }
       }
 
+      tr {
+        .sparkline-col {
+          @media all and (max-width: 740px) {
+            display: none !important;
+          }
+        }
+      }
+
       th {
        @include rtl {
         text-align: right;
@@ -137,11 +142,9 @@ body.rankings {
         }
 
         &.delta, &.id {
-
           @media all and (max-width: 500px) {
             display: none !important;
           }
-
         }
       }
 
@@ -185,11 +188,9 @@ body.rankings {
       }
 
       .delta, .id {
-
         @media all and (max-width: 500px) {
           display: none;
         }
-
       }
 
     }

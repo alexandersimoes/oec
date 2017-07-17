@@ -157,7 +157,7 @@ def rankings(attr=None, classification=None):
     # raise Exception(rankings[-1])
     cols = [{"id":"country", "name":gettext("Country"), "sortable":True, "sort-alpha":True}]
     cols += [{"id":"eci_{}".format(y), "name":"{}".format(y), "sortable":True} for y in eci_date_range]
-    cols += [{"id":"sparkline", "name":"", "sortable":False}]
+    cols += [{"id":"sparkline-col", "name":"", "sortable":False}]
     # raise Exception(rankings[0])
 
     if download:
