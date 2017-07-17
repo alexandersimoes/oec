@@ -40,38 +40,55 @@ def get_profile_owner(endpoint, values):
 
 @mod.route('/')
 def rankings_redirect():
-    return redirect(url_for('.rankings', lang=g.locale, category="country"))
+    return redirect(url_for('.rankings', lang=g.locale, attr="country"))
 
 @mod.route('/<any("country","sitc","hs","hs92","hs96","hs02","hs07"):category>/')
 @mod.route('/<any("country","sitc","hs","hs92","hs96","hs02","hs07"):category>/<int:year>/')
-# don't cache because downloading will not be possible
-# @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
-def rankings(category=None, year=None):
+def rankings_legacy(category=None, year=None):
     category = "hs92" if category == "hs" else category
-    if category == "country":
-        g.page_sub_type = "countries"
+    if category in ["sitc", "hs", "hs92", "hs96", "hs02", "hs07"]:
+        classification = category
+        category = "product"
     else:
-        g.page_sub_type = "products"
+        classification = "hs92"
     try:
         depth = int(request.args.get('depth', 4))
     except:
         depth = 4
+    return redirect(url_for('.rankings', lang=g.locale, attr=category, classification=classification))
+
+@mod.route('/<any("country","product"):attr>/')
+@mod.route('/<any("country","product"):attr>/<any("sitc","hs92","hs96","hs02","hs07"):classification>/')
+# don't cache because downloading will not be possible
+# @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
+def rankings(attr=None, classification=None):
+    year_ranges = {
+        "sitc": ["1966-1970","1971-1975","1976-1980","1981-1985","1986-1990","1991-1995","1996-2000","2001-2005","2006-2010","2011-2014"],
+        "hs92": ["1995-2000","2001-2005","2006-2010","2011-2015"],
+        "hs96": ["1998-2000","2001-2005","2006-2010","2011-2015"],
+        "hs02": ["2003-2005","2006-2010","2011-2015"],
+        "hs02": ["2008-2010","2011-2015"]
+    }
+    year = None
+    category = "country"
+    year_range = request.args.get('year_range', year_ranges[classification][-1])
+    year_range = year_range if year_range in year_ranges[classification] else year_ranges[classification][-1]
+    g.page_sub_type = "countries"
+    depth = 4
+
     download = request.args.get('download', None)
     download_all = False
     if download:
         s = StringIO()
         writer = csv.writer(s)
 
-    if category == None:
-        category = "country"
-
-    if year == None:
-        download_all = True if download else False
-        year = available_years[category][-1]
-    elif year > available_years[category][-1]:
-        return redirect(url_for('.rankings', lang=g.locale, category=category, year=available_years[category][0]))
-    elif year < available_years[category][0]:
-        return redirect(url_for('.rankings', lang=g.locale, category=category, year=available_years[category][-1]))
+    # if year == None:
+    #     download_all = True if download else False
+    #     year = available_years[category][-1]
+    # elif year > available_years[category][-1]:
+    #     return redirect(url_for('.rankings', lang=g.locale, category=category, year=available_years[category][0]))
+    # elif year < available_years[category][0]:
+    #     return redirect(url_for('.rankings', lang=g.locale, category=category, year=available_years[category][-1]))
 
     # if category == "sitc":
     #     Yp = getattr(db_data, "sitc_models").Yp
@@ -82,10 +99,8 @@ def rankings(category=None, year=None):
     #     Yp = getattr(db_data, "hs92_models").Yp
     #     Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Hs, Hs_name, Yp, "hs_id", "pci", "pci_rank", "pci_rank_delta"]
     #     cols = [gettext("Rank"), "", "HS", gettext("Product"), "PCI Value"]
-    
-    cols = [{"id":"rank", "name":gettext("Rank"),"sortable":True}, 
-            {"id":"delta", "name":"","sortable":False}, 
-            {"id":"id", "name":gettext("ID"),"sortable":True, "sort-alpha":True}]
+
+    cols = []
     if category == "country":
         Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Country, Country_name, Yo, "origin_id", "eci", "eci_rank", "eci_rank_delta"]
         cols += [{"id":"country", "name":gettext("Country"), "sortable":True, "sort-alpha":True}, {"id":"eci", "name":"ECI", "sortable":True}]
@@ -98,6 +113,7 @@ def rankings(category=None, year=None):
         cols += [{"id":"product", "name":gettext("Product"), "sortable":True, "sort-alpha":True}, {"id":"pci", "name":"PCI", "sortable":True}]
 
 
+    '''
     rankings = db.session.query(Attr, Attr_name, Attr_data) \
                 .filter(getattr(Attr_name, attr_id) == Attr.id) \
                 .filter(getattr(Attr_data, attr_id) == Attr.id) \
@@ -114,10 +130,35 @@ def rankings(category=None, year=None):
         rankings = rankings.order_by(Attr_data.year).order_by(getattr(Attr_data, rank))
     else:
         title = "{0}_{1}_ranking_{2}".format(category, year, g.locale)
-        rankings = rankings.filter(Attr_data.year == year).order_by(getattr(Attr_data, rank))
-
+        rankings = rankings.filter(Attr_data.year >= year-10).order_by(getattr(Attr_data, rank))
+    '''
+    eci_date_range = map(int, year_range.split('-'))
+    eci_date_range = range(eci_date_range[0], eci_date_range[1]+1)
+    # rankings = Attr_data.query.filter(getattr(Attr_data, index) != None).filter(Attr_data.year >= year-10)
+    rankings = db.session.query(Attr_name, Attr_data) \
+                .filter(getattr(Attr_name, attr_id) == getattr(Attr_data, attr_id)) \
+                .filter(Attr_name.lang == g.locale) \
+                .filter(getattr(Attr_data, index) != None) \
+                .filter(Attr_data.year >= eci_date_range[0]) \
+                .filter(Attr_data.year <= eci_date_range[-1])
     # raise Exception(utils.compile_query(rankings))
     rankings = rankings.all()
+    # raise Exception(rankings[0])
+    country_ranks = {}
+    # raise Exception(rankings[0].country.get_name())
+    # raise Exception(rankings[0].origin_id)
+    for r in rankings:
+        if r[1].origin_id not in country_ranks:
+            country_ranks[r[1].origin_id] = {"country": r[0].name, "id": r[0].id}
+        country_ranks[r[1].origin_id]["eci_{}".format(r[1].year)] = r[1].eci
+    rankings = sorted(country_ranks.values(), key=lambda k: k.get("eci_{}".format(eci_date_range[-1])), reverse=True)
+    for r in rankings:
+        r["data-array"] = json.dumps([r.get("eci_{}".format(y)) for y in eci_date_range])
+    # raise Exception(rankings[-1])
+    cols = [{"id":"country", "name":gettext("Country"), "sortable":True, "sort-alpha":True}]
+    cols += [{"id":"eci_{}".format(y), "name":"{}".format(y), "sortable":True} for y in eci_date_range]
+    cols += [{"id":"sparkline", "name":"", "sortable":False}]
+    # raise Exception(rankings[0])
 
     if download:
         cols = [{"id":"year", "name":gettext("Year")}] + cols
@@ -136,9 +177,13 @@ def rankings(category=None, year=None):
 
     else:
         return render_template("rankings/index.html",
+                                showing=attr,
                                 category=category,
+                                classification=classification,
                                 year=year,
                                 depth=depth,
                                 cols=cols,
                                 years=available_years[category][::-1],
+                                year_ranges=year_ranges[classification],
+                                year_range=year_range,
                                 rankings=rankings)

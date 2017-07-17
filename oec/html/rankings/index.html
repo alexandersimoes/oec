@@ -3,100 +3,63 @@
 {% block title %} - {% if category == "country" %}{{ category|title }}{% else %}{{ category|upper }} Product{% endif %} Ranking ({{ year }}){% endblock %}
 
 {% block head %}
-    {% if year > g.available_years[category][0]  %}
-    <link rel="prev" href="/rankings/{{ category }}/{{ year-1 }}/" />
+    {% if year_range != year_ranges[0]  %}
+    <link rel="prev" href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification=classification, year_range=year_range) }}" />
     {% endif %}
-    {% if year < g.available_years[category][-1]  %}
-    <link rel="next" href="/rankings/{{ category }}/{{ year+1 }}/" />
+    {% if year_range != year_ranges[-1]  %}
+    <link rel="prev" href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification=classification, year_range=year_range) }}" />
     {% endif %}
 {% endblock %}
 
 {% block body %}
 
 <section class="nav-section">
-  <aside>
-    {% if year > g.available_years[category][0]  %}
-    <a id="prev" href="/{{ g.locale }}/rankings/{{ category }}/{{ year-1 }}/">
-      <h2 class="year-nav">
-        <i class="fa fa-angle-left"></i>
-        {{ year-1 }}
-      </h2>
-    </a>
-    {% endif %}
-  </aside>
   <content>
     {% if category == "country" %}
-      <h1><a class="complexity_switch" href="/{{ g.locale }}/rankings/hs92/" data-tooltip="Switch to Product">{{ _('Economic Complexity') }}</a> {{ _('Rankings') }} ({{ year }})</h1>
+      <h1><a class="complexity_switch" href="/{{ g.locale }}/rankings/hs92/" data-tooltip="Switch to Product">{{ _('Economic Complexity') }}</a> {{ _('Rankings') }}</h1>
     {% else %}
       <h1><a class="complexity_switch" href="/{{ g.locale }}/rankings/country/" data-tooltip="Switch to Country">{{ _('Product Complexity') }}</a> {{ _('Rankings') }} ({{ year }})</h1>
     {% endif %}
   </content>
   <aside>
-    {% if year < g.available_years[category][-1]  %}
-    <a id="next" href="/{{ g.locale }}/rankings/{{ category }}/{{ year+1 }}/">
-      <h2 class="year-nav">
-        {{ year+1 }}
-        <i class="fa fa-angle-right"></i>
-      </h2>
+    <a id="next" href="#">
+      <i class="fa fa-cog" aria-hidden="true"></i>
     </a>
-    {% endif %}
   </aside>
 </section>
 
-<section>
-
-  <aside id="explorer">
-
-    <div id="rank_changers" class="{% if category == "country" %}eci-changer{% else %}pci-changer{% endif %}">
-
-      {% if category != "country" %}
-      <div class="dropdown_container">
-        <h3>{{ _("Dataset") }}</h3>
-        <select id="change_dataset">
-          <option value="hs07" {% if category == 'hs07' %} selected="selected"{% endif %}>HS07</option>
-          <option value="hs02" {% if category == 'hs02' %} selected="selected"{% endif %}>HS02</option>
-          <option value="hs96" {% if category == 'hs96' %} selected="selected"{% endif %}>HS96</option>
-          <option value="hs92" {% if category == 'hs92' %} selected="selected"{% endif %}>HS92</option>
-          <option value="sitc" {% if category == 'sitc' %} selected="selected"{% endif %}>SITC</option>
-        </select>
-      </div>
-      {% endif %}
-
-      <div class="dropdown_container">
-        <h3>{{ _("Year") }}</h3>
-        <select id="change_year">
-          {% for y in years %}
-          <option value="{{ y }}" {% if y == year %}selected="selected"{% endif %}>{{ y }}</option>
-          {% endfor %}
-        </select>
-      </div>
-
-      {% if category != "country" and category != "sitc" %}
-      <div class="dropdown_container">
-        <h3>{{ _('Depth') }}</h3>
-        <select id="change_depth">
-          <option value="4" {% if depth == 4 %}selected="selected"{% endif %}>4 Digit</option>
-          <option value="6" {% if depth == 6 %}selected="selected"{% endif %}>6 Digit</option>
-        </select>
-      </div>
-      {% endif %}
-
-      <a class="download" href="/{{ g.locale }}/rankings/{{ category }}/{{ year }}/?download=true">
-        <i class="fa fa-save"></i>
-        {{ _("Download Current Year") }}
-      </a>
+<section class="settings-section">
+  <content class="settings-attr">
+    <h4>Showing</h4>
+    <ul class="settings-list">
+      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', classification=classification, year_range=year_range) }}" {% if showing == "country" %}class="active"{% endif %}>Countries</a></li>
+      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='product', classification=classification, year_range=year_range) }}" {% if showing == "product" %}class="active"{% endif %}>Products</a></li>
+    </ul>
+  </content>
+  <content class="settings-year">
+    <h4>Change Year Range</h4>
+    <ul class="settings-list">
+      {% for yr in year_ranges %}
+      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification=classification, year_range=yr) }}"
+            {% if yr == year_range %}class="active"{% endif %}>{{ yr|replace('-', ' - ') }}</a>
       </li>
-      <a class="download" href="/{{ g.locale }}/rankings/{{ category }}/?download=true">
-        <i class="fa fa-save"></i>
-        {{ _('Download All Years') }}
-      </a>
+      {% endfor %}
+    </ul>
+  </content>
+  <content class="settings-classification">
+    <h4>Product Classification</h4>
+    <ul class="settings-list">
+      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification='sitc', year_range=year_range) }}" {% if classification == "sitc" %}class="active"{% endif %}>SITC</a></li>
+      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification='hs92', year_range=year_range) }}" {% if classification == "hs92" %}class="active"{% endif %}>HS 92</a></li>
+      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification='hs96', year_range=year_range) }}" {% if classification == "hs96" %}class="active"{% endif %}>HS 96</a></li>
+      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification='hs02', year_range=year_range) }}" {% if classification == "hs02" %}class="active"{% endif %}>HS 02</a></li>
+      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification='hs07', year_range=year_range) }}" {% if classification == "hs07" %}class="active"{% endif %}>HS 07</a></li>
+    </ul>
+  </content>
+</section>
 
-    </div>
-
-  </aside>
-
+<section class="ranking-section">
   <content>
-
     <table>
       <thead>
         <tr>
@@ -113,17 +76,14 @@
         {% for r in rankings %}
         <tr>
           {% if category == "country" %}
-          <td class="rank"><span>{{ r[2]["eci_rank"] }}</span></td>
-          <td class="delta">
-            {% if r[2]["eci_rank_delta"] > 0 %}
-              <i class="fa fa-caret-up fa-lg"></i> {{ r[2]["eci_rank_delta"] }}
-            {% elif r[2]["eci_rank_delta"] < 0 and r[2]["eci_rank_delta"] %}
-              <i class="fa fa-caret-down fa-lg"></i> {{ r[2]["eci_rank_delta"]|abs }}
+          {% for c in cols[:-1] %}
+            {% if c.id == "country" %}
+            <td class="country"><img class="icon" src="/static/img/icons/country/country_{{ r.id }}.png" /> <a href="#">{{ r[c.id] }}</a></td>
+            {% else %}
+            <td class="{{ c }}">{{ r[c.id] }}</td>
             {% endif %}
-          </td>
-          <td class="id">{{ r[0]["id_3char"]|upper }}</td>
-          <td class="country"><img class="icon" src="/static/img/icons/country/country_{{ r[0].id }}.png" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
-          <td class="eci">{{ r[2]["eci"]|num_format("eci") }}</td>
+          {% endfor %}
+          <td class="country"><div class="sparkline" data-array="{{ r['data-array'] }}"></div></td>
           {% else %}
           <td class="rank"><span>{{ r[2]["pci_rank"] }}</span></td>
           <td class="delta">
@@ -186,7 +146,8 @@
 
     }
 
-    var width = d3.select("#rank_changers").node().offsetWidth;
+    // var width = d3.select("#rank_changers").node().offsetWidth;
+    var width = 800;
 
     if (!d3.select("#change_dataset").empty()) {
 
@@ -291,6 +252,47 @@
         return d3plus.array.comparator(a, b, "val", sortd);
       })
     })
+
+    d3.selectAll("td .sparkline").each(function(){
+      var w = 100, h = 20;
+      d3.select(this).attr("data-width", w);
+      var a = JSON.parse(d3.select(this).attr("data-array"));
+      // var a = [1.171, 1.088, 1.275, 0.882, 1.171, 1.088, 1.275, 0.882, 1.171, 1.088, 1.275, 0.882];
+      var y = d3.scale.linear()
+        .domain([d3.min(a), d3.max(a)])
+        .range([h, 0]);
+
+      var x = d3.scale.linear()
+        .domain([0, a.length - 1])
+        .range([0, w]);
+
+      var line = d3.svg.line()
+        .x(function(d, i){ return x(i); })
+        .y(function(d){ return y(d); });
+
+      var svg = d3.select(this).append("svg")
+        .attr("width", w)
+        .attr("height", h)
+        .append("g")
+          .attr("class", "sparkgroup")
+          .attr("transform", "scale(1,1)");
+
+      var path = svg.append("path")
+        .datum(a)
+        .attr("class", "sparkpath")
+        .style("fill", "none")
+        .style("stroke", "#ccc")
+        .style("stroke-width", "2px")
+        .attr("d", line);
+
+      var length = path.node().getTotalLength();
+
+      path
+        .attr("stroke-dasharray", length + " " + length)
+        .attr("stroke-dashoffset", length)
+        .transition().duration(2500).delay(500)
+          .attr("stroke-dashoffset", 0)
+    });
 
   </script>
 {% endblock %}

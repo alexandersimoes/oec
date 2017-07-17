@@ -5,199 +5,69 @@ body.rankings {
 
   #container {
 
-    #content .nav-section {
-      @include flex();
-      @include flex-direction(row);
-      @include justify(space-between);
-      @include align-items(baseline);
-      @include padding(30px, 0, 10px, 0);
-      @include margin(0, 30px, 0, 30px, !important);
-
-      @media all and (min-width: 1100px) {
-        max-width: 1058px;
-        @include margin(0, auto, 0, auto, !important);
-      }
-
-      @media all and (max-width: 550px) {
-        @include padding(30px, 0, 30px, 0);
-        @include margin(0, 15px, 0, 15px, !important);
-      }
-
-      @media all and (max-width: 768px) {
-        @include flex-direction(row);
-      }
-
-      aside {
-        @include flex(1 auto);
-        width: auto !important;
-        @include margin(0, 0, 0, 0);
-
-        a {
-          color: $lightlinkcolor;
-
-          i {
-            margin-top: 3px;
-          }
-
-          h2.year-nav {
-            @include transition(opacity 0.6s);
-            font-weight: 400;
-            font-size: 26px;
-            opacity: 0.6;
-            &:hover {
-              opacity: 1;
-            }
-
-            @media all and (min-width: 769px) and (max-width: 955px) {
-              font-size: 23px;
-            }
-
-            @media all and (max-width: 768px) {
-              font-size: 17px;
-            }
-          }
-        }
-
-        &:last-child {
-          @include text-align(right);
-        }
-
-      }
+    #content section.nav-section {
+      margin: 0 20px 10px 20px;
 
       content {
-        @include text-align(center);
+        margin: 0 !important;
+      }
+      aside {
+        font-size: 26px;
+        margin: 10px 10px 0 0 ;
+        width: 50px;
+        text-align: right;
+      }
+    }
 
-        h1 a.complexity_switch {
-          border-bottom: 1px solid $l2-darkbackground;
-          padding-bottom: 2px;
+    #content section.settings-section {
+      @media all and (max-width: 950px) {
+        flex-direction: column;
+      }
+      background-color: #3f464f;
+      margin: 0 20px 10px 20px;
 
-          &:before {
-            position: absolute;
-            color: $l2-darkbackground;
-            content: unicode("f074");
-            font-family: FontAwesome;
-            font-size: 20px;
-            top: 15px;
-            @include left(-25px);
-
-            @include rtl {
-              @include flip();
+      content {
+        flex: 2;
+        padding: 10px;
+        margin: 0 !important;
+        ul.settings-list {
+          @include flex;
+          border: 1px solid #63737f;
+          border-radius: 4px;
+          li {
+            margin: 0 0 0 8px;
+            white-space: nowrap;
+            padding: 0;
+            // &:not(:last-child):after {
+            //   content: '\2022';
+            //   display: inline-block;
+            //   padding: 4px 0 0 7px;
+            // }
+            a {
+              border-radius: 4px;
+              display: inline-block;
+              padding: 4px 6px;
+              &.active {
+                background-color: #212831;
+              }
             }
-          }
-
-          &:hover {
-            color: $lightlinkcolor;
-            &:before {
-              color: $lightlinkcolor;
-            }
-          }
-
-          &:focus, &:active {
-            color: $lightlinkcolor;
-            border-bottom: 1px solid $lightbordercolor;
           }
         }
 
-        @media all and (min-width: 769px) and (max-width: 955px) {
-          h1 {
-            font-size: 30px;
-
-            a.complexity_switch:before {
-              color: $l2-darkbackground;
-              font-size: 16px;
-              top: 10px;
-              @include left(-21px);
-            }
-          }
-        }
-        @media all and (max-width: 768px) {
-          h1 {
-            font-size: 20px;
-            font-weight: 400;
-
-            a.complexity_switch:before {
-              color: $darkbordercolor;
-              font-size: 10px;
-              top: 8px;
-              @include left(-15px);
-            }
-          }
+        &.settings-attr {
+          flex: 1;
         }
       }
     }
 
-    aside {
-      width: $rank_sidebar !important;
-    }
+    #content section.ranking-section {
+      display: block;
+      margin: 0 20px;
 
-    #explorer {
-      @include margin-left(-155px);
-        @media all and (max-width: 1175px) {
-          @include margin(0, 30px, 20px, 30px);
-        }
+      content {
+        margin: 0 !important;
 
-      & ~ content {
-        max-width: 695px;
       }
-
-      #rank_changers {
-
-        $font-size: 16px;
-
-        margin-top: 0;
-
-        h3 {
-          font-size: $font-size;
-          @include margin(13px, 0, 6px, 0);
-        }
-
-        .change_dataset {
-          margin-bottom: 15px;
-
-          .active {
-            color: #333 !important;
-            display: inline-block;
-            font-weight: bold;
-            margin-top: -1px;
-            &:hover {
-              border-color: #333 !important;
-            }
-          }
-        }
-
-        .download {
-          border: 1px solid white;
-          color: white;
-          display: block;
-          font-size: 12px;
-          font-weight: 200;
-          height: 15px;
-          @include margin(0, 0, 15px, 0);
-          @include padding(5px, 5px, 5px, 5px);
-          top: $font-size + 3;
-          position: relative;
-
-          &:hover {
-            background-color: white;
-            color: $darkbackground;
-          }
-
-          i {
-            @include margin-right(2px);
-            margin-top: 1px;
-          }
-
-        }
-
-        &.pci-changer {
-          @media all and (max-width: 426px) {
-            .download {
-              margin-top: 0px;
-            }
-          }
-        }
-      }
-
     }
 
     table {
@@ -221,11 +91,12 @@ body.rankings {
               content: unicode("f104");
             }
             font-family: FontAwesome;
+
             @include padding-left(7px);
           }
         }
       }
-      
+
       th {
        @include rtl {
         text-align: right;
