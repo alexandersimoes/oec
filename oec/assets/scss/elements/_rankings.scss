@@ -36,14 +36,15 @@ body.rankings {
           }
           border: 1px solid #63737f;
           border-radius: 4px;
+          flex-wrap: wrap;
           li {
             margin: 0 0 0 8px;
-            white-space: nowrap;
             padding: 0;
             a {
               border-radius: 4px;
               display: inline-block;
               padding: 4px 6px;
+              white-space: nowrap;
               &.active {
                 background-color: #212831;
               }
@@ -53,6 +54,12 @@ body.rankings {
 
         &.settings-attr {
           flex: 1;
+        }
+        &.settings-classification {
+          flex: 2;
+        }
+        &.settings-year {
+          flex: 3;
         }
       }
     }
@@ -177,6 +184,7 @@ body.rankings {
         @include flex;
         @include align-items(center);
         @include justify(flex-start);
+        max-width: 350px;
         img {
           @include margin-right(5px);
           width: 20px;

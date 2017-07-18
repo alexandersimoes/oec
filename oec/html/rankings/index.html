@@ -18,7 +18,7 @@
     {% if category == "country" %}
       <h1><a class="complexity_switch" href="/{{ g.locale }}/rankings/hs92/" data-tooltip="Switch to Product">{{ _('Economic Complexity') }}</a> {{ _('Rankings') }}</h1>
     {% else %}
-      <h1><a class="complexity_switch" href="/{{ g.locale }}/rankings/country/" data-tooltip="Switch to Country">{{ _('Product Complexity') }}</a> {{ _('Rankings') }} ({{ year }})</h1>
+      <h1><a class="complexity_switch" href="/{{ g.locale }}/rankings/country/" data-tooltip="Switch to Country">{{ _('Product Complexity') }}</a> {{ _('Rankings') }}</h1>
     {% endif %}
   </content>
   <aside>
@@ -36,16 +36,6 @@
       <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='product', classification=classification, year_range=year_range) }}" {% if showing == "product" %}class="active"{% endif %}>Products</a></li>
     </ul>
   </content>
-  <content class="settings-year">
-    <h4>Change Year Range</h4>
-    <ul class="settings-list">
-      {% for yr in year_ranges %}
-      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification=classification, year_range=yr) }}"
-            {% if yr == year_range %}class="active"{% endif %}>{{ yr|replace('-', ' - ') }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-  </content>
   <content class="settings-classification">
     <h4>Product Classification</h4>
     <ul class="settings-list">
@@ -54,6 +44,16 @@
       <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification='hs96', year_range=year_range) }}" {% if classification == "hs96" %}class="active"{% endif %}>HS 96</a></li>
       <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification='hs02', year_range=year_range) }}" {% if classification == "hs02" %}class="active"{% endif %}>HS 02</a></li>
       <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification='hs07', year_range=year_range) }}" {% if classification == "hs07" %}class="active"{% endif %}>HS 07</a></li>
+    </ul>
+  </content>
+  <content class="settings-year">
+    <h4>Change Year Range</h4>
+    <ul class="settings-list">
+      {% for yr in year_ranges %}
+      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification=classification, year_range=yr) }}"
+            {% if yr == year_range %}class="active"{% endif %}>{{ yr|replace('-', ' - ') }}</a>
+      </li>
+      {% endfor %}
     </ul>
   </content>
 </section>
@@ -78,24 +78,26 @@
           {% if category == "country" %}
           {% for c in cols[:-1] %}
             {% if c.id == "country" %}
-            <td class="country"><img class="icon" src="/static/img/icons/country/country_{{ r.id }}.png" /> <a href="#">{{ r[c.id] }}</a></td>
+            <td class="country">
+              <img class="icon" src="/static/img/icons/country/country_{{ r.id }}.png" />
+              <a href="/en/profile/country/{{r.id[2:]}}/">{{ r[c.id] }}</a>
+            </td>
             {% else %}
-            <td class="{{ c }}">{{ r[c.id] }}</td>
+            <td class="{{ c.id }}">{{ r[c.id] }}</td>
             {% endif %}
           {% endfor %}
           <td class="country sparkline-col"><div class="sparkline" data-array="{{ r['data-array'] }}"></div></td>
           {% else %}
-          <td class="rank"><span>{{ r[2]["pci_rank"] }}</span></td>
-          <td class="delta">
-            {% if r[2]["pci_rank_delta"] > 0 %}
-              <i class="fa fa-caret-up fa-lg"></i> {{ r[2]["pci_rank_delta"] }}
-            {% elif r[2]["pci_rank_delta"] < 0 and r[2]["pci_rank_delta"] %}
-              <i class="fa fa-caret-down fa-lg"></i> {{ r[2]["pci_rank_delta"]|abs }}
+          {% for c in cols[:-1] %}
+            {% if c.id == "product" %}
+            <td class="product">
+              <img class="icon" src="/static/img/icons/{{product_stem}}/{{product_stem}}_{{r.id[:2]}}.png">
+              <a href="/en/profile/{{classification}}/{{r.id[2:]}}/">{{ r[c.id] }}</a>
+            </td>
+            {% else %}
+            <td class="{{ c.id }}">{{ r[c.id] }}</td>
             {% endif %}
-          </td>
-          <td class="id">{{ r[0].get_display_id() }}</td>
-          <td class="product"><img class="icon" style="background-color: {{ r[0].color }};" src="{{ r[0].get_icon() }}" /> <a href="{{ r[0].get_profile_url() }}">{{ r[1].name }}</a></td>
-          <td class="pci">{{ r[2]["pci"]|num_format("pci") }}</td>
+          {% endfor %}
           {% endif %}
         </tr>
         {% endfor %}
@@ -217,14 +219,15 @@
     //   })
 
     d3.selectAll("thead th[data-sortable]").on(d3plus.client.pointer.click, function(){
+      d3.event.preventDefault();
 
       /* Changing sort direction is a 3-way toggle with the order being:
         1st click = descending
         2nd click = ascending
-        3rd click = null (turn sorting off)
       */
       var current_sort_direction = d3.select(this).attr("data-direction");
-      var new_sort_direction = current_sort_direction ? current_sort_direction == "down" ? "up" : null : "down";
+      // var new_sort_direction = current_sort_direction ? current_sort_direction == "down" ? "up" : null : "down";
+      var new_sort_direction = current_sort_direction ? current_sort_direction === "down" ? "up" : "down" : "down";
 
       // Reset all columns sorting to null
       d3.select(this.parentNode).selectAll("th .fa").attr("class", "fa fa-sort");
@@ -236,20 +239,38 @@
         d3.select(this).select(".fa").attr("class", "fa fa-sort-"+new_sort_direction)
         d3.select(this).attr("data-direction", new_sort_direction);
         sortby = d3.select(this).attr("class");
-        alpha_sort = d3.select(this).attr("data-sort-alpha") != null;
+        alpha_sort = d3.select(this).attr("data-sort-alpha") !== null;
       }
+      // console.log(sortby)
+      // return;
 
       d3.selectAll("tbody tr").datum(function(d, i){
+        // var sortVal = d3.select(this).select("."+sortby).text() || 0;
+        // sortVal =
+        // console.log(sortVal)
         return d3.select(this).select("."+sortby).text();
-      }).sort(function(a, b){
+      }).sort(function(tmpA, tmpB){
+        var a = new_sort_direction !== "up" ? tmpA : tmpB;
+        var b = new_sort_direction !== "up" ? tmpB : tmpA;
         if(!alpha_sort){
-          a = {"val":parseFloat(a)}, b = {"val":parseFloat(b)};
+          a = parseFloat(a), b = parseFloat(b);
+          if(!isFinite(a-b)) {
+            if(new_sort_direction !== "up") {
+              return !isFinite(a) ? 1 : -1;
+            }
+            return !isFinite(a) ? -1 : 1;
+          }
+          else {
+            return a-b;
+          }
         }
-        else {
-          a = {"val":a.toLowerCase()}, b = {"val":b.toLowerCase()};
-        }
-        var sortd = new_sort_direction != "up" ? "asc" : "desc";
-        return d3plus.array.comparator(a, b, "val", sortd);
+        var a = new_sort_direction !== "up" ? tmpA.toLowerCase() : tmpB.toLowerCase();
+        var b = new_sort_direction !== "up" ? tmpB.toLowerCase() : tmpA.toLowerCase();
+        if (a < b) //sort string ascending
+          return -1;
+        if (a > b)
+          return 1;
+        return 0; //default return value (no sorting)
       })
     })
 

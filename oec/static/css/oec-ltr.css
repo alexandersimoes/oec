@@ -3282,7 +3282,8 @@
           margin: 0 !important; }
           body.rankings #container #content section.settings-section content ul.settings-list {
             border: 1px solid #63737f;
-            border-radius: 4px; }
+            border-radius: 4px;
+            flex-wrap: wrap; }
             @media all and (min-width: 376px) {
               body.rankings #container #content section.settings-section content ul.settings-list {
                 -webkit-justify-content: center;
@@ -3296,16 +3297,20 @@
 }
               body.rankings #container #content section.settings-section content ul.settings-list li {
                 margin: 0 0 0 8px;
-                white-space: nowrap;
                 padding: 0; }
                 body.rankings #container #content section.settings-section content ul.settings-list li a {
                   border-radius: 4px;
                   display: inline-block;
-                  padding: 4px 6px; }
+                  padding: 4px 6px;
+                  white-space: nowrap; }
                   body.rankings #container #content section.settings-section content ul.settings-list li a.active {
                     background-color: #212831; }
           body.rankings #container #content section.settings-section content.settings-attr {
             flex: 1; }
+            body.rankings #container #content section.settings-section content.settings-classification {
+              flex: 2; }
+              body.rankings #container #content section.settings-section content.settings-year {
+                flex: 3; }
     body.rankings #container #content section.ranking-section {
       display: block;
       margin: 0 20px; }
@@ -3385,7 +3390,8 @@
           align-items: center;
           -webkit-justify-content: flex-start;
           -moz-justify-content: flex-start;
-          justify-content: flex-start; }
+          justify-content: flex-start;
+          max-width: 350px; }
           body.rankings #container table .country img,
           body.rankings #container table .product img {
             margin-right: 5px ;
