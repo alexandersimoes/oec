@@ -305,8 +305,8 @@ configs.default = function(build, container) {
     "id": id_nesting,
     "labels": {
       "font": {
-        "family": ["Fira Sans Condensed", "Helvetica Neue Condensed", "Helvetica Condensed", "Helvetica Neue", "Helvetica", "Arial Narrow", "Arial", "sans-serif"],
-        "weight": 700
+        "family": ["HelveticaNeue-CondensedBold", "HelveticaNeue-Condensed", "Helvetica-Condensed", "Arial Narrow", "sans-serif"],
+        "weight": 800
       },
       "padding": 15
     },
@@ -774,9 +774,16 @@ function format_data(raw_data, attrs, build){
   // go through raw data and set each items nest and id vars properly
   // also calculate net values
   data.forEach(function(d){
-    // d.pini_class = attrs[d[attr_id]].pini_class;
-    var bucket = pini_scale(attrs[d[attr_id]].pini);
-    d.pini_class = "PGIs ("+pini_buckets[bucket]+" - "+pini_buckets[bucket+1]+")";
+
+    // only assign "pini_class" if the dataset is SITC
+    if(build.attr_type === "sitc") {
+      if(attrs[d[attr_id]]) {
+        console.log(d[attr_id], attrs[d[attr_id]])
+        var bucket = pini_scale(attrs[d[attr_id]].pini);
+        d.pini_class = "PGIs ("+pini_buckets[bucket]+" - "+pini_buckets[bucket+1]+")";
+      }
+    }
+
     d.nest = d[attr_id].substr(0, 2)
     if(attr_id.indexOf("hs") == 0){
       d.nest_mid = d[attr_id].substr(0, 6)
@@ -848,10 +855,31 @@ function format_attrs(raw_attrs, build){
 }
 
 function format_csv_data(data, attrs, build){
-  csv_data = [];
-  ccp = ["origin", "dest", "prod"]
+  var csv_data = [];
+
+  if(build.trade_flow === "show" && build.viz.slug === "line") {
+    var cols = ["year", "country_id", "country_name", "eci", "export_val", "import_val", "gdp", "gdp_pc_constant", "gdp_pc_constant_ppp", "gdp_pc_current", "gdp_pc_current_ppp"];
+    csv_data.push(cols)
+    data.forEach(function(d){
+      var row = [];
+      cols.forEach(function(column){
+        if(column.indexOf("country_id") > -1){
+          row.push(attrs[d.id].display_id);
+        }
+        else if(column.indexOf("country_name") > -1){
+          row.push(attrs[d.id].name);
+        }
+        else {
+          row.push(d[column]);
+        }
+      })
+      csv_data.push(row);
+    });
+    return csv_data;
+  }
 
   // format columns
+  var ccp = ["origin", "dest", "prod"];
   var show_id = build.attr_type + "_id";
   var trade_flow = build.trade_flow + "_val";
   csv_data.push(['year', 'country_origin_id', 'country_destination_id', build.classification+'_product_id', trade_flow, trade_flow+"_pct"])
@@ -859,7 +887,7 @@ function format_csv_data(data, attrs, build){
   // format data
   var total_val = d3.sum(data, function(d){ return d[trade_flow]; });
   data.forEach(function(d){
-    if(d[trade_flow]){
+    if(d[trade_flow] || trade_flow === "show_val"){
       var attr = attrs[d[show_id]]
       datum = [d['year']]
       ccp.forEach(function(x){
