@@ -3277,6 +3277,19 @@
           margin: 10px 10px 0 0;
           width: 50px;
           text-align: right; }
+    body.rankings #container #content section.about-section content {
+      column-count: 3;
+      column-gap: 20px;
+      margin: 0 20px 20px 20px; }
+      @media all and (max-width: 950px) {
+        body.rankings #container #content section.about-section content {
+          column-count: 2;
+          column-gap: 15px;   }
+}
+        @media all and (max-width: 600px) {
+          body.rankings #container #content section.about-section content {
+            column-count: 1;   }
+}
     body.rankings #container #content section.settings-section {
       background-color: #3f464f;
       margin: 0 20px 10px 20px; }
