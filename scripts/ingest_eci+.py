@@ -14,11 +14,11 @@ ago, 2003, 7205875288.790001, -1.593643, -0.669955, -1.841795, 58.310621, 61.283
 '''
 import csv, json, os, MySQLdb, sys, math
 
-# db = MySQLdb.connect(host=os.environ.get("OEC_DB_HOST", "localhost"),
-#                      user=os.environ.get("OEC_DB_USER", "root"),
-#                      passwd=os.environ.get("OEC_DB_PW", ""),
-#                      db=os.environ.get("OEC_DB_NAME", "oec"))
-db = MySQLdb.connect(host="localhost", user="root", db="oec")
+db = MySQLdb.connect(host=os.environ.get("OEC_DB_HOST", "localhost"),
+                     user=os.environ.get("OEC_DB_USER", "root"),
+                     passwd=os.environ.get("OEC_DB_PW", ""),
+                     db=os.environ.get("OEC_DB_NAME", "oec"))
+# db = MySQLdb.connect(host="localhost", user="root", db="oec")
 db.autocommit(1)
 cursor = db.cursor()
 
@@ -31,12 +31,16 @@ def udpate_eci(csv_file):
         eci_reader.next()
         for line in eci_reader:
             [country, year, total_exports, eci, neci] = line[:5]
+            eci = float(eci)
             neci = float(neci)
             year = int(year)
             if not math.isnan(neci):
                 # print line
                 try:
-                    cursor.execute("UPDATE attr_yo SET eci=%s WHERE year=%s and SUBSTRING(origin_id, 3)=%s;", [neci, year, country])
+                    cursor.execute("""UPDATE attr_yo
+                    SET eci=%s, neci=%s
+                    WHERE year=%s and SUBSTRING(origin_id, 3)=%s;
+                    """, [eci, neci, year, country])
                 except MySQLdb.Error, e:
                     print "ERROR: Error in with year:{} and country:{} combination".format(year, country)
                 # sys.exit()

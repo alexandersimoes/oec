@@ -58,16 +58,17 @@ def rankings_legacy(category=None, year=None):
     return redirect(url_for('.rankings', lang=g.locale, attr=category, classification=classification))
 
 @mod.route('/<any("country","product"):attr>/')
-@mod.route('/<any("country","product"):attr>/<any("sitc","hs92","hs96","hs02","hs07"):classification>/')
+@mod.route('/<any("product"):attr>/<any("sitc","hs92","hs96","hs02","hs07"):classification>/')
+@mod.route('/<any("country"):attr>/<any("neci","eci"):complexity_type>/')
 # don't cache because downloading will not be possible
 # @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
-def rankings(attr=None, classification="sitc"):
+def rankings(attr=None, classification="sitc", complexity_type="pci"):
     year_ranges = {
-        "sitc": ["1966-1970","1971-1975","1976-1980","1981-1985","1986-1990","1991-1995","1996-2000","2001-2005","2006-2010","2011-2015"],
+        "sitc": ["1966-1970","1971-1975","1976-1980","1981-1985","1986-1990","1991-1995","1996-2000","2001-2005","2006-2010","2011-2014"],
         "hs92": ["1995-2000","2001-2005","2006-2010","2011-2015"],
         "hs96": ["1998-2000","2001-2005","2006-2010","2011-2015"],
         "hs02": ["2003-2005","2006-2010","2011-2015"],
-        "hs02": ["2008-2010","2011-2015"]
+        "hs07": ["2008-2010","2011-2015"]
     }
     year = None
     year_range = request.args.get('year_range', year_ranges[classification][-1])
@@ -81,34 +82,15 @@ def rankings(attr=None, classification="sitc"):
         s = StringIO()
         writer = csv.writer(s)
 
-    # if year == None:
-    #     download_all = True if download else False
-    #     year = available_years[category][-1]
-    # elif year > available_years[category][-1]:
-    #     return redirect(url_for('.rankings', lang=g.locale, category=category, year=available_years[category][0]))
-    # elif year < available_years[category][0]:
-    #     return redirect(url_for('.rankings', lang=g.locale, category=category, year=available_years[category][-1]))
-
-    # if category == "sitc":
-    #     Yp = getattr(db_data, "sitc_models").Yp
-    #     Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Sitc, Sitc_name, Yp, "sitc_id", "pci", "pci_rank", "pci_rank_delta"]
-    #     cols = [gettext("Rank"), "", "SITC", gettext("Product"), "PCI Value"]
-    #
-    # elif category == "hs":
-    #     Yp = getattr(db_data, "hs92_models").Yp
-    #     Attr, Attr_name, Attr_data, attr_id, index, rank, delta = [Hs, Hs_name, Yp, "hs_id", "pci", "pci_rank", "pci_rank_delta"]
-    #     cols = [gettext("Rank"), "", "HS", gettext("Product"), "PCI Value"]
-
     cols = []
     if attr == "country":
-        Attr, Attr_name, Attr_data, attr_id, complexity_type, rank, delta = [Country, Country_name, Yo, "origin_id", "eci", "eci_rank", "eci_rank_delta"]
-        cols += [{"id":"country", "name":gettext("Country"), "sortable":True, "sort-alpha":True}, {"id":"eci", "name":"ECI", "sortable":True}]
+        Attr, Attr_name, Attr_data, attr_id = [Country, Country_name, Yo, "origin_id"]
+        cols += [{"id":"country", "name":gettext("Country"), "sortable":True, "sort-alpha":True}, {"id":complexity_type, "name":"ECI", "sortable":True}]
     else:
         Attr_data = getattr(db_data, "{}_models".format(classification)).Yp
         Attr = globals()[classification.title()]
         Attr_name = globals()["{}_name".format(classification.title())]
         attr_id = "{}_id".format(classification)
-        complexity_type, rank, delta = ["pci", "pci_rank", "pci_rank_delta"]
         cols += [{"id":"product", "name":gettext("Product"), "sortable":True, "sort-alpha":True}, {"id":"pci", "name":"PCI", "sortable":True}]
 
 
@@ -180,6 +162,7 @@ def rankings(attr=None, classification="sitc"):
         # raise Exception(rankings[0])
         product_stem = "hs" if "hs" in classification else "sitc"
         return render_template("rankings/index.html",
+                                complexity_type=complexity_type,
                                 product_stem=product_stem,
                                 showing=attr,
                                 category=attr,

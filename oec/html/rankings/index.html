@@ -16,26 +16,35 @@
 <section class="nav-section">
   <content>
     {% if category == "country" %}
-      <h1><a class="complexity_switch" href="/{{ g.locale }}/rankings/hs92/" data-tooltip="Switch to Product">{{ _('Economic Complexity') }}</a> {{ _('Rankings') }}</h1>
+      <h1><a class="complexity_switch" href="/{{ g.locale }}/rankings/hs92/" data-tooltip="Switch to Product">{{ _('Economic Complexity') }}</a> {{ _('Rankings') }} (ECI)</h1>
     {% else %}
-      <h1><a class="complexity_switch" href="/{{ g.locale }}/rankings/country/" data-tooltip="Switch to Country">{{ _('Product Complexity') }}</a> {{ _('Rankings') }}</h1>
+      <h1><a class="complexity_switch" href="/{{ g.locale }}/rankings/country/" data-tooltip="Switch to Country">{{ _('Product Complexity') }}</a> {{ _('Rankings') }} (PCI)</h1>
     {% endif %}
   </content>
-  <aside>
+  <!-- <aside>
     <a id="next" href="#">
       <i class="fa fa-cog" aria-hidden="true"></i>
     </a>
-  </aside>
+  </aside> -->
 </section>
 
 <section class="settings-section">
   <content class="settings-attr">
     <h4>Showing</h4>
     <ul class="settings-list">
-      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', classification=classification, year_range=year_range) }}" {% if showing == "country" %}class="active"{% endif %}>Countries</a></li>
+      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='neci') }}" {% if showing == "country" %}class="active"{% endif %}>Countries</a></li>
       <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='product', classification=classification, year_range=year_range) }}" {% if showing == "product" %}class="active"{% endif %}>Products</a></li>
     </ul>
   </content>
+  {% if category == "country" %}
+  <content class="settings-complexity-type">
+    <h4>ECI Type</h4>
+    <ul class="settings-list">
+      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='neci', year_range=year_range) }}" {% if complexity_type == "neci" %}class="active"{% endif %}>ECI+</a></li>
+      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='eci', year_range=year_range) }}" {% if complexity_type == "eci" %}class="active"{% endif %}>ECI</a></li>
+    </ul>
+  </content>
+  {% else %}
   <content class="settings-classification">
     <h4>Product Classification</h4>
     <ul class="settings-list">
@@ -46,12 +55,13 @@
       <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification='hs07', year_range=year_range) }}" {% if classification == "hs07" %}class="active"{% endif %}>HS 07</a></li>
     </ul>
   </content>
+  {% endif %}
   <content class="settings-year">
     <h4>Change Year Range</h4>
     <ul class="settings-list">
       {% for yr in year_ranges %}
-      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification=classification, year_range=yr) }}"
-            {% if yr == year_range %}class="active"{% endif %}>{{ yr|replace('-', ' - ') }}</a>
+      <li>
+        <a href="{% if showing == 'country' %}{{ url_for('rankings.rankings', lang=g.locale, attr=showing, year_range=yr, complexity_type=complexity_type) }}{% else %}{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification=classification, year_range=yr) }}{% endif %}"{% if yr == year_range %}class="active"{% endif %}>{{ yr|replace('-', ' - ') }}</a>
       </li>
       {% endfor %}
     </ul>

@@ -409,6 +409,7 @@ class Yo(db.Model, AutoSerialize):
     year = db.Column(db.Integer, primary_key=True)
     origin_id = db.Column(db.String(5), db.ForeignKey(Country.id), primary_key=True)
     eci = db.Column(db.Float())
+    neci = db.Column(db.Float())
     eci_rank = db.Column(db.Integer)
     eci_rank_delta = db.Column(db.Integer)
     opp_value = db.Column(db.Float())

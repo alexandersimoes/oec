@@ -3317,8 +3317,10 @@
             flex: 1; }
             body.rankings #container #content section.settings-section content.settings-classification {
               flex: 2; }
-              body.rankings #container #content section.settings-section content.settings-year {
-                flex: 3; }
+              body.rankings #container #content section.settings-section content.settings-complexity-type {
+                flex: 1; }
+                body.rankings #container #content section.settings-section content.settings-year {
+                  flex: 3; }
     body.rankings #container #content section.ranking-section {
       display: block;
       margin: 0 20px; }
