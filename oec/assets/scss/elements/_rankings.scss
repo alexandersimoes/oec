@@ -220,6 +220,10 @@ body.rankings {
         width: 50px;
       }
 
+      .rank, .eci, .pci {
+        width: 20px;
+      }
+
       .delta, .id {
         @media all and (max-width: 500px) {
           display: none;

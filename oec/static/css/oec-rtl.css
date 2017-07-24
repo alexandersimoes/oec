@@ -3425,9 +3425,12 @@
               width: 20px; }
         body.rankings #container table .eci, body.rankings #container table .pci {
           width: 50px; }
-          @media all and (max-width: 500px) {
-            body.rankings #container table .delta, body.rankings #container table .id {
-              display: none;   }
+          body.rankings #container table .rank, body.rankings #container table .eci,
+          body.rankings #container table .pci {
+            width: 20px; }
+            @media all and (max-width: 500px) {
+              body.rankings #container table .delta, body.rankings #container table .id {
+                display: none;   }
 }
 
   body.about, body.resources, body.permissions, body.methodology {
