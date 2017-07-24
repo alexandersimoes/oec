@@ -76,8 +76,8 @@ def rankings(attr=None, classification="sitc", complexity_type="pci"):
     g.page_sub_type = "countries"
     depth = 4
 
-    download = request.args.get('download', None)
-    download_all = False
+    download = bool(request.args.get('download', None))
+    download_all = bool(request.args.get('download_all', None))
     if download:
         s = StringIO()
         writer = csv.writer(s)
@@ -119,14 +119,43 @@ def rankings(attr=None, classification="sitc", complexity_type="pci"):
     rankings = db.session.query(Attr_name, Attr_data) \
                 .filter(getattr(Attr_name, attr_id) == getattr(Attr_data, attr_id)) \
                 .filter(Attr_name.lang == g.locale) \
-                .filter(getattr(Attr_data, complexity_type) != None) \
-                .filter(Attr_data.year >= eci_date_range[0]) \
-                .filter(Attr_data.year <= eci_date_range[-1])
+                .filter(getattr(Attr_data, complexity_type) != None)
+
+    # filter query by year range IF we're not downloading all years
+    if not download_all:
+        rankings = rankings.filter(Attr_data.year >= eci_date_range[0]).filter(Attr_data.year <= eci_date_range[-1])
+
     # raise Exception(utils.compile_query(rankings))
     rankings = rankings.all()
-    # raise Exception(rankings[0])
+
+    if download:
+        if attr == "country":
+            if download_all:
+                title = "eci_country_rankings"
+            else:
+                title = "eci_country_rankings_{}_{}".format(eci_date_range[0], eci_date_range[-1])
+            cols = [{"id":"year", "name":"Year"}, {"id":"country", "name":"Country"}, {"id":"country_id", "name":"Country ID"}, {"id":"eci", "name":"ECI"}, {"id":"neci", "name":"ECI+"}]
+        else:
+            if download_all:
+                title = "pci_{}_rankings".format(classification)
+            else:
+                title = "pci_{}_rankings_{}_{}".format(classification, eci_date_range[0], eci_date_range[-1])
+            cols = [{"id":"year", "name":"Year"}, {"id":"product", "name":"Product"}, {"id":"product_id", "name":"{} ID".format(classification.capitalize())}, {"id":"pci", "name":"PCI"}]
+        # raise Exception(filter(None, [unicode(c["name"]).encode("utf-8") for c in cols]))
+        writer.writerow(filter(None, [unicode(c["name"]).encode("utf-8") for c in cols]))
+        for r in rankings:
+            if attr == "country":
+                writer.writerow([r[1].year, unicode(r[0].name).encode("utf-8"), r[0].id, r[1].eci, r[1].neci])
+            else:
+                writer.writerow([r[1].year, unicode(r[0].name).encode("utf-8"), r[0].id, r[1].pci])
+        content_disposition = "attachment;filename={}.csv".format(title)
+        content_disposition = content_disposition.replace(",", "_")
+        return Response(s.getvalue(),
+                            mimetype="text/csv;charset=UTF-8",
+                            headers={"Content-Disposition": content_disposition})
+
+
     ranks = {}
-    # raise Exception(rankings[0].origin_id)
     for r in rankings:
         item_id = getattr(r[1], attr_id)
         complexity_val = getattr(r[1], complexity_type)
@@ -141,36 +170,19 @@ def rankings(attr=None, classification="sitc", complexity_type="pci"):
     cols = [{"id":attr, "name":gettext(attr.capitalize()), "sortable":True, "sort-alpha":True}]
     cols += [{"id":"{}_{}".format(complexity_type, y), "name":"{}".format(y), "sortable":True} for y in eci_date_range]
     cols += [{"id":"sparkline-col", "name":"", "sortable":False}]
+
     # raise Exception(rankings[0])
-
-    if download:
-        cols = [{"id":"year", "name":gettext("Year")}] + cols
-        writer.writerow(filter(None, [unicode(c["name"]).encode("utf-8") for c in cols]))
-        for r in rankings:
-            writer.writerow([r[2].year, \
-                            getattr(r[2], rank), \
-                            r[0].get_display_id(), \
-                            unicode(r[1].name).encode("utf-8"), \
-                            getattr(r[2], complexity_type)])
-        content_disposition = "attachment;filename={0}.csv".format(title)
-        content_disposition = content_disposition.replace(",", "_")
-        return Response(s.getvalue(),
-                            mimetype="text/csv;charset=UTF-8",
-                            headers={"Content-Disposition": content_disposition})
-
-    else:
-        # raise Exception(rankings[0])
-        product_stem = "hs" if "hs" in classification else "sitc"
-        return render_template("rankings/index.html",
-                                complexity_type=complexity_type,
-                                product_stem=product_stem,
-                                showing=attr,
-                                category=attr,
-                                classification=classification,
-                                year=year,
-                                depth=depth,
-                                cols=cols,
-                                years=available_years[classification][::-1],
-                                year_ranges=year_ranges[classification],
-                                year_range=year_range,
-                                rankings=rankings)
+    product_stem = "hs" if "hs" in classification else "sitc"
+    return render_template("rankings/index.html",
+                            complexity_type=complexity_type,
+                            product_stem=product_stem,
+                            showing=attr,
+                            category=attr,
+                            classification=classification,
+                            year=year,
+                            depth=depth,
+                            cols=cols,
+                            years=available_years[classification][::-1],
+                            year_ranges=year_ranges[classification],
+                            year_range=year_range,
+                            rankings=rankings)

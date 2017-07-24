@@ -1,46 +1,133 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700|Fira+Sans+Condensed:700|Source+Sans+Pro:300,400,700"); 
-  html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6,
-  p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
-  em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
-  b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
-  table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
-  details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
-  output, ruby, section, summary, time, mark, audio, video {
-    border: 0;
-    margin: 0;
-    padding: 0;
-    vertical-align: top; }
+  .btn {
+    display: inline-block;
+    zoom: 1;
+    line-height: normal;
+    white-space: nowrap;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    box-sizing: border-box; }
 
-    blockquote, q {
-      quotes: none; }
+    .btn::-moz-focus-inner {
+      padding: 0;
+      border: 0; }
 
-      blockquote:before, blockquote:after, q:before, q:after {
-        content: '';
-        content: none; }
+      .btn-group {
+        letter-spacing: -0.31em;
+        text-rendering: optimizespeed; }
 
-        table {
-          border-collapse: collapse;
-          border-spacing: 0; }
+        .opera-only :-o-prefocus, .btn-group {
+          word-spacing: -0.43em; }
 
-          a {
-            outline: 0; }
+          .btn {
+            font-family: inherit;
+            font-size: 100%;
+            padding: 0.5em 1em;
+            color: #f5f8fa;
+            border: 1px solid #999;
+            border: transparent;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(255, 255, 255,
+                        0)) left no-repeat, center no-repeat #3f464f;
+            text-decoration: none;
+            border-radius: 2px; }
 
-            ul {
-              list-style-type: none;
-              padding: 0px; }
+            .btn-hover, .btn:focus, .btn:hover {
+              filter: alpha(opacity=90);
+              background-image: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0,
+                            0, 0.1));
+              background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0.1)); }
 
-              body {
-                background-color: #212831;
-                color: #fff;
-                font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif; }
-                body.frozen {
-                  overflow: hidden; }
-                  body.error {
-                    overflow: hidden; }
-                    body .fa-angle-left:before {
-                      content: "\f104"; }
-                      body .fa-angle-right:before {
-                        content: "\f105"; }
+              .btn:focus {
+                outline: 0; }
+
+                .btn-active, .btn:active {
+                  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15) inset, 0 0 6px rgba(0, 0, 0, 0.2) inset;
+                  border-color: #000 \9; }
+
+                  .btn-disabled, .btn-disabled:active, .btn-disabled:focus, .btn-disabled:hover,
+                  .btn[disabled] {
+                    border: none;
+                    background-image: none;
+                    filter: alpha(opacity=40);
+                    opacity: 0.4;
+                    cursor: not-allowed;
+                    box-shadow: none;
+                    pointer-events: none; }
+
+                    .btn-hidden {
+                      display: none; }
+
+                      .btn-primary, .btn-selected, a.btn-primary, a.btn-selected {
+                        background-color: #0078e7;
+                        color: #fff; }
+
+                        .btn-group .btn {
+                          letter-spacing: normal;
+                          word-spacing: normal;
+                          vertical-align: top;
+                          text-rendering: auto;
+                          margin: 0;
+                          border-radius: 0;
+                          border-right: 1px solid #111;
+                          border-right: 1px solid rgba(0, 0, 0, 0.2); }
+
+                          .btn-group .btn:first-child {
+                            border-top-left-radius: 2px;
+                            border-bottom-left-radius: 2px; }
+
+                            .btn-group .btn:last-child {
+                              border-top-right-radius: 2px;
+                              border-bottom-right-radius: 2px;
+                              border-right: none; }
+
+                              html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6,
+                              p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
+                              em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
+                              b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+                              table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
+                              details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
+                              output, ruby, section, summary, time, mark, audio, video {
+                                border: 0;
+                                margin: 0;
+                                padding: 0;
+                                vertical-align: top; }
+
+                                blockquote, q {
+                                  quotes: none; }
+
+                                  blockquote:before, blockquote:after, q:before, q:after {
+                                    content: '';
+                                    content: none; }
+
+                                    table {
+                                      border-collapse: collapse;
+                                      border-spacing: 0; }
+
+                                      a {
+                                        outline: 0; }
+
+                                        ul {
+                                          list-style-type: none;
+                                          padding: 0px; }
+
+                                          body {
+                                            background-color: #212831;
+                                            color: #fff;
+                                            font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif; }
+                                            body.frozen {
+                                              overflow: hidden; }
+                                              body.error {
+                                                overflow: hidden; }
+                                                body .fa-angle-left:before {
+                                                  content: "\f104"; }
+                                                  body .fa-angle-right:before {
+                                                    content: "\f105"; }
 
   @media screen and (max-device-width: 480px) {
     body {
@@ -3276,7 +3363,7 @@
       body.rankings #container #content section.about-section content {
         column-count: 3;
         column-gap: 20px;
-        margin: 0 20px 20px 20px; }
+        margin: 0 20px 10px 20px; }
         @media all and (max-width: 950px) {
           body.rankings #container #content section.about-section content {
             column-count: 2;
@@ -3286,6 +3373,11 @@
             body.rankings #container #content section.about-section content {
               column-count: 1;   }
 }
+      body.rankings #container #content section.download-section {
+        margin: 10px 20px 20px 20px; }
+        body.rankings #container #content section.download-section content {
+          text-align: center;
+          margin: 0; }
       body.rankings #container #content section.settings-section {
         background-color: #3f464f;
         margin: 0 20px 10px 20px; }

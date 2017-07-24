@@ -26,7 +26,7 @@ body.rankings {
       content {
         column-count: 3;
         column-gap: 20px;
-        margin: 0 20px 20px 20px;
+        margin: 0 20px 10px 20px;
         @media all and (max-width: 950px) {
           column-count: 2;
           column-gap: 15px;
@@ -34,6 +34,14 @@ body.rankings {
         @media all and (max-width: 600px) {
           column-count: 1;
         }
+      }
+    }
+
+    #content section.download-section {
+      margin: 10px 20px 20px 20px;
+      content {
+        text-align: center;
+        margin: 0;
       }
     }
 
@@ -95,7 +103,6 @@ body.rankings {
 
       content {
         margin: 0 !important;
-
       }
     }
 
