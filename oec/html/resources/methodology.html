@@ -5,8 +5,8 @@
 {% block description %}{{ _('Photos and descriptions of the team members involved in the creation of The Observatory.') }}{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
 <style>
 .frac-line {
   margin-top: 13px;
@@ -17,8 +17,64 @@
 {% block body %}
 <section>
   <content>
-    <h1>{{ _('What is Economic Complexity?') }}</h1>
-    <h4>(or, everything you wanted to know about this site but were too afraid to ask)</h4>
+    <h1>Methodology</h1>
+    <p>
+      In our Economic Complexity measures (RCA, ECI, ECI+, PCI and PCI+ explained below) we considered simultaneously:
+    </p>
+    <ul>
+      <li>Countries with population greater or equal to 1.25 million</li>
+      <li>Countries whose traded value is greater or equal than 1 billion</li>
+      <li>Products whose traded value is greater or equal than 10 million</li>
+    </ul>
+    <p>
+      The idea here being to avoid distortions.
+    </p>
+</section>
+
+<section>
+  <content>
+    <h2>{{ _('Revealed Compared Advantage (RCA)') }}</h2>
+    <h4>Which countries make which products?</h4>
+    <p>
+      When associating countries to products it is important to take into account the size of the export volume of countries and that of the world trade of products. This is because, even for the same product, we expect the volume of exports of a large country like China, to be larger than the volume of exports of a small country like Uruguay. By the same token, we expect the export volume of products that represent a large fraction of world trade, such as cars or footwear, to represent a larger share of a country's exports than products that account for a small fraction of world trade, like cotton seed oil or potato flour.
+    </p>
+    <p>
+      To make countries and products comparable we use Balassa's definition of Revealed Comparative Advantage or RCA. Balassa's definition says that a country has Revealed Comparative Advantage in a product if it exports more than its "fair" share, that is, a share that is equal to the share of total world trade that the product represents. For example, in 2008, with exports of $42 billion, soybeans represented 0.35% of world trade. Of this total, Brazil exported nearly $11 billion, and since Brazil's total exports for that year were $140 billion, soybeans accounted for 7.8% of Brazil's exports. This represents around 22 times Brazil's “fair share” of soybean exports (7.8% divided by 0.35%), so we can say that Brazil has revealed comparative advantage in soybeans.
+    </p>
+
+    <h4>How can we express this mathematically?</h4>
+    <p>
+      Let:
+      <ul>
+        <li><span class="calc" data-calc="{% raw %}X_{cp}{% endraw %}"></span> = the quantity (in USD) of a product <span class="calc" data-calc="p"></span> that a country <span class="calc" data-calc="c"></span> exports</li>
+        <li><span class="calc" data-calc="C"></span> = number of considered countries</li>
+        <li><span class="calc" data-calc="P"></span> = number of considered products</li>
+      </ul>
+    </p>
+    <p>
+      Define <span class="calc" data-calc="{% raw %}RCA_{cp}{% endraw %}"></span> as:
+      <ol>
+        <li><span class="calc" data-calc="{% raw %}RCA_{cp} = \frac{X_{cp}}{\sum _{c} X_{cp}} / \frac{\sum _{p} X_{cp}}{\sum _{c,p} X_{cp}}{% endraw %}" data-calc-block="true"></span></li>
+      </ol>
+    </p>
+    <p>
+      We use this measure to construct a matrix that connects each country to the products that it makes. <span class="calc" data-calc="{% raw %}M \in \mathbb{R}^{C \times P}{% endraw %}" data-calc-block="true"></span>
+    </p>
+    <p>
+      With entries:
+      <ol start=2>
+        <li><span class="calc" data-calc="{% raw %}M_{cp} = \begin{cases} 1 &\text{if } RCA_{cp} \geq 1 \\ 0 &\text{otherwise } \end{cases}{% endraw %}"></span></li>
+      </ol>
+    </p>
+    <p>
+      In our research we have played around with cutoff values other than 1 to construct the <span class="calc" data-calc="M_{cp}"></span> matrix and found that our results are robust to these changes.
+    </p>
+  </content>
+</section>
+
+<section>
+  <content>
+    <h2>{{ _('What is Economic Complexity?') }}</h2>
     <p>
       We owe to Adam Smith the idea that the division (specialization) of labor is the secret of the wealth of nations. In a modern interpretation, the division of labor into markets and organizations is what allows the knowledge held by few to reach many, making us collectively wiser.
     </p>
@@ -32,7 +88,7 @@
 
 <section>
   <content>
-    <h1>{{ _('How is Economic Complexity calculated?') }}</h1>
+    <h2>{{ _('How is Economic Complexity calculated?') }}</h2>
     <p>
       If we define <span class="calc" data-calc="M_{cp}"></span>, as a matrix that is <span class="calc" data-calc="1"></span> if country <span class="calc" data-calc="c"></span> produces product <span class="calc" data-calc="p"></span>, and <span class="calc" data-calc="0"></span> otherwise, we can measure diversity and ubiquity simply by summing over the rows or columns of that matrix. Formally, we define:
       <ol>
@@ -75,7 +131,7 @@
       <li><span class="calc" data-calc="{% raw %}\vec{K} = {% endraw %}"></span>Eigenvector of <span class="calc" data-calc="{% raw %}\tilde{M}_{c{c}'}{% endraw %}"></span> associated with the second largest eigenvalue.</li>
     </ol>
     <p>
-      Analogously, we define a Product Complexity Index (PCI). Because of the symmetry of the problem, this can be done simply by exchanging the index of countries (c) with that for products (p) in the definitions above. Hence, we define PCI as: 
+      Analogously, we define a Product Complexity Index (PCI). Because of the symmetry of the problem, this can be done simply by exchanging the index of countries (c) with that for products (p) in the definitions above. Hence, we define PCI as:
     </p>
     <ol start=11>
       <li><span class="calc" data-calc="{% raw %}PCI = \frac{\vec{Q} - <\vec{Q}> }{stdev\left ( \vec{Q} \right )}{% endraw %}" data-calc-block="true"></span></li>
@@ -83,34 +139,6 @@
     <ol start=12>
       <li><span class="calc" data-calc="{% raw %}\vec{Q} = {% endraw %}"></span>Eigenvector of <span class="calc" data-calc="{% raw %}\tilde{M}_{p{p}'}{% endraw %}"></span> associated with the second largest eigenvalue.</li>
     </ol>
-</section>
-
-<section>
-  <content>
-    <h1>{{ _('Who makes what?') }}</h1>
-    <h4>(or, what is RCA?)</h4>
-    <p>
-      When associating countries to products it is important to take into account the size of the export volume of countries and that of the world trade of products. This is because, even for the same product, we expect the volume of exports of a large country like China, to be larger than the volume of exports of a small country like Uruguay. By the same token, we expect the export volume of products that represent a large fraction of world trade, such as cars or footwear, to represent a larger share of a country's exports than products that account for a small fraction of world trade, like cotton seed oil or potato flour.
-    </p>
-    <p>
-      To make countries and products comparable we use Balassa's definition of Revealed Comparative Advantage or RCA. Balassa's definition says that a country has Revealed Comparative Advantage in a product if it exports more than its "fair" share, that is, a share that is equal to the share of total world trade that the product represents. For example, in 2008, with exports of $42 billion, soybeans represented 0.35% of world trade. Of this total, Brazil exported nearly $11 billion, and since Brazil's total exports for that year were $140 billion, soybeans accounted for 7.8% of Brazil's exports. This represents around 22 times Brazil's “fair share” of soybean exports (7.8% divided by 0.35%), so we can say that Brazil has revealed comparative advantage in soybeans.
-    </p>
-    <p>
-      Formally, if <span class="calc" data-calc="{% raw %}X_{cp}{% endraw %}"></span> represents the exports of country <span class="calc" data-calc="c"></span> in product <span class="calc" data-calc="p"></span>, we can express the Revealed Comparative Advantage that country <span class="calc" data-calc="c"></span> has in product <span class="calc" data-calc="p"></span> as: 
-      <ol>
-        <li><span class="calc" data-calc="{% raw %}RCA_{cp} = \frac{X_{cp}}{\sum _{c} X_{cp}} / \frac{\sum _{p} X_{cp}}{\sum _{c,p} X_{cp}}{% endraw %}" data-calc-block="true"></span></li>
-      </ol>
-    </p>
-    <p>
-      We use this measure to construct a matrix that connects each country to the products that it makes. The entries in the matrix are <span class="calc" data-calc="1"></span> if country <span class="calc" data-calc="c"></span> exports product <span class="calc" data-calc="p"></span> with Revealed Comparative Advantage larger than <span class="calc" data-calc="1"></span>, and <span class="calc" data-calc="0"></span> otherwise. Formally we define this as the <span class="calc" data-calc="M_{cp}"></span> matrix, where
-      <ol start=2>
-        <li><img src="/static/img/about/mcp_equation.png" alt="mcp equation definition for RCA calculation" /></li>
-      </ol>
-    </p>
-    <p>
-      <span class="calc" data-calc="M_{cp}"></span> is the matrix summarizing which country makes what, and is used to construct the product space and our measures of economic complexity for countries and products. In our research we have played around with cutoff values other than 1 to construct the <span class="calc" data-calc="M_{cp}"></span> matrix and found that our results are robust to these changes. 
-    </p>
-  </content>
 </section>
 {% endblock %}
 

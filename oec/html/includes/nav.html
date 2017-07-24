@@ -11,11 +11,11 @@
 </li>
 
 <li id="rankings"{% if g.page_type == "rankings" %} class="active"{% endif %}>
-  <a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', classification='sitc') }}">{{ _('Rankings') }}</a>
+  <a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='neci') }}">{{ _('Rankings') }}</a>
   <div class="sub_menu">
     <ul>
       <li class="country{% if g.page_sub_type == 'countries' %} active{% endif %}">
-        <a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', classification='sitc') }}">{{ _('Countries') }}</a>
+        <a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='neci') }}">{{ _('Countries') }}</a>
       </li>
       <li class="product{% if g.page_sub_type == 'products' %} active{% endif %}">
         <a href="{{ url_for('rankings.rankings', lang=g.locale, attr='product', classification='sitc') }}">{{ _('Products') }}</a>
@@ -35,8 +35,8 @@
       <li class="data{% if g.page_sub_type == 'data' %} active{% endif %}">
         <a href="{{ url_for('resources.data', lang=g.locale) }}">{{ _('Data') }}</a>
       </li>
-      <li class="eci{% if g.page_sub_type == 'eci' %} active{% endif %}">
-        <a href="{{ url_for('resources.eci', lang=g.locale) }}">{{ _('Economic Complexity') }}</a>
+      <li class="methodology{% if g.page_sub_type == 'methodology' %} active{% endif %}">
+        <a href="{{ url_for('resources.methodology', lang=g.locale) }}">{{ _('Methodology') }}</a>
       </li>
       <li class="about{% if g.page_sub_type == 'about' %} active{% endif %}">
         <a href="{{ url_for('resources.about', lang=g.locale) }}">{{ _('The Site') }}</a>

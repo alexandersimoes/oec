@@ -1,4 +1,4 @@
-body.about, body.resources, body.permissions, body.eci {
+body.about, body.resources, body.permissions, body.methodology {
 
   @include font-smoothing(antialiased);
 
@@ -118,7 +118,7 @@ $image_size: 150px;
     top: 0;
     width: $image_size;
   }
-  
+
   h3 {
     color: $lightlinkcolor !important;
     font-size: 18px !important;

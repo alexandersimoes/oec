@@ -12,6 +12,11 @@ ago, 2001, 4940329586.979995, -1.192415, -1.046041, -1.829181, 52.458849, 55.864
 ago, 2002, 5903271023.619997, -1.128747, -0.891448, -1.831285, 54.876672, 57.327882, 67.144364
 ago, 2003, 7205875288.790001, -1.593643, -0.669955, -1.841795, 58.310621, 61.283187, 72.584441
 '''
+
+'''
+query to get only countries with eci from 2014:
+select year, SUBSTRING(origin_id, 3) as country, SUBSTRING(sitc_id, 3) as sitc, export_val from sitc_yop where year = 2015 and origin_id in ("afbwa","afciv","afcmr","afcog","afdza","afegy","afeth","afgha","afgin","afken","afmar","afmdg","afmoz","afnam","afnga","afsdn","afsen","aftgo","aftun","aftza","afzaf","afzmb","afzwe","asare","asaze","aschn","asgeo","ashkg","asidn","asind","asisr","asjor","asjpn","askaz","askhm","askor","askwt","aslbn","aslka","asmng","asmys","asomn","aspak","asphl","asqat","assau","assgp","astha","astur","asvnm","eualb","euaut","eubel","eubgr","eubih","eublr","euche","eucze","eudeu","eudnk","euesp","euest","eufin","eufra","eugbr","eugrc","euhrv","euhun","euirl","euita","eultu","eulva","eumda","eumkd","eunld","eunor","eupol","euprt","eurou","eurus","eusrb","eusvk","eusvn","euswe","euukr","nacan","nacri","nadom","nagtm","nahnd","najam","namex","nanic","napan","naslv","nausa","ocaus","ocnzl","saarg","sabol","sabra","sachl","sacol","saecu","saper","sapry","saury");
+'''
 import csv, json, os, MySQLdb, sys, math
 
 db = MySQLdb.connect(host=os.environ.get("OEC_DB_HOST", "localhost"),
@@ -29,11 +34,15 @@ def udpate_eci(csv_file):
     with open(csv_file, 'r+') as eci_file:
         eci_reader = csv.reader(eci_file, delimiter=',')
         eci_reader.next()
+        prevyear = 0
         for line in eci_reader:
             [country, year, total_exports, eci, neci] = line[:5]
             eci = float(eci)
             neci = float(neci)
             year = int(year)
+            if year != prevyear:
+                print "Year:", year
+            prevyear = year
             if not math.isnan(neci):
                 # print line
                 try:

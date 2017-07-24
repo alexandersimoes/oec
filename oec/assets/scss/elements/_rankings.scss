@@ -4,6 +4,9 @@ body.rankings {
   @include font-smoothing(antialiased);
 
   #container {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
 
     #content section.nav-section {
       margin: 0 20px 10px 20px;
@@ -45,16 +48,20 @@ body.rankings {
         flex: 2;
         padding: 10px;
         margin: 0 !important;
+        @media all and (max-width: 375px) {
+          padding: 2px 10px;
+        }
         ul.settings-list {
-          @media all and (min-width: 376px) {
-            @include flex;
+          @media all and (max-width: 375px) {
+            margin: 5px 0;
           }
           border: 1px solid #63737f;
           border-radius: 4px;
-          flex-wrap: wrap;
+          display: inline-block;
           li {
             margin: 0 0 0 8px;
             padding: 0;
+            display: inline-block;
             a {
               border-radius: 4px;
               display: inline-block;

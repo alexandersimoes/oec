@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
-from flask import Blueprint, g, render_template
+from flask import Blueprint, g, render_template, redirect, url_for
 from oec import app
 from oec.general.views import get_locale
 
@@ -169,5 +169,9 @@ def permissions():
 
 @mod.route('/economic_complexity/')
 def eci():
-    g.page_type = "eci"
-    return render_template("resources/eci.html")
+    return redirect(url_for('.methodology', lang=g.locale))
+
+@mod.route('/methodology/')
+def methodology():
+    g.page_type = "methodology"
+    return render_template("resources/methodology.html")
