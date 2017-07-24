@@ -58,12 +58,12 @@
       </ol>
     </p>
     <p>
-      We use this measure to construct a matrix that connects each country to the products that it makes. <span class="calc" data-calc="{% raw %}M \in \mathbb{R}^{C \times P}{% endraw %}" data-calc-block="true"></span>
+      We use this measure to construct a matrix, <span class="calc" data-calc="{% raw %}M \in \mathbb{R}^{C \times P}{% endraw %}"></span> that connects each country to the products that it makes.
     </p>
     <p>
       With entries:
       <ol start=2>
-        <li><span class="calc" data-calc="{% raw %}M_{cp} = \begin{cases} 1 &\text{if } RCA_{cp} \geq 1 \\ 0 &\text{otherwise } \end{cases}{% endraw %}"></span></li>
+        <li><span class="calc" data-calc="{% raw %}M_{cp} = \begin{cases} 1 &\text{if } RCA_{cp} \geq 1 \\ 0 &\text{otherwise } \end{cases}{% endraw %}" data-calc-block="true"></span></li>
       </ol>
     </p>
     <p>
@@ -90,7 +90,7 @@
   <content>
     <h2>{{ _('How is Economic Complexity calculated?') }}</h2>
     <p>
-      If we define <span class="calc" data-calc="M_{cp}"></span>, as a matrix that is <span class="calc" data-calc="1"></span> if country <span class="calc" data-calc="c"></span> produces product <span class="calc" data-calc="p"></span>, and <span class="calc" data-calc="0"></span> otherwise, we can measure diversity and ubiquity simply by summing over the rows or columns of that matrix. Formally, we define:
+      We can measure diversity and ubiquity simply by summing over the rows or columns of the matrix <span class="calc" data-calc="M_{cp}"></span>. Formally, we define:
       <ol>
         <li><span class="calc" data-calc="Diversity = k_{c, o} = \sum_{p}^{ } M_{cp}" data-calc-block="true"></span></li>
         <li><span class="calc" data-calc="Ubiquity = k_{p, o} = \sum_{c}^{ } M_{cp}" data-calc-block="true"></span></li>
