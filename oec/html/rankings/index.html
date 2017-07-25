@@ -1,6 +1,13 @@
 {% extends "templates/nav.html" %}
 
-{% block title %} - {% if category == "country" %}{{ category|title }}{% else %}{{ category|upper }} Product{% endif %} Ranking ({{ year }}){% endblock %}
+{% block title %} - {% if category == "country" %}{{ _('Economic Complexity Ranking of Countries') }}{% else %}{{ _('Economic Complexity Ranking of %(classification)s Products', classification=classification|upper)}}{% endif %} ({{ year_range }}){% endblock %}
+{%- block description -%}
+{%- if category == "country" -%}
+{{ _('Economic Complexity ranking of countries based on their ECI and ECI+ values.') }}
+{%- else -%}
+{{ _('Economic Complexity ranking of products based on their PCI values.') }}
+{%- endif -%}
+{% endblock %}
 
 {% block head %}
     {% if year_range != year_ranges[0]  %}
@@ -30,41 +37,43 @@
 
 <section class="about-section">
   <content>
+    {% autoescape false %}
     <p>
-      The Economic Complexity Index (ECI) and the Product Complexity Index (PCI) are, respectively, measures of the relative knowledge intensity of an economy or a product. ECI measures the knowledge intensity of an economy by considering the knowledge intensity of the products it exports. PCI measures the knowledge intensity of a product by considering the knowledge intensity of its exporters. This circular argument is mathematically tractable and can be used to construct relative measures of the knowledge intensity of economies and products (see <a href="/en/resources/methodology/">methodology section</a> for more details).
+      {{ _('The Economic Complexity Index (ECI) and the Product Complexity Index (PCI) are, respectively, measures of the relative knowledge intensity of an economy or a product. ECI measures the knowledge intensity of an economy by considering the knowledge intensity of the products it exports. PCI measures the knowledge intensity of a product by considering the knowledge intensity of its exporters. This circular argument is mathematically tractable and can be used to construct relative measures of the knowledge intensity of economies and products (see %(a_open)smethodology section%(a_close)s for more details).', a_open='<a href="/en/resources/methodology/">', a_close='</a>') }}
     </p>
     <p>
-      ECI has been validated as a relevant economic measure by showing its ability to predict future economic growth (see <a href="http://www.pnas.org/content/106/26/10570.short" target="_blank">Hidalgo and Hausmann 2009</a>), and explain international variations in income inequality (see <a href="/static/pdf/LinkingEconomicComplexityInstitutionsAndIncomeInequality.pdf" target="_blank">Hartmann et al. 2017</a>).
+      {{ _('ECI has been validated as a relevant economic measure by showing its ability to predict future economic growth (see %(paper_link)s), and explain international variations in income inequality (see %(paper_link2)s.', paper_link='<a href="http://www.pnas.org/content/106/26/10570.short" target="_blank">Hidalgo and Hausmann 2009</a>', paper_link2='<a href="/static/pdf/LinkingEconomicComplexityInstitutionsAndIncomeInequality.pdf" target="_blank">Hartmann et al. 2017</a>') }}
     </p>
     <p>
-      ECI+ and PCI+ are improved measures of economic complexity (see <a href="https://arxiv.org/pdf/1707.05826.pdf" target="_blank">Albeaik et al. 2017</a>) that consider the total exports of a country adjusted by how difficult it is to export each product. ECI+ is slightly more accurate than ECI at predicting future economic growth, and also, is mathematically simpler to define.
+      {{ _('ECI+ and PCI+ are improved measures of economic complexity (see %(paper_link)s) that consider the total exports of a country adjusted by how difficult it is to export each product. ECI+ is slightly more accurate than ECI at predicting future economic growth, and also, is mathematically simpler to define.', paper_link='<a href="https://arxiv.org/pdf/1707.05826.pdf" target="_blank">Albeaik et al. 2017</a>') }}
     </p>
     <p>
-      This page includes rankings using the Economic Complexity Index  (ECI) and its improved version (ECI+).
+      {{ _('This page includes rankings using the Economic Complexity Index  (ECI) and its improved version (ECI+).') }}
     </p>
+    {% endautoescape %}
   </content>
 </section>
 
 <section class="download-section">
   <content>
-    <a href="{{request.path}}?download=true" class="btn">Download</a>
+    <a href="{{request.path}}?download=true" class="btn">{{ _('Download') }}</a>
     &nbsp;&nbsp;
-    <a href="{{request.path}}?download=true&download_all=true" class="btn">Download All Years</a>
+    <a href="{{request.path}}?download=true&download_all=true" class="btn">{{ _('Download All Years') }}</a>
   </content>
 </section>
 
 
 <section class="settings-section">
   <content class="settings-attr">
-    <h4>Showing</h4>
+    <h4>{{ _('Showing') }}</h4>
     <ul class="settings-list">
-      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='neci') }}" {% if showing == "country" %}class="active"{% endif %}>Countries</a></li>
-      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='product', classification=classification, year_range=year_range) }}" {% if showing == "product" %}class="active"{% endif %}>Products</a></li>
+      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='neci') }}" {% if showing == "country" %}class="active"{% endif %}>{{ _('Countries') }}</a></li>
+      <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='product', classification=classification, year_range=year_range) }}" {% if showing == "product" %}class="active"{% endif %}>{{ _('Products') }}</a></li>
     </ul>
   </content>
   {% if category == "country" %}
   <content class="settings-complexity-type">
-    <h4>ECI Type</h4>
+    <h4>{{ _('ECI Type') }}</h4>
     <ul class="settings-list">
       <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='neci', year_range=year_range) }}" {% if complexity_type == "neci" %}class="active"{% endif %}>ECI+</a></li>
       <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='eci', year_range=year_range) }}" {% if complexity_type == "eci" %}class="active"{% endif %}>ECI</a></li>
@@ -72,7 +81,7 @@
   </content>
   {% else %}
   <content class="settings-classification">
-    <h4>Product Classification</h4>
+    <h4>{{ _('Product Classification') }}</h4>
     <ul class="settings-list">
       <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification='sitc', year_range=year_range) }}" {% if classification == "sitc" %}class="active"{% endif %}>SITC</a></li>
       <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr=showing, classification='hs92', year_range=year_range) }}" {% if classification == "hs92" %}class="active"{% endif %}>HS 92</a></li>
@@ -83,7 +92,7 @@
   </content>
   {% endif %}
   <content class="settings-year">
-    <h4>Change Year Range</h4>
+    <h4>{{ _('Year Range') }}</h4>
     <ul class="settings-list">
       {% for yr in year_ranges %}
       <li>

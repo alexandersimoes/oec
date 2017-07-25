@@ -109,6 +109,9 @@ msgstr ""
 msgid "Application programming interface (API) for querying the raw data used throughout The Observatory of Economic Complexity."
 msgstr ""
 
+msgid "Publications"
+msgstr ""
+
 msgid "Books"
 msgstr ""
 
@@ -127,25 +130,22 @@ msgstr ""
 msgid "Rankings"
 msgstr ""
 
-msgid "Publications"
+msgid "About"
 msgstr ""
 
-msgid "Resources"
+msgid "Data"
 msgstr ""
 
-msgid "About the Site"
+msgid "Methodology"
 msgstr ""
 
-msgid "Economic Complexity"
-msgstr ""
-
-msgid "FAQs"
-msgstr ""
-
-msgid "Data Sources"
+msgid "The Site"
 msgstr ""
 
 msgid "Permissions"
+msgstr ""
+
+msgid "FAQs"
 msgstr ""
 
 msgid "API"
@@ -175,22 +175,59 @@ msgstr ""
 msgid "Explore on Visualizations page"
 msgstr ""
 
+msgid "Economic Complexity Ranking of Countries"
+msgstr ""
+
+#, python-format
+msgid "Economic Complexity Ranking of %(classification)s Products"
+msgstr ""
+
+msgid "Economic Complexity ranking of countries based on their ECI and ECI+ values."
+msgstr ""
+
+msgid "Economic Complexity ranking of products based on their PCI values."
+msgstr ""
+
+msgid "Economic Complexity"
+msgstr ""
+
 msgid "Product Complexity"
 msgstr ""
 
-msgid "Dataset"
+#, python-format
+msgid "The Economic Complexity Index (ECI) and the Product Complexity Index (PCI) are, respectively, measures of the relative knowledge intensity of an economy or a product. ECI measures the knowledge intensity of an economy by considering the knowledge intensity of the products it exports. PCI measures the knowledge intensity of a product by considering the knowledge intensity of its exporters. This circular argument is mathematically tractable and can be used to construct relative measures of the knowledge intensity of economies and products (see %(a_open)smethodology section%(a_close)s for more details)."
 msgstr ""
 
-msgid "Year"
+#, python-format
+msgid "ECI has been validated as a relevant economic measure by showing its ability to predict future economic growth (see %(paper_link)s), and explain international variations in income inequality (see %(paper_link2)s."
 msgstr ""
 
-msgid "Depth"
+#, python-format
+msgid "ECI+ and PCI+ are improved measures of economic complexity (see %(paper_link)s) that consider the total exports of a country adjusted by how difficult it is to export each product. ECI+ is slightly more accurate than ECI at predicting future economic growth, and also, is mathematically simpler to define."
 msgstr ""
 
-msgid "Download Current Year"
+msgid "This page includes rankings using the Economic Complexity Index  (ECI) and its improved version (ECI+)."
+msgstr ""
+
+msgid "Download"
 msgstr ""
 
 msgid "Download All Years"
+msgstr ""
+
+msgid "Showing"
+msgstr ""
+
+msgid "ECI Type"
+msgstr ""
+
+msgid "Product Classification"
+msgstr ""
+
+msgid "Year Range"
+msgstr ""
+
+msgid "About the Site"
 msgstr ""
 
 msgid "Photos and descriptions of the team members involved in the creation of The Observatory."
@@ -205,19 +242,22 @@ msgstr ""
 msgid "Past Contributors"
 msgstr ""
 
+msgid "Data Sources"
+msgstr ""
+
 msgid "HS, SITC, and Country classification with their corresponding IDs and values."
+msgstr ""
+
+msgid "Frequently Asked Questions"
+msgstr ""
+
+msgid "Revealed Compared Advantage (RCA)"
 msgstr ""
 
 msgid "What is Economic Complexity?"
 msgstr ""
 
 msgid "How is Economic Complexity calculated?"
-msgstr ""
-
-msgid "Who makes what?"
-msgstr ""
-
-msgid "Frequently Asked Questions"
 msgstr ""
 
 msgid "A Development blog of updates to the site."
@@ -233,9 +273,6 @@ msgid "Embed"
 msgstr ""
 
 msgid "Social Media"
-msgstr ""
-
-msgid "Download"
 msgstr ""
 
 msgid "Home"
@@ -420,6 +457,13 @@ msgid "Product Space"
 msgstr ""
 
 #, python-format
+msgid "In this version of the product space products are colored according to their Product Gini Index, or PGI. The PGI of a product is the level of income inequality that we expect for the countries that export a product. For more information see: %(paper1)s and %(paper2)s."
+msgstr ""
+
+msgid "Complexity and Income Inequality"
+msgstr ""
+
+#, python-format
 msgid "The Economic Complexity of each country visualized over the past %(year_range)s years."
 msgstr ""
 
@@ -491,6 +535,28 @@ msgstr ""
 
 #, python-format
 msgid "This visualization shows products that are likely to be exported by countries that export %(product)s."
+msgstr ""
+
+#, python-format
+msgid "This treemap shows the crops produced in %(country)s sized by their production value."
+msgstr ""
+
+#, python-format
+msgid "Data Africa is an open-source platform designed to provide information on health, agriculture, climate, and poverty across 13 focus countries in Africa. If you would like more info or to create a similar site get in touch with us at %(oec_email)s."
+msgstr ""
+
+#, python-format
+msgid "Explore More Data on %(country)s"
+msgstr ""
+
+#, python-format
+msgid "This treemap shows the crops produced in %(country)s sized by their harvested area in hectares."
+msgstr ""
+
+msgid "Crops by Production Value"
+msgstr ""
+
+msgid "Crops by Harvested Area"
 msgstr ""
 
 msgid "This map shows the states in the United States colored by median income."
@@ -577,12 +643,6 @@ msgstr ""
 msgid "Globally Famous People %(of_country)s by City"
 msgstr ""
 
-msgid "Rank"
-msgstr ""
-
-msgid "ID"
-msgstr ""
-
 msgid "Country"
 msgstr ""
 
@@ -631,6 +691,9 @@ msgstr ""
 msgid "ECI Rank"
 msgstr ""
 
+msgid "ID"
+msgstr ""
+
 msgid "Annual Growth Rate (1 year)"
 msgstr ""
 
@@ -667,10 +730,16 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
+msgid "Dataset"
+msgstr ""
+
 msgid "Start Year"
 msgstr ""
 
 msgid "End Year"
+msgstr ""
+
+msgid "Year"
 msgstr ""
 
 #, python-format
