@@ -67,7 +67,7 @@ Adding the Observatory to computer via virtualenv
 
         pybabel extract -F babel.cfg -o messages.pot oec --no-location --omit-header --no-wrap
         pybabel update -i messages.pot -d oec/translations --no-wrap --no-fuzzy-matching -l [2-LETTER-LANG-CODE]
-        pybabel compile -d oec/translations
+        pybabel compile -d oec/translations -l [2-LETTER-LANG-CODE] --statistics
 10. Running the testing server
         
         python run.py runserver
