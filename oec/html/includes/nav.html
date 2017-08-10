@@ -11,11 +11,11 @@
 </li>
 
 <li id="rankings"{% if g.page_type == "rankings" %} class="active"{% endif %}>
-  <a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='neci') }}">{{ _('Rankings') }}</a>
+  <a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='eci') }}">{{ _('Rankings') }}</a>
   <div class="sub_menu">
     <ul>
       <li class="country{% if g.page_sub_type == 'countries' %} active{% endif %}">
-        <a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='neci') }}">{{ _('Countries') }}</a>
+        <a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='eci') }}">{{ _('Countries') }}</a>
       </li>
       <li class="product{% if g.page_sub_type == 'products' %} active{% endif %}">
         <a href="{{ url_for('rankings.rankings', lang=g.locale, attr='product', classification='sitc') }}">{{ _('Products') }}</a>

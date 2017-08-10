@@ -63,6 +63,7 @@ def rankings_legacy(category=None, year=None):
 # don't cache because downloading will not be possible
 # @view_cache.cached(timeout=2592000, key_prefix=make_cache_key)
 def rankings(attr=None, classification="sitc", complexity_type="pci"):
+    complexity_type = "eci" if complexity_type == "neci" else complexity_type
     year_ranges = {
         "sitc": ["1966-1970","1971-1975","1976-1980","1981-1985","1986-1990","1991-1995","1996-2000","2001-2005","2006-2010","2011-2015"],
         "hs92": ["1995-2000","2001-2005","2006-2010","2011-2015"],

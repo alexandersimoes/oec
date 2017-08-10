@@ -3,7 +3,7 @@
 {% block title %} - {% if category == "country" %}{{ _('Economic Complexity Ranking of Countries') }}{% else %}{{ _('Economic Complexity Ranking of %(classification)s Products', classification=classification|upper)}}{% endif %} ({{ year_range }}){% endblock %}
 {%- block description -%}
 {%- if category == "country" -%}
-{{ _('Economic Complexity ranking of countries based on their ECI and ECI+ values.') }}
+{{ _('Economic Complexity ranking of countries based on their ECI values.') }}
 {%- else -%}
 {{ _('Economic Complexity ranking of products based on their PCI values.') }}
 {%- endif -%}
@@ -44,11 +44,11 @@
     <p>
       {{ _('ECI has been validated as a relevant economic measure by showing its ability to predict future economic growth (see %(paper_link)s), and explain international variations in income inequality (see %(paper_link2)s.', paper_link='<a href="http://www.pnas.org/content/106/26/10570.short" target="_blank">Hidalgo and Hausmann 2009</a>', paper_link2='<a href="/static/pdf/LinkingEconomicComplexityInstitutionsAndIncomeInequality.pdf" target="_blank">Hartmann et al. 2017</a>') }}
     </p>
-    <p>
+    <!-- <p>
       {{ _('ECI+ and PCI+ are improved measures of economic complexity (see %(paper_link)s) that consider the total exports of a country adjusted by how difficult it is to export each product. ECI+ is slightly more accurate than ECI at predicting future economic growth, and also, is mathematically simpler to define.', paper_link='<a href="https://arxiv.org/pdf/1707.05826.pdf" target="_blank">Albeaik et al. 2017</a>') }}
-    </p>
+    </p> -->
     <p>
-      {{ _('This page includes rankings using the Economic Complexity Index  (ECI) and its improved version (ECI+).') }}
+      {{ _('This page includes rankings using the Economic Complexity Index  (ECI).') }}
     </p>
     {% endautoescape %}
   </content>
@@ -72,13 +72,13 @@
     </ul>
   </content>
   {% if category == "country" %}
-  <content class="settings-complexity-type">
+  <!-- <content class="settings-complexity-type">
     <h4>{{ _('ECI Type') }}</h4>
     <ul class="settings-list">
       <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='neci', year_range=year_range) }}" {% if complexity_type == "neci" %}class="active"{% endif %}>ECI+</a></li>
       <li><a href="{{ url_for('rankings.rankings', lang=g.locale, attr='country', complexity_type='eci', year_range=year_range) }}" {% if complexity_type == "eci" %}class="active"{% endif %}>ECI</a></li>
     </ul>
-  </content>
+  </content> -->
   {% else %}
   <content class="settings-classification">
     <h4>{{ _('Product Classification') }}</h4>
