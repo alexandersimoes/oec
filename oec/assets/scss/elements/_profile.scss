@@ -255,7 +255,6 @@ body.profile {
     }
 
     .share {
-
       $icon-width: 25px;
 
       position: absolute;
@@ -345,6 +344,27 @@ body.profile {
         }
       }
 
+    }
+
+    .macromarket {
+      $icon-width: 100px;
+      position: absolute;
+      @include right(3px);
+      top: 60px;
+      @include padding(13px, 13px, 13px, 13px);
+      @include margin(-13px, 0, -13px, 0);
+      cursor: pointer;
+      width: 200px;
+      text-align: right;
+      z-index: 99;
+      a {
+        background-color: #dbb706;
+        padding: 7px;
+        
+        display: inline-block;
+        border-radius: 4px;
+        color: #fff;
+      }
     }
 
     #stats {

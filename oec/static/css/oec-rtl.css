@@ -331,7 +331,7 @@
               padding: 0 5px 5px 0 ;
               position: absolute;
               top: 25px;
-              width: 160%;
+              width: 180%;
               z-index: 1000; }
               ul.navLinks li .sub_menu.open {
                 display: block; }
@@ -1632,6 +1632,22 @@
                   font-size: 20px;
                   margin-bottom: 5px;   }
 }
+      body.profile article .profile_header .macromarket {
+        position: absolute;
+        left: 3px;
+        top: 60px;
+        padding: 13px 13px 13px 13px ;
+        margin: -13px 0 -13px 0 ;
+        cursor: pointer;
+        width: 200px;
+        text-align: right;
+        z-index: 99; }
+        body.profile article .profile_header .macromarket a {
+          background-color: #dbb706;
+          padding: 7px;
+          display: inline-block;
+          border-radius: 4px;
+          color: #fff; }
       body.profile article .profile_header #stats {
         -webkit-justify-content: center;
         -moz-justify-content: center;
