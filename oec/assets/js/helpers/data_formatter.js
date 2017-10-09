@@ -1,11 +1,18 @@
 function format_data(raw_data, attrs, build){
-
+  
   var data = raw_data.data;
   var opposite_trade_flow = build.trade_flow == "export" ? "import" : "export";
   var attr_id = attr_id = build.attr_type + "_id";
   var pini_domain = [32, 53];
   var pini_scale = d3.scale.quantile().range(d3.range(7)).domain(pini_domain);
   var pini_buckets = [32].concat(pini_scale.quantiles()).concat([53])
+
+  // remove germany for tree maps before 1985
+  if(build.classification === "sitc" && build.viz.slug === "tree_map") {
+    data = data.filter(function(d) {
+      return !(d.year < 1985 && d.origin_id === "eudeu");
+    })
+  }
 
   // go through raw data and set each items nest and id vars properly
   // also calculate net values
@@ -14,7 +21,6 @@ function format_data(raw_data, attrs, build){
     // only assign "pini_class" if the dataset is SITC
     if(build.attr_type === "sitc") {
       if(attrs[d[attr_id]]) {
-        console.log(d[attr_id], attrs[d[attr_id]])
         var bucket = pini_scale(attrs[d[attr_id]].pini);
         d.pini_class = "PGIs ("+pini_buckets[bucket]+" - "+pini_buckets[bucket+1]+")";
       }

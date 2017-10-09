@@ -4,15 +4,15 @@ from os import environ
 # general flask library
 from flask import Flask
 # flask-sqlalchemy connector for database queries
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 # flask-babel for handling L18n and L10n
-from flask.ext.babel import Babel
+from flask_babel import Babel
 # for new filters
 from utils import Momentjs, formatter, strip_html, jinja_split, format_currency, \
                     format_percent, langify, num_format, YearConverter
 from werkzeug.contrib.fixers import ProxyFix
 # for caching views
-from flask.ext.cache import Cache
+from flask_cache import Cache
 from werkzeug.contrib.fixers import ProxyFix
 
 from config import DEBUG
@@ -36,9 +36,10 @@ if DEBUG:
     # override cache timeout
     cache_timeout = 0
 
-from flask.ext.assets import Environment, Bundle
+from flask_assets import Environment, Bundle
 assets = Environment(app)
 assets.load_path.append(os.path.join(oec_dir, "assets/js/"))
+assets.auto_build = True
 js = Bundle("warning.js", "visualization.js", "configs/*.js", "helpers/*.js", output="js/visualization.js")
 assets.register("js", js)
 
