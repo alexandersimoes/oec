@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask.ext.babel import gettext as _
+from flask_babel import gettext as _
 
 def get_translations():
 

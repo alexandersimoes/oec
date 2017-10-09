@@ -4,7 +4,7 @@ from datetime import datetime
 from flask import Blueprint, render_template, g, request, current_app, \
                     session, redirect, url_for, flash, abort, jsonify, \
                     get_flashed_messages, Response
-from flask.ext.babel import gettext
+from flask_babel import gettext
 
 import oec
 from oec.db_attr.models import Country, Country_name, Sitc, Sitc_name

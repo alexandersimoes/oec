@@ -3,7 +3,7 @@ from re import sub
 from jinja2 import Markup
 from babel.numbers import format_decimal
 from flask import abort, current_app, jsonify, request, g, get_flashed_messages, url_for
-from flask.ext.babel import gettext, pgettext, ngettext
+from flask_babel import gettext, pgettext, ngettext
 from werkzeug.routing import BaseConverter
 from datetime import datetime, date, timedelta
 from math import ceil

@@ -36,6 +36,7 @@ SQLALCHEMY_DATABASE_URI = "mysql://{0}:{1}@{2}/{3}?charset=utf8".format(
     get_env_variable("OEC_DB_PW", ""),
     get_env_variable("OEC_DB_HOST", "localhost"),
     get_env_variable("OEC_DB_NAME", "oec"))
+SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 ''' If user prefers to connect via socket set env var '''
 if "OEC_DB_SOCKET" in os.environ:
@@ -68,8 +69,8 @@ LANGUAGES = {
     'zh': u'简化中国'
 }
 
-''' 
-    Setup filesystem caching used only for profile views. If directory 
+'''
+    Setup filesystem caching used only for profile views. If directory
     evironment variable not set, defaults to null.
 '''
 if get_env_variable("CACHE_DIR", None):

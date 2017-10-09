@@ -3,7 +3,7 @@ import tempfile, subprocess
 from werkzeug.routing import ValidationError, BaseConverter
 from flask import Blueprint, render_template, g, request, session, redirect, \
                     url_for, flash, jsonify, Response, abort, make_response
-from flask.ext.babel import gettext
+from flask_babel import gettext
 
 from oec import app, db, babel, view_cache, random_countries, available_years, oec_dir
 from oec.utils import make_query, make_cache_key, compile_query

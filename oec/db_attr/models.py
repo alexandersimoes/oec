@@ -6,7 +6,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from oec import db, available_years, excluded_countries
 from oec.utils import AutoSerialize, exist_or_404
 from oec.db_attr.abstract_models import ProdAttr, ProdNameAttr
-from flask.ext.babel import gettext as _
+from flask_babel import gettext as _
 
 class Country(db.Model, AutoSerialize):
 

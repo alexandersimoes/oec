@@ -1,4 +1,4 @@
-from flask.ext.babel import gettext as _
+from flask_babel import gettext as _
 
 def make_us_section():
     us_geo = "http://datausa.io/profile/geo/united-states/economy/income_geo/?viz=True"

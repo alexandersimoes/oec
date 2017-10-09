@@ -1,4 +1,4 @@
-from flask.ext.babel import gettext as _
+from flask_babel import gettext as _
 from oec.db_attr.models import Country
 
 def make_dv_section(self):

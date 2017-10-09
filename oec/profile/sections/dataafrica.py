@@ -1,4 +1,4 @@
-from flask.ext.babel import gettext as _
+from flask_babel import gettext as _
 
 def make_africa_section(self, africa_country):
     country_slug = africa_country[2]

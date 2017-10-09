@@ -1,4 +1,4 @@
-from flask.ext.babel import gettext as _
+from flask_babel import gettext as _
 
 def make_pantheon_section(pantheon_id, attr):
     pantheon_fields_iframe = "http://pantheon.media.mit.edu/treemap/country_exports/{}/all/-4000/2010/H15/pantheon/embed".format(pantheon_id)

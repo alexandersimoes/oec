@@ -12,7 +12,7 @@ from utils import Momentjs, formatter, strip_html, jinja_split, format_currency,
                     format_percent, langify, num_format, YearConverter
 from werkzeug.contrib.fixers import ProxyFix
 # for caching views
-from flask_cache import Cache
+from flask_caching import Cache
 from werkzeug.contrib.fixers import ProxyFix
 
 from config import DEBUG
@@ -31,7 +31,7 @@ app.config.from_object('config')
 
 cache_timeout = 604800
 if DEBUG:
-    from flask.ext.scss import Scss
+    from flask_scss import Scss
     Scss(app)
     # override cache timeout
     cache_timeout = 0
@@ -64,7 +64,7 @@ random_countries = ["afago","afdza","afegy","afmar","afnga","afzaf","asare", \
     "asaze","asbgd","aschn","ashkg","asidn","asind","asirn","asirq","asisr", \
     "asjpn","askaz","askor","askwt","asmys","asomn","aspak","asphl","asqat", \
     "eurus","assau","assgp","astha","astur","asvnm","euaut", \
-    "eubgr","eublr","eublx","euche","eucze","eudeu","eudnk","euesp","eufin", \
+    "eubgr","eublr","euche","eucze","eudeu","eudnk","euesp","eufin", \
     "eufra","eugbr","eugrc","euhun","euirl","euita","eultu","eunld","eunor", \
     "eupol","euprt","eurou","eusvk","eusvn","euswe","euukr","nacan","nacri", \
     "namex","nausa","ocaus","ocnzl","saarg","sabra","sachl","sacol","saecu", \

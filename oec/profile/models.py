@@ -3,7 +3,7 @@ import ast
 from abc import ABCMeta
 from sqlalchemy import desc, func
 from flask import g
-from flask.ext.babel import gettext as _
+from flask_babel import gettext as _
 from oec import db, db_data, available_years, earliest_data, data_africa_countries
 from oec.utils import median, num_format
 from oec.db_attr import models as attrs

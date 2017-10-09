@@ -1,7 +1,7 @@
 import time, urllib2, json
 from flask import Blueprint, render_template, g, request, current_app, \
                     session, redirect, url_for, flash, abort
-from flask.ext.babel import gettext
+from flask_babel import gettext
 from sqlalchemy.sql.expression import func
 
 from oec import app, db, babel, view_cache, random_countries, available_years, \
