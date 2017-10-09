@@ -50,7 +50,11 @@ body.profile {
 
       p.explore_link {
         @media all and (max-width: 768px) {
-          margin-bottom: 13px !important;
+          margin-bottom: 12px !important;
+        }
+        a {
+          display: inline-block;
+          margin: 0 0 6px 0;
         }
       }
 
@@ -360,7 +364,7 @@ body.profile {
       a {
         background-color: #dbb706;
         padding: 7px;
-        
+
         display: inline-block;
         border-radius: 4px;
         color: #fff;

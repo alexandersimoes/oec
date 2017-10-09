@@ -1366,8 +1366,11 @@
           -ms-filter: "FlipH"; }
           @media all and (max-width: 768px) {
             body.profile article aside p.explore_link {
-              margin-bottom: 13px !important;   }
+              margin-bottom: 12px !important;   }
 }
+            body.profile article aside p.explore_link a {
+              display: inline-block;
+              margin: 0 0 6px 0; }
         body.profile article aside .share_container {
           -webkit-justify-content: center;
           -moz-justify-content: center;
