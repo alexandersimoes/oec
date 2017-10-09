@@ -86,6 +86,11 @@ class Country(Profile):
         super(Country, self).__init__(classification, id)
         self.attr = attrs.Country.query.filter_by(id_3char = self.id).first()
         self.cached_stats = []
+        self.get_latest_year()
+
+    def get_latest_year(self):
+        latest_yo = self.models.Yo.query.filter_by(country = self.attr).order_by(desc("year")).first()
+        self.year = int(latest_yo.year)
 
     def twitter_url(self):
         link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
@@ -187,11 +192,12 @@ class Country(Profile):
                 if this_attr_yo:
                     gdp = this_attr_yo.gdp
                     gdp_pc = this_attr_yo.gdp_pc_current_ppp or this_attr_yo.gdp_pc_current
-                    formatted_vals = {"gdp":gdp, "gdp_pc":gdp_pc}
-                    formatted_vals = {k: num_format(v) for k, v in formatted_vals.items()}
-                    p1.append(u" ")
-                    p1.append(_(u"In %(year)s the GDP %(of_country)s was $%(gdp)s and its GDP per capita was $%(gdp_pc)s.",
-                                year=self.year, of_country=self.attr.get_name(article="of"), gdp=formatted_vals['gdp'], gdp_pc=formatted_vals['gdp_pc']))
+                    if gdp and gdp_pc:
+                        formatted_vals = {"gdp":gdp, "gdp_pc":gdp_pc}
+                        formatted_vals = {k: num_format(v) for k, v in formatted_vals.items()}
+                        p1.append(u" ")
+                        p1.append(_(u"In %(year)s the GDP %(of_country)s was $%(gdp)s and its GDP per capita was $%(gdp_pc)s.",
+                                    year=self.year, of_country=self.attr.get_name(article="of"), gdp=formatted_vals['gdp'], gdp_pc=formatted_vals['gdp_pc']))
                 all_paragraphs.append("".join(p1))
 
             ''' Paragraph #2
@@ -282,7 +288,7 @@ class Country(Profile):
             past_yo = self.models.Yo.query.filter_by(year = past_yr, country = self.attr).first()
             this_yo = self.models.Yo.query.filter_by(year = self.year, country = self.attr).first()
             exp_val_stat = filter(lambda s: s["key"] == "export_val", self.stats())
-            if exp_val_stat:
+            if exp_val_stat and this_yo:
                 exp_val_stat = exp_val_stat.pop()
                 export_subtitle = ""
                 if self.attr.id != "xxwld":
@@ -303,7 +309,7 @@ class Country(Profile):
                                             top_export=top_exports[0].product.get_profile_link(), top_export_pct=num_format((top_exports[0].export_val/exp_val_stat["val"])*100), \
                                             of_country=self.attr.get_name(article="of"), second_export=top_exports[1].product.get_profile_link(), second_export_pct=num_format((top_exports[1].export_val/exp_val_stat["val"])*100))
             imp_val_stat = filter(lambda s: s["key"] == "import_val", self.stats())
-            if imp_val_stat:
+            if imp_val_stat and this_yo:
                 imp_val_stat = imp_val_stat.pop()
                 import_subtitle = ""
                 if self.attr.id != "xxwld":
@@ -427,7 +433,7 @@ class Country(Profile):
             year_range = self.year - start_year
 
             attr_yo_historic = attrs.Yo.query.filter_by(country=self.attr).filter(attrs.Yo.year == start_year).first()
-            if attr_yo_historic and attr_yo_historic.eci_rank != None:
+            if attr_yo_historic and attr_yo_historic.eci_rank != None and this_attr_yo.eci_rank != None:
                 eci_delta = this_attr_yo.eci_rank - attr_yo_historic.eci_rank
                 inc_dec = _('increased') if eci_delta < 0 else _('decreased')
                 subtitle = _("The Economic Complexity ranking %(of_country)s has %(increased_or_decreased)s by %(rank_delta)s places over the past %(year_range)s years from %(old_eci)s in %(old_year)s to %(current_eci)s in %(current_year)s.",
