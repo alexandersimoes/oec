@@ -48,13 +48,14 @@ body.error {
 	  h1 {
 	  	display: block;
         font-family: $source-sans;
-        font-size: $default_size/15;
+        font-size: $default_size/25;
         font-weight: 300;
         line-height: 1.4;
         position: absolute;
         @include text-align(center);
-        top: 15%;
-        @include left(30%);
+        top: 10%;
+        @include left(25%);
+        width: 50%;
 	  }
     }
 
