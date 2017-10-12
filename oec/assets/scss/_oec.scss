@@ -84,10 +84,10 @@ h4 {
 p {
   color: white;
   font-family: $source-sans;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.01em;
-  line-height: 26px;
+  line-height: 1.5;
   @include margin(0, 0, 25px, 0, !important);
   text-align: left;
 
@@ -206,13 +206,13 @@ section {
 
     .columns {
       @include column-count(3);
-      max-width: 1600px;
+      max-width: 1400px;
 
-      @media all and (max-width: 1400px) {
+      @media all and (max-width: 1000px) {
         @include column-count(2);
       }
 
-      @media all and (max-width: 1000px) {
+      @media all and (max-width: 600px) {
         @include column-count(1);
       }
 
