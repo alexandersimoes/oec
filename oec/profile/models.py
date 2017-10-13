@@ -616,7 +616,7 @@ class Product(Profile):
         ''' Trade Section
         '''
         trade_section = {
-            "title": _(u"%(product_name)s Trade.", product_name=self.attr.get_name()),
+            "title": _(u"%(product_name)s Trade", product_name=self.attr.get_name()),
             "builds": []
         }
 
