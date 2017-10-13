@@ -85,13 +85,21 @@
     <img src="/static/img/profile/share.png" alt="share">
   </div>
 
-  <!--<div class="macromarket">
-    {% if g.page_sub_type == "country" %}
-    <a href="https://macro.market/country/{{profile.attr.id}}" target="_blank">Doing business here?</a>
-    {% else %}
-    <a href="https://macro.market/product/{{profile.attr.id}}" target="_blank">Trade this product?</a>
-    {% endif %}
-  </div>-->
+  <div class="macromarket">
+  {% if g.page_sub_type == "country" %}
+    Looking for commercial partners in {{ title }}? List your company on <a href="https://macro.market/" target="_blank">Macro Market</a>.
+    <div class="links">
+      <a href="https://macro.market/country/{{profile.attr.id}}" target="_blank">Importer</a>
+      <a href="https://macro.market/country/{{profile.attr.id}}" target="_blank">Exporter</a>
+    </div>
+  {% else %}
+    Looking to buy or sell {{ title }}? List your company on <a href="https://macro.market/" target="_blank">Macro Market</a>.
+    <div class="links">
+      <a href="https://macro.market/product/{{profile.attr.id}}" target="_blank">Importer</a>
+      <a href="https://macro.market/product/{{profile.attr.id}}" target="_blank">Exporter</a>
+    </div>
+  {% endif %}
+  </div>
 
 </header>
 </article>
@@ -119,28 +127,27 @@
       <li class="depth6"><a href="#{{ build.title|replace(" ","_") }}">{{ build.title }}</a></li>
       {% endfor %}
       {% endfor %}
-
-      {% if g.page_sub_type == "country" or profile.classification == "hs92" %}
-      <li class="depth6"><a href="#dataviva">DataViva</a></li>
-      {% endif %}
-
-      {% if profile.id == "usa" %}
-      <li class="depth6"><a href="#datausa">Data USA</a></li>
-      {% endif %}
-
-      {% if profile.id in data_africa_countries %}
-      <li class="depth6"><a href="#dataafrica">Data Africa</a></li>
-      {% endif %}
-
-      {% if g.page_sub_type == "country" %}
-      <li class="depth6"><a href="#pantheon">Pantheon</a></li>
-      {% endif %}
     </ul>
 
   </aside>
 
   <content>
     <div class="columns">
+      <div class="macromarket">
+      {% if g.page_sub_type == "country" %}
+        Looking for commercial partners in {{ title }}? List your company on <a href="https://macro.market/" target="_blank">Macro Market</a>.
+        <div class="links">
+          <a href="https://macro.market/country/{{profile.attr.id}}" target="_blank">Importer</a>
+          <a href="https://macro.market/country/{{profile.attr.id}}" target="_blank">Exporter</a>
+        </div>
+      {% else %}
+        Looking to buy or sell {{ title }}? List your company on <a href="https://macro.market/" target="_blank">Macro Market</a>.
+        <div class="links">
+          <a href="https://macro.market/product/{{profile.attr.id}}" target="_blank">Importer</a>
+          <a href="https://macro.market/product/{{profile.attr.id}}" target="_blank">Exporter</a>
+        </div>
+      {% endif %}
+      </div>
     {% for p in profile.intro() %}
       <p>{{ p|safe }}</p>
     {% endfor %}

@@ -1330,6 +1330,44 @@
 
   body.profile {
     background-color: #212831; }
+    body.profile .macromarket {
+      background-color: #fafafa;
+      border: 1px solid #bbbdc0;
+      color: black;
+      font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      padding: 10px;
+      text-align: justify ; }
+      body.profile .macromarket > a {
+        -webkit-transition: border-bottom 0.1s;
+        -moz-transition: border-bottom 0.1s;
+        -ms-transition: border-bottom 0.1s;
+        -o-transition: border-bottom 0.1s;
+        transition: border-bottom 0.1s;
+        border-bottom: 1px solid transparent;
+        color: #5083b5;
+        text-decoration: none; }
+        body.profile .macromarket > a:hover {
+          border-bottom: 1px solid #5083b5; }
+      body.profile .macromarket .links {
+        margin-top: 5px;
+        text-align: center; }
+        body.profile .macromarket .links a {
+          background-color: #dbb706;
+          border: 1px solid transparent;
+          color: black;
+          display: inline-block;
+          font-weight: bold;
+          letter-spacing: 1px;
+          margin: 5px;
+          padding: 6px 10px;
+          text-transform: uppercase; }
+          body.profile .macromarket .links a:hover {
+            border: 1px solid black; }
     body.profile h1 {
       line-height: 1;
       margin: 0 30px -5px 30px ;
@@ -1489,12 +1527,17 @@
           -webkit-flex-direction: row;
           -moz-flex-direction: row;
           flex-direction: row;
-          margin: 20px 10px 20px 10px ; }
+          -webkit-justify-content: flex-start;
+          -moz-justify-content: flex-start;
+          justify-content: flex-start;
+          margin: 20px 10px 20px 10px ;
+          padding-right: 350px; }
           @media all and (max-width: 768px) {
             body.profile article .profile_header #title {
               -webkit-justify-content: center;
               -moz-justify-content: center;
-              justify-content: center;   }
+              justify-content: center;
+              padding-right: 0;   }
 }
             body.profile article .profile_header #title .icon {
               -webkit-box-flex: none;
@@ -1636,21 +1679,20 @@
                   margin-bottom: 5px;   }
 }
       body.profile article .profile_header .macromarket {
+        background-color: transparent;
+        border: 0;
+        color: white;
+        line-height: 1.4;
+        padding: 0;
         position: absolute;
-        left: 3px;
-        top: 60px;
-        padding: 13px 13px 13px 13px ;
-        margin: -13px 0 -13px 0 ;
-        cursor: pointer;
-        width: 200px;
-        text-align: right;
-        z-index: 99; }
-        body.profile article .profile_header .macromarket a {
-          background-color: #dbb706;
-          padding: 7px;
-          display: inline-block;
-          border-radius: 4px;
-          color: #fff; }
+        left: 53px;
+        text-align: center;
+        top: 0;
+        width: 300px; }
+        @media all and (max-width: 768px) {
+          body.profile article .profile_header .macromarket {
+            display: none;   }
+}
       body.profile article .profile_header #stats {
         -webkit-justify-content: center;
         -moz-justify-content: center;
@@ -1977,6 +2019,12 @@
         body.profile article.intro-article div.columns p {
           text-align: justify ;   }
 }
+    body.profile article.intro-article .macromarket {
+      display: none; }
+      @media all and (max-width: 768px) {
+        body.profile article.intro-article .macromarket {
+          display: block;   }
+}
     body.profile #topojson {
       -webkit-box-flex: none;
       -moz-box-flex: none;
@@ -2170,7 +2218,7 @@
       list-style-type: none;
       padding: 0 15px 0 20px ; }
       body.profile ul.hierarchy li {
-        padding: 3px 0 3px 0 ;
+        padding: 2px 0 2px 0 ;
         display: block; }
         body.profile ul.hierarchy li a {
           color: #5083b5;
@@ -4155,13 +4203,14 @@
         body.error .bg-frame #ring h1 {
           display: block;
           font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-          font-size: 40px;
+          font-size: 24px;
           font-weight: 300;
           line-height: 1.4;
           position: absolute;
           text-align: center ;
-          top: 15%;
-          right: 30%; }
+          top: 10%;
+          right: 25%;
+          width: 50%; }
 
   @-webkit-keyframes spin-right {
     100% {

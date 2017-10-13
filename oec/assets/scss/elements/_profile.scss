@@ -8,6 +8,48 @@ body.profile.frozen {
 body.profile {
   background-color: $darkbackground;
 
+  .macromarket {
+    background-color: #fafafa;
+    border: 1px solid $lightbordercolor;
+    color: black;
+    font-family: $source-sans;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    padding: 10px;
+    @include text-align(justify);
+
+    & > a {
+      @include transition(border-bottom 0.1s);
+      border-bottom: 1px solid transparent;
+      color: $darklinkcolor;
+      text-decoration: none;
+      &:hover {
+        border-bottom: 1px solid $darklinkcolor;
+      }
+    }
+    .links {
+      margin-top: 5px;
+      text-align: center;
+      a {
+        background-color: #dbb706;
+        border: 1px solid transparent;
+        color: black;
+        display: inline-block;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin: 5px;
+        padding: 6px 10px;
+        text-transform: uppercase;
+        &:hover {
+          border: 1px solid black;
+        }
+      }
+    }
+  }
+
   h1 {
     line-height: 1;
     @include margin(0, 30px, -5px, 30px);
@@ -174,10 +216,13 @@ body.profile {
       @include flex;
       @include align-items(center);
       @include flex-direction(row);
+      @include justify(flex-start);
       @include margin(20px, 10px, 20px, 10px);
+      padding-right: 350px;
 
       @media all and (max-width: 768px) {
         @include justify(center);
+        padding-right: 0;
       }
 
       .icon {
@@ -351,23 +396,19 @@ body.profile {
     }
 
     .macromarket {
-      $icon-width: 100px;
+      background-color: transparent;
+      border: 0;
+      color: white;
+      line-height: 1.4;
+      padding: 0;
       position: absolute;
-      @include right(3px);
-      top: 60px;
-      @include padding(13px, 13px, 13px, 13px);
-      @include margin(-13px, 0, -13px, 0);
-      cursor: pointer;
-      width: 200px;
-      text-align: right;
-      z-index: 99;
-      a {
-        background-color: #dbb706;
-        padding: 7px;
+      @include right(53px);
+      text-align: center;
+      top: 0;
+      width: 300px;
 
-        display: inline-block;
-        border-radius: 4px;
-        color: #fff;
+      @media all and (max-width: 768px) {
+        display: none;
       }
     }
 
@@ -697,6 +738,14 @@ body.profile {
       }
     }
 
+    .macromarket {
+      display: none;
+
+      @media all and (max-width: 768px) {
+        display: block;
+      }
+    }
+
   }
 
   #topojson {
@@ -924,7 +973,7 @@ body.profile {
     @include padding(0, 20px, 0, 15px);
 
     li {
-      @include padding(3px, 0, 3px, 0);
+      @include padding(2px, 0, 2px, 0);
       display: block;
       a {
         color: $darklinkcolor;
