@@ -450,8 +450,8 @@ class Country(Profile):
 
         ''' DataViva
         '''
-        dv_section = make_dv_section(self)
-        sections.append(dv_section)
+        # dv_section = make_dv_section(self)
+        # sections.append(dv_section)
 
         ''' Data USA
         '''
@@ -641,9 +641,8 @@ class Product(Profile):
 
         ''' DataViva Section
         '''
-        if self.classification == "hs92":
-
-            dv_section = make_dv_section(self)
-            sections.append(dv_section)
+        # if self.classification == "hs92":
+        #     dv_section = make_dv_section(self)
+        #     sections.append(dv_section)
 
         return sections
