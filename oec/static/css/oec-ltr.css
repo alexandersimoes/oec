@@ -1253,18 +1253,55 @@
             -o-transition: text-shadow, 1s;
             transition: text-shadow, 1s;
             color: #fff; }
-      #container footer #mc {
-        display: inline-block;
-        margin-bottom: -5px; }
-        #container footer img, #container footer a {
-          -webkit-transition: opacity 1.5s;
-          -moz-transition: opacity 1.5s;
-          -ms-transition: opacity 1.5s;
-          -o-transition: opacity 1.5s;
-          transition: opacity 1.5s;
-          opacity: 0.8; }
-          #container footer img :hover, #container footer a :hover {
-            opacity: 1; }
+      #container footer .top-footer .top-footer-links {
+        overflow: hidden;
+        text-align: center; }
+        #container footer .top-footer .top-footer-links:before,
+        #container footer .top-footer .top-footer-links:after {
+          background: #ddd;
+          content: "";
+          display: block;
+          height: 1px;
+          position: absolute;
+          top: 50%;
+          width: 400%; }
+          #container footer .top-footer .top-footer-links:before {
+            right: 100%; }
+            #container footer .top-footer .top-footer-links:after {
+              left: 100%; }
+              #container footer .top-footer .top-footer-links a#mc {
+                display: inline-block;
+                padding: 0 25px;
+                position: relative; }
+                #container footer .top-footer .top-footer-links a#mc img {
+                  width: 100px; }
+        #container footer .top-footer .top-footer-links a#donate {
+          background-color: #63737f;
+          border: 0;
+          border-radius: 2px;
+          color: white;
+          display: inline-block;
+          font-family: "Montserrat", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+          font-size: 13px;
+          margin: 10px 0 10px 0 ;
+          padding: 9px 10px 9px 10px ;
+          outline: none;
+          position: relative;
+          -webkit-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+          -moz-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+          text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+          text-transform: uppercase; }
+          #container footer .top-footer .top-footer-links a#donate .fa {
+            transform: translate(0, 2px); }
+      #container footer img, #container footer a {
+        -webkit-transition: opacity 1.5s;
+        -moz-transition: opacity 1.5s;
+        -ms-transition: opacity 1.5s;
+        -o-transition: opacity 1.5s;
+        transition: opacity 1.5s;
+        opacity: 0.8; }
+        #container footer img :hover, #container footer a :hover {
+          opacity: 1; }
       #container footer div {
         max-width: 770px;
         margin: 0 auto 0 auto ;

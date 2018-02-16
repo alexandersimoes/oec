@@ -122,9 +122,61 @@
       }
     }
 
-    #mc {
-      display: inline-block;
-      margin-bottom: -5px;
+    .top-footer {
+
+      .top-footer-links {
+        overflow: hidden;
+        text-align: center;
+        // display: flex;
+
+        &:before,
+        &:after {
+          background: #ddd;
+          content: "";
+          display: block;
+          height: 1px;
+          position: absolute;
+            top: 50%;
+          width: 400%;
+        }
+
+        &:before {
+          right: 100%;
+        }
+        &:after {
+          left: 100%;
+        }
+
+        a#mc {
+          display: inline-block;
+          padding: 0 25px;
+          position: relative;
+          img {
+            width: 100px;
+          }
+        }
+
+        a#donate {
+          background-color: $darkbordercolor;
+          border: 0;
+          border-radius: 2px;
+          color: white;
+          display: inline-block;
+          font-family: $montserrat;
+          font-size: 13px;
+          @include margin(10px, 0, 10px, 0);
+          @include padding(9px, 10px, 9px, 10px);
+          outline: none;
+          position: relative;
+          // @include text-align(center);
+          @include text-shadow(0 1px 1px rgba(0,0,0,0.1));
+          text-transform: uppercase;
+
+          .fa {
+            transform: translate(0, 2px);
+          }
+        }
+      }
     }
 
     img, a {
