@@ -1,0 +1,27 @@
+# Any variables defined in this file will be available in css:
+#
+#   .class {
+#     color: var(--dark);
+#   }
+#
+# Variables may also be nested:
+#
+#   .class {
+#     background: map(nested, color1);
+#   }
+#
+# Finally, this file can be imported into any file as a JavaScript object:
+#
+#   import style from "style.yml";
+#
+
+dark: "rgb(61, 71, 55)"
+light: "rgb(101, 111, 95)"
+white: "#fafafa"
+
+nav-height: 40px
+subnav-size: 200px
+
+nested:
+  color1: "red"
+  color2: "black"

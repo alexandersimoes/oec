@@ -1,0 +1,32 @@
+{
+  "name": "oec",
+  "version": "4.0.0",
+  "description": "The Observatory of Economic Complexity v4.0",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "canon-build",
+    "dev": "canon-dev",
+    "locales": "canon-locales",
+    "setup": "canon-setup",
+    "start": "canon-start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexandersimoes/oec.git"
+  },
+  "keywords": [
+    "economic-complexity",
+    "mit",
+    "product-space"
+  ],
+  "author": "Alexander Simoes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexandersimoes/oec/issues"
+  },
+  "homepage": "https://github.com/alexandersimoes/oec#readme",
+  "dependencies": {
+    "datawheel-canon": "^0.14.6"
+  }
+}

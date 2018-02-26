@@ -1,0 +1,21 @@
+.Loading {
+  background-color: var(--dark);
+  color: var(--white);
+  height: 100vh;
+  left: 0;
+  max-width: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 20;
+  & .pt-non-ideal-state-visual {
+    max-width: 200px;
+    width: 100%;
+    & .pt-progress-meter {
+      background-color: var(--light);
+    }
+  }
+  & .pt-non-ideal-state-title {
+    color: var(--white);
+  }
+}
