@@ -1,4 +1,96 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700");
+
 body {
-  font-family: "Roboto", sans-serif;
+  background-color: var(--darkbackground);
+  color: var(--white);
+  font-family: var(--source-sans);
+}
+
+#container {
+  margin-top: var(--header-offset);
+
+  #conent {
+    margin: 0 auto;
+  }
+}
+
+h1,h2,h3,h4 {
+  color: var(--white);
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+}
+
+h1, h2, h4 {
+  font-family: var(--source-sans);
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 40px;
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: 30px;
+  line-height: 1.3;
+}
+
+h3 {
+  font-family: var(--montserrat);
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: 1px;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+h4 {
+  font-size: 25px;
+  line-height: 1.4;
+}
+
+p {
+  color: var(--white);
+  font-family: var(--source-sans);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+  margin: 0 0 25px 0 !important;
+  text-align: left;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  sup {
+    display: inline-block;
+    margin: 2px;
+    margin-top: -5px;
+  }
+
+  a {
+    transition: border-bottom 0.1s;
+    border-bottom: 1px solid transparent;
+    color: var(--lightlinkcolor);
+    text-decoration: none;
+    &:hover {
+      border-bottom: 1px solid var(--lightlinkcolor);
+    }
+  }
+
+}
+
+a {
+  color: var(--white);
+  position: relative;
+  text-decoration: none;
+
+  &.anchor:before {
+    content: "";
+    left: 0;
+    position: absolute;
+    top: -(var(--header-offset) + 10);
+  }
+
 }

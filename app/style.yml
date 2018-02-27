@@ -1,27 +1,32 @@
-# Any variables defined in this file will be available in css:
-#
-#   .class {
-#     color: var(--dark);
-#   }
-#
-# Variables may also be nested:
-#
-#   .class {
-#     background: map(nested, color1);
-#   }
-#
-# Finally, this file can be imported into any file as a JavaScript object:
-#
-#   import style from "style.yml";
-#
+#############################
+# FONTS!
+#############################
 
+"source-sans": "'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+montserrat: "Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif"
+
+#############################
+# COLORS!
+#############################
+darkbackground: "#212831"
 dark: "rgb(61, 71, 55)"
 light: "rgb(101, 111, 95)"
 white: "#fafafa"
 
-nav-height: 40px
-subnav-size: 200px
+darklinkcolor: "#5083b5"
+lightlinkcolor: "#99BCD1"
+brightlinkcolor: "#6297cb"
+l-brightlinkcolor: "#54a6f2"
 
-nested:
-  color1: "red"
-  color2: "black"
+darkbordercolor: "#63737f"
+medbordercolor: "#81919d"
+lightbordercolor: "#bbbdc0"
+
+shadow: "0 2px 2px rgba(0,0,0,0.5)"
+
+#############################
+# Sizes!
+#############################
+
+"header-offset": "65px"
+"sidebar-width": "250px"

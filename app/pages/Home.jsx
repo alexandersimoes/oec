@@ -1,14 +1,19 @@
 import React, {Component} from "react";
+import {translate} from "react-i18next";
 import "./Home.css";
 
-export default class Home extends Component {
+class Home extends Component {
 
   render() {
+    const {t} = this.props;
+
     return (
       <div id="Home">
-        Hello Home
+        {t("Welcome to the OEC!")}
       </div>
     );
   }
 
 }
+
+export default translate()(Home);

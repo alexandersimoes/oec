@@ -1,0 +1,134 @@
+.stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  margin-right: 35px;
+  margin-top: 20px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  @media all and (max-width: 1024px) {
+    margin: 10px 10px 10px 10px !important;
+  }
+
+  @media all and (max-width: 600px) {
+    flex: 1 1 40%;
+    margin: 0 0 10px 0 !important;
+    min-width: 40%;
+  }
+
+  & .stat_text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    @media all and (max-width: 1024px) {
+      flex-direction: column;
+      justify: center;
+      text-align: center;
+      & h3 {
+        margin: 0 10px 0 0 !important;
+
+        & .suffix {
+          display: inline !important;
+          vertical-align: middle;
+        }
+
+      }
+    }
+
+    @media all and (max-width: 600px) {
+      h3 {
+        font-size: 20px !important;
+        margin: 0 10px 0 10px !important;
+      }
+
+      sub {
+        font-size: 12px !important;
+      }
+    }
+
+    & h3 {
+      flex: none;
+      font-family: var(--source-sans);
+      font-size: 32px;
+      font-weight: 300;
+      margin: 0 10px 0 0 !important;
+      text-align: right;
+
+      & .suffix {
+        display: block;
+        font-size: 12px;
+        font-weight: 400;
+        max-width: 90px;
+      }
+
+    }
+
+    & sub {
+      flex: none;
+      font-family: var(--montserrat);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 18px;
+      text-transform: uppercase;
+
+      & .rank {
+        display: block;
+        font-size: 10px;
+        font-weight: 400;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  & .sparkline {
+    height: 35px;
+    margin: 10px 0 10px 0;
+
+    @media all and (max-width: 600px) {
+      display: none;
+    }
+
+    & .sparkpath {
+      fill: none;
+      stroke: white;
+      stroke-width: 2px;
+    }
+  }
+
+  & .years {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    @media all and (max-width: 600px) {
+      display: none;
+    }
+
+  }
+
+  & .year {
+    font-size: 11px;
+    font-weight: 700;
+    opacity: 0.9;
+  }
+
+  & .stat_flag {
+    text-align: center;
+    & img {
+      height: 60px;
+      width: 60px;
+    }
+
+    @media all and (max-width: 600px) {
+      display: none;
+    }
+
+  }
+
+}

@@ -1,0 +1,144 @@
+header {
+  min-height: 150px;
+  overflow: hidden;
+  position: relative;
+  -webkit-transform: translateZ(0);
+  width: 100%;
+  z-index: 5;
+
+  & .header_image {
+    background: linear-gradient(to bottom, var(--darkbackground) 0%, rgba(33, 40, 49, 0) 100%);
+    left: 0;
+    position: absolute;
+    top: 0;
+    min-height: 150px;
+    width: 100%;
+
+    & img {
+      transition: opacity 0.25s;
+      display: block;
+      opacity: 0;
+      position: relative;
+      z-index: -1;
+
+      &.loaded {
+        opacity: 1;
+      }
+    }
+  }
+
+  & #title {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 20px 10px 20px 310px;
+    padding-right: 350px;
+
+    @media all and (max-width: 768px) {
+      justify-content: center;
+      padding-right: 0;
+    }
+
+    & .icon {
+      flex: none;
+      height: 80px;
+      margin: 0 20px 0 0;
+      width: 80px;
+      z-index: 10;
+
+      @media all and (max-width: 768px) {
+        height: 60px;
+        width: 60px;
+      }
+
+    }
+
+    & h1 {
+      color: #fff;
+      font-size: 65px;
+      margin: 0;
+      padding: 0;
+      z-index: 1;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      & i {
+        opacity: 0.5;
+      }
+
+      & sub {
+        color: white;
+        display: block;
+        font-size: 11px;
+        text-shadow: var(--shadow);
+      }
+
+      &:after {
+        content: url("/images/nav/search.png");
+        transition: opacity 1s;
+        opacity: 0;
+        position: absolute;
+        @include margin-left(15px);
+        margin-top: 2px;
+        cursor: pointer;
+
+        @media all and (max-width: 768px) {
+          display: none;
+        }
+      }
+
+      &:hover:after {
+        opacity: 0.9;
+      }
+    }
+  } /* end title */
+
+  & #stats {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  &.country #stats {
+    margin-left: 310px;
+  }
+
+  & #topojson {
+    flex: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid #aaa;
+    height: 250px;
+    left: 35px;
+    opacity: 1;
+    position: absolute;
+    top: 36px;
+    width: 250px;
+    z-index: 10;
+
+    & .coords {
+      fill: white;
+      /* opacity: 0.25; */
+      stroke: var(--darkbordercolor);
+
+      &.focus {
+        opacity: 1;
+      }
+
+    }
+
+    #topojson-xxwld .coords {
+      stroke: white !important;
+    }
+
+    @media all and (max-width: 768px) {
+      display: none;
+    }
+
+  }
+}
