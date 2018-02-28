@@ -6,7 +6,7 @@
 export default {
   shapeConfig: {
     labelConfig: {
-      fontFamily: "Roboto"
+      fontFamily: "sans-serif"
     }
   }
 };

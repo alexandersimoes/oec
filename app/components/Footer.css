@@ -1,0 +1,99 @@
+footer {
+  color: var(--lightbackground);
+  font-size: 10px;
+  margin: var(--header-offset) auto 5px auto;
+  text-align: center;
+
+  @media all and (max-width: 768px) {
+    margin-top: 30px !important;
+  }
+
+  & a {
+    color: $lightlinkcolor;
+    &:hover {
+      text-shadow: 0 0, 1px, var(--white);
+      transition: text-shadow 1s;
+      color: var(--white);
+    }
+  }
+
+  & .top-footer {
+
+    & .top-footer-links {
+      overflow: hidden;
+      text-align: center;
+
+      &:before,
+      &:after {
+        background: #ddd;
+        content: "";
+        display: block;
+        height: 1px;
+        position: absolute;
+        top: 50%;
+        width: 400%;
+      }
+
+      &:before {
+        right: 100%;
+      }
+      &:after {
+        left: 100%;
+      }
+
+      & a#mc {
+        display: inline-block;
+        padding: 0 25px;
+        position: relative;
+        & img {
+          width: 100px;
+        }
+      }
+
+      & a#donate {
+        background-color: var(--darkbordercolor);
+        border: 0;
+        border-radius: 2px;
+        color: var(--white);
+        display: inline-block;
+        font-family: var(--montserrat);
+        font-size: 13px;
+        margin: 10px 0;
+        padding: 9px 10px;
+        outline: none;
+        position: relative;
+        text-align: center;
+        text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        text-transform: uppercase;
+
+        & span {
+          transform: translate(0, 2px);
+        }
+      }
+    }
+  }
+
+  & img, & a {
+    transition: opacity 1.5s;
+    opacity: 0.8;
+
+    :hover {
+      opacity: 1;
+    }
+  }
+
+  & div {
+    max-width: 770px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  & ul {
+    margin-top: 10px;
+    & li {
+      display: inline-block;
+      margin: 1px 5px;
+    }
+  }
+
+}

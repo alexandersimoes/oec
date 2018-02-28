@@ -30,7 +30,8 @@ export default class MapIcon extends Component {
             stroke: "#63737f"
           }
         },
-        width: 250
+        width: 250,
+        zoom: false
       }} />
     );
   }

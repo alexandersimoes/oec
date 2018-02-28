@@ -1,0 +1,85 @@
+article .prof-nav {
+  width: 100%;
+
+  & a.profile_button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, var(--darkbackground) 100%);
+    background-size: cover;
+    height: 150px;
+    margin-top: 6px;
+    overflow: hidden;
+    position: relative;
+    width: 50%;
+
+    @media all and (max-width: 768px) {
+      width: 100%;
+    }
+
+    & .button_cover {
+      background-color: rgba(0, 0, 0, 0.5);
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    & span {
+      flex: none;
+      font-size: 35px;
+      margin: 6px 10px 0 10px;
+      opacity: 0.8;
+      z-index: 1;
+    }
+
+    & h1 {
+      font-size: 50px;
+      line-height: 50px;
+      margin: 0;
+      opacity: 0.8;
+      padding: 0;
+      text-shadow: 1px 1px, 6px, var(--darkbackground);
+      z-index: 1;
+    }
+
+    & .icon {
+      flex: none;
+      margin: 3px 15px 0 15px;
+      max-height: 50px;
+      z-index: 1;
+    }
+
+    &:hover {
+      & span, h1 {
+        opacity: 1;
+      }
+    }
+
+    &.prev {
+      justify-content: flex-start;
+      margin-right: 3px;
+      text-align: left;
+      & span {
+        padding-left: 20px;
+      }
+      @media all and (max-width: 768px) {
+        margin-right: 0;
+      }
+    }
+
+    &.next {
+      justify-content: flex-end;
+      margin-left: 3px;
+      text-align: right;
+      & span {
+        padding-right: 20px;
+      }
+      @media all and (max-width: 768px) {
+        margin-left: 0;
+      }
+    }
+
+  }
+}

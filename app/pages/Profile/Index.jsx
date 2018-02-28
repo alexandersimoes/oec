@@ -6,7 +6,6 @@ export default class Profile extends Component {
     const {children} = this.props;
     return (
       <div>
-        Profile
         {children}
       </div>
     );
