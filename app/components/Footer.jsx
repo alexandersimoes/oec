@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {LANGUAGES} from "helpers/config";
 import "components/Footer.css";
 
 export default class Footer extends Component {
@@ -19,12 +20,14 @@ export default class Footer extends Component {
 
         <div>
           <ul className="lang">
-            <li><a href="/en">English</a></li>
+            {LANGUAGES.map(l =>
+              <li key={l.id}><a href={`/${l.id}`}>{l.name}</a></li>
+            )}
           </ul>
           The Observatory of Economic Complexity by
           <a href="http://alexandersimoes.com/" property="cc:attributionName" rel="cc:attributionURL">Alexander Simoes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Permissions beyond the scope of this license may be available <a href="/permissions/" rel="cc:morePermissions">here</a>.
           <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
-            <img alt="Creative Commons License" style={{borderWidth: 0}} src="//i.creativecommons.org/l/by-sa/3.0/80x15.png" />
+            <img alt="Creative Commons License" style={{borderWidth: 0}} src="https://i.creativecommons.org/l/by-sa/3.0/80x15.png" />
           </a>
         </div>
 

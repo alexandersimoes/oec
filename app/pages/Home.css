@@ -1,3 +1,217 @@
-#Home {
-  text-align: center;
+.bg-frame {
+  height: 600px;
+  margin: calc(var(--header-offset) + 10px) auto 20px auto;
+  position: relative;
+  width: 600px;
+
+  & .ring-pulse {
+    animation: pulse 8s ease-in infinite;
+    border-radius: 50%;
+    border: 1px solid var(--white);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: -5;
+  }
+
+  & .echo-ring {
+    animation: pulse 8s ease-in 4s infinite;
+  }
+
+  & #ring {
+    border-radius: 50%;
+    background-color: var(--darkbackground);
+    border: 1px solid var(--lightlinkcolor);
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    /* this next line fixes a weird clipping bug in Chrome */
+    /* http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera */
+    -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+
+    & .star-rotate {
+      animation: spin-right 120s linear infinite;
+      left: 68%;
+      margin-left: calc(-150% / 2);
+      margin-top: calc(-150% / 2);
+      opacity: 0.4;
+      position: absolute;
+      top: 64%;
+      width: 150%;
+      z-index: 0;
+    }
+
+    & #big_logo {
+      left: 13%;
+      position: absolute;
+      top: 23%;
+      width: 38%;
+    }
+
+    & #observatory {
+      left: 8%;
+      position: absolute;
+      top: 14%;
+      width: 100%;
+      /* @include rtl {
+        @include flip;
+      } */
+    }
+
+    & #info {
+      color: white;
+      display: block;
+      font-family: var(--source-sans);
+      font-size: calc(600px / 35);
+      font-weight: 300;
+      line-height: 1.4;
+      position: absolute;
+      text-shadow: -2px 0 5px var(--darkbackground);
+      text-align: center;
+      bottom: 18%;
+      right: 14%;
+      /* @include ltr {
+        right: 14%;
+      }
+      @include rtl {
+        left: 19%;
+      } */
+      width: 36%;
+
+      & a {
+        transition: color 1s, opacity 0.5s;
+        border-bottom: 1px solid transparent;
+        color: var(--lightlinkcolor);
+        display: inline-block;
+        font-family: var(--montserrat);
+        font-weight: 400;
+        font-size: 75%;
+        margin: 2%;
+        opacity: 0.8;
+        text-transform: uppercase;
+
+        &:hover {
+          opacity: 1;
+          color: var(--brightlinkcolor);
+        }
+      }
+
+    }
+
+    & #launch_vid {
+      transition: opacity 0.5s;
+      cursor: pointer;
+      position: absolute;
+      bottom: 17%;
+      opacity: 0.6;
+      right: 22%;
+      /* @include rtl {
+        left: 23%;
+      }
+      @include ltr {
+        right: 22%;
+      } */
+
+      &:hover {
+        opacity: 1;
+      }
+
+      & img {
+        transition: opacity 1s;
+        width: calc(600px/28);
+        height: calc(600px/28);
+        display: inline-block;
+        margin: 0 5px 0 auto;
+      }
+
+      & span {
+        font-size: calc(600px/45);
+        vertical-align: middle;
+      }
+
+    }
+
+    & #search_home {
+      transition: text-shadow 0.75s, opacity 1.5s;
+      border-radius: 2px;
+      bottom: 10%;
+      border-bottom: 1px solid var(--darkbordercolor);
+      color: var(--white);
+      cursor: pointer;
+      display: block;
+      font-family: var(--source-sans);
+      font-size: calc(600px/32);
+      font-weight: 300;
+      left: 33%;
+      opacity: 0.8;
+      padding-bottom: 3px;
+      position: absolute;
+      width: 37%;
+
+      &:hover {
+        text-shadow: 0 0 2px #eee;
+        opacity: 1;
+      }
+
+      & img {
+        margin-bottom: -5px;
+        margin-right: 0;
+        margin-top: 5px;
+        padding-right: 3px;
+        position: relative;
+        top: 0;
+        width: 6%;
+      }
+    }
+  }
+
+}
+
+#launch {
+  background-color: rgba(63, 70, 79, 0.8);
+
+  & iframe {
+    box-shadow: 0 0 200px rgba(0,0,0,0.6);
+  }
+}
+
+.pt-dialog {
+  width: 700px;
+  background: transparent;
+
+  & .pt-dialog-body {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes spin-right {
+  0% {
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 0.2;
+  }
 }

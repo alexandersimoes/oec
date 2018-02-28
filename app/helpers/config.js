@@ -1,21 +1,20 @@
-
-export const LANGUAGES = {
-  ar: "العربية",
-  de: "Deutsch",
-  el: "ελληνικά",
-  en: "English",
-  es: "Español",
-  fr: "Français",
-  he: "עברית",
-  hi: "हिन्दी",
-  it: "Italiano",
-  ja: "日本語",
-  ko: "한국어",
-  mn: "Монгол",
-  nl: "Nederlands",
-  ru: "Pyccĸий",
-  pt: "Português",
-  tr: "Tϋrkçe",
-  vi: "Tiếng Việt",
-  zh: "简化中国"
-};
+export const LANGUAGES = [
+  {id: "ar", name: "العربية"},
+  {id: "de", name: "Deutsch"},
+  {id: "el", name: "ελληνικά"},
+  {id: "en", name: "English"},
+  {id: "es", name: "Español"},
+  {id: "fr", name: "Français"},
+  {id: "he", name: "עברית"},
+  {id: "hi", name: "हिन्दी"},
+  {id: "it", name: "Italiano"},
+  {id: "ja", name: "日本語"},
+  {id: "ko", name: "한국어"},
+  {id: "mn", name: "Монгол"},
+  {id: "nl", name: "Nederlands"},
+  {id: "ru", name: "Pyccĸий"},
+  {id: "pt", name: "Português"},
+  {id: "tr", name: "Tϋrkçe"},
+  {id: "vi", name: "Tiếng Việt"},
+  {id: "zh", name: "简化中国"}
+];

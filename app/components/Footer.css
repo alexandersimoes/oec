@@ -41,10 +41,14 @@ footer {
         left: 100%;
       }
 
-      & a#mc {
+      & a {
         display: inline-block;
-        padding: 0 25px;
         position: relative;
+        vertical-align: top;
+      }
+
+      & a#mc {
+        padding: 0 25px;
         & img {
           width: 100px;
         }
@@ -55,13 +59,11 @@ footer {
         border: 0;
         border-radius: 2px;
         color: var(--white);
-        display: inline-block;
         font-family: var(--montserrat);
         font-size: 13px;
         margin: 10px 0;
         padding: 9px 10px;
         outline: none;
-        position: relative;
         text-align: center;
         text-shadow: 0 1px 1px rgba(0,0,0,0.1);
         text-transform: uppercase;
