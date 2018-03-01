@@ -1,14 +1,20 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import {translate} from "react-i18next";
+import {activateSearch} from "actions/search";
 import "components/Nav.css";
 
 class Nav extends Component {
 
+  activateSearch = () => {
+    this.props.activateSearch(true);
+  }
+
   render() {
-    const {t} = this.props;
+    const {t, searchActive} = this.props;
+    console.log("searchActive", searchActive);
     return (
       <nav>
-
         <a id="hamburger">
           <img id="hamburger_button" src="/images/nav/menu.png" />
         </a>
@@ -76,7 +82,7 @@ class Nav extends Component {
           </li>
         </ul>
 
-        <div id="search_button">
+        <div id="search_button" onClick={this.activateSearch}>
           <img src="/images/nav/search.png" />
         </div>
 
@@ -86,4 +92,20 @@ class Nav extends Component {
 
 }
 
-export default translate()(Nav);
+// export default connect(state => ({
+//   searchActive: state.search.searchActive
+// }))(translate()(Nav));
+
+const mapStateToProps = state => ({
+  searchActive: state.search.searchActive
+});
+
+const mapDispatchToProps = dispatch => ({
+  activateSearch: searchActive => {
+    dispatch(activateSearch(searchActive));
+  }
+});
+
+Nav = translate()(Nav);
+Nav = connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default Nav;

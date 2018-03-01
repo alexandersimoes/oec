@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/alexandersimoes/oec#readme",
   "dependencies": {
+    "babel-eslint": "^8.2.2",
     "datawheel-canon": "^0.14.6"
   }
 }

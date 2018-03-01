@@ -9,6 +9,7 @@ montserrat: "Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif"
 # COLORS!
 #############################
 darkbackground: "#212831"
+"l-darkbackground": "#272f38"
 lightbackground: "#d1d2d4"
 dark: "rgb(61, 71, 55)"
 light: "rgb(101, 111, 95)"
@@ -17,7 +18,7 @@ white: "#fafafa"
 darklinkcolor: "#5083b5"
 lightlinkcolor: "#99BCD1"
 brightlinkcolor: "#6297cb"
-l-brightlinkcolor: "#54a6f2"
+"l-brightlinkcolor": "#54a6f2"
 
 darkbordercolor: "#63737f"
 medbordercolor: "#81919d"

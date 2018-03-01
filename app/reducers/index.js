@@ -1,6 +1,12 @@
-/**
-  The object exported by this file should contain reducers to be
-  combined with the internal default canon reducers.
-*/
+import {combineReducers} from "redux";
 
-export default {};
+const searchActive = (state = false, action) => {
+  switch (action.type) {
+    case "ACTIVATE_SEARCH":
+      return action.activate ? action.activate : !state;
+    default:
+      return state;
+  }
+};
+
+export default {search: combineReducers({searchActive})};
