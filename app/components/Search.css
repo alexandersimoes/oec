@@ -88,60 +88,12 @@
     text-align: center;
     font-smoothing: antialiased;
 
-    & .d3plus_toggle > * {
-      margin: 0 5px 0 5px !important;
-
-      @media all and (max-width: 480px) {
-        margin: 0 3px 0 3px !important;
-      }
-
-    }
-
-    & .d3plus_node {
-      transition: color 1.5s;
-      background-color: rgba(0,0,0,0) !important;
-      border: 0 !important;
-      color: var(--lightbordercolor) !important;
-      border-bottom: 1px solid var(--lightbordercolor) !important;
-
-      &:hover {
-        color: #fff !important;
-      }
-
-      &.d3plus_button_active {
-        color: white !important;
-        border-bottom: 1px solid var(--brightlinkcolor) !important;
-
-        .d3plus_button_label {
-          opacity: 1;
-          text-transform: uppercase;
-
-          &:hover {
-            opacity: 0.8 !important;
-          }
-        }
+    & .pt-button {
+      color: var(--darkbordercolor);
+      &::after {
+        background: var(--darkbordercolor);
       }
     }
-
-    & .d3plus_button_label {
-      font-family: var(--montserrat);
-      font-size: 13px;
-      font-weight: 400;
-      letter-spacing: 1px;
-      opacity: 1;
-      padding: 6px 10px 6px 10px !important;
-      text-transform: uppercase;
-
-      @media all and (max-width: 480px) {
-        font-size: 11px;
-        padding: 6px 0 6px 0 !important;
-      }
-
-      &:hover {
-        opacity: 0.7 !important;
-      }
-    }
-
   }
 
 }

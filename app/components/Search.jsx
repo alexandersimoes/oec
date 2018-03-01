@@ -23,12 +23,12 @@ class Search extends Component {
         <div id="search_div">
           <input id="search_input" type="text" placeholder={ t("Search") } />
           <div id="search_modes">
-            <select id="search_mode_selector">
-              <option value="all" selected>{ t("No Filter") }</option>
-              <option value="country">{ t("Countries") }</option>
-              <option value="hs92">{ t("Products") }</option>
-              <option value="explore">{ t("Visualizations") }</option>
-            </select>
+            <div className="pt-button-group pt-minimal pt-large">
+              <button className="pt-button pt-icon-disable" tabIndex="0" role="button">{ t("No Filter") }</button>
+              <button className="pt-button pt-icon-globe" tabIndex="0" role="button">{ t("Countries") }</button>
+              <button className="pt-button pt-icon-box" tabIndex="0" role="button">{ t("Products") }</button>
+              <button className="pt-button pt-icon-timeline-area-chart" tabIndex="0" role="button">{ t("Visualizations") }</button>
+            </div>
           </div>
         </div>
         <div id="search_results"></div>
