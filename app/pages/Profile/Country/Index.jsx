@@ -47,10 +47,11 @@ export default class Country extends Component {
           <SectionEciRanking />
         </article>
 
+        {/* links to other sites */}
+
         {/* links to the previous and next country */}
         <ProfileFooter />
 
-        {/* links to other sites */}
       </div>
     );
   }
