@@ -9,7 +9,7 @@ footer {
   }
 
   & a {
-    color: $lightlinkcolor;
+    color: var(--lightlinkcolor);
     &:hover {
       text-shadow: 0 0, 1px, var(--white);
       transition: text-shadow 1s;
@@ -23,7 +23,7 @@ footer {
       overflow: hidden;
       text-align: center;
 
-      &:before,
+      /* &:before,
       &:after {
         background: #ddd;
         content: "";
@@ -39,7 +39,7 @@ footer {
       }
       &:after {
         left: 100%;
-      }
+      } */
 
       & a {
         display: inline-block;

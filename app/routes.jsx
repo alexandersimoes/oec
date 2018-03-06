@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile/Index";
 import Country from "./pages/Profile/Country/Index";
 import Product from "./pages/Profile/Product/Index";
+import Publications from "./pages/Publications";
 
 export default function RouteCreate() {
   function genRandId(path) {
@@ -41,6 +42,8 @@ export default function RouteCreate() {
         <Route path="country(/:id)" component={Country} onEnter={checkForId} />
         <Route path="hs92(/:id)" component={Product} onEnter={checkForId} />
       </Route>
+
+      <Route path="publications" component={Publications} />
 
     </Route>
   );

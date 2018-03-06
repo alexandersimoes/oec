@@ -4,6 +4,10 @@ body {
   background-color: var(--darkbackground);
   color: var(--white);
   font-family: var(--source-sans);
+
+  & a:hover {
+    text-decoration: none;
+  }
 }
 
 #container {
@@ -14,7 +18,7 @@ body {
   }
 }
 
-h1,h2,h3,h4 {
+h1, h2, h3, h4 {
   color: var(--white);
   -webkit-margin-before: 0em;
   -webkit-margin-after: 0em;

@@ -14,6 +14,8 @@ lightbackground: "#d1d2d4"
 dark: "rgb(61, 71, 55)"
 light: "rgb(101, 111, 95)"
 white: "#fafafa"
+black: "#010101"
+green: "#3b9343"
 
 darklinkcolor: "#5083b5"
 lightlinkcolor: "#99BCD1"
