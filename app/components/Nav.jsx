@@ -1,10 +1,18 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {translate} from "react-i18next";
+import {Popover, PopoverInteractionKind, Position, Button} from "@blueprintjs/core";
 import {activateSearch} from "actions/search";
 import "components/Nav.css";
 
 class Nav extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isAboutMenuOpen: false,
+      isRankingsMenuOpen: false
+    };
+  }
 
   activateSearch = () => {
     this.props.activateSearch(true);
@@ -12,7 +20,8 @@ class Nav extends Component {
 
   render() {
     const {t, searchActive} = this.props;
-    console.log("searchActive", searchActive);
+    const {isAboutMenuOpen, isRankingsMenuOpen} = this.state;
+
     return (
       <nav>
         <a id="hamburger">
@@ -37,17 +46,25 @@ class Nav extends Component {
           </li>
 
           <li id="rankings">
-            <a href="/rankings/eci">{ t("Rankings") }</a>
-            <div className="sub_menu">
-              <ul>
-                <li className="country">
-                  <a href="/rankings/country">{ t("Countries") }</a>
-                </li>
-                <li className="product">
-                  <a href="/rankings/sitc">{ t("Products") }</a>
-                </li>
-              </ul>
-            </div>
+            <Popover
+              isOpen={isRankingsMenuOpen}
+              onInteraction={state => this.setState({isRankingsMenuOpen: state})}
+              popoverClassName="pt-minimal"
+              position={Position.BOTTOM_LEFT}
+              interactionKind={PopoverInteractionKind.HOVER}
+            >
+              <a href="/rankings/eci">{ t("Rankings") }</a>
+              <div className="sub_menu">
+                <ul>
+                  <li className="country">
+                    <a href="/rankings/country">{ t("Countries") }</a>
+                  </li>
+                  <li className="product">
+                    <a href="/rankings/sitc">{ t("Products") }</a>
+                  </li>
+                </ul>
+              </div>
+            </Popover>
           </li>
 
           <li id="publications">
@@ -55,27 +72,36 @@ class Nav extends Component {
           </li>
 
           <li id="resources">
-            <a href="/en/resources/about/">{ t("About") }</a>
-            <div className="sub_menu">
-              <ul>
-                <li className="data">
-                  <a href="/en/resources/data/">{ t("Data") }</a>
-                </li>
-                <li className="methodology">
-                  <a href="/en/resources/methodology/">{ t("Methodology") }</a>
-                </li>
-                <li className="about">
-                  <a href="/en/resources/about/">{ t("The Site") }</a>
-                </li>
-                <li className="permissions">
-                  <a href="/en/resources/permissions">{ t("Permissions") }</a>
-                </li>
-                <li className="faqs">
-                  <a href="/en/resources/faqs">{ t("FAQs") }</a>
-                </li>
-              </ul>
-            </div>
+            <Popover
+              isOpen={isAboutMenuOpen}
+              onInteraction={state => this.setState({isAboutMenuOpen: state})}
+              popoverClassName="pt-minimal"
+              position={Position.BOTTOM_LEFT}
+              interactionKind={PopoverInteractionKind.HOVER}
+            >
+              <a href="/en/resources/about/">{ t("About") }</a>
+              <div className="sub_menu">
+                <ul>
+                  <li className="data">
+                    <a href="/en/resources/data/">{ t("Data") }</a>
+                  </li>
+                  <li className="methodology">
+                    <a href="/en/resources/methodology/">{ t("Methodology") }</a>
+                  </li>
+                  <li className="about">
+                    <a href="/en/resources/about/">{ t("The Site") }</a>
+                  </li>
+                  <li className="permissions">
+                    <a href="/en/resources/permissions">{ t("Permissions") }</a>
+                  </li>
+                  <li className="faqs">
+                    <a href="/en/resources/faqs">{ t("FAQs") }</a>
+                  </li>
+                </ul>
+              </div>
+            </Popover>
           </li>
+
 
           <li id="api">
             <a href="/api">{ t("API") }</a>
