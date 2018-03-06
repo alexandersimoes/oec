@@ -3,10 +3,21 @@ import {Route, IndexRoute, browserHistory} from "react-router";
 
 import App from "./App";
 import Home from "./pages/Home";
+
 import Profile from "./pages/Profile/Index";
 import Country from "./pages/Profile/Country/Index";
 import Product from "./pages/Profile/Product/Index";
+
 import Publications from "./pages/Publications";
+
+import Resources from "./pages/Resources/Index";
+import Permissions from "./pages/Resources/Permissions";
+import Site from "./pages/Resources/Site";
+import Data from "./pages/Resources/Data";
+import Methodology from "./pages/Resources/Methodology";
+import Faqs from "./pages/Resources/Faqs";
+
+import Api from "./pages/Api";
 
 export default function RouteCreate() {
   function genRandId(path) {
@@ -44,6 +55,16 @@ export default function RouteCreate() {
       </Route>
 
       <Route path="publications" component={Publications} />
+
+      <Route path=":lang/resources" component={Resources}>
+        <Route path="permissions" component={Permissions} />
+        <Route path="about" component={Site} />
+        <Route path="data" component={Data} />
+        <Route path="methodology" component={Methodology} />
+        <Route path="faqs" component={Faqs} />
+      </Route>
+
+      <Route path="api" component={Api} />
 
     </Route>
   );
