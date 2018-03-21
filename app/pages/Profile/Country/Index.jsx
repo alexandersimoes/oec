@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import ProfileHeader from "pages/Profile/Country/ProfileHeader";
 import ProfileNav from "pages/Profile/Country/ProfileNav";
 import ProfileSummary from "pages/Profile/Country/ProfileSummary";
@@ -12,36 +13,41 @@ import SectionPgiSpace from "pages/Profile/Country/sections/SectionPgiSpace";
 import SectionEciRanking from "pages/Profile/Country/sections/SectionEciRanking";
 import ProfileFooter from "pages/Profile/Country/ProfileFooter";
 import mondrianClient from "helpers/mondrian";
+import countries from "data/attr_country.json";
 import "pages/Profile/Profile.css";
 
-export default class Country extends Component {
+class Country extends Component {
 
   componentDidMount() {
-    mondrianClient
-      .cube("2015_2016_yearly_data")
-      .then(cube => {
-        const qry = cube.query.drilldown("Product", "Product", "Chapter")
-          .measure("Exports")
-          .cut("[Origin Country].[Origin Country].[Country].&[pak]");
-        return Promise.all([mondrianClient.query(qry, "jsonrecords"), Promise.resolve(qry.path("csv"))]);
-      })
-      .then(([apiData]) => {
-        console.log(apiData.data.data);
-      });
   }
 
   render() {
+    const {data, params} = this.props;
+    const {id: countryId} = params;
+    const country = countries.find(c => c.id === countryId);
+
+    if (!Object.keys(data).length) {
+      return <div className="message-container fullscreen">
+        <span className="message is-error">Loading country data...</span>
+      </div>;
+    }
+
+    const {countryProfile} = data;
+    const tradeByCountry = countryProfile.find(d => d ? d.key === "tradeByCountry" : null).data;
+    console.log("countryProfile", countryProfile);
+    console.log("tradeByCountry", tradeByCountry);
+
     return (
       <div id="content">
 
         {/* this includes header image, name and sparkline stats */}
-        <ProfileHeader />
+        <ProfileHeader country={country} />
 
         {/* text intro section (with page navigation and summary text) */}
         <article className="intro-article">
           <section>
             <ProfileNav />
-            <ProfileSummary />
+            <ProfileSummary country={country} tradeByCountry={tradeByCountry} />
           </section>
         </article>
 
@@ -72,3 +78,39 @@ export default class Country extends Component {
   }
 
 }
+
+Country.need = [
+  params => {
+    const {id} = params;
+    console.log("Country Need ID!", id);
+
+    const prmTradeByCountry = mondrianClient
+      .cube("2015_2016_hs_rev2007_yearly_data")
+      .then(cube => {
+        const qry = cube.query
+          .drilldown("Origin Country", "Countries", "Country")
+          .measure("Exports")
+          .measure("Imports")
+          .cut("[year].[year].[year].&[2016]");
+        return mondrianClient.query(qry, "jsonrecords");
+      })
+      .then(res => ({
+        key: "tradeByCountry",
+        data: res.data.data
+      }));
+
+    const prmAll = Promise.all([prmTradeByCountry]).then(values => ({
+      key: "countryProfile",
+      data: values
+    }));
+
+    return {
+      type: "GET_DATA",
+      promise: prmAll
+    };
+  }
+];
+
+export default connect(state => ({
+  data: state.data
+}))(Country);
