@@ -1,21 +1,37 @@
 import React, {Component} from "react";
 import {Treemap} from "d3plus-react";
+import mondrianClient from "helpers/mondrian";
+import chapters from "data/attr_hs_chapters.json";
 import "pages/Profile/Profile.css";
 
-const data = [
-  {parent: "Group 1", id: "alpha", value: 25},
-  {parent: "Group 1", id: "beta", value: 10},
-  {parent: "Group 1", id: "charlie", value: 2},
-  {parent: "Group 2", id: "delta", value: 29},
-  {parent: "Group 2", id: "echo", value: 25},
-  {parent: "Group 3", id: "fanta", value: 4},
-  {parent: "Group 3", id: "gamma", value: 15},
-  {parent: "Group 3", id: "hotel", value: 25}
-];
-
 export default class SectionExports extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: null
+    };
+  }
+
+  componentDidMount() {
+    mondrianClient
+      .cube("2015_2016_hs_rev2007_yearly_data")
+      .then(cube => {
+        const qry = cube.query
+          .drilldown("Product", "HS07", "HS4")
+          .option("parents", true)
+          .measure("Imports")
+          .cut("[Origin Country].[Countries].[Country].&[pak]")
+          .cut("[year].[year].[year].&[2016]");
+        return Promise.all([mondrianClient.query(qry, "jsonrecords"), Promise.resolve(qry.path("csv"))]);
+      })
+      .then(([apiData]) => {
+        console.log("SectionImports", apiData.data.data);
+        this.setState({data: apiData.data.data});
+      });
+  }
 
   render() {
+    const {data} = this.state;
     return (
       <section data-position="floating" data-step="5" data-intro="This is just a test">
         <aside>
@@ -48,19 +64,20 @@ export default class SectionExports extends Component {
           </div>
         </aside>
         <content>
-          <Treemap ref={comp => this.viz = comp} config={{
-            data,
-            groupBy: ["parent", "id"],
-            height: 650,
-            shapeConfig: {
-              fill: d => {
-                if (d.parent === "Group 1") return "orange";
-                else if (d.parent === "Group 2") return "purple";
-                else if (d.parent === "Group 3") return "blue";
+          {data
+            ? <Treemap ref={comp => this.viz = comp} config={{
+              data,
+              groupBy: ["Chapter", "HS4"],
+              sum: d => d.Imports,
+              height: 650,
+              shapeConfig: {
+                fill: d => {
+                  const chapter = chapters.find(c => c.id === d["ID Chapter"]);
+                  return chapter ? chapter.color : "#C7C7C7";
+                }
               }
-            }
-            // width: 500
-          }} />
+            }} />
+            : <div>Loading...</div>}
         </content>
       </section>
     );

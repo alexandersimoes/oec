@@ -1,32 +1,63 @@
 import React, {Component} from "react";
 import {LinePlot} from "d3plus-react";
+import mondrianClient from "helpers/mondrian";
 import "pages/Profile/Profile.css";
 
-const data = [
-  {id: "alpha", x: 4, y: 11},
-  {id: "alpha", x: 5, y: 13.5},
-  {id: "alpha", x: 6, y: 12.5},
-  {id: "alpha", x: 7, y: 12},
-  {id: "alpha", x: 8, y: 15},
-  {id: "alpha", x: 9, y: 14.5},
-  {id: "alpha", x: 10, y: 13.5},
-  {id: "alpha", x: 11, y: 11},
-  {id: "alpha", x: 12, y: 12.6},
-  {id: "beta",  x: 4, y: 12},
-  {id: "beta",  x: 5, y: 11.25},
-  {id: "beta",  x: 6, y: 11.5},
-  {id: "beta",  x: 7, y: 10},
-  {id: "beta",  x: 8, y: 9.25},
-  {id: "beta",  x: 9, y: 9.5},
-  {id: "beta",  x: 10, y: 9},
-  {id: "beta",  x: 11, y: 10},
-  {id: "beta",  x: 12, y: 10.6}
-];
+// const data = [
+//   {id: "alpha", x: 4, y: 11},
+//   {id: "alpha", x: 5, y: 13.5},
+//   {id: "alpha", x: 6, y: 12.5},
+//   {id: "alpha", x: 7, y: 12},
+//   {id: "alpha", x: 8, y: 15},
+//   {id: "alpha", x: 9, y: 14.5},
+//   {id: "alpha", x: 10, y: 13.5},
+//   {id: "alpha", x: 11, y: 11},
+//   {id: "alpha", x: 12, y: 12.6},
+//   {id: "beta",  x: 4, y: 12},
+//   {id: "beta",  x: 5, y: 11.25},
+//   {id: "beta",  x: 6, y: 11.5},
+//   {id: "beta",  x: 7, y: 10},
+//   {id: "beta",  x: 8, y: 9.25},
+//   {id: "beta",  x: 9, y: 9.5},
+//   {id: "beta",  x: 10, y: 9},
+//   {id: "beta",  x: 11, y: 10},
+//   {id: "beta",  x: 12, y: 10.6}
+// ];
 
 
 export default class SectionTradeBalance extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: null
+    };
+  }
+
+  componentDidMount() {
+    mondrianClient
+      .cube("2015_2016_hs_rev2007_yearly_data")
+      .then(cube => {
+        const qry = cube.query
+          .drilldown("year", "year", "year")
+          .measure("Exports")
+          .measure("Imports")
+          .cut("[Origin Country].[Countries].[Country].&[pak]");
+        return Promise.all([mondrianClient.query(qry, "jsonrecords"), Promise.resolve(qry.path("csv"))]);
+      })
+      .then(([apiData]) => {
+        const data = [];
+        // console.log("TradeBalance", apiData.data.data);
+        apiData.data.data.forEach(d => {
+          data.push({year: d.year, trade_flow: "export", value: d.Exports});
+          data.push({year: d.year, trade_flow: "import", value: d.Imports});
+        });
+        console.log("TradeFlow", data);
+        this.setState({data});
+      });
+  }
 
   render() {
+    const {data} = this.state;
     return (
       <section>
         <aside>
@@ -59,18 +90,22 @@ export default class SectionTradeBalance extends Component {
           </div>
         </aside>
         <content>
-          <LinePlot config={{
-            data,
-            groupBy: "id",
-            shapeConfig: {
-              Line: {
-                stroke: d => d.id === "alpha" ? "orange" : "blue",
-                strokeWidth: 5,
-                strokeDasharray: "10, 5"
-              }
-            },
-            height: 650
-          }} />
+          {data
+            ? <LinePlot config={{
+              data,
+              groupBy: "trade_flow",
+              shapeConfig: {
+                Line: {
+                  stroke: d => d.trade_flow === "export" ? "orange" : "blue",
+                  strokeWidth: 5,
+                  strokeDasharray: "10, 5"
+                }
+              },
+              height: 650,
+              x: "year",
+              y: "value"
+            }} />
+            : <div>loading...</div>}
         </content>
       </section>
     );

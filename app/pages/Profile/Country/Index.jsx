@@ -11,9 +11,24 @@ import SectionProductSpace from "pages/Profile/Country/sections/SectionProductSp
 import SectionPgiSpace from "pages/Profile/Country/sections/SectionPgiSpace";
 import SectionEciRanking from "pages/Profile/Country/sections/SectionEciRanking";
 import ProfileFooter from "pages/Profile/Country/ProfileFooter";
+import mondrianClient from "helpers/mondrian";
 import "pages/Profile/Profile.css";
 
 export default class Country extends Component {
+
+  componentDidMount() {
+    mondrianClient
+      .cube("2015_2016_yearly_data")
+      .then(cube => {
+        const qry = cube.query.drilldown("Product", "Product", "Chapter")
+          .measure("Exports")
+          .cut("[Origin Country].[Origin Country].[Country].&[pak]");
+        return Promise.all([mondrianClient.query(qry, "jsonrecords"), Promise.resolve(qry.path("csv"))]);
+      })
+      .then(([apiData]) => {
+        console.log(apiData.data.data);
+      });
+  }
 
   render() {
     return (

@@ -1,21 +1,39 @@
 import React, {Component} from "react";
 import {Treemap} from "d3plus-react";
+import mondrianClient from "helpers/mondrian";
+import continents from "data/attr_continent.json";
 import "pages/Profile/Profile.css";
 
-const data = [
-  {parent: "Group 1", id: "alpha", value: 25},
-  {parent: "Group 1", id: "beta", value: 10},
-  {parent: "Group 1", id: "charlie", value: 2},
-  {parent: "Group 2", id: "delta", value: 29},
-  {parent: "Group 2", id: "echo", value: 25},
-  {parent: "Group 3", id: "fanta", value: 4},
-  {parent: "Group 3", id: "gamma", value: 15},
-  {parent: "Group 3", id: "hotel", value: 25}
-];
-
 export default class SectionDestinations extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: null
+    };
+  }
+
+  componentDidMount() {
+    console.log("SectionDestinations Triggered!");
+    mondrianClient
+      .cube("2015_2016_hs_rev2007_yearly_data")
+      .then(cube => {
+        const qry = cube.query
+          .drilldown("Destination Country", "Country")
+          // .caption("Destination Country", "Country", "Country ES")
+          .option("parents", true)
+          .measure("Exports")
+          .cut("[Origin Country].[Countries].[Country].&[pak]")
+          .cut("[year].[year].[year].&[2016]");
+        return Promise.all([mondrianClient.query(qry, "jsonrecords"), Promise.resolve(qry.path("csv"))]);
+      })
+      .then(([apiData]) => {
+        console.log("SectionDestinations", apiData.data.data);
+        this.setState({data: apiData.data.data});
+      });
+  }
 
   render() {
+    const {data} = this.state;
     return (
       <section>
         <aside>
@@ -48,18 +66,20 @@ export default class SectionDestinations extends Component {
           </div>
         </aside>
         <content>
-          <Treemap ref={comp => this.viz = comp} config={{
-            data,
-            groupBy: ["parent", "id"],
-            height: 650,
-            shapeConfig: {
-              fill: d => {
-                if (d.parent === "Group 1") return "orange";
-                else if (d.parent === "Group 2") return "purple";
-                else if (d.parent === "Group 3") return "blue";
+          {data
+            ? <Treemap ref={comp => this.viz = comp} config={{
+              data,
+              groupBy: ["Continent", "Country"],
+              sum: d => d.Exports,
+              height: 650,
+              shapeConfig: {
+                fill: d => {
+                  const continent = continents.find(c => c.id === d.Continent);
+                  return continent ? continent.color : "#C7C7C7";
+                }
               }
-            }
-          }} />
+            }} />
+            : <div>Loading...</div>}
         </content>
       </section>
     );
