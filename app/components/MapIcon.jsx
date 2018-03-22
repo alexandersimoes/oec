@@ -5,6 +5,7 @@ import worldtopo from "data/worldtopo.json";
 export default class MapIcon extends Component {
 
   render() {
+    const {country} = this.props;
     return (
       <Geomap config={{
         constrole: false,
@@ -17,13 +18,7 @@ export default class MapIcon extends Component {
         topojsonId: d => d.id,
         topojsonKey: "objects",
         fitObject: worldtopo,
-        fitFilter: d => {
-          // if (d.id === "231") {
-          //   console.log(d);
-          // }
-          // https://api.datausa.io/attrs/birthplace/
-          return `${d.id}` === "231";
-        },
+        fitFilter: d => `${d.id}` === country.id,
         shapeConfig: {
           Path: {
             fillOpacity: d => `${d.id}` === "231" ? 1 : "0.25",

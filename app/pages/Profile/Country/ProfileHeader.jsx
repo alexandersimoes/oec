@@ -24,7 +24,7 @@ export default class ProfileHeader extends Component {
 
           {/* Zoomed in map of country */}
           <div id="topojson">
-            <MapIcon />
+            <MapIcon country={country} />
           </div>
 
           {/* Header sparkline stats */}

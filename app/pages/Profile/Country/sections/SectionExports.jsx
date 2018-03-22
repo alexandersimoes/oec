@@ -12,26 +12,26 @@ export default class SectionExports extends Component {
     };
   }
 
-  componentDidMount() {
-    mondrianClient
-      .cube("2015_2016_hs_rev2007_yearly_data")
-      .then(cube => {
-        const qry = cube.query
-          .drilldown("Product", "HS07", "HS4")
-          .option("parents", true)
-          .measure("Exports")
-          .cut("[Origin Country].[Countries].[Country].&[pak]")
-          .cut("[year].[year].[year].&[2016]");
-        return Promise.all([mondrianClient.query(qry, "jsonrecords"), Promise.resolve(qry.path("csv"))]);
-      })
-      .then(([apiData]) => {
-        console.log("SectionExports", apiData.data.data);
-        this.setState({data: apiData.data.data});
-      });
-  }
+  // componentDidMount() {
+  //   mondrianClient
+  //     .cube("2015_2016_hs_rev2007_yearly_data")
+  //     .then(cube => {
+  //       const qry = cube.query
+  //         .drilldown("Product", "HS07", "HS4")
+  //         .option("parents", true)
+  //         .measure("Exports")
+  //         .cut("[Origin Country].[Countries].[Country].&[pak]")
+  //         .cut("[year].[year].[year].&[2016]");
+  //       return Promise.all([mondrianClient.query(qry, "jsonrecords"), Promise.resolve(qry.path("csv"))]);
+  //     })
+  //     .then(([apiData]) => {
+  //       console.log("SectionExports", apiData.data.data);
+  //       this.setState({data: apiData.data.data});
+  //     });
+  // }
 
   render() {
-    const {data} = this.state;
+    const {tradeByProduct} = this.props;
     return (
       <section>
         <aside>
@@ -64,9 +64,9 @@ export default class SectionExports extends Component {
           </div>
         </aside>
         <content>
-          {data
+          {tradeByProduct
             ? <Treemap ref={comp => this.viz = comp} config={{
-              data,
+              data: tradeByProduct,
               groupBy: ["Chapter", "HS4"],
               sum: d => d.Exports,
               height: 650,

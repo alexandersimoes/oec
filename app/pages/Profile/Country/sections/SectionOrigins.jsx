@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Treemap} from "d3plus-react";
-import mondrianClient from "helpers/mondrian";
 import continents from "data/attr_continent.json";
 import "pages/Profile/Profile.css";
 
@@ -12,27 +11,27 @@ export default class SectionOrigins extends Component {
     };
   }
 
-  componentDidMount() {
-    mondrianClient
-      .cube("2015_2016_hs_rev2007_yearly_data")
-      .then(cube => {
-        const qry = cube.query
-          .drilldown("Origin Country", "Country")
-          // .caption("Destination Country", "Country", "Country ES")
-          .option("parents", true)
-          .measure("Exports")
-          .cut("[Destination Country].[Countries].[Country].&[pak]")
-          .cut("[year].[year].[year].&[2016]");
-        return Promise.all([mondrianClient.query(qry, "jsonrecords"), Promise.resolve(qry.path("csv"))]);
-      })
-      .then(([apiData]) => {
-        console.log("SectionOrigins", apiData.data.data);
-        this.setState({data: apiData.data.data});
-      });
-  }
+  // componentDidMount() {
+  //   mondrianClient
+  //     .cube("2015_2016_hs_rev2007_yearly_data")
+  //     .then(cube => {
+  //       const qry = cube.query
+  //         .drilldown("Origin Country", "Country")
+  //         // .caption("Destination Country", "Country", "Country ES")
+  //         .option("parents", true)
+  //         .measure("Exports")
+  //         .cut("[Destination Country].[Countries].[Country].&[pak]")
+  //         .cut("[year].[year].[year].&[2016]");
+  //       return Promise.all([mondrianClient.query(qry, "jsonrecords"), Promise.resolve(qry.path("csv"))]);
+  //     })
+  //     .then(([apiData]) => {
+  //       console.log("SectionOrigins", apiData.data.data);
+  //       this.setState({data: apiData.data.data});
+  //     });
+  // }
 
   render() {
-    const {data} = this.state;
+    const {tradeByOrigin} = this.props;
     return (
       <section>
         <aside>
@@ -65,9 +64,9 @@ export default class SectionOrigins extends Component {
           </div>
         </aside>
         <content>
-          {data
+          {tradeByOrigin
             ? <Treemap ref={comp => this.viz = comp} config={{
-              data,
+              data: tradeByOrigin,
               groupBy: ["Continent", "Country"],
               sum: d => d.Exports,
               height: 650,
