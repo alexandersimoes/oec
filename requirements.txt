@@ -35,4 +35,4 @@ Flask-Scss==0.5
 # click
 
 # Opbeat for logging errors
-# opbeat[flask]
+opbeat[flask]

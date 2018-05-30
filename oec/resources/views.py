@@ -62,6 +62,16 @@ def about():
                 "twitter": "https://twitter.com/melisteng",
                 "linkedin-square": "http://www.linkedin.com/in/mqteng/"
             }
+        },
+        {
+            "name": u"Mauricio \"Pachá\" Vargas",
+            "slug": u"mauricio_vargas",
+            "time": u"2015 – Present",
+            "text": u"Pachá is in charge of the data pipeline since 2015, focusing on reproducibility and documenting our project. Besides data curation he created an R packages to ease data extraction from the OEC.",
+            "links": {
+                "github-alt": "https://github.com/pachamaltese",
+                "twitter": "https://twitter.com/pachamaltese"
+            }
         }
     ]
 
