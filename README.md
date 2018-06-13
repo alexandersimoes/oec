@@ -19,75 +19,19 @@ source of the data we are using is:
 >
 > [UN COMTRADE](http://comtrade.un.org/)
 
-### Support
+### Instructions for Adding a New Year of BACI data
 
-**The Observatory** will run in all modern browsers so long as they have
-Javascript turned on and have full support for SVG graphics. This includes 
-the latest versions of Firefox, Chrome (Chromium), Safari (WebKit), Opera and IE.
+#### 1. Download
+Download from [here](http://www.cepii.fr/cepii/en/bdd_modele/download.asp?id=1)
 
-Note: Internet Explorer versions 8 and below will not work as they do not have
-SVG support built in.
+#### 2. Run Scripts
+Make sure you have any previous years (1 and 5 years for growth) calculated. If not you can run them as so:
 
-Adding the Observatory to computer via virtualenv
+```bash
+python scripts/baci/format_data.py data/baci/baci92_2010.rar -y 2010 -o data/baci/ -r 92
+```
 
-### Getting The Observatory Running Locally via Virtualenv 
-
-1. Clone from github (this will create an atlas_economic_complexity folder in the current directory)
-
-        git clone https://github.com/alexandersimoes/atlas_economic_complexity.git
-2. Create the virtual environment
-
-        mkvirtualenv atlas_economic_complexity
-3. Activate this newly created environment
-
-        workon atlas_economic_complexity
-4. Install the required Python libraries
-
-        pip install -r requirements.txt
-5. Create a MySQL database on your local machine
-6. Import the latest dump of the database from [atlas.media.mit.edu/media/db/](http://atlas.media.mit.edu/media/db/)
-
-        mysql -u username -p -h localhost DB_NAME < observatory_xxxx-xx-xx.sql
-7. Create local settings file based on missing info from settings.py
-
-        touch django_files/atlas/settings_local.py
-8. Edit this file and add the following setting CONSTANTS to it based on comments in django_files/atlas/settings.py
-
-        DATABASES
-        LOCALE_PATHS
-        STATICFILES_DIRS
-        SECRET_KEY
-        TEMPLATE_DIRS
-        REDIS
-        CACHE
-				
-9. Run the site locally!
-
-        python django_files/manage.py runserver
-
-### Getting The Observatory Running With Redis Caching enabled (Optional)
-    
-10. If you would like to run the Observatory with a cache (if, for instance, you wished to deploy it on a live server)
-    All you will need to do is install the proper libraries and resources --
-
-11. Download, extract and compile Redis itself with:
-		
-        $ wget http://redis.googlecode.com/files/redis-2.6.7.tar.gz
-        $ tar xzf redis-2.6.7.tar.gz
-        $ cd redis-2.6.7
-        $ make  
-
-12.	Install the redis-py client with (from https://github.com/andymccurdy/redis-py)
-
-        $ sudo easy_install redis
-        $ sudo python setup.py install
-					
-13. Install the django-redis backend (from https://github.com/niwibe/django-redis)
-          
-        easy_install django_redis
-					
-14. You will also need the following serialization library: (from http://msgpack.org)									
-          
-        easy_install msgpack-python
-					
-15. The constants defined in settings.py have REDIS turned on by default. The example constants in the comments can be used to turn it off. 		 
+* warning for import to DB you may need to add this to your local `my.cnf`
+```bash
+[client]
+loose-local-infile=1

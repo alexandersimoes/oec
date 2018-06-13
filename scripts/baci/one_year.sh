@@ -7,7 +7,7 @@ if [ $# -eq 0 ]; then
 fi
 
 if [ -z "$2" ]; then
-  echo "No second argument supplied, ending year"
+  echo "No second argument supplied, need ending year"
   exit 1
 fi
 if [ -z "$3" ]; then
@@ -32,8 +32,8 @@ let "FIVE_YR_GROWTH += 5"
 
 PWD=/${PWD#*/}
 
-for i in $(seq $1 $2); do 
-  echo $i; 
+for i in $(seq $1 $2); do
+  echo $i;
 
   python scripts/baci/format_data.py \
     $PWD/data/baci/baci$3_$i.rar \
@@ -66,7 +66,7 @@ for i in $(seq $1 $2); do
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yop.tsv.bz2 $PWD/data/baci/$PREV_YEAR_FIVE/hs$3_yop.tsv.bz2 --years=5 --cols=export_val,import_val -o $PWD/data/baci/$i -s hs$3_id -r $3
     python $PWD/scripts/common/growth_calc.py $PWD/data/baci/$i/hs$3_yp.tsv.bz2 $PWD/data/baci/$PREV_YEAR_FIVE/hs$3_yp.tsv.bz2 --years=5 --cols=export_val,import_val -o $PWD/data/baci/$i -s hs$3_id -r $3
   fi
-  
+
   echo "Importing..."
   python scripts/common/db_importer.py --dir=$PWD/data/baci/$i/ --attr_type=hs --revision=$3
 done
