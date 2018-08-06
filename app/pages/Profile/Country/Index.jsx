@@ -19,6 +19,21 @@ import "pages/Profile/Profile.css";
 class Country extends Component {
 
   componentDidMount() {
+    mondrianClient
+      .cube("hs92_yearly_data")
+      .then(cube => {
+        const qry = cube.query
+          .drilldown("Product", "HS92", "HS4")
+          .measure("Exports")
+          .measure("Imports")
+          // .measure("cpy RCA")
+          .cut("[Origin Country].[Countries].[Country].&[sachl]")
+          // .cut("[year].[year].[year].&[2016]");
+        return Promise.all([mondrianClient.query(qry, "jsonrecords"), Promise.resolve(qry.path("csv"))]);
+      })
+      .then(([apiData]) => {
+        console.log(apiData.data.data);
+      });
   }
 
   render() {
