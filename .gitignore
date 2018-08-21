@@ -1,39 +1,21 @@
-# Logs
-logs
-*.log
 npm-debug.log*
-
-# Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
-
-# Compiled App
-compiled
-public
-
-# Dependency directory
-node_modules
-
-# Optional npm cache directory
-.npm
-
-# Optional REPL history
-.node_repl_history
-
-# OSX .DS_STORE
-.DS_STORE
 .DS_Store
 
-# Don't add env vars to repo
+# node modules should never be synced with git
+node_modules
+
+# these static files will be generated on build
+/static/assets
+/packages/*/static/assets
+/static/reports
+packages/*/static/reports
+/index.js
+/packages/*/index.js
+
+# environment variable files for autoenv and direnv
 .env
 .envrc
 
-# production build
-/index.js
-
-# reports
-static/reports
-
-# generated assets
-static/assets
-
-*.pyc
+# docker files
+dockerfiles/nginx/certs/*
+dockerfiles/nginx/conf.d/default.conf

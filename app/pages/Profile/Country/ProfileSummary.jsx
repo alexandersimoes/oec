@@ -14,6 +14,8 @@ export default class ProfileSummary extends Component {
     const thisCountryIndex = tradeByCountry
       .sort((a, b) => b.Exports - a.Exports)
       .findIndex(c => c["ID Country"] === country.id);
+    // console.log(tradeByCountry, country, thisCountryIndex);
+    // return "test";
     return `${country.comtrade_name} is the ${thisCountryIndex + 1}th largest export economy in the world. `;
   }
 
@@ -23,6 +25,7 @@ export default class ProfileSummary extends Component {
   // An example would be:
   //  "In 2016, Pakistan exported $20.5B and imported $45.9B, resulting in a negative trade balance of $25.5B."
   p1s2 = (country, tradeByCountry) => {
+    // "test2"
     const thisCountry = tradeByCountry.find(c => c["ID Country"] === country.id);
     const tradeDiff = thisCountry.Exports - thisCountry.Imports;
     const positiveOrNegative = tradeDiff >= 0 ? "positive" : "negative";
@@ -31,15 +34,14 @@ export default class ProfileSummary extends Component {
       and imported $${abbreviate(thisCountry.Imports)}, resulting in a ${positiveOrNegative}
       trade balance of $${abbreviate(Math.abs(tradeDiff))}. `;
   }
+  
 
   // ¶ 1 Sentence 3
   // This takes the form of:
   //  "In 2016, the GDP of <country> was <gdp> and its GDP per capita was <gdp_per_capita>."
   // An example would be:
   //  "In 2016 the GDP of Pakistan was $283B and its GDP per capita was $5.25k."
-  p1s3 = country => {
-    return `In 2016 the GDP of ${country.comtrade_name} was $XXX and its GDP per capita was $XXX.`;
-  }
+  p1s3 = country => `In 2016 the GDP of ${country.comtrade_name} was $XXX and its GDP per capita was $XXX.`
 
   //
   // ¶ 3 Sentence 1

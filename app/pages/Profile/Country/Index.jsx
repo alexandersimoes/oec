@@ -19,21 +19,21 @@ import "pages/Profile/Profile.css";
 class Country extends Component {
 
   componentDidMount() {
-    mondrianClient
-      .cube("hs92_yearly_data")
-      .then(cube => {
-        const qry = cube.query
-          .drilldown("Product", "HS92", "HS4")
-          .measure("Exports")
-          .measure("Imports")
-          // .measure("cpy RCA")
-          .cut("[Origin Country].[Countries].[Country].&[sachl]")
-          // .cut("[year].[year].[year].&[2016]");
-        return Promise.all([mondrianClient.query(qry, "jsonrecords"), Promise.resolve(qry.path("csv"))]);
-      })
-      .then(([apiData]) => {
-        console.log(apiData.data.data);
-      });
+    // mondrianClient
+    //   .cube("hs92_yearly_data")
+    //   .then(cube => {
+    //     const qry = cube.query
+    //       .drilldown("Product", "HS92", "HS4")
+    //       .measure("Exports")
+    //       .measure("Imports")
+    //       // .measure("cpy RCA")
+    //       .cut("[Origin Country].[Countries].[Country].&[chl]");
+    //     // .cut("[year].[year].[year].&[2016]");
+    //     return Promise.all([mondrianClient.query(qry, "jsonrecords"), Promise.resolve(qry.path("csv"))]);
+    //   })
+    //   .then(([apiData]) => {
+    //     console.log(apiData.data.data);
+    //   });
   }
 
   render() {
@@ -53,6 +53,8 @@ class Country extends Component {
     const tradeByOrigin = countryProfile.find(d => d ? d.key === "tradeByOrigin" : null).data;
     const tradeByProduct = countryProfile.find(d => d ? d.key === "tradeByProduct" : null).data;
 
+    // return <div>"test"</div>;
+
     return (
       <div id="content">
 
@@ -71,7 +73,6 @@ class Country extends Component {
           </section>
         </article>
 
-        {/* simple visualizations sections */}
         <article className="viz-article">
           <SectionExports tradeByProduct={tradeByProduct} />
           <SectionImports tradeByProduct={tradeByProduct} />
@@ -80,18 +81,27 @@ class Country extends Component {
           <SectionOrigins tradeByOrigin={tradeByOrigin} />
         </article>
 
+        {/* simple visualizations sections */}
+        {/* <article className="viz-article">
+          <SectionExports tradeByProduct={tradeByProduct} />
+          <SectionImports tradeByProduct={tradeByProduct} />
+          <SectionTradeBalance />
+          <SectionDestinations tradeByDestination={tradeByDestination} />
+          <SectionOrigins tradeByOrigin={tradeByOrigin} />
+        </article> */}
+
         {/* economic complexity sections (product space etc...) */}
-        <article className="viz-article">
+        {/* <article className="viz-article">
           <h1>Economic Complexity of Pakistan</h1>
           <SectionProductSpace />
           <SectionPgiSpace />
           <SectionEciRanking />
-        </article>
+        </article> */}
 
         {/* links to other sites */}
 
         {/* links to the previous and next country */}
-        <ProfileFooter />
+        {/* <ProfileFooter /> */}
 
       </div>
     );
@@ -102,10 +112,12 @@ class Country extends Component {
 Country.need = [
   params => {
     const {id} = params;
-    console.log("Country Need ID!", id);
+    const country = countries.find(c => c.id === id);
+    console.log("Country Need ID!", id, country);
+    // const id = "asind";
 
     const prmTradeByCountry = mondrianClient
-      .cube("2015_2016_hs_rev2007_yearly_data")
+      .cube("hs92_yearly_data")
       .then(cube => {
         const qry = cube.query
           .drilldown("Origin Country", "Countries", "Country")
@@ -120,7 +132,7 @@ Country.need = [
       }));
 
     const prmTradeByDestination = mondrianClient
-      .cube("2015_2016_hs_rev2007_yearly_data")
+      .cube("hs92_yearly_data")
       .then(cube => {
         const qry = cube.query
           .drilldown("Destination Country", "Countries", "Country")
@@ -136,7 +148,7 @@ Country.need = [
       }));
 
     const prmTradeByOrigin = mondrianClient
-      .cube("2015_2016_hs_rev2007_yearly_data")
+      .cube("hs92_yearly_data")
       .then(cube => {
         const qry = cube.query
           .drilldown("Origin Country", "Countries", "Country")
@@ -152,10 +164,10 @@ Country.need = [
       }));
 
     const prmTradeByProduct = mondrianClient
-      .cube("2015_2016_hs_rev2007_yearly_data")
+      .cube("hs92_yearly_data")
       .then(cube => {
         const qry = cube.query
-          .drilldown("Product", "HS07", "HS4")
+          .drilldown("Product", "HS92", "HS4")
           .option("parents", true)
           .measure("Exports")
           .measure("Imports")
