@@ -89,8 +89,9 @@ class Country(Profile):
         self.get_latest_year()
 
     def get_latest_year(self):
-        latest_yo = self.models.Yo.query.filter_by(country = self.attr).order_by(desc("year")).first()
-        self.year = int(latest_yo.year)
+        # latest_yo = self.models.Yo.query.filter_by(country = self.attr).order_by(desc("year")).first()
+        # self.year = int(latest_yo.year)
+        self.year = available_years["hs92"][-1]
 
     def twitter_url(self):
         link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
@@ -276,7 +277,6 @@ class Country(Profile):
             }
 
         else:
-
             export_subtitle, import_subtitle, dest_subtitle, origin_subtitle = [None]*4
 
             export_tmap = Build("tree_map", "hs92", "export", self.attr, "all", "show", self.year)
@@ -296,7 +296,7 @@ class Country(Profile):
                     export_subtitle += _(u"In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world.",
                                         year=self.year, country=self.attr.get_name(article=True), export_val=num_format(exp_val_stat["val"]), export_rank=exp_rank)
                     export_subtitle += u" "
-                if past_yo:
+                if past_yo and this_yo.export_val_growth_pct_5:
                     chg = "increased" if this_yo.export_val_growth_pct_5 >= 0 else "decreased"
                     export_subtitle += _(u"During the last five years the exports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s.",
                                             of_country=self.attr.get_name(article="of"), increased_decreased=chg, change_rate=num_format(this_yo.export_val_growth_pct_5*100), \
@@ -317,7 +317,7 @@ class Country(Profile):
                     import_subtitle += _(u"In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world.",
                                         year=self.year, country=self.attr.get_name(article=True), import_val=num_format(imp_val_stat["val"]), import_rank=imp_rank)
                     import_subtitle += u" "
-                if past_yo:
+                if past_yo and this_yo.import_val_growth_pct_5:
                     chg = "increased" if this_yo.import_val_growth_pct_5 >= 0 else "decreased"
                     import_subtitle += _(u"During the last five years the imports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s.",
                                             of_country=self.attr.get_name(article="of"), increased_decreased=chg, change_rate=num_format(this_yo.import_val_growth_pct_5*100), \
