@@ -271,6 +271,22 @@ body.publications {
             }
           }
         }
+
+        .links {
+          margin: 10px 0 0 0 !important;
+          a {
+            padding: 0 10px 0 0;
+            &:hover {
+              border: 0;
+              opacity: 0.8;
+              img {
+              }
+            }
+          }
+          img {
+            width: 30px;
+          }
+        }
       }
 
       h3 {

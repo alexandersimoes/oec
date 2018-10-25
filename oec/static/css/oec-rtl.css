@@ -4004,6 +4004,15 @@
                 body.publications article.papers section content div:last-child {
                   width: 100%;   }
 }
+            body.publications article.papers section .links {
+              margin: 10px 0 0 0 !important; }
+              body.publications article.papers section .links a {
+                padding: 0 10px 0 0; }
+                body.publications article.papers section .links a:hover {
+                  border: 0;
+                  opacity: 0.8; }
+              body.publications article.papers section .links img {
+                width: 30px; }
           body.publications article.papers h3 {
             font-size: 28px;
             line-height: 1.2;
