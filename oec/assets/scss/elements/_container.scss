@@ -129,24 +129,6 @@
         text-align: center;
         // display: flex;
 
-        &:before,
-        &:after {
-          background: #ddd;
-          content: "";
-          display: block;
-          height: 1px;
-          position: absolute;
-            top: 50%;
-          width: 400%;
-        }
-
-        &:before {
-          right: 100%;
-        }
-        &:after {
-          left: 100%;
-        }
-
         a#mc {
           display: inline-block;
           padding: 0 25px;

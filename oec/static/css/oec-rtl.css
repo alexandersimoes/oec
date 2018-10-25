@@ -1262,25 +1262,12 @@
       #container footer .top-footer .top-footer-links {
         overflow: hidden;
         text-align: center; }
-        #container footer .top-footer .top-footer-links:before,
-        #container footer .top-footer .top-footer-links:after {
-          background: #ddd;
-          content: "";
-          display: block;
-          height: 1px;
-          position: absolute;
-          top: 50%;
-          width: 400%; }
-          #container footer .top-footer .top-footer-links:before {
-            right: 100%; }
-            #container footer .top-footer .top-footer-links:after {
-              left: 100%; }
-              #container footer .top-footer .top-footer-links a#mc {
-                display: inline-block;
-                padding: 0 25px;
-                position: relative; }
-                #container footer .top-footer .top-footer-links a#mc img {
-                  width: 100px; }
+        #container footer .top-footer .top-footer-links a#mc {
+          display: inline-block;
+          padding: 0 25px;
+          position: relative; }
+          #container footer .top-footer .top-footer-links a#mc img {
+            width: 100px; }
         #container footer .top-footer .top-footer-links a#donate {
           background-color: #63737f;
           border: 0;
