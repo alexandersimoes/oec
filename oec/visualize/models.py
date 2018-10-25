@@ -366,7 +366,7 @@ class Build(object):
         if self.viz["slug"] == "line" and self.trade_flow == "eci":
             return "/attr/eci/"
 
-        if self.viz["slug"] == "stacked" or self.viz["slug"] == "network":
+        if self.viz["slug"] in ("stacked", "network", "line"):
             output_depth = 6
         elif self.viz["slug"] == "rings":
             output_depth = len(self.prod.id)
@@ -381,6 +381,8 @@ class Build(object):
 
         if self.viz["slug"] == "rings" or (isinstance(prod, (Sitc, Hs92, Hs96, Hs02, Hs07)) and dest == "all" and isinstance(origin, Country)):
             prod = "show"
+            xtra_args = "?output_depth={}_id_len.{}".format(self.classification, output_depth)
+        elif self.viz["slug"] in ("stacked", "line") and origin == "all" and prod == "show":
             xtra_args = "?output_depth={}_id_len.{}".format(self.classification, output_depth)
         elif isinstance(prod, (Sitc, Hs92, Hs96, Hs02, Hs07)):
             xtra_args = "?output_depth={}_id_len.{}".format(self.classification, len(prod.id))
