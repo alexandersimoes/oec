@@ -140,7 +140,8 @@ class Country(Profile):
                 if val:
                     my_stat = {"key":s, "title":s_title, \
                                 "val":val, "sparkline":{
-                                    "start": start_year, "end": available_years["sitc"][-1], \
+                                    "start": start_year, \
+                                    "end": available_years["country"][-1], \
                                     "val": sparkline
                                 }
                               }
