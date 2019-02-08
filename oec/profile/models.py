@@ -148,7 +148,7 @@ class Country(Profile):
                     if self.attr.id != "xxwld":
                         res = yo_base_q.order_by(desc(s)).all()
                         my_stat["rank"] = res.index(this_yo)+1
-                        my_stat["total"] = len(res)
+                        my_stat["total"] = 126 if s == "eci" else len(res)
 
                     self.cached_stats.append(my_stat)
         return self.cached_stats
