@@ -252,7 +252,7 @@ class Country(Profile):
             export_subtitle += u" "
 
             past_yr = self.year - 5
-            past_yo = self.models.Yo.query.filter_by(year = past_yr).all()
+            past_yo = self.models.Yo.query.filter_by(year = past_yr).filter(self.models.Yo.export_val.isnot(None)).all()
             growth_val = median([o.export_val_growth_pct_5 for o in this_yo])
             chg = "increased" if growth_val >= 0 else "decreased"
             export_subtitle += _(u"During the last five years exports have %(increased_decreased)s at a median annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s.",
