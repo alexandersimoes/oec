@@ -42,21 +42,21 @@ class Profile(object):
             return []
 
     def facebook_url(self):
-        link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
+        link = u"https://oec.world{}".format(self.attr.get_profile_url())
         title = u"{} {}".format(self.attr.get_name(), _('Profile'))
         return u"http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
                 "display=popup&app_id={}&name={}&link={}&" \
-                "redirect_uri=http://atlas.media.mit.edu/close/&" \
-                "picture=http://atlas.media.mit.edu/static/img/facebook.jpg" \
+                "redirect_uri=https://oec.world/close/&" \
+                "picture=https://oec.world/static/img/facebook.jpg" \
                 .format(FACEBOOK_ID, title, link)
     def twitter_url(self):
-        link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
+        link = u"https://oec.world{}".format(self.attr.get_profile_url())
         lang_txt = u"&lang={}".format(g.locale) if g.locale != "en" else ""
         title = u"{} {}".format(self.attr.get_name(), _('Profile'))
         return u"https://twitter.com/share?url={}{}&text={}&hashtags=oec" \
                 .format(link, lang_txt, title)
     def google_url(self):
-        link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
+        link = u"https://oec.world{}".format(self.attr.get_profile_url())
         return u"https://plus.google.com/share?url={}&hl={}".format(link, g.locale)
 
 
@@ -94,7 +94,7 @@ class Country(Profile):
         self.year = available_years["hs92"][-1]
 
     def twitter_url(self):
-        link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
+        link = u"https://oec.world{}".format(self.attr.get_profile_url())
         lang_txt = u"&lang={}".format(g.locale) if g.locale != "en" else ""
         title = u"{} {}".format(self.attr.get_name(), _('Profile'))
         return u"https://twitter.com/share?url={}{}&text={}&hashtags=oec,{}" \
