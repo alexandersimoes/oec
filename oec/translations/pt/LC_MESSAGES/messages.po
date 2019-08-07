@@ -116,16 +116,16 @@ msgid "The Observatory of Economic Complexity"
 msgstr "O Observatório da Complexidade Econômica"
 
 msgid "We are the world's leading visualization engine for international trade data."
-msgstr "Motor de visualização principal do mundo para dados do comércio internacional."
+msgstr "Nós somos a maior plataforma de visualização de dados de comércio exterior."
 
 msgid "Learn More"
-msgstr "Ajuda"
+msgstr "Saiba mais"
 
 msgid "Watch a video"
-msgstr "Veja o vídeo"
+msgstr "Assista ao vídeo"
 
 msgid "Search"
-msgstr "Pesquisar"
+msgstr "Busca"
 
 msgid "Application programming interface (API) for querying the raw data used throughout The Observatory of Economic Complexity."
 msgstr "Interface de programação de aplicativo (API) para consultar os dados brutos utilizados ao longo do Observatório da Complexidade Econômica."
@@ -137,24 +137,27 @@ msgid "Photo by"
 msgstr "Foto tirada por"
 
 msgid "Countries"
-msgstr "País"
+msgstr "Países"
 
 msgid "Products"
-msgstr "Produto"
+msgstr "Produtos"
 
 msgid "Visualizations"
-msgstr "Construa Visualization"
+msgstr "Visualizações"
 
 msgid "Rankings"
 msgstr "Rankings"
 
 msgid "Publications"
-msgstr "Classificação"
+msgstr "Publicações"
 
 msgid "Resources"
 msgstr "Recursos"
 
 msgid "About the Site"
+msgstr "Sobre"
+
+msgid "About"
 msgstr "Sobre"
 
 msgid "Economic Complexity"
