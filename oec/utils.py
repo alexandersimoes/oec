@@ -300,7 +300,8 @@ def num_format(number, key=None, labels=True, suffix_html=False):
     # If the language is not English, translate the suffix.
     if suffix:
         if g.locale != "en":
-            suffix = u"{0}".format(plurals(key=suffix, n=raw_n))
+            suffix = u"{0}".format(plurals(key=suffix, n=1))
+            # suffix = u"{0}".format(plurals(key=suffix, n=raw_n))
             # suffix = u"{0}".format(suffix)
         if len(suffix) > 1:
             n = u"{0} <span class='suffix'>{1}</span>".format(n,suffix)

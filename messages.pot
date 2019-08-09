@@ -85,6 +85,21 @@ msgstr ""
 msgid "article_of_f"
 msgstr ""
 
+msgid "article_in"
+msgstr ""
+
+msgid "article_in_m_p"
+msgstr ""
+
+msgid "article_in_m"
+msgstr ""
+
+msgid "article_in_f_p"
+msgstr ""
+
+msgid "article_in_f"
+msgstr ""
+
 msgid "verb_is_p"
 msgstr ""
 
@@ -172,7 +187,23 @@ msgstr ""
 msgid "Importers"
 msgstr ""
 
+msgid "of"
+msgstr ""
+
+#, python-format
+msgid "Looking for commercial partners %(in_country)s? List your company on"
+msgstr ""
+
+msgid "Importer"
+msgstr ""
+
+msgid "Exporter"
+msgstr ""
+
 msgid "Explore on Visualizations page"
+msgstr ""
+
+msgid "Data Sources"
 msgstr ""
 
 msgid "Economic Complexity Ranking of Countries"
@@ -182,7 +213,7 @@ msgstr ""
 msgid "Economic Complexity Ranking of %(classification)s Products"
 msgstr ""
 
-msgid "Economic Complexity ranking of countries based on their ECI and ECI+ values."
+msgid "Economic Complexity ranking of countries based on their ECI values."
 msgstr ""
 
 msgid "Economic Complexity ranking of products based on their PCI values."
@@ -206,7 +237,7 @@ msgstr ""
 msgid "ECI+ and PCI+ are improved measures of economic complexity (see %(paper_link)s) that consider the total exports of a country adjusted by how difficult it is to export each product. ECI+ is slightly more accurate than ECI at predicting future economic growth, and also, is mathematically simpler to define."
 msgstr ""
 
-msgid "This page includes rankings using the Economic Complexity Index  (ECI) and its improved version (ECI+)."
+msgid "This page includes rankings using the Economic Complexity Index  (ECI)."
 msgstr ""
 
 msgid "Download"
@@ -240,9 +271,6 @@ msgid "Current Team"
 msgstr ""
 
 msgid "Past Contributors"
-msgstr ""
-
-msgid "Data Sources"
 msgstr ""
 
 msgid "HS, SITC, and Country classification with their corresponding IDs and values."
@@ -362,6 +390,12 @@ msgstr ""
 msgid "%(country)s borders %(land_borders)s by land and %(maritime_borders)s by sea."
 msgstr ""
 
+msgid "increased"
+msgstr ""
+
+msgid "decreased"
+msgstr ""
+
 #, python-format
 msgid "During the last five years exports have %(increased_decreased)s at a median annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s."
 msgstr ""
@@ -470,12 +504,6 @@ msgstr ""
 msgid "Economic Complexity Ranking"
 msgstr ""
 
-msgid "increased"
-msgstr ""
-
-msgid "decreased"
-msgstr ""
-
 #, python-format
 msgid "The Economic Complexity ranking %(of_country)s has %(increased_or_decreased)s by %(rank_delta)s places over the past %(year_range)s years from %(old_eci)s in %(old_year)s to %(current_eci)s in %(current_year)s."
 msgstr ""
@@ -522,7 +550,7 @@ msgid "%(product)s a %(product_id_length)s digit %(classification)s product."
 msgstr ""
 
 #, python-format
-msgid "%(product_name)s Trade."
+msgid "%(product_name)s Trade"
 msgstr ""
 
 #, python-format

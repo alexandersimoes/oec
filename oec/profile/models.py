@@ -254,7 +254,7 @@ class Country(Profile):
             past_yr = self.year - 5
             past_yo = self.models.Yo.query.filter_by(year = past_yr).filter(self.models.Yo.export_val.isnot(None)).all()
             growth_val = median([o.export_val_growth_pct_5 for o in this_yo])
-            chg = "increased" if growth_val >= 0 else "decreased"
+            chg = _("increased") if growth_val >= 0 else _("decreased")
             export_subtitle += _(u"During the last five years exports have %(increased_decreased)s at a median annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s.",
                                     increased_decreased=chg, change_rate=num_format(growth_val*100), \
                                     past_export_val=num_format(sum([o.export_val for o in past_yo])), past_year=past_yr, current_export_val=num_format(export_val), current_year=self.year)
@@ -298,7 +298,7 @@ class Country(Profile):
                                         year=self.year, country=self.attr.get_name(article=True), export_val=num_format(exp_val_stat["val"]), export_rank=exp_rank)
                     export_subtitle += u" "
                 if past_yo and this_yo.export_val_growth_pct_5:
-                    chg = "increased" if this_yo.export_val_growth_pct_5 >= 0 else "decreased"
+                    chg = _("increased") if this_yo.export_val_growth_pct_5 >= 0 else _("decreased")
                     export_subtitle += _(u"During the last five years the exports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s.",
                                             of_country=self.attr.get_name(article="of"), increased_decreased=chg, change_rate=num_format(this_yo.export_val_growth_pct_5*100), \
                                             past_export_val=num_format(past_yo.export_val), past_year=past_yr, current_export_val=num_format(this_yo.export_val), current_year=self.year)
@@ -319,7 +319,7 @@ class Country(Profile):
                                         year=self.year, country=self.attr.get_name(article=True), import_val=num_format(imp_val_stat["val"]), import_rank=imp_rank)
                     import_subtitle += u" "
                 if past_yo and this_yo.import_val_growth_pct_5:
-                    chg = "increased" if this_yo.import_val_growth_pct_5 >= 0 else "decreased"
+                    chg = _("increased") if this_yo.import_val_growth_pct_5 >= 0 else _("decreased")
                     import_subtitle += _(u"During the last five years the imports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s.",
                                             of_country=self.attr.get_name(article="of"), increased_decreased=chg, change_rate=num_format(this_yo.import_val_growth_pct_5*100), \
                                             past_import_val=num_format(past_yo.import_val), past_year=past_yr, current_import_val=num_format(this_yo.import_val), current_year=self.year)
