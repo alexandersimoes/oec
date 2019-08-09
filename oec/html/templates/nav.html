@@ -430,6 +430,9 @@
   function filterData(a, q) {
     if (q.length) {
       return attrs[a].filter(function(d){
+        if(!d.name) {
+          return false;
+        }
         return d.name.toLowerCase().indexOf(q) >= 0 ||
                d.id.indexOf(q) === 0 ||
                (d.display_id && d.display_id.indexOf(q) === 0) ||
