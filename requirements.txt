@@ -1,5 +1,5 @@
 # Specific Jinja2 template version
-Jinja2==2.9.6
+Jinja2==2.10.1
 
 # Flask framework
 Flask==0.12.2
