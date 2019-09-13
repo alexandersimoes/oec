@@ -2025,6 +2025,19 @@
         body.profile article.intro-article aside {
           margin-top: 30px !important;   }
 }
+    body.profile article.intro-article div.country-banner {
+      padding: 0 0 10px 0;
+      text-align: center; }
+      body.profile article.intro-article div.country-banner img {
+        max-width: 100%;
+        height: auto; }
+        body.profile article.intro-article div.country-banner h3 {
+          font-size: 18px !important;
+          padding: 10px 0;
+          text-align: center; }
+          body.profile article.intro-article div.country-banner h3 a {
+            background-color: #dbb706;
+            color: black; }
     body.profile article.intro-article div.columns p {
       text-align: justify ; }
       @media all and (max-width: 768px) {

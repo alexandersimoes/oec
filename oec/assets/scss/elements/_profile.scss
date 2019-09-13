@@ -730,6 +730,24 @@ body.profile {
 
     }
 
+    div.country-banner {
+      padding: 0 0 10px 0;
+      text-align: center;
+      img {
+        max-width:100%;
+        height:auto;
+      }
+      h3 {
+        font-size: 18px !important;
+        padding: 10px 0;
+        text-align: center;
+        a {
+          background-color: #dbb706;
+          color: black;
+        }
+      }
+    }
+
     div.columns p {
       @include text-align(justify);
 

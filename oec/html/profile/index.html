@@ -132,6 +132,14 @@
   </aside>
 
   <content>
+    {% if profile.attr.get_display_id() == "est" %}
+    <div class="country-banner">
+      <a href="https://data.stat.ee/profile/country/ee/?locale=en">
+        <img src="https://www.stat.ee/public/banners/fookus/valiskaubandus_eng.gif" alt="Learn more about Estonia Trade Data" />
+      </a>
+      <h3>Want to learn more about Estonian trade data? <a target="_blank" href="https://data.stat.ee/profile/country/ee/?locale=en">Click here <i class="fa fa-external-link"></i></a>.</h3>
+    </div>
+    {% endif %}
     <div class="columns">
       <div class="macromarket">
       {% if g.page_sub_type == "country" %}
