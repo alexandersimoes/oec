@@ -470,10 +470,10 @@ class Country(Profile):
 
         ''' Pantheon
         '''
-        pantheon_id = "all" if self.attr.id == "xxwld" else self.attr.id_2char
+        pantheon_id = "all" if self.attr.id == "xxwld" else self.attr.id_3char
         if pantheon_id:
             if self.attr.id != "xxwld":
-                pantheon_id = pantheon_id.upper()
+                pantheon_id = pantheon_id.lower()
 
             pantheon_section = make_pantheon_section(pantheon_id, self.attr)
             sections.append(pantheon_section)
