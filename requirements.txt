@@ -30,6 +30,9 @@ Flask-Assets==0.12
 # SCSS compiler
 Flask-Scss==0.5
 
+# requests for server-side data fetch
+requests==2.22.0
+
 # Cache helper scripts
 # selenium
 # click

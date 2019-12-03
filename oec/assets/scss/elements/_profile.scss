@@ -1191,6 +1191,15 @@ body.profile {
 
       section aside a {
         color: black;
+        border-bottom: 1px solid black;
+
+        &:hover {
+          border-bottom: none;
+        }
+      }
+
+      section aside a.viz_link {
+        color: black;
         text-transform: uppercase;
         letter-spacing: 0.1em;
 
