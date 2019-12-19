@@ -2062,6 +2062,12 @@
         body.profile article.intro-article .macromarket {
           display: block;   }
 }
+body.profile article.intro-article div.gads {
+  margin: 10px 0 0 0; }
+  @media all and (max-width: 768px) {
+    body.profile article.intro-article div.gads {
+      margin: 5px 0 0 0;   }
+}
     body.profile #topojson {
       -webkit-box-flex: none;
       -moz-box-flex: none;
