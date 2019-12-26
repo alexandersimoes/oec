@@ -201,8 +201,8 @@
   {% endif %}
   {% endif %}
   {% for build in section.builds %}
-  {% if loop.index == 3 %}
-  <section>
+  {% if loop.index == 3 or loop.last %}
+  <section class="gad-section">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <ins class="adsbygoogle"
       style="display:block"
