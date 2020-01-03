@@ -2361,7 +2361,8 @@ body.profile article.intro-article div.gads {
         body.profile article.pantheon content {
           overflow: hidden; }
           body.profile article.pantheon h1 img {
-            width: 370px;
+            max-width: 370px;
+            width: 100%;
             padding-bottom: 20px; }
             body.profile article.pantheon section aside a {
               color: black;

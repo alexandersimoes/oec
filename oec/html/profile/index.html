@@ -160,15 +160,13 @@
         <p>{{ p|safe }}</p>
       {% endfor %}
       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <ins class="adsbygoogle"
-            style="display:block; text-align:center;"
-            data-ad-layout="in-article"
-            data-ad-format="fluid"
-            data-ad-client="ca-pub-1706971377772539"
-            data-ad-slot="4115328429"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+      <ins class="adsbygoogle"
+        style="display:block; text-align:center;"
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
+        data-ad-client="ca-pub-1706971377772539"
+        data-ad-slot="4115328429">
+      </ins>
     </div>
   </content>
 </section>
@@ -203,16 +201,12 @@
   {% for build in section.builds %}
   {% if loop.index == 3 or loop.last %}
   <section class="gad-section">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <ins class="adsbygoogle"
       style="display:block"
       data-ad-format="fluid"
       data-ad-layout-key="-fb+5w+4e-db+86"
       data-ad-client="ca-pub-1706971377772539"
       data-ad-slot="1242549233"></ins>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
   </section>
   {% endif %}
   <section {% if build.tour %}data-position="floating" data-step="{{ build.seq }}" data-intro="{{ build.tour }}"{% endif %}>
@@ -315,6 +309,11 @@
   //   color = d3plus.color.legible("{{ profile.attr.color }}");
   // }
   // color = d3plus.color.legible("{{ profile.attr.color }}");
+  window.onload = function() {
+    d3.selectAll("ins").each(function() {
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    })
+  }
 
   d3.selectAll(".sparkline").each(function(){
     var w = d3.select(this).node().offsetWidth;

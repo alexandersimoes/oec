@@ -1189,7 +1189,8 @@ body.profile {
       }
 
       h1 img {
-        width: ($sidebar + 120);
+        max-width: ($sidebar + 120);
+        width: 100%;
         padding-bottom: 20px;
       }
 
