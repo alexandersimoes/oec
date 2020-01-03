@@ -200,14 +200,14 @@
   {% endif %}
   {% for build in section.builds %}
   {% if loop.index == 3 or loop.last %}
-  <section class="gad-section">
+  <div class="gad-section">
     <ins class="adsbygoogle"
       style="display:block"
       data-ad-format="fluid"
       data-ad-layout-key="-fb+5w+4e-db+86"
       data-ad-client="ca-pub-1706971377772539"
       data-ad-slot="1242549233"></ins>
-  </section>
+  </div>
   {% endif %}
   <section {% if build.tour %}data-position="floating" data-step="{{ build.seq }}" data-intro="{{ build.tour }}"{% endif %}>
     <aside>
