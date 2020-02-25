@@ -159,14 +159,6 @@
       {% for p in profile.intro() %}
         <p>{{ p|safe }}</p>
       {% endfor %}
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-      <ins class="adsbygoogle"
-        style="display:block; text-align:center;"
-        data-ad-layout="in-article"
-        data-ad-format="fluid"
-        data-ad-client="ca-pub-1706971377772539"
-        data-ad-slot="4115328429">
-      </ins>
     </div>
   </content>
 </section>
@@ -199,16 +191,6 @@
   {% endif %}
   {% endif %}
   {% for build in section.builds %}
-  {% if loop.index == 3 or loop.last %}
-  <div class="gad-section">
-    <ins class="adsbygoogle"
-      style="display:block"
-      data-ad-format="fluid"
-      data-ad-layout-key="-fb+5w+4e-db+86"
-      data-ad-client="ca-pub-1706971377772539"
-      data-ad-slot="1242549233"></ins>
-  </div>
-  {% endif %}
   <section {% if build.tour %}data-position="floating" data-step="{{ build.seq }}" data-intro="{{ build.tour }}"{% endif %}>
     <aside>
       <a name="{% if section.source %}{{ section.source }}{% else %}{{ build.title|replace(" ","_") }}{% endif %}" class="anchor"></a>
