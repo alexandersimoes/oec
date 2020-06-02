@@ -29,10 +29,10 @@ class ProdAttr(db.Model, AutoSerialize):
         name = self.name.filter_by(lang=lang).first()
         if name:
             if lang == "en" and name.article and article:
-                return "The {}".format(name.name)
+                return u"The {}".format(name.name)
             if lang == "en" and verb:
                 verb = "are" if name.plural else "is"
-                return "{} {}".format(name.name, verb)
+                return u"{} {}".format(name.name, verb)
             return name.name
         return ""
 

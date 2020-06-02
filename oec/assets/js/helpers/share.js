@@ -24,7 +24,7 @@ function share(build){
       })
 
     // set embed link
-    d3.select(".modal-body input.embed_code").property("value", '<iframe width="560" height="315" src="http://atlas.media.mit.edu/'+lang+'/visualize/embed/'+build.url+'?controls=false" frameborder="0" ></iframe>')
+    d3.select(".modal-body input.embed_code").property("value", '<iframe width="560" height="315" src="https://oec.world/'+lang+'/visualize/embed/'+build.url+'?controls=false" frameborder="0" ></iframe>')
 
     // set social media link URLs
     d3.selectAll(".modal-body a#Facebook").attr("href", build.social.facebook)

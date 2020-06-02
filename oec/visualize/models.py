@@ -288,19 +288,19 @@ class Build(object):
         )
 
     def facebook_url(self):
-        link = u"http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
+        link = u"https://oec.world/{}/visualize/{}".format(g.locale, self.url())
         return u"http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
                 "display=popup&app_id={}&name={}&link={}&" \
-                "redirect_uri=http://atlas.media.mit.edu/close/&" \
-                "picture=http://atlas.media.mit.edu/static/img/facebook.jpg" \
+                "redirect_uri=https://oec.world/close/&" \
+                "picture=https://oec.world/static/img/facebook.jpg" \
                 .format(FACEBOOK_ID, self.title(), link)
     def twitter_url(self):
-        link = u"http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
+        link = u"https://oec.world/{}/visualize/{}".format(g.locale, self.url())
         lang_txt = u"&lang={}".format(g.locale) if g.locale != "en" else ""
         return u"https://twitter.com/share?url={}{}&text={}&hashtags=oec" \
                 .format(link, lang_txt, self.title())
     def google_url(self):
-        link = u"http://atlas.media.mit.edu/{}/visualize/{}".format(g.locale, self.url())
+        link = u"https://oec.world/{}/visualize/{}".format(g.locale, self.url())
         return u"https://plus.google.com/share?url={}&hl={}" \
                 .format(link, g.locale)
 
@@ -366,7 +366,7 @@ class Build(object):
         if self.viz["slug"] == "line" and self.trade_flow == "eci":
             return "/attr/eci/"
 
-        if self.viz["slug"] == "stacked" or self.viz["slug"] == "network":
+        if self.viz["slug"] in ("stacked", "network", "line"):
             output_depth = 6
         elif self.viz["slug"] == "rings":
             output_depth = len(self.prod.id)
@@ -381,6 +381,8 @@ class Build(object):
 
         if self.viz["slug"] == "rings" or (isinstance(prod, (Sitc, Hs92, Hs96, Hs02, Hs07)) and dest == "all" and isinstance(origin, Country)):
             prod = "show"
+            xtra_args = "?output_depth={}_id_len.{}".format(self.classification, output_depth)
+        elif self.viz["slug"] in ("stacked", "line") and origin == "all" and prod == "show":
             xtra_args = "?output_depth={}_id_len.{}".format(self.classification, output_depth)
         elif isinstance(prod, (Sitc, Hs92, Hs96, Hs02, Hs07)):
             xtra_args = "?output_depth={}_id_len.{}".format(self.classification, len(prod.id))

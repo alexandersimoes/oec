@@ -118,7 +118,13 @@ class Country(db.Model, AutoSerialize):
                         article = _("article_of_m_p") if plural else _("article_of_m")
                     elif gender == "f":
                         article = _("article_of_f_p") if plural else _("article_of_f")
-
+                if article == "in":
+                    if not needed:
+                        article = _("article_in")
+                    elif gender == "m":
+                        article = _("article_in_m_p") if plural else _("article_in_m")
+                    elif gender == "f":
+                        article = _("article_in_f_p") if plural else _("article_in_f")
                 if article:
                     if lang == "fr":
                         if article.lower()[-1] in vowels and name.name.lower()[0] in vowels:

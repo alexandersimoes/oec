@@ -24,7 +24,7 @@ def about():
             "name": u"Alexander Simoes",
             "slug": u"alexander_simoes",
             "time": u"2010 – Present",
-            "text": u"Alex is the lead developer on the Observatory project. He has been working in the Macro Connections group developing technologies to better inform policy and decision makers by equipping them with tools to make sense of large datasets.",
+            "text": u"Alex is the lead developer on the Observatory project. He has been working in the Macro Connections group developing technologies to better inform policy and decision makers by equipping them with tools to make sense of large datasets. He is a co-founder of the MIT spin-off <a href='http://www.datawheel.us/'>Datawheel</a>, a company specializing in building digital transformation tools at a large scale.",
             "links": {
                 "github-alt": "https://github.com/alexandersimoes",
                 "twitter": "https://twitter.com/ximoes",
@@ -51,11 +51,14 @@ def about():
                 "twitter": "https://twitter.com/cesifoti",
                 "linkedin-square": "http://www.linkedin.com/pub/cesar-a-hidalgo/5/30a/a61"
             }
-        },
+        }
+    ]
+
+    past = [
         {
             "name": u"Melissa Teng",
             "slug": u"melissa_teng",
-            "time": u"2015 – Present",
+            "time": u"2015 – 2017",
             "text": u"Melissa led the 2015 redesign of the website, focusing on a humanist approach to data. She built on the site's visual identity and user experience, as well as supported some front-end development.",
             "links": {
                 "github-alt": "https://github.com/melteng",
@@ -63,19 +66,6 @@ def about():
                 "linkedin-square": "http://www.linkedin.com/in/mqteng/"
             }
         },
-        {
-            "name": u"Mauricio \"Pachá\" Vargas",
-            "slug": u"mauricio_vargas",
-            "time": u"2015 – Present",
-            "text": u"Pachá is in charge of the data pipeline since 2015, focusing on reproducibility and documenting our project. Besides data curation he created an R packages to ease data extraction from the OEC.",
-            "links": {
-                "github-alt": "https://github.com/pachamaltese",
-                "twitter": "https://twitter.com/pachamaltese"
-            }
-        }
-    ]
-
-    past = [
         {
             "name": u"Eric Franco",
             "slug": u"eric_franco",

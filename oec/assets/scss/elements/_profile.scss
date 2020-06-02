@@ -730,6 +730,24 @@ body.profile {
 
     }
 
+    div.country-banner {
+      padding: 0 0 10px 0;
+      text-align: center;
+      img {
+        max-width:100%;
+        height:auto;
+      }
+      h3 {
+        font-size: 18px !important;
+        padding: 10px 0;
+        text-align: center;
+        a {
+          background-color: #dbb706;
+          color: black;
+        }
+      }
+    }
+
     div.columns p {
       @include text-align(justify);
 
@@ -744,6 +762,10 @@ body.profile {
       @media all and (max-width: 768px) {
         display: block;
       }
+    }
+
+    div.gads {
+      margin: 10px 0 0 0;
     }
 
   }
@@ -1155,7 +1177,7 @@ body.profile {
     }
 
     &.pantheon {
-      background-color: #F9F6E3;
+      background-color: #F4F4F1;
       color: $black;
 
       p {
@@ -1167,11 +1189,21 @@ body.profile {
       }
 
       h1 img {
-        width: ($sidebar + 120);
+        max-width: ($sidebar + 120);
+        width: 100%;
         padding-bottom: 20px;
       }
 
       section aside a {
+        color: black;
+        border-bottom: 1px solid black;
+
+        &:hover {
+          border-bottom: none;
+        }
+      }
+
+      section aside a.viz_link {
         color: black;
         text-transform: uppercase;
         letter-spacing: 0.1em;

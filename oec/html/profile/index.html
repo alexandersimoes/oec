@@ -43,7 +43,7 @@
         <sub>
           {{ stat.title }}
           {% if stat.rank %}
-          <span class="rank">{{ stat.rank|num_format('ordinal') }} of {{ stat.total }}</span>
+          <span class="rank">{{ stat.rank|num_format('ordinal') }} {{ _("of") }} {{ stat.total }}</span>
           {% endif %}
         </sub>
       </div>
@@ -87,16 +87,16 @@
 
   <div class="macromarket">
   {% if g.page_sub_type == "country" %}
-    Looking for commercial partners in {{ title }}? List your company on <a href="https://macro.market/" target="_blank" data-ga="country-homepage" data-ga-cat="macro-market" data-ga-label="Country Homepage">Macro Market</a>.
+    {{ _('Looking for commercial partners %(in_country)s? List your company on', in_country=profile.attr.get_name(article="in")) }} <a href="https://macro.market/" target="_blank" data-ga="country-homepage" data-ga-cat="macro-market" data-ga-label="Country Homepage">Macro Market</a>.
     <div class="links">
-      <a href="https://macro.market/country/{{profile.attr.id}}?source=oec" target="_blank" data-ga="country-importer" data-ga-cat="macro-market" data-ga-label="Country Importer">Importer</a>
-      <a href="https://macro.market/country/{{profile.attr.id}}?source=oec" target="_blank" data-ga="country-exporter" data-ga-cat="macro-market" data-ga-label="Country Exporter">Exporter</a>
+      <a href="https://macro.market/country/{{profile.attr.id}}?source=oec" target="_blank" data-ga="country-importer" data-ga-cat="macro-market" data-ga-label="Country Importer">{{ _('Importer') }}</a>
+      <a href="https://macro.market/country/{{profile.attr.id}}?source=oec" target="_blank" data-ga="country-exporter" data-ga-cat="macro-market" data-ga-label="Country Exporter">{{ _('Exporter') }}</a>
     </div>
   {% else %}
     Looking to buy or sell {{ title }}? List your company on <a href="https://macro.market/" target="_blank" data-ga="product-homepage" data-ga-cat="macro-market" data-ga-label="Product Homepage">Macro Market</a>.
     <div class="links">
-      <a href="https://macro.market/product/{{profile.attr.id}}?source=oec" target="_blank" data-ga="product-importer" data-ga-cat="macro-market" data-ga-label="Product Importer">Importer</a>
-      <a href="https://macro.market/product/{{profile.attr.id}}?source=oec" target="_blank" data-ga="product-importer" data-ga-cat="macro-market" data-ga-label="Product Exporter">Exporter</a>
+      <a href="https://macro.market/product/{{profile.attr.id}}?source=oec" target="_blank" data-ga="product-importer" data-ga-cat="macro-market" data-ga-label="Product Importer">{{ _('Importer') }}</a>
+      <a href="https://macro.market/product/{{profile.attr.id}}?source=oec" target="_blank" data-ga="product-importer" data-ga-cat="macro-market" data-ga-label="Product Exporter">{{ _('Exporter') }}</a>
     </div>
   {% endif %}
   </div>
@@ -132,25 +132,33 @@
   </aside>
 
   <content>
+    {% if profile.attr.get_display_id() == "est" %}
+    <div class="country-banner">
+      <a href="https://data.stat.ee/profile/country/ee/?locale=en">
+        <img src="https://www.stat.ee/public/banners/fookus/valiskaubandus_eng.gif" alt="Learn more about Estonia Trade Data" />
+      </a>
+      <h3>Want to learn more about Estonian trade data? <a target="_blank" href="https://data.stat.ee/profile/country/ee/?locale=en">Click here <i class="fa fa-external-link"></i></a>.</h3>
+    </div>
+    {% endif %}
     <div class="columns">
       <div class="macromarket">
       {% if g.page_sub_type == "country" %}
-        Looking for commercial partners in {{ title }}? List your company on <a href="https://macro.market/" target="_blank" data-ga="country-homepage" data-ga-cat="macro-market" data-ga-label="Country Homepage">Macro Market</a>.
+        {{ _('Looking for commercial partners %(in_country)s? List your company on', in_country=profile.attr.get_name(article="in")) }} <a href="https://macro.market/" target="_blank" data-ga="country-homepage" data-ga-cat="macro-market" data-ga-label="Country Homepage">Macro Market</a>.
         <div class="links">
-          <a href="https://macro.market/country/{{profile.attr.id}}" target="_blank" data-ga="country-importer" data-ga-cat="macro-market" data-ga-label="Country Importer">Importer</a>
-          <a href="https://macro.market/country/{{profile.attr.id}}" target="_blank" data-ga="country-exporter" data-ga-cat="macro-market" data-ga-label="Country Exporter">Exporter</a>
+          <a href="https://macro.market/country/{{profile.attr.id}}" target="_blank" data-ga="country-importer" data-ga-cat="macro-market" data-ga-label="Country Importer">{{ _('Importer') }}</a>
+          <a href="https://macro.market/country/{{profile.attr.id}}" target="_blank" data-ga="country-exporter" data-ga-cat="macro-market" data-ga-label="Country Exporter">{{ _('Exporter') }}</a>
         </div>
       {% else %}
         Looking to buy or sell {{ title }}? List your company on <a href="https://macro.market/" target="_blank" data-ga="product-homepage" data-ga-cat="macro-market" data-ga-label="Product Homepage">Macro Market</a>.
         <div class="links">
-          <a href="https://macro.market/product/{{profile.attr.id}}" target="_blank" data-ga="product-importer" data-ga-cat="macro-market" data-ga-label="Product Importer">Importer</a>
-          <a href="https://macro.market/product/{{profile.attr.id}}" target="_blank" data-ga="product-importer" data-ga-cat="macro-market" data-ga-label="Product Exporter">Exporter</a>
+          <a href="https://macro.market/product/{{profile.attr.id}}" target="_blank" data-ga="product-importer" data-ga-cat="macro-market" data-ga-label="Product Importer">{{ _('Importer') }}</a>
+          <a href="https://macro.market/product/{{profile.attr.id}}" target="_blank" data-ga="product-importer" data-ga-cat="macro-market" data-ga-label="Product Exporter">{{ _('Exporter') }}</a>
         </div>
       {% endif %}
       </div>
-    {% for p in profile.intro() %}
-      <p>{{ p|safe }}</p>
-    {% endfor %}
+      {% for p in profile.intro() %}
+        <p>{{ p|safe }}</p>
+      {% endfor %}
     </div>
   </content>
 </section>
@@ -219,9 +227,8 @@
           </a>
         </div>
         <div class="share_input_container">
-            <input class="share_input share_short_url" type="text" value="http://atlas.media.mit.edu/{{ g.locale }}/visualize/{{ build.build.url() }}" />
-
-            <input class="share_input share_embed_url" type="text" value='&lt;iframe width="560" height="315" src="http://atlas.media.mit.edu/{{ g.locale }}/visualize/embed/{{ build.build.url() }}?controls=false" frameborder="0" &gt;&lt;/iframe&gt;' />
+            <input class="share_input share_short_url" type="text" value="https://oec.world/{{ g.locale }}/visualize/{{ build.build.url() }}" />
+            <input class="share_input share_embed_url" type="text" value='&lt;iframe width="560" height="315" src="https://oec.world/{{ g.locale }}/visualize/embed/{{ build.build.url() }}?controls=false" frameborder="0" &gt;&lt;/iframe&gt;' />
         </div>
       </div>
       {% endif %}
@@ -284,6 +291,11 @@
   //   color = d3plus.color.legible("{{ profile.attr.color }}");
   // }
   // color = d3plus.color.legible("{{ profile.attr.color }}");
+  window.onload = function() {
+    d3.selectAll("ins").each(function() {
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    })
+  }
 
   d3.selectAll(".sparkline").each(function(){
     var w = d3.select(this).node().offsetWidth;

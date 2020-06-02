@@ -1,5 +1,5 @@
 # Specific Jinja2 template version
-Jinja2==2.9.6
+Jinja2==2.10.1
 
 # Flask framework
 Flask==0.12.2
@@ -29,6 +29,9 @@ Flask-Assets==0.12
 
 # SCSS compiler
 Flask-Scss==0.5
+
+# requests for server-side data fetch
+requests==2.22.0
 
 # Cache helper scripts
 # selenium

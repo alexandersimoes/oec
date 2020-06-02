@@ -10,13 +10,4 @@ google8f7012b9de435ae0.html
 cache/
 .env
 .envrc
-oec/bin/
-oec/include/
-oec/lib/
-oec/local/
-oec/share/
-AUTHORS
-LICENSE.TXT
-README.rst
-tox.ini
-
+ads.txt

@@ -42,21 +42,21 @@ class Profile(object):
             return []
 
     def facebook_url(self):
-        link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
+        link = u"https://oec.world{}".format(self.attr.get_profile_url())
         title = u"{} {}".format(self.attr.get_name(), _('Profile'))
         return u"http://www.facebook.com/dialog/feed?caption=The Observatory of Economic Complexity&" \
                 "display=popup&app_id={}&name={}&link={}&" \
-                "redirect_uri=http://atlas.media.mit.edu/close/&" \
-                "picture=http://atlas.media.mit.edu/static/img/facebook.jpg" \
+                "redirect_uri=https://oec.world/close/&" \
+                "picture=https://oec.world/static/img/facebook.jpg" \
                 .format(FACEBOOK_ID, title, link)
     def twitter_url(self):
-        link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
+        link = u"https://oec.world{}".format(self.attr.get_profile_url())
         lang_txt = u"&lang={}".format(g.locale) if g.locale != "en" else ""
         title = u"{} {}".format(self.attr.get_name(), _('Profile'))
         return u"https://twitter.com/share?url={}{}&text={}&hashtags=oec" \
                 .format(link, lang_txt, title)
     def google_url(self):
-        link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
+        link = u"https://oec.world{}".format(self.attr.get_profile_url())
         return u"https://plus.google.com/share?url={}&hl={}".format(link, g.locale)
 
 
@@ -89,11 +89,12 @@ class Country(Profile):
         self.get_latest_year()
 
     def get_latest_year(self):
-        latest_yo = self.models.Yo.query.filter_by(country = self.attr).order_by(desc("year")).first()
-        self.year = int(latest_yo.year)
+        # latest_yo = self.models.Yo.query.filter_by(country = self.attr).order_by(desc("year")).first()
+        # self.year = int(latest_yo.year)
+        self.year = available_years["hs92"][-1]
 
     def twitter_url(self):
-        link = u"http://atlas.media.mit.edu{}".format(self.attr.get_profile_url())
+        link = u"https://oec.world{}".format(self.attr.get_profile_url())
         lang_txt = u"&lang={}".format(g.locale) if g.locale != "en" else ""
         title = u"{} {}".format(self.attr.get_name(), _('Profile'))
         return u"https://twitter.com/share?url={}{}&text={}&hashtags=oec,{}" \
@@ -139,14 +140,15 @@ class Country(Profile):
                 if val:
                     my_stat = {"key":s, "title":s_title, \
                                 "val":val, "sparkline":{
-                                    "start": start_year, "end": available_years["sitc"][-1], \
+                                    "start": start_year, \
+                                    "end": available_years["country"][-1], \
                                     "val": sparkline
                                 }
                               }
                     if self.attr.id != "xxwld":
                         res = yo_base_q.order_by(desc(s)).all()
                         my_stat["rank"] = res.index(this_yo)+1
-                        my_stat["total"] = len(res)
+                        my_stat["total"] = 126 if s == "eci" else len(res)
 
                     self.cached_stats.append(my_stat)
         return self.cached_stats
@@ -250,9 +252,9 @@ class Country(Profile):
             export_subtitle += u" "
 
             past_yr = self.year - 5
-            past_yo = self.models.Yo.query.filter_by(year = past_yr).all()
+            past_yo = self.models.Yo.query.filter_by(year = past_yr).filter(self.models.Yo.export_val.isnot(None)).all()
             growth_val = median([o.export_val_growth_pct_5 for o in this_yo])
-            chg = "increased" if growth_val >= 0 else "decreased"
+            chg = _("increased") if growth_val >= 0 else _("decreased")
             export_subtitle += _(u"During the last five years exports have %(increased_decreased)s at a median annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s.",
                                     increased_decreased=chg, change_rate=num_format(growth_val*100), \
                                     past_export_val=num_format(sum([o.export_val for o in past_yo])), past_year=past_yr, current_export_val=num_format(export_val), current_year=self.year)
@@ -276,7 +278,6 @@ class Country(Profile):
             }
 
         else:
-
             export_subtitle, import_subtitle, dest_subtitle, origin_subtitle = [None]*4
 
             export_tmap = Build("tree_map", "hs92", "export", self.attr, "all", "show", self.year)
@@ -296,8 +297,8 @@ class Country(Profile):
                     export_subtitle += _(u"In %(year)s %(country)s exported $%(export_val)s, making it the %(export_rank)s largest exporter in the world.",
                                         year=self.year, country=self.attr.get_name(article=True), export_val=num_format(exp_val_stat["val"]), export_rank=exp_rank)
                     export_subtitle += u" "
-                if past_yo:
-                    chg = "increased" if this_yo.export_val_growth_pct_5 >= 0 else "decreased"
+                if past_yo and this_yo.export_val_growth_pct_5:
+                    chg = _("increased") if this_yo.export_val_growth_pct_5 >= 0 else _("decreased")
                     export_subtitle += _(u"During the last five years the exports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_export_val)s in %(past_year)s to $%(current_export_val)s in %(current_year)s.",
                                             of_country=self.attr.get_name(article="of"), increased_decreased=chg, change_rate=num_format(this_yo.export_val_growth_pct_5*100), \
                                             past_export_val=num_format(past_yo.export_val), past_year=past_yr, current_export_val=num_format(this_yo.export_val), current_year=self.year)
@@ -317,8 +318,8 @@ class Country(Profile):
                     import_subtitle += _(u"In %(year)s %(country)s imported $%(import_val)s, making it the %(import_rank)s largest importer in the world.",
                                         year=self.year, country=self.attr.get_name(article=True), import_val=num_format(imp_val_stat["val"]), import_rank=imp_rank)
                     import_subtitle += u" "
-                if past_yo:
-                    chg = "increased" if this_yo.import_val_growth_pct_5 >= 0 else "decreased"
+                if past_yo and this_yo.import_val_growth_pct_5:
+                    chg = _("increased") if this_yo.import_val_growth_pct_5 >= 0 else _("decreased")
                     import_subtitle += _(u"During the last five years the imports %(of_country)s have %(increased_decreased)s at an annualized rate of %(change_rate)s%%, from $%(past_import_val)s in %(past_year)s to $%(current_import_val)s in %(current_year)s.",
                                             of_country=self.attr.get_name(article="of"), increased_decreased=chg, change_rate=num_format(this_yo.import_val_growth_pct_5*100), \
                                             past_import_val=num_format(past_yo.import_val), past_year=past_yr, current_import_val=num_format(this_yo.import_val), current_year=self.year)
@@ -469,10 +470,10 @@ class Country(Profile):
 
         ''' Pantheon
         '''
-        pantheon_id = "all" if self.attr.id == "xxwld" else self.attr.id_2char
+        pantheon_id = "all" if self.attr.id == "xxwld" else self.attr.id_3char
         if pantheon_id:
             if self.attr.id != "xxwld":
-                pantheon_id = pantheon_id.upper()
+                pantheon_id = pantheon_id.lower()
 
             pantheon_section = make_pantheon_section(pantheon_id, self.attr)
             sections.append(pantheon_section)
