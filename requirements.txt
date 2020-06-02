@@ -38,4 +38,4 @@ requests==2.22.0
 # click
 
 # Opbeat for logging errors
-# opbeat[flask]
+opbeat[flask]
