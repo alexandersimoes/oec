@@ -32,7 +32,7 @@ Adding the Observatory to computer via virtualenv
 
 ### Getting The Observatory Running Locally via Virtualenv
 
-1. Clone from github (this will create an oec folder in the current directory)
+1. Clone from github (this will create an `oec` folder in the current directory)
 
         git clone https://github.com/alexandersimoes/oec.git
 2. Create the virtual environment
